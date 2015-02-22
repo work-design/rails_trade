@@ -1,0 +1,12 @@
+<div class="media media-sell">
+  <div class="media-body">
+    <h5 class="media-heading">
+      <%= link_to product.title, product_path(product), :target => '_blank' %>
+      <small><%= product.provider.name %></small>
+    </h5>
+    <div>
+      <span class="price">标准价：<i>¥</i><b><%= product.price %></b></span>
+      <span class="price">会员价：<i>¥</i><b><%= product.price_lower %></b></span>
+    </div>
+  </div>
+</div>

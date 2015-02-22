@@ -1,0 +1,64 @@
+<script type="text/javascript" src="/assets/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<div class="ui breadcrumb">
+  <%= link_to '全部商品', admin_goods_path, class: 'section' %>
+  <div class="divider"> / </div>
+  <%= link_to @good.name, admin_good_path(@good), class: 'section' %>
+  <div class="divider"> / </div>
+  <span class="section">编辑</span>
+</div>
+
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+    <%= form_for @good, :url => promote_admin_good_path(@good),  :html => {:class => 'ui form'} do |f| %>
+
+      <fieldset>
+
+        <div class="inline field">
+          <%= f.label :promote_id, "促销分类：", :class => "six wide field" %>
+          <%= f.collection_select :promote_id, Promote.all, :id, :name, { :include_blank => true }, { :class => "nine wide field" }  %>
+        </div>
+
+        <div class="inline field">
+          <%= f.label :start_at, "开始时间：", :class => "six wide field" %>
+          <%= f.text_field :start_at, :class => "nine wide field" %>
+        </div>
+
+        <div class="inline field">
+          <%= f.label :finish_at, "结束时间：", :class => "six wide field" %>
+          <%= f.text_field :finish_at, :class => "nine wide field" %>
+        </div>
+
+        <div class="inline field">
+          <label class="six wide field"></label>
+          <%= f.submit class: 'ui button' %>
+        </div>
+
+      </fieldset>
+    <% end %>
+
+    <script type="text/javascript">
+      $('#good_promote_id').select2({
+        allowClear: true
+      });
+      $('#good_start_at').datetimepicker({
+        language:  'zh-CN',
+        format: 'yyyy-mm-dd hh:ii'
+      });
+      $('#good_finish_at').datetimepicker({
+        language:  'zh-CN',
+        format: 'yyyy-mm-dd hh:ii'
+      });
+    </script>
+  </div>
+
+</div>
+
+
+
+

@@ -1,0 +1,14 @@
+<div class="col-sm-6 col-md-3">
+  <div class="thumbnail thumbnail-product">
+    <%= link_to product_path(product) do %>
+      <%= image_tag product.logo_url %>
+    <% end %>
+    <div class="caption">
+      <h4><%= link_to product.title, product_path(product), :title => product.title %></h4>
+    </div>
+    <div class="info">
+      <span class="brand"><%= product.provider.name %></span>
+      <span class="price"><i>¥</i><b><%= product.price %></b></span>
+    </div>
+  </div>
+</div>

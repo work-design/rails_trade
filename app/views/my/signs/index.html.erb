@@ -1,0 +1,35 @@
+<div class="row">
+
+  <div class="col-md-3">
+    <%= render 'nav' %>
+  </div>
+
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading"><%= link_to '新建', new_user_sign_path %></div>
+    </div>
+    <h1>Listing signs</h1>
+
+    <table>
+      <thead>
+      <tr>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @signs.each do |sign| %>
+        <tr>
+          <td><%= link_to 'Show', user_sign_path(sign) %></td>
+          <td><%= link_to 'Edit', edit_user_sign_path(sign) %></td>
+          <td><%= link_to 'Destroy', user_sign_path(sign), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+

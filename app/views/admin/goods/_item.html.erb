@@ -1,0 +1,20 @@
+  <tr class="">
+    <th class="span2">
+      <h4><%= item.name %></h4>
+    </th>
+    <td>
+      <%= sanitize item.html %>
+    </td>
+    <td>
+      <%= item.picture %>
+    </td>
+    <td style="vertical-align: middle;" class="span1">
+      <%= form_tag edit_items_product_path(@product), :method => :put do %>
+        <%= check_box_tag 'product[item_ids][]', item.id %>
+        <%= submit_tag '提交' %>
+      <% end %>
+    </td>
+  </tr>
+
+
+

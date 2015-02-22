@@ -1,0 +1,47 @@
+<div class="ui grid page">
+  <div class="sixteen wide column">
+  <div class="ui breadcrumb">
+    <%= link_to '产品定制', goods_path, class: 'section' %>
+    <i class="right chevron icon divider"></i>
+    <% @item.parents.each do |item| %>
+      <%= link_to item.name, item_goods_path(item), class: 'section' %>
+      <i class="right chevron icon divider"></i>
+    <% end %>
+    <div class="section active"><%= @item.name %></div>
+  </div>
+  </div>
+</div>
+
+
+<div class="ui grid page">
+
+  <div class="four wide column">
+    <%= render 'nav' %>
+  </div>
+
+  <div class="twelve wide column">
+    <div class="ui segment">
+      <div class="panel-heading">
+        推荐产品
+        <span class="pull-right">共有商品数：<%= @item.goods.count %></span>
+      </div>
+    </div>
+
+    <div class="ui items">
+      <%= render partial: 'good_item', collection: @item.goods, as: :good %>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'admin/base/goods_nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <div class="ui breadcrumb">
+      <%= link_to '全部项目', admin_lists_path, class: 'section' %>
+      <div class="divider"> / </div>
+      <div class="section active">编辑</div>
+    </div>
+
+    <%= render 'form' %>
+
+  </div>
+
+</div>

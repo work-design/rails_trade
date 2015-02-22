@@ -1,0 +1,36 @@
+<div class="well">
+  <dl class="dl-horizontal">
+    <% if Area.count > 0 %>
+    <dt>地区：</dt>
+    <dd>
+          <span><%= link_to '不限', url_for(:action => :taxon, :area_id => 0) %></span>
+          <% Area.all.each do |area| %>
+            <span><%= link_to area.name, url_for(:action => :taxon, :area_id => area.id) %></span>
+          <% end %>
+    </dd>
+    <% end %>
+
+    <% if Producer.count > 1 %>
+    <dt>品牌：</dt>
+    <dd>
+          <span><%= link_to '不限', url_for(:action => :taxon, :producer_id => 0) %></span>
+          <% @taxon.producers.each do |producer| %>
+            <span><%= link_to producer.name, url_for(:action => :taxon, :producer_id => producer) %></span>
+          <% end %>
+    </dd>
+    <% if @producer %>
+    <dd>
+      <% @producer.series.each do |producer| %>
+        <span><%= link_to producer.name, url_for(:action => :taxon, :serie_id => producer) %></span>
+      <% end %>
+    </dd>
+    <% end %>
+    <% end %>
+
+  </dl>
+</div>
+
+
+
+
+

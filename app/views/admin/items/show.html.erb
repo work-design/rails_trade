@@ -1,0 +1,31 @@
+<div class="row">
+
+  <div class="col-md-2">
+    <%= render :partial => 'admin/taxons/nav' %>
+  </div>
+
+  <div class="col-md-10">
+
+    <ul class="breadcrumb">
+      <li><%= link_to @item.list.name, admin_list_items_path(@item.list) %></li>
+      <% @item.ancestors.each do |item| %>
+        <li><%= link_to item.name, admin_item_path(item) %></li>
+      <% end %>
+      <li class="active"><%= @item.name %></li>
+    </ul>
+
+    <table class="table table-bordered">
+      <% @item.children.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= link_to '详细', admin_item_path(item) %></td>
+          <td><%= link_to '编辑', edit_admin_item_path(item) %></td>
+          <td><%= link_to '删除', admin_item_path(item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+
+
+  </div>
+
+</div>

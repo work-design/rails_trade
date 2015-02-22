@@ -1,0 +1,20 @@
+<ul class="breadcrumb">
+  <li><%= link_to @provider.name, provider_path(@provider) %></li>
+  <li class="active">编辑</li>
+  <li class="pull-right">
+    <span class="text-muted">商家编码：<%= @provider.id %></span>
+  </li>
+</ul>
+
+<div class="row">
+
+  <div class="col-lg-12">
+    <%= form_for @provider, :url => provider_path(@provider), :html => {:class=> "well form-horizontal"} do |f| %>
+       <%= render :partial => 'form', :locals => { :f => f } %>
+    <% end %>
+  </div>
+</div>
+
+
+
+

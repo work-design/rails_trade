@@ -1,0 +1,17 @@
+<div class="item">
+  <div class="image" style="width: 200px">
+    <%= link_to good_path(good) do %>
+      <%= image_tag good.logo_url %>
+    <% end %>
+  </div>
+
+  <div class="content">
+
+    <%= link_to good.name, good_path(good, items: @item.id), :title => good.name, class: 'header' %>
+
+    <div class="description">
+      <span class="brand"><%= good.provider.name %></span>
+      <span class="price"><i>¥</i><b><%= good.price %></b></span>
+    </div>
+  </div>
+</div>

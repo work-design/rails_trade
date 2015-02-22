@@ -1,0 +1,23 @@
+<%= form_for [:admin, @list], html: { class: 'ui form segment' } do |f| %>
+
+  <div class="inline field">
+    <%= f.label :name, '名称：', class: 'six wide field' %>
+    <%= f.text_field :name, class: 'nine wide field' %>
+  </div>
+
+  <div class="inline field">
+    <%= f.label :kind, '类型：', class: 'six wide field' %>
+    <%= f.select :kind, options_for_select(List::KINDS), { include_blank: true }, { class: 'ui dropdown nine wide field' } %>
+  </div>
+
+  <div class="inline field">
+    <label class="six wide field"></label>
+    <%= f.submit class: 'ui button' %>
+  </div>
+
+
+<% end %>
+
+<script>
+  $('select.dropdown').dropdown();
+</script>

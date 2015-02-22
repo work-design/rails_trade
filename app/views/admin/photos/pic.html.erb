@@ -1,0 +1,19 @@
+<%= render_cell :product, :head %>
+
+<div class="row">
+
+  <div class="span3">
+    <%= render 'nav' %>
+  </div>
+
+  <div class="span9">
+    <%= form_for @photo, :url => product_path(params[:id]), :html => { :class => 'well form-horizontal', :multipart => true } do |f| %>
+      <%= render 'form' %>
+    <% end %>
+  </div>
+
+</div>
+
+
+
+

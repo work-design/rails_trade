@@ -1,0 +1,18 @@
+<div class="ui vertical menu">
+  <div class="header item">商品列表</div>
+  <% @menus.each do |menu| %>
+    <div class="item">
+      <span><%= menu.name %></span>
+      <div class="menu">
+        <% menu.items.each do |item| %>
+          <%= link_to item.name, item_goods_path(item), class: 'item' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
+
+

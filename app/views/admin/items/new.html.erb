@@ -1,0 +1,21 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'admin/base/nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+    <div class="ui breadcrumb">
+      <%= link_to '返回', admin_list_items_path(@list), class: 'section' %>
+      <div class="divider"> / </div>
+      <div class="active section">新建</div>
+    </div>
+
+    <div>
+      <%= form_for [:admin, @list, @item], :html => {:class => 'ui form'} do |f| %>
+        <%= render :partial => 'form', :locals => { :f => f } %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

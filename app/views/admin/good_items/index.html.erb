@@ -1,0 +1,40 @@
+<ul class="breadcrumb">
+  <li><%= link_to @good.producer.name, producer_series_path(@good.producer) %></li>
+  <li><%= link_to @good.name, good_path(@good) %></li>
+  <li>编辑</li>
+  <li class="pull-right"><%= link_to 'New Good item', new_good_good_item_path(@good) %></li>
+</ul>
+
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'panel/goods/nav' %>
+  </div>
+
+  <div class="col-md-9">
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @good_items.each do |good_item| %>
+        <tr>
+          <td><%= good_item.id %></td>
+          <td><%= link_to 'Show', good_good_item_path(@good, good_item) %></td>
+          <td><%= link_to 'Edit', edit_good_good_item_path(@good, good_item) %></td>
+          <td><%= link_to 'Destroy', good_good_item_path(@good, good_item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+

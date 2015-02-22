@@ -1,0 +1,17 @@
+<div class="sell">
+  <a class="pull-left"><%= image_tag "2.jpg" %></a>
+  <div class="sell-body">
+    <div class="pull-left">
+      <h3><%= link_to producer.name, producer_path(producer) %></h3>
+      <p>地址：<%= producer.area.province %> <%= producer.area.city %> <%= producer.area.district %> <%= producer.address %></p>
+      <p>电话：<%= producer.phone %> <%= producer.phone_kefu %></p>
+    </div>
+    <div class="pull-right middle-outer">
+      <div class="middle">
+        <div class="middle-inner">
+          <%= link_to '所有产品', producer_products_path(producer), :class => 'btn' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

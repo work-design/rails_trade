@@ -1,0 +1,27 @@
+<%= render '/admin/goods/breadcrumb' %>
+
+<div class="row">
+
+  <div class="col-lg-3">
+    <%= render 'trade/admin/goods/nav' %>
+  </div>
+
+  <div class="col-lg-9">
+    <ul class="breadcrumb">
+      <li>全部促销</li>
+      <li class="pull-right"><%= link_to '增加促销内容', new_good_sale_path(@good) %></li>
+    </ul>
+
+    <table class="table">
+      <%= render :partial => 'sale', :collection => @sales, :as => :sale %>
+    </table>
+
+  </div>
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<% content_for :title, @good.name %>
+<% content_for :meta_description, @good.overview %>
+
+<div class="ui grid page">
+  <div class="sixteen wide column">
+
+    <div class="ui breadcrumb">
+      <%= link_to t('layouts.navbar.product'), goods_path, class: 'section' %>
+      <i class="right chevron icon divider"></i>
+      <% item_path(@good).each do |item| %>
+        <%= link_to item.name, item_goods_path(item), class: 'section' %>
+        <i class="right chevron icon divider"></i>
+      <% end %>
+      <div class="active section"><%= @good.name %></div>
+    </div>
+
+    <h1 class="ui dividing header center aligned">
+      <%= @good.name %>
+      <small>——<%= @good.provider.name %></small>
+    </h1>
+
+  </div>
+</div>
+
+
+<div class="ui grid page">
+  <div class="twelve wide column">
+
+    <div class="ui menu fluid three item">
+      <%= link_to good_path(@good), class: active_action('show') do %>
+        <i class="home icon"></i> 商品信息
+      <% end %>
+      <%= link_to '生产信息', produce_good_path(@good), class: active_action('produce') %>
+      <a class="item"></a>
+    </div>
+
+    <div class="ui segment">
+      <%= ex_simple_format @good.overview %>
+    </div>
+    <%= render partial: 'store/goods/show/items', locals: { good: @good } %>
+  </div>
+
+  <div class="four wide column">
+    <%= render :partial => 'store/goods/show/side', :locals => { :good => @good } %>
+  </div>
+
+</div>
+

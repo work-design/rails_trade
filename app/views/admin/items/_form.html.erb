@@ -1,0 +1,27 @@
+<%= render "shared/error_messages", :target => @item %>
+<fieldset>
+
+  <div class="inline field">
+    <%= f.label :name, "名称：", :class => "five wide field" %>
+    <%= f.text_field :name, :class => "ten wide field" %>
+  </div>
+
+  <div class="inline field">
+    <%= f.label :content, "内容：", :class => "five wide field" %>
+    <%= f.text_area :content, rows: 4, :class => 'ten wide field' %>
+  </div>
+
+  <div class="inline field">
+    <%= f.label :picture, "配图：", class: "five wide field" %>
+    <%= image_tag(@item.picture_url) if @item.picture? %>
+    <%= f.file_field :picture %>
+    <%= f.hidden_field :picture_cache %>
+  </div>
+
+  <div class="inline field">
+    <label class="six wide field"></label>
+    <%= f.submit class: 'ui button' %>
+  </div>
+
+</fieldset>
+

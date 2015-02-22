@@ -1,0 +1,32 @@
+<div class="ui breadcrumb">
+  <%= link_to '全部商品', admin_goods_path, class: 'section' %>
+  <div class="divider"> / </div>
+  <%= link_to @good.name, admin_good_path(@good), class: 'section' %>
+  <div class="divider"> / </div>
+  <span class="section">编辑</span>
+</div>
+
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <% @good.photos.each do |photo| %>
+    <%= image_tag photo.photo.small %>
+    <% end %>
+
+    <%= form_for @photo, :url => pic_admin_good_path(params[:id]), :html => { :class => 'ui form', :multipart => true } do |f| %>
+      <%= render :partial => 'admin/photos/form', :locals => { :f => f } %>
+    <% end %>
+
+  </div>
+
+</div>
+
+
+
+
+

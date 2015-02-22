@@ -1,0 +1,39 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'admin/base/users_nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <div class="ui top attached menu borderless">
+      <div class="item"><strong>用户列表</strong></div>
+    </div>
+
+    <table class="ui table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>昵称</th>
+      <th>用户组</th>
+      <th>邮箱</th>
+      <th>注册时间</th>
+      <th colspan="2">管理</th>
+    </tr>
+    </thead>
+
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.created_at %></td>
+      <td><%= link_to "详细", admin_user_path(user) %></td>
+      <td><%= link_to "删除", admin_user_path(user), method: :delete, data: { confirm: "确认删除？" } %></td>
+    </tr>
+    <% end %>
+    </table>
+
+  </div>
+</div>

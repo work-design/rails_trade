@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <% if @provider.type == 'Producer' %>
+  <li class="list-group-item text-center"><%= link_to '产品系列', provider_series_path(@provider), :class => 'btn btn-danger' %></li>
+  <% end %>
+  <li class="list-group-item text-center"><%= link_to '产品管理', products_provider_path(@provider), :class => 'btn btn-info' %></li>
+  <li class="list-group-item text-center"><%= link_to '内容列表', posts_provider_path(@provider), :class => 'btn btn-info' %></li>
+</ul>
+

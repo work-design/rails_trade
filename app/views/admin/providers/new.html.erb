@@ -1,0 +1,25 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'admin/base/nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+    <div class="ui breadcrumb">
+      <%= link_to '供应商列表', admin_providers_path, class: 'section' %>
+      <div class="divider"> / </div>
+      <div class="active section">新建供应商</div>
+    </div>
+
+    <div>
+      <%= render 'form' %>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+

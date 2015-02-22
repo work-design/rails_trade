@@ -1,0 +1,18 @@
+<ul class="nav-chapters well">
+<% @taxon.self_and_siblings.includes(:children).each do |sibling| %>
+  <li <%= active_taxon(sibling) %>><%= link_to sibling.name, taxon_products_path(:taxon_id => sibling.id) %>
+  <ul class="nav-chapters">
+  <% sibling.children.each do |child| %>
+    <li><%= link_to child.name, taxon_products_path(:taxon_id => child.id) %></li>
+  <% end %>
+  </ul>
+  </li>
+<% end %>
+</ul>
+
+
+
+
+
+
+

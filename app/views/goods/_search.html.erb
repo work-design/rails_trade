@@ -1,0 +1,6 @@
+<ul class="nav nav-pills nav-level">
+  <li class="active"><%= link_to '默认促销', url_for(:action => :taxon) %></li>
+  <li <%= active_params(:price_order, "DESC") %>><%= link_to '价格↓', url_for(:action => :taxon, :price_order => "DESC") %></li>
+  <li <%= active_params(:price_order, "ASC") %>><%= link_to '价格↑', url_for(:action => :taxon, :price_order => "ASC") %></li>
+  <li class="pull-right"><span>共有商品数：<%= Product.count %></span></li>
+</ul>

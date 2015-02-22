@@ -1,0 +1,13 @@
+<ul class="breadcrumb">
+  <li><%= link_to '频道列表', admin_promotes_path %></li>
+  <li><%= link_to @promote.name, admin_promote_path(@promote) %></li>
+  <li>编辑</li>
+</ul>
+
+<div class="row">    
+
+  <div class="col-md-10">      
+    <%= render 'form' %>
+  </div>
+
+</div>

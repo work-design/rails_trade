@@ -1,0 +1,19 @@
+<div class="ui segment">
+  <div class="ui vertical segment">
+  <a class="ui tag label">
+    价格：¥<%= @good.price %>
+  </a>
+  </div>
+</div>
+
+<div class="ui segment center aligned">
+  <%= button_to '在线购买', my_orders_path(good_id: good.id), class: 'ui button primary' %>
+</div>
+
+<div class="ui menu vertical">
+  <% @good.items.each do |item| %>
+    <%= link_to item_goods_path(item.id), :class => 'item' do %>
+      <%= item.name %>
+    <% end %>
+  <% end %>
+</div>

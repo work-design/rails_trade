@@ -1,0 +1,40 @@
+<div class="ui grid">
+  <div class="three wide column">
+    <%= render 'admin/base/goods_nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <div class="ui top attached menu borderless">
+      <div class="item"><strong>促销列表</strong></div>
+      <div class="right menu">
+        <div class="item"><%= link_to '新建', new_admin_promote_path, class: 'ui teal button' %></div>
+      </div>
+    </div>
+
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @promotes.each do |promote| %>
+        <tr>
+          <td><%= promote.name %></td>
+          <td><%= link_to '详细', admin_promote_path(promote) %></td>
+          <td><%= link_to '编辑', edit_admin_promote_path(promote) %></td>
+          <td><%= link_to '删除', admin_promote_path(promote), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+

@@ -1,0 +1,48 @@
+<%= form_for [:admin, @good], :html => {:class => 'ui form'} do |f| %>
+  <%= render "shared/error_messages", :target => @good %>
+
+  <fieldset>
+    <div class="inline field">
+      <%= f.label :provider_id, '供应商：', :class => 'six wide field' %>
+      <%= f.collection_select :provider_id, Provider.all, :id, :name, { :include_blank => true }, { :class => 'nine wide field' } %>
+    </div>
+
+    <div class="inline field">
+      <%= f.label :logo, "logo图：", :class => "six wide field" %>
+      <%= image_tag(@good.logo_url) if @good.logo? %>
+      <%= f.file_field :logo %>
+      <%= f.hidden_field :logo_cache %>
+    </div>
+
+    <div class="inline field">
+      <%= f.label :name, "名称：", :class => "six wide field" %>
+      <%= f.text_field :name, :class => "nine wide field" %>
+    </div>
+
+    <div class="inline field">
+      <%= f.label :sku, '唯一编码：', :class => 'six wide field' %>
+      <%= f.text_field :sku, :class => 'nine wide field' %>
+    </div>
+
+    <div class="inline field">
+      <%= f.label :price, '产品价格：', :class => 'six wide field' %>
+      <%= f.text_field :price, :class => 'nine wide field' %>
+    </div>
+
+    <div class="inline field">
+      <%= f.label :overview, '产品描述：', :class => 'six wide field' %>
+      <%= f.text_area :overview, :rows => 10, :class => 'nine wide field' %>
+    </div>
+
+    <div class="inline field">
+      <label class="six wide field"></label>
+      <%= f.submit class: 'ui button' %>
+    </div>
+
+  </fieldset>
+
+<% end %>
+
+
+
+

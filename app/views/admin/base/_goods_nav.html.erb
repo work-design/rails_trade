@@ -1,0 +1,21 @@
+<div class="ui menu vertical fluid">
+  <div class="item">
+    <span>商品管理</span>
+    <div class="menu">
+      <%= link_to '商品列表', admin_goods_path, class: active_controller('admin/goods') %>
+    </div>
+  </div>
+  <div class="item">
+    <span>分类管理</span>
+    <div class="menu">
+      <%= link_to '商品分类', admin_lists_path, class: active_controller('admin/lists', 'admin/items') %>
+      <%= link_to '供应商', admin_providers_path, class: active_controller('admin/providers') %>
+    </div>
+  </div>
+  <div class="item">
+    <span>促销管理</span>
+    <div class="menu">
+      <%= link_to '促销管理', admin_promotes_path, class: active_controller('promotes') %>
+    </div>
+  </div>
+</div>

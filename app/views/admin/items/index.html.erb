@@ -1,0 +1,56 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'admin/base/goods_nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <div class="ui breadcrumb">
+      <%= link_to '所有类别', admin_lists_path, class: 'section' %>
+      <div class="divider"> / </div>
+      <div class="section active"><%= @list.name %></div>
+    </div>
+
+    <div class="ui top attached menu borderless">
+      <div class="item"><strong>分类列表</strong></div>
+      <div class="right menu">
+        <div class="item"><%= link_to '新建', new_admin_list_item_path(@list), class: 'ui teal button' %></div>
+      </div>
+    </div>
+
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td><%= link_to '详细', admin_list_item_path(@list, item) %></td>
+          <td><%= link_to '编辑', edit_admin_list_item_path(@list, item) %></td>
+          <td><%= link_to '删除', admin_list_item_path(@list, item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+<div class="ui grid page">
+  <div class="sixteen wide column">
+    <div class="ui breadcrumb">
+      <%= link_to '全部订单', my_orders_path, class: 'section' %>
+      <i class="right chevron icon divider"></i>
+      <%= link_to '编辑', edit_my_order_path(@order), class: 'section' %>
+    </div>
+
+    <table class="ui table">
+      <tr>
+        <th>商品</th>
+        <th>价格</th>
+        <th>数量</th>
+      </tr>
+      <tr>
+        <td><%= link_to @order.good.try(:title), good_path(@order.good_id) %></td>
+        <td><%= @order.good.price %></td>
+        <td><%= @order.quantity %></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+
+
+

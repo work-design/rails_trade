@@ -1,0 +1,8 @@
+<ul class="breadcrumb">
+  <% @taxon.ancestors.each do |taxon| %>
+    <li><%= link_to taxon.name, taxon_products_path(:taxon_id => taxon) %></li>
+  <% end %>
+  <li class="active"><%= @taxon.name %></li>
+</ul>
+
+

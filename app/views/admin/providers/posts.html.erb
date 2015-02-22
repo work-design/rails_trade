@@ -1,0 +1,41 @@
+<ul class="breadcrumb">
+  <li><%= link_to '商家服务', panel_path %></li>
+  <li><%= link_to @provider.name, provider_path(@provider) %></li>
+  <li class="active">内容管理</li>
+  <li class="pull-right"><a href="<%= new_post_path(:wordage_id => @provider, :wordage_type => 'Provider') %>">新建</a></li>
+</ul>
+
+<div class="row">
+
+  <div class="col-md-3">
+    <ul class="nav-chapters well">
+      <% @channels.each do |channel| %>
+        <li><%= link_to channel.name, channel_provider_path(@provider, channel) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-md-9">
+
+    <table class="table table-bordered table-striped table-condensed">
+      <tr>
+        <td>编号</td>
+        <td>标题</td>
+        <td>创建时间</td>
+        <td></td>
+      </tr>
+      <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.id %></td>
+        <td><%= link_to post.title, post_path(post), :target => '_blank' %></td>
+        <td><%= post.created_at %></td>
+        <td>
+          <%= link_to "编辑", edit_post_path(post.id) %>
+          <%= link_to "删除", post_path(post.id), :method => :delete, 'data-confirm' => '确定要删除吗?' %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+<div class="ui menu vertical fluid">
+  <div class="item">
+    <span>我的主页</span>
+    <div class="menu">
+      <%= link_to '我的主页', my_root_path, class: active_controller('lists', 'items') %>
+      <%= link_to '个人信息', my_profile_path, class: active_controller('providers') %>
+    </div>
+  </div>
+  <div class="item">
+    <span>我的订单</span>
+    <div class="menu">
+      <%= link_to '我的订单', my_orders_path, class: active_controller('orders') %>
+    </div>
+  </div>
+</div>
+

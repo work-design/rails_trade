@@ -1,0 +1,19 @@
+<ul class="nav nav-chapters">
+<% taxons.each do |taxon| %>
+  <li <%= active_taxon(taxon) %>>
+    <%= link_to taxon.name, taxon_products_path(:taxon_id => taxon) %>
+    <ul class="nav nav-chapters">
+    <% taxon.children.each do |child| %>
+      <li <%= active_taxon(child) %>><%= link_to child.name, taxon_products_path(:taxon_id => child) %></li>
+    <% end %>
+    </ul>
+  </li>
+<% end %>
+</ul>
+
+
+
+
+
+
+

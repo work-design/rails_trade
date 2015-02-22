@@ -1,0 +1,60 @@
+<ul class="breadcrumb">
+  <li><%= link_to '商家服务', panel_path %></li>
+  <li><%= @provider.name %></li>
+  <li class="pull-right"><%= link_to '编辑', edit_provider_path(@provider) %></li>
+</ul>
+
+<div class="row">
+  <div class="col-md-9">
+
+
+    <%= form_for @provider, :url => type_provider_path(@provider), :html => {:class=> "form-horizontal"} do |f| %>
+      <%= render "shared/error_messages", :target => @provider %>
+
+      <fieldset>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">地区：</label>
+          <div class="col-md-5"><p class="form-control-static"><%= @provider.area.name %></p></div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">名称：</label>
+          <div class="col-md-5"><p class="form-control-static"><%= @provider.name %></p></div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">logo图：</label>
+          <div class="col-md-6"><p class="form-control-static"><%= image_tag(@provider.logo_url) if @provider.logo? %></p></div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">地址：</label>
+          <div class="col-md-5"><p class="form-control-static"><%= @provider.address %></p></div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">电话：</label>
+          <div class="col-md-5"><p class="form-control-static"><%= @provider.service_tel %></p></div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">QQ：</label>
+          <div class="col-md-5"><p class="form-control-static"><%= @provider.service_qq %></p></div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">商家性质：</label>
+          <div class="col-md-5">
+            <div class="radio-inline">
+              <label><%= f.radio_button :type, 'Producer' %>品牌</label>
+            </div>
+            <div class="radio-inline">
+              <label><%= f.radio_button :type, '' %>供应商</label>
+            </div>
+            <%= f.submit "修改", :class => "btn btn-primary" %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-3">
+    <%= render 'side' %>
+  </div>
+
+</div>

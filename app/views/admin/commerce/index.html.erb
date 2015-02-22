@@ -1,0 +1,25 @@
+<div class="row">
+
+  <div class="col-lg-3">
+    <%= render 'side' %>
+  </div>
+
+  <div class="col-lg-9">
+
+    <div class="navbar navbar-product">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <li><%= link_to '商家列表', producers_path %></li>
+        </ul>
+        <div class="pull-right"><%= link_to '增加新的机构', new_producer_path %></div>
+      </div>
+    </div>
+    <div>
+      <span>选择地区：</span>
+    </div>
+
+    <%= render :partial => 'producer', :collection => @producers, :as => :producer %>
+
+  </div>
+
+</div>

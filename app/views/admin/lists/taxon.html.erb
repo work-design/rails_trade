@@ -1,0 +1,44 @@
+<div class="row">
+
+  <div class="col-md-2">
+    <%= render 'admin/base/nav' %>
+  </div>
+
+  <div class="col-md-10">
+    <ul class="breadcrumb">
+      <li><%= link_to '所有分类', admin_taxons_path %></li>
+      <li><%= link_to @taxon.name, admin_taxon_path(@taxon) %></li>
+      <li class="active">产品组件</li>
+      <li class="pull-right"><%= link_to '产品组成', new_admin_list_path(:taxon_id => @taxon) %></li>
+    </ul>
+
+
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @taxon.lists.each do |list| %>
+        <tr>
+          <td><%= list.name %></td>
+          <td><%= link_to '包含群体', admin_list_items_path(list) %></td>
+          <td><%= link_to '编辑', edit_admin_list_path(list) %></td>
+          <td><%= link_to '删除', admin_list_path(list), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+

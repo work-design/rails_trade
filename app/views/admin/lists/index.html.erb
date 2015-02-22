@@ -1,0 +1,43 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'admin/base/goods_nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <div class="ui top attached menu borderless">
+      <div class="item"><strong>分类列表</strong></div>
+      <div class="right menu">
+        <div class="item"><%= link_to '新建', new_admin_list_path, class: 'ui teal button' %></div>
+      </div>
+    </div>
+
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>类型</th>
+        <th>位置</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <% @lists.each do |list| %>
+        <tr>
+          <td><%= list.name %></td>
+          <td><%= list.kind_name %></td>
+          <td><%= list.position %></td>
+          <td><%= link_to '详细', admin_list_items_path(list) %></td>
+          <td><%= link_to '编辑', edit_admin_list_path(list) %></td>
+          <td><%= link_to '删除', admin_list_path(list), :method => :delete, :data => { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+</div>
+
+

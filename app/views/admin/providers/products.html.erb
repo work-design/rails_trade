@@ -1,0 +1,23 @@
+<ul class="breadcrumb">
+  <li><%= link_to '商家服务', panel_path %></li>
+  <li><%= link_to @provider.name, provider_path(@provider) %></li>
+  <li>产品列表</li>
+  <li class="pull-right"><%= link_to '找产品', providers_path %></li>
+</ul>
+
+<div class="row">
+
+  <div class="col-md-3">
+    <%= render :partial => 'side' %>
+  </div>
+
+  <div class="col-md-9">
+
+
+    <%= render :partial => 'product', :collection => @products, :as => :product %>
+
+    <%= paginate @products %>
+  </div>
+
+</div>
+
