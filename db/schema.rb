@@ -33,42 +33,6 @@ ActiveRecord::Schema.define(version: 20150130123018) do
     t.string  "contribute_type", limit: 255
   end
 
-  create_table "good_items", force: :cascade do |t|
-    t.integer "good_id",  limit: 4
-    t.integer "item_id",  limit: 4
-    t.string  "picture",  limit: 255
-    t.integer "position", limit: 4,   default: 0
-    t.integer "list_id",  limit: 4
-  end
-
-  create_table "good_partners", force: :cascade do |t|
-    t.integer "good_id",    limit: 4
-    t.integer "partner_id", limit: 4
-  end
-
-  create_table "good_produces", force: :cascade do |t|
-    t.integer  "good_id",    limit: 4
-    t.integer  "produce_id", limit: 4
-    t.string   "picture",    limit: 255
-    t.integer  "position",   limit: 4,   default: 0
-    t.datetime "start_at"
-    t.datetime "finish_at"
-  end
-
-  create_table "goods", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "logo",        limit: 255
-    t.text     "overview",    limit: 65535
-    t.integer  "provider_id", limit: 4
-    t.string   "sku",         limit: 255
-    t.float    "price",       limit: 24,    default: 9999.0
-    t.integer  "sales_count", limit: 4,     default: 0
-    t.boolean  "published",   limit: 1,     default: true
-    t.integer  "promote_id",  limit: 4
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-  end
-
   create_table "item_children", force: :cascade do |t|
     t.integer "item_id",  limit: 4
     t.integer "child_id", limit: 4
@@ -101,28 +65,11 @@ ActiveRecord::Schema.define(version: 20150130123018) do
     t.integer "kind",        limit: 4
   end
 
-  create_table "order_shipments", force: :cascade do |t|
-    t.integer "order_id",    limit: 4
-    t.integer "shipment_id", limit: 4
-  end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4,              null: false
-    t.integer  "good_id",     limit: 4
-    t.float    "price",       limit: 24
-    t.integer  "quantity",    limit: 4,  default: 1
-    t.float    "total_price", limit: 24
-    t.time     "order_at"
-    t.date     "order_on"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-  end
 
-  create_table "payments", force: :cascade do |t|
-    t.integer "user_id",     limit: 4
-    t.integer "order_id",    limit: 4
-    t.float   "total_price", limit: 24
-  end
+
+
+
 
   create_table "photos", force: :cascade do |t|
     t.string   "title",          limit: 255
@@ -135,33 +82,11 @@ ActiveRecord::Schema.define(version: 20150130123018) do
     t.datetime "updated_at",                             null: false
   end
 
-  create_table "produces", force: :cascade do |t|
-    t.string   "product",    limit: 255
-    t.string   "name",       limit: 255
-    t.text     "content",    limit: 65535
-    t.datetime "start_at"
-    t.datetime "finish_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
-  create_table "promotes", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.integer  "price_reduce", limit: 4
-    t.datetime "start_at"
-    t.datetime "finish_at"
-  end
 
-  create_table "providers", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "logo",        limit: 255
-    t.string   "address",     limit: 255
-    t.integer  "area_id",     limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "service_tel", limit: 255
-    t.string   "service_qq",  limit: 255
-  end
+
+
+
 
   create_table "roles", force: :cascade do |t|
     t.string "name",        limit: 255,   null: false

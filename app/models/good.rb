@@ -25,3 +25,18 @@ class Good < ActiveRecord::Base
   end
 
 end
+
+
+=begin
+
+create_table "goods", force: :cascade do |t|
+  t.integer  "provider_id", limit: 4
+  t.string   "sku",         limit: 255
+  t.float    "price",       limit: 24,    default: 9999.0
+  t.integer  "sales_count", limit: 4,     default: 0
+  t.boolean  "published",   limit: 1,     default: true
+  t.integer  "promote_id",  limit: 4
+
+end
+
+=end
