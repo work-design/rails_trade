@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+
   namespace :admin do
+
+    get 'trade' => 'trade#index'
 
     resources :goods do
       get 'pic' => :edit_pic, :on => :member
@@ -29,4 +32,5 @@ Rails.application.routes.draw do
     resources :areas
 
   end
+
 end
