@@ -1,4 +1,4 @@
-class Store::GoodsController < Store::BaseController
+class GoodsController < ApplicationController
   before_action :set_good, only: [:show, :produce]
 
   def index
