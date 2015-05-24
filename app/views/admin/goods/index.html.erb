@@ -1,37 +1,33 @@
-<div class="ui grid">
+<div class="three wide column">
+  <%= render 'admin/base/goods_nav' %>
+</div>
 
-  <div class="three wide column">
-    <%= render 'admin/base/goods_nav' %>
-  </div>
+<div class="thirteen wide column">
 
-  <div class="thirteen wide column">
-
-    <div class="ui top attached menu borderless">
-      <div class="item"><strong>商品列表</strong></div>
-      <div class="right menu">
-        <div class="item"><%= link_to '新建', new_admin_good_path, class: 'ui teal button' %></div>
-      </div>
+  <div class="ui top attached menu borderless">
+    <div class="item"><strong>商品列表</strong></div>
+    <div class="right menu">
+      <div class="item"><%= link_to '新建', new_admin_good_path, class: 'ui teal button' %></div>
     </div>
-
-    <table class="ui table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-      </thead>
-
-      <% @goods.each do |good| %>
-        <tr>
-          <td><%= good.name %></td>
-          <td><%= link_to '编辑', edit_admin_good_path(good) %></td>
-          <td><%= link_to '删除', admin_good_path(good), :method => :delete, :data => { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </table>
   </div>
 
+  <table class="ui table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <% @goods.each do |good| %>
+      <tr>
+        <td><%= good.name %></td>
+        <td><%= link_to '编辑', edit_admin_good_path(good) %></td>
+        <td><%= link_to '删除', admin_good_path(good), :method => :delete, :data => { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>

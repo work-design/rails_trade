@@ -1,12 +1,14 @@
-<ul class="breadcrumb">
-  <li>新增商品</li>
-</ul>
+<div class="three wide column">
+  <%= render 'admin/base/nav' %>
+</div>
 
-<div class="row">
-
-  <div class="col-md-12">
-
-    <%= render 'form' %>
-
+<div class="thirteen wide column">
+  <div class="ui breadcrumb">
+    <%= link_to '商品列表', admin_goods_path, class: 'section' %>
+    <div class="divider"> / </div>
+    <div class="active section">新增商品</div>
   </div>
+
+  <%= render 'form' %>
+
 </div>

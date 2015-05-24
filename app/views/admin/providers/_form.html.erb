@@ -1,60 +1,21 @@
-<%= form_for [:admin, @provider], :html => {:class=> "ui form"} do |f| %>
+<%= default_form_for [:admin, @provider] do |f| %>
 
   <%= render "shared/error_messages", :target => @provider %>
 
-  <fieldset>
-    <div class="inline field">
-      <%= f.label :area_id, "地区：", :class => "six wide field" %>
-      <%= f.collection_select :area_id, Area.all, :id, :name,
-                                { :include_blank => true },
-                                { :class => "nine wide field" } %>
+  <%= f.text_field :area_id, label: "地区：" %>
+  <%= f.text_field :name, label: '名称：' %>
 
-    </div>
 
-    <div class="inline field">
-      <%= f.label :name, "名称：", :class => "six wide field" %>
-      <%= f.text_field :name, :class => "nine wide field" %>
-    </div>
+  <div class="inline field">
+    <%= f.label :logo, "logo图：", :class => "six wide field" %>
+    <%= image_tag(@provider.logo_url) if @provider.logo? %>
+    <%= f.file_field :logo %>
+    <%= f.hidden_field :logo_cache %>
+  </div>
 
-    <div class="inline field">
-      <%= f.label :logo, "logo图：", :class => "six wide field" %>
-      <%= image_tag(@provider.logo_url) if @provider.logo? %>
-      <%= f.file_field :logo %>
-      <%= f.hidden_field :logo_cache %>
-    </div>
-
-    <div class="inline field">
-      <%= f.label :address, "地址：", :class => "six wide field" %>
-      <%= f.text_field :address, :class => "nine wide field" %>
-    </div>
-
-    <div class="inline field">
-      <%= f.label :service_tel, "电话：", :class => "six wide field" %>
-      <%= f.phone_field :service_tel, :class => "nine wide field" %>
-    </div>
-
-    <div class="inline field">
-      <%= f.label :service_qq, "QQ：", :class => "six wide field" %>
-      <%= f.phone_field :service_qq, :class => "nine wide field" %>
-    </div>
-
-    <div class="inline field">
-      <label class="six wide field"></label>
-      <%= f.submit class: 'ui button' %>
-    </div>
-
-  </fieldset>
+  <%= f.text_field :address, label: '地址：' %>
+  <%= f.phone_field :service_tel, label: '客服电话' %>
+  <%= f.phone_field :service_qq, label: 'QQ：' %>
+  <%= f.submit %>
 
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#provider_province').change(function(){
-      $('#provider_city').load('/providers/area');
-      return false;
-    });
-  });
-  $('#provider_area_id').select2({
-    allowClear: true
-  });
-</script>
