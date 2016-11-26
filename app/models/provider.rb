@@ -1,5 +1,4 @@
 class Provider < ActiveRecord::Base
-  mount_uploader :logo, LogoUploader
 
   belongs_to :area
   belongs_to :user

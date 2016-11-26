@@ -1,3 +1,4 @@
-class Promote < ActiveRecord::Base
-  has_many :products
+class Shipment < ActiveRecord::Base
+
+
 end

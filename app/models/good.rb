@@ -1,5 +1,5 @@
 class Good < ActiveRecord::Base
-  mount_uploader :logo, LogoUploader
+  attachment :logo
 
   default_scope -> { where(:published => true) }
   paginates_per 9
