@@ -1,4 +1,4 @@
-class GoodPartner < ActiveRecord::Base
+class GoodPartner < ApplicationRecord
 
 
 end

@@ -1,4 +1,4 @@
-class OrderShipment < ActiveRecord::Base
+class OrderShipment < ApplicationRecord
 
   belongs_to :order
   belongs_to :shipment

@@ -1,4 +1,4 @@
-class Produce < ActiveRecord::Base
+class Produce < ApplicationRecord
 
   has_many :good_produces
 

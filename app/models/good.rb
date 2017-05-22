@@ -1,4 +1,4 @@
-class Good < ActiveRecord::Base
+class Good < ApplicationRecord
   attachment :logo
 
   default_scope -> { where(:published => true) }

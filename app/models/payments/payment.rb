@@ -1,6 +1,8 @@
-class Payment < ActiveRecord::Base
-  has_many :products
+class Payment < ApplicationRecord
+  belongs_to :order, inverse_of: 'payments'
+
 end
+
 
 =begin
 

@@ -1,4 +1,4 @@
-class Promote < ActiveRecord::Base
+class Promote < ApplicationRecord
   has_many :products
 end
 

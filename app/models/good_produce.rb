@@ -1,4 +1,4 @@
-class GoodProduce < ActiveRecord::Base
+class GoodProduce < ApplicationRecord
 
   belongs_to :good
   belongs_to :produce

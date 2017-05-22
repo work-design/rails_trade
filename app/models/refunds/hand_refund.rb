@@ -1,0 +1,5 @@
+class HandRefund < OnlineRefund
+
+
+
+end

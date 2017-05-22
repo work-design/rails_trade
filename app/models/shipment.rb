@@ -1,4 +1,4 @@
-class Shipment < ActiveRecord::Base
+class Shipment < ApplicationRecord
 
 
 end
