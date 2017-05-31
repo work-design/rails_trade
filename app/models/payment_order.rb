@@ -1,6 +1,6 @@
-class Payment < ApplicationRecord
-  has_many :payment_orders, dependent: :destroy
-  has_many :orders, through: :payment_orders
+class PaymentOrder < ApplicationRecord
+  belongs_to :order
+  belongs_to :payment
 
 end
 
