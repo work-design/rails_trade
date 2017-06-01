@@ -1,0 +1,8 @@
+<% payment_orders.each do |payment_order| %>
+  <tr>
+    <td><%= payment_order.order.id %></td>
+    <td><%= payment_order.order.amount %></td>
+    <td><%= payment_order.check_amount %></td>
+    <td><%= link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %></td>
+  </tr>
+<% end %>

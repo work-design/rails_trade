@@ -27,7 +27,9 @@ Rails.application.routes.draw do
     resources :orders, :only => [:index, :show, :edit, :update, :destroy]
     resources :carts, :only => [:index, :destroy]
     resources :areas
-    resources :payments
+    resources :payments do
+      resources :payment_orders
+    end
   end
 
 end

@@ -1,6 +1,7 @@
-<%= default_form_with model: @user, local: true, class: 'ui form' do |f| %>
+<%= default_form_with model: [:admin, @payment], local: true do |f| %>
   <%= f.number_field :total_amount %>
   <%= f.number_field :fee_amount %>
+  <%= f.datetime_field :notified_at %>
   <%= f.text_field :comment %>
   <%= f.submit %>
 <% end %>

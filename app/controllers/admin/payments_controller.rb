@@ -12,44 +12,40 @@ class Admin::PaymentsController < Admin::BaseController
     @payment = Payment.new
   end
 
-  # GET /payments/1/edit
   def edit
   end
 
-  # POST /payments
   def create
     @payment = Payment.new(payment_params)
 
     if @payment.save
-      redirect_to @payment, notice: 'Payment was successfully created.'
+      redirect_to admin_payments_url, notice: 'Payment was successfully created.'
     else
       render :new
     end
   end
 
-  # PATCH/PUT /payments/1
   def update
     if @payment.update(payment_params)
-      redirect_to @payment, notice: 'Payment was successfully updated.'
+      redirect_to admin_payments_url, notice: 'Payment was successfully updated.'
     else
       render :edit
     end
   end
 
-  # DELETE /payments/1
   def destroy
     @payment.destroy
-    redirect_to payments_url, notice: 'Payment was successfully destroyed.'
+    redirect_to admin_payments_url, notice: 'Payment was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment
-      @payment = Payment.find(params[:id])
-    end
+  def set_payment
+    @payment = Payment.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def payment_params
-      params.fetch(:payment, {})
-    end
+  def payment_params
+    p = params.fetch(:payment, {}).permit(:total_amount, :fee_amount, :notified_at, :comment)
+    p.reverse_merge(type: 'HandPayment')
+  end
+
 end

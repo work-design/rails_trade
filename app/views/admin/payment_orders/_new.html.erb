@@ -1,0 +1,21 @@
+<tr id="add_payment_order">
+  <td colspan="8">
+    <table class="ui very basic table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>操作</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <%= render partial: 'orders', locals: { orders: @orders } %>
+
+      <%= render partial: 'index', locals: { payment_orders: @payment.payment_orders } %>
+
+    </table>
+  </td>
+</tr>
+
