@@ -1,16 +1,13 @@
-class PaymentsController < ApplicationController
+class Admin::PaymentsController < Admin::BaseController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
-  # GET /payments
   def index
-    @payments = Payment.all
+    @payments = Payment.page(params[:page])
   end
 
-  # GET /payments/1
   def show
   end
 
-  # GET /payments/new
   def new
     @payment = Payment.new
   end

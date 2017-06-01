@@ -1,0 +1,43 @@
+<div>
+
+  <div class="ui top attached menu borderless">
+    <div class="item"><strong>Users</strong></div>
+  </div>
+
+  <div class="ui segment bottom attached">
+    <%= render 'search_form' %>
+  </div>
+
+  <div class="ui segment top attached">
+    <%= link_to 'Add New', new_admin_payment_path, class: 'ui teal button' %>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Payment Type</th>
+      <th>Total Amount</th>
+      <th>Fee Amount</th>
+      <th>Time</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.id %></td>
+        <td><%= Payment.enum_i18n(:type, payment.type) %></td>
+        <td><%= payment.total_amount %></td>
+        <td><%= payment.fee_amount %></td>
+        <td><%= payment.notified_at.to_s %></td>
+        <td><%= link_to 'Edit', edit_admin_payment_path(payment) %></td>
+        <td><%= link_to 'Destroy', admin_payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @payments %>
+</div>

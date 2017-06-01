@@ -1,0 +1,6 @@
+<%= default_form_with model: @user, local: true, class: 'ui form' do |f| %>
+  <%= f.number_field :total_amount %>
+  <%= f.number_field :fee_amount %>
+  <%= f.text_field :comment %>
+  <%= f.submit %>
+<% end %>

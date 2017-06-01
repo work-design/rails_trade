@@ -16,9 +16,6 @@ Rails.application.routes.draw do
       resources :good_items
       resources :sales
     end
-
-
-    resources :users, :only => [:index, :show, :destroy]
     resources :invites
     resources :races do
       resources :crowds, :shallow => true
@@ -30,7 +27,7 @@ Rails.application.routes.draw do
     resources :orders, :only => [:index, :show, :edit, :update, :destroy]
     resources :carts, :only => [:index, :destroy]
     resources :areas
-
+    resources :payments
   end
 
 end
