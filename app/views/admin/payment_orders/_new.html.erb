@@ -1,19 +1,21 @@
 <tr id="add_payment_order">
   <td colspan="8">
-    <table class="ui very basic table">
+    <table class="ui basic red table">
       <thead>
       <tr>
-        <th></th>
         <th>ID</th>
         <th>操作</th>
-        <th></th>
+        <th>
+          已核销：
+          <span id="checked_amount"><%= @payment.checked_amount %></span>
+        </th>
         <th></th>
       </tr>
       </thead>
 
-      <%= render partial: 'orders', locals: { orders: @orders } %>
+      <%= render partial: 'orders', collection: @orders, as: :order %>
 
-      <%= render partial: 'index', locals: { payment_orders: @payment.payment_orders } %>
+      <%= render partial: 'index', collection: @payment.payment_orders, as: :payment_order %>
 
     </table>
   </td>

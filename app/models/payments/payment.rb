@@ -11,6 +11,11 @@ class Payment < ApplicationRecord
     :completed
   ]
 
+
+  def checked_amount
+    payment_orders.sum(:check_amount)
+  end
+
 end
 
 #  :id, :integer, limit: 4, null: false
