@@ -1,0 +1,48 @@
+<div>
+
+  <div class="ui top attached menu borderless">
+    <div class="item"><strong>Users</strong></div>
+  </div>
+
+  <div class="ui segment bottom attached">
+    <%= render 'search_form' %>
+  </div>
+
+  <div class="ui segment top attached">
+    <%= link_to 'Add New', new_admin_payment_method_path, class: 'ui teal button' %>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Bank Name</th>
+      <th>Bank Num</th>
+      <th>Related Buyers</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @payment_methods.each do |payment_method| %>
+      <tr>
+        <td><%= payment_method.id %></td>
+        <td><%= payment_method.bank_name %></td>
+        <td><%= payment_method.bank_num %></td>
+        <td>
+          <% payment_method.buyers.each do |buyer| %>
+            <%= buyer.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to '关联买家', new_admin_payment_method_reference_path(payment_method), class: 'ui mini red button', remote: true %>
+          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), remote: true %>
+        </td>
+        <td><%= link_to 'Destroy', admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @payment_methods %>
+</div>

@@ -1,4 +1,4 @@
-class Admin::PaymentOrdersController < Admin::BaseController
+class Admin::PaymentOrdersController < Admin::TheTradeController
   before_action :set_payment
   before_action :set_payment_order, only: [:show, :edit, :update, :destroy]
 

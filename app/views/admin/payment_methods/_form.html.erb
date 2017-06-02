@@ -1,0 +1,5 @@
+<%= default_form_with model: [:admin, @payment_method], local: true do |f| %>
+  <%= f.text_field :bank_name %>
+  <%= f.text_field :bank_num %>
+  <%= f.submit %>
+<% end %>

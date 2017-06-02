@@ -1,5 +1,7 @@
 class Promote < ApplicationRecord
   has_many :products
+
+
 end
 
 =begin

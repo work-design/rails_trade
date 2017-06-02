@@ -1,0 +1,15 @@
+<div class="ui inverted vertical fluid icon menu">
+  <div class="header center link item" id="close_side">
+    <i class="content icon"></i>
+  </div>
+  <div class="item ui dropdown">
+    <a class="title">
+      <i class="alarm outline icon"></i>
+      <span>财务</span>
+    </a>
+    <div class="menu content">
+      <%= link_to 'Payment', admin_payments_path, class: active_helper(controller: 'admin/payments') %>
+      <%= link_to 'Payment Method', admin_payment_methods_path, class: active_helper(controller: 'payment_methods') %>
+    </div>
+  </div>
+</div>

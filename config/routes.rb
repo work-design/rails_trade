@@ -30,6 +30,13 @@ Rails.application.routes.draw do
     resources :payments do
       resources :payment_orders
     end
+    resources :payment_methods do
+      resources :payment_references, as: :references
+    end
+  end
+
+  resources :buyers do
+    get :search, on: :collection
   end
 
 end

@@ -1,4 +1,4 @@
-class Admin::PaymentsController < Admin::BaseController
+class Admin::PaymentsController < Admin::TheTradeController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
   def index
