@@ -16,8 +16,9 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Bank Name</th>
-      <th>Bank Num</th>
+      <th>Account Name</th>
+      <th>Account Num</th>
+      <th>Bank</th>
       <th>Related Buyers</th>
       <th></th>
     </tr>
@@ -27,11 +28,12 @@
     <% @payment_methods.each do |payment_method| %>
       <tr>
         <td><%= payment_method.id %></td>
-        <td><%= payment_method.bank_name %></td>
-        <td><%= payment_method.bank_num %></td>
+        <td><%= payment_method.account_name %></td>
+        <td><%= payment_method.account_num %></td>
+        <td><%= payment_method.bank %></td>
         <td>
           <% payment_method.buyers.each do |buyer| %>
-            <%= buyer.name %>
+            <p><%= buyer.name %></p>
           <% end %>
         </td>
         <td>

@@ -20,7 +20,7 @@ class Admin::PaymentReferencesController < Admin::TheTradeController
     @payment_reference = @payment_method.payment_references.build(payment_reference_params)
 
     if @payment_reference.save
-      redirect_to @payment_reference, notice: 'Payment reference was successfully created.'
+      redirect_to admin_payment_methods_url, notice: 'Payment reference was successfully created.'
     else
       render :new
     end
@@ -49,7 +49,7 @@ class Admin::PaymentReferencesController < Admin::TheTradeController
   end
 
   def payment_reference_params
-    params.fetch(:payment_reference, {})
+    params.fetch(:payment_reference, {}).permit(:buyer_id)
   end
 
 end

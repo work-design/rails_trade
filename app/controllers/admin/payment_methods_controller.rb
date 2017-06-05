@@ -2,7 +2,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 
   def index
-    @payment_methods = PaymentMethod.page(params[:page])
+    @payment_methods = PaymentMethod.default_where(params.permit(:id)).page(params[:page])
   end
 
   def new

@@ -1,5 +1,5 @@
 class Admin::PaymentsController < Admin::TheTradeController
-  before_action :set_payment, only: [:show, :edit, :update, :destroy]
+  before_action :set_payment, only: [:show, :edit, :update, :analyze, :destroy]
 
   def index
     @payments = Payment.page(params[:page])
@@ -12,9 +12,6 @@ class Admin::PaymentsController < Admin::TheTradeController
     @payment = Payment.new
   end
 
-  def edit
-  end
-
   def create
     @payment = Payment.new(payment_params)
 
@@ -25,11 +22,21 @@ class Admin::PaymentsController < Admin::TheTradeController
     end
   end
 
+  def edit
+  end
+
   def update
     if @payment.update(payment_params)
       redirect_to admin_payments_url, notice: 'Payment was successfully updated.'
     else
       render :edit
+    end
+  end
+
+  def analyze
+    @payment.analyze
+    respond_to do |format|
+      format.js
     end
   end
 

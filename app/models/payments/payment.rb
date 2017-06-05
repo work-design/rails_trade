@@ -12,6 +12,10 @@ class Payment < ApplicationRecord
   ]
 
 
+  def analyze_payment_method
+    true
+  end
+
   def checked_amount
     payment_orders.sum(:check_amount)
   end

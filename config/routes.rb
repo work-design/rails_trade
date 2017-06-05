@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :areas
     resources :payments do
       resources :payment_orders
+      patch 'analyze', on: :member
     end
     resources :payment_methods do
       resources :payment_references, as: :references

@@ -20,7 +20,7 @@
       <th>Total Amount</th>
       <th>Fee Amount</th>
       <th>Time</th>
-      <th></th>
+      <th colspan="4"></th>
     </tr>
     </thead>
 
@@ -33,6 +33,13 @@
         <td><%= payment.fee_amount %></td>
         <td><%= payment.notified_at.to_s %></td>
         <td><%= link_to 'checking', new_admin_payment_payment_order_path(payment), class: 'ui mini red button', remote: true %></td>
+        <td>
+          <% if payment.payment_method %>
+            <%= link_to 'show', admin_payment_methods_path(id: payment.payment_method_id), method: :patch, class: 'ui mini blue button', target: '_blank' %>
+          <% else %>
+            <%= link_to 'analyze', analyze_admin_payment_path(payment), method: :patch, class: 'ui mini blue button', remote: true %>
+          <% end %>
+        </td>
         <td><%= link_to 'Edit', edit_admin_payment_path(payment) %></td>
         <td><%= link_to 'Destroy', admin_payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

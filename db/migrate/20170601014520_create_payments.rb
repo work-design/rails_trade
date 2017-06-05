@@ -10,10 +10,11 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.column :notify_type, :string, limit: 255
       t.column :notified_at, :datetime, precision: 0
       t.column :pay_status, :string, limit: 255
-      t.column :buyer_email, :string, limit: 255
       t.column :sign, :string, limit: 255
       t.column :seller_identifier, :string, limit: 255
+      t.column :buyer_name, :string, limit: 255
       t.column :buyer_identifier, :string, limit: 255
+      t.column :buyer_bank, :string
       t.column :user_id, :integer, limit: 4
       t.column :currency, :string, limit: 255
       t.column :state, :integer, limit: 4, default: 0
@@ -33,8 +34,9 @@ class CreatePayments < ActiveRecord::Migration[5.1]
 
     create_table :payment_methods do |t|
       t.string :type
-      t.string :bank_num
-      t.string :bank_name
+      t.string :account_name
+      t.string :account_num
+      t.string :bank
       t.timestamps
     end
 
