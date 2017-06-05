@@ -33,7 +33,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def set_payment
     @payment = Payment.find(params[:payment_id])
-    @orders = Order.limit(3)
+    @orders = Order.find_by buyer_id: @payment.payment_method.buyer_ids
   end
 
   def payment_order_params
