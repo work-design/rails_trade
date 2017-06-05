@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
     resources :payment_methods do
       resources :payment_references, as: :references
+      get :unverified, on: :collection
     end
   end
 

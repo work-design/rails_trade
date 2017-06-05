@@ -5,6 +5,12 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
     @payment_methods = PaymentMethod.default_where(params.permit(:id)).page(params[:page])
   end
 
+  def unverified
+    @payment_methods = PaymentMethod.includes(payment_references: :buyer).unscoped.where(verified: [false, nil]).page(params[:page]).references(:payment_references, :buyers)
+
+    render 'index'
+  end
+
   def new
     @payment_method = PaymentMethod.new
   end
@@ -52,7 +58,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:bank_num, :bank_name)
+    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank).merge(verified: true)
   end
 
   def payment_reference_params
