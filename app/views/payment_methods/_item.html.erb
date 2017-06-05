@@ -1,0 +1,15 @@
+<tr>
+  <td><%= payment_method.id %></td>
+  <td><%= payment_method.account_name %></td>
+  <td><%= payment_method.account_num %></td>
+  <td><%= payment_method.bank %></td>
+  <td>
+    <% payment_method.buyers.each do |buyer| %>
+      <p><%= buyer.name %></p>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to 'Edit', edit_buyer_payment_method_path(@buyer, payment_method), remote: true %>
+  </td>
+  <td><%= link_to 'Destroy', buyer_payment_method_path(@buyer, payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

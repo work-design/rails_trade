@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :buyers do
     get :search, on: :collection
+    resources :payment_methods
   end
 
 end

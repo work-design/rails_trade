@@ -1,10 +1,6 @@
 class BuyersController < ApplicationController
   before_action :set_buyer, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @buyers = Buyer.all
-  end
-
   def search
     @buyers = Buyer.default_where('name-like': params[:q])
     render json: { results: @buyers.as_json(only: [:id, :name]) }

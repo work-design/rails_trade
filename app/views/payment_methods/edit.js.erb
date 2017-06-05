@@ -1,0 +1,6 @@
+if ( $('#payment_<%= @payment.id %>').next()[0] && $('#payment_<%= @payment.id %>').next()[0].id === 'add_payment_order' ) {
+  $('#add_payment_order').remove();
+} else {
+  $('#add_payment_order').remove();
+  $('#payment_<%= @payment.id %>').after('<%= j(render 'new') %>')
+}

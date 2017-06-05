@@ -1,6 +1,6 @@
 class Admin::PaymentOrdersController < Admin::TheTradeController
   before_action :set_payment
-  before_action :set_payment_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_payment_order, only: [:destroy]
 
   def new
     @payment_order = PaymentOrder.new
@@ -33,7 +33,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def set_payment
     @payment = Payment.find(params[:payment_id])
-    @orders = Order.find_by buyer_id: @payment.payment_method.buyer_ids
+    @orders = Order.where(buyer_id: @payment.payment_method.buyer_ids).where.not(id: @payment.payment_orders.pluck(:order_id))
   end
 
   def payment_order_params
