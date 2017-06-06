@@ -5,6 +5,8 @@ class PaymentMethod < ApplicationRecord
 
   default_scope -> { where(verified: true) }
 
+  validates :account_num, uniqueness: { scope: [:account_name, :verified] }, if: :verified?
+
   def account_types
     PaymentReference.pluck(:account_type).uniq
   end
@@ -17,8 +19,11 @@ class PaymentMethod < ApplicationRecord
     end
   end
 
-  def related_orders
+  def repeat_results
+    self.class.unscoped.where.not(id: self.id).where(account_name: self.account_name, account_num: self.account_num)
+  end
 
+  def merge
 
   end
 

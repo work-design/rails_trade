@@ -38,11 +38,32 @@
           <% end %>
         </td>
         <td>
-          <%= link_to '关联买家', new_admin_payment_method_reference_path(payment_method), class: 'ui mini red button', remote: true %>
+          <%= form_tag verify_admin_payment_method_path(payment_method), method: :patch do %>
+            <span class="ui toggle checkbox">
+              <label></label>
+              <%= check_box_tag :verified, 1, payment_method.verified, onChange: 'this.form.submit()', id: nil %>
+            </span>
+          <% end %>
           <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), remote: true %>
         </td>
         <td><%= link_to 'Destroy', admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% payment_method.repeat_results.each do |result| %>
+        <tr class="warning">
+          <td><%= result.id %></td>
+          <td><%= result.account_name %></td>
+          <td><%= result.account_num %></td>
+          <td><%= result.bank %></td>
+          <td>
+            <% result.buyers.each do |buyer| %>
+              <p><%= buyer.name %></p>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), remote: true %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
     </tbody>
   </table>

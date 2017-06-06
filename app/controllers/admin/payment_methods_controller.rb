@@ -39,6 +39,10 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
     end
   end
 
+  def verify
+
+  end
+
   def edit_references
 
   end

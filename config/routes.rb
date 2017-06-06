@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :payment_methods do
       resources :payment_references, as: :references
       get :unverified, on: :collection
+      patch :verify, on: :member
     end
   end
 
