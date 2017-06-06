@@ -38,11 +38,13 @@
           <% end %>
         </td>
         <td>
-          <%= form_tag verify_admin_payment_method_path(payment_method), method: :patch do %>
-            <span class="ui toggle checkbox">
-              <label></label>
-              <%= check_box_tag :verified, 1, payment_method.verified, onChange: 'this.form.submit()', id: nil %>
-            </span>
+          <% if payment_method.repeat_results.blank? %>
+            <%= form_tag verify_admin_payment_method_path(payment_method), method: :patch do %>
+              <span class="ui toggle checkbox">
+                <label></label>
+                <%= check_box_tag :verified, 1, payment_method.verified, onChange: 'this.form.submit()', id: nil %>
+              </span>
+            <% end %>
           <% end %>
           <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), remote: true %>
         </td>
@@ -60,7 +62,7 @@
             <% end %>
           </td>
           <td>
-            <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), remote: true %>
+            <%= link_to 'Merge to This', merge_from_admin_payment_method_path(result, other_id: payment_method.id), method: :patch %>
           </td>
         </tr>
       <% end %>

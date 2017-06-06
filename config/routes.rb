@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :payment_references, as: :references
       get :unverified, on: :collection
       patch :verify, on: :member
+      patch :merge_from, on: :member
     end
   end
 

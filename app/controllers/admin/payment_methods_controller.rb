@@ -1,5 +1,5 @@
 class Admin::PaymentMethodsController < Admin::TheTradeController
-  before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
+  before_action :set_payment_method, only: [:show, :edit, :update, :verify, :merge_from, :destroy]
 
   def index
     @payment_methods = PaymentMethod.default_where(params.permit(:id)).page(params[:page])
@@ -40,7 +40,15 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   end
 
   def verify
+    @payment_method.update(verified: true)
 
+    redirect_back fallback_location: unverified_admin_payment_methods_url
+  end
+
+  def merge_from
+    @payment_method.merge_from(params[:other_id])
+
+    redirect_back fallback_location: unverified_admin_payment_methods_url
   end
 
   def edit_references
@@ -58,7 +66,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
 
   private
   def set_payment_method
-    @payment_method = PaymentMethod.find(params[:id])
+    @payment_method = PaymentMethod.unscoped.find(params[:id])
   end
 
   def payment_method_params

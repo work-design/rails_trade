@@ -13,9 +13,9 @@ class PaymentMethod < ApplicationRecord
 
   def detect_repetition
     if self.persisted?
-      self.class.where.not(id: self.id).exists?(account_name: self.account_name, account_num: self.account_num)
+      self.class.unscoped.where.not(id: self.id).exists?(account_name: self.account_name, account_num: self.account_num)
     else
-      self.class.exists?(account_name: self.account_name, account_num: self.account_num)
+      self.class.unscoped.exists?(account_name: self.account_name, account_num: self.account_num)
     end
   end
 
@@ -23,8 +23,13 @@ class PaymentMethod < ApplicationRecord
     self.class.unscoped.where.not(id: self.id).where(account_name: self.account_name, account_num: self.account_num)
   end
 
-  def merge
+  def merge_from(other_id)
+    other = self.class.unscoped.find other_id
 
+    self.class.transaction do
+      other.payment_references.update_all payment_method_id: self.id
+      other.destroy
+    end
   end
 
 end
