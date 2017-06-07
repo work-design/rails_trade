@@ -2,7 +2,7 @@ class Admin::PaymentsController < Admin::TheTradeController
   before_action :set_payment, only: [:show, :edit, :update, :analyze, :destroy]
 
   def index
-    @payments = Payment.page(params[:page])
+    @payments = Payment.default_where(params.permit(:type)).page(params[:page])
   end
 
   def show
@@ -51,8 +51,15 @@ class Admin::PaymentsController < Admin::TheTradeController
   end
 
   def payment_params
-    p = params.fetch(:payment, {}).permit(:total_amount, :fee_amount, :notified_at, :comment)
-    p.reverse_merge(type: 'HandPayment')
+    p = params.fetch(:payment, {}).permit(:total_amount,
+                                          :fee_amount,
+                                          :notified_at,
+                                          :comment,
+                                          :buyer_name,
+                                          :seller_identifier,
+                                          :buyer_bank
+    )
+    p.reverse_merge(type: 'BankPayment')
   end
 
 end
