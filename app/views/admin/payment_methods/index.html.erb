@@ -38,6 +38,7 @@
           <% end %>
         </td>
         <td>
+          <%= link_to '关联买家', new_admin_payment_method_reference_path(payment_method), class: 'ui mini red button', remote: true %>
           <% if payment_method.repeat_results.blank? %>
             <%= form_tag verify_admin_payment_method_path(payment_method), method: :patch do %>
               <span class="ui toggle checkbox">
