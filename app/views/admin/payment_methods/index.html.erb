@@ -1,17 +1,4 @@
-<div>
-
-  <div class="ui top attached menu borderless">
-    <div class="header item">Payment Methods List</div>
-    <%= link_to 'Unverified', unverified_admin_payment_methods_path, class: 'item' %>
-  </div>
-
-  <div class="ui segment bottom attached">
-    <%= render 'search_form' %>
-  </div>
-
-  <div class="ui segment top attached">
-    <%= link_to 'Add New', new_admin_payment_method_path, class: 'ui teal button' %>
-  </div>
+<%= render layout: 'index_layout' do %>
 
   <table class="ui bottom attached table">
     <thead>
@@ -21,7 +8,8 @@
       <th>Account Num</th>
       <th>Bank</th>
       <th>Related Buyers</th>
-      <th></th>
+      <th>Verified</th>
+      <th>Actions</th>
     </tr>
     </thead>
 
@@ -38,38 +26,27 @@
           <% end %>
         </td>
         <td>
-          <%= link_to '关联买家', new_admin_payment_method_reference_path(payment_method), class: 'ui mini red button', remote: true %>
-          <% if payment_method.repeat_results.blank? %>
-            <%= form_tag verify_admin_payment_method_path(payment_method), method: :patch do %>
-              <span class="ui toggle checkbox">
-                <label></label>
-                <%= check_box_tag :verified, 1, payment_method.verified, onChange: 'this.form.submit()', id: nil %>
-              </span>
-            <% end %>
+          <%= form_with model: payment_method, url: admin_payment_method_path(payment_method), method: :patch do |f| %>
+            <%= hidden_field_tag :'payment_method[verified]', '0' %>
+            <span class="ui toggle checkbox">
+              <label></label>
+              <%= f.check_box :verified, include_hidden: false, onChange: 'this.form.submit()' %>
+            </span>
           <% end %>
-          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method) %>
         </td>
-        <td><%= link_to 'Destroy', admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to '关联买家', new_admin_payment_method_reference_path(payment_method), class: 'ui mini green button', remote: true %>
+          <%= link_to 'Destroy', admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui mini red button' %>
+          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
+        </td>
       </tr>
-      <% payment_method.repeat_results.each do |result| %>
-        <tr class="warning">
-          <td><%= result.id %></td>
-          <td><%= result.account_name %></td>
-          <td><%= result.account_num %></td>
-          <td><%= result.bank %></td>
-          <td>
-            <% result.buyers.each do |buyer| %>
-              <p><%= buyer.name %></p>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to 'Merge to This', merge_from_admin_payment_method_path(result, other_id: payment_method.id), method: :patch %>
-          </td>
-        </tr>
-      <% end %>
     <% end %>
     </tbody>
+
   </table>
 
-  <%= paginate @payment_methods %>
-</div>
+<% end %>
+
+<script>
+  $('.ui.checkbox').checkbox({debug: true})
+</script>

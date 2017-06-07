@@ -1,0 +1,63 @@
+<%= render layout: 'index_layout' do %>
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Account Name</th>
+      <th>Account Num</th>
+      <th>Bank</th>
+      <th>Related Buyers</th>
+      <th>Verified</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+  <tbody>
+    <% @payment_methods.each do |payment_method| %>
+      <tr>
+        <td><%= payment_method.id %></td>
+        <td><%= payment_method.account_name %></td>
+        <td><%= payment_method.account_num %></td>
+        <td><%= payment_method.bank %></td>
+        <td>
+          <% payment_method.buyers.each do |buyer| %>
+            <p><%= buyer.name %></p>
+          <% end %>
+        </td>
+        <td>
+          <% if payment_method.repeat_results.blank? %>
+            <%= form_with model: payment_method, url: admin_payment_method_path(payment_method), method: :patch do |f| %>
+              <%= hidden_field_tag :'payment_method[verified]', '0' %>
+              <span class="ui toggle checkbox">
+                <label></label>
+                <%= f.check_box :verified, include_hidden: false, onChange: 'this.form.submit()' %>
+              </span>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
+          <%= link_to 'Destroy', admin_payment_method_path(payment_method), class: 'ui mini red button', method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+      <% payment_method.repeat_results.each do |result| %>
+        <tr class="warning">
+          <td><%= result.id %></td>
+          <td><%= result.account_name %></td>
+          <td><%= result.account_num %></td>
+          <td><%= result.bank %></td>
+          <td>
+            <% result.buyers.each do |buyer| %>
+              <p><%= buyer.name %></p>
+            <% end %>
+          </td>
+          <td></td>
+          <td>
+            <%= link_to 'Merge to This', merge_from_admin_payment_method_path(result, other_id: payment_method.id), method: :patch %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+  </table>
+
+<% end %>

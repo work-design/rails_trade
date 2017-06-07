@@ -1,0 +1,19 @@
+<div>
+
+  <div class="ui top attached menu borderless">
+    <%= link_to 'Verified', admin_payment_methods_path, class: active_page(action: 'index') %>
+    <%= link_to 'Unverified', unverified_admin_payment_methods_path, class: active_page(action: 'unverified') %>
+  </div>
+
+  <div class="ui segment bottom attached">
+    <%= render 'search_form' %>
+  </div>
+
+  <div class="ui segment top attached">
+    <%= link_to 'Add New', new_admin_payment_method_path, class: 'ui teal button' %>
+  </div>
+
+  <%= yield %>
+
+  <%= paginate @payment_methods %>
+</div>
