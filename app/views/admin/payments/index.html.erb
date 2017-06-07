@@ -12,9 +12,9 @@
     <p>
       <span>Status:</span>
       <%= link_to 'All', filter_params(except: [:type]), class: ex_active_params(type: '') %>
-      <%= link_to 'Bank', filter_params(type: :BankPayment), class: ex_active_params(type: 'BankPayment') %>
-      <%= link_to 'Hand', filter_params(type: :HandPayment), class: ex_active_params(type: 'HandPayment') %>
-      <%= link_to 'Paypal', filter_params(type: :PaypalPayment), class: ex_active_params(type: 'PaypalPayment') %>
+      <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: ex_active_params(type: 'BankPayment') %>
+      <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: ex_active_params(type: 'HandPayment') %>
+      <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: ex_active_params(type: 'PaypalPayment') %>
     </p>
     <p>
       <%= link_to 'Add New', new_admin_payment_path, class: 'ui teal button' %>
