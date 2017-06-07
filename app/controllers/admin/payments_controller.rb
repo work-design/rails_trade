@@ -34,7 +34,7 @@ class Admin::PaymentsController < Admin::TheTradeController
   end
 
   def analyze
-    @payment.analyze
+    @payment.analyze_payment_method
     respond_to do |format|
       format.js
     end
