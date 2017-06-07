@@ -16,7 +16,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   end
 
   def create
-    @payment_method = PaymentMethod.new(payment_method_params)
+    @payment_method = PaymentMethod.new(payment_method_params.merge(verified: true))
 
     if @payment_method.save
       redirect_to admin_payment_methods_url, notice: 'Payment method was successfully created.'
@@ -70,7 +70,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank).merge(verified: true)
+    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank)
   end
 
   def payment_reference_params

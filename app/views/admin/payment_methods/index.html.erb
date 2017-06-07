@@ -47,7 +47,7 @@
               </span>
             <% end %>
           <% end %>
-          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), remote: true %>
+          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method) %>
         </td>
         <td><%= link_to 'Destroy', admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

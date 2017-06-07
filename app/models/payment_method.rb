@@ -27,7 +27,11 @@ class PaymentMethod < ApplicationRecord
     other = self.class.unscoped.find other_id
 
     self.class.transaction do
-      other.payment_references.update_all payment_method_id: self.id
+      other.payment_references.each do |payment_reference|
+        payment_reference.payment_method_id = self.id  # for callback, do not use update
+        payment_reference.save
+      end
+      other.payment_references.reload
       other.destroy
     end
   end

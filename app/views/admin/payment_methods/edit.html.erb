@@ -1,6 +1,13 @@
-<h1>Editing Payment Method</h1>
+<div class="">
 
-<%= render 'form', payment_method: @payment_method %>
+  <div class="ui segment breadcrumb">
+    <%= link_to 'Back', admin_payment_methods_path, class: 'section' %>
+    <div class="divider"> / </div>
+    <div class="active section">Edit</div>
+  </div>
 
-<%= link_to 'Show', @payment_method %> |
-<%= link_to 'Back', payment_methods_path %>
+  <div class="ui segment">
+    <%= render 'form' %>
+  </div>
+
+</div>
