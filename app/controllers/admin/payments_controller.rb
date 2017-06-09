@@ -1,6 +1,10 @@
 class Admin::PaymentsController < Admin::TheTradeController
   before_action :set_payment, only: [:show, :edit, :update, :analyze, :destroy]
 
+
+  def dashboard
+  end
+
   def index
     @payments = Payment.default_where(params.permit(:type)).page(params[:page])
   end

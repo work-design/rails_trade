@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :areas
     resources :payments do
       resources :payment_orders
+      get :dashboard, on: :collection
       patch 'analyze', on: :member
     end
     resources :payment_methods do

@@ -18,6 +18,7 @@
     </p>
     <p>
       <%= link_to 'Add New', new_admin_payment_path, class: 'ui teal button' %>
+      <%= link_to '导入', import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
     </p>
   </div>
 
