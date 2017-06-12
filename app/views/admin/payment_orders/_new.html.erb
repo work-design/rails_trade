@@ -9,7 +9,9 @@
           已核销：
           <span id="checked_amount"><%= @payment.checked_amount %></span>
         </th>
-        <th></th>
+        <th>
+          <%= link_to 'Admin Payment Method', admin_payment_methods_path(id: @payment.payment_method_id), target: '_blank' %>
+        </th>
       </tr>
       </thead>
 

@@ -1,1 +1,12 @@
-$('#payment_<%= @payment.id %>').replaceWith('<%= j(render partial: 'item', locals: { payment: @payment }) %>')
+<% if @payment.payment_method %>
+  $('#payment_<%= @payment.id %>').replaceWith('<%= j(render partial: 'item', locals: { payment: @payment }) %>')
+<% else %>
+  var temp_popup = $('#payment_<%= @payment.id %> .blue.button').popup({
+    content: 'Analyze Failed!',
+    on: 'click',
+    delay: {
+      hide: 300
+    }
+  })
+  temp_popup.popup('show');
+<% end %>
