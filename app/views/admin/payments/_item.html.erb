@@ -7,7 +7,11 @@
     <%= payment.total_amount %>
     <span style="color: #999;">（已核销：<%= payment.checked_amount %>)</span>
   </td>
-  <td><%= payment.fee_amount %></td>
+  <td>
+    <% if payment.income_amount.present? || payment.fee_amount %>
+      <%= [payment.income_amount, payment.fee_amount].join(' + ') %>
+    <% end %>
+  </td>
   <td><%= payment.buyer_name %></td>
   <td>
     <%= payment.buyer_identifier %>

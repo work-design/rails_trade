@@ -20,7 +20,6 @@ class PaypalPayment < Payment
     _payment.create
     self.payment_uuid = _payment.id
     self.total_amount = insured_total_amount[0].to_d
-    self.order_amount = insured_total_amount[1].to_d
 
     if self.save
       self.approve_url = _payment.links.find{ |link| link.method == 'REDIRECT' }.try(:href)

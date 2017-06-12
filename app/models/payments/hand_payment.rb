@@ -4,7 +4,6 @@ class HandPayment < Payment
     self.company_id = order.company_id
     self.notified_at = Time.now
     self.total_amount = params[:total_amount]
-    self.order_amount = params[:order_amount]
     self.order_uuid = order.uuid
     self.state = 'completed'
     self.buyer_email = order.contact&.email

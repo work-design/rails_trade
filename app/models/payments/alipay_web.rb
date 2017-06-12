@@ -9,7 +9,6 @@ class AlipayWeb < Payment
     self.seller_identifier = params[:seller_id]
     self.buyer_identifier = params[:buyer_id]
     self.buyer_email = params[:buyer_email]
-    self.order_amount = params[:total_fee]
     self.total_amount = params[:total_fee]
     # self.refunded_at = params[:gmt_refund]
     # self.refund_status = params[:refund_status]

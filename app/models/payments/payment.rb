@@ -6,6 +6,10 @@ class Payment < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
+  validates :total_amount, numericality: { equal_to: -> (o) { o.income_amount + o.fee_amount } }, if: -> { income_amount.present? && fee_amount.present? && total_amount.present? }
+
+  before_save :compute_amount
+
   enum state: [
     :init,
     :completed
@@ -18,6 +22,20 @@ class Payment < ApplicationRecord
 
   def checked_amount
     payment_orders.sum(:check_amount)
+  end
+
+  def compute_amount
+    if total_amount.blank? && fee_amount.present? && income_amount.present?
+      self.total_amount = self.fee_amount + self.income_amount
+    end
+
+    if income_amount.blank? && total_amount.present? && fee_amount.present?
+      self.income_amount = self.total_amount - self.fee_amount
+    end
+
+    if fee_amount.blank? && total_amount.present? && income_amount.present?
+      self.fee_amount = self.total_amount - self.income_amount
+    end
   end
 
 end

@@ -9,7 +9,6 @@ class WxpayNative < Payment
     self.seller_identifier = params['mch_id']
     self.buyer_identifier = params['openid']
     self.buyer_email = params['buyer_email']
-    self.order_amount = params['total_fee'].to_i / 100.0
     self.total_amount = params['total_fee'].to_i / 100.0
     self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     self.save!
