@@ -1,6 +1,8 @@
-if ( $('#payment_<%= @payment.id %>').next()[0] && $('#payment_<%= @payment.id %>').next()[0].id === 'add_payment_order' ) {
-  $('#add_payment_order').remove();
+if ($('.ui.modals').length === 0) {
+  $('body').append('<%= j(render 'new') %>');
 } else {
-  $('#add_payment_order').remove();
-  $('#payment_<%= @payment.id %>').after('<%= j(render 'new') %>')
+  $('.ui.modals').html('<%= j(render 'new') %>');
 }
+
+
+$('.ui.modal').modal('setting', { autofocus: false }).modal('show');

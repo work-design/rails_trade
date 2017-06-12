@@ -15,7 +15,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
         format.js
       end
     else
-      render :new
+      render 'create_fail'
     end
   end
 

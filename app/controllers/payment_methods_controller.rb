@@ -29,7 +29,7 @@ class PaymentMethodsController < ApplicationController
   def update
     @payment_method.assign_attributes(payment_method_params)
     if @payment_method.detective_save
-      redirect_to @payment_method, notice: 'Payment method was successfully updated.'
+      render 'update'
     else
       render :edit
     end
@@ -37,7 +37,6 @@ class PaymentMethodsController < ApplicationController
 
   def destroy
     @payment_method.destroy
-    redirect_to payment_methods_url, notice: 'Payment method was successfully destroyed.'
   end
 
   private

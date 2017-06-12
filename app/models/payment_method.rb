@@ -15,7 +15,7 @@ class PaymentMethod < ApplicationRecord
     if detect_repetition
       self.verified = false
     else
-      self.vefified = true
+      self.verified = true
     end
     self.save
   end
