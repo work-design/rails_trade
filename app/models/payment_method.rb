@@ -11,6 +11,15 @@ class PaymentMethod < ApplicationRecord
     PaymentReference.pluck(:account_type).uniq
   end
 
+  def detective_save
+    if detect_repetition
+      self.verified = false
+    else
+      self.vefified = true
+    end
+    self.save
+  end
+
   def detect_repetition
     if self.persisted?
       self.class.unscoped.where.not(id: self.id).exists?(account_name: self.account_name, account_num: self.account_num)

@@ -3,10 +3,18 @@
     <%= payment.id %>
     <span class="ui tiny orange label"><%= Payment.enum_i18n(:type, payment.type) %></span>
   </td>
-  <td><%= payment.total_amount %></td>
+  <td>
+    <%= payment.total_amount %>
+    <span style="color: #999;">（已核销：<%= payment.checked_amount %>)</span>
+  </td>
   <td><%= payment.fee_amount %></td>
   <td><%= payment.buyer_name %></td>
-  <td><%= payment.buyer_identifier %></td>
+  <td>
+    <%= payment.buyer_identifier %>
+    <% if payment.payment_method %>
+      <%= link_to 'Payment Method', admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini label', targe: '_blank' %>
+    <% end %>
+  </td>
   <td><%= payment.notified_at.to_s %></td>
   <td>
     <% if payment.payment_method.present? %>

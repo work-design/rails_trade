@@ -19,7 +19,7 @@ class PaymentMethodsController < ApplicationController
   def create
     @payment_method = @buyer.payment_methods.build(payment_method_params)
 
-    if @payment_method.save
+    if @payment_method.detective_save
       render 'create'
     else
       render :new
@@ -27,7 +27,8 @@ class PaymentMethodsController < ApplicationController
   end
 
   def update
-    if @payment_method.update(payment_method_params)
+    @payment_method.assign_attributes(payment_method_params)
+    if @payment_method.detective_save
       redirect_to @payment_method, notice: 'Payment method was successfully updated.'
     else
       render :edit
