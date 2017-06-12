@@ -1,0 +1,22 @@
+<tr id="payment_<%= payment.id %>">
+  <td>
+    <%= payment.id %>
+    <span class="ui tiny orange label"><%= Payment.enum_i18n(:type, payment.type) %></span>
+  </td>
+  <td><%= payment.total_amount %></td>
+  <td><%= payment.fee_amount %></td>
+  <td><%= payment.buyer_name %></td>
+  <td><%= payment.buyer_identifier %></td>
+  <td><%= payment.notified_at.to_s %></td>
+  <td>
+    <% if payment.payment_method.present? %>
+      <%= link_to 'show', admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini blue button', target: '_blank' %>
+      <%= link_to 'checking', new_admin_payment_payment_order_path(payment), class: 'ui mini red button', remote: true %>
+    <% else %>
+      <%= link_to 'analyze', analyze_admin_payment_path(payment), method: :patch, class: 'ui mini blue button', remote: true %>
+    <% end %>
+  </td>
+  <td><%= link_to 'Edit', edit_admin_payment_path(payment) %></td>
+  <td><%= link_to 'Destroy', admin_payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+

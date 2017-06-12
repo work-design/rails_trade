@@ -6,7 +6,7 @@ class Admin::PaymentsController < Admin::TheTradeController
   end
 
   def index
-    @payments = Payment.default_where(params.permit(:type)).page(params[:page])
+    @payments = Payment.default_where(params.permit(:type, :id)).page(params[:page])
   end
 
   def show
@@ -39,6 +39,7 @@ class Admin::PaymentsController < Admin::TheTradeController
 
   def analyze
     @payment.analyze_payment_method
+
     respond_to do |format|
       format.js
     end
@@ -60,7 +61,7 @@ class Admin::PaymentsController < Admin::TheTradeController
                                           :notified_at,
                                           :comment,
                                           :buyer_name,
-                                          :seller_identifier,
+                                          :buyer_identifier,
                                           :buyer_bank
     )
     p.reverse_merge(type: 'BankPayment')

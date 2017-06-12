@@ -7,7 +7,11 @@
   </div>
 
   <div class="ui segment">
-    <%= render 'form' %>
+
+    <%= default_form_with model: @payment, url: admin_payments_path, local: true do |f| %>
+      <%= render partial: 'form', locals: { f: f } %>
+    <% end %>
+
   </div>
 
 </div>
