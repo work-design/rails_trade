@@ -7,7 +7,7 @@
   <td><%= order.amount %></td>
   <td>
     <%= hidden_field_tag 'payment_order[order_id]', order.id, form: "new_payment_#{order.id}" %>
-    <%= number_field_tag 'payment_order[check_amount]', order.amount, placeholder: 'Result:', class: 'three wide field', form: "new_payment_#{order.id}" %>
+    <%= number_field_tag 'payment_order[check_amount]', order.amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "new_payment_#{order.id}" %>
   </td>
   <td>
     <%= submit_tag '核销', form: "new_payment_#{order.id}" %>

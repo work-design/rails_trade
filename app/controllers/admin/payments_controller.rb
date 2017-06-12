@@ -6,7 +6,7 @@ class Admin::PaymentsController < Admin::TheTradeController
   end
 
   def index
-    @payments = Payment.default_where(params.permit(:type, :id)).page(params[:page])
+    @payments = Payment.default_where(params.permit(:type, :id)).order(id: :desc).page(params[:page])
   end
 
   def show
