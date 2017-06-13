@@ -22,11 +22,11 @@ class PaymentOrder < ApplicationRecord
 
   def update_order_state
     order.received_amount = order_amount
-    if order.received_amount >= order.amount
+    if order.received_amount.to_d >= order.amount
       order.payment_status = 'all_paid'
-    elsif order.received_amount > 0 && order.received_amount < order.amount
+    elsif order.received_amount.to_d > 0 && order.received_amount.to_d < order.amount
       order.payment_status = 'part_paid'
-    elsif order.received_amount <= 0
+    elsif order.received_amount.to_d <= 0
       order.payment_status = 'unpaid'
     end
     order.save
