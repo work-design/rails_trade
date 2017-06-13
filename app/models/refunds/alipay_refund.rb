@@ -1,4 +1,4 @@
-class AlipayRefund < OnlineRefund
+class AlipayRefund < Refund
 
   def transaction_id
     refunded_payment&.payment_uuid

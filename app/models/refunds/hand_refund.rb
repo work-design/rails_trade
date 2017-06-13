@@ -1,4 +1,4 @@
-class HandRefund < OnlineRefund
+class HandRefund < Refund
 
 
 

@@ -1,4 +1,4 @@
-class WxpayRefund < OnlineRefund
+class WxpayRefund < Refund
 
   def transaction_id
     refunded_payment&.payment_uuid
