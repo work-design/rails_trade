@@ -1,3 +1,4 @@
+<%= f.select :type, options_for_select(Payment.options_i18n(:type)) %>
 <%= f.number_field :total_amount %>
 <%= f.number_field :fee_amount %>
 <%= f.number_field :income_amount %>

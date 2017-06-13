@@ -1,4 +1,5 @@
 class Payment < ApplicationRecord
+  attribute :currency, :string, default: 'USD'
 
   belongs_to :payment_method, optional: true
   has_many :payment_orders, dependent: :destroy
@@ -14,7 +15,6 @@ class Payment < ApplicationRecord
     :init,
     :completed
   ]
-
 
   def analyze_payment_method
     true

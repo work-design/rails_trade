@@ -56,7 +56,8 @@ class Admin::PaymentsController < Admin::TheTradeController
   end
 
   def payment_params
-    p = params.fetch(:payment, {}).permit(:total_amount,
+    p = params.fetch(:payment, {}).permit(:type,
+                                          :total_amount,
                                           :fee_amount,
                                           :income_amount,
                                           :notified_at,
