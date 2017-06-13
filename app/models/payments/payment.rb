@@ -38,6 +38,10 @@ class Payment < ApplicationRecord
     end
   end
 
+  def pending_orders
+    Order.where(buyer_id: self.payment_method.buyer_ids, payment_status: ['unpaid, part_paid']).where.not(id: self.payment_orders.pluck(:order_id))
+  end
+
 end
 
 #  :id, :integer, limit: 4, null: false

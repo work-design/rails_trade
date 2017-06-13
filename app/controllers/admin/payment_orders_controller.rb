@@ -33,7 +33,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def set_payment
     @payment = Payment.find(params[:payment_id])
-    @orders = Order.where(buyer_id: @payment.payment_method.buyer_ids).where.not(id: @payment.payment_orders.pluck(:order_id))
+    @orders = @payment.pending_orders
   end
 
   def payment_order_params
