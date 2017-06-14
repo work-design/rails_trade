@@ -29,7 +29,7 @@ class PaymentOrder < ApplicationRecord
     elsif order.received_amount.to_d <= 0
       order.payment_status = 'unpaid'
     end
-    order.save
+    order.change_to_paid!
   end
 
 end
