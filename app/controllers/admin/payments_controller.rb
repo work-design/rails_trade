@@ -1,8 +1,8 @@
 class Admin::PaymentsController < Admin::TheTradeController
   before_action :set_payment, only: [:show, :edit, :update, :analyze, :destroy]
 
-
   def dashboard
+
   end
 
   def index

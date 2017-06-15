@@ -8,7 +8,8 @@
       <span>财务</span>
     </a>
     <div class="menu content">
-      <%= link_to 'Payment', admin_payments_path, class: active_helper(controller: 'payments') %>
+      <%= link_to 'DashBoard', dashboard_admin_payments_path, class: active_page(controller: 'payments', action: 'dashboard') %>
+      <%= link_to 'Payment', admin_payments_path, class: active_page(controller: 'payments', action: 'index') %>
       <%= link_to 'Payment Method', admin_payment_methods_path, class: active_helper(controller: 'payment_methods') %>
     </div>
   </div>
