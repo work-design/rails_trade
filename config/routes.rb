@@ -45,4 +45,8 @@ Rails.application.routes.draw do
     resources :payment_methods
   end
 
+  resources :orders, only: [] do
+    resources :payments, only: [:index]
+  end
+
 end
