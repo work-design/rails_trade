@@ -1,5 +1,4 @@
-class Admin::TheTradeController < Admin::BaseController
-  layout 'admin/the_trade'
+class Admin::TheTradeController < TheTrade.config.admin_class.constantize
 
   def index
 
