@@ -8,6 +8,7 @@ class Payment < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   validates :total_amount, numericality: { equal_to: -> (o) { o.income_amount + o.fee_amount } }, if: -> { income_amount.present? && fee_amount.present? && total_amount.present? }
+  validates :payment_uuid, uniqueness: true
 
   before_save :compute_amount
 
