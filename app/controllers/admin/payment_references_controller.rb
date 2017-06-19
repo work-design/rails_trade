@@ -36,7 +36,6 @@ class Admin::PaymentReferencesController < Admin::TheTradeController
 
   def destroy
     @payment_reference.destroy
-    redirect_to payment_references_url, notice: 'Payment reference was successfully destroyed.'
   end
 
   private

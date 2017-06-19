@@ -21,8 +21,11 @@
         <td><%= payment_method.account_num %></td>
         <td><%= payment_method.bank %></td>
         <td>
-          <% payment_method.buyers.each do |buyer| %>
-            <p><%= buyer.name %></p>
+          <% payment_method.payment_references.each do |reference| %>
+            <p id="reference_<%= reference.id %>">
+              <%= reference.buyer.name %>
+              <%= link_to 'remove', admin_payment_method_reference_path(payment_method, reference.id), method: :delete, remote: true %>
+            </p>
           <% end %>
         </td>
         <td>
