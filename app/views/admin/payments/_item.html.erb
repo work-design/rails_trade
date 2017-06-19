@@ -19,6 +19,7 @@
       <%= link_to 'Payment Method', admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini label', targe: '_blank' %>
     <% end %>
   </td>
+  <td><%= payment.buyer_bank %></td>
   <td><%= payment.notified_at.to_s %></td>
   <td>
     <% if payment.payment_method.present? %>

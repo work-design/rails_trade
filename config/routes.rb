@@ -24,9 +24,12 @@ Rails.application.routes.draw do
     resources :promotes
     resources :providers
     resources :produces
-    resources :orders, :only => [:index, :show, :edit, :update, :destroy]
     resources :carts, :only => [:index, :destroy]
     resources :areas
+
+    resources :orders, only: [:index, :show, :edit, :update, :destroy] do
+      get :payments, on: :collection
+    end
     resources :payments do
       resources :payment_orders
       get :dashboard, on: :collection

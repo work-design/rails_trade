@@ -1,7 +1,7 @@
 <div>
 
   <div class="ui top attached menu borderless">
-    <div class="item"><strong>Payments List</strong></div>
+    <div class="item"><strong>Order With Payment List</strong></div>
   </div>
 
   <div class="ui segment bottom attached">
@@ -25,21 +25,21 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
-      <th><%= Payment.human_attribute_name(:uuid) %></th>
-      <th><%= Payment.human_attribute_name(:total_amount) %></th>
-      <th><%= Payment.human_attribute_name(:income_amount) %> + <%= Payment.human_attribute_name(:fee_amount) %></th>
-      <th><%= Payment.human_attribute_name(:buyer_name) %></th>
-      <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
-      <th><%= Payment.human_attribute_name(:buyer_bank) %></th>
-      <th><%= Payment.human_attribute_name(:notified_at) %></th>
+      <th>ID</th>
+      <th>Total Amount</th>
+      <th>Income + Fee Amount</th>
+      <th>Buyer Name</th>
+      <th>Buyer Account</th>
+      <th>Buyer Bank</th>
+      <th>Time</th>
       <th colspan="2"></th>
     </tr>
     </thead>
 
     <tbody>
-      <%= render partial: 'item', collection: @payments, as: :payment %>
+    <%= render partial: 'item', collection: @orders, as: :order %>
     </tbody>
   </table>
 
-  <%= paginate @payments %>
+  <%= paginate @orders %>
 </div>
