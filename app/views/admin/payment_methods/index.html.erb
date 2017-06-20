@@ -4,12 +4,12 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Account Name</th>
-      <th>Account Num</th>
-      <th>Bank</th>
-      <th>Related Buyers</th>
-      <th>Verified</th>
-      <th>Actions</th>
+      <th><%= PaymentMethod.human_attribute_name(:account_name) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:account_num) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:bank) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:payment_references) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:verified) %></th>
+      <th>操作</th>
     </tr>
     </thead>
 
@@ -24,7 +24,7 @@
           <% payment_method.payment_references.each do |reference| %>
             <p id="reference_<%= reference.id %>">
               <%= reference.buyer.name %>
-              <%= link_to 'remove', admin_payment_method_reference_path(payment_method, reference.id), method: :delete, remote: true %>
+              <%= link_to t('.remove'), admin_payment_method_reference_path(payment_method, reference.id), method: :delete, remote: true %>
             </p>
           <% end %>
         </td>
@@ -39,8 +39,8 @@
         </td>
         <td>
           <%= link_to '关联买家', new_admin_payment_method_reference_path(payment_method), class: 'ui mini green button', remote: true %>
-          <%= link_to 'Destroy', admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui mini red button' %>
-          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
+          <%= link_to t('.destroy'), admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui mini red button' %>
+          <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
         </td>
       </tr>
     <% end %>

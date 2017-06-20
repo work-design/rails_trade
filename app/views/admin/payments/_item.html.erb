@@ -23,15 +23,14 @@
   <td><%= payment.notified_at.to_s %></td>
   <td>
     <% if payment.payment_method.present? %>
-      <%= link_to 'show', admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini blue button', target: '_blank' %>
-      <%= link_to 'checking', new_admin_payment_payment_order_path(payment), class: 'ui mini red button', remote: true %>
+      <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini blue button', target: '_blank' %>
+      <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'ui mini red button', remote: true %>
     <% else %>
-      <%= link_to 'analyze', analyze_admin_payment_path(payment), method: :patch, class: 'ui mini blue button', remote: true %>
+      <%= link_to t('.analyze'), analyze_admin_payment_path(payment), method: :patch, class: 'ui mini blue button', remote: true %>
     <% end %>
   </td>
   <td>
-    <%= link_to 'Edit', edit_admin_payment_path(payment) %>
-    <%= link_to 'Destroy', admin_payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to t('.edit'), edit_admin_payment_path(payment) %>
   </td>
 </tr>
 

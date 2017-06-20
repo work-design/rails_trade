@@ -17,8 +17,8 @@
       <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: ex_active_params(type: 'PaypalPayment') %>
     </p>
     <p>
-      <%= link_to 'Add New', new_admin_payment_path, class: 'ui teal button' %>
-      <%= link_to 'Import', import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
+      <%= link_to t('.add_new'), new_admin_payment_path, class: 'ui teal button' %>
+      <%= link_to t('.import'), import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
     </p>
   </div>
 
