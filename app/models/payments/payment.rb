@@ -19,7 +19,7 @@ class Payment < ApplicationRecord
 
   def analyze_payment_method
     if self.buyer_name.present? || self.buyer_identifier.present?
-      pm = PaymentMethod.find_or_initialize_by(account_name: self.buyer_name, account_num: self.buyer_identifier)
+      pm = PaymentMethod.find_or_initialize_by(account_name: self.buyer_name.to_s, account_num: self.buyer_identifier.to_s)
       pm.bank = self.buyer_bank
       self.payment_method = pm
 

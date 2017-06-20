@@ -20,7 +20,7 @@ class My::OrdersController < My::BaseController
   end
 
   def create
-    @order = current_user.orders.build(:good_id => params[:good_id].to_i)
+    @order = current_user.orders.build(good_id: params[:good_id])
 
     respond_to do |format|
       if @order.save

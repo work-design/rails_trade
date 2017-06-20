@@ -1,8 +1,5 @@
 class Refund < ApplicationRecord
-  belongs_to :origin, polymorphic: true
-  belongs_to :refunded_payment, polymorphic: true
-  # has_one :online_payment, -> { order(id: :desc) }, class_name: 'OnlinePayment', foreign_key: 'customer_order_id', primary_key: 'customer_order_id'
-  # has_many :online_payments, class_name: 'OnlinePayment', foreign_key: 'customer_order_id', primary_key: 'customer_order_id'
+  belongs_to :order
 
   after_initialize if: -> { new_record? } do
     self.refund_uuid = new_batch_no
