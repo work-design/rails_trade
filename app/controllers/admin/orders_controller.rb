@@ -6,7 +6,7 @@ class Admin::OrdersController < Admin::TheTradeController
   end
 
   def payments
-    @orders = Order.page(params[:page])
+    @orders = Order.default_where(params.permit(:id, :payment_status)).default_where(params.fetch(:q, {}).permit(:uuid)).page(params[:page])
   end
 
   def show

@@ -1,7 +1,10 @@
 <tr>
   <td><%= order.id %></td>
-  <td><%= order.amount %></td>
   <td><%= order.received_amount %></td>
-  <td><%= order.unreceived_amount %></td>
+  <td class="error"><%= order.unreceived_amount %></td>
+  <td><%= order.amount %></td>
+  <td><%= order.subtotal %></td>
+  <td><%= order.shipping_fee %></td>
+  <td><%= order.handling_fee %></td>
 </tr>
 

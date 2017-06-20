@@ -15,16 +15,4 @@ class BankPayment < Payment
     self.save!
   end
 
-  def analyze_payment_method
-    if self.buyer_name.present? || self.buyer_identifier.present?
-      pm = PaymentMethod.find_or_initialize_by(account_name: self.buyer_name, account_num: self.buyer_identifier)
-      pm.bank = self.buyer_bank
-      self.payment_method = pm
-
-      pm.save
-      self.save
-    end
-
-  end
-
 end

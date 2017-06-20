@@ -1,8 +1,6 @@
 <%= search_form_with css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
   <div class="fields">
-  <%= f.text_field :account_name, placeholder: 'Account Name' %>
-  <%= f.text_field :account_num, placeholder: 'Account Number' %>
-  <%= f.text_field :bank, placeholder: 'Bank Name' %>
+  <%= f.text_field :uuid, placeholder: 'UUID' %>
   <%= f.submit 'Search' %>
   </div>
 <% end %>

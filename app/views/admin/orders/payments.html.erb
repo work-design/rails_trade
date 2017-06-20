@@ -10,15 +10,12 @@
 
   <div class="ui segment top attached">
     <p>
-      <span>Type:</span>
-      <%= link_to 'All', filter_params(except: [:type]), class: ex_active_params(type: '') %>
-      <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: ex_active_params(type: 'BankPayment') %>
-      <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: ex_active_params(type: 'HandPayment') %>
-      <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: ex_active_params(type: 'PaypalPayment') %>
-    </p>
-    <p>
-      <%= link_to 'Add New', new_admin_payment_path, class: 'ui teal button' %>
-      <%= link_to 'Import', import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
+      <span>State:</span>
+      <%= link_to 'All', filter_params(except: [:payment_status]), class: ex_active_params(payment_status: '') %>
+      <%= link_to '未支付', filter_params(payment_status: 'unpaid'), class: ex_active_params(payment_status: 'unpaid') %>
+      <%= link_to '部分支付', filter_params(payment_status: 'part_paid'), class: ex_active_params(payment_status: 'part_paid') %>
+      <%= link_to '全部支付', filter_params(payment_status: 'all_paid'), class: ex_active_params(payment_status: 'all_paid') %>
+      <%= link_to '已退款', filter_params(payment_status: 'refunded'), class: ex_active_params(payment_status: 'refunded') %>
     </p>
   </div>
 
@@ -26,17 +23,25 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Total Amount</th>
-      <th>Income + Fee Amount</th>
-      <th>Buyer Name</th>
-      <th>Buyer Account</th>
-      <th>Buyer Bank</th>
-      <th>Time</th>
-      <th colspan="2"></th>
+      <th>已收金额</th>
+      <th>未收金额</th>
+      <th>总金额</th>
+      <th>订单金额</th>
+      <th>运费</th>
+      <th>处理费</th>
     </tr>
     </thead>
 
     <tbody>
+    <tr class="active">
+      <td>汇总：</td>
+      <td><%= @orders.sum(:received_amount) %></td>
+      <td><%= @orders.sum(:amount) - @orders.sum(:received_amount) %></td>
+      <td><%= @orders.sum(:amount) %></td>
+      <td><%= @orders.sum(:subtotal) %></td>
+      <td><%= @orders.sum(:shipping_fee) %></td>
+      <td><%= @orders.sum(:handling_fee) %></td>
+    </tr>
     <%= render partial: 'item', collection: @orders, as: :order %>
     </tbody>
   </table>
