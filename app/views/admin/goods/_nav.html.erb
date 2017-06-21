@@ -1,8 +1,8 @@
 <div class="ui menu vertical fluid">
-  <%= link_to '产品基本信息', edit_admin_good_path(@good), class: active_action('edit') %>
-  <%= link_to '管理详细条目', items_admin_good_path(@good), class: active_action('edit_items') %>
-  <%= link_to '管理图集', pic_admin_good_path(@good), class: active_action('edit_pic') %>
-  <%= link_to '产品推荐', promote_admin_good_path(@good), class: active_action('edit_promote') %>
+  <%= link_to '产品基本信息', edit_admin_good_path(@good), class: active_helper('edit') %>
+  <%= link_to '管理详细条目', items_admin_good_path(@good), class: active_helper('edit_items') %>
+  <%= link_to '管理图集', pic_admin_good_path(@good), class: active_helper('edit_pic') %>
+  <%= link_to '产品推荐', promote_admin_good_path(@good), class: active_helper('edit_promote') %>
   <%= link_to '正在促销', admin_good_sales_path(@good) %>
 </div>
 

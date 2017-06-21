@@ -9,5 +9,4 @@ class My::MyController < My::BaseController
     end
   end
 
-
 end

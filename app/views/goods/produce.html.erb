@@ -27,10 +27,10 @@
   <div class="twelve wide column">
 
     <div class="ui menu fluid three item">
-      <%= link_to good_path(@good), class: active_action('show') do %>
+      <%= link_to good_path(@good), class: active_helper('show') do %>
         <i class="home icon"></i> 商品信息
       <% end %>
-      <%= link_to '生产信息', produce_good_path(@good), class: active_action('produce') %>
+      <%= link_to '生产信息', produce_good_path(@good), class: active_helper('produce') %>
       <a class="item"></a>
     </div>
 
