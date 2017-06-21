@@ -19,7 +19,12 @@
       <% @orders.each do |order| %>
         <tr>
           <td><%= order.id %></td>
-          <td><%= order.total_price %></td>
+          <td><%= order.amount %></td>
+          <td>
+            <% if order.payment_status != 'all_paid' %>
+              <%= link_to 'pay', pay_my_order_path(order), method: :patch %>
+            <% end %>
+          </td>
           <td><%= link_to 'Show', my_order_path(order) %></td>
           <td><%= link_to 'Edit', edit_my_order_path(order) %></td>
         </tr>

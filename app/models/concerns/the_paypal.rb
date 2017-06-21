@@ -2,13 +2,48 @@ module ThePaypal
   extend ActiveSupport::Concern
 
   included do
-
+    PAYMENT =  PayPal::SDK::REST::DataTypes::Payment
+    attr_accessor :approve_url, :return_url, :cancel_url
+    delegate :url_helpers, to: 'Rails.application.routes'
   end
 
+  # first step
+  def create_payment
+    _payment = PAYMENT.new(final_params)
+    self.payment_id = _payment.id
+
+    if self.save
+      self.approve_url = _payment.links.find{ |link| link.method == 'REDIRECT' }.try(:href)
+    else
+      errors.add :payment_id, _payment.error['message']
+    end
+    _payment
+  end
+
+  # second step
+  def execute(params)
+    return unless self.payment_id
+
+    _payment = PAYMENT.find(self.payment_id)
+    _payment.execute(payer_id: params[:PayerID])
+
+    paypal = PaypalPayment.new
+    if _payment.state == 'approved'
+      trans = _payment.transactions[0]
+      paypal.total_amount = trans.amount.total
+      paypal.sale_id = trans.related_resources[0].sale.id
+      paypal.save
+    else
+      errors.add :uuid, _payment.error.inspect
+      false
+    end
+  end
+
+
   def final_params
-    if order.deposit_payment? && order.unpaid?
+    if self.deposit_payment? && self.unpaid?
       result = origin_final_params
-      result[:transactions][:amount][:total] = order.advance_payment_amount.to_money.exchange_to(self.currency).to_s
+      result[:transactions][:amount][:total] = self.advance_payment_amount.to_money.exchange_to(self.currency).to_s
     else
       result = origin_final_params
     end
@@ -16,30 +51,25 @@ module ThePaypal
   end
 
   def insured_total_amount
-    c_result = self.order.order_items.sum do |item|
+    c_result = self.order_items.sum do |item|
       item.price.to_money.exchange_to(self.currency) * item.number
     end
-    u_result = self.order.order_items.sum do |item|
+    u_result = self.order_items.sum do |item|
       item.price.to_money * item.number
     end
 
-    c_result += order.shipping_and_handling.to_money.exchange_to(self.currency)
-    u_result += order.shipping_and_handling.to_money
+    c_result += self.shipping_and_handling.to_money.exchange_to(self.currency)
+    u_result += self.shipping_and_handling.to_money
 
-    if order.deposit_payment? && order.unpaid?
-      c_result = order.advance_payment_amount.to_money.exchange_to(self.currency)
-      u_result = order.advance_payment_amount.to_money
-    elsif order.deposit_payment? && order.part_paid?
-      c_result = order.amount.to_money.exchange_to(self.currency) - order.received_amount.to_money.exchange_to(self.currency)
-      u_result = (order.amount - order.received_amount).to_money
+    if self.deposit_payment? && self.unpaid?
+      c_result = self.advance_payment_amount.to_money.exchange_to(self.currency)
+      u_result = self.advance_payment_amount.to_money
+    elsif self.deposit_payment? && self.part_paid?
+      c_result = self.amount.to_money.exchange_to(self.currency) - self.received_amount.to_money.exchange_to(self.currency)
+      u_result = (self.amount - self.received_amount).to_money
     end
     [c_result, u_result]
   end
-
-
-
-
-
 
   def origin_final_params
     {
@@ -48,8 +78,8 @@ module ThePaypal
         payment_method: 'paypal'
       },
       redirect_urls: {
-        return_url: self.return_url || url_helpers.execute_orders_url(order_id: self.order_id),
-        cancel_url: url_helpers.cancel_orders_url(order_id: self.order_id)
+        return_url: self.return_url || url_helpers.execute_my_order_url(self.id),
+        cancel_url: url_helpers.cancel_my_order_url(self.id)
       },
       transactions: {
         item_list: {
@@ -65,9 +95,9 @@ module ThePaypal
   end
 
   def items_params
-    if order.deposit_payment? && order.unpaid?
+    if self.deposit_payment? && self.unpaid?
       deposit_items_params
-    elsif order.deposit_payment? && order.part_paid?
+    elsif self.part_paid?
       remain_items_params
     else
       origin_items_params
@@ -90,7 +120,7 @@ module ThePaypal
     {
       name: 'Shipping & Handling fee',
       sku: 'Shipping & Handling fee',
-      price: shipping_and_handling.to_money.exchange_to(self.currency).to_s,
+      price: (shipping_fee + handling_fee).to_money.exchange_to(self.currency).to_s,
       currency: self.currency.upcase,
       quantity: 1
     }
@@ -110,7 +140,7 @@ module ThePaypal
     origin_items_params << {
       name: 'Advanced amount',
       sku: 'Advanced amount',
-      price: (- order.received_amount).to_money.exchange_to(self.currency).to_s,
+      price: (- self.received_amount).to_money.exchange_to(self.currency).to_s,
       currency: self.currency.upcase,
       quantity: 1
     }

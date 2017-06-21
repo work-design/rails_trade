@@ -43,6 +43,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :my do
+    resources :orders do
+      patch :pay, on: :member
+      get :execute, on: :member
+      get :cancel, on: :member
+    end
+  end
+
   resources :buyers do
     get :search, on: :collection
     resources :payment_methods

@@ -2,7 +2,7 @@ class Admin::OrdersController < Admin::TheTradeController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = Order.all
+    @orders = Order.page(params[:page])
   end
 
   def payments
