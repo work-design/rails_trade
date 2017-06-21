@@ -1,8 +1,8 @@
 module ThePaypal
+  PAYMENT =  PayPal::SDK::REST::DataTypes::Payment
   extend ActiveSupport::Concern
 
   included do
-    PAYMENT =  PayPal::SDK::REST::DataTypes::Payment
     attr_accessor :approve_url, :return_url, :cancel_url
     delegate :url_helpers, to: 'Rails.application.routes'
   end
@@ -30,10 +30,11 @@ module ThePaypal
     _payment.execute(payer_id: params[:PayerID])
 
     paypal = PaypalPayment.new
+
     if _payment.state == 'approved'
       trans = _payment.transactions[0]
       paypal.total_amount = trans.amount.total
-      paypal.sale_id = trans.related_resources[0].sale.id
+      paypal.payment_uuid = trans.related_resources[0].sale.id
       paypal.save
     else
       errors.add :uuid, _payment.error.inspect
@@ -41,6 +42,22 @@ module ThePaypal
     end
   end
 
+  def verify_payment
+    _payment = PAYMENT.find(self.payment_id)
+    _payment.execute(payer_id: params[:PayerID])
+
+    paypal = PaypalPayment.new
+
+    if _payment.state == 'approved'
+      trans = _payment.transactions[0]
+      paypal.total_amount = trans.amount.total
+      paypal.payment_uuid = trans.related_resources[0].sale.id
+      paypal.save
+    else
+      errors.add :uuid, _payment.error.inspect
+      false
+    end
+  end
 
   def final_params
     if self.deposit_payment? && self.unpaid?

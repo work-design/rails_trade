@@ -17,8 +17,8 @@ class WxpayJsapi < Payment
   def wxpay_prepay
     return @wxpay_prepay if @wxpay_prepay
     params = {
-      body: "订单编号: #{order.order_no}",
-      out_trade_no: order.order_no,
+      body: "订单编号: #{order.uuid}",
+      out_trade_no: order.uuid,
       total_fee: (order.amount * 100).to_i,
       spbill_create_ip: spbill_create_ip,
       notify_url: "#{Settings.callback_host}/yifubao/wxpay_notify",

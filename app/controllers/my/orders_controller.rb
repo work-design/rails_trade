@@ -1,6 +1,6 @@
 class My::OrdersController < My::BaseController
   before_action :set_buyer
-  before_action :set_order, only: [:show, :edit, :update, :pay, :update_date, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :pay, :execute, :update_date, :destroy]
 
 
   def index
@@ -36,10 +36,26 @@ class My::OrdersController < My::BaseController
   end
 
   def pay
-    if @order.payment_status != 'all_paid' && @order.create_payment
-      redirect_to @order.approve_url
-    else
-      redirect_to my_orders_url
+    respond_to do |format|
+      if @order.payment_status != 'all_paid' && @order.create_payment
+        format.json
+        format.html { redirect_to @order.approve_url }
+      else
+        format.json
+        format.html { redirect_to my_orders_url }
+      end
+    end
+  end
+
+  def execute
+    respond_to do |format|
+      if @order.execute(params)
+        format.json {  }
+        format.html { redirect_to payment_success_orders_path, notice: "Order[#{@order.uuid}] placed successfully" }
+      else
+        format.html { redirect_to payment_fail_orders_path, alert: @order.error.inspect }
+        format.json {  }
+      end
     end
   end
 
@@ -52,7 +68,6 @@ class My::OrdersController < My::BaseController
   end
 
   def edit
-    @user = @buyer
   end
 
   def update
