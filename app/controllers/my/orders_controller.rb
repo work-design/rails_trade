@@ -36,8 +36,7 @@ class My::OrdersController < My::BaseController
   end
 
   def pay
-    if @order.payment_status != 'all_paid'
-      @order.create_payment
+    if @order.payment_status != 'all_paid' && @order.create_payment
       redirect_to @order.approve_url
     else
       redirect_to my_orders_url
