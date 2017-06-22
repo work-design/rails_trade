@@ -1,6 +1,7 @@
 class BankPayment < Payment
   #validates :buyer_name, presence: true
   #validates :buyer_identifier, presence: true
+  validates :payment_uuid, uniqueness: true
 
   def save_detail!(params)
     self.company_id = order.company_id
