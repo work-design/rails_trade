@@ -1,15 +1,12 @@
 <tr id="add_payment_order">
-  <td colspan="9">
+  <td colspan="10">
     <table class="ui basic red table">
       <thead>
       <tr>
         <th>订单ID</th>
         <th>UUID</th>
         <th>订单金额</th>
-        <th>
-          已核销：
-          <span id="checked_amount"><%= @payment.checked_amount %></span>
-        </th>
+        <th>待核销</th>
         <th>
           <%= link_to 'Admin Payment Method', admin_payment_methods_path(id: @payment.payment_method_id), target: '_blank' %>
         </th>

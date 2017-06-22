@@ -5,8 +5,8 @@
   </td>
   <td>
     <%= payment.total_amount %>
-    <span style="color: #999;">（已核销：<%= payment.checked_amount %>)</span>
   </td>
+  <td id="checked_amount_<%= payment.id %>" class="warning"><%= payment.checked_amount %></td>
   <td>
     <% if payment.income_amount.present? || payment.fee_amount %>
       <%= [payment.income_amount, payment.fee_amount].join(' + ') %>
