@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: [] do
-    resources :payments, only: [:index]
+    get :paypal_result, on: :collection
   end
 
 end

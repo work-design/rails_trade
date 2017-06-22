@@ -1,5 +1,4 @@
 class Produce < ApplicationRecord
-
   has_many :good_produces
 
 end
