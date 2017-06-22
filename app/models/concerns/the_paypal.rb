@@ -8,7 +8,7 @@ module ThePaypal
   end
 
   # first step
-  def create_payment
+  def create_paypal_payment
     self.paypal_payment = PAYMENT.new(final_params)
 
     result = paypal_payment.create
@@ -23,14 +23,14 @@ module ThePaypal
   end
 
   # 2 step: execute payment
-  def execute(params)
+  def paypal_execute(params)
     return unless self.payment_id
     self.paypal_payment ||= PAYMENT.find(self.payment_id)
     paypal_payment.execute(payer_id: params[:PayerID])
   end
 
   # 3 step: check result
-  def check_payment
+  def paypal_result
     return unless self.payment_id
     self.paypal_payment ||= PAYMENT.find(self.payment_id)
 
