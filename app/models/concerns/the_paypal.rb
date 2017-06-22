@@ -41,11 +41,17 @@ module ThePaypal
 
       paypal.total_amount = trans.amount.total
       paypal.payment_uuid = trans.related_resources[0].sale.id
-      paypal.save
+
+      payment_order = paypal.payment_orders.build(order_id: self.id, check_amount: paypal.total_amount)
+
+      Payment.transaction do
+        payment_order.save!
+        paypal.save!
+      end
     else
       errors.add :uuid, paypal_payment.error.inspect
-      false
     end
+    self.paypal_payment
   end
 
   def final_params

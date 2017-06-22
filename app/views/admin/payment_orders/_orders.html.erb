@@ -4,6 +4,7 @@
     <%= form_with url: admin_payment_payment_orders_path(@payment), id: "new_payment_#{order.id}" do |f| %>
     <% end %>
   </td>
+  <td><%= order.uuid %></td>
   <td><%= order.amount %></td>
   <td>
     <%= hidden_field_tag 'payment_order[order_id]', order.id, form: "new_payment_#{order.id}" %>

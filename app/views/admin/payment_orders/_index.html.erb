@@ -1,5 +1,6 @@
 <tr id="checked_<%= payment_order.order_id %>">
   <td><%= payment_order.order.id %></td>
+  <th><%= payment_order.order.uuid %></th>
   <td><%= payment_order.order.amount %></td>
   <td><%= payment_order.check_amount %></td>
   <td><%= link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %></td>

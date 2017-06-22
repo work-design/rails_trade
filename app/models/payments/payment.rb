@@ -47,7 +47,11 @@ class Payment < ApplicationRecord
   end
 
   def pending_orders
-    Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: self.payment_method.buyer_ids, payment_status: ['unpaid', 'part_paid'])
+    if self.payment_method
+      Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: self.payment_method.buyer_ids, payment_status: ['unpaid', 'part_paid'])
+    else
+      []
+    end
   end
 
 end

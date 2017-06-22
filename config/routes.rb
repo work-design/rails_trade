@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       patch :pay, on: :member
       get :execute, on: :member
       get :cancel, on: :member
+      get :check, on: :member
     end
   end
 
