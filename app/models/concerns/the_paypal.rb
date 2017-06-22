@@ -3,58 +3,47 @@ module ThePaypal
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :approve_url, :return_url, :cancel_url
+    attr_accessor :approve_url, :return_url, :cancel_url, :paypal_payment
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
   # first step
   def create_payment
-    _payment = PAYMENT.new(final_params)
+    self.paypal_payment = PAYMENT.new(final_params)
 
-    result = _payment.create
+    result = paypal_payment.create
     if result
-      self.payment_id = _payment.id
-      self.approve_url = _payment.links.find{ |v| v.rel == 'approval_url' }.href
+      self.payment_id = paypal_payment.id
+      self.approve_url = paypal_payment.links.find{ |v| v.rel == 'approval_url' }.href
       self.save
     else
-      self.errors.add :payment_id, _payment.error.inspect
+      self.errors.add :payment_id, paypal_payment.error.inspect
     end
     result
   end
 
-  # second step
+  # 2 step: execute payment
   def execute(params)
     return unless self.payment_id
-
-    _payment = PAYMENT.find(self.payment_id)
-    _payment.execute(payer_id: params[:PayerID])
-
-    paypal = PaypalPayment.new
-
-    if _payment.state == 'approved'
-      trans = _payment.transactions[0]
-      paypal.total_amount = trans.amount.total
-      paypal.payment_uuid = trans.related_resources[0].sale.id
-      paypal.save
-    else
-      errors.add :uuid, _payment.error.inspect
-      false
-    end
+    self.paypal_payment ||= PAYMENT.find(self.payment_id)
+    paypal_payment.execute(payer_id: params[:PayerID])
   end
 
-  def verify_payment
-    _payment = PAYMENT.find(self.payment_id)
-    _payment.execute(payer_id: params[:PayerID])
+  # 3 step: check result
+  def check_payment
+    return unless self.payment_id
+    self.paypal_payment ||= PAYMENT.find(self.payment_id)
 
     paypal = PaypalPayment.new
 
-    if _payment.state == 'approved'
-      trans = _payment.transactions[0]
+    if paypal_payment.state == 'approved'
+      trans = paypal_payment.transactions[0]
+
       paypal.total_amount = trans.amount.total
       paypal.payment_uuid = trans.related_resources[0].sale.id
       paypal.save
     else
-      errors.add :uuid, _payment.error.inspect
+      errors.add :uuid, paypal_payment.error.inspect
       false
     end
   end
@@ -87,7 +76,7 @@ module ThePaypal
           total: items_params.sum { |i| i[:quantity] * i[:price].to_d },
           currency: self.currency.upcase
         },
-        description: 'Go-To Place to Buy Chemicals| ichemical.com'
+        description: ''
       }
     }
   end
@@ -135,10 +124,10 @@ module ThePaypal
   end
 
   def remain_items_params
-    origin_items_params << {
+    {
       name: 'Advanced amount',
       sku: 'Advanced amount',
-      price: (- self.received_amount).to_money.exchange_to(self.currency).to_s,
+      price: self.unreceived_amount.to_money.exchange_to(self.currency).to_s,
       currency: self.currency.upcase,
       quantity: 1
     }

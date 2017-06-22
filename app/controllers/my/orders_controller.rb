@@ -8,7 +8,7 @@ class My::OrdersController < My::BaseController
 
     respond_to do |format|
       format.html
-      format.json { render json: @orders }
+      format.json
     end
   end
 

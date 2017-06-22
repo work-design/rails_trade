@@ -1,5 +1,9 @@
 class HandPayment < Payment
 
+  after_initialize if: :new_record? do |lb|
+    self.payment_uuid = UidHelper.nsec_uuid('PAY')
+  end
+
   def save_detail!(params)
     self.company_id = order.company_id
     self.notified_at = Time.now
