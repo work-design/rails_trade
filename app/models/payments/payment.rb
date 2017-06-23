@@ -32,6 +32,10 @@ class Payment < ApplicationRecord
     payment_orders.sum(:check_amount)
   end
 
+  def have_checked?
+    checked_amount >= total_amount
+  end
+
   def compute_amount
     if total_amount.blank? && fee_amount.present? && income_amount.present?
       self.total_amount = self.fee_amount + self.income_amount
