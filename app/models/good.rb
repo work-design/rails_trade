@@ -1,6 +1,4 @@
 class Good < ApplicationRecord
-  attachment :logo
-
   default_scope -> { where(:published => true) }
   paginates_per 9
 
@@ -9,7 +7,6 @@ class Good < ApplicationRecord
 
   has_many :cart_products
   has_many :sales
-  has_many :photos, :as => :imageable
 
   has_many :good_items, dependent: :destroy
   has_many :items, :through => :good_items

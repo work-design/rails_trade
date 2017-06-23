@@ -1,4 +1,4 @@
-class My::OrdersController < My::BaseController
+class My::OrdersController < My::TheTradeController
   before_action :set_buyer
   before_action :set_order, only: [:show, :edit, :update, :pay, :execute, :update_date, :destroy]
 

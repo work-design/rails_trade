@@ -2,6 +2,6 @@
   <td><%= payment_order.order.id %></td>
   <td><%= payment_order.order.uuid %></td>
   <td><%= payment_order.order.amount %></td>
-  <td><%= payment_order.check_amount %></td>
-  <td><%= link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %></td>
+  <td><%= payment_order.check_amount %><span style="color: #999;">（已核销）</span></td>
+  <td><%# link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %></td>
 </tr>
