@@ -34,24 +34,27 @@ module ThePaypal
     return unless self.payment_id
     self.paypal_payment ||= PAYMENT.find(self.payment_id)
 
-    paypal = PaypalPayment.new
-
     if paypal_payment.state == 'approved'
       trans = paypal_payment.transactions[0]
 
-      paypal.total_amount = trans.amount.total
+      paypal = PaypalPayment.new
       paypal.payment_uuid = trans.related_resources[0].sale.id
+      paypal.total_amount = trans.amount.total
 
       payment_order = paypal.payment_orders.build(order_id: self.id, check_amount: paypal.total_amount)
 
-      Payment.transaction do
-        payment_order.save!
-        paypal.save!
+      begin
+        Payment.transaction do
+          payment_order.save!
+          paypal.save!
+        end
+        paypal
+      rescue
+        PaypalPayment.find_by(payment_uuid: trans.related_resources[0].sale.id)
       end
     else
       errors.add :uuid, paypal_payment.error.inspect
     end
-    self.paypal_payment
   end
 
   def final_params

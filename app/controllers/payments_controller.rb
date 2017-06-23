@@ -2,6 +2,10 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_order
 
+  def index
+    @payment_orders = @order.payment_orders
+  end
+
   def alipay_notify
     @order = Order.find_by(uuid: params[:out_trade_no])
 
@@ -45,7 +49,9 @@ class PaymentsController < ApplicationController
   end
 
   def paypal_result
-
+    @order.update payment_id: params[:payment_id]
+    result = @order.paypal_result
+    render json: result.as_json(only: [:id, :total_amount, :type, :payment_uuid, :currency])
   end
 
   private
