@@ -1,8 +1,4 @@
-<div class="three wide column">
-  <%= render 'admin/base/goods_nav' %>
-</div>
-
-<div class="thirteen wide column">
+<div class="">
 
   <div class="ui top attached menu borderless">
     <div class="item"><strong>商品列表</strong></div>
@@ -15,18 +11,21 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Name</th>
+      <th>Sku</th>
+      <th>Price</th>
       <th></th>
     </tr>
     </thead>
 
     <% @goods.each do |good| %>
       <tr>
+        <td><%= good.id %></td>
         <td><%= good.name %></td>
+        <td><%= good.sku %></td>
+        <td><%= good.price %></td>
         <td><%= link_to '编辑', edit_admin_good_path(good) %></td>
-        <td><%= link_to '删除', admin_good_path(good), :method => :delete, :data => { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '删除', admin_good_path(good), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </table>

@@ -1,9 +1,6 @@
 class Good < ApplicationRecord
-  default_scope -> { where(:published => true) }
-  paginates_per 9
-
-  belongs_to :provider
-  belongs_to :promote
+  #belongs_to :provider, optional: true
+  belongs_to :promote, optional: true
 
   has_many :cart_products
   has_many :sales
@@ -14,11 +11,10 @@ class Good < ApplicationRecord
 
   has_many :good_produces, dependent: :destroy
 
-  validates :provider_id, presence: true
-
+  validates :sku, presence: true
 
   def same_provider
-    self.class.where(:provider_id => self.provider_id)
+    self.class.where(provider_id: self.provider_id)
   end
 
 end
