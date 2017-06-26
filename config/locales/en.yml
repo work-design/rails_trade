@@ -20,6 +20,9 @@ en:
     models:
       role: ''
     attributes:
+      charge/type:
+        SingleCharge: Single Charge
+        TotalCharge: Total Charge
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record

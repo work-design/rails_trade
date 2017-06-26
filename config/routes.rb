@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :carts, :only => [:index, :destroy]
     resources :areas
 
+    resources :charges
     resources :orders, only: [:index, :show, :edit, :update, :destroy] do
       get :payments, on: :collection
     end

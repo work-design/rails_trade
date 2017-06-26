@@ -11,7 +11,6 @@ end
 create_table "orders", force: :cascade do |t|
   t.integer  "user_id",     limit: 4,              null: false
   t.integer :buyer_id
-  t.integer  "good_id",     limit: 4
   t.float    "price",       limit: 24
   t.integer  "quantity",    limit: 4,  default: 1
   t.float    "total_price", limit: 24

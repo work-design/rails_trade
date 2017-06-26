@@ -1,0 +1,9 @@
+$('#carriage_edit_modal').remove();
+
+$('#carriage_new_modal').remove();
+
+$('#carriage_log_modal').remove();
+
+$('body').append('<%= j(render 'edit') %>');
+
+$('#carriage_edit_modal').modal('setting', {autofocus: false}).modal('show');

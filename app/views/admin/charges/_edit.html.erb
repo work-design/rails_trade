@@ -1,0 +1,24 @@
+<div class="ui modal" id="carriage_edit_modal">
+  <i class="close icon"></i>
+  <div class="ui header blue">
+    Edit Carriage
+  </div>
+  <%= form_for @carriage, url: work_carriage_path, method: :patch, html: { class: "content", id: "carriage_edit_form" } do |f| %>
+      <%= render partial: 'form', locals: { f: f } %>
+  <% end %>
+  <div class="actions">
+    <div class="ui button" onclick="hideEditModal()">Cancel</div>
+    <div class="ui blue button" onclick="submitForm()">Confirm</div>
+  </div>
+</div>
+<script>
+  $('.selection.dropdown')
+      .dropdown()
+  ;
+  function submitForm(){
+    $("#carriage_edit_form").submit();
+  }
+  function hideEditModal(){
+    $('#carriage_edit_modal').modal('hide');
+  }
+</script>
