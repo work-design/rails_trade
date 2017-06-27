@@ -17,7 +17,6 @@ class Refund < ApplicationRecord
     Alipay::Utils.generate_batch_no
   end
 
-  # 谨慎更新批次号 by xujian
   # 微信是同一个批次号未退款成功可重复申请
   # 支付宝批次号只能当天有效
   def renew_refund_uuid
@@ -45,7 +44,7 @@ class Refund < ApplicationRecord
       end
     end
 
-    return true
+    true
   end
 
   def refund_failed!(params = {})
@@ -54,7 +53,8 @@ class Refund < ApplicationRecord
       self.origin&.online_refund_failed!(self, params)
       self.save!
     end
-    return true
+
+    true
   end
 
   def valid_total_amount

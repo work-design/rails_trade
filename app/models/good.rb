@@ -1,5 +1,4 @@
 class Good < ApplicationRecord
-  #belongs_to :provider, optional: true
   belongs_to :promote, optional: true
 
   has_many :cart_products
@@ -13,10 +12,16 @@ class Good < ApplicationRecord
 
   validates :sku, presence: true
 
+  before_save :sync_name
+
   def same_provider
     self.class.where(provider_id: self.provider_id)
   end
 
+
+  def sync_name
+    self.name = entity.name
+  end
 end
 
 

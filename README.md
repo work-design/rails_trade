@@ -12,8 +12,23 @@ This project rocks and uses MIT-LICENSE.
 #### 流程  
 Good -> CartItem -> Order(OrderItem) <=> Payment
   
+```
 Good
 └ Promote
+```
+  
+#### 集成商品编辑信息
+```erb
+<% if product.good %>
+  <%= link_to admin_good_path(product.good.id), remote: true do %>
+    <i class="shopping bag icon" id="good_<%= product.good.id %>"></i>
+  <% end %>
+<% else %>
+  <%= link_to new_admin_good_path(sku: product.sku), remote: true do %>
+    <i class="shop icon" id="product_<%= product.sku %>"></i>
+  <% end %>
+<% end %>
+```
   
 OrderItem <=> Shipment
          
