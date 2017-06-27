@@ -57,6 +57,7 @@ class Admin::PaymentsController < Admin::TheTradeController
 
   def payment_params
     p = params.fetch(:payment, {}).permit(:type,
+                                          :uuid,
                                           :total_amount,
                                           :fee_amount,
                                           :income_amount,

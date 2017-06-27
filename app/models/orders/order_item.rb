@@ -18,11 +18,12 @@ end
 
 
 # :good_id, :integer,     limit: 4
-# :price,       limit: 24
-# :number,    limit: 4,  default: 1
-#  t.float    "total_price", limit: 24
-#  t.datetime "order_at"
-#  t.datetime "payed_at"
+# :quantity, :float
+# :unit, :string
+# :number, :integer, limit: 4, default: 1
+# :total_price, :decimal, limit: 24
+# :order_at :datetime
+# :payed_at :datetime
 
 
 
