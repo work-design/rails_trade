@@ -1,0 +1,5 @@
+$('body').append('<%= j(render 'show') %>');
+
+$('#good_<%= @good.id %>').popup({
+  popup: '#show_good_<%= @good.id %>'
+}).popup('show');

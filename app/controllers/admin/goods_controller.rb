@@ -1,5 +1,5 @@
 class Admin::GoodsController < Admin::BaseController
-  before_action :set_good, only: [:edit, :update, :destroy]
+  before_action :set_good, only: [:show, :edit, :update, :destroy]
 
   def index
     @goods = Good.page(params[:page])
@@ -17,6 +17,9 @@ class Admin::GoodsController < Admin::BaseController
     else
       render action: 'new', notice: '添加失败'
     end
+  end
+
+  def show
   end
 
   def edit
