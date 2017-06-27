@@ -1,9 +1,8 @@
-$('#carriage_edit_modal').remove();
+if ($('.ui.modals').length === 0) {
+  $('body').append('<%= j(render 'edit') %>');
+} else {
+  $('.ui.modals').html('<%= j(render 'edit') %>');
+}
 
-$('#carriage_new_modal').remove();
 
-$('#carriage_log_modal').remove();
-
-$('body').append('<%= j(render 'edit') %>');
-
-$('#carriage_edit_modal').modal('setting', {autofocus: false}).modal('show');
+$('#charge_edit_modal').modal('setting', {autofocus: false}).modal('show');

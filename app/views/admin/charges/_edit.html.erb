@@ -1,24 +1,13 @@
-<div class="ui modal" id="carriage_edit_modal">
+<div class="ui modal" id="charge_edit_modal">
   <i class="close icon"></i>
   <div class="ui header blue">
-    Edit Carriage
+    Add New Charge
   </div>
-  <%= form_for @carriage, url: work_carriage_path, method: :patch, html: { class: "content", id: "carriage_edit_form" } do |f| %>
+
+  <div class="content">
+    <%= default_form_with model: @charge, as: :charge, url: admin_charge_path(@charge), method: :patch do |f| %>
       <%= render partial: 'form', locals: { f: f } %>
-  <% end %>
-  <div class="actions">
-    <div class="ui button" onclick="hideEditModal()">Cancel</div>
-    <div class="ui blue button" onclick="submitForm()">Confirm</div>
+    <% end %>
   </div>
+
 </div>
-<script>
-  $('.selection.dropdown')
-      .dropdown()
-  ;
-  function submitForm(){
-    $("#carriage_edit_form").submit();
-  }
-  function hideEditModal(){
-    $('#carriage_edit_modal').modal('hide');
-  }
-</script>

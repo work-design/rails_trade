@@ -20,9 +20,9 @@ class CreatePaymentReferences < ActiveRecord::Migration[5.1]
 
     create_table :charges do |t|
       t.string :unit
-      t.decimal :min
-      t.decimal :max
-      t.decimal :price
+      t.decimal :min, precision: 10, scale: 2
+      t.decimal :max, precision: 10, scale: 2
+      t.decimal :price, precision: 10, scale: 2
       t.string :type
       t.timestamps
     end

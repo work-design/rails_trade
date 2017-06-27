@@ -15,7 +15,7 @@ class Admin::ChargesController < Admin::TheTradeController
     respond_to do |format|
       if @charge.save
         format.html { redirect_to admin_charges_url, notice: 'Charge was successfully created.' }
-        format.js
+        format.js { redirect_to admin_charges_url, notice: 'Charge was successfully created.' }
       else
         format.html { render :new }
         format.js
@@ -31,7 +31,7 @@ class Admin::ChargesController < Admin::TheTradeController
     respond_to do |format|
       if @charge.update(charge_params)
         format.html { redirect_to admin_charges_url, notice: 'Charge was successfully updated.' }
-        format.js
+        format.js { redirect_to admin_charges_url, notice: 'Charge was successfully created.' }
       else
         format.html { render :edit }
         format.js
