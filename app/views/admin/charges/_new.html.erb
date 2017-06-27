@@ -5,7 +5,7 @@
   </div>
 
   <div class="content">
-    <%= default_form_with model: @charge, as: :charge, url: admin_charges_path do |f| %>
+    <%= default_form_with model: @charge, scope: :charge, url: admin_charges_path do |f| %>
       <%= render partial: 'form', locals: { f: f } %>
     <% end %>
   </div>
