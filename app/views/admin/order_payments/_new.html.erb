@@ -1,0 +1,40 @@
+<div class="ui modal" id="payment_logs">
+  <i class="close icon"></i>
+  <div class="header">
+    <span style="color: #0d71bb">Payment Logs</span>
+  </div>
+  <div class="content">
+    <table class="ui basic red table">
+      <thead>
+      <tr>
+        <th>Payment Type</th>
+        <th>Payment ID</th>
+        <th></th>
+        <th>待核销</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% unless @order.all_paid? %>
+        <%= render partial: 'payments', collection: @payments, as: :payment %>
+      <% end %>
+
+      <%= render partial: 'index', collection: @order.payment_orders, as: :payment_order %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th class="center aligned">
+          <%= @order.payment_orders.sum(:check_amount) %>
+        </th>
+        <th colspan="4"></th>
+      </tr>
+      </tfoot>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+

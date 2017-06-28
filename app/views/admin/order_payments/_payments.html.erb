@@ -1,0 +1,17 @@
+<tr id="unchecked_<%= payment.id %>">
+  <td>
+    <%= payment.id %>
+    <%= form_with url: admin_order_order_payments_path(@order), id: "new_payment_#{payment.id}" do |f| %>
+    <% end %>
+  </td>
+  <td><%= payment.type %></td>
+  <td><%= payment.total_amount %></td>
+  <td><%= payment.created_at %></td>
+  <td>
+    <%= hidden_field_tag 'payment_order[payment_id]', payment.id, form: "new_payment_#{payment.id}" %>
+    <%= number_field_tag 'payment_order[check_amount]', @order.unreceived_amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "new_payment_#{payment.id}" %>
+  </td>
+  <td>
+    <%= submit_tag '核销', form: "new_payment_#{payment.id}" %>
+  </td>
+</tr>

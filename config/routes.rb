@@ -3,17 +3,9 @@ Rails.application.routes.draw do
   namespace :admin do
 
     get 'trade' => 'trade#index'
-
     resources :goods do
-      get 'pic' => :edit_pic, :on => :member
-      patch 'pic' => :update_pic, :on => :member
-      get 'items' => :edit_items, :on => :member
-      patch 'items' => :update_items, :on => :member
-      get 'taxons' => :edit_taxons, :on => :member
-      patch 'taxons' => :update_taxons, :on => :member
-      get 'promote' => :edit_promote, :on => :member
-      patch 'promote' => :update_promote, :on => :member
-      resources :good_items
+      get 'promote' => :edit_promote, on: :member
+      patch 'promote' => :update_promote, on: :member
       resources :sales
     end
     resources :invites
@@ -30,6 +22,7 @@ Rails.application.routes.draw do
     resources :charges
     resources :orders, only: [:index, :show, :edit, :update, :destroy] do
       get :payments, on: :collection
+      resources :order_payments
     end
     resources :payments do
       resources :payment_orders
@@ -58,10 +51,8 @@ Rails.application.routes.draw do
     resources :payment_methods
   end
 
-  resources :orders, only: [] do
-    resources :payments, only: [:index] do
-      post :paypal_result, on: :collection
-    end
+  resources :payments, only: [:index] do
+    post :paypal_result, on: :collection
   end
 
 end

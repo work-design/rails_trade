@@ -5,6 +5,7 @@ class PaymentOrder < ApplicationRecord
   validate :for_check_amount
 
   after_commit :update_order_state
+  after_commit :update_payment_state
 
   def for_check_amount
     if same_amount + self.check_amount.to_d > self.payment.total_amount
@@ -30,6 +31,17 @@ class PaymentOrder < ApplicationRecord
       order.payment_status = 'unpaid'
     end
     order.change_to_paid!
+  end
+
+  def update_payment_state
+    if self.same_amount >= payment.total_amount
+      payment.state = 'checked'
+    elsif self.same_amount > 0 && self.same_amount < payment.total_amount
+      payment.state = 'part_checked'
+    elsif self.same_amount == 0
+      payment.state = 'init'
+    end
+    payment.save
   end
 
 end

@@ -2,10 +2,6 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_order
 
-  def index
-    @payment_orders = @order.payment_orders
-  end
-
   def alipay_notify
     @order = Order.find_by(uuid: params[:out_trade_no])
 

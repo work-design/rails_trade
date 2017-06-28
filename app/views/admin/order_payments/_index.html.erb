@@ -1,0 +1,10 @@
+<tr id="checked_<%= payment_order.payment_id %>">
+  <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %></td>
+  <td class="center aligned"><%= payment_order.payment.type %></td>
+  <td class="center aligned"><%= payment_order.payment_id %></td>
+  <td class="center aligned"><%= payment_order.payment.created_at.to_s %></td>
+  <td class="center aligned"><%= payment_order.created_at.to_s %></td>
+  <td>
+    <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+  </td>
+</tr>

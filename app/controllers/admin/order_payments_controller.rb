@@ -1,5 +1,5 @@
-class Admin::PaymentOrdersController < Admin::TheTradeController
-  before_action :set_payment
+class Admin::OrderPaymentsController < Admin::TheTradeController
+  before_action :set_order
   before_action :set_payment_order, only: [:destroy]
 
   def new
@@ -30,13 +30,13 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     @payment_order = PaymentOrder.find(params[:id])
   end
 
-  def set_payment
-    @payment = Payment.find(params[:payment_id])
-    @orders = @payment.pending_orders
+  def set_order
+    @order = Order.find(params[:order_id])
+    @payments = @order.pending_payments
   end
 
   def payment_order_params
-    params.fetch(:payment_order, {}).permit(:order_id, :check_amount)
+    params.fetch(:payment_order, {}).permit(:payment_id, :check_amount)
   end
 
 end

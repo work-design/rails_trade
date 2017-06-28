@@ -11,4 +11,8 @@ module TheOrderable
     self.amount - self.received_amount
   end
 
+  def pending_payments
+    Payment.where.not(id: self.payment_orders.pluck(:payment_id)).where(payment_method_id: self.buyer.payment_method_ids, state: ['init', 'part_checked'])
+  end
+
 end

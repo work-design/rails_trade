@@ -14,7 +14,8 @@ class Payment < ApplicationRecord
 
   enum state: [
     :init,
-    :completed
+    :part_checked,
+    :checked
   ]
 
   def analyze_payment_method
