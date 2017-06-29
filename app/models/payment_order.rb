@@ -4,6 +4,11 @@ class PaymentOrder < ApplicationRecord
 
   validate :for_check_amount
 
+  enum state: [
+    :init,
+    :confirmed
+  ]
+
   after_commit :update_order_state
   after_commit :update_payment_state
 

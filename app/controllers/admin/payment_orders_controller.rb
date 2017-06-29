@@ -1,6 +1,6 @@
 class Admin::PaymentOrdersController < Admin::TheTradeController
   before_action :set_payment
-  before_action :set_payment_order, only: [:destroy]
+  before_action :set_payment_order, only: [:update, :destroy]
 
   def new
     @payment_order = PaymentOrder.new
@@ -8,6 +8,18 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def create
     @payment_order = @payment.payment_orders.build(payment_order_params)
+
+    if @payment_order.save
+      respond_to do |format|
+        format.js
+      end
+    else
+      render 'create_fail'
+    end
+  end
+
+  def update
+    @payment_order.state = 'confirmed'
 
     if @payment_order.save
       respond_to do |format|
@@ -36,7 +48,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
   end
 
   def payment_order_params
-    params.fetch(:payment_order, {}).permit(:order_id, :check_amount)
+    params.fetch(:payment_order, {}).permit(:order_id, :check_amount).merge(state: 'confirmed')
   end
 
 end

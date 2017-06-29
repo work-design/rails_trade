@@ -1,7 +1,16 @@
 <tr id="checked_<%= payment_order.order_id %>">
-  <td><%= payment_order.order.id %></td>
+  <td>
+    <%= payment_order.order.id %>
+  </td>
   <td><%= payment_order.order.uuid %></td>
   <td><%= payment_order.order.amount %></td>
   <td><%= payment_order.check_amount %><span style="color: #999;">（已核销）</span></td>
-  <td><%# link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %></td>
+  <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
+  <td>
+    <% if payment_order.confirmed? %>
+      <%= link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %>
+    <% else %>
+      <%= link_to '确认', admin_payment_payment_order_path(@payment, payment_order), method: :patch, remote: true, class: 'ui mini button' %>
+    <% end %>
+  </td>
 </tr>

@@ -7,11 +7,13 @@
     <table class="ui basic red table">
       <thead>
       <tr>
-        <th>Payment Type</th>
         <th>Payment ID</th>
-        <th></th>
-        <th>待核销</th>
-        <th></th>
+        <th><%= Payment.human_attribute_name(:type) %></th>
+        <th><%= Payment.human_attribute_name(:total_amount) %></th>
+        <th><%= Payment.human_attribute_name(:created_at) %></th>
+        <th>预核销</th>
+        <th>核销时间</th>
+        <th>操作</th>
       </tr>
       </thead>
       <tbody>
@@ -23,10 +25,11 @@
       </tbody>
       <tfoot>
       <tr>
-        <th class="center aligned">
+        <th colspan="4"></th>
+        <th class="center aligned" id="checked_amount">
           <%= @order.payment_orders.sum(:check_amount) %>
         </th>
-        <th colspan="4"></th>
+        <th colspan="2"></th>
       </tr>
       </tfoot>
     </table>
