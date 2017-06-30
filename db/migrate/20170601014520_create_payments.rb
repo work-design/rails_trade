@@ -9,7 +9,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.column :checked_amount, :decimal, precision: 10, scale: 2
       t.column :payment_uuid, :string, limit: 255
       t.column :notify_type, :string, limit: 255
-      t.column :notified_at, :datetime, precision: 0
+      t.column :notified_at, :datetime
       t.column :pay_status, :string, limit: 255
       t.column :sign, :string, limit: 255
       t.column :seller_identifier, :string, limit: 255
