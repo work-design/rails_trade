@@ -1,8 +1,10 @@
 class Payment < ApplicationRecord
+  include Auditable
+
   attribute :currency, :string, default: 'USD'
 
   belongs_to :payment_method, optional: true
-  has_many :payment_orders, dependent: :destroy
+  has_many :payment_orders, dependent: :destroy, inverse_of: :payment
   has_many :orders, through: :payment_orders
 
   default_scope -> { order(created_at: :desc) }
@@ -15,7 +17,8 @@ class Payment < ApplicationRecord
   enum state: [
     :init,
     :part_checked,
-    :checked
+    :checked,
+    :abusive_checked
   ]
 
   def analyze_payment_method
@@ -29,12 +32,8 @@ class Payment < ApplicationRecord
     end
   end
 
-  def checked_amount
-    payment_orders.sum(:check_amount)
-  end
-
   def have_checked?
-    checked_amount >= total_amount
+    checked?
   end
 
   def compute_amount
@@ -57,6 +56,21 @@ class Payment < ApplicationRecord
     else
       []
     end
+  end
+
+
+  def update_payment_state
+    self.checked_amount = payment_orders.sum(:check_amount)
+    if self.checked_amount == self.total_amount
+      self.state = 'checked'
+    elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
+      self.state = 'part_checked'
+    elsif self.checked_amount == 0
+      self.state = 'init'
+    else
+      self.state = 'abusive_checked'
+    end
+    self.save
   end
 
 end

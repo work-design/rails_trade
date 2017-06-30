@@ -1,6 +1,6 @@
 class PaymentOrder < ApplicationRecord
   belongs_to :order
-  belongs_to :payment
+  belongs_to :payment, inverse_of: :payment_orders
 
   validate :for_check_amount
 
@@ -22,6 +22,10 @@ class PaymentOrder < ApplicationRecord
     PaymentOrder.where.not(id: self.id).where(payment_id: self.payment_id).sum(:check_amount)
   end
 
+  def payment_amount
+    PaymentOrder.where(payment_id: self.payment_id).sum(:check_amount)
+  end
+
   def order_amount
     PaymentOrder.where(order_id: self.order_id).sum(:check_amount)
   end
@@ -39,12 +43,15 @@ class PaymentOrder < ApplicationRecord
   end
 
   def update_payment_state
-    if self.same_amount >= payment.total_amount
+    payment.checked_amount = payment_amount
+    if payment.checked_amount == payment.total_amount
       payment.state = 'checked'
-    elsif self.same_amount > 0 && self.same_amount < payment.total_amount
+    elsif payment.checked_amount > 0 && payment.checked_amount < payment.total_amount
       payment.state = 'part_checked'
-    elsif self.same_amount == 0
+    elsif payment.checked_amount == 0
       payment.state = 'init'
+    else
+      payment.state = 'abusive_checked'
     end
     payment.save
   end
