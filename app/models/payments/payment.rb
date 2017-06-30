@@ -17,7 +17,7 @@ class Payment < ApplicationRecord
   enum state: [
     :init,
     :part_checked,
-    :checked,
+    :all_checked,
     :abusive_checked
   ]
 
@@ -33,7 +33,7 @@ class Payment < ApplicationRecord
   end
 
   def have_checked?
-    checked?
+    all_checked?
   end
 
   def compute_amount
@@ -62,7 +62,7 @@ class Payment < ApplicationRecord
   def update_payment_state
     self.checked_amount = payment_orders.sum(:check_amount)
     if self.checked_amount == self.total_amount
-      self.state = 'checked'
+      self.state = 'all_checked'
     elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
       self.state = 'part_checked'
     elsif self.checked_amount == 0
