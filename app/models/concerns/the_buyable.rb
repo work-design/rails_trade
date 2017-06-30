@@ -3,6 +3,7 @@ module TheBuyable
 
   included do
     belongs_to :buyer, optional: true, autosave: true
+    after_save :sync_name, if: -> { name_changed? }
   end
 
   def get_buyer
@@ -14,6 +15,10 @@ module TheBuyable
     end
 
     buyer
+  end
+
+  def sync_name
+    buyer.update(name: self.name)
   end
 
 end

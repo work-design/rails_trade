@@ -1,4 +1,4 @@
-class Admin::GoodsController < Admin::BaseController
+class Admin::GoodsController < Admin::TheTradeController
   before_action :set_good, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -29,7 +29,7 @@ class Admin::GoodsController < Admin::BaseController
     if @good.update(good_params)
       redirect_to admin_goods_url, notice: 'Good was successfully updated.'
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 

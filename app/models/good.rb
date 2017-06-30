@@ -1,23 +1,17 @@
 class Good < ApplicationRecord
   belongs_to :promote, optional: true
 
-  has_many :cart_products
   has_many :sales
-
-  has_many :good_items, dependent: :destroy
-  has_many :items, :through => :good_items
-  has_many :lists, :through => :items
-
+  has_many :cart_products, dependent: :destroy
   has_many :good_produces, dependent: :destroy
 
-  validates :sku, presence: true
+  validates :sku, presence: true, uniqueness: true
 
   before_save :sync_name
 
   def same_provider
     self.class.where(provider_id: self.provider_id)
   end
-
 
   def sync_name
     self.name = entity.name

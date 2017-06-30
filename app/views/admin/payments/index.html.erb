@@ -11,10 +11,10 @@
   <div class="ui segment top attached">
     <p>
       <span>Type:</span>
-      <%= link_to 'All', filter_params(except: [:type]), class: ex_active_params(type: '') %>
-      <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: ex_active_params(type: 'BankPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: ex_active_params(type: 'HandPayment') %>
-      <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: ex_active_params(type: 'PaypalPayment') %>
+      <%= link_to 'All', filter_params(except: [:type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: active_params(type: 'BankPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: active_params(type: 'HandPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: active_params(type: 'PaypalPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
     </p>
     <p>
       <%= link_to t('.add_new'), new_admin_payment_path, class: 'ui teal button' %>
