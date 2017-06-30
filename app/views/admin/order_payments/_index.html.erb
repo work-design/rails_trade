@@ -6,6 +6,8 @@
   <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（已核销）</span></td>
   <td class="center aligned"><%= payment_order.created_at.to_s %></td>
   <td>
-    <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+    <% if the_role_user.has_role?('admin/order_payments', 'destroy') %>
+      <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+    <% end %>
   </td>
 </tr>
