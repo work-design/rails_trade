@@ -1,4 +1,5 @@
 <%= default_form_with model: @payment_reference, as: :payment_reference, url: admin_payment_method_references_path(@payment_method) do |f| %>
+  <%= f.select :buyer_type, options_for_select(PaymentReference.options_i18n(:buyer_type)), { label: 'Buyer Type', include_blank: true }, { class: 'ui fluid dropdown' } %>
   <%= f.select :buyer_id, options_for_select([]), { label: 'Buyer', include_blank: true }, { class: 'ui search fluid dropdown' } %>
   <%= f.submit %>
 <% end %>
@@ -6,7 +7,11 @@
 <script>
   $('.ui.dropdown').dropdown({
     apiSettings: {
-      url: '/buyers/search?q={query}'
+      url: '/buyers/search?q={query}&buyer_type={buyer_type}',
+      beforeSend: function(settings) {
+        settings.urlData.buyer_type = document.querySelector('select[name="payment_reference[buyer_type]"]').value;
+        return settings;
+      }
     },
     fields: {
       name: 'name',

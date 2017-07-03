@@ -46,3 +46,5 @@ en:
       payment_order/state:
         init: 待确认
         confirmed: 已确认
+      payment_reference/buyer_type:
+        Company: Company

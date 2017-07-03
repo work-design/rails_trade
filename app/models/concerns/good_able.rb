@@ -2,13 +2,11 @@ module GoodAble
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :promote, optional: true
+    has_many :cart_items, as: :good, dependent: :nullify
+    has_many :order_items, as: :good, dependent: :nullify
 
-    has_many :cart_items, dependent: :nullify
-    has_many :order_items, dependent: :nullify
-
-    OrderItem.belongs_to :good, class_name: name, foreign_key: :good_id
-    CartItem.belongs_to :good, class_name: name, foreign_key: :good_id
+    OrderItem.belongs_to :good, polymorphic: true
+    CartItem.belongs_to :good, polymorphic: true
   end
 
 end
