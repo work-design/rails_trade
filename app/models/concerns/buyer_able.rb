@@ -10,6 +10,10 @@ module BuyerAble
     PaymentReference.belongs_to :buyer, polymorphic: true
   end
 
+  def name_detail
+    "#{name} (#{id})"
+  end
+
 end
 
 # required attributes
