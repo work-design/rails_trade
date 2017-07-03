@@ -1,8 +1,7 @@
-module TheOrderable
+module OrderAble
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :buyer, optional: true
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders
   end
@@ -16,3 +15,5 @@ module TheOrderable
   end
 
 end
+
+
