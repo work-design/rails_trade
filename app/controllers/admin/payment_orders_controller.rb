@@ -44,7 +44,6 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def set_payment
     @payment = Payment.find(params[:payment_id])
-    @orders = @payment.pending_orders
   end
 
   def payment_order_params

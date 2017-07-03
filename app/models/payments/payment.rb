@@ -50,15 +50,6 @@ class Payment < ApplicationRecord
     end
   end
 
-  def pending_orders
-    if self.payment_method
-      Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: self.payment_method.buyer_ids, payment_status: ['unpaid', 'part_paid'])
-    else
-      []
-    end
-  end
-
-
   def update_payment_state
     self.checked_amount = payment_orders.sum(:check_amount)
     if self.checked_amount == self.total_amount
