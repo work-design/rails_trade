@@ -9,11 +9,11 @@ class PaymentOrder < ApplicationRecord
     :confirmed
   ]
 
-  after_commit :update_order_state
-  after_commit :update_payment_state
+  after_create_commit :update_order_state
+  after_create_commit :update_payment_state
 
   def for_check_amount
-    if same_amount + self.check_amount.to_d > self.payment.total_amount
+    if (same_amount + self.check_amount.to_d).ceil > self.payment.total_amount
       self.errors.add(:check_amount, 'The Amount Large than the Total')
     end
   end
@@ -53,6 +53,7 @@ class PaymentOrder < ApplicationRecord
     else
       payment.state = 'abusive_checked'
     end
+    payment.adjust_amount = payment.amount - payment.checked_amount
     payment.save
   end
 

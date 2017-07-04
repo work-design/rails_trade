@@ -12,6 +12,7 @@
       <%= [payment.income_amount, payment.fee_amount].join(' + ') %>
     <% end %>
   </td>
+  <td><%= payment.adjust_amount %></td>
   <td><%= payment.buyer_name %></td>
   <td>
     <%= payment.buyer_identifier %>
