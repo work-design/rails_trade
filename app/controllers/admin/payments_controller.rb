@@ -61,6 +61,7 @@ class Admin::PaymentsController < Admin::TheTradeController
                                           :total_amount,
                                           :fee_amount,
                                           :income_amount,
+                                          :adjust_amount,
                                           :notified_at,
                                           :comment,
                                           :buyer_name,
