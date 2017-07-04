@@ -1,6 +1,5 @@
 class OrderItem < ApplicationRecord
-  belongs_to :good
-
+  belongs_to :good, polymorphic: true
 
   def compute_fee
     if number.blank? && self.unit.present?

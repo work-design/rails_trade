@@ -2,6 +2,8 @@ module OrderAble
   extend ActiveSupport::Concern
 
   included do
+    belongs_to :buyer, polymorphic: true
+
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders
   end

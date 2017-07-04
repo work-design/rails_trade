@@ -8,7 +8,7 @@
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
   <td>
     <% if payment_order.confirmed? && the_role_user.has_role?('admin/payment_orders', 'destroy') %>
-      <%= link_to '撤销', admin_payment_payment_order_path(@payment, payment_order), method: :delete, remote: true %>
+      <%= link_to '撤销', cancel_admin_payment_payment_order_path(@payment, payment_order), method: :patch, remote: true %>
     <% else %>
       <%= link_to '确认', admin_payment_payment_order_path(@payment, payment_order), method: :patch, remote: true, class: 'ui mini button' %>
     <% end %>

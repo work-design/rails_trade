@@ -4,9 +4,6 @@ module GoodAble
   included do
     has_many :cart_items, as: :good, dependent: :nullify
     has_many :order_items, as: :good, dependent: :nullify
-
-    OrderItem.belongs_to :good, polymorphic: true
-    CartItem.belongs_to :good, polymorphic: true
   end
 
 end

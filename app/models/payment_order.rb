@@ -9,8 +9,8 @@ class PaymentOrder < ApplicationRecord
     :confirmed
   ]
 
-  after_create_commit :update_order_state
-  after_create_commit :update_payment_state
+  after_commit :update_order_state, on: [:create, :destroy]
+  after_commit :update_payment_state, on: [:create, :destroy]
 
   def for_check_amount
     if (same_amount + self.check_amount.to_d).ceil > self.payment.total_amount
@@ -44,8 +44,9 @@ class PaymentOrder < ApplicationRecord
 
   def update_payment_state
     payment.checked_amount = payment_amount
-    if payment.checked_amount == payment.total_amount
+    if payment.checked_amount >= payment.total_amount
       payment.state = 'all_checked'
+      payment.adjust_amount = payment.total_amount - payment.checked_amount
     elsif payment.checked_amount > 0 && payment.checked_amount < payment.total_amount
       payment.state = 'part_checked'
     elsif payment.checked_amount == 0
@@ -53,7 +54,6 @@ class PaymentOrder < ApplicationRecord
     else
       payment.state = 'abusive_checked'
     end
-    payment.adjust_amount = payment.amount - payment.checked_amount
     payment.save
   end
 

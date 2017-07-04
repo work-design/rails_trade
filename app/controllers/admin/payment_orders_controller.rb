@@ -1,6 +1,6 @@
 class Admin::PaymentOrdersController < Admin::TheTradeController
   before_action :set_payment
-  before_action :set_payment_order, only: [:update, :destroy]
+  before_action :set_payment_order, only: [:update, :cancel]
 
   def new
     @payment_order = PaymentOrder.new
@@ -30,8 +30,8 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     end
   end
 
-  def destroy
-    @payment_order.destroy
+  def cancel
+    @payment_order.update state: 'init'
     respond_to do |format|
       format.js
     end

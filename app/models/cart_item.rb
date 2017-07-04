@@ -1,5 +1,5 @@
 class CartItem < ApplicationRecord
-  belongs_to :good
+  belongs_to :good, polymorphic: true
 
   enum status: [
     :unpaid,
