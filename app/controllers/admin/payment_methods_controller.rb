@@ -6,7 +6,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   end
 
   def unverified
-    @payment_methods = PaymentMethod.includes(payment_references: :buyer).unscoped.where(verified: [false, nil]).page(params[:page]).references(:payment_references, :buyers)
+    @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).page(params[:page]).references(:payment_references)
   end
 
   def new

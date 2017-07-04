@@ -19,8 +19,8 @@
         <td><%= payment_method.account_num %></td>
         <td><%= payment_method.bank %></td>
         <td>
-          <% payment_method.buyers.each do |buyer| %>
-            <p><%= buyer.name %></p>
+          <% payment_method.payment_references.each do |reference| %>
+            <p><%= reference.buyer.name %></p>
           <% end %>
         </td>
         <td>
@@ -46,8 +46,8 @@
           <td><%= result.account_num %></td>
           <td><%= result.bank %></td>
           <td>
-            <% result.buyers.each do |buyer| %>
-              <p><%= buyer.name %></p>
+            <% result.payment_references.each do |reference| %>
+              <p><%= reference.buyer.name %></p>
             <% end %>
           </td>
           <td></td>
