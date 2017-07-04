@@ -13,7 +13,7 @@ class PaymentOrder < ApplicationRecord
   after_commit :update_payment_state, on: [:create, :destroy]
 
   def for_check_amount
-    if (same_amount + self.check_amount.to_d) > self.payment.total_amount + self.adjust_amount.to_d
+    if (same_amount + self.check_amount.to_d) > self.payment.total_amount + 1
       self.errors.add(:check_amount, 'The Amount Large than the Total')
     end
   end
@@ -44,7 +44,7 @@ class PaymentOrder < ApplicationRecord
 
   def update_payment_state
     payment.checked_amount = payment_amount
-    if payment.checked_amount >= payment.total_amount + self.adjust_amount.to_d
+    if payment.checked_amount >= payment.total_amount
       payment.state = 'all_checked'
       #payment.adjust_amount = payment.total_amount - payment.checked_amount
     elsif payment.checked_amount > 0 && payment.checked_amount < payment.total_amount
