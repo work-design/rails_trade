@@ -6,10 +6,11 @@
   </td>
   <td><%= payment.type %></td>
   <td><%= payment.total_amount %></td>
+  <td><%= payment.unchecked_amount %></td>
   <td><%= payment.created_at %></td>
   <td>
     <%= hidden_field_tag 'payment_order[payment_id]', payment.id, form: "new_payment_#{payment.id}" %>
-    <%= number_field_tag 'payment_order[check_amount]', @order.unreceived_amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "new_payment_#{payment.id}" %>
+    <%= number_field_tag 'payment_order[check_amount]', @order.unreceived_amount <= payment.unchecked_amount ? @order.unreceived_amount : payment.unchecked_amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "new_payment_#{payment.id}" %>
   </td>
   <td></td>
   <td>

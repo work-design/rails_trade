@@ -45,7 +45,7 @@ class PaymentOrder < ApplicationRecord
   def update_payment_state
     payment.checked_amount = payment_amount
     if payment.checked_amount == payment.total_amount
-      payment.state = 'checked'
+      payment.state = 'all_checked'
     elsif payment.checked_amount > 0 && payment.checked_amount < payment.total_amount
       payment.state = 'part_checked'
     elsif payment.checked_amount == 0
