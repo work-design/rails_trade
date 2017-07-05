@@ -1,7 +1,6 @@
 class Order < ApplicationRecord
+  include OrderAble
 
-  has_many :payment_orders, dependent: :destroy
-  has_many :payments, through: :payment_orders
 
 end
 
