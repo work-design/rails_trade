@@ -1,6 +1,4 @@
 class Payment < ApplicationRecord
-  include Auditable
-
   attribute :currency, :string, default: 'USD'
 
   belongs_to :payment_method, optional: true
