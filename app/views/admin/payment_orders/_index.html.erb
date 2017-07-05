@@ -3,6 +3,11 @@
     <%= payment_order.order.id %>
   </td>
   <td><%= payment_order.order.uuid %></td>
+  <td>
+    <% if payment_order.order.payment_memo_id %>
+      <%= link_to 'Download', attachment_url(payment_order.order, :payment_memo) %>
+    <% end %>
+  </td>
   <td><%= payment_order.order.amount %></td>
   <td><%= payment_order.check_amount %><span style="color: #999;">（已核销）</span></td>
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
