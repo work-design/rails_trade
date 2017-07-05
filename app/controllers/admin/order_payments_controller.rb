@@ -20,7 +20,9 @@ class Admin::OrderPaymentsController < Admin::TheTradeController
   end
 
   def destroy
-    @payment_order.destroy
+    if @payment_order.init?
+      @payment_order.destroy
+    end
     respond_to do |format|
       format.js
     end

@@ -34,7 +34,7 @@ class Payment < ApplicationRecord
   end
 
   def unchecked_amount
-    total_amount - checked_amount.to_d
+    total_amount.to_d - checked_amount.to_d
   end
 
   def have_checked?
