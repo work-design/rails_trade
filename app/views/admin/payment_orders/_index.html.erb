@@ -5,7 +5,7 @@
   <td><%= payment_order.order.uuid %></td>
   <td>
     <% if payment_order.order.payment_memo_id %>
-      <%= link_to 'Download', attachment_url(payment_order.order, :payment_memo) %>
+      <%= link_to 'Download', attachment_url(payment_order.order, :payment_memo), download: "payment_memo_#{payment_order.order_id}", target: '_self' %>
     <% end %>
   </td>
   <td><%= payment_order.order.amount %></td>
