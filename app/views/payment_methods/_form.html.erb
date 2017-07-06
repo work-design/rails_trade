@@ -1,4 +1,6 @@
-<%= default_form_with model: [@buyer, @payment_method] do |f| %>
+<%= default_form_with model: @payment_method do |f| %>
+  <%= hidden_field_tag :buyer_type, params[:buyer_type] %>
+  <%= hidden_field_tag :buyer_id, params[:buyer_id] %>
   <%= f.text_field :account_name %>
   <%= f.text_field :account_num %>
   <%= f.text_field :bank %>

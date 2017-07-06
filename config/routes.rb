@@ -50,8 +50,8 @@ Rails.application.routes.draw do
 
   resources :buyers do
     get :search, on: :collection
-    resources :payment_methods
   end
+  resources :payment_methods
 
   resources :payments, only: [:index] do
     post :paypal_result, on: :collection

@@ -1,5 +1,5 @@
 class PaymentMethodsController < ApplicationController
-  before_action :set_buyer
+  before_action :set_buyer, only: [:index, :new, :create]
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -10,7 +10,7 @@ class PaymentMethodsController < ApplicationController
   end
 
   def new
-    @payment_method = PaymentMethod.new
+    @payment_method = @buyer.payment_methods.build
   end
 
   def edit
@@ -41,7 +41,7 @@ class PaymentMethodsController < ApplicationController
 
   private
   def set_buyer
-    @buyer = Buyer.find params[:buyer_id]
+    @buyer = params[:buyer_type].constantize.find params[:buyer_id]
   end
 
   def set_payment_method
@@ -49,7 +49,7 @@ class PaymentMethodsController < ApplicationController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank)
+    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id, :buyer_type)
   end
 
 end
