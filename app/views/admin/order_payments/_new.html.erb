@@ -22,7 +22,7 @@
         <%= render partial: 'payments', collection: @payments, as: :payment %>
       <% end %>
 
-      <%= render partial: 'index', collection: @order.payment_orders, as: :payment_order %>
+      <%= render partial: 'payment_orders', collection: @order.payment_orders, as: :payment_order %>
       </tbody>
       <tfoot>
       <tr>

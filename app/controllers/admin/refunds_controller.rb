@@ -1,4 +1,5 @@
 class Admin::RefundsController < Admin::TheTradeController
+  before_action :set_payment
   before_action :set_refund, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -9,7 +10,7 @@ class Admin::RefundsController < Admin::TheTradeController
   end
 
   def new
-    @refund = Refund.new
+    @refund = @payment.refunds.build
   end
 
   def edit
@@ -39,6 +40,10 @@ class Admin::RefundsController < Admin::TheTradeController
   end
 
   private
+  def set_payment
+    @payment = Payment.find params[:payment_id]
+  end
+
   def set_refund
     @refund = Refund.find(params[:id])
   end

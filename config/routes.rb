@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       end
       get :dashboard, on: :collection
       patch 'analyze', on: :member
+      resources :refunds
     end
     resources :payment_methods do
       resources :payment_references, as: :references

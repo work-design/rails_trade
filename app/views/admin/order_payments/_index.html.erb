@@ -1,14 +1,48 @@
-<tr id="checked_<%= payment_order.payment_id %>">
-  <td style="color: #999;"><%= payment_order.payment_id %></td>
-  <td class="center aligned"><%= payment_order.payment.type %></td>
-  <td><%= payment_order.payment.total_amount %></td>
-  <td><%= payment_order.payment.unchecked_amount %></td>
-  <td class="center aligned"><%= payment_order.payment.created_at.to_s %></td>
-  <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（已核销）</span></td>
-  <td class="center aligned"><%= payment_order.created_at.to_s %></td>
-  <td>
-    <% if the_role_user.has_role?('admin/order_payments', 'destroy') %>
-      <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
-    <% end %>
-  </td>
-</tr>
+<div class="ui modal" id="payment_logs">
+  <i class="close icon"></i>
+  <div class="header">
+    <span style="color: #0d71bb">Payment Logs</span>
+  </div>
+  <div class="content">
+    <table class="ui basic red table">
+      <thead>
+      <tr>
+        <th>Payment ID</th>
+        <th><%= Payment.human_attribute_name(:type) %></th>
+        <th><%= Payment.human_attribute_name(:total_amount) %></th>
+        <th>可核销</th>
+        <th><%= Payment.human_attribute_name(:created_at) %></th>
+        <th>预核销</th>
+        <th>核销时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @order.payment_orders.each do |payment_order| %>
+        <tr id="checked_<%= payment_order.payment_id %>">
+          <td style="color: #999;"><%= payment_order.payment_id %></td>
+          <td class="center aligned"><%= payment_order.payment.type %></td>
+          <td><%= payment_order.payment.total_amount %></td>
+          <td><%= payment_order.payment.unchecked_amount %></td>
+          <td class="center aligned"><%= payment_order.payment.created_at.to_s %></td>
+          <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（已核销）</span></td>
+          <td class="center aligned"><%= payment_order.created_at.to_s %></td>
+          <td>
+            <%= link_to '退款', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="5"></th>
+        <th class="center aligned">
+          已核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
+        </th>
+        <th colspan="2"></th>
+      </tr>
+      </tfoot>
+    </table>
+
+  </div>
+</div>
