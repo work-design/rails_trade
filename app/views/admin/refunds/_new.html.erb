@@ -1,0 +1,18 @@
+<div class="ui modal" id="new_refund_modal">
+  <i class="close icon"></i>
+  <div class="ui blue header">Refund</div>
+  <div class="content">
+    <%= render 'logs_table' %>
+  </div>
+  <div class="ui divider"></div>
+  <div class="content">
+    <%= default_form_for @refund, url: work_refunds_path, method: 'post' do |f| %>
+      <%= hidden_field_tag :order_id, @order.id %>
+      <%= f.text_field :order_amount, label: 'Refund Amount:', placeholder: '$' %>
+      <%= f.text_area :comment, label: 'Comment:' %>
+      <%= f.select :type, options_for_select(Refund.options_i18n(:type), @refund.type), label: 'Type: ' %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+
+</div>

@@ -9,26 +9,22 @@
       <tr>
         <th>Payment ID</th>
         <th><%= Payment.human_attribute_name(:type) %></th>
-        <th><%= Payment.human_attribute_name(:total_amount) %></th>
-        <th>可核销</th>
-        <th><%= Payment.human_attribute_name(:created_at) %></th>
-        <th>预核销</th>
-        <th>核销时间</th>
+        <th><%= PaymentOrder.human_attribute_name(:order_amount) %></th>
+        <th><%= PaymentOrder.human_attribute_name(:check_amount) %></th>
+        <th><%= PaymentOrder.human_attribute_name(:created_at) %></th>
         <th>操作</th>
       </tr>
       </thead>
       <tbody>
         <% @order.payment_orders.each do |payment_order| %>
-        <tr id="checked_<%= payment_order.payment_id %>">
+        <tr id="checked_<%= payment_order.id %>">
           <td style="color: #999;"><%= payment_order.payment_id %></td>
-          <td class="center aligned"><%= payment_order.payment.type %></td>
-          <td><%= payment_order.payment.total_amount %></td>
-          <td><%= payment_order.payment.unchecked_amount %></td>
-          <td class="center aligned"><%= payment_order.payment.created_at.to_s %></td>
-          <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（已核销）</span></td>
-          <td class="center aligned"><%= payment_order.created_at.to_s %></td>
+          <td><%= payment_order.payment.type %></td>
+          <td><%= payment_order.order_amount %></td>
+          <td><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %></td>
+          <td><%= payment_order.created_at.to_s %></td>
           <td>
-            <%= link_to '退款', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+            <%= link_to '退款', new_admin_payment_refund_path(payment_order.payment_id, order_id: payment_order.order_id), remote: true %>
           </td>
         </tr>
         <% end %>
