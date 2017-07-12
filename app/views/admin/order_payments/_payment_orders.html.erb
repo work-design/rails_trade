@@ -7,6 +7,6 @@
   <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（已核销）</span></td>
   <td class="center aligned"><%= payment_order.created_at.to_s %></td>
   <td>
-    <%= link_to_if_permit '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+    <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
   </td>
 </tr>
