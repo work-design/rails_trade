@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       patch 'analyze', on: :member
       resources :refunds
     end
+    resources :payment_strategies
     resources :payment_methods do
       resources :payment_references, as: :references
       get :unverified, on: :collection

@@ -18,18 +18,30 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
-      <th>ID</th>
       <th>类型</th>
+      <th>ID</th>
       <th>名称</th>
       <th>负责人</th>
       <th>逾期数量</th>
+      <th>逾期日期</th>
       <th>逾期金额</th>
       <th></th>
     </tr>
     </thead>
 
     <tbody>
-    <%= render partial: 'item', collection: @orders, as: :order %>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.buyer_type %></td>
+        <td><%= order.buyer_id %></td>
+        <td><%= order.buyer.name %></td>
+        <td><%= order.charger&.name %></td>
+        <td><%= order.count_id %></td>
+        <td><%= order.overdue_date %></td>
+        <td><%= order.sum_amount %></td>
+        <td><%= link_to '详细', orders_admin_buyers_path(buyer_id: order.buyer_id, buyer_type: order.buyer_type) %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 

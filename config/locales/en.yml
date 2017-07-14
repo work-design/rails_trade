@@ -49,3 +49,7 @@ en:
         confirmed: 已确认
       payment_reference/buyer_type:
         Company: Company
+      payment_strategy/strategy:
+        prepay: Prepay
+        desposit: Desposit
+        credit: Credit

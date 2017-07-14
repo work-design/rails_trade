@@ -1,7 +1,11 @@
 class Admin::BuyersController < Admin::TheTradeController
 
   def index
-    @orders = Order.select('SUM(`orders`.`amount`) as sum_amount, count(`orders`.`id`) as count_id, `orders`.`buyer_type`, `orders`.`buyer_id`, `orders`.`charger_id`').group(:buyer_type, :buyer_id).default_where(params.fetch(:q, {}).permit!).page(params[:page])
+    @orders = Order.unscoped.select('SUM(`orders`.`amount`) as sum_amount, count(`orders`.`id`) as count_id, `orders`.`buyer_type`, `orders`.`buyer_id`, `orders`.`charger_id`, `orders`.`overdue_date`')
+      .group(:buyer_type, :buyer_id)
+      .default_where(params.fetch(:q, {}).permit!)
+      .order(overdue_date: :asc)
+      .page(params[:page])
   end
 
 
