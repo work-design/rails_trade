@@ -4,6 +4,7 @@
     <%= f.select :buyer_id, options_for_select([]), { on: { wrapper_input: false } }, { id: 'q_buyer_id', class: 'ui search dropdown' } %>
   </div>
   <%= f.submit 'Search' %>
+  <%= link_to 'Clear All Filters', filter_params(only: [:buyer_id, :buyer_type]), class: 'ui white button' %>
 <% end %>
 
 <script>

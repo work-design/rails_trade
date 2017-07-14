@@ -21,8 +21,8 @@
       <tbody>
       <% @payments.each do |payment| %>
         <tr>
-          <td><%= payment.uuid %></td>
-          <td><%= payment.account_name %></td>
+          <td><%= payment.payment_uuid %></td>
+          <td><%= payment.buyer_name %></td>
           <td><%= payment.total_amount %></td>
           <td><%= payment.notified_at.to_s %></td>
         </tr>
@@ -60,7 +60,17 @@
         <td><%= order.amount %></td>
         <td><%= order.overdue_date %></td>
         <td><%=  %></td>
-        <td><%= link_to '详细', orders_admin_buyers_path(buyer_id: order.buyer_id, buyer_type: order.buyer_type) %></td>
+        <td>
+          <% if order.exists_payments %>
+            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
+              <i class="payment icon"></i>
+            <% end %>
+          <% else %>
+            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon grey button' do %>
+              <i class="payment icon"></i>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     </tbody>
