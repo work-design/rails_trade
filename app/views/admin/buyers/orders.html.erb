@@ -1,0 +1,70 @@
+<div>
+
+  <div class="ui top attached menu borderless">
+    <div class="item"><strong>Buyers Overview with orders</strong></div>
+  </div>
+
+  <div class="ui segment bottom attached">
+    <table class="ui bottom attached table">
+      <thead>
+      <tr>
+        <th>UUID</th>
+        <th<%= Payment.human_attribute_name(:account_name) %></th>
+        <th>名称</th>
+        <th>负责人</th>
+        <th>逾期数量</th>
+        <th>逾期金额</th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><%= payment.uuid %></td>
+          <td><%= payment.account_name %></td>
+          <td><%= payment.total_amount %></td>
+          <td><%= payment.notified_at.to_s %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ui segment top attached">
+    <p>
+      <span>State:</span>
+      <%= link_to 'All', filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </p>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>类型</th>
+      <th>名称</th>
+      <th>负责人</th>
+      <th>逾期数量</th>
+      <th>逾期金额</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.uuid %></td>
+        <td><%= order.created_at %></td>
+        <td><%=  %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.overdue_date %></td>
+        <td><%=  %></td>
+        <td><%= link_to '详细', orders_admin_buyers_path(buyer_id: order.buyer_id, buyer_type: order.buyer_type) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @orders %>
+</div>

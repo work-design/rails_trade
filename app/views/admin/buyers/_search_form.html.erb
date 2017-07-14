@@ -1,0 +1,25 @@
+<%= search_form_with scope: :q do |f| %>
+  <div class="ui left action input">
+    <%= f.select :buyer_type, options_for_select(PaymentReference.options_i18n(:buyer_type)), { on: { wrapper_input: false } }, { class: 'ui selection dropdown', id: 'q_buyer_type' } %>
+    <%= f.select :buyer_id, options_for_select([]), { on: { wrapper_input: false } }, { id: 'q_buyer_id', class: 'ui search dropdown' } %>
+  </div>
+  <%= f.submit 'Search' %>
+<% end %>
+
+<script>
+  $('#q_buyer_type').dropdown();
+  $('#q_buyer_id').dropdown({
+    apiSettings: {
+      url: '/buyers/search?q={query}&buyer_type={buyer_type}',
+      beforeSend: function(settings) {
+        settings.urlData.buyer_type = document.querySelector('select[name="q[buyer_type]"]').value;
+        return settings;
+      }
+    },
+    fields: {
+      name: 'name_detail',
+      value: 'id'
+    },
+    minCharacters: 2
+  });
+</script>
