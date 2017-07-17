@@ -4,6 +4,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def new
     @payment_order = PaymentOrder.new
+    @orders = @payment.pending_orders
   end
 
   def create

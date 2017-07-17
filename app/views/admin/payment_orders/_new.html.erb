@@ -7,16 +7,17 @@
         <th>UUID</th>
         <th>水单</th>
         <th>订单金额</th>
-        <th>待核销</th>
+        <th>核销金额</th>
         <th>状态</th>
-        <th>
-          <%= link_to 'Admin Payment Method', admin_payment_methods_path(id: @payment.payment_method_id), target: '_blank' %>
-        </th>
+        <th>操作</th>
       </tr>
       </thead>
 
-      <%= render partial: 'index', collection: @payment.payment_orders, as: :payment_order %>
+      <% unless @payment.have_checked? %>
+        <%= render partial: 'orders', collection: @orders, as: :order %>
+      <% end %>
 
+      <%= render partial: 'index', collection: @payment.payment_orders, as: :payment_order %>
     </table>
   </td>
 </tr>

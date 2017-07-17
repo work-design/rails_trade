@@ -12,7 +12,7 @@
     <% end %>
   </td>
   <td><%= payment_order.order.amount %></td>
-  <td><%= payment_order.check_amount %><span style="color: #999;">（已核销）</span></td>
+  <td><%= payment_order.check_amount %></td>
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
   <td>
     <% if payment_order.confirmed? && the_role_user.has_role?('admin/payment_orders', 'destroy') %>

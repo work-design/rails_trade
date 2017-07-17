@@ -28,30 +28,30 @@ class PaymentOrder < ApplicationRecord
   end
 
   def payment_amount
-    PaymentOrder.where(payment_id: self.payment_id).sum(:check_amount)
+    PaymentOrder.where(payment_id: self.payment_id, state: 'confirmed').sum(:check_amount)
   end
 
   def order_amount
-    PaymentOrder.where(order_id: self.order_id).sum(:check_amount)
+    PaymentOrder.where(order_id: self.order_id, state: 'confirmed').sum(:check_amount)
   end
 
   def confirm!
     self.state = 'confirmed'
+    self.save!
 
     self.class.transaction do
       update_order_state
       update_payment_state
-      self.save!
     end
   end
 
   def revert_confirm!
     self.state = 'init'
+    self.save!
 
     self.class.transaction do
       update_order_state
       update_payment_state
-      self.save!
     end
   end
 

@@ -4,33 +4,31 @@
     <div class="item"><strong>Buyers Overview with orders</strong></div>
   </div>
 
-  <div class="ui segment bottom attached">
-    <table class="ui bottom attached table">
-      <thead>
-      <tr>
-        <th>UUID</th>
-        <th><%= Payment.human_attribute_name(:buyer_name) %></th>
-        <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
-        <th><%= Payment.human_attribute_name(:total_amount) %></th>
-        <th><%= Payment.human_attribute_name(:unchecked_amount) %></th>
-        <th><%= Payment.human_attribute_name(:notified_at) %></th>
-      </tr>
-      </thead>
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th>UUID</th>
+      <th><%= Payment.human_attribute_name(:buyer_name) %></th>
+      <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
+      <th><%= Payment.human_attribute_name(:total_amount) %></th>
+      <th><%= Payment.human_attribute_name(:unchecked_amount) %></th>
+      <th><%= Payment.human_attribute_name(:notified_at) %></th>
+    </tr>
+    </thead>
 
-      <tbody>
-      <% @payments.each do |payment| %>
-        <tr>
-          <td><%= payment.payment_uuid %></td>
-          <td><%= payment.buyer_name %></td>
-          <td><%= payment.buyer_identifier %></td>
-          <td><%= payment.total_amount %></td>
-          <td><%= payment.unchecked_amount %></td>
-          <td><%= payment.notified_at.to_s %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
+    <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.payment_uuid %></td>
+        <td><%= payment.buyer_name %></td>
+        <td><%= payment.buyer_identifier %></td>
+        <td><%= payment.total_amount %></td>
+        <td><%= payment.unchecked_amount %></td>
+        <td><%= payment.notified_at.to_s %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 
   <div class="ui segment top attached">
     <p>

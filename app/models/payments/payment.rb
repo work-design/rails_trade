@@ -53,19 +53,20 @@ class Payment < ApplicationRecord
     end
   end
 
-  def update_payment_state
-    self.checked_amount = payment_orders.sum(:check_amount)
-    if self.checked_amount == self.total_amount
-      self.state = 'all_checked'
-    elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
-      self.state = 'part_checked'
-    elsif self.checked_amount == 0
-      self.state = 'init'
+  def pending_orders
+    if self.payment_method
+      buyers = self.payment_method.payment_references.pluck(:buyer_type, :buyer_id)
+
+      arr = Order.limit(0)
+      buyers.map do |buyer|
+        arr += Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_type: buyer[0], buyer_id: buyer[1], payment_status: ['unpaid', 'part_paid'])
+      end
+      arr.uniq
     else
-      self.state = 'abusive_checked'
+      []
     end
-    self.save
   end
+
 
 end
 
