@@ -51,5 +51,5 @@ en:
         Company: Company
       payment_strategy/strategy:
         prepay: Prepay
-        desposit: Desposit
+        deposit: Deposit
         credit: Credit

@@ -21,6 +21,7 @@
       <th>类型</th>
       <th>ID</th>
       <th>名称</th>
+      <th>Credit Terms(Period)</th>
       <th>负责人</th>
       <th>逾期数量</th>
       <th>逾期日期</th>
@@ -35,6 +36,12 @@
         <td><%= order.buyer_type %></td>
         <td><%= order.buyer_id %></td>
         <td><%= order.buyer.name %></td>
+        <td>
+          <%= order.payment_strategy.strategy %>
+          <% if order.payment_strategy.credit? %>
+          (<%= order.payment_strategy.period %>)
+          <% end %>
+        </td>
         <td><%= order.charger&.name %></td>
         <td><%= order.count_id %></td>
         <td><%= order.overdue_date %></td>

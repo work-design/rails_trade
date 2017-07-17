@@ -1,6 +1,5 @@
 class PaymentStrategy < ApplicationRecord
 
-
   enum strategy: {
     prepay: 'prepay',
     deposit: 'deposit',

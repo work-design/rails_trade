@@ -3,6 +3,7 @@ module OrderAble
 
   included do
     belongs_to :buyer, polymorphic: true
+    belongs_to :payment_strategy
 
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders
