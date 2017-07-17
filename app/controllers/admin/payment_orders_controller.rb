@@ -10,7 +10,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
   def create
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
-    if @payment_order.save
+    if @payment_order.confirm!
       respond_to do |format|
         format.js
       end
