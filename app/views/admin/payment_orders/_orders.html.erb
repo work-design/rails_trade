@@ -5,6 +5,11 @@
     <% end %>
   </td>
   <td><%= order.uuid %></td>
+  <td>
+    <% if order.payment_memo_id %>
+      <%= link_to 'Download', attachment_url(order, :payment_memo), download: "payment_memo_#{order.id}", target: '_self' %>
+    <% end %>
+  </td>
   <td><%= order.amount %></td>
   <td>
     <%= hidden_field_tag 'payment_order[order_id]', order.id, form: "new_payment_#{order.id}" %>
