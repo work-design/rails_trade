@@ -9,11 +9,10 @@
       <thead>
       <tr>
         <th>UUID</th>
-        <th<%= Payment.human_attribute_name(:account_name) %></th>
-        <th>名称</th>
-        <th>负责人</th>
-        <th>逾期数量</th>
-        <th>逾期金额</th>
+        <th><%= Payment.human_attribute_name(:buyer_name) %></th>
+        <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
+        <th><%= Payment.human_attribute_name(:total_amount) %></th>
+        <th><%= Payment.human_attribute_name(:notified_at) %></th>
         <th></th>
       </tr>
       </thead>
@@ -23,6 +22,7 @@
         <tr>
           <td><%= payment.payment_uuid %></td>
           <td><%= payment.buyer_name %></td>
+          <td><%= payment.buyer_identifier %></td>
           <td><%= payment.total_amount %></td>
           <td><%= payment.notified_at.to_s %></td>
         </tr>
