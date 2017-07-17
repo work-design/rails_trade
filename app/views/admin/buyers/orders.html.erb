@@ -12,8 +12,8 @@
         <th><%= Payment.human_attribute_name(:buyer_name) %></th>
         <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
         <th><%= Payment.human_attribute_name(:total_amount) %></th>
+        <th><%= Payment.human_attribute_name(:unchecked_amount) %></th>
         <th><%= Payment.human_attribute_name(:notified_at) %></th>
-        <th></th>
       </tr>
       </thead>
 
@@ -24,6 +24,7 @@
           <td><%= payment.buyer_name %></td>
           <td><%= payment.buyer_identifier %></td>
           <td><%= payment.total_amount %></td>
+          <td><%= payment.unchecked_amount %></td>
           <td><%= payment.notified_at.to_s %></td>
         </tr>
       <% end %>
@@ -41,13 +42,12 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
-      <th>ID</th>
-      <th>类型</th>
-      <th>名称</th>
-      <th>负责人</th>
-      <th>逾期数量</th>
-      <th>逾期日期</th>
-      <th>逾期金额</th>
+      <th><%= Order.human_attribute_name(:uuid) %></th>
+      <th><%= Order.human_attribute_name(:created_at) %></th>
+      <th>Item Info</th>
+      <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
+      <th><%= Order.human_attribute_name(:overdue_date) %></th>
+      <th><%= Order.human_attribute_name(:init_received_amount) %></th>
       <th></th>
     </tr>
     </thead>
@@ -57,10 +57,14 @@
       <tr>
         <td><%= order.uuid %></td>
         <td><%= order.created_at %></td>
-        <td><%=  %></td>
+        <td>
+          <% order.order_items.each do |order_item| %>
+          <p><%= order_item.chemical.name.truncate(20) %></p>
+          <% end %>
+        </td>
         <td><%= order.amount %></td>
         <td><%= order.overdue_date %></td>
-        <td><%=  %></td>
+        <td><%= order.init_received_amount %></td>
         <td>
           <% if order.exists_payments %>
             <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
