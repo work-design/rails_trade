@@ -22,7 +22,7 @@
           <td><%= order.amount %></td>
           <td>
             <% if order.payment_status != 'all_paid' %>
-              <%= link_to 'pay', pay_my_order_path(order), method: :patch %>
+              <%= link_to 'pay', paypal_pay_my_order_path(order), method: :patch %>
             <% end %>
           </td>
           <td><%= link_to 'Show', my_order_path(order) %></td>

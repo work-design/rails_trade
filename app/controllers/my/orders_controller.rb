@@ -46,7 +46,7 @@ class My::OrdersController < My::TheTradeController
     end
   end
 
-  def execute
+  def paypal_execute
     respond_to do |format|
       if @order.paypal_execute(params)
         format.json {  }
@@ -70,7 +70,6 @@ class My::OrdersController < My::TheTradeController
   end
 
   def update
-
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to :action => 'edit', :notice => 'Order was successfully updated.' }
@@ -110,11 +109,11 @@ class My::OrdersController < My::TheTradeController
   end
 
   def set_buyer
-    @buyer = Company.find 3112
+    @buyer = current_buyer
   end
 
   def order_params
-    params[:order].permit(:quantity)
+    params.fetch(:order, {}).permit(:quantity, :payment_id)
   end
 
   def date_params
