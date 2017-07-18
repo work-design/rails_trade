@@ -13,7 +13,7 @@ module GoodAble
     if params[:amount]
       oi.amount = params[:amount]
     else
-      oi.amount = oi.number * self.price
+      oi.amount = oi.number * self.price.to_d
     end
 
     o = oi.build_order
