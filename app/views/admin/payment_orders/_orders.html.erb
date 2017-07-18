@@ -4,7 +4,10 @@
     <%= form_with url: admin_payment_payment_orders_path(@payment), id: "new_payment_#{order.id}" do |f| %>
     <% end %>
   </td>
-  <td><%= order.uuid %></td>
+  <td>
+    <%= order.uuid %>
+    <span style="color: #999;">（<%= order.charger&.name %>）</span>
+  </td>
   <td>
     <% if order.payment_memo_id %>
       <%= link_to 'Download', attachment_url(order, :payment_memo), download: "payment_memo_#{order.id}", target: '_self' %>
