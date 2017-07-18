@@ -4,12 +4,13 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def new
     @payment_order = PaymentOrder.new
+    @orders = @payment.pending_orders
   end
 
   def create
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
-    if @payment_order.save
+    if @payment_order.confirm!
       respond_to do |format|
         format.js
       end
@@ -19,9 +20,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
   end
 
   def update
-    @payment_order.state = 'confirmed'
-
-    if @payment_order.save
+    if @payment_order.confirm!
       respond_to do |format|
         format.js
       end
@@ -31,7 +30,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
   end
 
   def cancel
-    @payment_order.update state: 'init'
+    @payment_order.revert_confirm!
     respond_to do |format|
       format.js
     end

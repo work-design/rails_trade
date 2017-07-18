@@ -1,7 +1,6 @@
 class My::OrdersController < My::TheTradeController
   before_action :set_buyer
-  before_action :set_order, only: [:show, :edit, :update, :pay, :execute, :update_date, :destroy]
-
+  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :execute, :update_date, :destroy]
 
   def index
     @orders = @buyer.orders
@@ -35,9 +34,9 @@ class My::OrdersController < My::TheTradeController
     end
   end
 
-  def pay
+  def paypal_pay
     respond_to do |format|
-      if @order.payment_status != 'all_paid' && @order.create_payment
+      if @order.payment_status != 'all_paid' && @order.create_paypal_payment
         format.json
         format.html { redirect_to @order.approve_url }
       else
@@ -47,9 +46,9 @@ class My::OrdersController < My::TheTradeController
     end
   end
 
-  def execute
+  def paypal_execute
     respond_to do |format|
-      if @order.execute(params)
+      if @order.paypal_execute(params)
         format.json {  }
         format.html { redirect_to payment_success_orders_path, notice: "Order[#{@order.uuid}] placed successfully" }
       else
@@ -111,11 +110,11 @@ class My::OrdersController < My::TheTradeController
   end
 
   def set_buyer
-    @buyer = Buyer.first
+    @buyer = current_buyer
   end
 
   def order_params
-    params[:order].permit(:quantity)
+    params.fetch(:order, {}).permit(:quantity, :payment_id)
   end
 
   def date_params

@@ -3,6 +3,7 @@ module OrderAble
 
   included do
     belongs_to :buyer, polymorphic: true
+    belongs_to :payment_strategy, optional: true
 
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders
@@ -12,6 +13,10 @@ module OrderAble
 
   def unreceived_amount
     self.amount - self.received_amount
+  end
+
+  def init_received_amount
+    self.payment_orders.sum(:check_amount)
   end
 
   def pending_payments

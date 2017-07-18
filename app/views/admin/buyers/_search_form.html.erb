@@ -1,0 +1,14 @@
+<%= search_form_with scope: :q do |f| %>
+  <div class="fields">
+    <div class="ui left action input">
+      <%= f.select :buyer_type, options_for_select(PaymentReference.options_i18n(:buyer_type)), { on: { wrapper_input: false } }, { class: 'ui selection dropdown', id: 'q_buyer_type' } %>
+      <%= f.select :buyer_id, options_for_select([]), { on: { wrapper_input: false } }, { id: 'q_buyer_id', class: 'ui search dropdown' } %>
+    </div>
+    <%= f.collection_select :payment_strategy_id, PaymentStrategy.all, :id, :name, { prompt: 'payment term' }, { class: 'ui dropdown' } %>
+    <%= f.collection_select :charger_id, Order.reflections['charger'].klass.all, :id, :name, { prompt: 'Charger' }, { class: 'ui dropdown' } %>
+    <%= f.date_field :'overdue_date-lte' %>
+    <%= f.submit 'Search' %>
+    <%= link_to 'Clear All Filters', filter_params(only: [:buyer_id, :buyer_type]), class: 'ui white button' %>
+  </div>
+<% end %>
+

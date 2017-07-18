@@ -1,0 +1,88 @@
+<div>
+
+  <div class="ui top attached menu borderless">
+    <div class="item"><strong>Buyers Overview with orders</strong></div>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th>UUID</th>
+      <th><%= Payment.human_attribute_name(:buyer_name) %></th>
+      <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
+      <th><%= Payment.human_attribute_name(:total_amount) %></th>
+      <th><%= Payment.human_attribute_name(:unchecked_amount) %></th>
+      <th><%= Payment.human_attribute_name(:notified_at) %></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.payment_uuid %></td>
+        <td><%= payment.buyer_name %></td>
+        <td><%= payment.buyer_identifier %></td>
+        <td><%= payment.total_amount %></td>
+        <td><%= payment.unchecked_amount %></td>
+        <td><%= payment.notified_at.to_s %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="ui segment top attached">
+    <p>
+      <span>State:</span>
+      <%= link_to 'All', filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </p>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th><%= Order.human_attribute_name(:uuid) %></th>
+      <th><%= Order.human_attribute_name(:created_at) %></th>
+      <th>Item Info</th>
+      <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
+      <th><%= Order.human_attribute_name(:overdue_date) %></th>
+      <th><%= Order.human_attribute_name(:init_received_amount) %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td>
+          <%= order.uuid %>
+          <% if order.cancel? %>
+          <label class="ui red label">cancel</label>
+          <% end %>
+        </td>
+        <td><%= order.created_at %></td>
+        <td>
+          <% order.order_items.each do |order_item| %>
+          <p><%= order_item.chemical.name.truncate(20) %></p>
+          <% end %>
+        </td>
+        <td><%= order.amount %></td>
+        <td><%= order.overdue_date %></td>
+        <td><%= order.init_received_amount %></td>
+        <td>
+          <% if order.exists_payments && !order.cancel? %>
+            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
+              <i class="payment icon"></i>
+            <% end %>
+          <% elsif !order.cancel? %>
+            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon grey button' do %>
+              <i class="payment icon"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @orders %>
+</div>

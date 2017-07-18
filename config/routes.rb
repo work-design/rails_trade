@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :carts, :only => [:index, :destroy]
     resources :areas
 
+    resources :buyers do
+      get :orders, on: :collection
+    end
     resources :charges
     resources :orders, only: [:index, :show, :edit, :update, :destroy] do
       get :payments, on: :collection
@@ -32,6 +35,7 @@ Rails.application.routes.draw do
       patch 'analyze', on: :member
       resources :refunds
     end
+    resources :payment_strategies
     resources :payment_methods do
       resources :payment_references, as: :references
       get :unverified, on: :collection
@@ -42,7 +46,7 @@ Rails.application.routes.draw do
 
   namespace :my do
     resources :orders do
-      patch :pay, on: :member
+      patch :paypal_pay, on: :member
       get :execute, on: :member
       get :cancel, on: :member
       get :check, on: :member

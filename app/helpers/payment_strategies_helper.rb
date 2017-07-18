@@ -1,0 +1,2 @@
+module PaymentStrategiesHelper
+end
