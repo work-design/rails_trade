@@ -37,11 +37,16 @@ class PaymentOrder < ApplicationRecord
 
   def confirm!
     self.state = 'confirmed'
-    self.save!
 
-    self.class.transaction do
-      update_order_state
-      update_payment_state
+    begin
+      self.save!
+
+      self.class.transaction do
+        update_order_state
+        update_payment_state
+      end
+    rescue => e
+      false
     end
   end
 
