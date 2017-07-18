@@ -23,6 +23,7 @@ module GoodAble
       o.save!
       oi.save!
     end
+    o
   end
 
   def compute_fee
