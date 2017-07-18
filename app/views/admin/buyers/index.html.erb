@@ -36,12 +36,7 @@
         <td><%= order.buyer_type %></td>
         <td><%= order.buyer_id %></td>
         <td><%= order.buyer.name %></td>
-        <td>
-          <%= order.payment_strategy.strategy %>
-          <% if order.payment_strategy.credit? %>
-          (<%= order.payment_strategy.period %>)
-          <% end %>
-        </td>
+        <td><%= order.payment_strategy.name %></td>
         <td><%= order.charger&.name %></td>
         <td><%= order.count_id %></td>
         <td><%= order.overdue_date %></td>
