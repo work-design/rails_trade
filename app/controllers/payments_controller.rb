@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_order
+  before_action :set_order, only: [:wxpay_result, :paypal_result]
 
   def alipay_notify
     @order = Order.find_by(uuid: params[:out_trade_no])
@@ -24,7 +24,7 @@ class PaymentsController < ApplicationController
   def wxpay_notify
     notify_params = Hash.from_xml(request.body.read)['xml']
     result = nil
-    @order = CustomerOrder.find_by(customer_order_no: notify_params['out_trade_no'])
+    @order = Order.find_by(customer_order_no: notify_params['out_trade_no'])
 
     if WxPay::Sign.verify?(notify_params)
       notify_params = notify_params.merge(type: 'WxpayJsapi')

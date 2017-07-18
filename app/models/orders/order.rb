@@ -1,9 +1,6 @@
 class Order < ApplicationRecord
   include OrderAble
-
-
-
-
+  include ThePaypal
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
