@@ -45,7 +45,6 @@ class PaymentsController < ApplicationController
   end
 
   def paypal_result
-    @order.update payment_id: params[:payment_id]
     result = @order.paypal_result
     render json: result.as_json(only: [:id, :total_amount, :type, :payment_uuid, :currency])
   end
