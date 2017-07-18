@@ -59,7 +59,7 @@ class Payment < ApplicationRecord
 
       arr = Order.limit(0)
       buyers.map do |buyer|
-        arr += Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_type: buyer[0], buyer_id: buyer[1], payment_status: ['unpaid', 'part_paid'])
+        arr += Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_type: buyer[0], buyer_id: buyer[1], payment_status: ['unpaid', 'part_paid'], state: 'active')
       end
       arr.uniq
     else
