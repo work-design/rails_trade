@@ -70,6 +70,7 @@ class My::OrdersController < My::TheTradeController
   end
 
   def update
+    
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to :action => 'edit', :notice => 'Order was successfully updated.' }
