@@ -69,11 +69,11 @@
         <td><%= order.overdue_date %></td>
         <td><%= order.init_received_amount %></td>
         <td>
-          <% if order.exists_payments %>
+          <% if order.exists_payments && !order.cancel? %>
             <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
               <i class="payment icon"></i>
             <% end %>
-          <% else %>
+          <% elsif !order.cancel? %>
             <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon grey button' do %>
               <i class="payment icon"></i>
             <% end %>
