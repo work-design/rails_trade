@@ -34,7 +34,9 @@
 
   <div class="ui segment top attached">
     <p id="batch_reconcile">
-      <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first&.id), method: :post, class: 'ui green button' %>
+      <% if @payments.first %>
+        <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first.id), method: :post, class: 'ui green button' %>
+      <% end %>
     </p>
   </div>
 
@@ -119,13 +121,16 @@
     });
     if (ids.length == 0) {
       $('#alert_modal').modal('show');
-      return false;
+      return false
     }
     ids = ids.join(',');
     return ids
   }
 
   $('#batch_reconcile > a').click(function(){
+    if (!getCheckedIds()) {
+      return false;
+    }
     $(this).attr('href', $(this).attr('href') + '?order_ids=' + getCheckedIds());
   });
 </script>
