@@ -35,10 +35,6 @@ class Payment < ApplicationRecord
     total_amount.to_d - checked_amount.to_d
   end
 
-  def have_checked?
-    all_checked?
-  end
-
   def compute_amount
     if total_amount.blank? && fee_amount.present? && income_amount.present?
       self.total_amount = self.fee_amount + self.income_amount
@@ -75,6 +71,15 @@ class Payment < ApplicationRecord
 
   def init_adjust_amount
     self.checked_amount - self.total_amount
+  end
+
+  def check_order(order_id)
+    order = Order.find order_id
+    payment_order = self.payment_orders.build(order_id: order.id)
+    payment_order.check_amount = order.amount
+    payment_order.save
+
+    payment_order
   end
 
 

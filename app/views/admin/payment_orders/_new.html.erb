@@ -13,7 +13,7 @@
       </tr>
       </thead>
 
-      <% unless @payment.have_checked? %>
+      <% unless @payment.all_checked? %>
         <%= render partial: 'orders', collection: @orders, as: :order %>
       <% end %>
 

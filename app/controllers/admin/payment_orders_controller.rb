@@ -19,6 +19,14 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     end
   end
 
+  def batch
+    params[:order_ids].split(',').each do |order_id|
+      @payment.check_order(order_id)
+    end
+
+    redirect_back fallback_location: admin_buyers_url
+  end
+
   def update
     if @payment_order.confirm!
       respond_to do |format|
