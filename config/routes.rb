@@ -29,10 +29,11 @@ Rails.application.routes.draw do
     end
     resources :payments do
       resources :payment_orders do
-        patch 'cancel', on: :member
+        patch :cancel, on: :member
       end
       get :dashboard, on: :collection
-      patch 'analyze', on: :member
+      patch :analyze, on: :member
+      patch :adjust, on: :member
       resources :refunds
     end
     resources :payment_strategies

@@ -10,6 +10,7 @@ en:
         show: 支付方式
         checking: 核销
         analyze: 分析支付方式
+        adjust: 平账
     payment_methods:
       index_layout:
         remove: 移除
@@ -26,6 +27,11 @@ en:
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record
+      payment/state:
+        init: 未核销
+        part_checked: 部分核销
+        all_checked: 全部核销
+        abusive_checked: 问题核销
       payment:
         total_amount: 总金额
         income_amount: 净收入

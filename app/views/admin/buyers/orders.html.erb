@@ -40,6 +40,7 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
+      <th></th>
       <th><%= Order.human_attribute_name(:uuid) %></th>
       <th><%= Order.human_attribute_name(:created_at) %></th>
       <th>Item Info</th>
@@ -53,6 +54,7 @@
     <tbody>
     <% @orders.each do |order| %>
       <tr>
+        <td><%= check_box_tag(:ids) %></td>
         <td>
           <%= order.uuid %>
           <% if order.cancel? %>

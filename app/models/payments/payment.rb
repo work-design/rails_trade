@@ -67,6 +67,16 @@ class Payment < ApplicationRecord
     end
   end
 
+  def analyze_adjust_amount
+    self.adjust_amount = init_adjust_amount
+    self.state = 'all_checked'
+    self.save
+  end
+
+  def init_adjust_amount
+    self.checked_amount - self.total_amount
+  end
+
 
 end
 
