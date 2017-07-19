@@ -76,7 +76,7 @@ class Payment < ApplicationRecord
   def check_order(order_id)
     order = Order.find order_id
     payment_order = self.payment_orders.build(order_id: order.id)
-    payment_order.check_amount = order.amount
+    payment_order.check_amount = order.unreceived_amount
     payment_order.save
 
     payment_order

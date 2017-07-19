@@ -48,6 +48,7 @@
       <th><%= Order.human_attribute_name(:created_at) %></th>
       <th>Item Info</th>
       <th><%= Order.human_attribute_name(:overdue_date) %></th>
+      <th><%= Order.human_attribute_name(:amount) %></th>
       <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
       <th><%= Order.human_attribute_name(:init_received_amount) %></th>
       <th></th>
@@ -75,6 +76,7 @@
           <% end %>
         </td>
         <td><%= order.overdue_date %></td>
+        <td><%= order.amount %></td>
         <td><%= order.unreceived_amount %></td>
         <td><%= order.init_received_amount %></td>
         <td>
