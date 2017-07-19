@@ -45,8 +45,8 @@
       <th><%= Order.human_attribute_name(:uuid) %></th>
       <th><%= Order.human_attribute_name(:created_at) %></th>
       <th>Item Info</th>
-      <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
       <th><%= Order.human_attribute_name(:overdue_date) %></th>
+      <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
       <th><%= Order.human_attribute_name(:init_received_amount) %></th>
       <th></th>
     </tr>
@@ -72,8 +72,8 @@
           <p><%= order_item.chemical.name.truncate(20) %></p>
           <% end %>
         </td>
-        <td><%= order.amount %></td>
         <td><%= order.overdue_date %></td>
+        <td><%= order.unreceived_amount %></td>
         <td><%= order.init_received_amount %></td>
         <td>
           <% if order.exists_payments && !order.cancel? %>
