@@ -50,7 +50,6 @@
       <th><%= Order.human_attribute_name(:overdue_date) %></th>
       <th><%= Order.human_attribute_name(:amount) %></th>
       <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
-      <th><%= Order.human_attribute_name(:init_received_amount) %></th>
       <th></th>
     </tr>
     </thead>
@@ -66,7 +65,7 @@
         <td>
           <%= order.uuid %>
           <% if order.cancel? %>
-          <label class="ui red label">cancel</label>
+          <label class="ui red label">Canceled</label>
           <% end %>
         </td>
         <td><%= order.created_at %></td>
@@ -78,7 +77,6 @@
         <td><%= order.overdue_date %></td>
         <td><%= order.amount %></td>
         <td><%= order.unreceived_amount %></td>
-        <td><%= order.init_received_amount %></td>
         <td>
           <% if order.exists_payments && !order.cancel? %>
             <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>

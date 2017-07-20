@@ -1,7 +1,7 @@
 <div>
 
   <div class="ui top attached menu borderless">
-    <div class="item"><strong>Buyers Overview with orders</strong></div>
+    <div class="item"><strong>Credit Sales Reconciliation</strong></div>
   </div>
 
   <div class="ui segment bottom attached">
@@ -18,7 +18,6 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
-      <th>类型</th>
       <th>ID</th>
       <th>名称</th>
       <th>Credit Terms(Period)</th>
@@ -34,7 +33,6 @@
     <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.buyer_type %></td>
         <td><%= order.buyer_id %></td>
         <td><%= order.buyer.name %></td>
         <td><%= order.payment_strategy.name %></td>
@@ -43,7 +41,7 @@
         <td><%= Order.where(buyer_type: order.buyer_type, buyer_id: order.buyer_id, payment_status: ['unpaid', 'part_paid']).count %></td>
         <td><%= order.overdue_date %></td>
         <td><%= order.sum_amount %></td>
-        <td><%= link_to '详细', orders_admin_buyers_path(buyer_id: order.buyer_id, buyer_type: order.buyer_type) %></td>
+        <td><%= link_to 'View', orders_admin_buyers_path(buyer_id: order.buyer_id, buyer_type: order.buyer_type) %></td>
       </tr>
     <% end %>
     </tbody>
