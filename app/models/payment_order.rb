@@ -64,6 +64,7 @@ class PaymentOrder < ApplicationRecord
     order.received_amount = order_amount
     if order.received_amount.to_d >= order.amount
       order.payment_status = 'all_paid'
+      order.confirm_paid!
     elsif order.received_amount.to_d > 0 && order.received_amount.to_d < order.amount
       order.payment_status = 'part_paid'
     elsif order.received_amount.to_d <= 0
