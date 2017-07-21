@@ -45,7 +45,7 @@ module ThePaypal
 
       begin
         Payment.transaction do
-          payment_order.save!
+          payment_order.confirm!
           paypal.save!
         end
         paypal
