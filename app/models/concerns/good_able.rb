@@ -18,6 +18,9 @@ module GoodAble
 
     o = oi.build_order
     o.buyer = buyer
+    o.subtotal = oi.amount
+    o.amount = oi.amount
+    o.currency = self.currency
 
     self.class.transaction do
       o.save!
