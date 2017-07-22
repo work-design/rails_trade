@@ -10,6 +10,7 @@
         <th>Payment ID</th>
         <th><%= Payment.human_attribute_name(:type) %></th>
         <th><%= Payment.human_attribute_name(:total_amount) %></th>
+        <th>可核销</th>
         <th><%= Payment.human_attribute_name(:created_at) %></th>
         <th>预核销</th>
         <th>核销时间</th>
@@ -21,13 +22,13 @@
         <%= render partial: 'payments', collection: @payments, as: :payment %>
       <% end %>
 
-      <%= render partial: 'index', collection: @order.payment_orders, as: :payment_order %>
+      <%= render partial: 'payment_orders', collection: @order.payment_orders, as: :payment_order %>
       </tbody>
       <tfoot>
       <tr>
-        <th colspan="4"></th>
-        <th class="center aligned" id="checked_amount">
-          <%= @order.payment_orders.sum(:check_amount) %>
+        <th colspan="5"></th>
+        <th class="center aligned">
+          已核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
         </th>
         <th colspan="2"></th>
       </tr>

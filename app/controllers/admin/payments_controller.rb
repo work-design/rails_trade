@@ -1,12 +1,12 @@
 class Admin::PaymentsController < Admin::TheTradeController
-  before_action :set_payment, only: [:show, :edit, :update, :analyze, :destroy]
+  before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
 
   def dashboard
 
   end
 
   def index
-    @payments = Payment.default_where(params.permit(:type, :id)).default_where(params.fetch(:q, {}).permit(:buyer_name, :buyer_identifier, :buyer_name)).order(id: :desc).page(params[:page])
+    @payments = Payment.default_where(params.permit(:type, :state, :'payment_orders.state', :id)).default_where(params.fetch(:q, {}).permit(:buyer_name, :buyer_identifier, :buyer_name)).order(id: :desc).page(params[:page])
   end
 
   def show
@@ -42,6 +42,14 @@ class Admin::PaymentsController < Admin::TheTradeController
 
     respond_to do |format|
       format.js
+    end
+  end
+
+  def adjust
+    @payment.analyze_adjust_amount
+    respond_to do |format|
+      format.js
+      format.html { redirect_to admin_payments_url, notice: 'Payment was successfully updated.' }
     end
   end
 

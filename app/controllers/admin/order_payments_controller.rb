@@ -2,8 +2,13 @@ class Admin::OrderPaymentsController < Admin::TheTradeController
   before_action :set_order
   before_action :set_payment_order, only: [:destroy]
 
+  def index
+    @payment_orders = @order.payment_orders
+  end
+
   def new
     @payment_order = PaymentOrder.new
+    @payments = @order.pending_payments
   end
 
   def create
@@ -20,7 +25,9 @@ class Admin::OrderPaymentsController < Admin::TheTradeController
   end
 
   def destroy
-    @payment_order.destroy
+    if @payment_order.init?
+      @payment_order.destroy
+    end
     respond_to do |format|
       format.js
     end
@@ -33,7 +40,6 @@ class Admin::OrderPaymentsController < Admin::TheTradeController
 
   def set_order
     @order = Order.find(params[:order_id])
-    @payments = @order.pending_payments
   end
 
   def payment_order_params

@@ -6,12 +6,22 @@
   <td>
     <%= payment.total_amount %>
   </td>
-  <td id="checked_amount_<%= payment.id %>" class="warning"><%= payment.checked_amount %></td>
+  <td id="checked_amount_<%= payment.id %>" class="warning">
+    <%= payment.checked_amount %>
+    <% if payment.part_checked? && payment.init_adjust_amount > -1 && payment.init_adjust_amount < 1 %>
+      <%= link_to t('.adjust'), adjust_admin_payment_path(payment), method: :patch, class: 'ui mini grey button' %>
+    <% elsif payment.init? || payment.part_checked? %>
+      <span class="ui tiny grey label"><%= Payment.enum_i18n(:state, payment.state) %></span>
+    <% elsif payment.all_checked? %>
+      <span class="ui tiny green label"><%= Payment.enum_i18n(:state, payment.state) %></span>
+    <% end %>
+  </td>
   <td>
     <% if payment.income_amount.present? || payment.fee_amount %>
       <%= [payment.income_amount, payment.fee_amount].join(' + ') %>
     <% end %>
   </td>
+  <td><%= payment.adjust_amount %></td>
   <td><%= payment.buyer_name %></td>
   <td>
     <%= payment.buyer_identifier %>

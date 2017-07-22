@@ -8,17 +8,13 @@ class Admin::ProducesController < Admin::BaseController
   def show
   end
 
-  # GET /produces/new
   def new
     @produce = Produce.new
   end
 
-  # GET /produces/1/edit
   def edit
   end
 
-  # POST /produces
-  # POST /produces.json
   def create
     @produce = Produce.new(produce_params)
 

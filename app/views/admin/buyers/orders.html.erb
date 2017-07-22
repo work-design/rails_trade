@@ -1,0 +1,137 @@
+<div>
+
+  <div class="ui top attached menu borderless">
+    <div class="item"><strong>Client Credit Sales Reconciliation</strong></div>
+    <div class="item"><%= @orders.first&.buyer.name %></div>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>UUID</th>
+      <th><%= Payment.human_attribute_name(:buyer_name) %></th>
+      <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
+      <th><%= Payment.human_attribute_name(:total_amount) %></th>
+      <th><%= Payment.human_attribute_name(:unchecked_amount) %></th>
+      <th><%= Payment.human_attribute_name(:notified_at) %></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= radio_button_tag(:payment_id, payment.id, @payments.first&.id == payment.id, disabled: true) %></td>
+        <td><%= payment.payment_uuid %></td>
+        <td><%= payment.buyer_name %></td>
+        <td><%= payment.buyer_identifier %></td>
+        <td><%= payment.total_amount %></td>
+        <td><%= payment.unchecked_amount %></td>
+        <td><%= payment.notified_at.to_s %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="ui segment top attached">
+    <p id="batch_reconcile">
+      <% if @payments.first %>
+        <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first.id), method: :post, class: 'ui green button' %>
+      <% end %>
+    </p>
+  </div>
+
+  <table class="ui bottom attached table">
+    <thead>
+    <tr>
+      <th></th>
+      <th><%= Order.human_attribute_name(:uuid) %></th>
+      <th><%= Order.human_attribute_name(:created_at) %></th>
+      <th>Item Info</th>
+      <th><%= Order.human_attribute_name(:overdue_date) %></th>
+      <th><%= Order.human_attribute_name(:amount) %></th>
+      <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td>
+          <% unless order.cancel? || order.init_received_amount >= order.amount %>
+            <%= check_box_tag(:order_id, order.id) %>
+          <% end %>
+        </td>
+        <td>
+          <%= order.uuid %>
+          <% if order.cancel? %>
+          <label class="ui red label">Canceled</label>
+          <% end %>
+        </td>
+        <td><%= order.created_at %></td>
+        <td>
+          <% order.order_items.each do |order_item| %>
+          <p><%= order_item.chemical.name.truncate(20) %></p>
+          <% end %>
+        </td>
+        <td><%= order.overdue_date %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.unreceived_amount %></td>
+        <td>
+          <% if order.exists_payments && !order.cancel? %>
+            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
+              <i class="payment icon"></i>
+            <% end %>
+          <% elsif !order.cancel? %>
+            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon grey button' do %>
+              <i class="payment icon"></i>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @orders %>
+</div>
+
+<div class="ui modal" id="alert_modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Alert
+  </div>
+  <div class="image content">
+    <div class="description">
+      <div class="ui header">Please choose one item at least.</div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      OK
+    </div>
+  </div>
+</div>
+
+<script>
+  function getCheckedIds() {
+    var ids = [];
+    $('input[name="order_id"]:checked').each(function(){
+      ids.push($(this).val())
+    });
+    if (ids.length == 0) {
+      $('#alert_modal').modal('show');
+      return false
+    }
+    ids = ids.join(',');
+    return ids
+  }
+
+  $('#batch_reconcile > a').click(function(){
+    if (!getCheckedIds()) {
+      return false;
+    }
+    $(this).attr('href', $(this).attr('href') + '?order_ids=' + getCheckedIds());
+  });
+</script>

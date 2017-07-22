@@ -1,2 +1,0 @@
-$('#checked_<%= @payment_order.order_id %>').replaceWith('<%= j(render partial: 'orders', locals: { order: @payment_order.order }) %>')
-$('#checked_amount_<%= @payment.id %>').html(<%= @payment.checked_amount %>)

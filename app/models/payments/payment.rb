@@ -1,6 +1,4 @@
 class Payment < ApplicationRecord
-  include Auditable
-
   attribute :currency, :string, default: 'USD'
 
   belongs_to :payment_method, optional: true
@@ -10,6 +8,7 @@ class Payment < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   validates :total_amount, numericality: { equal_to: -> (o) { o.income_amount + o.fee_amount } }, if: -> { income_amount.present? && fee_amount.present? && total_amount.present? }
+  validates :adjust_amount, numericality: { less_than: 1, greater_than: -1 }, allow_blank: true
 
   before_save :compute_amount
   after_create :analyze_payment_method
@@ -32,8 +31,8 @@ class Payment < ApplicationRecord
     end
   end
 
-  def have_checked?
-    all_checked?
+  def unchecked_amount
+    total_amount.to_d - checked_amount.to_d
   end
 
   def compute_amount
@@ -52,26 +51,37 @@ class Payment < ApplicationRecord
 
   def pending_orders
     if self.payment_method
-      Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: self.payment_method.buyer_ids, payment_status: ['unpaid', 'part_paid'])
+      buyers = self.payment_method.payment_references.pluck(:buyer_type, :buyer_id)
+
+      arr = Order.limit(0)
+      buyers.map do |buyer|
+        arr += Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_type: buyer[0], buyer_id: buyer[1], payment_status: ['unpaid', 'part_paid'], state: 'active')
+      end
+      arr.uniq
     else
       []
     end
   end
 
-
-  def update_payment_state
-    self.checked_amount = payment_orders.sum(:check_amount)
-    if self.checked_amount == self.total_amount
-      self.state = 'all_checked'
-    elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
-      self.state = 'part_checked'
-    elsif self.checked_amount == 0
-      self.state = 'init'
-    else
-      self.state = 'abusive_checked'
-    end
+  def analyze_adjust_amount
+    self.adjust_amount = init_adjust_amount
+    self.state = 'all_checked'
     self.save
   end
+
+  def init_adjust_amount
+    self.checked_amount - self.total_amount
+  end
+
+  def check_order(order_id)
+    order = Order.find order_id
+    payment_order = self.payment_orders.build(order_id: order.id)
+    payment_order.check_amount = order.unreceived_amount
+    payment_order.save
+
+    payment_order
+  end
+
 
 end
 

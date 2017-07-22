@@ -1,5 +1,9 @@
 class Refund < ApplicationRecord
-  belongs_to :order
+  attribute :currency, :string, default: 'USD'
+
+  belongs_to :user, optional: true
+  belongs_to :order, optional: true
+  belongs_to :payment
 
   after_initialize if: -> { new_record? } do
     self.refund_uuid = new_batch_no
@@ -11,6 +15,7 @@ class Refund < ApplicationRecord
     :completed,
     :failed
   ]
+
   validate :valid_total_amount
 
   def new_batch_no
@@ -61,6 +66,51 @@ class Refund < ApplicationRecord
     if self.new_record? && amount > refunded_payment.total_amount
       self.errors.add :amount, 'more then order received amount!'
     end
+
+    if self.new_record? && order_amount > (order.received_amount - order.refunds.sum(:order_amount))
+      self.errors.add :total_amount, 'more then order received amount!'
+    end
+  end
+
+
+  after_initialize if: :new_record? do |lb|
+    self.currency = order.payments.first&.currency if order
+  end
+
+  before_save :sync_amount
+
+  def currency_symbol
+    Money::Currency.new(self.currency).symbol
+  end
+
+  def do_refund(params)
+    order.payment_status = 'refunded'
+    order.received_amount -= self.total_amount
+
+    self.state = 'completed'
+    self.refunded_at = Time.now
+    self.user_id = params[:user_id] if params[:user_id].present?
+    self.employee_id = params[:employee_id] if params[:employee_id].present?
+
+    self.class.transaction do
+      order.save!
+      order.order_items.update_all(pay_status: 'refunded')
+      self.save!
+    end
+  end
+
+
+
+  def operator
+    if employee
+      employee.real_name
+    elsif user
+      user.name
+    end
+  end
+
+  def sync_amount
+    self.total_amount = self.order_amount.to_money.exchange_to(self.currency)
   end
 
 end

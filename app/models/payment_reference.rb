@@ -1,6 +1,6 @@
 class PaymentReference < ApplicationRecord
+  belongs_to :buyer, polymorphic: true
   belongs_to :payment_method, inverse_of: :payment_references
-  belongs_to :buyer, inverse_of: :payment_references
 
   before_save :prevent_duplicate
 

@@ -10,6 +10,7 @@ en:
         show: 支付方式
         checking: 核销
         analyze: 分析支付方式
+        adjust: 平账
     payment_methods:
       index_layout:
         remove: 移除
@@ -26,10 +27,16 @@ en:
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record
+      payment/state:
+        init: 未核销
+        part_checked: 部分核销
+        all_checked: 全部核销
+        abusive_checked: 问题核销
       payment:
         total_amount: 总金额
         income_amount: 净收入
         fee_amount: 手续费
+        adjust_amount: 四舍五入
         buyer_name: 账号名称
         buyer_identifier: 账号
         buyer_bank: 银行
@@ -46,3 +53,9 @@ en:
       payment_order/state:
         init: 待确认
         confirmed: 已确认
+      payment_reference/buyer_type:
+        Company: Company
+      payment_strategy/strategy:
+        prepay: Prepay
+        deposit: Deposit
+        credit: Credit

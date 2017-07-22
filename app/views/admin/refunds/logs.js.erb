@@ -1,0 +1,8 @@
+if ($('.ui.modals').length === 0) {
+  $('body').append('<%= j(render 'logs') %>');
+} else {
+  $('.ui.modals').html('<%= j(render 'logs') %>');
+}
+
+
+$('#refund_logs').modal('setting', {autofocus: false}).modal('show');

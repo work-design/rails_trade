@@ -1,27 +1,36 @@
 class Admin::PaymentOrdersController < Admin::TheTradeController
   before_action :set_payment
-  before_action :set_payment_order, only: [:update, :destroy]
+  before_action :set_payment_order, only: [:update, :cancel]
 
   def new
     @payment_order = PaymentOrder.new
+    @orders = @payment.pending_orders
   end
 
   def create
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
-    if @payment_order.save
+    if @payment_order.confirm!
       respond_to do |format|
         format.js
       end
     else
       render 'create_fail'
     end
+  end
+
+  def batch
+    @errors = []
+    params[:order_ids].split(',').each do |order_id|
+      p = @payment.check_order(order_id)
+      @errors << p.errors.full_messages
+    end
+
+    redirect_back fallback_location: admin_buyers_url, alert: @errors.flatten.uniq
   end
 
   def update
-    @payment_order.state = 'confirmed'
-
-    if @payment_order.save
+    if @payment_order.confirm!
       respond_to do |format|
         format.js
       end
@@ -30,8 +39,8 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     end
   end
 
-  def destroy
-    @payment_order.destroy
+  def cancel
+    @payment_order.revert_confirm!
     respond_to do |format|
       format.js
     end
@@ -44,7 +53,6 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
 
   def set_payment
     @payment = Payment.find(params[:payment_id])
-    @orders = @payment.pending_orders
   end
 
   def payment_order_params

@@ -1,2 +1,2 @@
-$('#unchecked_<%= @payment_order.payment_id %>').replaceWith('<%= j(render partial: 'index', locals: { payment_order: @payment_order }) %>')
-$('#checked_amount').html(<%= @order.received_amount %>)
+$('#unchecked_<%= @payment_order.payment_id %>').replaceWith('<%= j(render partial: 'payment_orders', locals: { payment_order: @payment_order }) %>')
+$('#checked_amount').html(<%= @order.init_received_amount %>)
