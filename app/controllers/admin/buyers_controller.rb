@@ -5,6 +5,7 @@ class Admin::BuyersController < Admin::TheTradeController
 
     @orders = Order.unscoped.includes(:buyer, :payment_strategy, :charger).select('SUM(`orders`.`amount`) as sum_amount, count(`orders`.`id`) as count_id, `orders`.`buyer_type`, `orders`.`buyer_id`, `orders`.`charger_id`, `orders`.`overdue_date`, `orders`.`payment_strategy_id`')
       .group(:buyer_type, :buyer_id)
+      .permit_with(the_role_user)
       .default_where(q_params)
       .order(overdue_date: :asc)
       .page(params[:page])
@@ -17,21 +18,7 @@ class Admin::BuyersController < Admin::TheTradeController
     @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
   end
 
-  def new
-    @order = Order.new
-  end
-
   def edit
-  end
-
-  def create
-    @order = Order.new(order_params)
-
-    if @order.save
-      redirect_to @order, notice: 'Order was successfully created.'
-    else
-      render :new
-    end
   end
 
   def update
@@ -48,7 +35,6 @@ class Admin::BuyersController < Admin::TheTradeController
   end
 
   private
-
   def order_params
     params.fetch(:order, {})
   end

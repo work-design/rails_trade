@@ -70,7 +70,7 @@ class Payment < ApplicationRecord
   end
 
   def init_adjust_amount
-    self.checked_amount - self.total_amount
+    self.checked_amount.to_d - self.total_amount.to_d
   end
 
   def check_order(order_id)
