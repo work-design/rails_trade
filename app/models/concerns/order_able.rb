@@ -17,7 +17,8 @@ module OrderAble
       unpaid: 0,
       part_paid: 1,
       all_paid: 2,
-      refunded: 3
+      refunded: 3,
+      preparing_unpaid: 4
     }
   end
 

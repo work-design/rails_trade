@@ -27,6 +27,7 @@ en:
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record
+        PaypalPayment: Paypal
       payment/state:
         init: 未核销
         part_checked: 部分核销
