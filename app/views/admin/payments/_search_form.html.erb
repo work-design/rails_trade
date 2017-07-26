@@ -1,9 +1,11 @@
 <%= search_form_with css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
   <div class="fields">
-  <%= f.text_field :buyer_name, placeholder: 'Account Name' %>
-  <%= f.text_field :buyer_identifier, placeholder: 'Account Num' %>
-  <%= f.text_field :buyer_bank, placeholder: 'Buyer Bank' %>
-  <%= f.submit 'Search' %>
+    <%= f.text_field :payment_uuid, placeholder: 'UUID' %>
+    <%= f.text_field :'buyer_name-like', placeholder: 'Account Name' %>
+    <%= f.text_field :buyer_identifier, placeholder: 'Account Num' %>
+    <%= f.text_field :buyer_bank, placeholder: 'Buyer Bank' %>
+    <%= f.submit 'Search' %>
+    <%= link_to 'Clear All Filters', filter_params(only: [:payment_uuid]), class: 'ui white button' %>
   </div>
 <% end %>
 
