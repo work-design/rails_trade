@@ -20,6 +20,8 @@ module OrderAble
       refunded: 3,
       preparing_unpaid: 4
     }
+
+    scope :credited, -> { where(payment_strategy_id: OrderAble.credit_ids) }
   end
 
 
@@ -37,6 +39,10 @@ module OrderAble
 
   def exists_payments
     Payment.where.not(id: self.payment_orders.pluck(:payment_id)).exists?(payment_method_id: self.buyer.payment_method_ids, state: ['init', 'part_checked'])
+  end
+
+  def self.credit_ids
+    PaymentStrategy.where(strategy: ['credit', 'deposit']).pluck(:id)
   end
 
 end
