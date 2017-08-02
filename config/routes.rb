@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
     resources :buyers do
       get :orders, on: :collection
+      put :remind, on: :collection
     end
     resources :charges
     resources :orders, only: [:index, :show, :edit, :update, :destroy] do

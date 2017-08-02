@@ -11,7 +11,7 @@ class Payment < ApplicationRecord
   validates :adjust_amount, numericality: { less_than: 1, greater_than: -1 }, allow_blank: true
 
   before_save :compute_amount
-  after_create :analyze_payment_method
+  after_create :analyze_payment_method, :notify_order_charger
 
   enum state: [
     :init,
@@ -31,8 +31,26 @@ class Payment < ApplicationRecord
     end
   end
 
+  def notify_order_charger
+    charger_ids = self.pending_orders.pluck(:charger_id).uniq
+    user_ids = Employee.where(id: charger_ids).pluck(:user_id)
+
+    user_ids.each do |user_id|
+      n = Notification.new
+      n.receiver_id = user_id
+      n.receiver_type = 'User'
+      n.body = '收到待核销的新流水！'
+      n.link = '/admin/buyers/orders?buyer_type=Company&buyer_id=' + self.payment_method&.payment_references&.pluck(:buyer_id)&.first.to_s
+      n.save
+    end
+  end
+
   def unchecked_amount
-    total_amount.to_d - checked_amount.to_d
+    total_amount.to_d - pending_checked_amount.to_d
+  end
+
+  def pending_checked_amount
+    PaymentOrder.where(payment_id: self.id).sum(:check_amount)
   end
 
   def compute_amount

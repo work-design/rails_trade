@@ -34,10 +34,11 @@
   </table>
 
   <div class="ui segment top attached">
-    <p id="batch_reconcile">
+    <p>
       <% if @payments.first %>
-        <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first.id), method: :post, class: 'ui green button' %>
+        <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first.id), method: :post, class: 'ui green button', id: 'batch_reconcile' %>
       <% end %>
+      <%= link_to 'Send Payment Reminder', remind_admin_buyers_path, method: :put, class: 'ui green button', id: 'remind_link' %>
     </p>
   </div>
 
@@ -122,18 +123,14 @@
     $('input[name="order_id"]:checked').each(function(){
       ids.push($(this).val())
     });
-    if (ids.length == 0) {
-      $('#alert_modal').modal('show');
-      return false
-    }
     ids = ids.join(',');
     return ids
   }
 
-  $('#batch_reconcile > a').click(function(){
-    if (!getCheckedIds()) {
-      return false;
-    }
-    $(this).attr('href', $(this).attr('href') + '?order_ids=' + getCheckedIds());
+  $('input[name="order_id"]').change(function(){
+    var remind_link = new URL($('#remind_link')[0].href);
+    //var batch_link = new URL($('#batch_reconcile')[0].attr('href'));
+
+    $('#remind_link').attr('href', remind_link.pathname + '?order_ids=' + getCheckedIds());
   });
 </script>
