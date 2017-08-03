@@ -79,7 +79,9 @@
           <p><%= order_item.chemical.name.truncate(20) %></p>
           <% end %>
         </td>
-        <td><%= order.overdue_date %></td>
+        <td class="<%= active_assert(order.overdue_date < Date.today, expected: 'error', unexpected: '') %>">
+          <%= order.overdue_date %>
+        </td>
         <td><%= order.amount %></td>
         <td><%= order.unreceived_amount %></td>
         <td><%= order.remind_counter %></td>
