@@ -12,12 +12,17 @@ class Admin::BuyersController < Admin::TheTradeController
       .page(params[:page])
   end
 
-
   def orders
     @orders = Order.where(buyer_type: params[:buyer_type], buyer_id: params[:buyer_id], payment_status: ['unpaid', 'part_paid']).order(overdue_date: :asc).page(params[:page])
     payment_method_ids = PaymentReference.where(buyer_type: params[:buyer_type], buyer_id: params[:buyer_id]).pluck(:payment_method_id)
     @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
   end
 
+  def remind
+    Order.remind params[:order_ids].split(',')
+
+    redirect_back fallback_location: admin_buyers_url
+    #render head: :no_content
+  end
 
 end
