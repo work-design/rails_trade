@@ -62,8 +62,7 @@ Rails.application.routes.draw do
   resources :payment_methods
 
   resources :payments, only: [:index] do
-    get :paypal_result, on: :collection
-    get :wxpay_result, on: :collection
+    get :result, on: :collection
   end
 
 end

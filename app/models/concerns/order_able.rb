@@ -20,6 +20,10 @@ module OrderAble
       refunded: 3,
       preparing_unpaid: 4
     }
+    enum payment_type: {
+      paypal: 'paypal',
+      alipay: 'alipay'
+    }
 
     scope :credited, -> { where(payment_strategy_id: OrderAble.credit_ids) }
   end
@@ -39,6 +43,20 @@ module OrderAble
 
   def exists_payments
     Payment.where.not(id: self.payment_orders.pluck(:payment_id)).exists?(payment_method_id: self.buyer.payment_method_ids, state: ['init', 'part_checked'])
+  end
+
+  def pay_result
+    if self.amount == 0
+      return paid_result
+    end
+    if self.paypal?
+      self.paypal_result
+    end
+  end
+
+  def paid_result
+    self.payment_status = 'all_paid'
+    self.confirm_paid!
   end
 
   def self.credit_ids

@@ -99,7 +99,7 @@ class My::OrdersController < My::TheTradeController
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to orders_url }
+      format.html { redirect_to my_orders_url }
       format.json { head :no_content }
     end
   end
@@ -114,7 +114,7 @@ class My::OrdersController < My::TheTradeController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id)
+    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type)
   end
 
   def date_params

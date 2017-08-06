@@ -39,13 +39,8 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def wxpay_result
-    result = @order.wxpay_result
-    render json: result
-  end
-
-  def paypal_result
-    result = @order.paypal_result
+  def result
+    result = @order.pay_result
     render json: result.as_json(only: [:id, :total_amount, :type, :payment_uuid, :currency])
   end
 
