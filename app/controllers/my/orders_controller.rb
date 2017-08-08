@@ -1,6 +1,6 @@
 class My::OrdersController < My::TheTradeController
   before_action :set_buyer
-  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :execute, :update_date, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :alipay_pay, :paypal_execute, :update_date, :destroy]
 
   def index
     @orders = @buyer.orders
