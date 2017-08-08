@@ -34,6 +34,19 @@ class My::OrdersController < My::TheTradeController
     end
   end
 
+  def alipay_pay
+    respond_to do |format|
+      if @order.payment_status != 'all_paid'
+        result = @order.create_alipay
+        format.json { render json: { result: result } }
+        format.html { redirect_to @order.approve_url }
+      else
+        format.json
+        format.html { redirect_to my_orders_url }
+      end
+    end
+  end
+
   def paypal_pay
     respond_to do |format|
       if @order.payment_status != 'all_paid' && @order.create_paypal_payment
