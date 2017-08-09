@@ -52,11 +52,14 @@ module OrderAble
     if self.paypal?
       self.paypal_result
     end
+    self
   end
 
   def paid_result
     self.payment_status = 'all_paid'
+    self.received_amount = self.amount
     self.confirm_paid!
+    self
   end
 
   def self.credit_ids

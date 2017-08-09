@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  include TheCommonApi
   skip_before_action :verify_authenticity_token
   before_action :set_order, only: [:result]
 
@@ -41,7 +42,7 @@ class PaymentsController < ApplicationController
 
   def result
     result = @order.pay_result
-    render json: result.as_json(only: [:id, :total_amount, :type, :payment_uuid, :currency])
+    render json: result.as_json(only: [:id, :amount, :received_amount, :currency, :payment_status])
   end
 
   private
