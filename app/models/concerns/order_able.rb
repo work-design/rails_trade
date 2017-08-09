@@ -49,8 +49,15 @@ module OrderAble
     if self.amount == 0
       return paid_result
     end
+
+    if self.payment_status == 'all_paid'
+      return self
+    end
+
     if self.paypal?
       self.paypal_result
+    elsif self.alipay?
+      self.alipay_result
     end
     self
   end
