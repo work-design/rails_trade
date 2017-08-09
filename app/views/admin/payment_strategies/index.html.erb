@@ -12,7 +12,6 @@
     <tr>
       <th>ID</th>
       <th><%= PaymentStrategy.human_attribute_name(:name) %></th>
-      <th><%= PaymentStrategy.human_attribute_name(:strategy) %></th>
       <th><%= PaymentStrategy.human_attribute_name(:period) %></th>
       <th>操作</th>
     </tr>
@@ -23,7 +22,6 @@
       <tr>
         <td><%= payment_strategy.id %></td>
         <td><%= payment_strategy.name %></td>
-        <td><%= payment_strategy.strategy %></td>
         <td><%= payment_strategy.period %></td>
         <td>
           <%= link_to t('.destroy'), admin_payment_strategy_path(payment_strategy), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui mini red button' %>

@@ -15,7 +15,7 @@ module BuyerAble
   end
 
   def self.credit_ids
-    PaymentStrategy.where(strategy: ['credit', 'deposit']).pluck(:id)
+    PaymentStrategy.where.not(period: 0).pluck(:id)
   end
 
 end
@@ -24,3 +24,4 @@ end
 # id
 # name
 # payment_strategy_id
+# deposit_ratio, :integer, default: 100, comment: '最小预付比例'

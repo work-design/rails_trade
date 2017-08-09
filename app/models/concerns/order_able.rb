@@ -1,3 +1,7 @@
+
+# payment_id
+# payment_type
+
 module OrderAble
   extend ActiveSupport::Concern
 
@@ -70,7 +74,7 @@ module OrderAble
   end
 
   def self.credit_ids
-    PaymentStrategy.where(strategy: ['credit', 'deposit']).pluck(:id)
+    PaymentStrategy.where.not(period: 0).pluck(:id)
   end
 
 end
