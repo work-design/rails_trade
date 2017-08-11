@@ -122,7 +122,7 @@ class My::OrdersController < My::TheTradeController
 
     respond_to do |format|
       format.html { redirect_to my_orders_url }
-      format.json { head :no_content }
+      format.json { render json: @order.as_json(include: [:refunds]) }
     end
   end
 

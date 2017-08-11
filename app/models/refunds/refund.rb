@@ -66,9 +66,6 @@ class Refund < ApplicationRecord
     end
   end
 
-
-  before_save :sync_amount
-
   def currency_symbol
     Money::Currency.new(self.currency).symbol
   end
@@ -84,14 +81,6 @@ class Refund < ApplicationRecord
       order.save!
       self.save!
     end
-  end
-
-  def operator
-
-  end
-
-  def sync_amount
-    self.total_amount = self.order_amount.to_money.exchange_to(self.currency)
   end
 
 end

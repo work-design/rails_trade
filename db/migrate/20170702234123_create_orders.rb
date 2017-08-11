@@ -14,5 +14,24 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.integer :payment_status
       t.timestamps
     end
+
+
+
+    create_table :refunds do |t|
+      t.references :order
+      t.references :payment
+      t.references :operator
+      t.string :type
+      t.decimal :total_amount, precision: 10, scale: 2
+      t.string "buyer_identifier"
+      t.string "comment", limit: 512
+      t.integer "state", default: 0
+      t.datetime "refunded_at"
+      t.string "reason", limit: 512
+      t.string "currency"
+      t.string "refund_uuid"
+      t.timestamps
+    end
+
   end
 end
