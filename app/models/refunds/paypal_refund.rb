@@ -25,7 +25,6 @@ class PaypalRefund < Refund
       self.refunded_at = Time.now
       self.class.transaction do
         order.save!
-        order.order_items.update_all(pay_status: 'refunded')
         self.save!
       end
     elsif result.error
