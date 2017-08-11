@@ -83,30 +83,21 @@ class Refund < ApplicationRecord
     Money::Currency.new(self.currency).symbol
   end
 
-  def do_refund(params)
+  def do_refund(params = {})
     order.payment_status = 'refunded'
     order.received_amount -= self.total_amount
 
     self.state = 'completed'
     self.refunded_at = Time.now
-    self.user_id = params[:user_id] if params[:user_id].present?
-    self.employee_id = params[:employee_id] if params[:employee_id].present?
 
     self.class.transaction do
       order.save!
-      order.order_items.update_all(pay_status: 'refunded')
       self.save!
     end
   end
 
-
-
   def operator
-    if employee
-      employee.real_name
-    elsif user
-      user.name
-    end
+
   end
 
   def sync_amount

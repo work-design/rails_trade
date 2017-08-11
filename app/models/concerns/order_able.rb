@@ -73,6 +73,20 @@ module OrderAble
     self
   end
 
+  def apply_for_refund
+    if self.payments.size == 1
+      payment = self.payments.first
+      refund = Refund.new
+      refund.type = payment.type.sub(/Payment/, '')
+      refund.order_id = self.id
+      refund.payment_id = payment.id
+      refund.total_amount = payment.total_amount
+      refund.save
+    else
+
+    end
+  end
+
   def self.credit_ids
     PaymentStrategy.where.not(period: 0).pluck(:id)
   end

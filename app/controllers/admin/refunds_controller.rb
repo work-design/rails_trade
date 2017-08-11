@@ -1,6 +1,5 @@
 class Admin::RefundsController < Admin::TheTradeController
-  before_action :set_payment
-  before_action :set_refund, only: [:show, :edit, :update, :destroy]
+  before_action :set_refund, only: [:show, :edit, :update, :confirm, :destroy]
 
   def index
     @refunds = Refund.all
@@ -34,16 +33,16 @@ class Admin::RefundsController < Admin::TheTradeController
     end
   end
 
+  def confirm
+    @refund.do_refund(user_id: current_user.id)
+  end
+
   def destroy
     @refund.destroy
     redirect_to refunds_url, notice: 'Refund was successfully destroyed.'
   end
 
   private
-  def set_payment
-    @payment = Payment.find params[:payment_id]
-  end
-
   def set_refund
     @refund = Refund.find(params[:id])
   end

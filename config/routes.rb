@@ -36,8 +36,8 @@ Rails.application.routes.draw do
       get :dashboard, on: :collection
       patch :analyze, on: :member
       patch :adjust, on: :member
-      resources :refunds
     end
+    resources :refunds
     resources :payment_strategies
     resources :payment_methods do
       resources :payment_references, as: :references
@@ -52,7 +52,8 @@ Rails.application.routes.draw do
       patch :paypal_pay, on: :member
       get :alipay_pay, on: :member
       get :execute, on: :member
-      get :cancel, on: :member
+      get 'cancel' => :edit_cancel, on: :member
+      put 'cancel' => :update_cancel, on: :member
       get :check, on: :member
     end
   end

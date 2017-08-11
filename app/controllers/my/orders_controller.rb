@@ -86,7 +86,7 @@ class My::OrdersController < My::TheTradeController
 
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to :action => 'edit', :notice => 'Order was successfully updated.' }
+        format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -110,6 +110,15 @@ class My::OrdersController < My::TheTradeController
 
   def destroy
     @order.destroy
+
+    respond_to do |format|
+      format.html { redirect_to my_orders_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def refund
+    @order.apply_for_refund
 
     respond_to do |format|
       format.html { redirect_to my_orders_url }
