@@ -6,7 +6,7 @@ class Refund < ApplicationRecord
   belongs_to :payment
 
   after_initialize if: -> { new_record? } do
-    self.refund_uuid = new_batch_no
+    self.refund_uuid = UidHelper.nsec_uuid('RD')
     self.state = :init
   end
 
@@ -16,11 +16,9 @@ class Refund < ApplicationRecord
     :failed
   ]
 
-  validate :valid_total_amount
+  #validate :valid_total_amount
 
-  def new_batch_no
-    Alipay::Utils.generate_batch_no
-  end
+
 
   # 微信是同一个批次号未退款成功可重复申请
   # 支付宝批次号只能当天有效
@@ -63,19 +61,11 @@ class Refund < ApplicationRecord
   end
 
   def valid_total_amount
-    if self.new_record? && amount > refunded_payment.total_amount
-      self.errors.add :amount, 'more then order received amount!'
-    end
-
-    if self.new_record? && order_amount > (order.received_amount - order.refunds.sum(:order_amount))
+    if self.new_record? && total_amount > payment.total_amount
       self.errors.add :total_amount, 'more then order received amount!'
     end
   end
 
-
-  after_initialize if: :new_record? do |lb|
-    self.currency = order.payments.first&.currency if order
-  end
 
   before_save :sync_amount
 

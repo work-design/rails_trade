@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       get :execute, on: :member
       get 'cancel' => :edit_cancel, on: :member
       put 'cancel' => :update_cancel, on: :member
+      put :refund, on: :member
       get :check, on: :member
     end
   end

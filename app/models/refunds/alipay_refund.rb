@@ -4,6 +4,10 @@ class AlipayRefund < Refund
     refunded_payment&.payment_uuid
   end
 
+  def new_batch_no
+    Alipay::Utils.generate_batch_no
+  end
+
   def invoke_refund
     Alipay::Service.refund_fastpay_by_platform_pwd_url(refund_params)
   end

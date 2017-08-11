@@ -76,11 +76,10 @@ module OrderAble
   def apply_for_refund
     if self.payments.size == 1
       payment = self.payments.first
-      refund = Refund.new
-      refund.type = payment.type.sub(/Payment/, '')
-      refund.order_id = self.id
-      refund.payment_id = payment.id
+      refund = Refund.find_or_initialize_by(order_id: self.id, payment_id: payment.id)
+      refund.type = payment.type.sub(/Payment/, '') + 'Refund'
       refund.total_amount = payment.total_amount
+      refund.currency = payment.currency
       refund.save
     else
 
