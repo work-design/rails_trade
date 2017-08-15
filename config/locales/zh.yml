@@ -1,6 +1,58 @@
 zh:
-  the_notify:
-    all_notification: 全部通知
-    unread: 未读
-    readed: 已读
-    notification_setting: 通知设置
+  admin:
+    payments:
+      index:
+        add_new: 新增
+        import: 导入
+      item:
+        edit: 编辑
+        destroy: 删除
+        show: 支付方式
+        checking: 核销
+        analyze: 分析支付方式
+        adjust: 平账
+    payment_methods:
+      index_layout:
+        remove: 移除
+        edit: 编辑
+        destroy: 删除
+        new: 新增
+  activerecord:
+    models:
+      role: ''
+    attributes:
+      charge/type:
+        SingleCharge: Single Charge
+        TotalCharge: Total Charge
+      payment/type:
+        HandPayment: Hand Record
+        BankPayment: Bank Record
+        PaypalPayment: Paypal
+      payment/state:
+        init: 未核销
+        part_checked: 部分核销
+        all_checked: 全部核销
+        abusive_checked: 问题核销
+      payment:
+        total_amount: 总金额
+        income_amount: 净收入
+        fee_amount: 手续费
+        adjust_amount: 四舍五入
+        buyer_name: 账号名称
+        buyer_identifier: 账号
+        buyer_bank: 银行
+        notified_at: 通知时间
+        uuid: 流水号
+        type: 类别
+        comment: 备注
+      payment_method:
+        account_name: 账号名称
+        account_num: 账号
+        bank: 银行
+        verified: 已审核
+        payment_references: 关联账号
+      payment_order/state:
+        init: 待确认
+        confirmed: 已确认
+      payment_reference/buyer_type:
+        Company: Company
