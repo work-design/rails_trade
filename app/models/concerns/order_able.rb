@@ -9,7 +9,7 @@ module OrderAble
     belongs_to :buyer, polymorphic: true
     belongs_to :payment_strategy, optional: true
 
-    has_many :payment_orders, dependent: :destroy
+    has_many :payment_orders, inverse_of: :order,  dependent: :destroy
     has_many :payments, through: :payment_orders
     has_many :order_items, dependent: :destroy, autosave: true
     has_many :refunds, dependent: :nullify
