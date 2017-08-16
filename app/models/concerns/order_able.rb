@@ -80,10 +80,25 @@ module OrderAble
       refund.type = payment.type.sub(/Payment/, '') + 'Refund'
       refund.total_amount = payment.total_amount
       refund.currency = payment.currency
-      refund.save
+
+      self.payment_status = 'refunded'
+
+      self.class.transaction do
+        self.save!
+        self.confirm_refund!
+        refund.save!
+      end
     else
 
     end
+  end
+
+  def confirm_paid!
+
+  end
+  
+  def confirm_refund!
+
   end
 
   def self.credit_ids
