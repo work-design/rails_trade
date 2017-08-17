@@ -1,11 +1,9 @@
 class PaypalRefund < Refund
   SALE = PayPal::SDK::REST::DataTypes::Sale
 
-  validate :valid_sale_id
-
-  def do_refund(params)
+  def do_refund(params = {})
     return unless can_refund?
-    sale = SALE.find(order.sale_id)
+    sale = SALE.find(payment.payment_uuid)
 
     params = params.merge({
       amount: {
@@ -13,12 +11,13 @@ class PaypalRefund < Refund
         currency: self.currency.upcase
       }
     })
+
     result = sale.refund(params)
 
     order.payment_status = 'refunded'
-    order.received_amount -= self.order_amount
+    order.received_amount -= self.total_amount
 
-    self.user_id = params[:user_id] if params[:user_id].present?
+    self.operator_id = params[:operator_id]
 
     if result.success?
       self.state = 'completed'
@@ -35,12 +34,6 @@ class PaypalRefund < Refund
 
   def can_refund?
     self.init? && ['all_paid', 'part_paid', 'refunded'].include?(order.payment_status)
-  end
-
-  def valid_sale_id
-    if order.sale_id.blank?
-      self.errors.add :type, 'Can not refund through Paypal!'
-    end
   end
 
 end

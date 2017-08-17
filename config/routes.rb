@@ -37,7 +37,9 @@ Rails.application.routes.draw do
       patch :analyze, on: :member
       patch :adjust, on: :member
     end
-    resources :refunds
+    resources :refunds do
+      patch :confirm, on: :member
+    end
     resources :payment_strategies
     resources :payment_methods do
       resources :payment_references, as: :references
