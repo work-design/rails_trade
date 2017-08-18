@@ -1,7 +1,7 @@
 class Refund < ApplicationRecord
   attribute :currency, :string, default: 'USD'
 
-  belongs_to :operator, optional: true
+  belongs_to :operator, polymorphic: true, optional: true
   belongs_to :order, optional: true
   belongs_to :payment
 

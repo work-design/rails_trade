@@ -34,7 +34,7 @@ class Admin::RefundsController < Admin::TheTradeController
   end
 
   def confirm
-    @refund.do_refund(operator_id: current_user.id)
+    @refund.do_refund(operator_id: current_user.id, operator_type: 'User')
   end
 
   def destroy
