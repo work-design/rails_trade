@@ -33,7 +33,7 @@
             <p><%= refund.reason.truncate(27) %></p>
           <% end %>
         </td>
-        <td><%= refund.operator %></td>
+        <td><%= refund.operator&.name %></td>
       </tr>
     <% end %>
     </tbody>
