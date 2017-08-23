@@ -11,6 +11,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
     if @payment_order.confirm!
+      @payment.save_audits operator_type: 'User', operator_id: current_user.id, include: [:payment_orders]
       respond_to do |format|
         format.js
       end
