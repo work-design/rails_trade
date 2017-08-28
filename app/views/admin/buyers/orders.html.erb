@@ -8,7 +8,6 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
-      <th></th>
       <th>UUID</th>
       <th><%= Payment.human_attribute_name(:buyer_name) %></th>
       <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
@@ -21,7 +20,6 @@
     <tbody>
     <% @payments.each do |payment| %>
       <tr>
-        <td><%= radio_button_tag(:payment_id, payment.id, @payments.first&.id == payment.id, disabled: true) %></td>
         <td><%= payment.payment_uuid %></td>
         <td><%= payment.buyer_name %></td>
         <td><%= payment.buyer_identifier %></td>
@@ -35,9 +33,6 @@
 
   <div class="ui segment top attached">
     <p>
-      <% if @payments.first %>
-        <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first.id), method: :post, class: 'ui green button', id: 'batch_reconcile' %>
-      <% end %>
       <%= link_to 'Send Payment Reminder', remind_admin_buyers_path, method: :put, class: 'ui green button', id: 'remind_link' %>
     </p>
   </div>

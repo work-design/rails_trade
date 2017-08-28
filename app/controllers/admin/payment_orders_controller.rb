@@ -20,16 +20,6 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     end
   end
 
-  def batch
-    @errors = []
-    params[:order_ids].split(',').each do |order_id|
-      p = @payment.check_order(order_id)
-      @errors << p.errors.full_messages
-    end
-
-    redirect_back fallback_location: admin_buyers_url, alert: @errors.flatten.uniq
-  end
-
   def update
     if @payment_order.confirm!
       respond_to do |format|

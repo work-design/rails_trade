@@ -30,7 +30,6 @@ Rails.application.routes.draw do
     end
     resources :payments do
       resources :payment_orders do
-        post :batch, on: :collection
         patch :cancel, on: :member
       end
       get :dashboard, on: :collection
