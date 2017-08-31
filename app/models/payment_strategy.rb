@@ -1,6 +1,10 @@
 class PaymentStrategy < ApplicationRecord
 
 
+  def credit?
+    self.period.to_i > 0
+  end
+
 end
 
 

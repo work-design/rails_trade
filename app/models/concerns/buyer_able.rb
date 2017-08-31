@@ -9,7 +9,7 @@ module BuyerAble
 
     scope :credited, -> { where(payment_strategy_id: BuyerAble.credit_ids) }
 
-    #validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+    validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
   end
 
   def name_detail
