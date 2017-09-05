@@ -28,7 +28,8 @@ class StripeMethod < PaymentMethod
   end
 
   def remove
-
+    cu = Stripe::Customer.retrieve account_num
+    cu.delete
   end
 
 end

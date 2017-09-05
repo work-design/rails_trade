@@ -8,7 +8,7 @@ module TheStripe
   # execute payment
   # required:
   # token
-  def customer_execute(params)
+  def stripe_customer(params)
     customer = Stripe::Customer.create(description: "#{buyer_type}:#{buyer_id}", source: params[:token])
 
     payment_method = buyer.payment_methods.build(type: 'StripeMethod')
@@ -17,14 +17,14 @@ module TheStripe
     payment_method.save
   end
 
-  def stripe_payment_method
-    buyer.payment_methods.where(type: 'StripeMethod').first
-  end
+  def stripe_charge(params)
+    if params[:token]
+      stripe_customer(token: params[:token])
+    end
 
-  def stripe_execute
     charge = Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
-    self.stripe_record(charge)
     self.update payment_id: charge.id
+    self.stripe_record(charge)
   end
 
   def stripe_result
@@ -56,5 +56,8 @@ module TheStripe
     end
   end
 
+  def stripe_payment_method
+    buyer.payment_methods.where(type: 'StripeMethod').first
+  end
 
 end

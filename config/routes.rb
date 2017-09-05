@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   namespace :my do
     resources :orders do
       patch :paypal_pay, on: :member
+      patch :stripe_pay, on: :member
       get :alipay_pay, on: :member
       get :execute, on: :member
       get 'cancel' => :edit_cancel, on: :member
