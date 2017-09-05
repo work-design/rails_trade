@@ -21,18 +21,24 @@ module TheStripe
     buyer.payment_methods.where(type: 'StripeMethod').first
   end
 
-
   def stripe_execute
-    @stripe_charge ||= Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
+    charge = Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
+    self.stripe_record(charge)
+    self.update payment_id: charge.id
   end
 
   def stripe_result
-    trans = stripe_execute
+    if self.payment_type == 'stripe' && self.payment_id.present?
+      charge = Stripe::Charge.retrieve(self.payment_id)
+      self.stripe_record(charge)
+    end
+  end
 
-    if trans.paid
+  def stripe_record(charge)
+    if charge.paid
       stripe = StripePayment.new
-      stripe.payment_uuid = trans.id
-      stripe.total_amount = trans.amount / 100.0
+      stripe.payment_uuid = charge.id
+      stripe.total_amount = charge.amount / 100.0
 
       payment_order = stripe.payment_orders.build(order_id: self.id, check_amount: stripe.total_amount)
 
@@ -43,7 +49,7 @@ module TheStripe
         end
         stripe
       rescue
-        StripePayment.find_by(payment_uuid: trans.id)
+        StripePayment.find_by(payment_uuid: charge.id)
       end
     else
       errors.add :uuid, 'error'

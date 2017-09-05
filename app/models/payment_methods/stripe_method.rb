@@ -27,6 +27,10 @@ class StripeMethod < PaymentMethod
     self.update extra: retrieve.to_h
   end
 
+  def remove
+
+  end
+
 end
 
 

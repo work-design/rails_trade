@@ -26,7 +26,8 @@ module OrderAble
     }
     enum payment_type: {
       paypal: 'paypal',
-      alipay: 'alipay'
+      alipay: 'alipay',
+      stripe: 'stripe'
     }
 
     scope :credited, -> { where(payment_strategy_id: OrderAble.credit_ids) }
