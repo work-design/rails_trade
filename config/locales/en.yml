@@ -13,10 +13,11 @@ en:
         adjust: 平账
     payment_methods:
       index_layout:
-        remove: 移除
-        edit: 编辑
-        destroy: 删除
-        new: 新增
+        remove: Remove
+        edit: Edit
+        destroy: Delete
+        new: Add
+        relate: Refer Buyer
   activerecord:
     models:
       role: ''

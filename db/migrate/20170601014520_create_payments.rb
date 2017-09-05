@@ -39,6 +39,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.string :account_name
       t.string :account_num
       t.string :bank
+      t.text :extra
       t.boolean :verified
       t.timestamps
     end

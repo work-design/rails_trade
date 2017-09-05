@@ -17,6 +17,7 @@ zh:
         edit: 编辑
         destroy: 删除
         new: 新增
+        relate: 关联买家
   activerecord:
     models:
       role: ''

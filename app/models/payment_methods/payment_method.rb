@@ -1,4 +1,6 @@
 class PaymentMethod < ApplicationRecord
+  serialize :extra, Hash
+
   has_many :payments, dependent: :nullify
   has_many :payment_references, dependent: :destroy, autosave: true, inverse_of: :payment_method
 
