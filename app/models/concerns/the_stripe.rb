@@ -17,7 +17,7 @@ module TheStripe
     payment_method.save
   end
 
-  def stripe_charge(params)
+  def stripe_charge(params = {})
     if params[:token]
       stripe_customer(token: params[:token])
     end
@@ -41,22 +41,21 @@ module TheStripe
   end
 
   def stripe_record(charge)
-    if charge.paid
+    if charge.paid && !charge.refunded
+      existing = StripePayment.find_by(payment_uuid: charge.id)
+      return existing if existing
+
       stripe = StripePayment.new
       stripe.payment_uuid = charge.id
       stripe.total_amount = charge.amount / 100.0
 
       payment_order = stripe.payment_orders.build(order_id: self.id, check_amount: stripe.total_amount)
 
-      begin
-        Payment.transaction do
-          payment_order.confirm!
-          stripe.save!
-        end
-        stripe
-      rescue
-        StripePayment.find_by(payment_uuid: charge.id)
+      Payment.transaction do
+        payment_order.confirm!
+        stripe.save!
       end
+      stripe
     else
       errors.add :uuid, 'error'
     end
