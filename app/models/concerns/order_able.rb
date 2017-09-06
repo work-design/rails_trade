@@ -63,6 +63,8 @@ module OrderAble
       self.paypal_result
     elsif self.alipay?
       self.alipay_result
+    elsif self.stripe?
+      self.stripe_result
     end
     self
   end

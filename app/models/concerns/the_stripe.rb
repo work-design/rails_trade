@@ -22,6 +22,12 @@ module TheStripe
       stripe_customer(token: params[:token])
     end
 
+    if params[:payment_method_id]
+      stripe_payment_method = buyer.payment_methods.where(type: 'StripeMethod', id: params[:payment_method_id]).first
+    else
+      stripe_payment_method = buyer.payment_methods.where(type: 'StripeMethod').first
+    end
+
     charge = Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
     self.update payment_id: charge.id
     self.stripe_record(charge)
@@ -54,10 +60,6 @@ module TheStripe
     else
       errors.add :uuid, 'error'
     end
-  end
-
-  def stripe_payment_method
-    buyer.payment_methods.where(type: 'StripeMethod').first
   end
 
 end

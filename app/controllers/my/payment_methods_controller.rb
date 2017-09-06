@@ -7,7 +7,7 @@ class My::PaymentMethodsController < My::TheTradeController
 
     respond_to do |format|
       format.html { redirect_to my_orders_url }
-      format.json { render json: @payment_methods.as_json }
+      format.json { render json: @payment_methods.as_json(methods: 'kind') }
     end
   end
 

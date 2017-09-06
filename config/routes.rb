@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       put :refund, on: :member
       get :check, on: :member
     end
+    resources :payment_methods
   end
 
   resources :buyers do

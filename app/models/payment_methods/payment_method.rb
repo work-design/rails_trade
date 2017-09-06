@@ -46,6 +46,10 @@ class PaymentMethod < ApplicationRecord
     end
   end
 
+  def kind
+    type.to_s.sub('Method', '').downcase
+  end
+
 end
 
 
