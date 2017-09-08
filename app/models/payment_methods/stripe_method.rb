@@ -1,5 +1,5 @@
 class StripeMethod < PaymentMethod
-
+  after_destroy_commit :remove
 
   def retrieve
     customer = Stripe::Customer.retrieve account_num
