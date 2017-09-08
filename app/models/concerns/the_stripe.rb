@@ -29,7 +29,7 @@ module TheStripe
     end
 
     charge = Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
-    self.update payment_id: charge.id
+    self.update payment_type: 'stripe', payment_id: charge.id
     self.stripe_record(charge)
   end
 
