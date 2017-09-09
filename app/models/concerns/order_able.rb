@@ -35,7 +35,7 @@ module OrderAble
 
     scope :credited, -> { where(payment_strategy_id: OrderAble.credit_ids) }
   end
-  
+
   def unreceived_amount
     self.amount - self.received_amount
   end

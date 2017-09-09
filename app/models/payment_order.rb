@@ -24,7 +24,9 @@ class PaymentOrder < ApplicationRecord
   end
 
   def same_order_amount
-    PaymentOrder.where.not(id: self.id).where(order_id: self.order_id).sum(:check_amount)
+    received = PaymentOrder.where.not(id: self.id).where(order_id: self.order_id).sum(:check_amount)
+    refund = Refund.where(payment_id: payment_id, order_id: order_id).sum(:total_amount)
+    received - refund
   end
 
   def payment_amount
