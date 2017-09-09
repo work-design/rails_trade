@@ -33,7 +33,6 @@ class Refund < ApplicationRecord
 
   def do_refund(params = {})
     order.payment_status = 'refunded'
-    order.received_amount -= self.total_amount
 
     self.state = 'completed'
     self.refunded_at = Time.now

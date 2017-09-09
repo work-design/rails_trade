@@ -15,8 +15,6 @@ class PaypalRefund < Refund
     result = sale.refund(params)
 
     order.payment_status = 'refunded'
-    order.received_amount -= self.total_amount
-
     self.operator_id = params[:operator_id]
 
     if result.success?

@@ -1,6 +1,8 @@
 
 # payment_id
 # payment_type
+# amount
+# received_amount
 
 module OrderAble
   extend ActiveSupport::Concern
@@ -22,7 +24,8 @@ module OrderAble
       unpaid: 0,
       part_paid: 1,
       all_paid: 2,
-      refunded: 3,
+      refunding: 3,
+      refunded: 4
     }
     enum payment_type: {
       paypal: 'paypal',
@@ -32,8 +35,7 @@ module OrderAble
 
     scope :credited, -> { where(payment_strategy_id: OrderAble.credit_ids) }
   end
-
-
+  
   def unreceived_amount
     self.amount - self.received_amount
   end
@@ -76,23 +78,25 @@ module OrderAble
     self
   end
 
-  def apply_for_refund
+  def apply_for_refund(payment_id = nil)
     if self.payments.size == 1
       payment = self.payments.first
-      refund = Refund.find_or_initialize_by(order_id: self.id, payment_id: payment.id)
-      refund.type = payment.type.sub(/Payment/, '') + 'Refund'
-      refund.total_amount = payment.total_amount
-      refund.currency = payment.currency
-
-      self.payment_status = 'refunded'
-
-      self.class.transaction do
-        self.save!
-        self.confirm_refund!
-        refund.save!
-      end
     else
+      payment = self.payments.find_by(id: payment_id)
+    end
 
+    refund = Refund.find_or_initialize_by(order_id: self.id, payment_id: payment.id)
+    refund.type = payment.type.sub(/Payment/, '') + 'Refund'
+    refund.total_amount = payment.total_amount
+    refund.currency = payment.currency
+
+    self.payment_status = 'refunding'
+    self.received_amount -= payment.total_amount
+
+    self.class.transaction do
+      self.save!
+      self.confirm_refund!
+      refund.save!
     end
   end
 
