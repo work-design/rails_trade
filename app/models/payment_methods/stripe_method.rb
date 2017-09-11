@@ -1,4 +1,5 @@
 class StripeMethod < PaymentMethod
+  attr_accessor :token
   after_destroy_commit :remove
 
   def retrieve
@@ -30,6 +31,10 @@ class StripeMethod < PaymentMethod
   def remove
     cu = Stripe::Customer.retrieve account_num
     cu.delete
+  end
+
+  def detective_save
+
   end
 
 end
