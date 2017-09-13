@@ -44,7 +44,7 @@ class Refund < ApplicationRecord
   end
 
   def can_refund?
-    self.init? && ['all_paid', 'part_paid', 'refunded'].include?(order.payment_status)
+    self.init? && ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
   end
 
 end
