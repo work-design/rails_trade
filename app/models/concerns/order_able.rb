@@ -1,4 +1,3 @@
-
 # payment_id
 # payment_type
 # amount
