@@ -1,17 +1,18 @@
 require 'test_helper'
 
-class PaymentsControllerTest < ActionDispatch::IntegrationTest
+class Admin::PaymentsControllerTest < ActionDispatch::IntegrationTest
+
   setup do
-    @payment = payments(:one)
+    @payment = create :payment
   end
 
   test "should get index" do
-    get payments_url
+    get admin_payments_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_payment_url
+    get new_admin_payment_url
     assert_response :success
   end
 
@@ -45,4 +46,5 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to payments_url
   end
+
 end

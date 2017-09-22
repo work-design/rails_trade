@@ -16,3 +16,10 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
+
+class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+end
+
+FactoryGirl.definition_file_paths += [File.expand_path('../factories', __FILE__)]
+FactoryGirl.find_definitions
