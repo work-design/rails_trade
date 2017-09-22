@@ -1,43 +1,44 @@
-<div>
-  <div class="ui top attached menu borderless">
-    <div class="item">Refund</div>
-  </div>
-
-  <table class="ui table">
-    <thead>
-    <tr>
-      <th>Total Amount</th>
-      <th>Type</th>
-      <th>Created At</th>
-      <th>State</th>
-      <th>Comment</th>
-      <th>Refunded At</th>
-      <th>Operator</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @refunds.each do |refund| %>
-      <tr>
-        <td><%= refund.total_amount.to_money(refund.currency).format %></td>
-        <td><%= refund.type %></td>
-        <td><time><%= refund.created_at.to_s %></time></td>
-        <td><%= refund.state %></td>
-        <td><%= refund.comment %></td>
-        <td>
-          <% if refund.refunded_at %>
-            <time><%= refund.refunded_at.to_s %></time>
-          <% else %>
-            <%= link_to 'Do Refund', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'ui red button' %>
-          <% end %>
-          <% if refund.reason %>
-            <p><%= refund.reason.truncate(27) %></p>
-          <% end %>
-        </td>
-        <td><%= refund.operator&.name %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-
+<div class="ui top attached menu borderless">
+  <div class="item">Refund</div>
 </div>
+
+<table class="ui table">
+  <thead>
+  <tr>
+    <th>UUID</th>
+    <th>Total Amount</th>
+    <th>Type</th>
+    <th>Created At</th>
+    <th>State</th>
+    <th>Comment</th>
+    <th>Refunded At</th>
+    <th>Operator</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @refunds.each do |refund| %>
+    <tr>
+      <td><%= refund.refund_uuid %></td>
+      <td><%= refund.total_amount.to_money(refund.currency).format %></td>
+      <td><%= refund.type %></td>
+      <td><time><%= refund.created_at.to_s %></time></td>
+      <td><%= refund.state %></td>
+      <td><%= refund.comment %></td>
+      <td>
+        <% if refund.refunded_at %>
+          <time><%= refund.refunded_at.to_s %></time>
+        <% else %>
+          <%= link_to 'Do Refund', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'ui red button' %>
+        <% end %>
+        <% if refund.reason %>
+          <p><%= refund.reason.truncate(27) %></p>
+        <% end %>
+      </td>
+      <td><%= refund.operator&.name %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+
