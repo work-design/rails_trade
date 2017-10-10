@@ -1,9 +1,10 @@
 class Admin::BuyersController < Admin::TheTradeController
 
   def index
+    @employees = Employee.where(id: current_employee.allow_ids)
     q_params = params.fetch(:q, {}).permit!.reverse_merge('overdue_date-lte': Date.today, payment_status: ['unpaid', 'part_paid'], state: 'active')
 
-    @orders = Order.unscoped.includes(:buyer, :payment_strategy, :charger).select('SUM(`orders`.`amount`) as sum_amount, count(`orders`.`id`) as count_id, `orders`.`buyer_id`, `orders`.`charger_id`, `orders`.`overdue_date`, `orders`.`payment_strategy_id`')
+    @orders = Order.unscoped.includes(:buyer, :payment_strategy).select('SUM(`orders`.`amount`) as sum_amount, count(`orders`.`id`) as count_id, `orders`.`buyer_id`, `orders`.`overdue_date`, `orders`.`payment_strategy_id`')
       .group(:buyer_id)
       .permit_with(the_role_user)
       .credited
