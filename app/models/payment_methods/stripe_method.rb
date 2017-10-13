@@ -9,6 +9,7 @@ class StripeMethod < PaymentMethod
 
   def customer_info(customer)
     card = customer.sources.data[0]
+    return {} unless card
     {
       description: customer.description,
       address_zip: card.address_zip,
@@ -34,7 +35,12 @@ class StripeMethod < PaymentMethod
   end
 
   def detective_save
+    customer = Stripe::Customer.create(description: "buyer_id: #{payment_references.map { |i| i.buyer_id }}", source: self.token)
 
+    self.account_num = customer.id
+    self.extra = self.customer_info(customer)
+    self.verified = true
+    self.save
   end
 
 end
