@@ -25,7 +25,7 @@ class My::PaymentMethodsController < My::TheTradeController
     @payment_method = @buyer.payment_methods.build(payment_method_params)
 
     if @payment_method.detective_save
-      render 'create'
+      render json: @payment_method.as_json(methods: 'kind')
     else
       render :new
     end
