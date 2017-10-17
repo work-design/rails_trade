@@ -1,6 +1,6 @@
 class My::OrdersController < My::TheTradeController
   before_action :set_buyer
-  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :execute, :update_date, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
 
   def index
     @orders = @buyer.orders
@@ -30,6 +30,32 @@ class My::OrdersController < My::TheTradeController
       else
         format.html { render action: "new" }
         format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def stripe_pay
+    respond_to do |format|
+      if @order.payment_status != 'all_paid'
+        result = @order.stripe_charge(params)
+        format.json { render json: { result: result } }
+        format.html { redirect_to @order.approve_url }
+      else
+        format.json
+        format.html { redirect_to my_orders_url }
+      end
+    end
+  end
+
+  def alipay_pay
+    respond_to do |format|
+      if @order.payment_status != 'all_paid'
+        result = @order.create_alipay
+        format.json { render json: { result: result } }
+        format.html { redirect_to @order.approve_url }
+      else
+        format.json
+        format.html { redirect_to my_orders_url }
       end
     end
   end
@@ -73,7 +99,7 @@ class My::OrdersController < My::TheTradeController
 
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to :action => 'edit', :notice => 'Order was successfully updated.' }
+        format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -99,8 +125,17 @@ class My::OrdersController < My::TheTradeController
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to orders_url }
+      format.html { redirect_to my_orders_url }
       format.json { head :no_content }
+    end
+  end
+
+  def refund
+    @order.apply_for_refund
+
+    respond_to do |format|
+      format.html { redirect_to my_orders_url }
+      format.json { render json: @order.as_json(include: [:refunds]) }
     end
   end
 
@@ -114,7 +149,7 @@ class My::OrdersController < My::TheTradeController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id)
+    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type)
   end
 
   def date_params

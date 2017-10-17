@@ -1,4 +1,6 @@
 class Payment < ApplicationRecord
+  include Auditable
+
   attribute :currency, :string, default: 'USD'
 
   belongs_to :payment_method, optional: true
@@ -32,7 +34,11 @@ class Payment < ApplicationRecord
   end
 
   def unchecked_amount
-    total_amount.to_d - checked_amount.to_d
+    total_amount.to_d - pending_checked_amount.to_d
+  end
+
+  def pending_checked_amount
+    PaymentOrder.where(payment_id: self.id).sum(:check_amount)
   end
 
   def compute_amount
@@ -70,7 +76,7 @@ class Payment < ApplicationRecord
   end
 
   def init_adjust_amount
-    self.checked_amount - self.total_amount
+    self.checked_amount.to_d - self.total_amount.to_d
   end
 
   def check_order(order_id)

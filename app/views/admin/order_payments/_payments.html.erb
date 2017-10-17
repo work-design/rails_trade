@@ -1,6 +1,6 @@
 <tr id="unchecked_<%= payment.id %>">
   <td style="color: #999;">
-    <%= payment.id %>
+    <%= payment.payment_uuid %>
     <%= form_with url: admin_order_order_payments_path(@order), id: "new_payment_#{payment.id}" do |f| %>
     <% end %>
   </td>

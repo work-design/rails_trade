@@ -8,7 +8,6 @@
   <table class="ui bottom attached table">
     <thead>
     <tr>
-      <th></th>
       <th>UUID</th>
       <th><%= Payment.human_attribute_name(:buyer_name) %></th>
       <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
@@ -21,7 +20,6 @@
     <tbody>
     <% @payments.each do |payment| %>
       <tr>
-        <td><%= radio_button_tag(:payment_id, payment.id, @payments.first&.id == payment.id, disabled: true) %></td>
         <td><%= payment.payment_uuid %></td>
         <td><%= payment.buyer_name %></td>
         <td><%= payment.buyer_identifier %></td>
@@ -34,10 +32,8 @@
   </table>
 
   <div class="ui segment top attached">
-    <p id="batch_reconcile">
-      <% if @payments.first %>
-        <%= link_to 'Batch Reconcile', batch_admin_payment_payment_orders_path(@payments.first.id), method: :post, class: 'ui green button' %>
-      <% end %>
+    <p>
+      <%= link_to 'Send Payment Reminder', remind_admin_buyers_path, method: :put, class: 'ui green button', id: 'remind_link' %>
     </p>
   </div>
 
@@ -45,12 +41,13 @@
     <thead>
     <tr>
       <th></th>
-      <th><%= Order.human_attribute_name(:uuid) %></th>
+      <th class="two wide"><%= Order.human_attribute_name(:uuid) %></th>
+      <th>AR</th>
       <th><%= Order.human_attribute_name(:created_at) %></th>
-      <th>Item Info</th>
+      <th class="four wide">Item Info</th>
       <th><%= Order.human_attribute_name(:overdue_date) %></th>
-      <th><%= Order.human_attribute_name(:amount) %></th>
-      <th><%= Order.human_attribute_name(:unreceived_amount) %></th>
+      <th><%= Order.human_attribute_name(:amount) %> / <%= Order.human_attribute_name(:unreceived_amount) %></th>
+      <th>No. of Reminder</th>
       <th></th>
     </tr>
     </thead>
@@ -69,15 +66,19 @@
           <label class="ui red label">Canceled</label>
           <% end %>
         </td>
+        <td><%= order.charger&.name %></td>
         <td><%= order.created_at %></td>
         <td>
           <% order.order_items.each do |order_item| %>
-          <p><%= order_item.chemical.name.truncate(20) %></p>
+            <p><%= order_item.chemical.name.truncate(50) %></p>
+            <p><%= order_item.chemical.cas %></p>
           <% end %>
         </td>
-        <td><%= order.overdue_date %></td>
-        <td><%= order.amount %></td>
-        <td><%= order.unreceived_amount %></td>
+        <td class="<%= active_assert(order.overdue_date && order.overdue_date < Date.today, expected: 'error', unexpected: '') %>">
+          <%= order.overdue_date %>
+        </td>
+        <td><%= order.amount %> / <%= order.unreceived_amount %></td>
+        <td><%= order.remind_counter %></td>
         <td>
           <% if order.exists_payments && !order.cancel? %>
             <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
@@ -120,18 +121,14 @@
     $('input[name="order_id"]:checked').each(function(){
       ids.push($(this).val())
     });
-    if (ids.length == 0) {
-      $('#alert_modal').modal('show');
-      return false
-    }
     ids = ids.join(',');
     return ids
   }
 
-  $('#batch_reconcile > a').click(function(){
-    if (!getCheckedIds()) {
-      return false;
-    }
-    $(this).attr('href', $(this).attr('href') + '?order_ids=' + getCheckedIds());
+  $('input[name="order_id"]').change(function(){
+    var remind_link = new URL($('#remind_link')[0].href);
+    //var batch_link = new URL($('#batch_reconcile')[0].attr('href'));
+
+    $('#remind_link').attr('href', remind_link.pathname + '?order_ids=' + getCheckedIds());
   });
 </script>

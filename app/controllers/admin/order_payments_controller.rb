@@ -15,7 +15,7 @@ class Admin::OrderPaymentsController < Admin::TheTradeController
     @payment_order = @order.payment_orders.build(payment_order_params)
 
     if @payment_order.save
-      @payment_order.order.save_audits operator_type: 'Employee', operator_id: current_employee.id, include: [:payment_orders]
+      @payment_order.order.save_audits operator_type: 'Manager', operator_id: current_employee.id, include: [:payment_orders]
       respond_to do |format|
         format.js
       end

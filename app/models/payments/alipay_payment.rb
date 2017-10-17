@@ -1,4 +1,4 @@
-class AlipayWeb < Payment
+class AlipayPayment < Payment
 
   def save_detail!(params)
     self.sign = params[:sign]

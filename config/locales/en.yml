@@ -2,21 +2,22 @@ en:
   admin:
     payments:
       index:
-        add_new: 新增
-        import: 导入
+        add_new: add
+        import: Import
       item:
-        edit: 编辑
-        destroy: 删除
+        edit: Edit
+        destroy: Destroy
         show: 支付方式
         checking: 核销
         analyze: 分析支付方式
         adjust: 平账
     payment_methods:
       index_layout:
-        remove: 移除
-        edit: 编辑
-        destroy: 删除
-        new: 新增
+        remove: Remove
+        edit: Edit
+        destroy: Delete
+        new: Add
+        relate: Refer Buyer
   activerecord:
     models:
       role: ''
@@ -27,6 +28,7 @@ en:
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record
+        PaypalPayment: Paypal
       payment/state:
         init: 未核销
         part_checked: 部分核销
@@ -55,7 +57,3 @@ en:
         confirmed: 已确认
       payment_reference/buyer_type:
         Company: Company
-      payment_strategy/strategy:
-        prepay: Prepay
-        deposit: Deposit
-        credit: Credit

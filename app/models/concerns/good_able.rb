@@ -4,8 +4,8 @@ module GoodAble
   included do
     has_many :cart_items, as: :good, dependent: :nullify
     has_many :order_items, as: :good, dependent: :nullify
+    has_many :orders, through: :order_items
   end
-
 
   def generate_order(buyer, params)
     oi = self.order_items.build
@@ -18,6 +18,10 @@ module GoodAble
 
     o = oi.build_order
     o.buyer = buyer
+    o.subtotal = oi.amount
+    o.amount = oi.amount
+    o.currency = self.currency
+    o.payment_status = 'unpaid'
 
     self.class.transaction do
       o.save!

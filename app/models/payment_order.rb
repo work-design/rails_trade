@@ -1,5 +1,5 @@
 class PaymentOrder < ApplicationRecord
-  belongs_to :order
+  belongs_to :order, inverse_of: :payment_orders
   belongs_to :payment, inverse_of: :payment_orders
 
   validate :for_check_amount
@@ -24,7 +24,9 @@ class PaymentOrder < ApplicationRecord
   end
 
   def same_order_amount
-    PaymentOrder.where.not(id: self.id).where(order_id: self.order_id).sum(:check_amount)
+    received = PaymentOrder.where.not(id: self.id).where(order_id: self.order_id).sum(:check_amount)
+    refund = Refund.where(payment_id: payment_id, order_id: order_id).sum(:total_amount)
+    received - refund
   end
 
   def payment_amount

@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
+  include TheCommonApi
   skip_before_action :verify_authenticity_token
-  before_action :set_order, only: [:wxpay_result, :paypal_result]
+  before_action :set_order, only: [:result]
 
   def alipay_notify
     @order = Order.find_by(uuid: params[:out_trade_no])
@@ -39,14 +40,9 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def wxpay_result
-    result = @order.wxpay_result
-    render json: result
-  end
-
-  def paypal_result
-    result = @order.paypal_result
-    render json: result.as_json(only: [:id, :total_amount, :type, :payment_uuid, :currency])
+  def result
+    result = @order.pay_result
+    render json: result.as_json(only: [:id, :amount, :received_amount, :currency, :payment_status])
   end
 
   private

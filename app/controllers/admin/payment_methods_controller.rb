@@ -2,7 +2,7 @@ class Admin::PaymentMethodsController < Admin::TheTradeController
   before_action :set_payment_method, only: [:show, :edit, :update, :verify, :merge_from, :destroy]
 
   def index
-    @payment_methods = PaymentMethod.default_where(params.permit(:id)).default_where(params.fetch(:q, {}).permit(:account_name, :account_num, :bank)).page(params[:page])
+    @payment_methods = PaymentMethod.includes(:payment_references).default_where(params.permit(:id)).default_where(params.fetch(:q, {}).permit(:account_name, :account_num, :bank)).page(params[:page])
   end
 
   def unverified

@@ -11,22 +11,13 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
     if @payment_order.confirm!
+      @payment.save_audits operator_type: 'User', operator_id: current_user.id, include: [:payment_orders]
       respond_to do |format|
         format.js
       end
     else
       render 'create_fail'
     end
-  end
-
-  def batch
-    @errors = []
-    params[:order_ids].split(',').each do |order_id|
-      p = @payment.check_order(order_id)
-      @errors << p.errors.full_messages
-    end
-
-    redirect_back fallback_location: admin_buyers_url, alert: @errors.flatten.uniq
   end
 
   def update

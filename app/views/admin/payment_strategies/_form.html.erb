@@ -1,6 +1,5 @@
 <%= default_form_with model: [:admin, @payment_strategy], local: true do |f| %>
   <%= f.text_field :name %>
-  <%= f.select :strategy, options_for_select(PaymentStrategy.options_i18n(:strategy), @payment_strategy.strategy) %>
   <%= f.number_field :period %>
   <%= f.submit %>
 <% end %>

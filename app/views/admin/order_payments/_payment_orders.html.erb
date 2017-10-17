@@ -1,5 +1,5 @@
 <tr id="checked_<%= payment_order.payment_id %>">
-  <td style="color: #999;"><%= payment_order.payment_id %></td>
+  <td style="color: #999;"><%= payment_order.payment.payment_uuid %></td>
   <td class="center aligned"><%= payment_order.payment.type %></td>
   <td><%= payment_order.payment.total_amount %></td>
   <td><%= payment_order.payment.unchecked_amount %></td>

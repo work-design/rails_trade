@@ -1,4 +1,4 @@
-class WxpayJsapi < Payment
+class WxpayPayment < Payment
   attr_accessor :openid, :spbill_create_ip
 
   def save_detail!(params)
