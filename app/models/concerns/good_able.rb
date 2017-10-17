@@ -7,7 +7,6 @@ module GoodAble
     has_many :orders, through: :order_items
   end
 
-
   def generate_order(buyer, params)
     oi = self.order_items.build
     oi.number = params[:number]

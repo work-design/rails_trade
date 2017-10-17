@@ -42,6 +42,7 @@ class My::PaymentMethodsController < My::TheTradeController
 
   def destroy
     @payment_method.destroy
+    head :no_content
   end
 
   private
