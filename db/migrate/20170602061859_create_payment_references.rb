@@ -6,17 +6,7 @@ class CreatePaymentReferences < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :goods do |t|
-      t.string :sku, index: true
-      t.string :name
-      t.decimal :quantity
-      t.string :unit
-      t.decimal :price
-      t.integer :sales_count
-      t.boolean :published, default: true
-      t.references :promote
-      t.timestamps
-    end
+
 
     create_table :charges do |t|
       t.string :unit
