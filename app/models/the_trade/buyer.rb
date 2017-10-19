@@ -1,11 +1,10 @@
 class Buyer < ApplicationRecord
-
   belongs_to :payment_strategy, optional: true
   has_many :orders, foreign_key: :buyer_id
   has_many :payment_references, foreign_key: :buyer_id, dependent: :destroy, autosave: true
   has_many :payment_methods, through: :payment_references, autosave: true
 
-  scope :credited, -> { where(payment_strategy_id: BuyerAble.credit_ids) }
+  scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
   validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
