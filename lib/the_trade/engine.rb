@@ -2,6 +2,7 @@ module TheTrade
   class Engine < ::Rails::Engine
 
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade"]
+    config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/concerns"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/payments"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/payment_methods"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/charges"]

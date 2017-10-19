@@ -1,38 +1,31 @@
-# payment_id
-# payment_type
-# amount
-# received_amount
+class Order < ApplicationRecord
 
-module OrderAble
-  extend ActiveSupport::Concern
+  belongs_to :payment_strategy, optional: true
+  belongs_to :buyer
+  has_many :payment_orders, inverse_of: :order, dependent: :destroy
+  has_many :payments, through: :payment_orders
+  has_many :order_items, dependent: :destroy, autosave: true
+  has_many :refunds, dependent: :nullify
 
-  included do
-    belongs_to :payment_strategy, optional: true
+  scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
-    has_many :payment_orders, inverse_of: :order, dependent: :destroy
-    has_many :payments, through: :payment_orders
-    has_many :order_items, dependent: :destroy, autosave: true
-    has_many :refunds, dependent: :nullify
 
-    after_initialize if: :new_record? do |o|
-      self.uuid = UidHelper.nsec_uuid('OD')
-    end
-
-    enum payment_status: {
-      unpaid: 0,
-      part_paid: 1,
-      all_paid: 2,
-      refunding: 3,
-      refunded: 4
-    }
-    enum payment_type: {
-      paypal: 'paypal',
-      alipay: 'alipay',
-      stripe: 'stripe'
-    }
-
-    scope :credited, -> { where(payment_strategy_id: OrderAble.credit_ids) }
+  after_initialize if: :new_record? do |o|
+    self.uuid = UidHelper.nsec_uuid('OD')
   end
+
+  enum payment_status: {
+    unpaid: 0,
+    part_paid: 1,
+    all_paid: 2,
+    refunding: 3,
+    refunded: 4
+  }
+  enum payment_type: {
+    paypal: 'paypal',
+    alipay: 'alipay',
+    stripe: 'stripe'
+  }
 
   def unreceived_amount
     self.amount - self.received_amount
@@ -112,4 +105,7 @@ module OrderAble
 
 end
 
-
+# payment_id
+# payment_type
+# amount
+# received_amount
