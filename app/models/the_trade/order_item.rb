@@ -1,7 +1,7 @@
 class OrderItem < ApplicationRecord
   belongs_to :order, autosave: true
-  belongs_to :good, polymorphic: true
-  
+  belongs_to :good, polymorphic: true, optional: true
+
 end
 
 
