@@ -21,6 +21,7 @@ class Admin::PaymentOrdersController < Admin::TheTradeController
   end
 
   def update
+    @payment_order.assign_attributes payment_order_params
     if @payment_order.confirm!
       respond_to do |format|
         format.js
