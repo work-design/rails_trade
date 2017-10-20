@@ -1,6 +1,8 @@
 <tr id="checked_<%= payment_order.order_id %>">
   <td>
     <%= payment_order.order.id %>
+    <%= form_with url: admin_payment_payment_order_path(@payment, payment_order), id: "edit_payment_order_#{payment_order.id}", method: :patch, remote: true do |f| %>
+    <% end %>
   </td>
   <td>
     <%= payment_order.order.uuid %>
@@ -12,13 +14,19 @@
     <% end %>
   </td>
   <td><%= payment_order.order.amount %></td>
-  <td><%= payment_order.check_amount %></td>
+  <td>
+    <% if payment_order.confirmed? %>
+      <%= payment_order.check_amount %>
+    <% else %>
+      <%= number_field_tag 'payment_order[check_amount]', payment_order.check_amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "edit_payment_order_#{payment_order.id}" %>
+    <% end %>
+  </td>
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
   <td>
     <% if payment_order.confirmed? && the_role_user.has_role?('admin/payment_orders', 'destroy') %>
       <%= link_to '撤销', cancel_admin_payment_payment_order_path(@payment, payment_order), method: :patch, remote: true %>
     <% else %>
-      <%= link_to '确认', admin_payment_payment_order_path(@payment, payment_order), method: :patch, remote: true, class: 'ui mini button' %>
+      <%= submit_tag '确认', form: "edit_payment_order_#{payment_order.id}", class: 'ui mini button' %>
     <% end %>
   </td>
 </tr>

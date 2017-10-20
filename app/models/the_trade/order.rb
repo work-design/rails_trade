@@ -99,6 +99,22 @@ class Order < ApplicationRecord
 
   end
 
+  def check_state
+    if self.received_amount.to_d >= self.amount
+      self.payment_status = 'all_paid'
+      self.confirm_paid!
+    elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount
+      self.payment_status = 'part_paid'
+    elsif self.received_amount.to_d <= 0
+      self.payment_status = 'unpaid'
+    end
+  end
+
+  def check_state!
+    self.check_state
+    self.save!
+  end
+
   def self.credit_ids
     PaymentStrategy.where.not(period: 0).pluck(:id)
   end

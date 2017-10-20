@@ -53,6 +53,7 @@ class Payment < ApplicationRecord
     if fee_amount.blank? && total_amount.present? && income_amount.present?
       self.fee_amount = self.total_amount - self.income_amount
     end
+    self.check_state
   end
 
   def pending_orders
@@ -88,6 +89,23 @@ class Payment < ApplicationRecord
     payment_order
   end
 
+  def check_state
+    if checked_amount >= total_amount
+      self.state = 'all_checked'
+      self.adjust_amount = self.checked_amount - self.total_amount
+    elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
+      self.state = 'part_checked'
+    elsif self.checked_amount == 0
+      self.state = 'init'
+    else
+      self.state = 'abusive_checked'
+    end
+  end
+
+  def check_state!
+    self.check_state
+    self.save!
+  end
 
 end
 
