@@ -4,8 +4,8 @@ class CartItem < ApplicationRecord
 
   enum status: [
     :unpaid,
-    :deleted,
-    :paid
+    :paid,
+    :deleted
   ]
 
 end
