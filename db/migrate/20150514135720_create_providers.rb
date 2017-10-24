@@ -2,12 +2,13 @@ class CreateProviders < ActiveRecord::Migration[5.1]
   def change
 
     create_table :providers do |t|
-      t.string   "name",        limit: 255
-      t.string   "logo_url",        limit: 255
-      t.integer  "area_id"
-      t.string   "address",     limit: 255
-      t.string   "service_tel", limit: 255
-      t.string   "service_qq",  limit: 255
+      t.references :user
+      t.references :area
+      t.string :type
+      t.string :name
+      t.string :service_tel
+      t.string :service_qq
+      t.string :address
       t.timestamps
     end
 
