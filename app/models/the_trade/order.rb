@@ -7,6 +7,8 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy, autosave: true
   has_many :refunds, dependent: :nullify
 
+  accepts_nested_attributes_for :order_items
+
   scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
 

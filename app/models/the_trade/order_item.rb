@@ -1,10 +1,14 @@
 class OrderItem < ApplicationRecord
   belongs_to :order, autosave: true
+  belongs_to :cart_item, optional: true
   belongs_to :good, polymorphic: true, optional: true
+
+
+
 
 end
 
-
+# :cart_item_id, :integer
 # :good_id, :integer,     limit: 4
 # :quantity, :float
 # :unit, :string

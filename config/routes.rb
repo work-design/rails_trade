@@ -60,9 +60,9 @@ Rails.application.routes.draw do
       get :check, on: :member
     end
     resources :payment_methods
+    resources :cart_items
   end
 
-  resources :cart_items
   resources :buyers do
     get :search, on: :collection
   end

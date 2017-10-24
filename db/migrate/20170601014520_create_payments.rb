@@ -6,7 +6,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.column :total_amount, :decimal, precision: 10, scale: 2
       t.column :fee_amount, :decimal, precision: 10, scale: 2
       t.column :income_amount, :decimal, precision: 10, scale: 2
-      t.column :checked_amount, :decimal, precision: 10, scale: 2
+      t.column :checked_amount, :decimal, precision: 10, scale: 2, default: 0
       t.column :adjust_amount, :decimal, precision: 10, scale: 2, default: 0
       t.column :payment_uuid, :string, limit: 255
       t.column :notify_type, :string, limit: 255

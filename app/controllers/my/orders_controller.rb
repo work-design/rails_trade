@@ -12,7 +12,12 @@ class My::OrdersController < My::TheTradeController
   end
 
   def new
+    cart_item_ids = params[:cart_item_ids].split(',')
+    cart_items = CartItem.where(id: cart_item_ids)
     @order = Order.new
+    cart_items.each do |cart_item|
+      @order.order_items.build good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
+    end
 
     respond_to do |format|
       format.html

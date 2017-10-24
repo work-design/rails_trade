@@ -9,11 +9,11 @@ module GoodAble
 
   def generate_order(buyer, params)
     oi = self.order_items.build
-    oi.number = params[:number]
+    oi.quantity = params[:quantity]
     if params[:amount]
       oi.amount = params[:amount]
     else
-      oi.amount = oi.number * self.price.to_d
+      oi.amount = oi.quantity * self.price.to_d
     end
 
     o = oi.build_order
@@ -31,14 +31,14 @@ module GoodAble
   end
 
   def compute_fee
-    if number.blank? && self.unit.present?
-      self.number = (self.quantity.to_f / good.quantity.to_f).ceil
+    if quantity.blank? && self.unit.present?
+      self.quantity = (self.quantity.to_f / good.quantity.to_f).ceil
     end
 
     if self.unit
       self.amount = Charge.price(quantity, self.unit)
     else
-      self.amount = self.number * good.price
+      self.amount = self.quantity * good.price
     end
   end
 

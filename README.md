@@ -11,6 +11,9 @@ This project rocks and uses MIT-LICENSE.
 
 #### 流程  
 CartItem -> Order(OrderItem) <=> Payment
+
+
+QuotationItem -> Order(OrderItem)
   
 ```
 └ Promote

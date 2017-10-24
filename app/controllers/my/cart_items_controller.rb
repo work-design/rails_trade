@@ -1,49 +1,36 @@
 class My::CartItemsController <  My::BaseController
-  before_action :get_cart_item, only: [:update_cart_items, :destroy]
+  before_action :current_cart, only: [:index]
+  before_action :set_cart_item, only: [:update, :destroy]
+
+  def index
+
+  end
 
   def create
-    cart_item = current_cart_items.valid.where(product_id: params[:product_id], product_type: params[:type]).first
+    cart_item = current_cart.where(good_id: params[:good_id], good_type: params[:good_type]).first
+    params[:quantity] ||= 1
     if cart_item.present?
-      amount = cart_item.amount.to_i + params[:amount].to_i
-      cart_item.update(amount: amount)
+      cart_item.increment!(:quantity, params[:quantity].to_i)
     else
-      cart_item = current_cart_items.build(product_id: params[:product_id], product_type: params[:type], amount: params[:amount])
+      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity])
       cart_item.save
     end
 
-    render json: { cart_item_amount: current_cart_items.count }
+    render 'index'
   end
 
-  def update_cart_items
-    @cart_item.update(amount: params[:amount])
+  def update
+    @cart_item.update(quantity: params[:quantity])
   end
 
   def destroy
     @cart_item.update(status: :deleted)
   end
 
-  def change_is_use_courier
-    session[:is_use_courier] = params[:is_use]
-    if session[:is_use_courier] == '1'
-      Thread.current[:is_use_courier] = true
-      @shipping_fee = current_cart_items.shipping_fee(@current_nation, current_currency).format
-    else
-      Thread.current[:is_use_courier] = false
-      @shipping_fee = current_cart_items.shipping_fee(@current_nation, current_currency).format
-    end
-  end
-
-  def courier_account_set
-    @company = Company.find params[:id]
-    @company.courier_account = params[:courier_select]
-    @company.account_number = params[:number]
-    @company.save!
-  end
-
   private
 
-  def get_cart_item
-    @cart_item = CartItem.find(params[:id])
+  def set_cart_item
+    @cart_item = current_cart.find(params[:id])
   end
 
   def cart_item_params
@@ -51,6 +38,14 @@ class My::CartItemsController <  My::BaseController
                                       single_price: [],
                                       amount: [],
                                       total_price: [])
+  end
+
+  def current_cart
+    if defined?(current_buyer) && current_buyer
+      @cart_items = current_buyer.cart_items.valid
+    else
+      @cart_items = CartItem.where(session_id: session.id).valid
+    end
   end
 
 

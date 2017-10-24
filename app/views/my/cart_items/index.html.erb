@@ -1,0 +1,28 @@
+<div class="ui segment top attached">
+</div>
+
+<div class="ui segment bottom attached items">
+  <% @cart_items.each do |cart_item| %>
+    <div class="item">
+
+      <div class="content">
+        <%= check_box_tag(:cart_item_id, cart_item.id) %>
+        <%= cart_item.good&.name %>
+        <p><%= cart_item.quantity %></p>
+
+        <div class="ui left right action input">
+          <%= link_to my_cart_item_path(cart_item), method: :patch, class: 'ui button', onclick: 'decrease_quantity()', remote: true do %>
+            <i class="minus icon"></i>
+          <% end %>
+          <%= text_field_tag :quantity, cart_item.quantity %>
+          <%= link_to my_cart_item_path(cart_item), method: :patch, class: 'ui button', onclick: 'increase_quantity()', remote: true do %>
+            <i class="plus icon"></i>
+          <% end %>
+        </div>
+        <%= link_to 'delete', my_cart_item_path(cart_item), method: :delete, remote: true %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to '去结算', new_my_order_path, class: 'ui red button', id: 'new_order' %>
+</div>

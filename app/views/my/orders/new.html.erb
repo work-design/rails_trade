@@ -1,5 +1,16 @@
-<h1>New order</h1>
+<div class="ui segment top attached">
+</div>
 
-<%= render 'form' %>
+<div class="ui segment bottom attached items">
+  <% @order.order_items.each do |order_item| %>
+    <div class="item">
 
-<%= link_to 'Back', orders_path %>
+      <div class="content">
+        <%= order_item.good&.name %>
+        <p><%= order_item.quantity %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to '确认订单', my_orders_path, class: 'ui red button', id: 'new_order' %>
+</div>
