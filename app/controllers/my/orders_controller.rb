@@ -26,11 +26,11 @@ class My::OrdersController < My::TheTradeController
   end
 
   def create
-    @order = @buyer.orders.build(good_id: params[:good_id])
+    @order = @buyer.orders.build(order_params)
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to edit_my_order_url(@order), notice: 'Order was successfully created.' }
+        format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: "new" }
@@ -154,7 +154,7 @@ class My::OrdersController < My::TheTradeController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type)
+    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, order_items_attributes: [:id, :good_type, :good_id, :quantity])
   end
 
   def date_params

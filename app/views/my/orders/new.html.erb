@@ -2,15 +2,25 @@
 </div>
 
 <div class="ui segment bottom attached items">
+  <%= form_with model: @order, url: my_orders_path, id: 'new_order' do |f| %>
+  <% @order_form = f %>
+  <% end %>
   <% @order.order_items.each do |order_item| %>
-    <div class="item">
 
+  <div class="item">
+  <%= @order_form.fields_for :order_items, order_item do |oi| %>
       <div class="content">
-        <%= order_item.good&.name %>
-        <p><%= order_item.quantity %></p>
+        <%= oi.object.good&.name %>
+        <%= oi.hidden_field :good_type, form: 'new_order' %>
+        <%= oi.hidden_field :good_id, form: 'new_order' %>
+        <%= oi.text_field :quantity, form: 'new_order' %>
       </div>
-    </div>
+  <% end %>
+  </div>
+
   <% end %>
 
-  <%= link_to '确认订单', my_orders_path, class: 'ui red button', id: 'new_order' %>
+
+
+  <%= submit_tag '确认订单', class: 'ui red button', form: 'new_order' %>
 </div>
