@@ -3,6 +3,7 @@ class Buyer < ApplicationRecord
   has_many :orders, foreign_key: :buyer_id
   has_many :payment_references, foreign_key: :buyer_id, dependent: :destroy, autosave: true
   has_many :payment_methods, through: :payment_references, autosave: true
+  has_many :cart_items, foreign_key: :buyer_id
 
   scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
