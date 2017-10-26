@@ -4,9 +4,13 @@ class OrderItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
 
 
-
-
-
+  after_initialize if: :new_record? do |oi|
+    cart_item = CartItem.includes(:good).find self.cart_item_id
+    self.good_type = cart_item.good_type
+    self.good_id = cart_item.good_id
+    self.quantity = cart_item.quantity
+    self.amount = cart_item.good.price
+  end
 
 end
 

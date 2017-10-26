@@ -23,7 +23,6 @@ class My::OrdersController < My::TheTradeController
 
   def create
     @order = @buyer.orders.build(order_params)
-
     respond_to do |format|
       if @order.save
         format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
@@ -150,7 +149,7 @@ class My::OrdersController < My::TheTradeController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, order_items_attributes: [:id, :good_type, :good_id, :quantity])
+    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, order_items_attributes: [:cart_item_id])
   end
 
   def date_params

@@ -35,7 +35,7 @@ class Order < ApplicationRecord
     cart_item_ids = params[:cart_item_ids].split(',')
     cart_items = CartItem.where(id: cart_item_ids)
     cart_items.each do |cart_item|
-      self.order_items.build good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
+      self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
   end
 
