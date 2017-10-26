@@ -58,13 +58,8 @@ class Payment < ApplicationRecord
 
   def pending_orders
     if self.payment_method
-      buyers = self.payment_method.payment_references.pluck(:buyer_id)
-
-      arr = Order.limit(0)
-      buyers.map do |buyer|
-        arr += Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: buyer[1], payment_status: ['unpaid', 'part_paid'], state: 'active')
-      end
-      arr.uniq
+      buyer_ids = self.payment_method.payment_references.pluck(:buyer_id)
+      Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: buyer_ids, payment_status: ['unpaid', 'part_paid'], state: 'active')
     else
       []
     end
