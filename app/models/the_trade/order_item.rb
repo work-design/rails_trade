@@ -6,6 +6,8 @@ class OrderItem < ApplicationRecord
 
 
 
+
+
 end
 
 # :cart_item_id, :integer
