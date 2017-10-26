@@ -8,4 +8,8 @@ class CartItem < ApplicationRecord
     :deleted
   ]
 
+  after_initialize if: :new_record? do |t|
+    self.status = 'unpaid'
+  end
+
 end

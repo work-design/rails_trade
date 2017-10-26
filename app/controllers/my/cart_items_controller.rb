@@ -12,7 +12,7 @@ class My::CartItemsController <  My::BaseController
     if cart_item.present?
       cart_item.increment!(:quantity, params[:quantity].to_i)
     else
-      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity])
+      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'unpaid')
       cart_item.save
     end
 
