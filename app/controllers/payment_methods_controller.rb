@@ -41,7 +41,7 @@ class PaymentMethodsController < ApplicationController
 
   private
   def set_buyer
-    @buyer = params[:buyer_type].constantize.find params[:buyer_id]
+    @buyer = Buyer.find params[:buyer_id]
   end
 
   def set_payment_method
@@ -49,7 +49,7 @@ class PaymentMethodsController < ApplicationController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id, :buyer_type)
+    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id)
   end
 
 end

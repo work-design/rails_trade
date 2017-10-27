@@ -55,7 +55,7 @@ class My::PaymentMethodsController < My::TheTradeController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id, :buyer_type, :type, :token)
+    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id, :type, :token)
   end
 
 end

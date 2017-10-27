@@ -48,7 +48,7 @@ class Admin::PaymentReferencesController < Admin::TheTradeController
   end
 
   def payment_reference_params
-    params.fetch(:payment_reference, {}).permit(:buyer_id, :buyer_type)
+    params.fetch(:payment_reference, {}).permit(:buyer_id)
   end
 
 end

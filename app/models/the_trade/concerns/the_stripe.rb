@@ -9,7 +9,7 @@ module TheStripe
   # required:
   # token
   def stripe_customer(params)
-    customer = Stripe::Customer.create(description: "#{buyer_type}:#{buyer_id}", source: params[:token])
+    customer = Stripe::Customer.create(description: "#{buyer_id}", source: params[:token])
 
     payment_method = buyer.payment_methods.build(type: 'StripeMethod')
     payment_method.account_num = customer.id

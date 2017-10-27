@@ -1,9 +1,7 @@
-$('#q_buyer_type').dropdown();
 $('#q_buyer_id').dropdown({
   apiSettings: {
-    url: '/buyers/search?q={query}&buyer_type={buyer_type}',
+    url: '/buyers/search?q={query}',
     beforeSend: function(settings) {
-      settings.urlData.buyer_type = document.querySelector('select[name="q[buyer_type]"]').value;
       return settings;
     }
   },
