@@ -1,11 +1,11 @@
 <div class="ui modal" id="charge_edit_modal">
   <i class="close icon"></i>
   <div class="ui header blue">
-    Add New Charge
+    Edit Charge
   </div>
 
   <div class="content">
-    <%= default_form_with model: @charge, scope: :charge, url: admin_charge_path(@charge), method: :patch do |f| %>
+    <%= default_form_with model: @charge, scope: :charge, url: admin_promote_charge_path(@promote, @charge), method: :patch do |f| %>
       <%= render partial: 'form', locals: { f: f } %>
     <% end %>
   </div>

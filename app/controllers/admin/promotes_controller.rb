@@ -5,14 +5,8 @@ class Admin::PromotesController < Admin::BaseController
     @promotes = Promote.all
   end
 
-  def show
-  end
-
   def new
     @promote = Promote.new
-  end
-
-  def edit
   end
 
   def create
@@ -27,6 +21,12 @@ class Admin::PromotesController < Admin::BaseController
         format.json { render json: @promote.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def show
+  end
+
+  def edit
   end
 
   def update
@@ -55,6 +55,6 @@ class Admin::PromotesController < Admin::BaseController
   end
 
   def promote_params
-    params[:promote].permit(:name)
+    params.fetch(:promote, {}).permit(:code, :name, :scope, :start_at, :finish_at)
   end
 end

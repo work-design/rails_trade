@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       resources :crowds, :shallow => true
     end
     resources :taxons
-    resources :promotes
+    resources :promotes do
+      resources :charges
+    end
     resources :providers
     resources :produces
     resources :carts, :only => [:index, :destroy]
@@ -23,7 +25,6 @@ Rails.application.routes.draw do
       get :orders, on: :collection
       put :remind, on: :collection
     end
-    resources :charges
     resources :orders, only: [:index, :show, :edit, :update, :destroy] do
       get :payments, on: :collection
       resources :order_payments

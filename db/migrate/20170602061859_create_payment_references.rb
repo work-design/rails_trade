@@ -6,8 +6,6 @@ class CreatePaymentReferences < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-
-
     create_table :charges do |t|
       t.string :unit
       t.decimal :min, precision: 10, scale: 2
