@@ -1,5 +1,5 @@
 class Promote < ApplicationRecord
-  has_many :charges, primary_key: :code, foreign_key: :unit
+  has_many :charges, primary_key: :code, foreign_key: :code
 
   validates :code, uniqueness: true
 

@@ -1,4 +1,5 @@
 class Charge < ApplicationRecord
+  belongs_to :promote, foreign_key: :code, primary_key: :code
 
   validates :max, numericality: { greater_than: -> (o) { o.min } }, allow_nil: true
   validates :min, numericality: { less_than: -> (o) { o.max } }, allow_nil: true
