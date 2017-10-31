@@ -5,11 +5,13 @@ class OrderItem < ApplicationRecord
 
 
   after_initialize if: :new_record? do |oi|
-    cart_item = CartItem.includes(:good).find self.cart_item_id
-    self.good_type = cart_item.good_type
-    self.good_id = cart_item.good_id
-    self.quantity = cart_item.quantity
-    self.amount = cart_item.good.price
+    cart_item = CartItem.includes(:good).find_by(id: self.cart_item_id)
+    if cart_item
+      self.good_type = cart_item.good_type
+      self.good_id = cart_item.good_id
+      self.quantity = cart_item.quantity
+      self.amount = cart_item.good.price
+    end
   end
 
 end
