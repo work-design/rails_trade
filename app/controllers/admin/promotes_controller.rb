@@ -55,6 +55,6 @@ class Admin::PromotesController < Admin::BaseController
   end
 
   def promote_params
-    params.fetch(:promote, {}).permit(:code, :name, :scope, :start_at, :finish_at)
+    params.fetch(:promote, {}).permit(:code, :unit, :type, :name, :scope, :start_at, :finish_at)
   end
 end

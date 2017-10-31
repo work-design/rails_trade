@@ -10,8 +10,10 @@
   <table class="ui table">
     <thead>
     <tr>
+      <th>Type</th>
       <th>Code</th>
       <th>Name</th>
+      <th>Unit</th>
       <th>Scope</th>
       <th></th>
       <th></th>
@@ -22,8 +24,10 @@
     <tbody>
     <% @promotes.each do |promote| %>
       <tr>
+        <td><%= promote.type %></td>
         <td><%= promote.code %></td>
         <td><%= promote.name %></td>
+        <td><%= promote.unit %></td>
         <td><%= promote.scope %></td>
         <td><%= promote.start_at %></td>
         <td><%= promote.finish_at %></td>

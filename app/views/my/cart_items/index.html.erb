@@ -3,34 +3,44 @@
 
 <table class="ui table">
   <thead>
-  <tr>
+  <tr class="">
     <th><%= check_box_tag :all %></th>
     <th>Name</th>
-    <th></th>
+    <th>单价</th>
+    <th>数量</th>
+    <th>总价</th>
     <th></th>
   </tr>
   </thead>
   <% @cart_items.each do |cart_item| %>
-    <tr>
+    <tr class="active">
       <td><%= check_box_tag(:cart_item_id, cart_item.id) %></td>
       <td><%= cart_item.good&.name %></td>
       <td>
+        <p><%= cart_item.single_subtotal %></p>
+        <p><%= cart_item.good.quantity %><%= cart_item.good.unit %></p>
+      </td>
+      <td>
         <div class="ui left right action input">
-          <%= link_to my_cart_item_path(cart_item), method: :patch, class: 'ui button', onclick: 'decrease_quantity()', remote: true do %>
-            <i class="minus icon"></i>
-          <% end %>
-          <%= text_field_tag :quantity, cart_item.quantity %>
-          <%= link_to my_cart_item_path(cart_item), method: :patch, class: 'ui button', onclick: 'increase_quantity()', remote: true do %>
-            <i class="plus icon"></i>
-          <% end %>
+          <div class="ui button" onclick="decrease_quantity(<%= cart_item.id %>)"><i class="minus icon"></i></div>
+          <%= text_field_tag :quantity, cart_item.quantity, id: "quantity_#{cart_item.id}", onkeyup: "update_quantity(#{cart_item.id})" %>
+          <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="plus icon"></i></div>
         </div>
       </td>
+      <td><%= cart_item.total_subtotal %></td>
       <td>
         <%= link_to 'delete', my_cart_item_path(cart_item), method: :delete, remote: true %>
       </td>
     </tr>
   <% end %>
-
+  <% Promote.wide.each do |promote| %>
+    <tr class="warning">
+      <td></td>
+      <td><%= promote.name %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
   <tfoot>
     <tr>
       <th colspan="5">

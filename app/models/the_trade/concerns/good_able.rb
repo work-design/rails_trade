@@ -2,7 +2,7 @@ module GoodAble
   extend ActiveSupport::Concern
 
   included do
-    has_many :cart_items, as: :good, dependent: :nullify
+    has_many :cart_items, as: :good, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
   end
@@ -28,18 +28,6 @@ module GoodAble
       oi.save!
     end
     o
-  end
-
-  def compute_fee
-    if quantity.blank? && self.unit.present?
-      self.quantity = (self.quantity.to_f / good.quantity.to_f).ceil
-    end
-
-    if self.unit
-      self.amount = Charge.price(quantity, self.unit)
-    else
-      self.amount = self.quantity * good.price
-    end
   end
 
 end
