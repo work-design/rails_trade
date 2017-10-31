@@ -1,6 +1,7 @@
 class Provider < ApplicationRecord
-  belongs_to :area, optional: true
+
   belongs_to :user
+  belongs_to :area, optional: true
   has_many :products
 
 end
