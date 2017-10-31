@@ -19,7 +19,8 @@ function update_quantity(cart_item_id){
     method: 'PATCH',
     credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
     },
     body: JSON.stringify({
       quantity: q.val()

@@ -1,8 +1,6 @@
 class My::CartItemsController <  My::BaseController
   before_action :current_cart, only: [:index]
   before_action :set_cart_item, only: [:update, :destroy]
-  skip_before_action :verify_authenticity_token, only: [:update]
-
 
   def index
 
