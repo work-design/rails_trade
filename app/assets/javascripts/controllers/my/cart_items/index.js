@@ -26,9 +26,13 @@ function update_quantity(cart_item_id){
     })
   };
   fetch(url, params).then(function(response) {
-    return response.json()
+    return response.text()
   }).then(function(response) {
-    console.log(response)
+    var script = document.createElement('script');
+    script.text = response;
+    document.head.appendChild(script).parentNode.removeChild(script);
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
   })
 }
 

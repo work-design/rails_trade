@@ -27,7 +27,7 @@
           <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="plus icon"></i></div>
         </div>
       </td>
-      <td><%= cart_item.total_subtotal %></td>
+      <td id="total_subtotal_<%= cart_item.id %>"><%= cart_item.total_subtotal %></td>
       <td>
         <%= link_to 'delete', my_cart_item_path(cart_item), method: :delete, remote: true %>
       </td>
