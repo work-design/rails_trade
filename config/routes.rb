@@ -63,7 +63,10 @@ Rails.application.routes.draw do
     resources :cart_items
   end
 
-  resources :buyers do
+  resources :buyers, only: [] do
+    get :search, on: :collection
+  end
+  resources :providers, only: [] do
     get :search, on: :collection
   end
   resources :payment_methods

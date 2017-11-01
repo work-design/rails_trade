@@ -26,7 +26,7 @@ class CartItem < ApplicationRecord
   end
 
   def single_subtotal
-    self.compute_fee
+    self.compute_fee.to_d
   end
 
   def total_subtotal

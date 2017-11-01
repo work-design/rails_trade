@@ -1,8 +1,14 @@
 class Provider < ApplicationRecord
 
   belongs_to :area, optional: true
-  has_many :users
+  has_many :users, inverse_of: :provider
   has_many :products
+
+
+
+  def name_detail
+    "#{name} (#{id})"
+  end
 
 end
 
