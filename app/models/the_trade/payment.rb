@@ -87,10 +87,10 @@ class Payment < ApplicationRecord
   def check_state
     if checked_amount.to_d >= total_amount
       self.state = 'all_checked'
-      self.adjust_amount = self.checked_amount - self.total_amount
-    elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
+      self.adjust_amount = self.checked_amount.to_d - self.total_amount
+    elsif self.checked_amount.to_d > 0 && self.checked_amount.to_d < self.total_amount
       self.state = 'part_checked'
-    elsif self.checked_amount == 0
+    elsif self.checked_amount.to_d == 0
       self.state = 'init'
     else
       self.state = 'abusive_checked'
