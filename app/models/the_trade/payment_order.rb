@@ -48,7 +48,7 @@ class PaymentOrder < ApplicationRecord
         update_payment_state
       end
     rescue => e
-      false
+      raise e
     end
   end
 

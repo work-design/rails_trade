@@ -24,5 +24,14 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
+    create_table :cart_items do |t|
+      t.references :buyer
+      t.references :good, polymorphic: true
+      t.string :session_id, limit: 128
+      t.integer :status, default: 0
+      t.integer :quantity
+      t.timestamps
+    end
+
   end
 end
