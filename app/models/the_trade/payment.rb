@@ -85,7 +85,7 @@ class Payment < ApplicationRecord
   end
 
   def check_state
-    if checked_amount >= total_amount
+    if checked_amount.to_d >= total_amount
       self.state = 'all_checked'
       self.adjust_amount = self.checked_amount - self.total_amount
     elsif self.checked_amount > 0 && self.checked_amount < self.total_amount
