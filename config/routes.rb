@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-
     get 'trade' => 'trade#index'
     resources :goods do
       get 'promote' => :edit_promote, on: :member

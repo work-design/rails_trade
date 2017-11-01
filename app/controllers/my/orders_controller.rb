@@ -96,7 +96,6 @@ class My::OrdersController < My::TheTradeController
   end
 
   def update
-
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
@@ -109,7 +108,6 @@ class My::OrdersController < My::TheTradeController
   end
 
   def update_date
-
     respond_to do |format|
       if @order.update(date_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
