@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
+  scope :admin, as: 'admin', module: 'the_trade_admin' do
     get 'trade' => 'trade#index'
     resources :goods do
       get 'promote' => :edit_promote, on: :member
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :my do
+  scope :my, as: 'my', module: 'the_trade_my' do
     resources :orders do
       patch :paypal_pay, on: :member
       patch :stripe_pay, on: :member
@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     end
     resources :payment_methods
     resources :cart_items
+    resources :addresses
   end
 
   resources :buyers, only: [] do
