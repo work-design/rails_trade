@@ -1,10 +1,10 @@
 class Address < ApplicationRecord
   belongs_to :buyer, optional: true
   
-  enum address_type: [
-    :company_address,
-    :forwarders_address,
-    :invoice_address
+  enum kind: [
+    :transport,
+    :forwarder,
+    :invoice
   ]
 
 end
