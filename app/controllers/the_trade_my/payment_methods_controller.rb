@@ -1,4 +1,4 @@
-class TheTradeMy::PaymentMethodsController < TheTradeMy::TheTradeController
+class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
   before_action :set_buyer, only: [:index, :new, :create]
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 

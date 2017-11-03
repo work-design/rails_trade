@@ -1,4 +1,4 @@
-class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   before_action :set_payment_method, only: [:show, :edit, :update, :verify, :merge_from, :destroy]
 
   def index

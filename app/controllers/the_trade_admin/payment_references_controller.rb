@@ -1,4 +1,4 @@
-class TheTradeAdmin::PaymentReferencesController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::PaymentReferencesController < TheTradeAdmin::BaseController
   before_action :set_payment_method
   before_action :set_payment_reference, only: [:show, :edit, :update, :destroy]
 

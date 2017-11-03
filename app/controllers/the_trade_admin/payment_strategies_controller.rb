@@ -1,4 +1,4 @@
-class TheTradeAdmin::PaymentStrategiesController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::PaymentStrategiesController < TheTradeAdmin::BaseController
   before_action :set_payment_strategy, only: [:show, :edit, :update, :destroy]
 
   def index

@@ -1,4 +1,4 @@
-class TheTradeAdmin::RefundsController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::RefundsController < TheTradeAdmin::BaseController
   before_action :set_refund, only: [:show, :edit, :update, :confirm, :destroy]
 
   def index

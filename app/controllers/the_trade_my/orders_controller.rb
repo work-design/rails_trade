@@ -1,4 +1,4 @@
-class TheTradeMy::OrdersController < TheTradeMy::TheTradeController
+class TheTradeMy::OrdersController < TheTradeMy::BaseController
   before_action :set_buyer
   before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
 

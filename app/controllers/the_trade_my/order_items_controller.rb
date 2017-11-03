@@ -1,4 +1,4 @@
-class TheTradeMy::OrderItemsController < TheTradeMy::TheTradeController
+class TheTradeMy::OrderItemsController < TheTradeMy::BaseController
   before_action :set_order_item, only: [:show, :edit, :update, :destroy]
 
   def index

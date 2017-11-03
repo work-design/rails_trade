@@ -1,4 +1,4 @@
-class TheTradeAdmin::GoodsController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::GoodsController < TheTradeAdmin::BaseController
   before_action :set_good, only: [:show, :edit, :update, :destroy]
 
   def index

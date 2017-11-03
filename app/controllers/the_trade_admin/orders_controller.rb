@@ -1,4 +1,4 @@
-class TheTradeAdmin::OrdersController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index

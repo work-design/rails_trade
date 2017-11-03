@@ -1,4 +1,4 @@
-class TheTradeAdmin::PromotesController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   before_action :set_promote, only: [:show, :edit, :update, :destroy]
 
   def index

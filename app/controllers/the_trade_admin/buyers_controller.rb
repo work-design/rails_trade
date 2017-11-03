@@ -1,4 +1,4 @@
-class TheTradeAdmin::BuyersController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
 
   def index
     @managers = Manager.where(id: current_manager.allow_ids)

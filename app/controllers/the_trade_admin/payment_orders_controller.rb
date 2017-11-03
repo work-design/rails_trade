@@ -1,4 +1,4 @@
-class TheTradeAdmin::PaymentOrdersController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::PaymentOrdersController < TheTradeAdmin::BaseController
   before_action :set_payment
   before_action :set_payment_order, only: [:update, :cancel]
 

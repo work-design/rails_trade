@@ -1,4 +1,4 @@
-class TheTradeMy::CartItemsController < TheTradeMy::TheTradeController
+class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   before_action :current_cart, only: [:index]
   before_action :set_cart_item, only: [:update, :destroy]
 

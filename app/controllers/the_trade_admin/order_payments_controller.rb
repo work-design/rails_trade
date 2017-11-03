@@ -1,4 +1,4 @@
-class TheTradeAdmin::OrderPaymentsController < TheTradeAdmin::TheTradeController
+class TheTradeAdmin::OrderPaymentsController < TheTradeAdmin::BaseController
   before_action :set_order
   before_action :set_payment_order, only: [:destroy]
 
