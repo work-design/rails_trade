@@ -10,13 +10,15 @@
       <thead>
       <tr>
         <th>商品</th>
+        <th></th>
         <th>价格</th>
         <th>数量</th>
       </tr>
       </thead>
       <% @order.order_items.each do |order_item| %>
       <tr>
-        <td><%= link_to order_item.good&.name %></td>
+        <td><%= link_to order_item.good&.name, controller: '/' + order_item.good_type.underscore.pluralize, action: 'show', id: order_item.good_id %></td>
+        <td><%= link_to '订单处理', my_order_item_path(order_item) %></td>
         <td><%= order_item.good&.price %></td>
         <td><%= order_item.quantity %></td>
       </tr>
