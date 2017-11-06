@@ -1,0 +1,13 @@
+<tr>
+  <td><%= facilitate.id %></td>
+  <td><%= facilitate.name %></td>
+  <td><%= image_tag facilitate.logo, size: '50x50' if facilitate.logo_attachment %></td>
+  <td><%= facilitate.desc %></td>
+  <td><%= facilitate.created_at.to_s(:db2) %></td>
+  <td>
+    <%= link_to '供应商管理', admin_facilitate_facilitate_providers_path(facilitate), class: 'ui orange label' %>
+    <%= link_to '详细', admin_facilitate_path(facilitate), class: 'ui blue label' %>
+    <%= link_to '编辑', edit_admin_facilitate_path(facilitate), class: 'ui pink label' %>
+    <%= link_to '删除', admin_facilitate_path(facilitate), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+  </td>
+</tr>

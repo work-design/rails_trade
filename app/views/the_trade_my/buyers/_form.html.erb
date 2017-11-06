@@ -1,0 +1,5 @@
+<%= form_with model: @buyer, url: my_buyer_path, method: :patch do |f| %>
+  <%= f.text_field :name %>
+  <%= f.number_field :deposit_ratio %>
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,23 @@
+<table class="ui very basic table">
+  <thead>
+  <tr>
+    <th>流程管理</th>
+    <th colspan="3">
+      <%= link_to '新建', my_task_templates_path(facilitate_provider_id: @facilitate_provider.id), class: 'ui teal right floated button' %>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @facilitate_provider.task_templates.each do |task_template| %>
+    <tr>
+      <td><%= task_template.title %></td>
+      <td>
+      </td>
+      <td>
+        <%= link_to '编辑', edit_my_pipeline_path(pipeline), class: 'ui pink label' %>
+        <%= link_to '删除', my_pipeline_path(pipeline), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

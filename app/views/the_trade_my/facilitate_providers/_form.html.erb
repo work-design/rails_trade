@@ -1,0 +1,6 @@
+<%= form_with model: @facilitate_provider, url: my_facilitate_providers_path, local: true do |f| %>
+  <%= f.hidden_field :facilitate_id %>
+  <%= f.number_field :export_price %>
+  <%= f.submit %>
+<% end %>
+
