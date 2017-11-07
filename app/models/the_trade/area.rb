@@ -1,4 +1,7 @@
 class Area < ApplicationRecord
+  has_many :provinces, -> { where(city: '').where.not(province: '') }, class_name: 'Area', primary_key: :nation, foreign_key: :nation, dependent: :destroy
+  has_many :cities, -> { where.not(city: '') }, class_name: 'Area', primary_key: :province, foreign_key: :province, dependent: :destroy
+
   scope :all_provinces, -> { where(city: '').where.not(province: '')}
   scope :popular, -> { where(popular: true) }
 
@@ -51,3 +54,7 @@ class Area < ApplicationRecord
   end
 
 end
+# :region
+# :nation
+# :province
+# :city
