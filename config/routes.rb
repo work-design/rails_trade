@@ -78,6 +78,7 @@ Rails.application.routes.draw do
 
   resources :payments, only: [:index] do
     get :result, on: :collection
+    match :notify, on: :collection, via: [:get, :post]
   end
 
 end

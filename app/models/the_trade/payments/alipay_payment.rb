@@ -1,9 +1,8 @@
 class AlipayPayment < Payment
 
-  def save_detail!(params)
+  def assign_detail(params)
     self.sign = params[:sign]
     self.notified_at = params[:notify_time]
-    self.order_uuid = params[:out_trade_no]
     self.payment_uuid = params[:trade_no]
     self.pay_status = params[:trade_status]
     self.seller_identifier = params[:seller_id]
@@ -12,7 +11,6 @@ class AlipayPayment < Payment
     self.total_amount = params[:total_fee]
     # self.refunded_at = params[:gmt_refund]
     # self.refund_status = params[:refund_status]
-    self.save!
   end
 
 end
