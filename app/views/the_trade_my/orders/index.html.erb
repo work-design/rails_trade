@@ -18,7 +18,7 @@
 
       <% @orders.each do |order| %>
         <tr>
-          <td><%= order.id %></td>
+          <td><%= order.uuid %></td>
           <td><%= order.amount %></td>
           <td>
             <% if order.payment_status != 'all_paid' %>
