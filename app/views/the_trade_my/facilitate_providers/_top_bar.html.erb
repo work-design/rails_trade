@@ -1,0 +1,9 @@
+<h2 class="ui center aligned icon header">
+  <%= facilitate_provider.facilitate.name %>
+</h2>
+
+<div class="ui top attached tabular menu">
+  <%= link_to '任务列表', my_task_templates_path(tasking_type: 'FacilitateProvider', tasking_id: facilitate_provider.id), class: active_helper(controllers: ['task_templates']) %>
+  <%= link_to '项目信息', my_facilitate_provider_path(facilitate_provider.id), class: active_helper(facilitate_providers: 'show') %>
+  <%= link_to '流水线', my_pipelines_path(piping_type: 'FacilitateProvider', piping_id: facilitate_provider.id), class: active_helper(controllers: ['pipelines', 'pipeline_members']) %>
+</div>

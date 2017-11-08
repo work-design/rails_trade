@@ -11,7 +11,7 @@ class OrderItem < ApplicationRecord
       self.good_id = cart_item.good_id
       self.quantity = cart_item.quantity
       self.amount = cart_item.good.price
-      self.provider = cart_item.good.provider
+      #self.provider = cart_item.good.provider
     end
   end
 

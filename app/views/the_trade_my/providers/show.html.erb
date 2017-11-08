@@ -1,0 +1,24 @@
+<div class="ui grid">
+
+  <div class="three wide column">
+    <%= render 'nav' %>
+  </div>
+
+  <div class="thirteen wide column">
+
+    <% if @provider.new_record? %>
+      <%= render 'form' %>
+    <% else %>
+      <%= render 'provider' %>
+
+      <h3 class="ui header">提供服务</h3>
+      <div class="ui blue labels">
+        <% @provider.facilitate_providers.verified.each do |facilitate_provider| %>
+          <%= link_to facilitate_provider.facilitate.name, my_facilitate_provider_path(facilitate_provider), class: 'ui label' %>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

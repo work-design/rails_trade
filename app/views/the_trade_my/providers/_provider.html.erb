@@ -1,0 +1,19 @@
+<table class="ui very basic large table">
+  <thead>
+  <tr>
+    <th class="three wide"></th>
+    <th>
+      <%= link_to '编辑', edit_my_provider_path, class: 'ui mini blue right floated button' %>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="right aligned">名称：</td>
+    <td><%= @provider.name %></td>
+  </tr>
+  <tr>
+    <td class="right aligned"></td>
+  </tr>
+  </tbody>
+</table>

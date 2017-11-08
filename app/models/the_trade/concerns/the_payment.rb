@@ -50,6 +50,13 @@ module ThePayment
 
   end
 
+  def change_to_paid!(params)
+    payment = self.payments.build(type: params[:type])
+    payment.assign_detail params
+    payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
+    payment.save!
+  end
+
   def check_state
     if self.received_amount.to_d >= self.amount
       self.payment_status = 'all_paid'

@@ -4,15 +4,13 @@ class PaymentsController < ApplicationController
   before_action :set_order, only: [:result]
 
   def alipay_notify
-    @order = Order.find_by(uuid: params[:out_trade_no])
-
     notify_params = alipay_params.except(*request.path_parameters.keys)
+
+    @order = Order.find_by(uuid: params[:out_trade_no])
     result = nil
 
     if Alipay::Notify.verify?(notify_params)
-      payment = @order.payments.build merge(type: 'AlipayWeb')
-      payment_order = paypal.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
-      result = payment.save_detail!(notify_params)
+      result = @order.change_to_paid! notify_params.merge(type: 'AlipayPayment')
     end
 
     if result
@@ -24,12 +22,12 @@ class PaymentsController < ApplicationController
 
   def wxpay_notify
     notify_params = Hash.from_xml(request.body.read)['xml']
+
+    @order = Order.find_by(uuid: notify_params['out_trade_no'])
     result = nil
-    @order = Order.find_by(customer_order_no: notify_params['out_trade_no'])
 
     if WxPay::Sign.verify?(notify_params)
-      notify_params = notify_params.merge(type: 'WxpayJsapi')
-      result = @order.change_to_paid!(notify_params)
+      result = @order.change_to_paid! notify_params.merge(type: 'WxpayPayment')
     end
 
     if result

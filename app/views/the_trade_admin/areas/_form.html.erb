@@ -1,4 +1,4 @@
-<%= form_for [:admin, @area] do |f| %>
+<%= form_with model: [:admin, @area] do |f| %>
   <%= render 'shared/error_messages', target: @area %>
   <%= f.text_field :province, label: '省：' %>
   <%= f.text_field :city, label: '市：' %>
