@@ -25,11 +25,6 @@ class Order < ApplicationRecord
     refunding: 3,
     refunded: 4
   }
-  enum payment_type: {
-    paypal: 'paypal',
-    alipay: 'alipay',
-    stripe: 'stripe'
-  }
 
   def migrate_from_cart_items(params)
     cart_item_ids = params[:cart_item_ids].split(',')

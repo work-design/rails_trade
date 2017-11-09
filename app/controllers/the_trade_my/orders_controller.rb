@@ -1,9 +1,8 @@
 class TheTradeMy::OrdersController < TheTradeMy::BaseController
-  before_action :set_buyer
   before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
 
   def index
-    @orders = @buyer.orders
+    @orders = current_buyer.orders
 
     respond_to do |format|
       format.html
@@ -22,7 +21,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def create
-    @order = @buyer.orders.build(order_params)
+    @order = current_buyer.orders.build(order_params)
     respond_to do |format|
       if @order.save
         format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
@@ -140,10 +139,6 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   private
   def set_order
     @order = Order.find(params[:id])
-  end
-
-  def set_buyer
-    @buyer = current_buyer
   end
 
   def order_params

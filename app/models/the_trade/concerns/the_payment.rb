@@ -29,12 +29,10 @@ module ThePayment
       return self
     end
 
-    if self.paypal?
-      self.paypal_result
-    elsif self.alipay?
-      self.alipay_result
-    elsif self.stripe?
-      self.stripe_result
+    begin
+      self.send self.payment_type + '_result'
+    rescue => NoMethodError
+      self
     end
     self
   end
