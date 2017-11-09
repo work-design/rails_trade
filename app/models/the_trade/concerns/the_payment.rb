@@ -31,7 +31,7 @@ module ThePayment
 
     begin
       self.send self.payment_type + '_result'
-    rescue => NoMethodError
+    rescue NoMethodError
       self
     end
     self
