@@ -38,6 +38,10 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def notify
+    binding.pry
+  end
+
   def result
     result = @order.pay_result
     render json: result.as_json(only: [:id, :amount, :received_amount, :currency, :payment_status])

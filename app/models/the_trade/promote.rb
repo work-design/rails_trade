@@ -8,7 +8,8 @@ class Promote < ApplicationRecord
 
   enum scope: [
     :init,
-    :wide
+    :wide,
+    :single
   ]
 
   def compute_price(amount, unit)

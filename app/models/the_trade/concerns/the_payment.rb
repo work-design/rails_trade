@@ -51,8 +51,11 @@ module ThePayment
   def change_to_paid!(params)
     payment = self.payments.build(type: params[:type])
     payment.assign_detail params
-    payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
-    payment.save!
+    payment_order = payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
+    Payment.transaction do
+      payment.save!
+      payment_order.confirm!
+    end
   end
 
   def check_state

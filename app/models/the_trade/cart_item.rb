@@ -33,4 +33,6 @@ class CartItem < ApplicationRecord
     self.single_subtotal * self.quantity.to_i
   end
 
+
+
 end
