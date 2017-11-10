@@ -46,10 +46,6 @@ class Area < ApplicationRecord
     end
   end
 
-  def name
-    "#{city} #{province} #{nation}"
-  end
-
   private
   def delete_cache
     ['areas/list', 'areas/popular', 'areas/all_nations'].each do |c|
