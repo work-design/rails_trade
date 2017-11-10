@@ -19,7 +19,7 @@ class TheTradeMy::AddressesController < TheTradeMy::BaseController
     @address = current_buyer.addresses.build(address_params)
 
     if @address.save
-      redirect_to @address, notice: 'Address was successfully created.'
+      redirect_to my_addresses_url, notice: 'Address was successfully created.'
     else
       render :new
     end
@@ -27,7 +27,7 @@ class TheTradeMy::AddressesController < TheTradeMy::BaseController
 
   def update
     if @address.update(address_params)
-      redirect_to @address, notice: 'Address was successfully updated.'
+      redirect_to my_addresses_url, notice: 'Address was successfully updated.'
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class TheTradeMy::AddressesController < TheTradeMy::BaseController
 
   def destroy
     @address.destroy
-    redirect_to addresses_url, notice: 'Address was successfully destroyed.'
+    redirect_to my_addresses_url, notice: 'Address was successfully destroyed.'
   end
 
   private

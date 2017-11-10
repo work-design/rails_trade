@@ -1,4 +1,4 @@
-<%= form_with model: @address, url: my_addresses_path do |f| %>
+<%= form_with model: [:my, @address], local: true do |f| %>
   <div class="fields">
     <div class="field">
       <%= label :nation, 'Nation' %>
