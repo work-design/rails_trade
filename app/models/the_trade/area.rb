@@ -3,8 +3,10 @@ class Area < ApplicationRecord
   has_many :cities, -> { where.not(city: '') }, class_name: 'Area', primary_key: :province, foreign_key: :province, dependent: :destroy
 
   scope :all_provinces, -> { where(city: '').where.not(province: '')}
+
   scope :popular, -> { where(popular: true) }
 
+  scope :nations, ->(region_name){ where(region: region_name).group(:nation).pluck(:nation, :nation) }
   scope :provinces, ->(nation_name){ select(:province).distinct.where(nation: nation_name) }
   scope :cities, ->(province_name){ select(:city).distinct.where(province: province_name) }
 
@@ -38,14 +40,21 @@ class Area < ApplicationRecord
     end
   end
 
+  def self.all_nations
+    Rails.cache.fetch('areas/all_nations') do
+      select(:nation).distinct.pluck(:nation)
+    end
+  end
+
   def name
     "#{city} #{province} #{nation}"
   end
 
   private
   def delete_cache
-    Rails.cache.delete('areas/list') &&
-    Rails.cache.delete('areas/popular')
+    ['areas/list', 'areas/popular', 'areas/all_nations'].each do |c|
+      Rails.cache.delete(c)
+    end
   end
 
   def update_timestamp

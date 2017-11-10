@@ -2,21 +2,21 @@ class TheTradeMy::AddressesController < TheTradeMy::BaseController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
 
   def index
-    @addresses = Address.all
+    @addresses = current_buyer.addresses.includes(:area).page(params[:page])
   end
 
   def show
   end
 
   def new
-    @address = Address.new
+    @address = current_buyer.addresses.build
   end
 
   def edit
   end
 
   def create
-    @address = Address.new(address_params)
+    @address = current_buyer.addresses.build(address_params)
 
     if @address.save
       redirect_to @address, notice: 'Address was successfully created.'
@@ -44,7 +44,7 @@ class TheTradeMy::AddressesController < TheTradeMy::BaseController
   end
 
   def address_params
-    params.fetch(:address, {})
+    params.fetch(:address, {}).permit(:area_id, :contact_person, :tel, :address)
   end
 
 end
