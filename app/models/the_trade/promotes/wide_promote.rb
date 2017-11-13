@@ -1,0 +1,4 @@
+class WidePromote < Promote
+
+end
+

@@ -8,31 +8,20 @@ class CartItem < ApplicationRecord
     :deleted
   ]
 
+  composed_of :fee,
+              class_name: 'PromoteFee',
+              mapping: [['product_type', 'good_type'], ['product_id', 'good_id']]
+
   after_initialize if: :new_record? do |t|
     self.status = 'unpaid'
   end
 
-  def compute_fee
-    _amount = good.price
-
-    if good.unit
-      promotes = Promote.where(unit: good.unit)
-      promotes.each do |promote|
-        _amount += promote.compute_price(good.quantity, good.unit)
-      end
-    end
-
-    _amount
+  def total_subtotal
+    self.fee.single_subtotal * self.quantity.to_i
   end
 
   def single_subtotal
-    self.compute_fee.to_d
+    self.fee.single_subtotal
   end
-
-  def total_subtotal
-    self.single_subtotal * self.quantity.to_i
-  end
-
-
 
 end

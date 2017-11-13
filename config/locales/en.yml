@@ -55,6 +55,6 @@ en:
       payment_order/state:
         init: 待确认
         confirmed: 已确认
-      promote/scope:
-        init: 未生效
-        wide: 全部应用
+      promote/type:
+        SinglePromote: 单独应用
+        WidePromote: 全部应用

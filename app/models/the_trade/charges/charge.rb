@@ -1,9 +1,8 @@
 class Charge < ApplicationRecord
-  belongs_to :promote, foreign_key: :code, primary_key: :code
+  belongs_to :promote
 
-  validates :max, numericality: { greater_than: -> (o) { o.min } }
-  validates :min, numericality: { less_than: -> (o) { o.max } }
-
+  validates :max, numericality: { greater_than: -> (o) { o.min } }, allow_blank: true
+  validates :min, numericality: { less_than: -> (o) { o.max } }, allow_blank: true
 
   def final_price(amount)
     raise 'Should Implement in Subclass'
