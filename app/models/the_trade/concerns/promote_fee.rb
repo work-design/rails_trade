@@ -11,7 +11,7 @@ class PromoteFee
 
   def verbose_fee
     _result = {}
-    SinglePromote.all.each do |promote|
+    SinglePromote.verified.each do |promote|
       _result.merge! promote.name => promote.compute_price(good.quantity, good.unit)
     end
     _result

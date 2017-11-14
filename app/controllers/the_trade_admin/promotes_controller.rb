@@ -1,5 +1,5 @@
 class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
-  before_action :set_promote, only: [:show, :edit, :update, :destroy]
+  before_action :set_promote, only: [:show, :edit, :update, :toggle, :destroy]
 
   def index
     @promotes = Promote.all
@@ -38,6 +38,14 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
         format.html { render action: 'edit' }
         format.json { render json: @promote.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def toggle
+    if params[:verified] == '1'
+      @promote.update(verified: true)
+    else
+      @promote.update(verified: false)
     end
   end
 

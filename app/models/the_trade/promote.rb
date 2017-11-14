@@ -4,6 +4,8 @@ class Promote < ApplicationRecord
 
   has_many :charges, dependent: :delete_all
 
+  scope :verified, -> { where(verified: true) }
+
   def compute_price(amount, unit)
     charge = self.charges.default_where(unit: unit, 'min-lte': amount.to_d, 'max-gt': amount.to_d).first
     if charge

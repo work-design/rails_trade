@@ -27,7 +27,7 @@
         <td><%= promote.start_at %></td>
         <td><%= promote.finish_at %></td>
         <td>
-          <%= form_tag admin_promote_path(promote.id), method: :patch do %>
+          <%= form_tag toggle_admin_promote_path(promote.id), method: :patch do %>
           <span class="ui toggle checkbox">
             <label></label>
             <%= check_box_tag :verified, 1, promote.verified, onChange: 'this.form.submit()' %>
@@ -42,7 +42,6 @@
     </tbody>
   </table>
 </div>
-
 
 
 
