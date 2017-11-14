@@ -1,8 +1,7 @@
 <div class="thirteen wide column">
-  <div class="ui grid">
-    <div class="left floated fourteen wide column">
-      <h3>Charge List</h3>
-    </div>
+  <div class="ui segment breadcrumb">
+    <%= link_to 'back', admin_promotes_path, class: 'section' %>
+    <div class="section">Charge List</div>
   </div>
   <div class="ui blue segment">
     <%= render 'search_form' %>
@@ -12,41 +11,38 @@
     <%= link_to new_admin_promote_charge_path(@promote), remote: true, class: 'ui blue button' do %>
       <i class="add circle icon"></i>Add New Charge
     <% end %>
-      <table class="ui celled table">
-        <thead>
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th class="center aligned">Unit</th>
+          <th class="center aligned">Min</th>
+          <th class="center aligned">Max</th>
+          <th class="center aligned">Price(RMB)</th>
+          <th class="center aligned">Type</th>
+          <th class="center aligned">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @charges.each do |charge| %>
           <tr>
-            <th class="center aligned">Unit</th>
-            <th class="center aligned">Min</th>
-            <th class="center aligned">Max</th>
-            <th class="center aligned">Price(RMB)</th>
-            <th class="center aligned">Type</th>
-            <th class="center aligned">Action</th>
+            <td class="center aligned"><%= charge.unit %></td>
+            <td class="center aligned"><%= charge.min %></td>
+            <td class="center aligned"><%= charge.max %></td>
+            <td class="center aligned"><%= charge.price %></td>
+            <td class="center aligned"><%= charge.type %></td>
+            <td class="center aligned">
+              <%= link_to edit_admin_promote_charge_path(@promote, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
+                <i class="edit white icon"></i>
+              <% end %>
+              <%= link_to admin_promote_charge_path(@promote, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
+                <i class="center aligned remove white icon"></i>
+              <% end %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @charges.each do |charge| %>
-            <tr>
-              <td class="center aligned"><%= charge.unit %></td>
-              <td class="center aligned"><%= charge.min %></td>
-              <td class="center aligned"><%= charge.max %></td>
-              <td class="center aligned"><%= charge.price %></td>
-              <td class="center aligned"><%= charge.type %></td>
-              <td class="center aligned">
-                <%= link_to edit_admin_promote_charge_path(@promote, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
-                  <i class="edit white icon"></i>
-                <% end %>
-                <%= link_to admin_promote_charge_path(@promote, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
-                  <i class="center aligned remove white icon"></i>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <div style="text-align: right">
-        <%= paginate @charges %>
-      </div>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @charges %>
   </div>
 </div>
 

@@ -6,16 +6,15 @@ class PromoteFee
   end
 
   def compute_fee
-    _amount = good.price
+    verbose_fee.values.sum(good.price)
+  end
 
-    if good.unit
-      promotes = Promote.where(unit: [good.unit, nil])
-      promotes.each do |promote|
-        _amount += promote.compute_price(good.quantity, good.unit)
-      end
+  def verbose_fee
+    _result = {}
+    SinglePromote.all.each do |promote|
+      _result.merge! promote.name => promote.compute_price(good.quantity, good.unit)
     end
-
-    _amount
+    _result
   end
 
   def single_subtotal

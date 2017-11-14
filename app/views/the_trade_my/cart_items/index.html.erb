@@ -33,7 +33,7 @@
       </td>
     </tr>
   <% end %>
-  <% Promote.wide.each do |promote| %>
+  <% WidePromote.all.each do |promote| %>
     <tr class="warning">
       <td></td>
       <td><%= promote.name %></td>

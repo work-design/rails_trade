@@ -9,7 +9,8 @@ class Promote < ApplicationRecord
     if charge
       charge.final_price(amount)
     else
-      0
+      charge = self.charges.first
+      charge.final_price(amount)
     end
   end
 
