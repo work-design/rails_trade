@@ -27,7 +27,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
         format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end

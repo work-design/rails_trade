@@ -3,6 +3,7 @@ class OrderItem < ApplicationRecord
   belongs_to :cart_item, optional: true
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :provider, optional: true
+  has_many :order_promotes
 
   after_initialize if: :new_record? do |oi|
     cart_item = CartItem.includes(:good).find_by(id: self.cart_item_id)

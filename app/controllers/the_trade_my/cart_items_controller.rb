@@ -19,6 +19,10 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
     render 'index'
   end
 
+  def total
+
+  end
+
   def update
     @cart_item.update(quantity: params[:quantity])
   end
