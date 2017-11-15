@@ -25,7 +25,7 @@ class PromoteFee
       charge = promote.compute_price(number, nil)
       if charge
         @charges << charge
-        @prices.merge! charge.final_price(number)
+        @prices.merge! promote.name => charge.final_price(number)
       end
     end
     @charges
