@@ -8,6 +8,10 @@ class Charge < ApplicationRecord
     raise 'Should Implement in Subclass'
   end
 
+  def discount_price(amount, number)
+    -( final_price(amount) * (number - 1) )
+  end
+
 end
 
 # :unit, :string

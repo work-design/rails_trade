@@ -1,5 +1,5 @@
 class PromoteFee
-  attr_reader :good, :number, :charges, :prices
+  attr_reader :good, :number, :charges, :prices, :discount
 
   def initialize(good_type, good_id, number = 1)
     @good = good_type.constantize.unscoped.find good_id
@@ -14,11 +14,13 @@ class PromoteFee
   def verbose_fee
     @charges = []
     @prices = {}
+    @discount = {}
     SinglePromote.verified.each do |promote|
       charge = promote.compute_price(good.quantity, good.unit)
       if charge
         @charges << charge
         @prices.merge! promote.name => charge.final_price(good.quantity)
+        @discount.merge! promote.name => charge.discount_price(good.quantity, number) if number > 1
       end
     end
     QuantityPromote.verified.each do |promote|

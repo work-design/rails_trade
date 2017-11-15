@@ -4,4 +4,6 @@ class SingleCharge < Charge
     price * amount
   end
 
+
+
 end

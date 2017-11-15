@@ -15,6 +15,7 @@ class CreatePaymentStrategies < ActiveRecord::Migration[5.1]
       t.datetime :start_at
       t.datetime :finish_at
       t.boolean :verified, default: false
+      t.boolean :discount, default: true
       t.timestamps
     end
 

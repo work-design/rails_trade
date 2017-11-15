@@ -1,5 +1,5 @@
 class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
-  before_action :set_promote, only: [:show, :edit, :update, :toggle, :destroy]
+  before_action :set_promote, only: [:show, :edit, :update, :toggle, :discount, :destroy]
 
   def index
     @promotes = Promote.all
@@ -49,6 +49,14 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
     end
   end
 
+  def discount
+    if params[:verified] == '1'
+      @promote.update(discount: true)
+    else
+      @promote.update(discount: false)
+    end
+  end
+
   def destroy
     @promote.destroy
     respond_to do |format|
@@ -63,6 +71,6 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   end
 
   def promote_params
-    params.fetch(:promote, {}).permit(:unit, :type, :name, :start_at, :finish_at, :verified)
+    params.fetch(:promote, {}).permit(:unit, :type, :name, :start_at, :finish_at, :verified, :discount)
   end
 end

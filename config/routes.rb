@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :taxons
     resources :promotes do
       patch :toggle, on: :member
+      patch :discount, on: :member
       resources :charges
     end
     resources :providers
