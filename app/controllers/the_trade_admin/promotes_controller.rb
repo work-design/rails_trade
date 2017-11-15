@@ -50,7 +50,7 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   end
 
   def discount
-    if params[:verified] == '1'
+    if params[:discount] == '1'
       @promote.update(discount: true)
     else
       @promote.update(discount: false)

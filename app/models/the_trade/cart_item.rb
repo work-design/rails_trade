@@ -17,11 +17,19 @@ class CartItem < ApplicationRecord
   end
 
   def total_subtotal
-    self.fee.single_subtotal * self.quantity.to_i
+    self.fee.total_subtotal
   end
 
   def single_subtotal
     self.fee.single_subtotal
+  end
+
+  def discount_subtotal
+    self.fee.discount_subtotal
+  end
+
+  def subtotal
+    total_subtotal + discount_subtotal
   end
 
 end

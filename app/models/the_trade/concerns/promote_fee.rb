@@ -20,7 +20,7 @@ class PromoteFee
       if charge
         @charges << charge
         @prices.merge! promote.name => charge.final_price(good.quantity)
-        @discount.merge! promote.name => charge.discount_price(good.quantity, number) if number > 1
+        @discount.merge! promote.name => charge.discount_price(good.quantity, number) if number > 1 && promote.discount
       end
     end
     QuantityPromote.verified.each do |promote|
@@ -35,6 +35,14 @@ class PromoteFee
 
   def single_subtotal
     self.compute_fee.to_d
+  end
+
+  def discount_subtotal
+    self.discount.values.sum
+  end
+
+  def total_subtotal
+    self.single_subtotal * self.number
   end
 
 end
