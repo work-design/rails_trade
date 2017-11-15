@@ -58,3 +58,4 @@ en:
       promote/type:
         SinglePromote: 单独应用
         WidePromote: 全部应用
+        QuantityPromote: 数量

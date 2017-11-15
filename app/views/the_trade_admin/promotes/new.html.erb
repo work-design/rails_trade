@@ -3,5 +3,7 @@
 </div>
 
 <div class="ui segment">
-  <%= render 'form' %>
+  <%= form_with model: [:admin, @promote], as: :promote, url: admin_promotes_path, local: true do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+  <% end %>
 </div>

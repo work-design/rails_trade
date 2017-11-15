@@ -1,0 +1,4 @@
+class QuantityPromote < Promote
+
+
+end
