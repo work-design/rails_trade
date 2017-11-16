@@ -20,7 +20,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   end
 
   def total
-
+    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(params)
   end
 
   def update

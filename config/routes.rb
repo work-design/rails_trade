@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     resources :races do
       resources :crowds, :shallow => true
     end
-    resources :taxons
     resources :promotes do
       patch :toggle, on: :member
       patch :discount, on: :member
@@ -19,7 +18,6 @@ Rails.application.routes.draw do
     end
     resources :providers
     resources :produces
-    resources :carts, :only => [:index, :destroy]
     resources :areas
 
     resources :buyers do
@@ -66,7 +64,9 @@ Rails.application.routes.draw do
     end
     resources :order_items
     resources :payment_methods
-    resources :cart_items
+    resources :cart_items do
+      get :total, on: :collection
+    end
     resources :addresses
   end
 

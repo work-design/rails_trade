@@ -32,4 +32,14 @@ class CartItem < ApplicationRecord
     total_subtotal + discount_subtotal
   end
 
+  def self.total(params)
+    cart_item_ids = params[:cart_item_ids].split(',')
+    cart_items = CartItem.where(id: cart_item_ids)
+    subtotal = cart_items.sum { |cart_item| cart_item.subtotal }
+    discount_subtotal = cart_items.sum { |cart_item| cart_item.discount_subtotal }
+    total_subtotal = cart_items.sum { |cart_item| cart_item.total_subtotal }
+
+    [total_subtotal, discount_subtotal, subtotal]
+  end
+
 end
