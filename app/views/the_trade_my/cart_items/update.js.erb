@@ -1,2 +1,6 @@
 $("#total_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.total_subtotal %>');
 $("#discount_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.discount_subtotal %>');
+
+$('#total_subtotal').html('<%= @total_subtotal %>');
+$('#discount_subtotal').html('<%= @discount_subtotal %>');
+$('#subtotal').html('<%= @subtotal %>');

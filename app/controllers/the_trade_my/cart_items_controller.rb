@@ -3,8 +3,8 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   before_action :set_cart_item, only: [:update, :destroy]
 
   def index
-    checked_ids = @cart_items.checked.pluck(:id)
-    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(checked_ids)
+    @checked_ids = @cart_items.checked.pluck(:id)
+    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(@checked_ids)
   end
 
   def create
@@ -25,12 +25,18 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
 
     if checked_ids.size == 0
       @cart_items.update_all(checked: false)
+    elsif checked_ids.size > 0
+      CartItem.where(id: checked_ids).update_all(checked: true)
+      unchecked_ids = @cart_items.pluck(:id) - checked_ids
+      CartItem.where(id: unchecked_ids).update_all(checked: false) if unchecked_ids.size > 0
     end
     @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(checked_ids)
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
+    checked_ids = @cart_items.checked.pluck(:id)
+    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(checked_ids)
   end
 
   def destroy

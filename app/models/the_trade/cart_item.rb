@@ -46,12 +46,6 @@ class CartItem < ApplicationRecord
   def self.total(checked_ids)
     checked_items = CartItem.where(id: checked_ids)
 
-    if checked_items.size > 0
-      checked_items.update_all(checked: true)
-      unchecked_ids = checked_items[0].same_cart_items.pluck(:id) - checked_ids
-      CartItem.where(id: unchecked_ids).update_all(checked: false)
-    end
-
     subtotal = checked_items.sum { |cart_item| cart_item.subtotal }
     discount_subtotal = checked_items.sum { |cart_item| cart_item.discount_subtotal }
     total_subtotal = checked_items.sum { |cart_item| cart_item.total_subtotal }
