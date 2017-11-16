@@ -1,9 +1,10 @@
 class TheTradeMy::CartItemsController < TheTradeMy::BaseController
-  before_action :current_cart, only: [:index]
+  before_action :current_cart, only: [:index, :total]
   before_action :set_cart_item, only: [:update, :destroy]
 
   def index
-
+    checked_ids = @cart_items.checked.pluck(:id)
+    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(checked_ids)
   end
 
   def create
@@ -20,7 +21,12 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   end
 
   def total
-    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(params)
+    checked_ids = params[:cart_item_ids].to_s.split(',').map { |id| id.to_i }
+
+    if checked_ids.size == 0
+      @cart_items.update_all(checked: false)
+    end
+    @total_subtotal, @discount_subtotal, @subtotal = CartItem.total(checked_ids)
   end
 
   def update

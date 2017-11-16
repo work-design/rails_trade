@@ -48,8 +48,18 @@ function getCheckedIds() {
 
 $('input[name="cart_item_id"]').change(function(){
   var remind_link = new URL($('#new_order')[0].href);
-
   $('#new_order').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
+
+  var total_url = '/my/cart_items/total' + '?cart_item_ids=' + getCheckedIds();
+  fetch(total_url).then(function(response) {
+    return response.text()
+  }).then(function(response) {
+    var script = document.createElement('script');
+    script.text = response;
+    document.head.appendChild(script).parentNode.removeChild(script);
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
+  })
 });
 
 

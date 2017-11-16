@@ -14,7 +14,7 @@
   </thead>
   <% @cart_items.each do |cart_item| %>
     <tr class="active">
-      <td><%= check_box_tag(:cart_item_id, cart_item.id) %></td>
+      <td><%= check_box_tag(:cart_item_id, cart_item.id, cart_item.checked) %></td>
       <td><%= cart_item.good&.name %></td>
       <td>
         <p><%= cart_item.single_subtotal %></p>
@@ -46,11 +46,21 @@
   <% end %>
   <tfoot>
     <tr>
+      <th colspan="4"></th>
+      <th>
+        <p id="total_subtotal"><%= @total_subtotal %></p>
+        <p id="discount_subtotal" style="color: red;"><%= @discount_subtotal %></p>
+        <p id="total"><%= @total %></p>
+      </th>
+      <th></th>
+    </tr>
+    <tr>
       <th colspan="5">
         <div class="">
           <%= link_to '去结算', new_my_order_path, class: 'ui red right floated button', id: 'new_order' %>
         </div>
       </th>
+      <th></th>
     </tr>
   </tfoot>
 </table>
