@@ -5,6 +5,10 @@ class OrderItem < ApplicationRecord
   belongs_to :provider, optional: true
   has_many :order_promotes
 
+  composed_of :fee,
+              class_name: 'PromoteFee',
+              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
+
   after_initialize if: :new_record? do |oi|
     cart_item = CartItem.includes(:good).find_by(id: self.cart_item_id)
     if cart_item

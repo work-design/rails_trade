@@ -12,7 +12,8 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
 
   def new
     @order = Order.new
-    @order.migrate_from_cart_items(params)
+    cart_item_ids = params[:cart_item_ids].split(',')
+    @order.migrate_from_cart_items(cart_item_ids)
 
     respond_to do |format|
       format.html
