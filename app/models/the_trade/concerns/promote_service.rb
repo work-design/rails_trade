@@ -1,5 +1,5 @@
 class PromoteService
-  attr_reader :checked_items, :subtotal, :discount_subtotal, :total_subtotal, :charges, :prices
+  attr_reader :checked_items, :subtotal, :discount_subtotal, :total_subtotal, :total, :charges, :prices
 
   def initialize(checked_ids)
     @checked_items = CartItem.where(id: checked_ids)
@@ -23,6 +23,9 @@ class PromoteService
         @prices.merge! promote.name => charge.final_price(subtotal)
       end
     end
+
+    discount = @prices.values.sum
+    @total = @subtotal + discount
   end
 
 end
