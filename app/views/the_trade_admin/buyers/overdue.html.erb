@@ -31,21 +31,21 @@
     </thead>
 
     <tbody>
-    <% @buyers.each do |buyer| %>
+    <% @compans.each do |order| %>
       <tr>
-        <td><%= buyer.id %></td>
-        <td><%= buyer.name %></td>
-        <td><%= buyer.payment_strategy&.name %></td>
-        <td><%# buyer.charger&.name %></td>
-        <td class="error"><%= Order.where(buyer_id: buyer.id, payment_status: ['unpaid', 'part_paid']).count %></td>
-        <td><%= Order.where(buyer_id: buyer.id, payment_status: ['unpaid', 'part_paid']).count %></td>
-        <td><%# buyer.overdue_date %></td>
-        <td><%# buyer.sum_amount %></td>
-        <td><%= link_to 'View', orders_admin_buyer_path(buyer.id) %></td>
+        <td><%= order.buyer_id %></td>
+        <td><%= order.buyer.name %></td>
+        <td><%= order.buyer.payment_strategy&.name %></td>
+        <td><%= order.charger&.name %></td>
+        <td class="error"><%= order.count_id %></td>
+        <td><%= Order.where(buyer_id: order.buyer_id, payment_status: ['unpaid', 'part_paid']).count %></td>
+        <td><%= order.overdue_date %></td>
+        <td><%= order.sum_amount %></td>
+        <td><%= link_to 'View', orders_admin_buyers_path(buyer_id: order.buyer_id) %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
 
-  <%= paginate @buyers %>
+  <%= paginate @orders %>
 </div>

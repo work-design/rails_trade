@@ -1,10 +1,21 @@
 class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
 
+
   def index
+    @managers = Manager.where(id: current_manager.allow_ids)
+    q_params = params.fetch(:q, {}).permit!.reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
+
+    @buyers = Buyer.unscoped.includes(:orders, :crm_permits)
+      .credited
+      .where(q_params)
+      .page(params[:page])
+  end
+
+  def overdue
     @managers = Manager.where(id: current_manager.allow_ids)
     q_params = params.fetch(:q, {}).permit!.reverse_merge('overdue_date-lte': Date.today, payment_status: ['unpaid', 'part_paid'], state: 'active')
 
-    @orders = Order.unscoped.includes(:buyer, :payment_strategy).select('SUM(`orders`.`amount`) as sum_amount, count(`orders`.`id`) as count_id, `orders`.`buyer_id`, `orders`.`overdue_date`, `orders`.`payment_strategy_id`')
+    @orders = Order.unscoped.includes(:buyer, :payment_strategy, :crm_performs).select('SUM(`orders`.`amount`) as sum_amount, COUNT(`orders`.`id`) as count_id, `orders`.`buyer_id`, `orders`.`overdue_date`, `orders`.`payment_strategy_id`')
       .group(:buyer_id)
       .permit_with(the_role_user)
       .credited

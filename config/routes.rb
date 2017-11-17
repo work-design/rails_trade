@@ -21,7 +21,8 @@ Rails.application.routes.draw do
     resources :areas
 
     resources :buyers do
-      get :orders, on: :collection
+      get :overdue, on: :collection
+      get :orders, on: :member
       put :remind, on: :collection
     end
     resources :orders, only: [:index, :show, :edit, :update, :destroy] do
