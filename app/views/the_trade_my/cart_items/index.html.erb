@@ -36,11 +36,11 @@
       </td>
     </tr>
   <% end %>
-  <% WidePromote.verified.each do |promote| %>
+  <% @ps.prices.each do |name, price| %>
     <tr class="warning">
       <td></td>
-      <td><%= promote.name %></td>
-      <td></td>
+      <td><%= name %></td>
+      <td><%= price %></td>
       <td></td>
     </tr>
   <% end %>
@@ -48,9 +48,9 @@
     <tr>
       <th colspan="4"></th>
       <th>
-        <p id="total_subtotal"><%= @total_subtotal %></p>
-        <p id="discount_subtotal" style="color: red;"><%= @discount_subtotal %></p>
-        <p id="total"><%= @total %></p>
+        <p id="total_subtotal"><%= @ps.total_subtotal %></p>
+        <p id="discount_subtotal" style="color: red;"><%= @ps.discount_subtotal %></p>
+        <p id="total"><%= @ps.subtotal %></p>
       </th>
       <th></th>
     </tr>

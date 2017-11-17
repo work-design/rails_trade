@@ -65,12 +65,6 @@ ActiveRecord::Schema.define(version: 20150130123018) do
     t.integer "kind",        limit: 4
   end
 
-
-
-
-
-
-
   create_table "photos", force: :cascade do |t|
     t.string   "title",          limit: 255
     t.string   "description",    limit: 255
@@ -80,19 +74,6 @@ ActiveRecord::Schema.define(version: 20150130123018) do
     t.integer  "position",       limit: 4,   default: 0
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-  end
-
-
-
-
-
-
-
-  create_table "roles", force: :cascade do |t|
-    t.string "name",        limit: 255,   null: false
-    t.string "title",       limit: 255,   null: false
-    t.text   "description", limit: 65535, null: false
-    t.text   "the_role",    limit: 65535, null: false
   end
 
   create_table "shipments", force: :cascade do |t|
@@ -114,21 +95,5 @@ ActiveRecord::Schema.define(version: 20150130123018) do
     t.integer "promote_id", limit: 4
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name",             limit: 255,             null: false
-    t.string   "email",            limit: 255,             null: false
-    t.string   "password_digest",  limit: 255,             null: false
-    t.string   "confirm_token",    limit: 255
-    t.datetime "confirm_sent_at"
-    t.integer  "logins_count",     limit: 4,   default: 0
-    t.datetime "current_login_at"
-    t.datetime "last_login_at"
-    t.string   "current_login_ip", limit: 255
-    t.string   "last_login_ip",    limit: 255
-    t.string   "avatar",           limit: 255
-    t.integer  "role_id",          limit: 4
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-  end
 
 end

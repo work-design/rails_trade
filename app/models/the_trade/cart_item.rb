@@ -43,14 +43,4 @@ class CartItem < ApplicationRecord
     end
   end
 
-  def self.total(checked_ids)
-    checked_items = CartItem.where(id: checked_ids)
-
-    subtotal = checked_items.sum { |cart_item| cart_item.subtotal }
-    discount_subtotal = checked_items.sum { |cart_item| cart_item.discount_subtotal }
-    total_subtotal = checked_items.sum { |cart_item| cart_item.total_subtotal }
-
-    [total_subtotal, discount_subtotal, subtotal]
-  end
-
 end
