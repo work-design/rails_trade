@@ -1,8 +1,6 @@
 <div>
 
-  <div class="ui top attached menu borderless">
-    <div class="item"><strong>Credit Sales Reconciliation</strong></div>
-  </div>
+  <%= render 'menu' %>
 
   <div class="ui segment bottom attached">
     <%= render 'search_form' %>
@@ -31,21 +29,21 @@
     </thead>
 
     <tbody>
-    <% @compans.each do |order| %>
+    <% @buyers.each do |buyer| %>
       <tr>
-        <td><%= order.buyer_id %></td>
-        <td><%= order.buyer.name %></td>
-        <td><%= order.buyer.payment_strategy&.name %></td>
-        <td><%= order.charger&.name %></td>
-        <td class="error"><%= order.count_id %></td>
-        <td><%= Order.where(buyer_id: order.buyer_id, payment_status: ['unpaid', 'part_paid']).count %></td>
-        <td><%= order.overdue_date %></td>
-        <td><%= order.sum_amount %></td>
-        <td><%= link_to 'View', orders_admin_buyers_path(buyer_id: order.buyer_id) %></td>
+        <td><%= buyer.id %></td>
+        <td><%= buyer.name %></td>
+        <td><%= buyer.payment_strategy&.name %></td>
+        <td><%# buyer.charger&.name %></td>
+        <td class="error"><%= Order.to_pay.default_where(buyer_id: buyer.id, 'overdue_date-lte': @overdue_date).count %></td>
+        <td><%= Order.to_pay.where(buyer_id: buyer.id).count %></td>
+        <td><%= buyer.last_overdue_date %></td>
+        <td><%# buyer.sum_amount %></td>
+        <td><%= link_to 'View', orders_admin_buyer_path(buyer.id) %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
 
-  <%= paginate @orders %>
+  <%= paginate @buyers %>
 </div>

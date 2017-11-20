@@ -3,27 +3,18 @@ class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
 
   def index
     @managers = Manager.where(id: current_manager.allow_ids)
-    q_params = params.fetch(:q, {}).permit(:payment_strategy_id, :'crm_permits.manager_id', :buyer_id).reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
+    q_params = params.fetch(:q, {}).permit(:payment_strategy_id, :'crm_permits.manager_id', :id).reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
     @overdue_date = params.fetch(:q, {})['overdue_date-lte'] || Date.today
 
-    #binding.pry
-
-    @buyers = Buyer.unscoped.includes(:orders, :crm_permits)
-      .default_where(q_params)
-      .page(params[:page])
+    @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(the_role_user).page(params[:page])
   end
 
   def overdue
     @managers = Manager.where(id: current_manager.allow_ids)
-    q_params = params.fetch(:q, {}).permit!.reverse_merge('overdue_date-lte': Date.today, payment_status: ['unpaid', 'part_paid'], state: 'active')
+    q_params = params.fetch(:q, {}).permit(:payment_strategy_id, :'crm_permits.manager_id', :id).reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
+    @overdue_date = params.fetch(:q, {})['overdue_date-lte'] || Date.today
 
-    @orders = Order.unscoped.includes(:buyer, :payment_strategy, :crm_performs).select('SUM(`orders`.`amount`) as sum_amount, COUNT(`orders`.`id`) as count_id, `orders`.`buyer_id`, `orders`.`overdue_date`, `orders`.`payment_strategy_id`')
-      .group(:buyer_id)
-      .permit_with(the_role_user)
-      .credited
-      .default_where(q_params)
-      .order(overdue_date: :asc)
-      .page(params[:page])
+    @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(the_role_user).page(params[:page])
   end
 
   def orders
