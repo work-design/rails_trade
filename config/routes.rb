@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       patch :discount, on: :member
       resources :charges
     end
+    resources :promote_buyers
+    resources :promote_goods
     resources :providers
     resources :produces
     resources :areas

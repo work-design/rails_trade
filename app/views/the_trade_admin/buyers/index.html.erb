@@ -20,10 +20,7 @@
       <th>名称</th>
       <th>Credit Terms(Period)</th>
       <th>负责人</th>
-      <th>逾期数量</th>
-      <th>应收数量</th>
-      <th>逾期日期</th>
-      <th>逾期金额</th>
+      <th></th>
       <th></th>
     </tr>
     </thead>
@@ -35,11 +32,11 @@
         <td><%= buyer.name %></td>
         <td><%= buyer.payment_strategy&.name %></td>
         <td><%# buyer.charger&.name %></td>
-        <td class="error"><%= Order.to_pay.default_where(buyer_id: buyer.id, 'overdue_date-lte': @overdue_date).count %></td>
-        <td><%= Order.to_pay.where(buyer_id: buyer.id).count %></td>
-        <td><%= buyer.last_overdue_date %></td>
         <td><%# buyer.sum_amount %></td>
-        <td><%= link_to 'View', orders_admin_buyer_path(buyer.id) %></td>
+        <td>
+          <%= link_to 'View', orders_admin_buyer_path(buyer.id), class: 'ui mini blue button' %>
+          <%= link_to 'Promotes', admin_promote_buyers_path(buyer_id: buyer.id), class: 'ui mini green button' %>
+        </td>
       </tr>
     <% end %>
     </tbody>
