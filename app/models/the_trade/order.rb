@@ -13,6 +13,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_items
 
   scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
+  scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')

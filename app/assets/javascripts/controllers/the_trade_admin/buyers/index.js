@@ -11,3 +11,5 @@ $('#q_buyer_id').dropdown({
   },
   minCharacters: 2
 });
+$('#q_payment_strategy_id').dropdown();
+$('#q_crm_permits\\.manager_id').dropdown();

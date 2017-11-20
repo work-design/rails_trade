@@ -16,6 +16,10 @@ class Buyer < ApplicationRecord
     "#{name} (#{id})"
   end
 
+  def last_overdue_date
+    orders.order(overdue_date: :asc).first&.overdue_date
+  end
+
   def self.credit_ids
     PaymentStrategy.where.not(period: 0).pluck(:id)
   end

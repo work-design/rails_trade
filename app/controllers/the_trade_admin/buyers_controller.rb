@@ -1,13 +1,15 @@
 class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
-
+  before_action :set_buyer, only: [:orders]
 
   def index
     @managers = Manager.where(id: current_manager.allow_ids)
-    q_params = params.fetch(:q, {}).permit!.reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
+    q_params = params.fetch(:q, {}).permit(:payment_strategy_id, :'crm_permits.manager_id', :buyer_id).reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
+    @overdue_date = params.fetch(:q, {})['overdue_date-lte'] || Date.today
+
+    #binding.pry
 
     @buyers = Buyer.unscoped.includes(:orders, :crm_permits)
-      .credited
-      .where(q_params)
+      .default_where(q_params)
       .page(params[:page])
   end
 
@@ -25,7 +27,7 @@ class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
   end
 
   def orders
-    @orders = Order.where(buyer_id: params[:buyer_id], payment_status: ['unpaid', 'part_paid']).order(overdue_date: :asc).page(params[:page])
+    @orders = @buyer.orders.to_pay.order(overdue_date: :asc).page(params[:page])
     payment_method_ids = PaymentReference.where(buyer_id: params[:buyer_id]).pluck(:payment_method_id)
     @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
   end
@@ -35,6 +37,11 @@ class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
 
     redirect_back fallback_location: admin_buyers_url
     #render head: :no_content
+  end
+
+  private
+  def set_buyer
+    @buyer = Buyer.find params[:id]
   end
 
 end
