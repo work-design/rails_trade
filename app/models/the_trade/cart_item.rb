@@ -13,7 +13,7 @@ class CartItem < ApplicationRecord
 
   composed_of :fee,
               class_name: 'PromoteFee',
-              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
+              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']]
 
   after_initialize if: :new_record? do |t|
     self.status = 'unpaid'

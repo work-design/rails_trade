@@ -2,7 +2,12 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   before_action :set_promote, only: [:show, :edit, :update, :toggle, :discount, :destroy]
 
   def index
-    @promotes = Promote.all
+    @promotes = Promote.page(params[:page])
+  end
+
+  def search
+    @promotes = Promote.default_where('name-like': params[:q])
+    render json: { results: @promotes.as_json(only: [:id, :name]) }
   end
 
   def new

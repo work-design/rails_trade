@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :crowds, :shallow => true
     end
     resources :promotes do
+      get :search, on: :collection
       patch :toggle, on: :member
       patch :discount, on: :member
       resources :charges

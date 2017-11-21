@@ -5,8 +5,8 @@ class Buyer < ApplicationRecord
   has_many :payment_methods, through: :payment_references, autosave: true
   has_many :cart_items, foreign_key: :buyer_id
   has_many :addresses, foreign_key: :buyer_id, dependent: :destroy
-  has_many :promote_buyers, dependent: :destroy
-  has_many :promotes, through: :promote_buyers
+  has_many :promote_buyers, foreign_key: :buyer_id, dependent: :destroy
+  has_many :promotes, ->{ where(verified: true) }, through: :promote_buyers
 
   scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
