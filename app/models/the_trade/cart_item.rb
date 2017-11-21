@@ -29,6 +29,10 @@ class CartItem < ApplicationRecord
 
   def discount_subtotal
     self.fee.discount_subtotal
+
+
+    charge.discount = charge.discount_price(good.quantity, number) if number > 1 && promote.discount
+
   end
 
   def subtotal

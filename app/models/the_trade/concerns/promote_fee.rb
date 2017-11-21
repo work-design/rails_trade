@@ -15,19 +15,22 @@ class PromoteFee
 
   def verbose_fee
     @charges = []
-    QuantityPromote.single.verified.each do |promote|
-      charge = promote.compute_price(good.quantity, good.unit)
-      if charge
-        charge.price = charge.final_price(good.quantity)
-        charge.discount = charge.discount_price(good.quantity, number) if number > 1 && promote.discount
-        @charges << charge
-      end
-    end
-    NumberPromote.single.verified.each do |promote|
-      charge = promote.compute_price(number, nil)
-      if charge
-        charge.price = charge.final_price(number)
-        @charges << charge
+
+    Promote.overall.single.each do |promote|
+      if promote.type == 'QuantityPromote'
+        charge = promote.compute_price(good.quantity, good.unit)
+        if charge
+          charge.price = charge.final_price(good.quantity)
+          @charges << charge
+        end
+      elsif promote.type == 'NumberPromote'
+        charge = promote.compute_price(number, nil)
+        if charge
+          charge.price = charge.final_price(number)
+          @charges << charge
+        end
+      elsif promote.type == 'AmountPromote'
+        charge = promote.compute_price(price)
       end
     end
 

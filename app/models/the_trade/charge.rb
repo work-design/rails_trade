@@ -1,10 +1,11 @@
 class Charge < ApplicationRecord
+  attr_accessor :price, :discount
   belongs_to :promote
 
   validates :max, numericality: { greater_than: -> (o) { o.min } }
   validates :min, numericality: { less_than: -> (o) { o.max } }
 
-  def final_price(amount)
+  def final_price(amount, number)
     raise 'Should Implement in Subclass'
   end
 

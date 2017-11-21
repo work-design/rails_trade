@@ -6,7 +6,7 @@ class Buyer < ApplicationRecord
   has_many :cart_items, foreign_key: :buyer_id
   has_many :addresses, foreign_key: :buyer_id, dependent: :destroy
   has_many :promote_buyers, foreign_key: :buyer_id, dependent: :destroy
-  has_many :promotes, ->{ where(verified: true) }, through: :promote_buyers
+  has_many :promotes, ->{ special }, through: :promote_buyers
 
   scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 

@@ -6,7 +6,7 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   end
 
   def search
-    @promotes = Promote.selecting.default_where('name-like': params[:q])
+    @promotes = Promote.special.default_where('name-like': params[:q])
     render json: { results: @promotes.as_json(only: [:id, :name]) }
   end
 
