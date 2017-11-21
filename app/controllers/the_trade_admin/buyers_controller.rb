@@ -27,7 +27,6 @@ class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
     Order.remind params[:order_ids].split(',')
 
     redirect_back fallback_location: admin_buyers_url
-    #render head: :no_content
   end
 
   private

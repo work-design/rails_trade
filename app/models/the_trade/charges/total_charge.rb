@@ -4,5 +4,4 @@ class TotalCharge < Charge
     price
   end
 
-
 end

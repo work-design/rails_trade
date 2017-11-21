@@ -1,7 +1,8 @@
-  <%= f.text_field :name %>
-  <%= f.select :type, options_for_select(Promote.options_i18n(:type), @promote.type) %>
-  <%= f.datetime_field :start_at %>
-  <%= f.datetime_field :finish_at %>
-  <%= f.submit %>
+<%= f.text_field :name %>
+<%= f.select :type, options_for_select(Promote.options_i18n(:type), @promote.type) %>
+<%= f.select :scope, options_for_select(Promote.options_i18n(:scope), @promote.scope) %>
+<%= f.datetime_field :start_at %>
+<%= f.datetime_field :finish_at %>
+<%= f.submit %>
 
 

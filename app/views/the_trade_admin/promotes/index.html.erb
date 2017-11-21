@@ -12,10 +12,12 @@
     <tr>
       <th>Type</th>
       <th>Name</th>
+      <th>Scope</th>
       <th></th>
       <th></th>
       <th>Verified</th>
       <th>Discount</th>
+      <th>Overall</th>
       <th colspan="3"></th>
     </tr>
     </thead>
@@ -25,6 +27,7 @@
       <tr>
         <td><%= promote.type %></td>
         <td><%= promote.name %></td>
+        <td><%= promote.scope_i18n %></td>
         <td><%= promote.start_at %></td>
         <td><%= promote.finish_at %></td>
         <td>
@@ -40,6 +43,14 @@
           <span class="ui toggle checkbox">
             <label></label>
             <%= check_box_tag :discount, 1, promote.discount, onChange: 'this.form.submit()' %>
+          </span>
+          <% end %>
+        </td>
+        <td>
+          <%= form_tag overall_admin_promote_path(promote.id), method: :patch do %>
+          <span class="ui toggle checkbox">
+            <label></label>
+            <%= check_box_tag :overall, 1, promote.overall, onChange: 'this.form.submit()' %>
           </span>
           <% end %>
         </td>

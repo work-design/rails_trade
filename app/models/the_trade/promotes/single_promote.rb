@@ -1,4 +1,0 @@
-class SinglePromote < Promote
-
-
-end

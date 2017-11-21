@@ -59,3 +59,6 @@ en:
         SinglePromote: 单独应用
         WidePromote: 全部应用
         QuantityPromote: 数量
+      promote/scope:
+        total: 全部应用
+        single: 单独应用

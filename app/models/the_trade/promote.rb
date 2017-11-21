@@ -5,6 +5,12 @@ class Promote < ApplicationRecord
   has_many :charges, dependent: :delete_all
 
   scope :verified, -> { where(verified: true) }
+  scope :selecting, -> { where(overall: false) }
+
+  enum scope: {
+    'total': 'total',
+    'single': 'single'
+  }
 
   def compute_price(amount, unit = nil)
     self.charges.default_where(unit: unit, 'min-lte': amount.to_d, 'max-gt': amount.to_d).first
@@ -12,6 +18,5 @@ class Promote < ApplicationRecord
 
 end
 
-# :code, :string
 # :start_at, :datetime
 # :finish_at, :datetime

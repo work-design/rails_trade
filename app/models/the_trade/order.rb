@@ -34,6 +34,14 @@ class Order < ApplicationRecord
     end
   end
 
+  def save_with_promote
+    self.order_items.each do |order_item|
+      order_item.cart_item.fee.charges.each do |charge|
+        order_item.order_promotes.build(charge_id: charge.id)
+      end
+    end
+  end
+
   def promote_amount
     order_promotes.sum(:amount)
   end

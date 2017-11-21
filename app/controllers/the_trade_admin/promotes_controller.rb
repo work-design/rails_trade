@@ -1,12 +1,12 @@
 class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
-  before_action :set_promote, only: [:show, :edit, :update, :toggle, :discount, :destroy]
+  before_action :set_promote, only: [:show, :edit, :update, :toggle, :discount, :overall, :destroy]
 
   def index
     @promotes = Promote.page(params[:page])
   end
 
   def search
-    @promotes = Promote.default_where('name-like': params[:q])
+    @promotes = Promote.selecting.default_where('name-like': params[:q])
     render json: { results: @promotes.as_json(only: [:id, :name]) }
   end
 
@@ -52,6 +52,8 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
     else
       @promote.update(verified: false)
     end
+
+    head :no_content
   end
 
   def discount
@@ -60,6 +62,18 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
     else
       @promote.update(discount: false)
     end
+
+    head :no_content
+  end
+
+  def overall
+    if params[:overall] == '1'
+      @promote.update(overall: true)
+    else
+      @promote.update(overall: false)
+    end
+
+    head :no_content
   end
 
   def destroy
@@ -76,6 +90,6 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   end
 
   def promote_params
-    params.fetch(:promote, {}).permit(:unit, :type, :name, :start_at, :finish_at, :verified, :discount)
+    params.fetch(:promote, {}).permit(:unit, :type, :name, :start_at, :finish_at, :verified, :scope, :discount)
   end
 end

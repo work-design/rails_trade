@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get :search, on: :collection
       patch :toggle, on: :member
       patch :discount, on: :member
+      patch :overall, on: :member
       resources :charges
     end
     resources :promote_buyers

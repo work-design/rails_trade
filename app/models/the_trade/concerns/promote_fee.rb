@@ -2,7 +2,7 @@ class PromoteFee
   thread_mattr_accessor :current_currency, :current_nation, instance_accessor: true
   attr_reader :good, :buyer, :number, :charges, :prices, :discount
 
-  def initialize(good_type, good_id, number = 1, buyer_id: nil)
+  def initialize(good_type, good_id, number = 1, buyer_id = nil)
     @good = good_type.constantize.unscoped.find good_id
     @number = number
     @buyer = Buyer.find(buyer_id) if buyer_id
@@ -15,21 +15,19 @@ class PromoteFee
 
   def verbose_fee
     @charges = []
-    @prices = {}
-    @discount = {}
-    SinglePromote.verified.each do |promote|
+    QuantityPromote.single.verified.each do |promote|
       charge = promote.compute_price(good.quantity, good.unit)
       if charge
+        charge.price = charge.final_price(good.quantity)
+        charge.discount = charge.discount_price(good.quantity, number) if number > 1 && promote.discount
         @charges << charge
-        @prices.merge! promote.name => charge.final_price(good.quantity)
-        @discount.merge! promote.name => charge.discount_price(good.quantity, number) if number > 1 && promote.discount
       end
     end
-    QuantityPromote.verified.each do |promote|
+    NumberPromote.single.verified.each do |promote|
       charge = promote.compute_price(number, nil)
       if charge
+        charge.price = charge.final_price(number)
         @charges << charge
-        @prices.merge! promote.name => charge.final_price(number)
       end
     end
 
@@ -37,8 +35,8 @@ class PromoteFee
       buyer.promotes.each do |promote|
         charge = promote.compute_price(total_subtotal, nil)
         if charge
+          charge.price = charge.final_price(total_subtotal)
           @charges << charge
-          @prices.merge! promote.name => charge.final_price(total_subtotal)
         end
       end
     end

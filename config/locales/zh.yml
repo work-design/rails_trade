@@ -55,6 +55,10 @@ zh:
       payment_order/state:
         init: 待确认
         confirmed: 已确认
+      promote/type:
+        SinglePromote: 单独应用
+        WidePromote: 全部应用
+        QuantityPromote: 数量
       promote/scope:
-        init: 未生效
-        wide: 全部应用
+        total: 全部应用
+        single: 单独应用

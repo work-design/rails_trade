@@ -1,0 +1,4 @@
+class NumberPromote < Promote
+
+
+end
