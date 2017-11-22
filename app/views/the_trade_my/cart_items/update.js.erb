@@ -1,5 +1,8 @@
 $("#total_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.total_subtotal %>');
+
+<% if @cart_item.discount_subtotal < 0 %>
 $("#discount_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.discount_subtotal %>');
+<% end %>
 
 $('#total_subtotal').html('<%= @ps.total_subtotal %>');
 $('#discount_subtotal').html('<%= @ps.discount_subtotal %>');

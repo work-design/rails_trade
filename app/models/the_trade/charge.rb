@@ -10,7 +10,7 @@ class Charge < ApplicationRecord
   end
 
   def discount_price(amount, number)
-    final_price(amount * number) - final_price(amount)
+    - ( final_price(amount * number) - final_price(amount) )
   end
 
 end

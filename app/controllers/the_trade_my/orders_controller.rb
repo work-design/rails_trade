@@ -24,7 +24,6 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   def create
     @order = current_buyer.orders.build(order_params)
 
-    binding.pry
     respond_to do |format|
       if @order.save_with_promote
         format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }

@@ -30,9 +30,6 @@ class CartItem < ApplicationRecord
 
   def discount_subtotal
     self.fee.discount_subtotal
-
-
-
   end
 
   def subtotal
