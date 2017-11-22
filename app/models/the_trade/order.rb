@@ -6,9 +6,9 @@ class Order < ApplicationRecord
   belongs_to :buyer, class_name: '::Buyer', foreign_key: :buyer_id
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
   has_many :payments, through: :payment_orders
-  has_many :order_items, dependent: :destroy, autosave: true
+  has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
   has_many :refunds, dependent: :nullify
-  has_many :order_promotes, autosave: true
+  has_many :order_promotes, autosave: true, inverse_of: :order
 
   accepts_nested_attributes_for :order_items
 
@@ -17,6 +17,12 @@ class Order < ApplicationRecord
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
+
+    cart_item_ids = order_items.map(&:cart_item_id)
+    ps = PromoteService.new(cart_item_ids)
+    ps.charges.each do |charge|
+      self.order_promotes.build(charge_id: charge.id, promote_id: charge.promote_id, amount: charge.subtotal)
+    end
   end
 
   enum payment_status: {
@@ -32,17 +38,6 @@ class Order < ApplicationRecord
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
-  end
-
-  def save_with_promote
-    self.order_items.each do |order_item|
-      order_item.cart_item.fee.charges.each do |charge|
-        order_item.order_promotes.build(charge_id: charge.id, amount: charge.subtotal)
-      end
-    end
-    cart_item_ids = order_items.map(&:cart_item_id)
-    ps = PromoteService.new(cart_item_ids)
-    order.order_promotes.build(amount: ps.subtotal)
   end
 
   def promote_amount

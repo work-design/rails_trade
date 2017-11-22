@@ -11,10 +11,10 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def new
-    @order = Order.new
+    @order = current_buyer.orders.build
     cart_item_ids = params[:cart_item_ids].split(',')
     @order.migrate_from_cart_items(cart_item_ids)
-
+    
     respond_to do |format|
       format.html
       format.json { render json: @order }
