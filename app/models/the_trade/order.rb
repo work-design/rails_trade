@@ -37,9 +37,12 @@ class Order < ApplicationRecord
   def save_with_promote
     self.order_items.each do |order_item|
       order_item.cart_item.fee.charges.each do |charge|
-        order_item.order_promotes.build(charge_id: charge.id)
+        order_item.order_promotes.build(charge_id: charge.id, amount: charge.subtotal)
       end
     end
+    cart_item_ids = order_items.map(&:cart_item_id)
+    ps = PromoteService.new(cart_item_ids)
+    order.order_promotes.build(amount: ps.subtotal)
   end
 
   def promote_amount
