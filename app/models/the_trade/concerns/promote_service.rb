@@ -16,12 +16,11 @@ class PromoteService
 
   def compute_promote
     @charges = []
-    @prices = {}
-    WidePromote.verified.each do |promote|
+    AmountPromote.overall.total.each do |promote|
       charge = promote.compute_price(subtotal, nil)
       if charge
+        charge.subtotal = charge.final_price(subtotal)
         @charges << charge
-        @prices.merge! promote.name => charge.final_price(subtotal)
       end
     end
 
@@ -29,13 +28,13 @@ class PromoteService
       buyer.promotes.each do |promote|
         charge = promote.compute_price(subtotal, nil)
         if charge
+          charge.subtotal = charge.final_price(subtotal)
           @charges << charge
-          @prices.merge! promote.name => charge.final_price(subtotal)
         end
       end
     end
 
-    discount = @prices.values.sum
+    discount = @charges.map(&:discount).sum
     @total = @subtotal + discount
   end
 

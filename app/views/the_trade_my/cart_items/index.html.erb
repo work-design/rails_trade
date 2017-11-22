@@ -36,13 +36,13 @@
       </td>
     </tr>
   <% end %>
-  <% @ps.prices.each do |name, price| %>
+  <% @ps.charges.each do |charge| %>
     <tr class="warning">
       <td></td>
-      <td><%= name %></td>
+      <td><%= charge.promote.name %></td>
       <td></td>
       <td></td>
-      <td><%= price %></td>
+      <td><%= charge.subtotal %></td>
       <td></td>
     </tr>
   <% end %>

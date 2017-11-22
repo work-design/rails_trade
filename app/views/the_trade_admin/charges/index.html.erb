@@ -14,7 +14,6 @@
     <table class="ui celled table">
       <thead>
         <tr>
-          <th class="center aligned">Unit</th>
           <th class="center aligned">Min</th>
           <th class="center aligned">Max</th>
           <th class="center aligned">Price(RMB)</th>
@@ -25,7 +24,6 @@
       <tbody>
         <% @charges.each do |charge| %>
           <tr>
-            <td class="center aligned"><%= charge.unit %></td>
             <td class="center aligned"><%= charge.min %></td>
             <td class="center aligned"><%= charge.max %></td>
             <td class="center aligned"><%= charge.price %></td>
