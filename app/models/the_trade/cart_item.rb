@@ -1,5 +1,6 @@
 class CartItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
+  belongs_to :buyer, class_name: '::Buyer', optional: true
   validates :buyer_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { buyer_id.blank? }
   scope :valid, -> { default_where(status: 'unpaid') }

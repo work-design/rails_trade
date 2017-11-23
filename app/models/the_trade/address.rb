@@ -1,6 +1,6 @@
 class Address < ApplicationRecord
   belongs_to :buyer, optional: true
-  belongs_to :area
+  belongs_to :area, optional: true
   
   enum kind: [
     :transport,
