@@ -2,21 +2,21 @@ Rails.application.routes.draw do
 
   scope :admin, as: 'admin', module: 'the_trade_admin' do
     get 'trade' => 'trade#index'
-    resources :goods do
-      get 'promote' => :edit_promote, on: :member
-      patch 'promote' => :update_promote, on: :member
-      resources :sales
-    end
     resources :invites
     resources :races do
       resources :crowds, :shallow => true
     end
+    resources :serves do
+      get :search, on: :collection
+      patch :toggle, on: :member
+      patch :overall, on: :member
+      resources :serve_charges, as: 'charges'
+    end
     resources :promotes do
       get :search, on: :collection
       patch :toggle, on: :member
-      patch :discount, on: :member
       patch :overall, on: :member
-      resources :charges
+      resources :promote_charges, as: 'charges'
     end
     resources :promote_buyers
     resources :promote_goods

@@ -22,8 +22,6 @@
       <th>Type</th>
       <th>Name</th>
       <th>Scope</th>
-      <th>Start At</th>
-      <th>Finish At</th>
       <th>Verified</th>
       <th>Overall</th>
       <th>Sequence</th>
@@ -32,33 +30,31 @@
     </thead>
 
     <tbody>
-    <% @promotes.each do |promote| %>
+    <% @serves.each do |serve| %>
       <tr>
-        <td><%= promote.type %></td>
-        <td><%= promote.name %></td>
-        <td><%= promote.scope_i18n %></td>
-        <td><%= promote.start_at %></td>
-        <td><%= promote.finish_at %></td>
+        <td><%= serve.type %></td>
+        <td><%= serve.name %></td>
+        <td><%= serve.scope_i18n %></td>
         <td>
-          <%= form_tag toggle_admin_promote_path(promote.id), method: :patch do %>
+          <%= form_tag toggle_admin_serve_path(serve.id), method: :patch do %>
           <span class="ui toggle checkbox">
             <label></label>
-            <%= check_box_tag :verified, 1, promote.verified, onChange: 'this.form.submit()' %>
+            <%= check_box_tag :verified, 1, serve.verified, onChange: 'this.form.submit()' %>
           </span>
           <% end %>
         </td>
         <td>
-          <%= form_tag overall_admin_promote_path(promote.id), method: :patch do %>
+          <%= form_tag overall_admin_serve_path(serve.id), method: :patch do %>
           <span class="ui toggle checkbox">
             <label></label>
-            <%= check_box_tag :overall, 1, promote.overall, onChange: 'this.form.submit()' %>
+            <%= check_box_tag :overall, 1, serve.overall, onChange: 'this.form.submit()' %>
           </span>
           <% end %>
         </td>
-        <td><%= promote.sequence %></td>
-        <td><%= link_to '详细', admin_promote_charges_path(promote) %></td>
-        <td><%= link_to '编辑', edit_admin_promote_path(promote) %></td>
-        <td><%= link_to '删除', admin_promote_path(promote), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= serve.sequence %></td>
+        <td><%= link_to '详细', admin_serve_charges_path(serve) %></td>
+        <td><%= link_to '编辑', edit_admin_serve_path(serve) %></td>
+        <td><%= link_to '删除', admin_serve_path(serve), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>

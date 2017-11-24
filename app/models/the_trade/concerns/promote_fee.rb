@@ -24,6 +24,7 @@ class PromoteFee
     NumberPromote.overall.single.each do |promote|
       charge = promote.compute_price(number)
       if charge
+
         charge.subtotal = charge.final_price(price)
         @charges << charge
       end

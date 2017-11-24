@@ -1,10 +1,10 @@
-class Promote < ApplicationRecord
+class Serve < ApplicationRecord
+  include GoodAble
   attr_accessor :price
 
-  has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
+  has_many :charges, class_name: 'ServeCharge', dependent: :delete_all
 
-  scope :special, -> { where(verified: true, overall: false) }
-  scope :overall, -> { where(verified: true, overall: true) }
+  scope :verified, -> { where(verified: true) }
 
   after_commit :delete_cache, on: [:create, :destroy]
   #after_update_commit :delete_cache, if: -> { sequence_changed? }

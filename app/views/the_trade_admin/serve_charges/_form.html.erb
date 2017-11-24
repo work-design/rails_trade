@@ -1,0 +1,6 @@
+<%= f.select :type, options_for_select(Charge.options_i18n(:type), @charge.type) %>
+<%= f.number_field :min, step: '0.01' %>
+<%= f.number_field :max, step: '0.01' %>
+<%= f.number_field :price, step: '0.01' %>
+<%= f.submit %>
+

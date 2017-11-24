@@ -1,0 +1,9 @@
+<div class="ui segment breadcrumb">
+  <%= link_to 'Back', admin_serves_path, class: 'section' %>
+</div>
+
+<div class="ui segment">
+  <%= form_with model: [:admin, @serve], scope: :serve, url: admin_serves_path, local: true do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+  <% end %>
+</div>

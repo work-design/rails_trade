@@ -1,4 +1,4 @@
-class Charge < ApplicationRecord
+class PromoteCharge < ApplicationRecord
   attr_accessor :subtotal
   belongs_to :promote
 

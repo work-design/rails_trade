@@ -4,7 +4,6 @@ class OrderPromote < ApplicationRecord
   belongs_to :promote
   belongs_to :charge
 
-
 end
 
 # :order_id, :integer

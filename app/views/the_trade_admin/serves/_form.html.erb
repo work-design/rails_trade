@@ -1,0 +1,6 @@
+<%= f.text_field :name %>
+<%= f.select :type, options_for_select(Serve.options_i18n(:type), @serve.type) %>
+<%= f.select :scope, options_for_select(Serve.options_i18n(:scope), @serve.scope) %>
+<%= f.submit %>
+
+

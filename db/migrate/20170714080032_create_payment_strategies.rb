@@ -23,7 +23,7 @@ class CreatePaymentStrategies < ActiveRecord::Migration[5.1]
     end
 
     create_table :charges do |t|
-      t.refereneces :promote
+      t.references :promote
       t.decimal :min, precision: 10, scale: 2, default: 0
       t.decimal :max, precision: 10, scale: 2, default: 99999999.99
       t.decimal :price, precision: 10, scale: 2
