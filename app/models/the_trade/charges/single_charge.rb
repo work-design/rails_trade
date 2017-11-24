@@ -1,6 +1,6 @@
 class SingleCharge < Charge
 
-  def final_price(amount = 1)
+  def final_price(amount)
     price * amount
   end
 

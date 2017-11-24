@@ -7,14 +7,32 @@ class Promote < ApplicationRecord
   scope :special, -> { where(verified: true, overall: false) }
   scope :overall, -> { where(verified: true, overall: true) }
 
+  after_commit :delete_cache, on: [:create, :destroy]
+  #after_update_commit :delete_cache, if: -> { sequence_changed? }
+
   enum scope: {
     'total': 'total',
     'single': 'single'
   }
 
-  def compute_price(amount, extra = {})
+  def compute_price(amount, price = 0, extra = {})
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra)
-    self.charges.default_where(query).first
+    charge = self.charges.default_where(query).first
+    charge.subtotal = charge.final_price(price)
+    charge
+  end
+
+  def self.sequence
+    Rails.cache.fetch('promotes/sequence') do
+      self.select(:sequence).distinct.pluck(:sequence).sort
+    end
+  end
+
+  private
+  def delete_cache
+    ['promotes/sequence'].each do |c|
+      Rails.cache.delete(c)
+    end
   end
 
 end
