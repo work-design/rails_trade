@@ -17,7 +17,6 @@ class CreatePaymentStrategies < ActiveRecord::Migration[5.1]
       t.string :scope
       t.boolean :verified, default: false
       t.boolean :overall, default: false
-      t.boolean :discount, default: true
       t.integer :sequence, default: 1
       t.timestamps
     end

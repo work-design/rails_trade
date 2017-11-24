@@ -12,8 +12,12 @@ class CartItem < ApplicationRecord
     :deleted
   ]
 
-  composed_of :fee,
+  composed_of :promote,
               class_name: 'PromoteFee',
+              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']],
+              constructor: Proc.new { |type, id, num, buyer| PromoteFee.new(type, id, num, buyer) }
+  composed_of :serve,
+              class_name: 'ServeFee',
               mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']],
               constructor: Proc.new { |type, id, num, buyer| PromoteFee.new(type, id, num, buyer) }
 

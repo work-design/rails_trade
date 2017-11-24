@@ -1,4 +1,4 @@
-class PromoteFee
+class ServeFee
   thread_mattr_accessor :current_currency, instance_accessor: true
   attr_reader :good, :number, :buyer, :extra, :charges
 
@@ -13,18 +13,19 @@ class PromoteFee
   def verbose_fee
     @charges = []
 
-    AmountPromote.overall.single.each do |promote|
-      charge = promote.compute_price(price)
-      @charges << charge if charge
+    QuantityServe.overall.single.each do |promote|
+      charge = promote.compute_price(good.quantity * number, extra)
+      if charge
+        charge.subtotal = charge.final_price(good.quantity * number)
+        @charges << charge
+      end
     end
 
-    if buyer
-      buyer.promotes.each do |promote|
-        charge = promote.compute_price(total_subtotal)
-        if charge
-          charge.subtotal = charge.final_price(total_subtotal)
-          @charges << charge
-        end
+    NumberServe.overall.single.each do |promote|
+      charge = promote.compute_price(number)
+      if charge
+        charge.subtotal = charge.final_price(number)
+        @charges << charge
       end
     end
 

@@ -62,3 +62,6 @@ en:
       promote/scope:
         total: 全部应用
         single: 单独应用
+      serve/type:
+        QuantityServe: 总重量
+        NumberServe: 购买件数
