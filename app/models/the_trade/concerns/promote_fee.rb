@@ -47,8 +47,8 @@ class PromoteFee
     @charges
   end
 
-  def single_subtotal
-    @single_subtotal ||= self.charges.map(&:subtotal).sum(good.price * number)
+  def subtotal
+    @subtotal ||= self.charges.map(&:subtotal).sum(good.price * number)
   end
 
 end

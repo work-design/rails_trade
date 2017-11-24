@@ -2,7 +2,7 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
   before_action :set_promote, only: [:show, :edit, :update, :toggle, :discount, :overall, :destroy]
 
   def index
-    @promotes = Promote.page(params[:page])
+    @promotes = Promote.default_where(params.permit(:scope)).page(params[:page])
   end
 
   def search

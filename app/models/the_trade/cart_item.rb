@@ -26,7 +26,11 @@ class CartItem < ApplicationRecord
   end
 
   def discount_subtotal
-    self.good.fee.single_subtotal * self.quantity - self.fee.subtotal if number > 1
+    if number > 1
+      -(self.good.fee.subtotal * self.quantity - self.fee.subtotal)
+    else
+      0
+    end
   end
 
   def subtotal

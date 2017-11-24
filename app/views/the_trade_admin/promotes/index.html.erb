@@ -7,6 +7,14 @@
     </div>
   </div>
 
+  <div class="ui segment bottom attached">
+    <p>
+      <span>Scope: </span>
+      <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </p>
+  </div>
+
   <table class="ui table">
     <thead>
     <tr>
