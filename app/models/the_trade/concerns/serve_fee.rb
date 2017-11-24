@@ -1,5 +1,4 @@
 class ServeFee
-  thread_mattr_accessor :current_currency, instance_accessor: true
   attr_reader :good, :number, :buyer, :extra, :charges
 
   def initialize(good_type, good_id, number = 1, buyer_id = nil, extra = {})

@@ -1,6 +1,8 @@
-<div class="thirteen wide column">
+<div>
+  
   <div class="ui segment breadcrumb">
-    <%= link_to 'back', admin_promotes_path, class: 'section' %>
+    <%= link_to 'back', admin_serves_path, class: 'section' %>
+    <i class="right angle icon divider"></i>
     <div class="section">Charge List</div>
   </div>
   <div class="ui blue segment">
@@ -8,7 +10,7 @@
   </div>
 
   <div class="ui blue segment">
-    <%= link_to new_admin_promote_charge_path(@promote), remote: true, class: 'ui blue button' do %>
+    <%= link_to new_admin_serve_charge_path(@serve), remote: true, class: 'ui blue button' do %>
       <i class="add circle icon"></i>Add New Charge
     <% end %>
     <table class="ui celled table">
@@ -29,10 +31,10 @@
             <td class="center aligned"><%= charge.price %></td>
             <td class="center aligned"><%= charge.type %></td>
             <td class="center aligned">
-              <%= link_to edit_admin_promote_charge_path(@promote, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
+              <%= link_to edit_admin_serve_charge_path(@serve, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
                 <i class="edit white icon"></i>
               <% end %>
-              <%= link_to admin_promote_charge_path(@promote, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
+              <%= link_to admin_serve_charge_path(@serve, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
                 <i class="center aligned remove white icon"></i>
               <% end %>
             </td>
@@ -42,6 +44,7 @@
     </table>
     <%= paginate @charges %>
   </div>
+  
 </div>
 
 

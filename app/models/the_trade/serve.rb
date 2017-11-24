@@ -5,6 +5,8 @@ class Serve < ApplicationRecord
   has_many :charges, class_name: 'ServeCharge', dependent: :delete_all
 
   scope :verified, -> { where(verified: true) }
+  scope :special, -> { where(verified: true, overall: false) }
+  scope :overall, -> { where(verified: true, overall: true) }
 
   after_commit :delete_cache, on: [:create, :destroy]
   #after_update_commit :delete_cache, if: -> { sequence_changed? }

@@ -1,5 +1,5 @@
 class TheTradeAdmin::ServesController < TheTradeAdmin::BaseController
-  before_action :set_serve, only: [:show, :edit, :update, :toggle, :discount, :overall, :destroy]
+  before_action :set_serve, only: [:show, :edit, :update, :toggle, :overall, :destroy]
 
   def index
     @serves = Serve.default_where(params.permit(:scope)).page(params[:page])

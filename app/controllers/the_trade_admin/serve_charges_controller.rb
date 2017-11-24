@@ -1,22 +1,23 @@
 class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
-  before_action :set_promote
+  before_action :set_serve
   before_action :set_charge, only: [:edit, :update, :destroy]
 
   def index
-    @charges = @promote.charges.default_where(type: params[:type], 'min-gte': params[:min], 'max-lte': params[:max])
+    @charges = @serve.charges.default_where(type: params[:type], 'min-gte': params[:min], 'max-lte': params[:max])
     @charges = @charges.order(min: :asc).page(params[:page]).per(20)
   end
 
   def new
-    @charge = @promote.charges.new
+    @charge = @serve.charges.build
   end
 
   def create
-    @charge = @promote.charges.new(charge_params)
+    @charge = @serve.charges.build(charge_params)
+
     respond_to do |format|
       if @charge.save
-        format.html { redirect_to admin_promote_charges_url(@promote), notice: 'Charge was successfully created.' }
-        format.js { redirect_to admin_promote_charges_url, notice: 'Charge was successfully created.' }
+        format.html { redirect_to admin_serve_charges_url(@serve), notice: 'Charge was successfully created.' }
+        format.js { redirect_to admin_serve_charges_url, notice: 'Charge was successfully created.' }
       else
         format.html { render :new }
         format.js
@@ -31,8 +32,8 @@ class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
   def update
     respond_to do |format|
       if @charge.update(charge_params)
-        format.html { redirect_to admin_promote_charges_url(@promote), notice: 'Charge was successfully updated.' }
-        format.js { redirect_to admin_promote_charges_url(@promote), notice: 'Charge was successfully created.' }
+        format.html { redirect_to admin_serve_charges_url(@serve), notice: 'Charge was successfully updated.' }
+        format.js { redirect_to admin_serve_charges_url(@serve), notice: 'Charge was successfully created.' }
       else
         format.html { render :edit }
         format.js
@@ -42,7 +43,7 @@ class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
 
   def destroy
     if @charge.destroy
-      redirect_to admin_promote_charges_url(@promote)
+      redirect_to admin_serve_charges_url(@serve)
     end
   end
 
@@ -51,12 +52,12 @@ class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
     params.fetch(:charge, {}).permit(:min, :max, :price, :type)
   end
 
-  def set_promote
-    @promote = Promote.find params[:promote_id]
+  def set_serve
+    @serve = Serve.find params[:serve_id]
   end
 
   def set_charge
-    @charge = Charge.find params[:id]
+    @charge = ServeCharge.find params[:id]
   end
 
 end

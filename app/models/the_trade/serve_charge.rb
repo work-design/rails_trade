@@ -1,6 +1,6 @@
 class ServeCharge < ApplicationRecord
   attr_accessor :subtotal
-  belongs_to :promote
+  belongs_to :serve
 
   validates :max, numericality: { greater_than: -> (o) { o.min } }
   validates :min, numericality: { less_than: -> (o) { o.max } }
