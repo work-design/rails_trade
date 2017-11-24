@@ -1,5 +1,5 @@
-class ServeService
-  attr_reader :buyer, :checked_items, :subtotal, :discount_subtotal, :total_subtotal, :total, :charges, :prices
+class AdditionService
+  attr_reader :checked_items, :buyer, :subtotal, :discount_subtotal, :total_subtotal, :total, :charges, :prices
 
   def initialize(checked_ids, buyer_id = nil)
     @checked_items = CartItem.where(id: checked_ids)
@@ -19,7 +19,6 @@ class ServeService
     AmountPromote.overall.total.each do |promote|
       charge = promote.compute_price(subtotal, nil)
       if charge
-        charge.subtotal = charge.final_price(subtotal)
         @charges << charge
       end
     end
@@ -34,7 +33,7 @@ class ServeService
       end
     end
 
-    discount = @charges.map(&:discount).sum
+    discount = @charges.map(&:subtotal).sum
     @total = @subtotal + discount
   end
 

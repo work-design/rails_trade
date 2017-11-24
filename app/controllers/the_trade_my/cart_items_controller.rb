@@ -4,7 +4,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @ps = PromoteService.new(@checked_ids)
+    @additions = AdditionService.new(@checked_ids)
   end
 
   def create
