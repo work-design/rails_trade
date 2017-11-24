@@ -12,18 +12,16 @@ class ServeFee
   def verbose_fee
     @charges = []
 
-    QuantityServe.overall.single.each do |promote|
-      charge = promote.compute_price(good.quantity * number, extra)
+    QuantityServe.overall.single.each do |serve|
+      charge = serve.compute_price(good.quantity * number, extra)
       if charge
-        charge.subtotal = charge.final_price(good.quantity * number)
         @charges << charge
       end
     end
 
-    NumberServe.overall.single.each do |promote|
-      charge = promote.compute_price(number)
+    NumberServe.overall.single.each do |serve|
+      charge = serve.compute_price(number)
       if charge
-        charge.subtotal = charge.final_price(number)
         @charges << charge
       end
     end

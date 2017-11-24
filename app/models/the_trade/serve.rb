@@ -16,24 +16,11 @@ class Serve < ApplicationRecord
     'single': 'single'
   }
 
-  def compute_price(amount, price = 0, extra = {})
+  def compute_price(amount, extra = {})
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra)
     charge = self.charges.default_where(query).first
-    charge.subtotal = charge.final_price(price)
+    charge.subtotal = charge.final_price(amount) if charge
     charge
-  end
-
-  def self.sequence
-    Rails.cache.fetch('promotes/sequence') do
-      self.select(:sequence).distinct.pluck(:sequence).sort
-    end
-  end
-
-  private
-  def delete_cache
-    ['promotes/sequence'].each do |c|
-      Rails.cache.delete(c)
-    end
   end
 
 end

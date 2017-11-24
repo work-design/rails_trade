@@ -15,7 +15,7 @@ class CartItem < ApplicationRecord
   composed_of :serve,
               class_name: 'ServeFee',
               mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']],
-              constructor: Proc.new { |type, id, num, buyer| PromoteFee.new(type, id, num, buyer) }
+              constructor: Proc.new { |type, id, num, buyer| ServeFee.new(type, id, num, buyer) }
 
   composed_of :promote,
               class_name: 'PromoteFee',
@@ -32,8 +32,8 @@ class CartItem < ApplicationRecord
   end
 
   def discount_subtotal
-    if number > 1
-      -(self.good.fee.subtotal * self.quantity - self.fee.subtotal)
+    if quantity > 1
+      -(self.good.serve.subtotal * self.quantity - self.serve.subtotal)
     else
       0
     end
