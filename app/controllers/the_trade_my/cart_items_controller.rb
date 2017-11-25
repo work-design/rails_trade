@@ -43,7 +43,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   end
 
   def destroy
-    @cart_item.update(status: :deleted)
+    @cart_item.update(status: :deleted, checked: false)
   end
 
   private
