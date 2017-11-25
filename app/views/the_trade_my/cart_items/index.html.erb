@@ -39,7 +39,17 @@
       </td>
     </tr>
   <% end %>
-  <% @additions.charges.each do |charge| %>
+  <% @additions.promote_charges.each do |charge| %>
+    <tr class="warning">
+      <td></td>
+      <td><%= charge.item.name %></td>
+      <td></td>
+      <td></td>
+      <td><%= charge.subtotal %></td>
+      <td></td>
+    </tr>
+  <% end %>
+  <% @additions.serve_charges.each do |charge| %>
     <tr class="warning">
       <td></td>
       <td><%= charge.item.name %></td>
