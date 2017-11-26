@@ -6,6 +6,6 @@ $("#total_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.total_subtotal %>
   $("#discount_subtotal_<%= @cart_item.id %>").html('');
 <% end %>
 
-$('#total_subtotal').html('<%= @ps.total_subtotal %>');
-$('#discount_subtotal').html('<%= @ps.discount_subtotal %>');
-$('#subtotal').html('<%= @ps.subtotal %>');
+$('#total_subtotal').html('<%= @additions.total_subtotal %>');
+$('#discount_subtotal').html('<%= @additions.discount_subtotal %>');
+$('#subtotal').html('<%= @additions.subtotal %>');

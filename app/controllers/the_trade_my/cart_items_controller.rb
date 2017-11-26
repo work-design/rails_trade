@@ -33,17 +33,19 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
       unchecked_ids = @cart_items.pluck(:id) - checked_ids
       CartItem.where(id: unchecked_ids).update_all(checked: false) if unchecked_ids.size > 0
     end
-    @ps = PromoteService.new(checked_ids)
+    @additions = AdditionService.new(checked_ids)
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
     checked_ids = @cart_items.checked.pluck(:id)
-    @ps = PromoteService.new(checked_ids)
+    @additions = AdditionService.new(checked_ids)
   end
 
   def destroy
     @cart_item.update(status: :deleted, checked: false)
+    checked_ids = @cart_items.checked.pluck(:id)
+    @additions = AdditionService.new(checked_ids)
   end
 
   private
