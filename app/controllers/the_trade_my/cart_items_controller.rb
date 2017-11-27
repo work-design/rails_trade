@@ -24,16 +24,16 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   end
 
   def total
-    checked_ids = params[:cart_item_ids].to_s.split(',').map { |id| id.to_i }
+    @checked_ids = params[:cart_item_ids].to_s.split(',').map { |id| id.to_i }
 
-    if checked_ids.size == 0
+    if @checked_ids.size == 0
       @cart_items.update_all(checked: false)
-    elsif checked_ids.size > 0
-      CartItem.where(id: checked_ids).update_all(checked: true)
-      unchecked_ids = @cart_items.pluck(:id) - checked_ids
-      CartItem.where(id: unchecked_ids).update_all(checked: false) if unchecked_ids.size > 0
+    elsif @checked_ids.size > 0
+      CartItem.where(id: @checked_ids).update_all(checked: true)
+      @unchecked_ids = @cart_items.pluck(:id) - @checked_ids
+      CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
     end
-    @additions = AdditionService.new(checked_ids)
+    @additions = AdditionService.new(@checked_ids)
   end
 
   def update
