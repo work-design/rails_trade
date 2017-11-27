@@ -14,7 +14,7 @@ class Promote < ApplicationRecord
     'single': 'single'
   }
 
-  def compute_price(amount, price = 0, extra = {})
+  def compute_price(amount, extra = {})
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra)
     charge = self.charges.default_where(query).first
     charge.subtotal = charge.final_price(amount) if charge

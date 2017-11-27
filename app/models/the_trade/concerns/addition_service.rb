@@ -22,20 +22,24 @@ class AdditionService
 
   def compute_promote
     @promote_charges = []
-    AmountPromote.overall.total.each do |promote|
-      charge = promote.compute_price(bulk_price)
-      if charge
-        @promote_charges << charge
-      end
-    end
-
-    if buyer
-      buyer.promotes.each do |promote|
+    Promote.sequence.each do |quence|
+      AmountPromote.overall.total.where(sequence: quence).each do |promote|
         charge = promote.compute_price(bulk_price)
         if charge
           @promote_charges << charge
         end
       end
+
+      if buyer
+        buyer.promotes.where(sequence: quence).each do |promote|
+          charge = promote.compute_price(bulk_price)
+          if charge
+            @promote_charges << charge
+          end
+        end
+      end
+
+      compute_total
     end
 
     promote_price = @promote_charges.map(&:subtotal).sum
