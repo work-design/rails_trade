@@ -17,8 +17,12 @@ class OrderItem < ApplicationRecord
       self.amount = cart_item.fee.bulk_price
       #self.provider = cart_item.good.provider
 
-      cart_item.fee.charges.each do |charge|
-        op = self.order_promotes.build(charge_id: charge.id, promote_id: charge.promote_id, amount: charge.subtotal)
+      cart_item.serve.charges.each do |serve_charge|
+        op = self.order_serves.build(charge_id: serve_charge.id, promote_id: serve_charge.promote_id, amount: serve_charge.subtotal)
+        op.order = self.order
+      end
+      cart_item.promote.charges.each do |promote_charge|
+        op = self.order_promotes.build(charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
         op.order = self.order
       end
     end

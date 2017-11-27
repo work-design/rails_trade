@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
   has_many :refunds, dependent: :nullify
   has_many :order_promotes, autosave: true, inverse_of: :order
+  has_many :order_serves, autosave: true
 
   accepts_nested_attributes_for :order_items
 
@@ -19,9 +20,12 @@ class Order < ApplicationRecord
     self.uuid = UidHelper.nsec_uuid('OD')
 
     cart_item_ids = order_items.map(&:cart_item_id)
-    ps = PromoteService.new(cart_item_ids)
-    ps.charges.each do |charge|
-      self.order_promotes.build(charge_id: charge.id, promote_id: charge.promote_id, amount: charge.subtotal)
+    additions = AdditionService.new(cart_item_ids)
+    additions.promote_charges.each do |promote_charge|
+      self.order_promotes.build(charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+    end
+    additions.serve_charges.each do |serve_charge|
+      self.order_serves.build(charge_id: serve_charge.id, promote_id: serve_charge.promote_id, amount: serve_charge.subtotal)
     end
   end
 
