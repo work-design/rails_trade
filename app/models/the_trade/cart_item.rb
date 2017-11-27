@@ -43,6 +43,10 @@ class CartItem < ApplicationRecord
     retail_price + discount_price
   end
 
+  def total_quantity
+    good.quantity * self.quantity
+  end
+
   def same_cart_items
     if self.buyer_id
       CartItem.where(buyer_id: self.buyer_id).valid
