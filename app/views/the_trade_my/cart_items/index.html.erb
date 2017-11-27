@@ -30,8 +30,10 @@
       <td>
         <p id="retail_price_<%= cart_item.id %>"><%= cart_item.retail_price %></p>
         <p id="discount_price_<%= cart_item.id %>">
-          <span style="color: red;"><%= cart_item.discount_price if cart_item.discount_price < 0 %></span>
-          <i class="info circle icon" style="color: grey;"></i>
+          <% if cart_item.discount_price < 0 %>
+            <span style="color: red;"><%= cart_item.discount_price %></span>
+            <i class="info circle icon" style="color: grey;"></i>
+          <% end %>
         </p>
       </td>
       <td>
