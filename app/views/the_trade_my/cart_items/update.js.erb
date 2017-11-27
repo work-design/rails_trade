@@ -1,11 +1,11 @@
-$("#total_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.total_subtotal %>');
+$("#retail_price_<%= @cart_item.id %>").html('<%= @cart_item.retail_price %>');
 
-<% if @cart_item.discount_subtotal < 0 %>
-  $("#discount_subtotal_<%= @cart_item.id %>").html('<%= @cart_item.discount_subtotal %>');
+<% if @cart_item.discount_price < 0 %>
+  $("#discount_price_<%= @cart_item.id %>").html('<%= @cart_item.discount_pirce %>');
 <% else %>
-  $("#discount_subtotal_<%= @cart_item.id %>").html('');
+  $("#discount_price_<%= @cart_item.id %>").html('');
 <% end %>
 
-$('#total_subtotal').html('<%= @additions.total_subtotal %>');
-$('#discount_subtotal').html('<%= @additions.discount_subtotal %>');
-$('#subtotal').html('<%= @additions.subtotal %>');
+$('#retail_price').html('<%= @additions.retail_price %>');
+$('#discount_price').html('<%= @additions.discount_price %>');
+$('#bulk_price').html('<%= @additions.bulk_price %>');

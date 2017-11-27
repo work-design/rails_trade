@@ -1,5 +1,5 @@
 class AdditionService
-  attr_reader :checked_items, :buyer, :subtotal, :discount_subtotal, :total_subtotal, :total,
+  attr_reader :checked_items, :buyer, :bulk_price, :discount_price, :retail_price, :total,
               :promote_charges, :serve_charges
 
   def initialize(checked_ids, buyer_id = nil)
@@ -11,15 +11,15 @@ class AdditionService
   end
 
   def compute_total
-    @subtotal = checked_items.sum { |cart_item| cart_item.subtotal }
-    @discount_subtotal = checked_items.sum { |cart_item| cart_item.discount_subtotal }
-    @total_subtotal = checked_items.sum { |cart_item| cart_item.total_subtotal }
+    @bulk_price = checked_items.sum { |cart_item| cart_item.bulk_price }
+    @discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
+    @retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
   end
 
   def compute_promote
     @promote_charges = []
     AmountPromote.overall.total.each do |promote|
-      charge = promote.compute_price(subtotal)
+      charge = promote.compute_price(bulk_price)
       if charge
         @promote_charges << charge
       end
@@ -35,14 +35,14 @@ class AdditionService
     end
 
     discount = @promote_charges.map(&:subtotal).sum
-    @total = @subtotal + discount
+    @bulk_price + discount
   end
 
   def compute_serve
     @serve_charges = []
 
     QuantityServe.overall.total.each do |serve|
-      serve = serve.compute_price(subtotal)
+      serve = serve.compute_price(bulk_price)
       if serve
         @serve_charges << serve
       end

@@ -28,9 +28,9 @@
         </div>
       </td>
       <td>
-        <p id="total_subtotal_<%= cart_item.id %>"><%= cart_item.total_subtotal %></p>
-        <p id="discount_subtotal_<%= cart_item.id %>">
-          <span style="color: red;"><%= cart_item.discount_subtotal if cart_item.discount_subtotal < 0 %></span>
+        <p id="retail_price_<%= cart_item.id %>"><%= cart_item.retail_price %></p>
+        <p id="discount_price_<%= cart_item.id %>">
+          <span style="color: red;"><%= cart_item.discount_price if cart_item.discount_price < 0 %></span>
           <i class="info circle icon" style="color: grey;"></i>
         </p>
       </td>
@@ -63,9 +63,9 @@
     <tr>
       <th colspan="4"></th>
       <th>
-        <p id="total_subtotal"><%= @additions.total_subtotal %></p>
-        <p id="discount_subtotal" style="color: red;"><%= @additions.discount_subtotal %></p>
-        <p id="subtotal"><%= @additions.total %></p>
+        <p id="retail_price"><%= @additions.retail_price %></p>
+        <p id="discount_price" style="color: red;"><%= @additions.discount_price %></p>
+        <p id="bulk_price"><%= @additions.bulk_price %></p>
       </th>
       <th></th>
     </tr>

@@ -20,9 +20,9 @@ class PromoteFee
 
     if buyer
       buyer.promotes.each do |promote|
-        charge = promote.compute_price(total_subtotal)
+        charge = promote.compute_price(retail_price)
         if charge
-          charge.subtotal = charge.final_price(total_subtotal)
+          charge.subtotal = charge.final_price(retail_price)
           @charges << charge
         end
       end

@@ -27,11 +27,11 @@ class CartItem < ApplicationRecord
     self.status = 'unpaid'
   end
 
-  def total_subtotal
+  def retail_price
     self.serve.subtotal
   end
 
-  def discount_subtotal
+  def discount_price
     if quantity > 1
       -(self.good.serve.subtotal * self.quantity - self.serve.subtotal)
     else
@@ -39,8 +39,8 @@ class CartItem < ApplicationRecord
     end
   end
 
-  def subtotal
-    total_subtotal + discount_subtotal
+  def bulk_price
+    retail_price + discount_price
   end
 
   def same_cart_items
