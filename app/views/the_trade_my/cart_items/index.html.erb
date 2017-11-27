@@ -40,7 +40,7 @@
     </tr>
   <% end %>
   <% @additions.promote_charges.each do |charge| %>
-    <tr class="warning">
+    <tr class="error">
       <td></td>
       <td><%= charge.item.name %></td>
       <td></td>
@@ -63,9 +63,12 @@
     <tr>
       <th colspan="4"></th>
       <th>
-        <p id="retail_price"><%= @additions.retail_price %></p>
-        <p id="discount_price" style="color: red;"><%= @additions.discount_price %></p>
-        <p id="bulk_price"><%= @additions.bulk_price %></p>
+        <p id="retail_price">原价：<%= @additions.retail_price %></p>
+        <p id="discount_price" style="color: red;">批发折扣：<%= @additions.discount_price %></p>
+        <p id="bulk_price">折后价格： <%= @additions.bulk_price %></p>
+        <p id="promote_price" style="color: red;">优惠价格： <%= @additions.promote_price %></p>
+        <p id="total_price">附加服务： <%= @additions.serve_price %></p>
+        <p id="total_price">最终价格： <%= @additions.total_price %></p>
       </th>
       <th></th>
     </tr>

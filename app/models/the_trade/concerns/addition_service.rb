@@ -2,7 +2,7 @@ class AdditionService
   attr_reader :checked_items, :buyer,
               :total_quantity,
               :bulk_price, :discount_price, :retail_price,
-              :total_price,
+              :promote_price, :serve_price, :total_price,
               :promote_charges, :serve_charges
 
   def initialize(checked_ids, buyer_id = nil)
@@ -42,8 +42,8 @@ class AdditionService
       compute_total
     end
 
-    promote_price = @promote_charges.map(&:subtotal).sum
-    @total_price = @bulk_price + promote_price
+    @promote_price = @promote_charges.map(&:subtotal).sum
+    @total_price = @bulk_price + @promote_price
   end
 
   def compute_serve
@@ -55,6 +55,7 @@ class AdditionService
         @serve_charges << serve
       end
     end
+    @serve_price = @serve_charges.map(&:subtotal).sum
   end
 
 end
