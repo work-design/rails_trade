@@ -1,3 +1,1 @@
-$('#retail_price').html('<%= @additions.retail_price %>');
-$('#discount_price').html('<%= @additions.discount_price %>');
-$('#bulk_price').html('<%= @additions.bulk_price %>');
+$('#total_price').html('<%= j(render partial: 'total_price') %>');

@@ -28,12 +28,12 @@ class CartItem < ApplicationRecord
   end
 
   def retail_price
-    self.serve.subtotal
+    self.good.serve.subtotal * self.quantity
   end
 
   def discount_price
     if quantity > 1
-      -(self.good.serve.subtotal * self.quantity - self.serve.subtotal)
+      -(retail_price - self.serve.subtotal)
     else
       0
     end
