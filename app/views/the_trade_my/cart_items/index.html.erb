@@ -12,6 +12,7 @@
     <th></th>
   </tr>
   </thead>
+  <tbody>
   <% @cart_items.each do |cart_item| %>
     <tr class="<%= 'active' if cart_item.checked %>" id="cart_item_<%= cart_item.id %>">
       <td><%= check_box_tag(:cart_item_id, cart_item.id, cart_item.checked) %></td>
@@ -38,26 +39,10 @@
       </td>
     </tr>
   <% end %>
-  <% @additions.promote_charges.each do |charge| %>
-    <tr class="error">
-      <td></td>
-      <td><%= charge.item.name %></td>
-      <td></td>
-      <td></td>
-      <td><%= charge.subtotal %></td>
-      <td></td>
-    </tr>
-  <% end %>
-  <% @additions.serve_charges.each do |charge| %>
-    <tr class="warning">
-      <td></td>
-      <td><%= charge.item.name %></td>
-      <td></td>
-      <td></td>
-      <td><%= charge.subtotal %></td>
-      <td></td>
-    </tr>
-  <% end %>
+  </tbody>
+  <tbody id="additions_body">
+  <%= render 'additions' %>
+  </tbody>
   <tfoot>
     <tr>
       <th colspan="4"></th>

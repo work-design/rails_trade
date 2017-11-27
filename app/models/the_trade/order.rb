@@ -22,10 +22,10 @@ class Order < ApplicationRecord
     cart_item_ids = order_items.map(&:cart_item_id)
     additions = AdditionService.new(cart_item_ids)
     additions.promote_charges.each do |promote_charge|
-      self.order_promotes.build(charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
     end
     additions.serve_charges.each do |serve_charge|
-      self.order_serves.build(charge_id: serve_charge.id, promote_id: serve_charge.promote_id, amount: serve_charge.subtotal)
+      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
   end
 

@@ -25,7 +25,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     @order = current_buyer.orders.build(order_params)
 
     respond_to do |format|
-      if @order.save_with_promote
+      if @order.save
         format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else

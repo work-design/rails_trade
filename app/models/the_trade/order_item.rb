@@ -4,9 +4,13 @@ class OrderItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :provider, optional: true
   has_many :order_promotes, autosave: true
+  has_many :order_serves, autosave: true
 
-  composed_of :fee,
+  composed_of :promote,
               class_name: 'PromoteFee',
+              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
+  composed_of :serve,
+              class_name: 'ServeFee',
               mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
 
   after_initialize if: :new_record? do |oi|
@@ -14,15 +18,15 @@ class OrderItem < ApplicationRecord
       self.good_type = cart_item.good_type
       self.good_id = cart_item.good_id
       self.quantity = cart_item.quantity
-      self.amount = cart_item.fee.bulk_price
+      self.amount = cart_item.bulk_price
       #self.provider = cart_item.good.provider
 
       cart_item.serve.charges.each do |serve_charge|
-        op = self.order_serves.build(charge_id: serve_charge.id, promote_id: serve_charge.promote_id, amount: serve_charge.subtotal)
+        op = self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
         op.order = self.order
       end
       cart_item.promote.charges.each do |promote_charge|
-        op = self.order_promotes.build(charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+        op = self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
         op.order = self.order
       end
     end
