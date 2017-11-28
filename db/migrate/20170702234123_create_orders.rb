@@ -6,8 +6,10 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.decimal :amount, precision: 10, scale: 2
       t.decimal :received_amount, precision: 10, scale: 2
       t.decimal :subtotal, precision: 10, scale: 2
-      t.decimal :shipping_fee, precision: 10, scale: 2
-      t.decimal :handling_fee, precision: 10, scale: 2
+      t.decimal :pure_serve_sum, precision: 10, scale: 2
+      t.decimal :pure_promote_sum, precision: 10, scale: 2
+      t.decimal :serve_sum, precision: 10, scale: 2
+      t.decimal :promote_sum, precision: 10, scale: 2
       t.string :currency
       t.references :buyer
       t.integer :payment_id
@@ -21,6 +23,8 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.references :good, polymorphic: true
       t.integer :quantity
       t.decimal :amount, precision: 10, scale: 2
+      t.decimal :promote_sum, precision: 10, scale: 2
+      t.decimal :serve_sum, precision: 10, scale: 2
       t.timestamps
     end
 

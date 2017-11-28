@@ -10,6 +10,8 @@ class Order < ApplicationRecord
   has_many :refunds, dependent: :nullify
   has_many :order_promotes, autosave: true, inverse_of: :order
   has_many :order_serves, autosave: true
+  has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
+  has_many :pure_order_serves, -> { where(order_item_id: nil) }, class_name: 'OrderServe'
 
   accepts_nested_attributes_for :order_items
 
@@ -18,6 +20,7 @@ class Order < ApplicationRecord
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
+    self.payment_status = 'unpaid'
 
     cart_item_ids = order_items.map(&:cart_item_id)
     additions = AdditionService.new(cart_item_ids)
@@ -28,6 +31,7 @@ class Order < ApplicationRecord
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
   end
+  before_create :sum_cache
 
   enum payment_status: {
     unpaid: 0,
@@ -46,6 +50,18 @@ class Order < ApplicationRecord
 
   def promote_amount
     order_promotes.sum(:amount)
+  end
+
+  def sum_cache
+    self.pure_serve_sum = self.pure_order_serves.sum { |os| os.amount }
+    self.pure_promote_sum = self.pure_order_promotes.sum { |op| op.amount }
+    self.serve_sum = self.order_serves.sum { |op| op.amount }
+    self.promote_sum = self.order_promotes.sum { |op| op.amount }
+    self.subtotal = self.order_items.sum { |op| op.amount }
+    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
+    self.order_items.each do |order_item|
+      order_item.sum_cache
+    end
   end
 
 end

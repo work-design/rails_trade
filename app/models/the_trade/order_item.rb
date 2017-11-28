@@ -17,7 +17,7 @@ class OrderItem < ApplicationRecord
     if cart_item
       self.good_type = cart_item.good_type
       self.good_id = cart_item.good_id
-      self.quantity = cart_item.quantity
+      self.number = cart_item.quantity
       self.amount = cart_item.bulk_price
       #self.provider = cart_item.good.provider
 
@@ -30,6 +30,11 @@ class OrderItem < ApplicationRecord
         op.order = self.order
       end
     end
+  end
+
+  def sum_cache
+    self.serve_sum = self.order_serves.sum { |os| os.amount }
+    self.promote_sum = self.order_promotes.sum { |op| op.amount }
   end
 
 end
