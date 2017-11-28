@@ -1,5 +1,6 @@
 class ServeFee
-  attr_reader :good, :number, :buyer, :extra, :charges
+  attr_reader :good, :number, :buyer, :extra,
+              :charges
 
   def initialize(good_type, good_id, number = 1, buyer_id = nil, extra = {})
     @good = good_type.constantize.unscoped.find good_id
@@ -12,25 +13,21 @@ class ServeFee
   def verbose_fee
     @charges = []
 
-    QuantityServe.overall.single.each do |serve|
+    QuantityServe.single.overall.each do |serve|
       charge = serve.compute_price(good.quantity * number, extra)
-      if charge
-        @charges << charge
-      end
+      @charges << charge if charge
     end
 
-    NumberServe.overall.single.each do |serve|
+    NumberServe.single.overall.each do |serve|
       charge = serve.compute_price(number)
-      if charge
-        @charges << charge
-      end
+      @charges << charge if charge
     end
 
     @charges
   end
 
   def subtotal
-    @subtotal ||= self.charges.map(&:subtotal).sum(good.price * number)
+    @subtotal ||= self.charges.map(&:subtotal).sum
   end
 
 end

@@ -18,7 +18,7 @@
       <td><%= check_box_tag(:cart_item_id, cart_item.id, cart_item.checked) %></td>
       <td><%= cart_item.good&.name %></td>
       <td>
-        <p><%= cart_item.good.serve.subtotal %></p>
+        <p><%= cart_item.good.retail_price %></p>
         <p><%= cart_item.good&.quantity %><%= cart_item.good&.unit %></p>
       </td>
       <td>

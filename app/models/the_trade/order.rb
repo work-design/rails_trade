@@ -53,11 +53,11 @@ class Order < ApplicationRecord
   end
 
   def sum_cache
-    self.pure_serve_sum = self.pure_order_serves.sum { |os| os.amount }
-    self.pure_promote_sum = self.pure_order_promotes.sum { |op| op.amount }
-    self.serve_sum = self.order_serves.sum { |op| op.amount }
-    self.promote_sum = self.order_promotes.sum { |op| op.amount }
-    self.subtotal = self.order_items.sum { |op| op.amount }
+    self.pure_serve_sum = self.pure_order_serves.sum { |o| o.amount }
+    self.pure_promote_sum = self.pure_order_promotes.sum { |o| o.amount }
+    self.serve_sum = self.order_serves.sum { |o| o.amount }
+    self.promote_sum = self.order_promotes.sum { |o| o.amount }
+    self.subtotal = self.order_items.sum { |o| o.amount }
     self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
     self.order_items.each do |order_item|
       order_item.sum_cache

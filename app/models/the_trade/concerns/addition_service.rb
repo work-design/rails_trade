@@ -2,7 +2,7 @@ class AdditionService
   attr_reader :checked_items, :buyer,
               :total_quantity,
               :bulk_price, :discount_price, :retail_price,
-              :promote_price, :serve_price, :total_price,
+              :promote_price, :serve_price,
               :promote_charges, :serve_charges
 
   def initialize(checked_ids, buyer_id = nil)
@@ -13,8 +13,12 @@ class AdditionService
     compute_serve
   end
 
-  def compute_total
+  def compute_price
     @bulk_price = checked_items.sum { |cart_item| cart_item.bulk_price }
+  end
+
+  def compute_total
+    compute_price
     @discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
     @retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
     @total_quantity = checked_items.sum { |cart_item| cart_item.total_quantity }
@@ -23,27 +27,22 @@ class AdditionService
   def compute_promote
     @promote_charges = []
     Promote.sequence.each do |quence|
-      AmountPromote.overall.total.where(sequence: quence).each do |promote|
+      AmountPromote.total.overall.where(sequence: quence).each do |promote|
         charge = promote.compute_price(bulk_price)
-        if charge
-          @promote_charges << charge
-        end
+        @promote_charges << charge if charge
       end
 
       if buyer
-        buyer.promotes.where(sequence: quence).each do |promote|
+        buyer.promotes.total.where(sequence: quence).each do |promote|
           charge = promote.compute_price(bulk_price)
-          if charge
-            @promote_charges << charge
-          end
+          @promote_charges << charge if charge
         end
       end
 
-      compute_total
+      compute_price
     end
 
     @promote_price = @promote_charges.map(&:subtotal).sum
-    @total_price = @bulk_price + @promote_price
   end
 
   def compute_serve
@@ -51,11 +50,13 @@ class AdditionService
 
     QuantityServe.overall.total.each do |serve|
       serve = serve.compute_price(total_quantity)
-      if serve
-        @serve_charges << serve
-      end
+      @serve_charges << serve if serve
     end
     @serve_price = @serve_charges.map(&:subtotal).sum
+  end
+
+  def total_price
+    @total_price ||= @bulk_price + @promote_price + @serve_price
   end
 
 end

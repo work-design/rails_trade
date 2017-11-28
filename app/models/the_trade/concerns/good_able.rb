@@ -5,6 +5,16 @@ module GoodAble
     has_many :cart_items, as: :good, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
+
+    composed_of :serve,
+                class_name: 'ServeFee',
+                mapping: ['id', 'good_id'],
+                constructor: Proc.new { |id| ServeFee.new(self.name, id) }
+  end
+
+
+  def retail_price
+    self.price + self.serve.subtotal
   end
 
   def generate_order(buyer, params)
