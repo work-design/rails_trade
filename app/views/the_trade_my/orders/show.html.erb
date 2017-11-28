@@ -11,7 +11,10 @@
       <tr>
         <th>商品</th>
         <th></th>
-        <th>价格</th>
+        <th>Pure Price</th>
+        <th>Serve Sum</th>
+        <th>Promote Sum</th>
+        <th></th>
         <th>数量</th>
       </tr>
       </thead>
@@ -19,10 +22,14 @@
       <tr>
         <td>
           <%= order_item.good.name %>
+          <span><%= order_item.good&.price %></span>
           <%# link_to order_item.good&.name, controller: '/' + order_item.good_type.underscore.pluralize, action: 'show', id: order_item.good_id %>
         </td>
         <td><%= link_to '订单流程', my_order_item_path(order_item) %></td>
-        <td><%= order_item.good&.price %></td>
+        <td><%= order_item.pure_price %></td>
+        <td><%= order_item.serve_sum %></td>
+        <td><%= order_item.promote_sum %></td>
+        <td><%= order_item.amount %></td>
         <td><%= order_item.number %></td>
       </tr>
         <% order_item.order_serves.each do |order_serve| %>
@@ -31,6 +38,7 @@
             <td></td>
             <td><%= order_serve.amount %></td>
             <td></td>
+            <td></td>
           </tr>
         <% end %>
         <% order_item.order_promotes.each do |order_promote| %>
@@ -38,6 +46,7 @@
             <td><%= order_promote.promote.name %></td>
             <td></td>
             <td><span style="color: red;"><%= order_promote.amount %></span></td>
+            <td></td>
             <td></td>
           </tr>
         <% end %>
@@ -48,6 +57,7 @@
           <td></td>
           <td><%= order_serve.amount %></td>
           <td></td>
+          <td></td>
         </tr>
       <% end %>
       <% @order.pure_order_promotes.each do |order_promote| %>
@@ -55,6 +65,7 @@
           <td><%= order_promote.promote.name %></td>
           <td></td>
           <td><%= order_promote.amount %></td>
+          <td></td>
           <td></td>
         </tr>
       <% end %>

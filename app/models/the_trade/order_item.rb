@@ -19,6 +19,7 @@ class OrderItem < ApplicationRecord
       self.good_id = cart_item.good_id
       self.number = cart_item.quantity
       self.amount = cart_item.bulk_price
+      self.pure_price = cart_item.pure_price
       #self.provider = cart_item.good.provider
 
       cart_item.serve.charges.each do |serve_charge|
