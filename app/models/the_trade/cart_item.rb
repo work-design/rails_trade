@@ -28,7 +28,7 @@ class CartItem < ApplicationRecord
   end
 
   def pure_price
-    good.price * quantity
+    good.price.to_d * quantity
   end
 
   def retail_price
@@ -48,7 +48,7 @@ class CartItem < ApplicationRecord
   end
 
   def total_quantity
-    good.quantity * self.quantity
+    good.quantity.to_d * self.quantity
   end
 
   def same_cart_items

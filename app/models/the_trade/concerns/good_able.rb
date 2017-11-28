@@ -14,7 +14,7 @@ module GoodAble
 
 
   def retail_price
-    self.price + self.serve.subtotal
+    self.price.to_d + self.serve.subtotal
   end
 
   def generate_order(buyer, params)

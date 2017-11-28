@@ -2,7 +2,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
-    @orders = Order.page(params[:page])
+    @orders = Order.default_where(params.permit(:uuid)).page(params[:page])
   end
 
   def payments
@@ -39,7 +39,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
 
   def destroy
     @order.destroy
-    redirect_to orders_url, notice: 'Order was successfully destroyed.'
+    redirect_to admin_orders_url, notice: 'Order was successfully destroyed.'
   end
 
   private

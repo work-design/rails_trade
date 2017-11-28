@@ -2,7 +2,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
 
   def index
-    @orders = current_buyer.orders
+    @orders = current_buyer.orders.page(params[:page])
 
     respond_to do |format|
       format.html
@@ -32,6 +32,19 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
         format.html { render action: 'new' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def pay
+    if @order.payment_status != 'all_paid'
+      result = @order.stripe_charge(params)
+    else
+      result = {}
+    end
+
+    respond_to do |format|
+      format.json { render json: { result: result } }
+      format.html { redirect_to @order.approve_url }
     end
   end
 
@@ -120,21 +133,21 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     end
   end
 
-  def destroy
-    @order.destroy
-
-    respond_to do |format|
-      format.html { redirect_to my_orders_url }
-      format.json { head :no_content }
-    end
-  end
-
   def refund
     @order.apply_for_refund
 
     respond_to do |format|
       format.html { redirect_to my_orders_url }
       format.json { render json: @order.as_json(include: [:refunds]) }
+    end
+  end
+
+  def destroy
+    @order.destroy
+
+    respond_to do |format|
+      format.html { redirect_to my_orders_url }
+      format.json { head :no_content }
     end
   end
 

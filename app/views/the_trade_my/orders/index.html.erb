@@ -12,9 +12,9 @@
       <thead>
       <tr>
         <th>订单号</th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>Amount</th>
+        <th>Pay</th>
+        <th>Actions</th>
       </tr>
       </thead>
 
@@ -23,12 +23,19 @@
           <td><%= order.uuid %></td>
           <td><%= order.amount %></td>
           <td>
+            <% if order.payment_type %>
+              <span class="ui label"><%= order.payment_type %></span>
+            <% else %>
+              <%= link_to '选择支付方式', payment_type_my_order_path(order), class: 'ui label' %>
+            <% end %>
             <% if order.payment_status != 'all_paid' %>
-              <%= link_to 'pay', paypal_pay_my_order_path(order), method: :patch %>
+              <%= link_to 'pay', alipay_pay_my_order_path(order) %>
             <% end %>
           </td>
-          <td><%= link_to 'Show', my_order_path(order) %></td>
-          <td><%= link_to 'Edit', edit_my_order_path(order) %></td>
+          <td>
+            <%= link_to 'Show', my_order_path(order) %>
+            <%= link_to 'Edit', edit_my_order_path(order) %>
+          </td>
         </tr>
       <% end %>
     </table>

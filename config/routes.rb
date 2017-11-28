@@ -62,6 +62,9 @@ Rails.application.routes.draw do
       patch :stripe_pay, on: :member
       get :alipay_pay, on: :member
       get :execute, on: :member
+      get :pay, on: :member
+      get 'payment_type' => :edit_payment_type, on: :member
+      put 'payment_type' => :update_payment_type, on: :member
       get 'cancel' => :edit_cancel, on: :member
       put 'cancel' => :update_cancel, on: :member
       put :refund, on: :member

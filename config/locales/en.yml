@@ -22,6 +22,10 @@ en:
     models:
       role: ''
     attributes:
+      order/payment_type:
+        paypal: paypal
+        alipay: alipay
+        stripe: stripe
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record

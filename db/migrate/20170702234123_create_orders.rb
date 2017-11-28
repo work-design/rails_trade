@@ -13,6 +13,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :currency
       t.references :buyer
       t.integer :payment_id
+      t.string :payment_type
       t.integer :payment_status
       t.timestamps
     end
