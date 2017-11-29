@@ -22,7 +22,7 @@ class Order < ApplicationRecord
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
     self.payment_status = 'unpaid'
-    self.buyer_id = self.user.buyer_id
+    self.buyer_id = self.user&.buyer_id
 
     cart_item_ids = order_items.map(&:cart_item_id)
     additions = AdditionService.new(cart_item_ids)

@@ -28,7 +28,7 @@ class CartItem < ApplicationRecord
 
   after_initialize if: :new_record? do |t|
     self.status = 'unpaid'
-    self.buyer_id = self.user.buyer_id
+    self.buyer_id = self.user&.buyer_id
   end
 
   def pure_price
