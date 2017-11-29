@@ -6,7 +6,7 @@ class CartItem < ApplicationRecord
   validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :buyer_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { buyer_id.blank? }
-  scope :valid, -> { default_where(status: 'unpaid') }
+  scope :valid, -> { default_where(status: 'unpaid', assistant: false) }
   scope :checked, -> { default_where(checked: true) }
 
   enum status: [

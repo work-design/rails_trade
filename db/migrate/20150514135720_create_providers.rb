@@ -31,6 +31,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.integer :status, default: 0
       t.integer :quantity
       t.boolean :checked, default: false
+      t.boolean :assistant, default: false
       t.timestamps
     end
 

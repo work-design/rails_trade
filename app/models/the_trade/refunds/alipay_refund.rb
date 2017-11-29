@@ -1,33 +1,32 @@
 class AlipayRefund < Refund
+  
+  def do_refund(params = {})
+    return unless can_refund?
 
-  def transaction_id
-    refunded_payment&.payment_uuid
-  end
-
-  def new_batch_no
-    Alipay::Utils.generate_batch_no
-  end
-
-  def invoke_refund
-    Alipay::Service.refund_fastpay_by_platform_pwd_url(refund_params)
-  end
-
-  def can_renew_refund_uuid?
-    self.init? && !refund_uuid.start_with?(Date.today.strftime('%Y%m%d'))
-  end
-
-  def refund_params
-    {
-      batch_no: refund_uuid,
-      data: [
-        {
-          trade_no: transaction_id,
-          amount: self.amount.to_s,
-          reason: '业务退款'
-        }
-      ],
-      notify_url: PAYMENT['callback_host'] + '/yifubao/alipay_refund'
+    refund_params = {
+      out_batch_no: self.order.uuid,
+      refund_amount: self.total_amount.to_s,
+      out_request_no: self.refund_uuid
     }
+
+    refund = Alipay::Service.trade_refund(refund_params)
+
+    order.payment_status = 'refunded'
+
+    self.operator_id = params[:operator_id]
+    # self.refund_uuid = refund.id
+    #
+    # if refund.status == 'succeeded'
+    #   self.state = 'completed'
+    #   self.refunded_at = Time.now
+    #   self.class.transaction do
+    #     order.save!
+    #     self.save!
+    #   end
+    # else
+    #   self.update reason: 'failed'
+    # end
+    refund
   end
 
 end

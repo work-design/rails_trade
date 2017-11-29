@@ -2,10 +2,7 @@ Rails.application.routes.draw do
 
   scope :admin, as: 'admin', module: 'the_trade_admin' do
     get 'trade' => 'trade#index'
-    resources :invites
-    resources :races do
-      resources :crowds, :shallow => true
-    end
+    resources :cart_items, except: [:new]
     resources :serves do
       get :search, on: :collection
       patch :toggle, on: :member
