@@ -2,7 +2,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
 
   def index
-    @orders = current_buyer.orders.page(params[:page])
+    @orders = current_user.orders.page(params[:page])
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def new
-    @order = current_buyer.orders.build
+    @order = current_user.orders.build
     cart_item_ids = params[:cart_item_ids].split(',')
     @order.migrate_from_cart_items(cart_item_ids)
 
@@ -22,7 +22,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def create
-    @order = current_buyer.orders.build(order_params)
+    @order = current_user.orders.build(order_params)
 
     respond_to do |format|
       if @order.save
@@ -121,18 +121,6 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     end
   end
 
-  def update_date
-    respond_to do |format|
-      if @order.update(date_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def refund
     @order.apply_for_refund
 
@@ -158,10 +146,6 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
 
   def order_params
     params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, order_items_attributes: [:cart_item_id])
-  end
-
-  def date_params
-    params[:order].permit(:order_on, :order_at)
   end
 
 end

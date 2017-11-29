@@ -2,7 +2,6 @@ class CreateProviders < ActiveRecord::Migration[5.1]
   def change
 
     create_table :providers do |t|
-      t.references :user
       t.references :area
       t.string :type
       t.string :name
@@ -25,6 +24,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
     end
 
     create_table :cart_items do |t|
+      t.references :user
       t.references :buyer
       t.references :good, polymorphic: true
       t.string :session_id, limit: 128

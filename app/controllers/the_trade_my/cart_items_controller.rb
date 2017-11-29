@@ -59,8 +59,8 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   end
 
   def current_cart
-    if defined?(current_buyer) && current_buyer
-      @cart_items = current_buyer.cart_items.valid
+    if current_user
+      @cart_items = current_user.cart_items.valid
     else
       @cart_items = CartItem.where(session_id: session.id).valid
     end

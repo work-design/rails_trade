@@ -18,8 +18,8 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 end
 
-FactoryGirl.definition_file_paths += [File.expand_path('../factories', __FILE__)]
-FactoryGirl.find_definitions
+FactoryBot.definition_file_paths += [File.expand_path('../factories', __FILE__)]
+FactoryBot.find_definitions

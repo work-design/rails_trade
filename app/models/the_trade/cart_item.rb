@@ -1,6 +1,9 @@
 class CartItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :buyer, class_name: '::Buyer', optional: true
+  belongs_to :user
+
+  validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :buyer_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { buyer_id.blank? }
   scope :valid, -> { default_where(status: 'unpaid') }
@@ -25,6 +28,7 @@ class CartItem < ApplicationRecord
 
   after_initialize if: :new_record? do |t|
     self.status = 'unpaid'
+    self.buyer_id = self.user.buyer_id
   end
 
   def pure_price
@@ -52,8 +56,8 @@ class CartItem < ApplicationRecord
   end
 
   def same_cart_items
-    if self.buyer_id
-      CartItem.where(buyer_id: self.buyer_id).valid
+    if self.user_id
+      CartItem.where(buyer_id: self.user_id).valid
     else
       CartItem.where(session_id: self.session_id).valid
     end
