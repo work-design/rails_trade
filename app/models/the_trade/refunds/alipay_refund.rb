@@ -4,28 +4,29 @@ class AlipayRefund < Refund
     return unless can_refund?
 
     refund_params = {
-      out_batch_no: self.order.uuid,
+      out_trade_no: self.order.uuid,
       refund_amount: self.total_amount.to_s,
       out_request_no: self.refund_uuid
     }
 
-    refund = Alipay::Service.trade_refund(refund_params)
+    refund_res = Alipay::Service.trade_refund(refund_params)
 
     order.payment_status = 'refunded'
-
     self.operator_id = params[:operator_id]
-    # self.refund_uuid = refund.id
-    #
-    # if refund.status == 'succeeded'
-    #   self.state = 'completed'
-    #   self.refunded_at = Time.now
-    #   self.class.transaction do
-    #     order.save!
-    #     self.save!
-    #   end
-    # else
-    #   self.update reason: 'failed'
-    # end
+
+    refund = JSON.parse(refund_res).fetch('alipay_trade_refund_response', {})
+    self.refund_uuid = refund['trade_no']
+
+    if refund['code'] == '10000' || refund['msg'] == 'Success'
+      self.state = 'completed'
+      self.refunded_at = Time.now
+      self.class.transaction do
+        order.save!
+        self.save!
+      end
+    else
+      self.update reason: 'failed'
+    end
     refund
   end
 

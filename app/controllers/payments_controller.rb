@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
   before_action :set_order, only: [:result]
 
   def alipay_notify
-    notify_params = alipay_params.except(*request.path_parameters.keys)
+    notify_params = alipay_params.except(*request.path_parameters.keys).to_h
 
     @order = Order.find_by(uuid: params[:out_trade_no])
     result = nil
@@ -14,9 +14,9 @@ class PaymentsController < ApplicationController
     end
 
     if result
-      render text: 'success', layout: false
+      render plain: 'success'
     else
-      render text: 'fail', status: :bad_request, layout: false
+      render plain: 'failure', status: :bad_request
     end
   end
 
