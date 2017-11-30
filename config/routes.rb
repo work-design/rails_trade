@@ -58,9 +58,6 @@ Rails.application.routes.draw do
     resource :provider
 
     resources :addresses
-    resources :areas, only: [] do
-      get :search, on: :collection
-    end
     resources :buyers, only: [] do
       get :search, on: :collection
     end
@@ -85,6 +82,9 @@ Rails.application.routes.draw do
     resources :payment_methods
   end
 
+  resources :areas, only: [] do
+    get :search, on: :collection
+  end
   resources :payments, only: [:index] do
     get :result, on: :collection
     match :notify, on: :collection, via: [:get, :post]

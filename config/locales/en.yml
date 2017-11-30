@@ -22,6 +22,10 @@ en:
     models:
       role: ''
     attributes:
+      address/kind:
+        transport: Transport
+        forwarder: Forwarder
+        invoice: Invoice
       order/payment_type:
         paypal: paypal
         alipay: alipay

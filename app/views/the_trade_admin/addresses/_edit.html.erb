@@ -5,7 +5,7 @@
   </div>
 
   <div class="content">
-    <%= form_with model: [:my, @address], local: true do |f| %>
+    <%= form_with model: [:admin, @address], local: true do |f| %>
       <div class="fields">
         <div class="field">
           <%= label :nation, 'Nation' %>
@@ -21,6 +21,7 @@
         </div>
       </div>
       <%= f.hidden_field :area_id %>
+      <%= f.select :kind, options_for_select(Address.options_i18n(:kind)) %>
       <%= f.text_field :contact_person %>
       <%= f.text_field :tel %>
       <%= f.text_field :address %>
