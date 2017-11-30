@@ -2,31 +2,15 @@ Rails.application.routes.draw do
 
   scope :admin, as: 'admin', module: 'the_trade_admin' do
     get 'trade' => 'trade#index'
-    resources :cart_items, except: [:new] do
-      get :total, on: :collection
-    end
-    resources :serves do
-      get :search, on: :collection
-      patch :toggle, on: :member
-      patch :overall, on: :member
-      resources :serve_charges, as: 'charges'
-    end
-    resources :promotes do
-      get :search, on: :collection
-      patch :toggle, on: :member
-      patch :overall, on: :member
-      resources :promote_charges, as: 'charges'
-    end
-    resources :promote_buyers
-    resources :promote_goods
-    resources :providers
-    resources :produces
+    resources :addresses
     resources :areas
-
     resources :buyers do
       get :overdue, on: :collection
       get :orders, on: :member
       put :remind, on: :collection
+    end
+    resources :cart_items, except: [:new] do
+      get :total, on: :collection
     end
     resources :orders do
       get :payments, on: :collection
@@ -40,9 +24,6 @@ Rails.application.routes.draw do
       patch :analyze, on: :member
       patch :adjust, on: :member
     end
-    resources :refunds do
-      patch :confirm, on: :member
-    end
     resources :payment_strategies
     resources :payment_methods do
       resources :payment_references, as: :references
@@ -50,11 +31,42 @@ Rails.application.routes.draw do
       patch :verify, on: :member
       patch :merge_from, on: :member
     end
+    resources :produces
+    resources :promotes do
+      get :search, on: :collection
+      patch :toggle, on: :member
+      patch :overall, on: :member
+      resources :promote_charges, as: 'charges'
+    end
+    resources :promote_buyers
+    resources :promote_goods
+    resources :providers
+
+    resources :refunds do
+      patch :confirm, on: :member
+    end
+    resources :serves do
+      get :search, on: :collection
+      patch :toggle, on: :member
+      patch :overall, on: :member
+      resources :serve_charges, as: 'charges'
+    end
   end
 
   scope :my, as: 'my', module: 'the_trade_my' do
     resource :buyer
     resource :provider
+
+    resources :addresses
+    resources :areas, only: [] do
+      get :search, on: :collection
+    end
+    resources :buyers, only: [] do
+      get :search, on: :collection
+    end
+    resources :cart_items do
+      get :total, on: :collection
+    end
     resources :good_providers
     resources :orders do
       patch :paypal_pay, on: :member
@@ -71,25 +83,15 @@ Rails.application.routes.draw do
     end
     resources :order_items
     resources :payment_methods
-    resources :cart_items do
-      get :total, on: :collection
-    end
-    resources :addresses
   end
 
-  resources :areas, only: [] do
-    get :search, on: :collection
-  end
-  resources :buyers, only: [] do
-    get :search, on: :collection
-  end
-  resources :providers, only: [] do
-    get :search, on: :collection
-  end
-  resources :payment_methods
   resources :payments, only: [:index] do
     get :result, on: :collection
     match :notify, on: :collection, via: [:get, :post]
+  end
+  resources :payment_methods
+  resources :providers, only: [] do
+    get :search, on: :collection
   end
 
 end

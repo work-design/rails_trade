@@ -45,5 +45,13 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
+    create_table :addresses do |t|
+      t.references :area
+      t.references :user
+      t.references :buyer
+      t.string :kind
+      t.timestamps
+    end
+
   end
 end
