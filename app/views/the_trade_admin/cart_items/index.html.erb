@@ -35,7 +35,7 @@
         </p>
       </td>
       <td>
-        <%= link_to 'delete', my_cart_item_path(cart_item), method: :delete, remote: true %>
+        <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true %>
       </td>
     </tr>
   <% end %>
@@ -54,7 +54,7 @@
     <tr>
       <th colspan="5">
         <div class="">
-          <%= link_to '生成订单', new_my_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red right floated button', id: 'new_order' %>
+          <%= link_to '生成订单', new_admin_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red right floated button', id: 'new_order' %>
         </div>
       </th>
       <th></th>

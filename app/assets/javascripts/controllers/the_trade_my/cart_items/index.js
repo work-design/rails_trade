@@ -51,7 +51,14 @@ $('input[name="cart_item_id"]').change(function(){
   $('#new_order').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
 
   var total_url = '/my/cart_items/total' + '?cart_item_ids=' + getCheckedIds();
-  fetch(total_url).then(function(response) {
+  var params = {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/js',
+      'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
+    }
+  };
+  fetch(total_url, params).then(function(response) {
     return response.text()
   }).then(function(response) {
     var script = document.createElement('script');

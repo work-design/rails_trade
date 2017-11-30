@@ -14,7 +14,7 @@ function decrease_quantity(cart_item_id){
 
 function update_quantity(cart_item_id){
   var q = $('#quantity_' + cart_item_id);
-  var url = '/my/cart_items/' + cart_item_id;
+  var url = '/admin/cart_items/' + cart_item_id;
   var params = {
     method: 'PATCH',
     credentials: 'include',
@@ -50,8 +50,16 @@ $('input[name="cart_item_id"]').change(function(){
   var remind_link = new URL($('#new_order')[0].href);
   $('#new_order').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
 
-  var total_url = '/my/cart_items/total' + '?cart_item_ids=' + getCheckedIds();
-  fetch(total_url).then(function(response) {
+  var search_path = window.location.search;
+  var total_url = '/admin/cart_items/total' + search_path + '&cart_item_ids=' + getCheckedIds();
+  var params = {
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/javascript',
+      'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
+    }
+  };
+  fetch(total_url, params).then(function(response) {
     return response.text()
   }).then(function(response) {
     var script = document.createElement('script');

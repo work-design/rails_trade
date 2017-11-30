@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   scope :admin, as: 'admin', module: 'the_trade_admin' do
     get 'trade' => 'trade#index'
-    resources :cart_items, except: [:new]
+    resources :cart_items, except: [:new] do
+      get :total, on: :collection
+    end
     resources :serves do
       get :search, on: :collection
       patch :toggle, on: :member
@@ -26,7 +28,7 @@ Rails.application.routes.draw do
       get :orders, on: :member
       put :remind, on: :collection
     end
-    resources :orders, only: [:index, :show, :edit, :update, :destroy] do
+    resources :orders do
       get :payments, on: :collection
       resources :order_payments
     end

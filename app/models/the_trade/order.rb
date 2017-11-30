@@ -45,6 +45,15 @@ class Order < ApplicationRecord
 
   def migrate_from_cart_items(cart_item_ids)
     cart_items = CartItem.where(id: cart_item_ids)
+
+    user_ids = cart_items.map(&:user_id).uniq
+    if user_ids.size > 1
+      self.errors.add :user_id, 'Different User for create Order!'
+    else
+      self.user = User.find_by(id: user_ids.first)
+      self.buyer_id = self.user&.buyer_id
+    end
+
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end

@@ -9,24 +9,32 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
     @orders = Order.default_where(params.permit(:id, :payment_status)).default_where(params.fetch(:q, {}).permit(:uuid)).page(params[:page])
   end
 
-  def show
-  end
-
   def new
     @order = Order.new
-  end
+    cart_item_ids = params[:cart_item_ids].split(',')
+    @order.migrate_from_cart_items(cart_item_ids)
 
-  def edit
+    respond_to do |format|
+      format.html
+      format.json { render json: @order }
+    end
   end
 
   def create
     @order = Order.new(order_params)
 
-    if @order.save
-      redirect_to @order, notice: 'Order was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
+        format.json { render json: @order, status: :created, location: @order }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
     end
+  end
+
+  def show
   end
 
   def update

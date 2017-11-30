@@ -1,5 +1,44 @@
-<h1>New Order</h1>
+<div class="ui segment top attached">
+</div>
 
-<%= render 'form', order: @order %>
+<%= render partial: 'shared/error_messages', locals: { target: @order } %>
 
-<%= link_to 'Back', orders_path %>
+<table class="ui table">
+  <thead>
+  <tr>
+    <th>
+      <%= form_with model: @order, url: my_orders_path, id: 'new_order' do |f| %>
+        <% @order_form = f %>
+      <% end %>
+    </th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <% @order.order_items.each do |order_item| %>
+    <%= @order_form.fields_for :order_items, order_item do |oi| %>
+      <tr>
+        <td>
+          <%= order_item.good&.name %>
+          <%= oi.hidden_field :cart_item_id, form: 'new_order' %>
+        </td>
+        <td></td>
+        <td><%= order_item.quantity %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <tfoot>
+  <tr>
+    <th colspan="5">
+      <div class="">
+        <%= submit_tag '确认订单', class: 'ui red right floated button', form: 'new_order' %>
+      </div>
+    </th>
+  </tr>
+  </tfoot>
+</table>
+
+

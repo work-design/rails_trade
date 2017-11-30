@@ -1,6 +1,7 @@
 class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   before_action :current_cart, only: [:index, :create, :total]
   before_action :set_cart_item, only: [:update, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
@@ -31,6 +32,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
 
     @additions = AdditionService.new(@checked_ids)
+    response.headers['X-Request-URL'] = request.url
   end
 
   def update
