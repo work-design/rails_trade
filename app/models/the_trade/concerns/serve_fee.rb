@@ -19,7 +19,7 @@ class ServeFee
     end
 
     NumberServe.single.overall.each do |serve|
-      charge = serve.compute_price(number)
+      charge = serve.compute_price(number, extra)
       @charges << charge if charge
     end
 

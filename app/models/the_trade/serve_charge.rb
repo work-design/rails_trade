@@ -9,6 +9,18 @@ class ServeCharge < ApplicationRecord
     raise 'Should Implement in Subclass'
   end
 
+  def extra
+    self.attributes.except('id', 'serve_id', 'min', 'max', 'price', 'type', 'created_at', 'updated_at')
+  end
+
+  def self.extra_columns
+    ServeCharge.attribute_names - ['id', 'serve_id', 'min', 'max', 'price', 'type', 'created_at', 'updated_at']
+  end
+
+  def self.extra_options
+    extra_columns.map { |extra_column| [ServeCharge.human_attribute_name(extra_column), extra_column] }.to_h
+  end
+
 end
 
 # :min, :integer

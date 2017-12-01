@@ -23,6 +23,7 @@ class Order < ApplicationRecord
     self.uuid = UidHelper.nsec_uuid('OD')
     self.payment_status = 'unpaid'
     self.buyer_id = self.user&.buyer_id
+    self.payment_strategy_id = self.buyer&.payment_strategy_id
 
     cart_item_ids = order_items.map(&:cart_item_id)
     additions = AdditionService.new(cart_item_ids)

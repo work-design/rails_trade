@@ -1,6 +1,4 @@
 class PromoteFee
-  thread_mattr_accessor :current_currency, instance_accessor: true
-
   attr_reader :good, :number, :buyer,
               :extra, :charges
 

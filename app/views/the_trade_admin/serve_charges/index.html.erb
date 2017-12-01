@@ -13,37 +13,42 @@
     <%= link_to new_admin_serve_charge_path(@serve), remote: true, class: 'ui blue button' do %>
       <i class="add circle icon"></i>Add New Charge
     <% end %>
-    <table class="ui celled table">
-      <thead>
-        <tr>
-          <th class="center aligned">Min</th>
-          <th class="center aligned">Max</th>
-          <th class="center aligned">Price(RMB)</th>
-          <th class="center aligned">Type</th>
-          <th class="center aligned">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @charges.each do |charge| %>
-          <tr>
-            <td class="center aligned"><%= charge.min %></td>
-            <td class="center aligned"><%= charge.max %></td>
-            <td class="center aligned"><%= charge.price %></td>
-            <td class="center aligned"><%= charge.type %></td>
-            <td class="center aligned">
-              <%= link_to edit_admin_serve_charge_path(@serve, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
-                <i class="edit white icon"></i>
-              <% end %>
-              <%= link_to admin_serve_charge_path(@serve, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
-                <i class="center aligned remove white icon"></i>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @charges %>
   </div>
+
+  <table class="ui celled table">
+    <thead>
+    <tr>
+      <th class="center aligned">Min</th>
+      <th class="center aligned">Max</th>
+      <th>Extra</th>
+      <th class="center aligned">Price(RMB)</th>
+      <th class="center aligned">Type</th>
+      <th class="center aligned">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @charges.each do |charge| %>
+      <tr>
+        <td class="center aligned"><%= charge.min %></td>
+        <td class="center aligned"><%= charge.max %></td>
+        <td>
+          <%= simple_format_hash(charge.extra) %>
+        </td>
+        <td class="center aligned"><%= charge.price %></td>
+        <td class="center aligned"><%= charge.type %></td>
+        <td class="center aligned">
+          <%= link_to edit_admin_serve_charge_path(@serve, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
+            <i class="edit white icon"></i>
+          <% end %>
+          <%= link_to admin_serve_charge_path(@serve, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
+            <i class="center aligned remove white icon"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @charges %>
   
 </div>
 
