@@ -31,7 +31,7 @@
           <%= order_item.good&.name %>
           <%= oi.hidden_field :cart_item_id, form: 'new_order' %>
         </td>
-        <td></td>
+        <td><%= oi.date_field :deliver_on, form: 'new_order' %></td>
         <td><%= order_item.quantity %></td>
         <td></td>
       </tr>

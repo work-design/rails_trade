@@ -10,11 +10,11 @@ class PaymentOrder < ApplicationRecord
   ]
 
   def for_check_amount
-    if (same_payment_amount + self.check_amount.to_d) > self.payment.total_amount.floor + 0.99
+    if (same_payment_amount + self.check_amount.to_d) >= self.payment.total_amount.floor + 0.99
       self.errors.add(:check_amount, 'The Amount Large than the Total Payment')
     end
 
-    if (same_order_amount + self.check_amount.to_d) > self.order.amount.floor + 0.99
+    if (same_order_amount + self.check_amount.to_d) >= self.order.amount.floor + 0.99
       self.errors.add(:check_amount, 'The Amount Large than the Total Order')
     end
   end
