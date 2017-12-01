@@ -25,7 +25,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
+        format.html { redirect_to admin_order_url(@order), notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: 'new' }
@@ -47,7 +47,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
 
   def destroy
     @order.destroy
-    redirect_to admin_orders_url, notice: 'Order was successfully destroyed.'
+    redirect_to admin_orders_url(user_id: @order.user_id), notice: 'Order was successfully destroyed.'
   end
 
   private
@@ -56,7 +56,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, :address_id, :invoice_address_id, :advance_payment, order_items_attributes: [:cart_item_id, :deliver_on])
+    params.fetch(:order, {}).permit(:user_id, :quantity, :payment_id, :payment_type, :address_id, :invoice_address_id, order_items_attributes: [:cart_item_id, :deliver_on, :advance_payment, :comment])
   end
 
 end

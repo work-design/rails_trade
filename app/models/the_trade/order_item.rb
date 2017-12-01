@@ -41,13 +41,17 @@ class OrderItem < ApplicationRecord
 end
 
 # :cart_item_id, :integer
-# :good_id, :integer,     limit: 4
+# :good_type, :string
+# :good_id, :integer
 # :quantity, :float
 # :unit, :string
 # :number, :integer, limit: 4, default: 1
 # :total_price, :decimal, limit: 24
 # :order_at :datetime
 # :payed_at :datetime
+# :comment, :string
+# :deliver_on, :date
+# #advance_payment, :decimal, precision: 10, scale: 2
 
 
 
