@@ -145,7 +145,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, order_items_attributes: [:cart_item_id])
+    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, :address_id, :invoice_address_id, order_items_attributes: [:cart_item_id])
   end
 
 end

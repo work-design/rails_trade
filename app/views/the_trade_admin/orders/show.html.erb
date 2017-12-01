@@ -1,4 +1,83 @@
-<p id="notice"><%= notice %></p>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <div class="ui breadcrumb">
+      <%= link_to '全部订单', admin_orders_path(user_id: @order.user_id), class: 'section' %>
+      <i class="right chevron icon divider"></i>
+      <%= link_to '编辑', edit_admin_order_path(@order), class: 'section' %>
+    </div>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th>商品</th>
+        <th></th>
+        <th>Pure Price</th>
+        <th>Serve Sum</th>
+        <th>Promote Sum</th>
+        <th></th>
+        <th>数量</th>
+      </tr>
+      </thead>
+      <% @order.order_items.each do |order_item| %>
+        <tr>
+          <td>
+            <%= order_item.good.name %>
+            <span><%= order_item.good&.price %></span>
+            <%# link_to order_item.good&.name, controller: '/' + order_item.good_type.underscore.pluralize, action: 'show', id: order_item.good_id %>
+          </td>
+          <td><%= link_to '订单流程', my_order_item_path(order_item) %></td>
+          <td><%= order_item.pure_price %></td>
+          <td><%= order_item.serve_sum %></td>
+          <td><%= order_item.promote_sum %></td>
+          <td><%= order_item.amount %></td>
+          <td><%= order_item.number %></td>
+        </tr>
+        <% order_item.order_serves.each do |order_serve| %>
+          <tr class="warning">
+            <td><%= order_serve.serve.name %></td>
+            <td></td>
+            <td><%= order_serve.amount %></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+        <% order_item.order_promotes.each do |order_promote| %>
+          <tr class="warning">
+            <td><%= order_promote.promote.name %></td>
+            <td></td>
+            <td><span style="color: red;"><%= order_promote.amount %></span></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% @order.pure_order_serves.each do |order_serve| %>
+        <tr>
+          <td><%= order_serve.serve.name %></td>
+          <td></td>
+          <td><%= order_serve.amount %></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <% @order.pure_order_promotes.each do |order_promote| %>
+        <tr>
+          <td><%= order_promote.promote.name %></td>
+          <td></td>
+          <td><%= order_promote.amount %></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+

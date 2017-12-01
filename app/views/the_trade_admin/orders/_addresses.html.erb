@@ -5,7 +5,7 @@
     <tr>
       <td>
         <div class="ui radio checkbox">
-          <%= radio_button_tag :address_radio, 'mail' %><label for="example-id">Label</label>
+          <%= radio_button_tag :'order[address_id]', address.id, @order.address_id == address.id, form: 'new_order' %><label></label>
         </div>
       </td>
       <td><%= address.contact_person %></td>
