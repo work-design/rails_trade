@@ -48,9 +48,9 @@
   </tfoot>
 </table>
 
-<div class="ui segment">
-  <%= render partial: 'the_trade_admin/orders/addresses', locals: { addresses: @order.user.addresses } %>
-</div>
+<%= render partial: 'the_trade_admin/orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
+<%= render partial: 'the_trade_admin/orders/invoice_addresses', locals: { addresses: @order.user.addresses.invoice } %>
+
 
 <div class="ui segment">
   <%= submit_tag '确认订单', class: 'ui red right floated button', form: 'new_order' %>

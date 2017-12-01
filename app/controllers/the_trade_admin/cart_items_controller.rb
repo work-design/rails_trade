@@ -1,5 +1,5 @@
 class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
-  before_action :current_cart, only: [:index, :total]
+  before_action :current_cart, only: [:index, :create, :total]
   before_action :set_cart_item, only: [:update, :destroy]
   skip_before_action :verify_authenticity_token, only: [:total]
 
@@ -9,16 +9,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def create
-    if params[:user_id]
-      @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
-    elsif params[:buyer_id]
-      @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
-    elsif params[:good_type] && params[:good_id]
-      good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
-      @cart_items = CartItem.where(assistant: true, user_id: good.user_id) if good.respond_to?(:user_id) && good.user_id
-    end
-
-    if @cart_items.nil?
+    if @cart_items.blank?
       render 'error' and return
     end
 
@@ -78,6 +69,9 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
     elsif params[:buyer_id]
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
+    elsif params[:good_type] && params[:good_id]
+      good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
+      @cart_items = CartItem.where(assistant: true, user_id: good.user_id) if good.respond_to?(:user_id) && good.user_id
     else
       @cart_items = CartItem.limit(0)
     end

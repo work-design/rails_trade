@@ -5,7 +5,9 @@
   </div>
 
   <div class="content">
-    <%= render partial: 'form' %>
+    <%= form_with model: [:admin, @address], remote: true do |f| %>
+      <%= render partial: 'form', locals: { f: f } %>
+    <% end %>
   </div>
 
 </div>

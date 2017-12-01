@@ -12,10 +12,18 @@ class TheTradeAdmin::AddressesController < TheTradeAdmin::BaseController
   def create
     @address = Address.new(address_params)
 
-    if @address.save
-      redirect_to admin_addresses_url(user_id: @address.user_id), notice: 'Address was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @address.save
+        format.html {
+          redirect_to admin_addresses_url(user_id: @address.user_id), notice: 'Address was successfully created.'
+        }
+        format.js
+        format.json { render json: @order, status: :created, location: @order }
+      else
+        format.html { render action: 'new' }
+        format.js
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
     end
   end
 
