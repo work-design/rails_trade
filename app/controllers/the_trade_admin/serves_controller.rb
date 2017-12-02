@@ -80,6 +80,8 @@ class TheTradeAdmin::ServesController < TheTradeAdmin::BaseController
   end
 
   def serve_params
-    params.fetch(:serve, {}).permit(:unit, :type, :name, :verified, :scope)
+    sp = params.fetch(:serve, {}).permit(:unit, :type, :name, :verified, :scope, extra: [])
+    sp.fetch(:extra, []).reject! { |i| i.blank? }
+    sp
   end
 end

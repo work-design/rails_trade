@@ -24,6 +24,7 @@
       <th>Scope</th>
       <th>Verified</th>
       <th>Overall</th>
+      <th>Use Extra</th>
       <th colspan="3"></th>
     </tr>
     </thead>
@@ -48,6 +49,11 @@
             <label></label>
             <%= check_box_tag :overall, 1, serve.overall, onChange: 'this.form.submit()' %>
           </span>
+          <% end %>
+        </td>
+        <td>
+          <% serve.extra.each do |e| %>
+            <span class="ui label"><%= e %></span>
           <% end %>
         </td>
         <td><%= link_to '细则', admin_serve_charges_path(serve) %></td>
