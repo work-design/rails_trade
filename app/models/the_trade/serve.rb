@@ -25,7 +25,13 @@ class Serve < ApplicationRecord
 
     query = range.merge(extra_hash.slice(*extra))
     charge = self.charges.default_where(query).first
-    charge.subtotal = charge.final_price(amount) if charge
+    if charge
+      charge.subtotal = charge.final_price(amount)
+      charge.default_subtotal = charge.subtotal
+    else
+      charge = self.charges.build
+      charge.subtotal = 0
+    end
     charge
   end
 

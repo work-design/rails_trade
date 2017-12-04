@@ -1,0 +1,5 @@
+$('#serve_<%= @good_serve.serve_id %>').replaceWith('<%= j(render 'new') %>');
+
+function removeForm() {
+  $('#serve_<%= @good_serve.serve_id %>').replaceWith('<%= j(render partial: 'serve', locals: { serve_charge: @serve_charge }) %>');
+}

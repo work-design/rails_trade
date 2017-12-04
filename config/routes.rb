@@ -53,6 +53,9 @@ Rails.application.routes.draw do
       patch :contain, on: :member
       resources :serve_charges, as: 'charges'
     end
+    scope path: ':good_type/:good_id' do
+      resources :good_serves
+    end
   end
 
   scope :my, as: 'my', module: 'the_trade_my' do

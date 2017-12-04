@@ -5,6 +5,7 @@ module GoodAble
     has_many :cart_items, as: :good, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
+    has_many :good_serves, as: :good, dependent: :destroy
 
     composed_of :serve,
                 class_name: 'ServeFee',

@@ -13,14 +13,20 @@ class ServeFee
   def verbose_fee
     @charges = []
 
-    QuantityServe.single.overall.each do |serve|
+    good.good_serves
+
+    QuantityServe.where.not(id: []).single.overall.each do |serve|
       charge = serve.compute_price(good.quantity * number, extra)
-      @charges << charge if charge
+      good_serve = good.good_serves.find { |i| i.serve_id == serve.id }
+      charge.subtotal = good_serve.price if good_serve
+      @charges << charge
     end
 
     NumberServe.single.overall.each do |serve|
       charge = serve.compute_price(number, extra)
-      @charges << charge if charge
+      good_serve = good.good_serves.find { |i| i.serve_id == serve.id }
+      charge.subtotal = good_serve.price if good_serve
+      @charges << charge
     end
 
     @charges

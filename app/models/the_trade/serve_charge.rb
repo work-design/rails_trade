@@ -1,5 +1,5 @@
 class ServeCharge < ApplicationRecord
-  attr_accessor :subtotal
+  attr_accessor :subtotal, :default_subtotal
   belongs_to :item, class_name: 'Serve', foreign_key: :serve_id
 
   validates :max, numericality: { greater_than: -> (o) { o.min } }
