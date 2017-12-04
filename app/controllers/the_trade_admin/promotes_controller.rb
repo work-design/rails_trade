@@ -76,6 +76,16 @@ class TheTradeAdmin::PromotesController < TheTradeAdmin::BaseController
     head :no_content
   end
 
+  def contain
+    if params[:contain_max] == '1'
+      @serve.update(contain_max: true)
+    else
+      @serve.update(contain_max: false)
+    end
+
+    head :no_content
+  end
+
   def destroy
     @promote.destroy
     respond_to do |format|

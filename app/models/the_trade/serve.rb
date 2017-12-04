@@ -16,7 +16,14 @@ class Serve < ApplicationRecord
 
   def compute_price(amount, extra_hash = {})
     extra_hash.stringify_keys!
-    query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra_hash.slice(*extra))
+
+    if self.contain_max
+      range = { 'min-lte': amount.to_d, 'max-gte': amount.to_d }
+    else
+      range = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }
+    end
+
+    query = range.merge(extra_hash.slice(*extra))
     charge = self.charges.default_where(query).first
     charge.subtotal = charge.final_price(amount) if charge
     charge

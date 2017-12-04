@@ -17,6 +17,7 @@ class CreatePaymentStrategies < ActiveRecord::Migration[5.1]
       t.string :scope
       t.boolean :verified, default: false
       t.boolean :overall, default: false
+      t.boolean :contain_max, default: false
       t.integer :sequence, default: 1
       t.timestamps
     end
@@ -47,6 +48,7 @@ class CreatePaymentStrategies < ActiveRecord::Migration[5.1]
       t.string :extra
       t.boolean :verified, default: false
       t.boolean :overall, default: true
+      t.boolean :contain_max, default: false
       t.boolean :default, default: false
       t.timestamps
     end

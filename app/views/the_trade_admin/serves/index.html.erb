@@ -24,6 +24,7 @@
       <th>Scope</th>
       <th>Verified</th>
       <th>Overall</th>
+      <th>Contain Max</th>
       <th>Use Extra</th>
       <th colspan="3"></th>
     </tr>
@@ -48,6 +49,14 @@
           <span class="ui toggle checkbox">
             <label></label>
             <%= check_box_tag :overall, 1, serve.overall, onChange: 'this.form.submit()' %>
+          </span>
+          <% end %>
+        </td>
+        <td>
+          <%= form_tag contain_admin_serve_path(serve.id), method: :patch do %>
+          <span class="ui toggle checkbox">
+            <label></label>
+            <%= check_box_tag :contain_max, 1, serve.contain_max, onChange: 'this.form.submit()' %>
           </span>
           <% end %>
         </td>

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get :search, on: :collection
       patch :toggle, on: :member
       patch :overall, on: :member
+      patch :contain, on: :member
       resources :promote_charges, as: 'charges'
     end
     resources :promote_buyers
@@ -49,6 +50,7 @@ Rails.application.routes.draw do
       get :search, on: :collection
       patch :toggle, on: :member
       patch :overall, on: :member
+      patch :contain, on: :member
       resources :serve_charges, as: 'charges'
     end
   end
