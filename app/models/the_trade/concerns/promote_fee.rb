@@ -13,14 +13,14 @@ class PromoteFee
   def verbose_fee
     @charges = []
 
-    AmountPromote.single.overall.each do |promote|
-      charge = promote.compute_price(pure_price)
+    Promote.single.overall.each do |promote|
+      charge = get_charge_by_promote(promote)
       @charges << charge if charge
     end
 
     if buyer
       buyer.promotes.single.each do |promote|
-        charge = promote.compute_price(pure_price)
+        charge = get_charge_by_promote(promote)
         @charges << charge if charge
       end
     end
@@ -34,6 +34,20 @@ class PromoteFee
 
   def subtotal
     @subtotal ||= self.charges.map(&:subtotal).sum
+  end
+
+  def get_charge_by_promote(promote)
+    if serve.type == 'AmountPromote'
+      charge = promote.compute_price(pure_price)
+    else
+      charge = promote.compute_price(pure_price)
+    end
+    charge
+  end
+
+  def get_charge_by_promote_id(promote_id)
+    promote = Promote.find promote_id
+    get_charge_by_promote(promote)
   end
 
 end

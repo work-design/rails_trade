@@ -3,6 +3,8 @@ class TheTradeAdmin::GoodServesController < TheTradeAdmin::BaseController
 
   def index
     @good_serves = GoodServe.includes(:serve).where(good_type: params[:good_type], good_id: params[:good_id])
+
+    @for_sales = Serve.for_sale.where.not(id: @good_serves.map(&:serve_id).uniq)
   end
 
   def show
@@ -10,7 +12,7 @@ class TheTradeAdmin::GoodServesController < TheTradeAdmin::BaseController
 
   def new
     @good_serve = @good.good_serves.find_or_initialize_by(serve_id: params[:serve_id])
-    @serve_charge = @good.serve.charges.find { |charge| charge.serve_id == @good_serve.serve_id }
+    @serve_charge = @good.serve.get_charge_by_serve_id(@good_serve.serve_id)
   end
 
   def create

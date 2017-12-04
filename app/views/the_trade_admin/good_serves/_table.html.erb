@@ -13,6 +13,9 @@
     <% @good.serve.charges.each do |serve_charge| %>
       <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
     <% end %>
+    <% @for_sales.each do |serve| %>
+      <%= render partial: 'check', locals: { serve: serve } %>
+    <% end %>
     </tbody>
   </table>
 
