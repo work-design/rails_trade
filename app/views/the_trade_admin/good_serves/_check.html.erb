@@ -1,10 +1,8 @@
-<tr id="serve_<%= serve.id %>">
-  <td><%= serve.name %></td>
-  <td><%=  %></td>
-  <td><%=  %></td>
+<tr id="serve_<%= serve_charge.serve_id %>">
+  <td><%= serve_charge.item.name %></td>
+  <td><%= serve_charge.default_subtotal %></td>
+  <td><%= %></td>
   <td>
-    <%= link_to 'add', new_admin_good_serve_path(@good.class.name, @good.id, serve_id: serve.id), remote: true, class: 'ui red label' %>
+    <%= link_to 'add', new_admin_good_serve_path(@good.class.name, @good.id, serve_id: serve_charge.serve_id), remote: true, class: 'ui red label' %>
   </td>
 </tr>
-
-

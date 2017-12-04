@@ -3,8 +3,6 @@ class TheTradeAdmin::GoodServesController < TheTradeAdmin::BaseController
 
   def index
     @good_serves = GoodServe.includes(:serve).where(good_type: params[:good_type], good_id: params[:good_id])
-
-    @for_sales = Serve.for_sale.where.not(id: @good_serves.map(&:serve_id).uniq)
   end
 
   def show
