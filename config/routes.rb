@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       patch :toggle, on: :member
       patch :overall, on: :member
       patch :contain, on: :member
+      patch :default, on: :member
       resources :serve_charges, as: 'charges'
     end
     scope path: ':good_type/:good_id' do

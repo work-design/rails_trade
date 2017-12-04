@@ -29,6 +29,8 @@ class ServeFee
       @charges << charge
     end
 
+   
+
     @charges
   end
 

@@ -1,5 +1,5 @@
 class TheTradeAdmin::ServesController < TheTradeAdmin::BaseController
-  before_action :set_serve, only: [:show, :edit, :update, :toggle, :overall, :contain, :destroy]
+  before_action :set_serve, only: [:show, :edit, :update, :toggle, :overall, :contain, :default, :destroy]
 
   def index
     @serves = Serve.default_where(params.permit(:scope)).page(params[:page])
@@ -71,6 +71,16 @@ class TheTradeAdmin::ServesController < TheTradeAdmin::BaseController
       @serve.update(contain_max: true)
     else
       @serve.update(contain_max: false)
+    end
+
+    head :no_content
+  end
+
+  def default
+    if params[:default] == '1'
+      @serve.update(default: true)
+    else
+      @serve.update(default: false)
     end
 
     head :no_content
