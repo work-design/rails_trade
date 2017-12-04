@@ -55,6 +55,11 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def set_cart_item
     @cart_item = current_cart.find(params[:id])
+    if @cart_item.user_id
+      @cart_items = CartItem.where(assistant: true, user_id: @cart_item.user_id)
+    else
+      @cart_items = CartItem.where(assistant: true, buyer_id: @cart_item.buyer_id)
+    end
   end
 
   def cart_item_params
