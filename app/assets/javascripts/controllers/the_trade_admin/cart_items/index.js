@@ -70,4 +70,7 @@ $('input[name="cart_item_id"]').change(function(){
   })
 });
 
+$('.xx_popup').popup({
+  popup: '.ui.popup'
+});
 

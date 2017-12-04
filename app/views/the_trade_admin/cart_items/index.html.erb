@@ -20,6 +20,14 @@
       <td>
         <p><%= cart_item.good.retail_price %></p>
         <p><%= cart_item.good&.quantity %><%= cart_item.good&.unit %></p>
+        <div class="xx_popup"><i class="info circle icon" style="color: grey;" data-content=""></i></div>
+        <div class="ui popup">
+          <div>
+            <% cart_item.good.serve.charges.each do |charge| %>
+              <p><% charge.item.name %>: <%= charge.subtotal %></p>
+            <% end %>
+          </div>
+        </div>
       </td>
       <td>
         <div class="ui left right action input">
