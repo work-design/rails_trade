@@ -1,6 +1,6 @@
 class PaymentOrder < ApplicationRecord
   belongs_to :order, inverse_of: :payment_orders
-  belongs_to :payment, inverse_of: :payment_orders
+  belongs_to :payment
 
   validate :for_check_amount
 
@@ -42,7 +42,7 @@ class PaymentOrder < ApplicationRecord
 
     begin
       self.save!
-
+      
       self.class.transaction do
         update_order_state
         update_payment_state

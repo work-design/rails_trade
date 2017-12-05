@@ -1,10 +1,10 @@
 module TheRefund
 
   def apply_for_refund(payment_id = nil)
-    if self.payments.size == 1
-      payment = self.payments.first
-    else
+    if payment_id
       payment = self.payments.find_by(id: payment_id)
+    else
+      payment = self.payments.first
     end
 
     refund = Refund.find_or_initialize_by(order_id: self.id, payment_id: payment.id)

@@ -10,12 +10,12 @@
       <thead>
       <tr>
         <th>商品</th>
+        <th>数量</th>
         <th></th>
         <th>Pure Price</th>
         <th>Serve Sum</th>
         <th>Promote Sum</th>
         <th></th>
-        <th>数量</th>
       </tr>
       </thead>
       <% @order.order_items.each do |order_item| %>
@@ -25,50 +25,51 @@
             <span><%= order_item.good&.price %></span>
             <%# link_to order_item.good&.name, controller: '/' + order_item.good_type.underscore.pluralize, action: 'show', id: order_item.good_id %>
           </td>
+          <td><%= order_item.number %></td>
           <td><%= link_to '订单流程', my_order_item_path(order_item) %></td>
           <td><%= order_item.pure_price %></td>
           <td><%= order_item.serve_sum %></td>
           <td><%= order_item.promote_sum %></td>
           <td><%= order_item.amount %></td>
-          <td><%= order_item.number %></td>
         </tr>
         <% order_item.order_serves.each do |order_serve| %>
           <tr class="warning">
             <td><%= order_serve.serve.name %></td>
-            <td></td>
+            <td colspan="3"></td>
             <td><%= order_serve.amount %></td>
-            <td></td>
-            <td></td>
+            <td colspan="3"></td>
           </tr>
         <% end %>
         <% order_item.order_promotes.each do |order_promote| %>
           <tr class="warning">
             <td><%= order_promote.promote.name %></td>
-            <td></td>
+            <td colspan="4"></td>
             <td><span style="color: red;"><%= order_promote.amount %></span></td>
-            <td></td>
-            <td></td>
+            <td colspan="2"></td>
           </tr>
         <% end %>
       <% end %>
       <% @order.pure_order_serves.each do |order_serve| %>
         <tr>
           <td><%= order_serve.serve.name %></td>
-          <td></td>
+          <td colspan="5"></td>
           <td><%= order_serve.amount %></td>
-          <td></td>
           <td></td>
         </tr>
       <% end %>
       <% @order.pure_order_promotes.each do |order_promote| %>
         <tr>
           <td><%= order_promote.promote.name %></td>
-          <td></td>
+          <td colspan="5"></td>
           <td><%= order_promote.amount %></td>
-          <td></td>
           <td></td>
         </tr>
       <% end %>
+      <tr class="active">
+        <td>总价</td>
+        <td colspan="5"></td>
+        <td><%= @order.amount %></td>
+      </tr>
     </table>
   </div>
 

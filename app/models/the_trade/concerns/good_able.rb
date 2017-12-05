@@ -47,6 +47,7 @@ module GoodAble
 
     o = oi.build_order
     o.buyer = buyer
+    o.user_id = buyer.user_id
     o.subtotal = oi.amount
     o.amount = oi.amount
     o.currency = self.currency
