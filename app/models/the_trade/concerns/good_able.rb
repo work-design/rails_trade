@@ -17,7 +17,7 @@ module GoodAble
   def for_select_serves
     @for_sales = Serve.for_sale.where.not(id: good_serves.map(&:serve_id).uniq)
     @for_sales.map do |serve|
-      self.serve.get_charge_by_serve(serve)
+      self.serve.get_charge(serve)
     end
   end
 

@@ -14,16 +14,8 @@ class ServeFee
     @charges = []
 
     Serve.single.overall.each do |serve|
-      good_serve = good.good_serves.find { |i| i.serve_id == serve.id }
-
-      if !good_serve && !serve.default
-        next
-      end
-
-      charge = get_charge_by_serve(serve)
-      charge.subtotal = good_serve.price if good_serve
-
-      @charges << charge
+      charge = get_charge_price(serve)
+      @charges << charge if charge
     end
 
     @charges
@@ -33,7 +25,22 @@ class ServeFee
     @subtotal ||= self.charges.map(&:subtotal).sum
   end
 
-  def get_charge_by_serve(serve)
+  def get_charge_price(serve)
+    good_serve = good.good_serves.find { |i| i.serve_id == serve.id }
+
+    if good_serve
+      charge = get_charge(serve)
+      charge.subtotal = good_serve.price
+    elsif serve.default
+      charge = get_charge(serve)
+    else
+      return
+    end
+
+    charge
+  end
+
+  def get_charge(serve)
     if serve.type == 'QuantityServe'
       charge = serve.compute_price(good.quantity * number, extra)
     elsif serve.type == 'NumberServe'
@@ -42,11 +49,6 @@ class ServeFee
       charge = serve.compute_price(number, extra)
     end
     charge
-  end
-
-  def get_charge_by_serve_id(serve_id)
-    serve = Serve.find serve_id
-    get_charge_by_serve(serve)
   end
 
 end

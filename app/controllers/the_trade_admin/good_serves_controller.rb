@@ -10,7 +10,7 @@ class TheTradeAdmin::GoodServesController < TheTradeAdmin::BaseController
 
   def new
     @good_serve = @good.good_serves.find_or_initialize_by(serve_id: params[:serve_id])
-    @serve_charge = @good.serve.get_charge_by_serve_id(@good_serve.serve_id)
+    @serve_charge = @good.serve.get_charge_price(@good_serve.serve)
   end
 
   def create
@@ -26,6 +26,14 @@ class TheTradeAdmin::GoodServesController < TheTradeAdmin::BaseController
         format.html { render :new }
       end
     end
+  end
+
+  def add
+    @good_serve = @good.good_serves.find_or_initialize_by(serve_id: params[:serve_id])
+
+    @serve_charge = @good.serve.get_charge(@good_serve.serve)
+    @good_serve.price = @serve_charge.default_subtotal
+    @good_serve.save
   end
 
   def destroy

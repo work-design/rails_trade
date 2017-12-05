@@ -55,7 +55,9 @@ Rails.application.routes.draw do
       resources :serve_charges, as: 'charges'
     end
     scope path: ':good_type/:good_id' do
-      resources :good_serves
+      resources :good_serves do
+        post :add, on: :collection
+      end
     end
   end
 

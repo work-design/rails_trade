@@ -3,7 +3,7 @@
   <td><%= serve_charge.default_subtotal %></td>
   <td><%= serve_charge.subtotal %></td>
   <td>
-    <%= link_to 'edit', new_admin_good_serve_path(@good.class.name, @good.id, serve_id: serve_charge.serve_id), remote: true, class: 'ui red label' %>
+    <%= link_to 'edit', new_admin_good_serve_path(@good.class.name, @good.id, serve_id: serve_charge.serve_id), remote: true, class: 'ui label' %>
   </td>
 </tr>
 
