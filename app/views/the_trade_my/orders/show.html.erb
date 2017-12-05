@@ -36,7 +36,9 @@
           <tr class="warning">
             <td><%= order_serve.serve.name %></td>
             <td></td>
+            <td></td>
             <td><%= order_serve.amount %></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -45,7 +47,10 @@
           <tr class="warning">
             <td><%= order_promote.promote.name %></td>
             <td></td>
+            <td></td>
+            <td></td>
             <td><span style="color: red;"><%= order_promote.amount %></span></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
@@ -54,6 +59,9 @@
       <% @order.pure_order_serves.each do |order_serve| %>
         <tr>
           <td><%= order_serve.serve.name %></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td></td>
           <td><%= order_serve.amount %></td>
           <td></td>
@@ -64,11 +72,24 @@
         <tr>
           <td><%= order_promote.promote.name %></td>
           <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td><%= order_promote.amount %></td>
           <td></td>
           <td></td>
         </tr>
       <% end %>
+      <tr>
+        <td>总价</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @order.subtotal %>(<%= @order.amount %>)</td>
+        <td></td>
+        <td></td>
+      </tr>
     </table>
   </div>
 
