@@ -32,6 +32,10 @@ module GoodAble
     self.retail_price + self.promote.subtotal
   end
 
+  def order_done
+    puts 'Should realize in good entity'
+  end
+
   def generate_order(buyer, params)
     oi = self.order_items.build
     oi.quantity = params[:quantity]

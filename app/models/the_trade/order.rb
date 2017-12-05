@@ -35,6 +35,7 @@ class Order < ApplicationRecord
     end
   end
   before_create :sum_cache
+  after_create_commit :confirm_ordered!
 
   enum payment_status: {
     unpaid: 0,
@@ -78,6 +79,24 @@ class Order < ApplicationRecord
     self.serve_sum = self.order_serves.sum { |o| o.amount }
     self.promote_sum = self.order_promotes.sum { |o| o.amount }
     self.save
+  end
+
+  def confirm_ordered!
+    self.order_items.each do |oi|
+      oi.confirm_ordered!
+    end
+  end
+
+  def confirm_paid!
+    self.order_items.each do |oi|
+      oi.confirm_paid!
+    end
+  end
+
+  def confirm_refund!
+    self.order_items.each do |oi|
+      oi.confirm_refund!
+    end
   end
 
 end

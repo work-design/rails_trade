@@ -38,6 +38,10 @@ class OrderItem < ApplicationRecord
     self.promote_sum = self.order_promotes.sum { |op| op.amount }
   end
 
+  def confirm_ordered!
+    self.good.order_done
+  end
+
 end
 
 # :cart_item_id, :integer
