@@ -51,6 +51,10 @@ class CartItem < ApplicationRecord
     pure_price + self.serve.subtotal
   end
 
+  def final_price
+    self.bulk_price + self.promote.subtotal
+  end
+
   def total_quantity
     good.quantity.to_d * self.quantity
   end

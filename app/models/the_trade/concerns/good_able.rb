@@ -11,8 +11,11 @@ module GoodAble
                 class_name: 'ServeFee',
                 mapping: ['id', 'good_id'],
                 constructor: Proc.new { |id| ServeFee.new(self.name, id) }
+    composed_of :promote,
+                class_name: 'PromoteFee',
+                mapping: [['id', 'good_id']],
+                constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
   end
-
 
   def for_select_serves
     @for_sales = Serve.for_sale.where.not(id: good_serves.map(&:serve_id).uniq)
@@ -23,6 +26,10 @@ module GoodAble
 
   def retail_price
     self.price.to_d + self.serve.subtotal
+  end
+
+  def final_price
+    self.retail_price + self.promote.subtotal
   end
 
   def generate_order(buyer, params)

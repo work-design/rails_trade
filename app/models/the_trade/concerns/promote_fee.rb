@@ -14,13 +14,13 @@ class PromoteFee
     @charges = []
 
     Promote.single.overall.each do |promote|
-      charge = get_charge_by_promote(promote)
+      charge = get_charge(promote)
       @charges << charge if charge
     end
 
     if buyer
       buyer.promotes.single.each do |promote|
-        charge = get_charge_by_promote(promote)
+        charge = get_charge(promote)
         @charges << charge if charge
       end
     end
@@ -32,22 +32,21 @@ class PromoteFee
     good.price * number
   end
 
+  def retail_price
+    good.retail_price * number
+  end
+
   def subtotal
     @subtotal ||= self.charges.map(&:subtotal).sum
   end
 
-  def get_charge_by_promote(promote)
-    if serve.type == 'AmountPromote'
+  def get_charge(promote)
+    if promote.type == 'AmountPromote'
       charge = promote.compute_price(pure_price)
     else
       charge = promote.compute_price(pure_price)
     end
     charge
-  end
-
-  def get_charge_by_promote_id(promote_id)
-    promote = Promote.find promote_id
-    get_charge_by_promote(promote)
   end
 
 end

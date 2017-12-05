@@ -50,7 +50,7 @@ class AdditionService
 
     QuantityServe.overall.total.each do |serve|
       serve = serve.compute_price(total_quantity)
-      @serve_charges << serve if serve
+      @serve_charges << serve if serve.persisted?
     end
     @serve_price = @serve_charges.map(&:subtotal).sum
   end
