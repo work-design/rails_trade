@@ -42,7 +42,7 @@ class PaymentOrder < ApplicationRecord
 
     begin
       self.save!
-      
+
       self.class.transaction do
         update_order_state
         update_payment_state
