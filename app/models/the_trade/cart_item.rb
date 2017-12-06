@@ -6,12 +6,13 @@ class CartItem < ApplicationRecord
   validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :buyer_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { buyer_id.blank? }
-  scope :valid, -> { default_where(status: 'unpaid', assistant: false) }
+  scope :valid, -> { default_where(status: 'init', assistant: false) }
   scope :checked, -> { default_where(checked: true) }
 
   enum status: [
-    :unpaid,
-    :paid,
+    :init,
+    :ordered,
+    :archived,
     :deleted
   ]
 
@@ -27,7 +28,7 @@ class CartItem < ApplicationRecord
 
 
   after_initialize if: :new_record? do |t|
-    self.status = 'unpaid'
+    self.status = 'init'
     self.buyer_id = self.user&.buyer_id
   end
 

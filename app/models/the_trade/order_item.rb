@@ -1,6 +1,6 @@
 class OrderItem < ApplicationRecord
   belongs_to :order, autosave: true, inverse_of: :order_items
-  belongs_to :cart_item, optional: true
+  belongs_to :cart_item, optional: true, autosave: true
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :provider, optional: true
   has_many :order_promotes, autosave: true
@@ -30,6 +30,8 @@ class OrderItem < ApplicationRecord
         op = self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
         op.order = self.order
       end
+
+      cart_item.status = 'ordered'
     end
   end
 
