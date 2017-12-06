@@ -1,3 +1,5 @@
+# cart_item
+# good
 class PromoteFee
   attr_reader :good, :number, :buyer,
               :extra, :charges
@@ -42,9 +44,9 @@ class PromoteFee
 
   def get_charge(promote)
     if promote.type == 'AmountPromote'
-      charge = promote.compute_price(pure_price)
+      charge = promote.compute_price(retail_price)
     else
-      charge = promote.compute_price(pure_price)
+      charge = promote.compute_price(retail_price)
     end
     charge
   end

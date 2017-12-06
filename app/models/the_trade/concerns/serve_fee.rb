@@ -1,3 +1,5 @@
+# cart_item
+# good
 class ServeFee
   attr_reader :good, :number, :buyer, :extra,
               :charges

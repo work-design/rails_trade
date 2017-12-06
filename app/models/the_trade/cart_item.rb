@@ -26,7 +26,6 @@ class CartItem < ApplicationRecord
               mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']],
               constructor: Proc.new { |type, id, num, buyer| PromoteFee.new(type, id, num, buyer) }
 
-
   after_initialize if: :new_record? do |t|
     self.status = 'init'
     self.buyer_id = self.user&.buyer_id
@@ -46,6 +45,10 @@ class CartItem < ApplicationRecord
     else
       0
     end
+  end
+
+  def promote_price
+    self.promote.subtotal
   end
 
   def bulk_price

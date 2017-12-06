@@ -1,7 +1,7 @@
 class AdditionService
   attr_reader :checked_items, :buyer,
               :total_quantity,
-              :bulk_price, :discount_price, :retail_price,
+              :bulk_price, :discount_price, :retail_price, :promote_price,
               :promote_price, :serve_price,
               :promote_charges, :serve_charges
 
@@ -19,6 +19,7 @@ class AdditionService
 
   def compute_total
     compute_price
+    @promote_price = checked_items.sum { |cart_item| cart_item.promote_price }
     @discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
     @retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
     @total_quantity = checked_items.sum { |cart_item| cart_item.total_quantity }

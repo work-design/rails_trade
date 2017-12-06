@@ -18,7 +18,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     if cart_item.present?
       cart_item.increment!(:quantity, params[:quantity].to_i)
     else
-      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'unpaid', assistant: true)
+      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'init', assistant: true)
       cart_item.save
     end
 
