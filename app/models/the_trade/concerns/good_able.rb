@@ -37,7 +37,11 @@ module GoodAble
   end
 
   def generate_order(buyer, params)
-    oi = self.order_items.build
+    o = buyer.orders.build
+    o.user_id = buyer.user_id
+
+    oi = o.order_items.build
+    oi.good = self
     oi.quantity = params[:quantity]
     if params[:amount]
       oi.amount = params[:amount]
@@ -45,11 +49,6 @@ module GoodAble
       oi.amount = oi.quantity * self.price.to_d
     end
 
-    o = oi.build_order
-    o.buyer = buyer
-    o.user_id = buyer.user_id
-    o.subtotal = oi.amount
-    o.amount = oi.amount
     o.currency = self.currency
     o.payment_status = 'unpaid'
 
