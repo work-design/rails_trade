@@ -32,6 +32,7 @@ class ServeFee
 
     if good_serve
       charge = get_charge(serve)
+      charge.good_serve = good_serve
       charge.subtotal = good_serve.price
     elsif serve.default
       charge = get_charge(serve)

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     scope path: ':good_type/:good_id' do
       resources :good_serves do
         post :add, on: :collection
+        delete :remove, on: :collection
       end
     end
   end

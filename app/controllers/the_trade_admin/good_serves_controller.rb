@@ -37,6 +37,8 @@ class TheTradeAdmin::GoodServesController < TheTradeAdmin::BaseController
   end
 
   def destroy
+    @good_serve = GoodServe.find(params[:id])
+    @serve_charge = @good.serve.get_charge_price(@good_serve.serve)
     @good_serve.destroy
   end
 

@@ -1,1 +1,1 @@
-$('#taxon_item_<%= @taxon_item.id %>').remove();
+$('#serve_<%= @good_serve.serve_id %>').replaceWith('<%= j(render partial: 'check', locals: { serve_charge: @serve_charge }) %>');
