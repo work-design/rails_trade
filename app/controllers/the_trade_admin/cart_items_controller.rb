@@ -9,8 +9,14 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def create
-    cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], assistant: true)
-    cart_item.save
+    cart_item = current_cart.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
+    if cart_item.present?
+      params[:quantity] ||= 0
+      cart_item.increment!(:quantity, params[:quantity].to_i)
+    else
+      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
+      cart_item.save
+    end
 
     @checked_ids = @cart_items.checked.pluck(:id)
     @additions = AdditionService.new(@checked_ids)
@@ -36,7 +42,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def destroy
-    @cart_item.update(status: :deleted, checked: false)
+    @cart_item.destroy
     checked_ids = @cart_items.checked.pluck(:id)
     @additions = AdditionService.new(checked_ids)
   end

@@ -4,8 +4,7 @@ class CartItem < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :user_id, presence: true, if: -> { session_id.blank? }
-  validates :buyer_id, presence: true, if: -> { session_id.blank? }
-  validates :session_id, presence: true, if: -> { buyer_id.blank? }
+  validates :session_id, presence: true, if: -> { user_id.blank?  }
   scope :valid, -> { default_where(status: 'init', assistant: false) }
   scope :checked, -> { default_where(checked: true) }
 
@@ -29,7 +28,7 @@ class CartItem < ApplicationRecord
   after_initialize if: :new_record? do |t|
     self.status = 'init'
     self.buyer_id = self.user&.buyer_id
-    self.quantity ||= 1
+    self.quantity = 1 if self.quantity < 1
   end
 
   def pure_price
