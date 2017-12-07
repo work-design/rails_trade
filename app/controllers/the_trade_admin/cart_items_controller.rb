@@ -9,18 +9,8 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def create
-    if @cart_items.blank?
-      render 'error' and return
-    end
-
-    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
-    params[:quantity] ||= 1
-    if cart_item.present?
-      cart_item.increment!(:quantity, params[:quantity].to_i)
-    else
-      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'init', assistant: true)
-      cart_item.save
-    end
+    cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], assistant: true)
+    cart_item.save
 
     @checked_ids = @cart_items.checked.pluck(:id)
     @additions = AdditionService.new(@checked_ids)
