@@ -43,7 +43,7 @@ class PromoteFee
   end
 
   def get_charge(promote)
-    if promote.type == 'AmountPromote'
+    if promote.is_a?(AmountPromote)
       charge = promote.compute_price(retail_price)
     else
       charge = promote.compute_price(retail_price)

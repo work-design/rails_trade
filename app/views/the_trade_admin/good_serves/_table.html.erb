@@ -17,6 +17,13 @@
       <%= render partial: 'check', locals: { serve_charge: serve_charge } %>
     <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"></td>
+        <td id="serve_subtotal"><%= @good.serve.subtotal %></td>
+        <td></td>
+      </tr>
+    </tfoot>
   </table>
 
 </div>

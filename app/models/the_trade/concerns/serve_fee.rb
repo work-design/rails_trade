@@ -44,9 +44,9 @@ class ServeFee
   end
 
   def get_charge(serve)
-    if serve.type == 'QuantityServe'
+    if serve.is_a? QuantityServe
       charge = serve.compute_price(good.quantity * number, extra)
-    elsif serve.type == 'NumberServe'
+    elsif serve.is_a? NumberServe
       charge = serve.compute_price(number, extra)
     else
       charge = serve.compute_price(number, extra)
