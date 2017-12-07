@@ -2,6 +2,7 @@ class CartItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :buyer, class_name: '::Buyer', optional: true
   belongs_to :user, optional: true
+  has_many :cart_item_serves, dependent: :destroy
 
   validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { user_id.blank?  }
@@ -53,6 +54,15 @@ class CartItem < ApplicationRecord
 
   def bulk_price
     pure_price + self.serve.subtotal
+  end
+
+  def server_subtotal
+    cart_item_serves.each do |cart_item_serve|
+      serve.charges.find { |charge| .pluck(:serve_id).include? charge.server_id }.each do |charge|
+        charge.cart_item_serve = cart_item_serve
+        charge.subtotal = cart_item_serve.price
+      end
+    end
   end
 
   def final_price

@@ -12,8 +12,8 @@ class CreatePromoteBuyers < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :good_serves do |t|
-      t.references :good, polymorphic: true
+    create_table :cart_item_serves do |t|
+      t.references :cart_item
       t.references :serve
       t.decimal :price, precision: 10, scale: 2
       t.timestamps

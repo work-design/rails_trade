@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     end
     resources :cart_items, except: [:new] do
       get :total, on: :collection
+      resources :cart_item_serves do
+        post :add, on: :collection
+      end
     end
     resources :orders do
       get :payments, on: :collection
@@ -53,12 +56,6 @@ Rails.application.routes.draw do
       patch :contain, on: :member
       patch :default, on: :member
       resources :serve_charges, as: 'charges'
-    end
-    scope path: ':good_type/:good_id' do
-      resources :good_serves do
-        post :add, on: :collection
-        delete :remove, on: :collection
-      end
     end
   end
 
