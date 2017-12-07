@@ -14,7 +14,7 @@
   </thead>
   <tbody>
   <% @cart_items.each do |cart_item| %>
-    <tr class="<%= 'active' if cart_item.checked %>" id="cart_item_<%= cart_item.id %>">
+    <tr class="<%= active_asserts join: false, active: cart_item.checked, positive: cart_item.good_id.to_s == params[:good_id] %>" id="cart_item_<%= cart_item.id %>">
       <td><%= check_box_tag(:cart_item_id, cart_item.id, cart_item.checked) %></td>
       <td><%= cart_item.good&.name %></td>
       <td>

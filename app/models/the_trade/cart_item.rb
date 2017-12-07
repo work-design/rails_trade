@@ -1,7 +1,7 @@
 class CartItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :buyer, class_name: '::Buyer', optional: true
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :buyer_id, presence: true, if: -> { session_id.blank? }
@@ -29,6 +29,7 @@ class CartItem < ApplicationRecord
   after_initialize if: :new_record? do |t|
     self.status = 'init'
     self.buyer_id = self.user&.buyer_id
+    self.quantity ||= 1
   end
 
   def pure_price
