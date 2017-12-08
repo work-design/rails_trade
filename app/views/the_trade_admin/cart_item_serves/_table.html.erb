@@ -10,17 +10,17 @@
     </thead>
 
     <tbody id="serve_tbody">
-    <% @good.serve.charges.each do |serve_charge| %>
+    <% @cart_item.serve_charges.each do |serve_charge| %>
       <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
     <% end %>
-    <% @good.for_select_serves.each do |serve_charge| %>
+    <% @cart_item.for_select_serves.each do |serve_charge| %>
       <%= render partial: 'check', locals: { serve_charge: serve_charge } %>
     <% end %>
     </tbody>
     <tfoot>
       <tr>
         <td colspan="2"></td>
-        <td id="serve_subtotal"><%= @good.serve.subtotal %></td>
+        <td id="serve_subtotal"><%= @cart_item.serve.subtotal %></td>
         <td></td>
       </tr>
     </tfoot>

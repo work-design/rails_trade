@@ -8,7 +8,8 @@ class Serve < ApplicationRecord
   scope :verified, -> { where(verified: true) }
   scope :special, -> { where(verified: true, overall: false) }
   scope :overall, -> { where(verified: true, overall: true) }
-  scope :for_sale, -> { where(default: false) }
+  scope :default, -> { where(verified: true, default: true) }
+  scope :for_sale, -> { where(verified: true, default: false) }
 
   enum scope: {
     'total': 'total',

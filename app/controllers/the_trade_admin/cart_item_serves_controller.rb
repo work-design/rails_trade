@@ -2,19 +2,19 @@ class TheTradeAdmin::CartItemServesController < TheTradeAdmin::BaseController
   before_action :set_cart_item
 
   def index
-    @cart_item_serves = CartItemServe.includes(:serve).where(cart_item_id: params[:cart_item_id])
+    @cart_item_serves = @cart_item.cart_item_serves.includes(:serve)
   end
 
   def show
   end
 
   def new
-    @cart_item_serve = @good.cart_item_serves.find_or_initialize_by(serve_id: params[:serve_id])
-    @serve_charge = @good.serve.get_charge_price(@cart_item_serve.serve)
+    @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: params[:serve_id])
+    @serve_charge = @cart_item.serve.get_charge(@cart_item_serve.serve)
   end
 
   def create
-    @cart_item_serve = @good.cart_item_serves.find_or_initialize_by(serve_id: cart_item_serve_params[:serve_id])
+    @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: cart_item_serve_params[:serve_id])
     @cart_item_serve.assign_attributes cart_item_serve_params
 
     respond_to do |format|
@@ -29,16 +29,16 @@ class TheTradeAdmin::CartItemServesController < TheTradeAdmin::BaseController
   end
 
   def add
-    @cart_item_serve = @good.cart_item_serves.find_or_initialize_by(serve_id: params[:serve_id])
+    @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: params[:serve_id])
 
-    @serve_charge = @good.serve.get_charge(@cart_item_serve.serve)
+    @serve_charge = @cart_item.serve.get_charge(@cart_item_serve.serve)
     @cart_item_serve.price = @serve_charge.default_subtotal
     @cart_item_serve.save
   end
 
   def destroy
-    @cart_item_serve = GoodServe.find(params[:id])
-    @serve_charge = @good.serve.get_charge_price(@cart_item_serve.serve)
+    @cart_item_serve = CartItemServe.find(params[:id])
+    @serve_charge = @cart_item.serve.get_charge(@cart_item_serve.serve)
     @cart_item_serve.destroy
   end
 

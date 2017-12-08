@@ -3,11 +3,11 @@
   <td><%= serve_charge.default_subtotal %></td>
   <td><%= serve_charge.subtotal %></td>
   <td>
-    <%= link_to 'edit', new_admin_good_serve_path(@good.class.name, @good.id, serve_id: serve_charge.serve_id), remote: true, class: 'ui label' %>
-    <% if serve_charge.good_serve  %>
-      <%= link_to 'remove', admin_good_serve_path(@good.class.name, @good.id, serve_charge.good_serve.id), method: :delete, remote: true, class: 'ui label' %>
-    <% elsif @good_serve  %>
-      <%= link_to 'remove', admin_good_serve_path(@good.class.name, @good.id, @good_serve.id), method: :delete, remote: true, class: 'ui label' %>
+    <%= link_to 'edit', new_admin_cart_item_cart_item_serve_path(serve_id: serve_charge.serve_id), remote: true, class: 'ui label' %>
+    <% if serve_charge.cart_item_serve  %>
+      <%= link_to 'remove', admin_cart_item_cart_item_serve_path(@cart_item, serve_charge.cart_item_serve.id), method: :delete, remote: true, class: 'ui label' %>
+    <% elsif @cart_item_serve  %>
+      <%= link_to 'remove', admin_cart_item_cart_item_serve_path(@cart_item, @cart_item_serve.id), method: :delete, remote: true, class: 'ui label' %>
     <% end %>
   </td>
 </tr>

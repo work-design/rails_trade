@@ -45,6 +45,7 @@
       </td>
       <td>
         <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true %>
+        <%= link_to 'edit price', admin_cart_item_cart_item_serves_path(cart_item), remote: true %>
       </td>
     </tr>
   <% end %>

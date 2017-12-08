@@ -3,6 +3,6 @@
   <td class="disabled"><%= serve_charge.default_subtotal %></td>
   <td><%= %></td>
   <td>
-    <%= link_to 'add', add_admin_good_serves_path(@good.class.name, @good.id, serve_id: serve_charge.serve_id), method: :post, remote: true, class: 'ui green label' %>
+    <%= link_to 'add', add_admin_cart_item_cart_item_serves_path(@cart_item, serve_id: serve_charge.serve_id), method: :post, remote: true, class: 'ui green label' %>
   </td>
 </tr>

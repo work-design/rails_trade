@@ -1,17 +1,15 @@
-<tr id="serve_<%= @good_serve.serve_id %>">
+<tr id="serve_<%= @cart_item_serve.serve_id %>">
   <td>
-    <%= form_with model: @good_serve, url: admin_good_serves_path(good_type: params[:good_type], good_id: params[:good_id]), method: :post, id: "good_serve_new_#{@good_serve.serve_id}" %>
-    <%= @good_serve.serve.name %>
+    <%= form_with model: @cart_item_serve, url: admin_cart_item_cart_item_serves_path(@cart_item), method: :post, id: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
+    <%= @cart_item_serve.serve.name %>
   </td>
   <td><%= @serve_charge.default_subtotal %></td>
   <td>
-    <%= text_field_tag 'good_serve[price]', @good_serve.price, class: 'three wide field', form: "good_serve_new_#{@good_serve.serve_id}" %>
-    <%= hidden_field_tag 'good_serve[serve_id]', @good_serve.serve_id, form: "good_serve_new_#{@good_serve.serve_id}" %>
-    <%= hidden_field_tag :good_type, params[:good_type], form: "good_serve_new_#{@good_serve.serve_id}" %>
-    <%= hidden_field_tag :good_id, params[:good_id], form: "good_serve_new_#{@good_serve.serve_id}" %>
+    <%= text_field_tag 'cart_item_serve[price]', @cart_item_serve.price, class: 'three wide field', form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
+    <%= hidden_field_tag 'cart_item_serve[serve_id]', @cart_item_serve.serve_id, form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
   </td>
   <td>
-    <%= submit_tag 'Save', class: 'ui green button', form: "good_serve_new_#{@good_serve.serve_id}" %>
+    <%= submit_tag 'Save', class: 'ui green button', form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
     <a class="ui grey button" onclick="removeForm()">取消</a>
   </td>
 </tr>

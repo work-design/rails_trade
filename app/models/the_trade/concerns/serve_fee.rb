@@ -15,7 +15,7 @@ class ServeFee
   def verbose_fee
     @charges = []
 
-    Serve.single.overall.each do |serve|
+    Serve.single.overall.default.each do |serve|
       charge = get_charge(serve)
       @charges << charge if charge
     end
@@ -28,8 +28,6 @@ class ServeFee
   end
 
   def get_charge(serve)
-    return unless serve.default
-
     if serve.is_a? QuantityServe
       charge = serve.compute_price(good.quantity * number, extra)
     elsif serve.is_a? NumberServe

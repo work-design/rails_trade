@@ -1,1 +1,1 @@
-$('#serve_<%= @good_serve.serve_id %>').replaceWith('<%= j(render partial: 'serve', locals: { serve_charge: @good.serve.charges.find { |charge| charge.serve_id == @good_serve.serve_id } }) %>');
+$('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 'serve', locals: { serve_charge: @cart_item.serve.get_charge(@cart_item_serve.serve) }) %>');

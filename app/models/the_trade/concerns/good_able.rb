@@ -16,13 +16,6 @@ module GoodAble
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
   end
 
-  def for_select_serves
-    @for_sales = Serve.for_sale.where.not(id: good_serves.map(&:serve_id).uniq)
-    @for_sales.map do |serve|
-      self.serve.get_charge(serve)
-    end
-  end
-
   def retail_price
     self.price.to_d + self.serve.subtotal
   end

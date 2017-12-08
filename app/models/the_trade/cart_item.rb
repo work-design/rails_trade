@@ -56,13 +56,31 @@ class CartItem < ApplicationRecord
     pure_price + self.serve.subtotal
   end
 
-  def server_subtotal
-    cart_item_serves.each do |cart_item_serve|
-      serve.charges.find { |charge| .pluck(:serve_id).include? charge.server_id }.each do |charge|
+  def serve_charges
+    charges = []
+    serve.charges.each do |charge|
+      cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
+      if cart_item_serve
         charge.cart_item_serve = cart_item_serve
         charge.subtotal = cart_item_serve.price
       end
+      charges << charge
     end
+
+    cart_item_serves.where.not(serve_id: serve.charges.map(&:serve_id)).each do |cart_item_serve|
+      charge = self.serve.get_charge(cart_item_serve.serve)
+      charge.cart_item_serve = cart_item_serve
+      charge.subtotal = cart_item_serve.price
+      charges << charge
+    end
+    charges
+  end
+
+  def for_select_serves
+    @for_sales = Serve.for_sale.where.not(id: cart_item_serves.map(&:serve_id).uniq)
+    @for_sales.map do |serve|
+      self.serve.get_charge(serve)
+    end.compact
   end
 
   def final_price
