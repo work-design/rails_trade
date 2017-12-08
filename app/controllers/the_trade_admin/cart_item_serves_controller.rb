@@ -17,6 +17,9 @@ class TheTradeAdmin::CartItemServesController < TheTradeAdmin::BaseController
     @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: cart_item_serve_params[:serve_id])
     @cart_item_serve.assign_attributes cart_item_serve_params
 
+    @serve_charge = @cart_item.serve.get_charge(@cart_item_serve.serve)
+    @serve_charge.subtotal = @cart_item_serve.price
+
     respond_to do |format|
       if @cart_item_serve.save
         format.js

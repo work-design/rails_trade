@@ -29,7 +29,7 @@ class CartItem < ApplicationRecord
   after_initialize if: :new_record? do |t|
     self.status = 'init'
     self.buyer_id = self.user&.buyer_id
-    self.quantity = 1 if self.quantity < 1
+    self.quantity = 1 if self.quantity.to_i < 1
   end
 
   def pure_price

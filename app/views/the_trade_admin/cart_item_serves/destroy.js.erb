@@ -1,1 +1,5 @@
+<% if @cart_item_serve.serve.default %>
+$('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 'serve', locals: { serve_charge: @serve_charge }) %>');
+<% else %>
 $('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 'check', locals: { serve_charge: @serve_charge }) %>');
+<% end %>
