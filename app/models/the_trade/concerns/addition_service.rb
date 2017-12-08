@@ -1,13 +1,18 @@
 class AdditionService
-  attr_reader :checked_items, :buyer,
+  attr_reader :checked_items, :buyer, :user,
               :total_quantity,
               :bulk_price, :discount_price, :retail_price, :promote_price,
               :promote_price, :serve_price,
               :promote_charges, :serve_charges
 
-  def initialize(checked_ids, buyer_id = nil)
-    @checked_items = CartItem.where(id: checked_ids)
+  def initialize(user_id: nil, buyer_id: nil, assistant: false)
+    @user = User.find(user_id) if user_id
     @buyer = Buyer.find(buyer_id) if buyer_id
+    if @user
+      @checked_items = @user.cart_items.checked.where(assistant: assistant)
+    else
+      @checked_items = @buyer.cart_items.checked.where(assistant: assistant)
+    end
     compute_total
     compute_promote
     compute_serve

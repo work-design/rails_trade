@@ -5,7 +5,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(@checked_ids)
+    @additions = AdditionService.new(user_id: @user_id, buyer_id: params[:buyer_id])
   end
 
   def create
@@ -19,7 +19,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(@checked_ids)
+    @additions = AdditionService.new(user_id: @user_id, buyer_id: params[:buyer_id])
 
     render 'index'
   end
@@ -31,20 +31,19 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     CartItem.where(id: @checked_ids).update_all(checked: true) if @checked_ids.size > 0
     CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
 
-    @additions = AdditionService.new(@checked_ids)
+    @additions = AdditionService.new(user_id: @user_id, buyer_id: params[:buyer_id])
+
     response.headers['X-Request-URL'] = request.url
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(checked_ids)
+    @additions = AdditionService.new(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id)
   end
 
   def destroy
     @cart_item.destroy
-    checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(checked_ids)
+    @additions = AdditionService.new(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id)
   end
 
   private
@@ -72,7 +71,8 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
     elsif params[:good_type] && params[:good_id]
       good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
-      @cart_items = CartItem.where(assistant: true, user_id: good.user_id) if good.respond_to?(:user_id) && good.user_id
+      @user_id = good.user_id if good.respond_to?(:user_id)
+      @cart_items = CartItem.where(assistant: true, user_id: @user_id)
     else
       @cart_items = CartItem.limit(0)
     end
