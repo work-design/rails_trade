@@ -5,13 +5,21 @@ class AdditionService
               :promote_price, :serve_price,
               :promote_charges, :serve_charges
 
-  def initialize(user_id: nil, buyer_id: nil, assistant: false)
+  def initialize(user_id: nil, buyer_id: nil, session_id: nil, assistant: false)
     @user = User.find(user_id) if user_id
     @buyer = Buyer.find(buyer_id) if buyer_id
     if @user
+      puts "-----> Checked: #{user_id}"
       @checked_items = @user.cart_items.checked.where(assistant: assistant)
-    else
+    elsif buyer
+      puts "-----> Checked: #{buyer_id}"
       @checked_items = @buyer.cart_items.checked.where(assistant: assistant)
+    elsif session_id
+      puts "-----> Checked: #{session_id}"
+      @checked_items = CartItem.where(session_id: session_id).checked.where(assistant: assistant)
+    else
+      puts "-----> Checked: none"
+      @checked_items = CartItem.limit(0)
     end
     compute_total
     compute_promote
