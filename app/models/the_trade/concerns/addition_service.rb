@@ -62,7 +62,7 @@ class AdditionService
   def compute_serve
     @serve_charges = []
 
-    QuantityServe.overall.total.each do |serve|
+    QuantityServe.total.overall.each do |serve|
       serve = serve.compute_price(total_quantity)
       @serve_charges << serve if serve.persisted?
     end

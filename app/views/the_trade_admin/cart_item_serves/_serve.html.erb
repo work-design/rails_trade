@@ -1,5 +1,5 @@
 <tr id="serve_<%= serve_charge.serve_id %>">
-  <td><%= serve_charge.item.name %></td>
+  <td><%= serve_charge.item.name %><span class="ui label <%= active_asserts(green: serve_charge.item.scope == 'total') %>"><%= serve_charge.item.scope %></span></td>
   <td><%= serve_charge.default_subtotal %></td>
   <td><%= serve_charge.subtotal %></td>
   <td>

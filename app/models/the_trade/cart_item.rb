@@ -67,7 +67,27 @@ class CartItem < ApplicationRecord
       charges << charge
     end
 
-    cart_item_serves.where.not(serve_id: serve.charges.map(&:serve_id)).each do |cart_item_serve|
+    cart_item_serves.where(scope: 'single').where.not(serve_id: serve.charges.map(&:serve_id)).each do |cart_item_serve|
+      charge = self.serve.get_charge(cart_item_serve.serve)
+      charge.cart_item_serve = cart_item_serve
+      charge.subtotal = cart_item_serve.price
+      charges << charge
+    end
+    charges
+  end
+
+  def total_serve_charges
+    charges = []
+    serve.total_charges.each do |charge|
+      cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
+      if cart_item_serve
+        charge.cart_item_serve = cart_item_serve
+        charge.subtotal = cart_item_serve.price
+      end
+      charges << charge
+    end
+
+    cart_item_serves.where(scope: 'total').where.not(serve_id: serve.total_charges.map(&:serve_id)).each do |cart_item_serve|
       charge = self.serve.get_charge(cart_item_serve.serve)
       charge.cart_item_serve = cart_item_serve
       charge.subtotal = cart_item_serve.price
