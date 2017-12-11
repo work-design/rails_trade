@@ -1,6 +1,6 @@
 class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   before_action :current_cart, only: [:index, :create, :total]
-  before_action :set_cart_item, only: [:update]
+  before_action :set_cart_item, only: [:update, :destroy]
   skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
@@ -54,7 +54,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   private
 
   def set_cart_item
-    @cart_item = @cart_items.find(params[:id])
+    @cart_item = CartItem.find(params[:id])
     if @cart_item.user_id
       @cart_items = CartItem.where(assistant: true, user_id: @cart_item.user_id)
     else
@@ -74,6 +74,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @user_id = params[:user_id]
       @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
       @user = User.find @user_id
+      @buyer = @user.buyer
     elsif params[:buyer_id]
       @buyer = Buyer.find params[:buyer_id]
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
@@ -82,6 +83,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @user_id = good.user_id if good.respond_to?(:user_id)
       @cart_items = CartItem.where(assistant: true, user_id: @user_id)
       @user = User.find @user_id
+      @buyer = @user.buyer
     else
       @cart_items = CartItem.limit(0)
     end

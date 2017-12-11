@@ -9,16 +9,16 @@ class AdditionService
     @user = User.find(user_id) if user_id
     @buyer = Buyer.find(buyer_id) if buyer_id
     if @user
-      puts "-----> Checked: #{user_id}"
+      puts "-----> Checked User: #{user_id}"
       @checked_items = @user.cart_items.checked.where(assistant: assistant)
     elsif buyer
-      puts "-----> Checked: #{buyer_id}"
+      puts "-----> Checked Buyer: #{buyer_id}"
       @checked_items = @buyer.cart_items.checked.where(assistant: assistant)
     elsif session_id
-      puts "-----> Checked: #{session_id}"
+      puts "-----> Checked Session: #{session_id}"
       @checked_items = CartItem.where(session_id: session_id).checked.where(assistant: assistant)
     else
-      puts "-----> Checked: none"
+      puts "-----> Checked None!"
       @checked_items = CartItem.limit(0)
     end
     compute_total

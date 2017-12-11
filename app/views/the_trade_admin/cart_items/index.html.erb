@@ -1,9 +1,13 @@
 <div class="ui segment top attached">
   <% if @user %>
-    <p>Name: <% @user.name %></p>
+    <p>Name: <%= @user.name %></p>
     <p>Email: <%= @user.email %></p>
-  <% elsif @buyer %>
-    <p>Company Name: <% @buyer.name %></p>
+  <% end %>
+  <% if @buyer %>
+    <p>Company Name: <% @buyer.name %>(<%= @buyer.id %>)</p>
+    <p>
+      <%= select_tag :user_id, options_from_collection_for_select(@buyer.users, :id, :name, @user&.id), include_blank: true, class: 'ui dropdown' %>
+    </p>
   <% end %>
 </div>
 

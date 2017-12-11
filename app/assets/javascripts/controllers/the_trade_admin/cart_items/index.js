@@ -74,3 +74,11 @@ $('.xx_popup').popup({
   popup: '.ui.popup'
 });
 
+$('#user_id').dropdown({
+  onChange: function(value, text, $selectedItem){
+    var path = new URL(window.location.href);
+    path.searchParams.set('user_id', value);
+    window.location.href = path;
+  }
+});
+
