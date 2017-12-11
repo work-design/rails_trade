@@ -12,9 +12,12 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
     if cart_item.present?
       params[:quantity] ||= 0
-      cart_item.increment!(:quantity, params[:quantity].to_i)
+      cart_item.checked = true
+      cart_item.quantity = cart_item.quantity + params[:quantity].to_i
+      cart_item.save
     else
       cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
+      cart_item.checked = true
       cart_item.save
     end
 
