@@ -70,12 +70,12 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def current_cart
-    if params[:user_id]
+    if params[:user_id].present?
       @user_id = params[:user_id]
       @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
       @user = User.find @user_id
       @buyer = @user.buyer
-    elsif params[:buyer_id]
+    elsif params[:buyer_id].present?
       @buyer = Buyer.find params[:buyer_id]
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
     elsif params[:good_type] && params[:good_id]
@@ -87,6 +87,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.limit(0)
     end
+    @cart_items = @cart_items.where(status: 'init')
   end
 
 

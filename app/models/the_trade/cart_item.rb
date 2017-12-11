@@ -3,6 +3,7 @@ class CartItem < ApplicationRecord
   belongs_to :buyer, class_name: '::Buyer', optional: true
   belongs_to :user, optional: true
   has_many :cart_item_serves, dependent: :destroy
+  has_many :order_items, dependent: :nullify
 
   validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { user_id.blank?  }
@@ -59,7 +60,7 @@ class CartItem < ApplicationRecord
   def get_charge(serve)
     charge = self.serve.get_charge(serve)
     cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
-    if cart_item_serve
+    if cart_item_serve.persisted?
       charge.cart_item_serve = cart_item_serve
       charge.subtotal = cart_item_serve.price
     end

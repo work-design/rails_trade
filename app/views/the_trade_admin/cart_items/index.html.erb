@@ -80,7 +80,9 @@
     <tr>
       <th colspan="5">
         <div class="">
-          <%= link_to '生成订单', new_admin_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red right floated button', id: 'new_order_bottom' %>
+          <% if @user %>
+            <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red right floated button', id: 'new_order_bottom' %>
+          <% end %>
         </div>
       </th>
       <th></th>

@@ -45,7 +45,7 @@ class Order < ApplicationRecord
   }
 
   def migrate_from_cart_items
-    cart_items = user.cart_items.checked.where(assistant: self.assistant)
+    cart_items = user.cart_items.checked.where(status: 'init', assistant: self.assistant)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
