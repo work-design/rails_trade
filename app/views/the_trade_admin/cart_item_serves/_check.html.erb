@@ -1,7 +1,6 @@
 <tr id="serve_<%= serve_charge.serve_id %>">
   <td class="disabled"><%= serve_charge.item.name %></td>
-  <td class="disabled"><%= serve_charge.default_subtotal %></td>
-  <td><%= %></td>
+  <td><%= serve_charge.subtotal %></td>
   <td>
     <%= link_to 'add', add_admin_cart_item_cart_item_serves_path(@cart_item, serve_id: serve_charge.serve_id), method: :post, remote: true, class: 'ui green label' %>
   </td>

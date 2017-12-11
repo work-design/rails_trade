@@ -47,8 +47,10 @@ function getCheckedIds() {
 }
 
 $('input[name="cart_item_id"]').change(function(){
-  var remind_link = new URL($('#new_order')[0].href);
-  $('#new_order').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
+  var remind_link = new URL($('#new_order_top')[0].href);
+  $('#new_order_top').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
+  $('#new_order_bottom').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
+  $('#cart_items_doc').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
 
   var search_path = window.location.search;
   var total_url = '/admin/cart_items/total' + search_path + '&cart_item_ids=' + getCheckedIds();

@@ -3,9 +3,8 @@
     <%= form_with model: @cart_item_serve, url: admin_cart_item_cart_item_serves_path(@cart_item), method: :post, id: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
     <%= @cart_item_serve.serve.name %>
   </td>
-  <td><%= @serve_charge.default_subtotal %></td>
   <td>
-    <%= text_field_tag 'cart_item_serve[price]', @cart_item_serve.price, class: 'three wide field', form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
+    <%= text_field_tag 'cart_item_serve[price]', @cart_item_serve.price, class: 'three wide field', placeholder: @serve_charge.default_subtotal, form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
     <%= hidden_field_tag 'cart_item_serve[serve_id]', @cart_item_serve.serve_id, form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
   </td>
   <td>

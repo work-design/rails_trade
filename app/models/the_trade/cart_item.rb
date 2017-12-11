@@ -56,6 +56,16 @@ class CartItem < ApplicationRecord
     pure_price + self.serve.subtotal
   end
 
+  def get_charge(serve)
+    charge = self.serve.get_charge(serve)
+    cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
+    if cart_item_serve
+      charge.cart_item_serve = cart_item_serve
+      charge.subtotal = cart_item_serve.price
+    end
+    charge
+  end
+
   def serve_charges
     charges = []
     serve.charges.each do |charge|

@@ -9,7 +9,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def create
-    cart_item = current_cart.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
+    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
     if cart_item.present?
       params[:quantity] ||= 0
       cart_item.increment!(:quantity, params[:quantity].to_i)
@@ -36,6 +36,10 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     response.headers['X-Request-URL'] = request.url
   end
 
+  def doc
+
+  end
+
   def update
     @cart_item.update(quantity: params[:quantity])
     @additions = AdditionService.new(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
@@ -49,7 +53,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   private
 
   def set_cart_item
-    @cart_item = current_cart.find(params[:id])
+    @cart_item = @cart_items.find(params[:id])
     if @cart_item.user_id
       @cart_items = CartItem.where(assistant: true, user_id: @cart_item.user_id)
     else
@@ -68,12 +72,15 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     if params[:user_id]
       @user_id = params[:user_id]
       @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
+      @user = User.find @user_id
     elsif params[:buyer_id]
+      @buyer = Buyer.find params[:buyer_id]
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
     elsif params[:good_type] && params[:good_id]
       good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
       @user_id = good.user_id if good.respond_to?(:user_id)
       @cart_items = CartItem.where(assistant: true, user_id: @user_id)
+      @user = User.find @user_id
     else
       @cart_items = CartItem.limit(0)
     end

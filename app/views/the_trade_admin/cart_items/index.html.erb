@@ -1,7 +1,17 @@
 <div class="ui segment top attached">
+  <% if @user %>
+    <p>Name: <% @user.name %></p>
+    <p>Email: <%= @user.email %></p>
+  <% elsif @buyer %>
+    <p>Company Name: <% @buyer.name %></p>
+  <% end %>
 </div>
 
-<table class="ui table">
+<div class="ui segment top attached">
+  <%= link_to '生成订单', new_admin_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red button', id: 'new_order_top' %>
+  <%= link_to '生成文档', doc_admin_cart_items_path(cart_item_ids: @checked_ids.join(',')), class: 'ui orange button', id: 'cart_items_doc' %>
+</div>
+<table class="ui bottom attached table">
   <thead>
   <tr class="">
     <th><%= check_box_tag :all %></th>
@@ -64,7 +74,7 @@
     <tr>
       <th colspan="5">
         <div class="">
-          <%= link_to '生成订单', new_admin_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red right floated button', id: 'new_order' %>
+          <%= link_to '生成订单', new_admin_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red right floated button', id: 'new_order_bottom' %>
         </div>
       </th>
       <th></th>

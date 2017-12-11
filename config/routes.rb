@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     resources :cart_items, except: [:new] do
       get :total, on: :collection
+      get :doc, on: :collection
       resources :cart_item_serves do
         post :add, on: :collection
       end
