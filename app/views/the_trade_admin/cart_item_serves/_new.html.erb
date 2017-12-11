@@ -8,7 +8,7 @@
     <%= hidden_field_tag 'cart_item_serve[serve_id]', @cart_item_serve.serve_id, form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
   </td>
   <td>
-    <%= submit_tag 'Save', class: 'ui green button', form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
-    <a class="ui grey button" onclick="removeForm()">取消</a>
+    <%= submit_tag 'Save', class: 'ui mini green button', form: "cart_item_serve_new_#{@cart_item_serve.serve_id}" %>
+    <a class="ui mini grey button" onclick="removeForm()">取消</a>
   </td>
 </tr>

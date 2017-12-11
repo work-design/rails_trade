@@ -25,8 +25,7 @@ class Order < ApplicationRecord
     self.buyer_id = self.user&.buyer_id
     self.payment_strategy_id = self.buyer&.payment_strategy_id
 
-    cart_item_ids = order_items.map(&:cart_item_id)
-    additions = AdditionService.new(cart_item_ids)
+    additions = AdditionService.new(user_id: self.user_id, buyer_id: self.buyer_id)
     additions.promote_charges.each do |promote_charge|
       self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
     end
@@ -45,17 +44,8 @@ class Order < ApplicationRecord
     refunded: 4
   }
 
-  def migrate_from_cart_items(cart_item_ids)
-    cart_items = CartItem.where(id: cart_item_ids)
-
-    user_ids = cart_items.map(&:user_id).uniq
-    if user_ids.size > 1
-      self.errors.add :user_id, 'Different User for create Order!'
-    else
-      self.user = User.find_by(id: user_ids.first)
-      self.buyer_id = self.user&.buyer_id
-    end
-
+  def migrate_from_cart_items
+    cart_items = user.cart_items.checked.where(assistant: self.assistant)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end

@@ -1,6 +1,6 @@
 class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   before_action :current_cart, only: [:index, :create, :total]
-  before_action :set_cart_item, only: [:update, :destroy]
+  before_action :set_cart_item, only: [:update]
   skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
@@ -46,6 +46,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def destroy
+    @cart_item = CartItem.find params[:id]
     @cart_item.destroy
     @additions = AdditionService.new(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
   end

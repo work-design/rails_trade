@@ -10,9 +10,8 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   end
 
   def new
-    @order = Order.new
-    cart_item_ids = params[:cart_item_ids].split(',')
-    @order.migrate_from_cart_items(cart_item_ids)
+    @order = Order.new(user_id: params[:user_id], assistant: true)
+    @order.migrate_from_cart_items
 
     respond_to do |format|
       format.html

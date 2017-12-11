@@ -16,6 +16,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.integer :payment_id
       t.string :payment_type
       t.integer :payment_status
+      t.boolean :assistant, default: false
       t.timestamps
     end
 

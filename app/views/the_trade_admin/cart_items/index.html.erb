@@ -8,7 +8,7 @@
 </div>
 
 <div class="ui segment top attached">
-  <%= link_to '生成订单', new_admin_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red button', id: 'new_order_top' %>
+  <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_top' %>
   <%= link_to '生成文档', doc_admin_cart_items_path(cart_item_ids: @checked_ids.join(',')), class: 'ui orange button', id: 'cart_items_doc' %>
 </div>
 <table class="ui bottom attached table">
@@ -54,8 +54,8 @@
         </p>
       </td>
       <td>
-        <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true %>
-        <%= link_to 'edit price', admin_cart_item_cart_item_serves_path(cart_item), remote: true %>
+        <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true, class: 'ui mini label' %>
+        <%= link_to 'edit price', admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
       </td>
     </tr>
   <% end %>
