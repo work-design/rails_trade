@@ -21,9 +21,11 @@ module TheRefund
       refund.save!
     end
   end
-  
-  def confirm_refund!
 
+  def confirm_refund!
+    self.order_items.each do |oi|
+      oi.confirm_refund!
+    end
   end
 
 end

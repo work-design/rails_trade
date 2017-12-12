@@ -44,6 +44,14 @@ class OrderItem < ApplicationRecord
     self.good.order_done
   end
 
+  def confirm_paid!
+
+  end
+
+  def confirm_refund!
+
+  end
+
 end
 
 # :cart_item_id, :integer

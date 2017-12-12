@@ -45,7 +45,9 @@ module ThePayment
   end
 
   def confirm_paid!
-
+    self.order_items.each do |oi|
+      oi.confirm_paid!
+    end
   end
 
   def change_to_paid!(params)

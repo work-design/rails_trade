@@ -77,16 +77,4 @@ class Order < ApplicationRecord
     end
   end
 
-  def confirm_paid!
-    self.order_items.each do |oi|
-      oi.confirm_paid!
-    end
-  end
-
-  def confirm_refund!
-    self.order_items.each do |oi|
-      oi.confirm_refund!
-    end
-  end
-
 end
