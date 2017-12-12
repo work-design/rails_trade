@@ -34,7 +34,12 @@ module GoodAble
 
     oi = o.order_items.build
     oi.good = self
-    oi.quantity = params[:quantity]
+    if params[:quantity].to_i > 0
+      oi.quantity = params[:quantity]
+    else
+      oi.quantity = 1
+    end
+
     if params[:amount]
       oi.amount = params[:amount]
     else
