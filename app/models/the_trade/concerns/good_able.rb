@@ -2,7 +2,7 @@ module GoodAble
   extend ActiveSupport::Concern
 
   included do
-    has_many :cart_items, as: :good, dependent: :destroy
+    has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
 
@@ -26,6 +26,10 @@ module GoodAble
 
   def order_done
     puts 'Should realize in good entity'
+  end
+
+  def get_cart_item(user, params = {})
+    self.cart_items.find_or_create_by(params.merge(user: user))
   end
 
   def generate_order(buyer, params)
@@ -55,6 +59,7 @@ module GoodAble
     end
     o
   end
+  alias_method :get_order, :generate_order
 
 end
 

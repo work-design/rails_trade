@@ -1,7 +1,7 @@
 <tr id="serve_<%= serve_charge.serve_id %>">
   <td><%= serve_charge.item.name %><span class="ui label <%= active_asserts(green: serve_charge.item.scope == 'total') %>"><%= serve_charge.item.scope %></span></td>
   <td>
-    <%= link_to new_admin_cart_item_cart_item_serve_path(serve_id: serve_charge.serve_id), remote: true do %>
+    <%= link_to new_admin_cart_item_cart_item_serve_path(@cart_item, serve_id: serve_charge.serve_id), remote: true do %>
       <div class="ui label" style="cursor: text"><%= serve_charge.subtotal %></div>
     <% end %>
   </td>
