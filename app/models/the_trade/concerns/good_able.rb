@@ -35,6 +35,7 @@ module GoodAble
   def generate_order(buyer, params)
     o = buyer.orders.build
     o.user_id = buyer.user_id
+    o.buyer_id = buyer.id
 
     oi = o.order_items.build
     oi.good = self

@@ -22,13 +22,19 @@ module TheStripe
       stripe_customer(token: params[:token])
     end
 
-    if params[:payment_method_id]
-      stripe_payment_method = buyer.payment_methods.where(type: 'StripeMethod', id: params[:payment_method_id]).first
+    if params[:payment_method_id].present?
+      stripe_payment_method = buyer.payment_methods
+        .where(type: 'StripeMethod', id: params[:payment_method_id])
+        .first
     else
-      stripe_payment_method = buyer.payment_methods.where(type: 'StripeMethod').first
+      stripe_payment_method = buyer.payment_methods
+        .where(type: 'StripeMethod').first
     end
 
-    charge = Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
+    charge = Stripe::Charge.create(
+      amount: (self.amount * 100).to_i,
+      currency: self.currency, customer: stripe_payment_method.account_num
+    )
     self.update payment_type: 'stripe', payment_id: charge.id
     self.stripe_record(charge)
   end
