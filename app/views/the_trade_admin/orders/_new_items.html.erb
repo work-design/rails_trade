@@ -1,0 +1,73 @@
+<table class="ui table">
+  <thead>
+  <tr>
+    <th>
+      <%= form_with model: order, url: admin_orders_path, id: 'new_order' do |f| %>
+        <% @order_form = f %>
+        <%= f.hidden_field :user_id %>
+      <% end %>
+    </th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <% order.order_items.each do |order_item| %>
+    <%= @order_form.fields_for :order_items, order_item do |oi| %>
+      <tr>
+        <td>
+          <%= order_item.good&.name %>
+          <%= oi.hidden_field :cart_item_id, form: 'new_order' %>
+        </td>
+        <td><%= oi.date_field :deliver_on, form: 'new_order' %></td>
+        <td><%= oi.number_field :advance_payment, form: 'new_order' %></td>
+        <td><%= oi.text_field :comment, form: 'new_order' %></td>
+        <td><%= order_item.quantity %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <% order.order_serves.each do |order_serve| %>
+    <%= @order_form.fields_for :order_serves, order_serve do |os| %>
+      <tr>
+        <td>
+          <%= order_serve.serve&.name %>
+          <%= os.hidden_field :serve_id, form: 'new_order' %>
+          <%= os.hidden_field :serve_charge_id, form: 'new_order' %>
+        </td>
+        <td></td>
+        <td><%= os.number_field :amount, step: '0.01', form: 'new_order' %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <% order.order_promotes.each do |order_promote| %>
+    <%= @order_form.fields_for :order_promotes, order_promote do |op| %>
+      <tr>
+        <td>
+          <%= order_promote.promote&.name %>
+          <%= op.hidden_field :promote_id, form: 'new_order' %>
+          <%= op.hidden_field :promote_charge_id, form: 'new_order' %>
+        </td>
+        <td></td>
+        <td><%= op.number_field :amount, step: '0.01', form: 'new_order' %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <tfoot>
+  <tr>
+    <th colspan="6">
+      <div class="">
+      </div>
+    </th>
+  </tr>
+  </tfoot>
+</table>
