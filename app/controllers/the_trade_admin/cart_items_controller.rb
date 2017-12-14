@@ -55,7 +55,6 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   private
-
   def set_cart_item
     @cart_item = CartItem.find(params[:id])
     if @cart_item.user_id
@@ -83,10 +82,13 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
     elsif params[:good_type] && params[:good_id]
       good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
-      @user_id = good.user_id if good.respond_to?(:user_id)
-      @cart_items = CartItem.where(assistant: true, user_id: @user_id)
-      @user = User.find @user_id
-      @buyer = @user.buyer
+      if good.respond_to?(:user_id)
+        @user_id = good.user_id
+        @user = User.find @user_id
+        @buyer = @user.buyer
+        @cart_items = CartItem.where(assistant: true, good_type: params[:good_type], good_id: params[:good_id], user_id: @user_id)
+        @cart_items.where(assistant: true)
+      end
     else
       @cart_items = CartItem.limit(0)
     end

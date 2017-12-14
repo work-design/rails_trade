@@ -1,6 +1,7 @@
 class PaymentReference < ApplicationRecord
   belongs_to :payment_method, inverse_of: :payment_references
-  belongs_to :buyer, class_name: '::Buyer', foreign_key: :buyer_id
+  belongs_to :buyer, class_name: '::Buyer', foreign_key: :buyer_id, optional: true
+  belongs_to :user
 
   before_save :prevent_duplicate
 

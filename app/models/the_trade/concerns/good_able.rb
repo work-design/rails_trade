@@ -16,6 +16,10 @@ module GoodAble
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
   end
 
+  def plenty_price
+    self.retail_price + self.get_cart_item(user)
+  end
+
   def retail_price
     self.price.to_d + self.serve.subtotal
   end
@@ -32,9 +36,9 @@ module GoodAble
     self.cart_items.find_or_create_by(params.merge(user: user))
   end
 
-  def generate_order(buyer, params)
-    o = buyer.orders.build
-    o.user_id = buyer.user_id
+  def generate_order(user, params)
+    o = user.orders.build
+    o.buyer_id = user.buyer_id
 
     oi = o.order_items.build
     oi.good = self
@@ -59,7 +63,6 @@ module GoodAble
     end
     o
   end
-  alias_method :get_order, :generate_order
 
 end
 
