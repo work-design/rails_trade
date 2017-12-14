@@ -42,6 +42,38 @@
       </tr>
     <% end %>
   <% end %>
+  <% @order.order_serves.each do |order_serve| %>
+    <%= @order_form.fields_for :order_serves, order_serve do |os| %>
+      <tr>
+        <td>
+          <%= order_serve.serve&.name %>
+          <%= os.hidden_field :serve_id, form: 'new_order' %>
+          <%= os.hidden_field :serve_charge_id, form: 'new_order' %>
+        </td>
+        <td></td>
+        <td><%= os.number_field :amount, step: '0.01', form: 'new_order' %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <% @order.order_promotes.each do |order_promote| %>
+    <%= @order_form.fields_for :order_promotes, order_promote do |op| %>
+      <tr>
+        <td>
+          <%= order_promote.promote&.name %>
+          <%= op.hidden_field :promote_id, form: 'new_order' %>
+          <%= op.hidden_field :promote_charge_id, form: 'new_order' %>
+        </td>
+        <td></td>
+        <td><%= op.number_field :amount, step: '0.01', form: 'new_order' %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  <% end %>
 
   <tfoot>
   <tr>

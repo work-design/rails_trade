@@ -12,6 +12,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   def new
     @order = Order.new(user_id: params[:user_id], assistant: true)
     @order.migrate_from_cart_items
+    @order.init_with_default_serves
 
     respond_to do |format|
       format.html
@@ -57,7 +58,9 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   def order_params
     params.fetch(:order, {}).permit(:user_id, :quantity, :payment_id, :payment_type,
                                     :address_id, :invoice_address_id,
-                                    order_items_attributes: [:cart_item_id, :deliver_on, :advance_payment, :comment])
+                                    order_items_attributes: [:cart_item_id, :deliver_on, :advance_payment, :comment],
+                                    order_serves_attributes: [:serve_id, :serve_charge_id, :amount],
+                                    order_promotes_attributes: [:promote_id, :promote_charge_id, :amount])
   end
 
 end

@@ -15,6 +15,8 @@ class Order < ApplicationRecord
   has_many :pure_order_serves, -> { where(order_item_id: nil) }, class_name: 'OrderServe'
 
   accepts_nested_attributes_for :order_items
+  accepts_nested_attributes_for :order_serves
+  accepts_nested_attributes_for :order_promotes
 
   scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
   scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
@@ -24,15 +26,8 @@ class Order < ApplicationRecord
     self.payment_status = 'unpaid'
     self.buyer_id = self.user&.buyer_id
     self.payment_strategy_id = self.buyer&.payment_strategy_id
-
-    additions = AdditionService.new(user_id: self.user_id, buyer_id: self.buyer_id)
-    additions.promote_charges.each do |promote_charge|
-      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
-    end
-    additions.serve_charges.each do |serve_charge|
-      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
-    end
   end
+
   before_create :sum_cache
   after_create_commit :confirm_ordered!
 
@@ -48,6 +43,16 @@ class Order < ApplicationRecord
     cart_items = user.cart_items.checked.where(status: 'init', assistant: self.assistant)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
+    end
+  end
+
+  def init_with_default_serves
+    additions = CartItem.checked_items(user_id: self.user_id, buyer_id: self.buyer_id)
+    additions.promote_charges.each do |promote_charge|
+      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+    end
+    additions.serve_charges.each do |serve_charge|
+      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
   end
 

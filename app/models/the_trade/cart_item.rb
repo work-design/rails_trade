@@ -130,21 +130,28 @@ class CartItem < ApplicationRecord
     end
   end
 
-  def self.total(user_id: nil, buyer_id: nil, session_id: nil, assistant: false)
+  def total
+    relation = CartItem.where(id: self.id)
+    SummaryService.new(relation, buyer_id: self.buyer_id)
+  end
+
+  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: false)
     if user_id
-      @checked_items = CartItem.where(user_id: user_id, assistant: assistant).checked
+      @checked_items = CartItem.where(user_id: user_id, assistant: assistant).init.checked
+      buyer_id = User.find(user_id).buyer_id
       puts "-----> Checked User: #{user_id}"
     elsif buyer_id
-      @checked_items = CartItem.where(buyer_id: buyer_id, assistant: assistant).checked
+      @checked_items = CartItem.where(buyer_id: buyer_id, assistant: assistant).init.checked
       puts "-----> Checked Buyer: #{buyer_id}"
     elsif session_id
-      @checked_items = CartItem.where(session_id: session_id, assistant: assistant).checked
+      @checked_items = CartItem.where(session_id: session_id, assistant: assistant).init.checked
       puts "-----> Checked Session: #{session_id}"
     else
       @checked_items = CartItem.limit(0)
       puts "-----> Checked None!"
     end
-    AdditionService.new(@checked_items)
+    SummaryService.new(@checked_items, buyer_id: buyer_id)
   end
+
 
 end

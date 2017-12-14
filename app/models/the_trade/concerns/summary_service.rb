@@ -1,12 +1,13 @@
-class AdditionService
+class SummaryService
   attr_reader :checked_items, :buyer,
-              :total_quantity,
-              :bulk_price, :discount_price, :retail_price, :promote_price,
               :promote_charges, :promote_price,
-              :serve_charges, :serve_price,
+              :serve_charges, :serve_price
+  attr_accessor :bulk_price, :discount_price, :retail_price, :promote_price,
+                :total_quantity
 
-  def initialize(_checked_items)
+    def initialize(_checked_items, buyer_id: nil)
     @checked_items = _checked_items
+    @buyer = Buyer.find(buyer_id) if buyer_id
     compute_total
     compute_promote
     compute_serve
@@ -18,10 +19,10 @@ class AdditionService
 
   def compute_total
     compute_price
-    @promote_price = checked_items.sum { |cart_item| cart_item.promote_price }
-    @discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
-    @retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
-    @total_quantity = checked_items.sum { |cart_item| cart_item.total_quantity }
+    self.promote_price = checked_items.sum { |cart_item| cart_item.promote_price }
+    self.discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
+    self.retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
+    self.total_quantity = checked_items.sum { |cart_item| cart_item.total_quantity }
   end
 
   def compute_promote

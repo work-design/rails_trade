@@ -5,7 +5,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
   end
 
   def create
@@ -22,7 +22,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
 
     render 'index'
   end
@@ -34,7 +34,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     CartItem.where(id: @checked_ids).update_all(checked: true) if @checked_ids.size > 0
     CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
 
-    @additions = AdditionService.new(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
 
     response.headers['X-Request-URL'] = request.url
   end
@@ -45,13 +45,13 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = AdditionService.new(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
+    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
   end
 
   def destroy
     @cart_item = CartItem.find params[:id]
     @cart_item.destroy
-    @additions = AdditionService.new(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
+    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
   end
 
   private
@@ -92,7 +92,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.limit(0)
     end
-    @cart_items = @cart_items.where(status: 'init')
+    @cart_items = @cart_items.init
   end
 
 
