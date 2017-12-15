@@ -38,12 +38,12 @@
         <div class="ui popup">
           <div>
             <p>Export price: <%= cart_item.good.price %></p>
-            <% cart_item.good.serve.charges.each do |charge| %>
+            <% cart_item.serve_charges.each do |charge| %>
               <p><%= charge.item.name %>: <%= charge.subtotal %></p>
             <% end %>
           </div>
         </div>
-        <p><%= cart_item.good.retail_price %></p>
+        <p><%= cart_item.retail_price %></p>
         <p><%= cart_item.good&.quantity %><%= cart_item.good&.unit %></p>
       </td>
       <td>

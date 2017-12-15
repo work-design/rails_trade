@@ -53,8 +53,14 @@ class CartItem < ApplicationRecord
     self.promote.subtotal
   end
 
+  def serve_price
+    s = serve_charges.sum { |i| i.subtotal }
+    t = total_serve_charges.sum { |i| i.subtotal }
+    s + t
+  end
+
   def bulk_price
-    pure_price + self.serve.subtotal
+    pure_price + serve_price
   end
 
   def get_charge(serve)
@@ -65,12 +71,6 @@ class CartItem < ApplicationRecord
       charge.subtotal = cart_item_serve.price
     end
     charge
-  end
-
-  def serve_subtotal
-    s = serve_charges.sum { |i| i.subtotal }
-    t = total_serve_charges.sum { |i| i.subtotal }
-    s + t
   end
 
   def serve_charges

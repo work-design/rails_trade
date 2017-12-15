@@ -53,7 +53,7 @@ class SummaryService
       serve = serve.compute_price(total_quantity)
       @serve_charges << serve if serve.persisted?
     end
-    @serve_price = @serve_charges.map(&:subtotal).sum
+    @serve_price = checked_items.sum { |cart_item| cart_item.serve_price }
   end
 
   def total_price
