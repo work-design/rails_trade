@@ -2,7 +2,7 @@
   <thead>
   <tr>
     <th>
-      <%= form_with model: order, url: admin_orders_path, id: 'new_order' do |f| %>
+      <%= form_with model: order, url: admin_orders_path, multipart: true, local: true, id: 'new_order' do |f| %>
         <% @order_form = f %>
         <%= f.hidden_field :user_id %>
       <% end %>
