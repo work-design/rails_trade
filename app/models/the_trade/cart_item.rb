@@ -67,6 +67,12 @@ class CartItem < ApplicationRecord
     charge
   end
 
+  def serve_subtotal
+    s = serve_charges.sum { |i| i.subtotal }
+    t = total_serve_charges.sum { |i| i.subtotal }
+    s + t
+  end
+
   def serve_charges
     charges = []
     serve.charges.each do |charge|

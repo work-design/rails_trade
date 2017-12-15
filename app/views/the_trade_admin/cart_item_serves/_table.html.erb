@@ -1,33 +1,32 @@
-<div>
-  <table class="ui bottom attached table">
-    <thead>
+<table class="ui table">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Price</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody id="serve_tbody">
+  <% @cart_item.serve_charges.each do |serve_charge| %>
+    <%= render partial: 'the_trade_admin/cart_item_serves/serve', locals: { serve_charge: serve_charge } %>
+  <% end %>
+  <% @cart_item.for_select_serves.each do |serve_charge| %>
+    <%= render partial: 'the_trade_admin/cart_item_serves/check', locals: { serve_charge: serve_charge } %>
+  <% end %>
+  <% @cart_item.total_serve_charges.each do |serve_charge| %>
+    <%= render partial: 'the_trade_admin/cart_item_serves/serve', locals: { serve_charge: serve_charge } %>
+  <% end %>
+  </tbody>
+  <tfoot>
     <tr>
-      <th></th>
-      <th>Price</th>
-      <th></th>
+      <td>合计</td>
+      <td id="serve_subtotal"><%= @cart_item.serve_subtotal %></td>
+      <td></td>
     </tr>
-    </thead>
+  </tfoot>
+</table>
 
-    <tbody id="serve_tbody">
-    <% @cart_item.serve_charges.each do |serve_charge| %>
-      <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
-    <% end %>
-    <% @cart_item.for_select_serves.each do |serve_charge| %>
-      <%= render partial: 'check', locals: { serve_charge: serve_charge } %>
-    <% end %>
-    <% @cart_item.total_serve_charges.each do |serve_charge| %>
-      <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
-    <% end %>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td></td>
-        <td id="serve_subtotal"><%= @cart_item.serve.subtotal %></td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
 
-</div>
 
 
