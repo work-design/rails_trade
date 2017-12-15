@@ -11,7 +11,11 @@
     <% elsif @cart_item_serve&.persisted? %>
       <%= link_to 'remove', admin_cart_item_cart_item_serve_path(@cart_item, @cart_item_serve.id), method: :delete, remote: true, class: 'ui mini label' %>
     <% end %>
+    <% unless serve_charge.item.default %>
+      <div class="ui toggle checkbox" id="checkbox_<%= serve_charge.serve_id %>">
+        <%= check_box_tag :serve_charge, serve_charge.id, true, data: { url: admin_cart_item_cart_item_serve_path(@cart_item, serve_charge.cart_item_serve&.id || @cart_item_serve.id) } %>
+        <label></label>
+      </div>
+    <% end %>
   </td>
 </tr>
-
-

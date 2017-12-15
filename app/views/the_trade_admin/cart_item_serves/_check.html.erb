@@ -1,7 +1,12 @@
 <tr id="serve_<%= serve_charge.serve_id %>">
-  <td class="disabled"><%= serve_charge.item.name %></td>
+  <td class="disabled"><%= serve_charge.item.name %><span class="ui label <%= active_asserts(green: serve_charge.item.scope == 'total') %>"><%= serve_charge.item.scope %></span></td>
   <td><%= serve_charge.subtotal %></td>
   <td>
-    <%= link_to 'add', add_admin_cart_item_cart_item_serves_path(@cart_item, serve_id: serve_charge.serve_id), method: :post, remote: true, class: 'ui green label' %>
+    <div class="ui toggle checkbox" id="checkbox_<%= serve_charge.serve_id %>">
+      <%= check_box_tag :serve_charge, serve_charge.id, false, data: { url: add_admin_cart_item_cart_item_serves_path(@cart_item, serve_id: serve_charge.serve_id) } %>
+      <label></label>
+    </div>
   </td>
 </tr>
+
+

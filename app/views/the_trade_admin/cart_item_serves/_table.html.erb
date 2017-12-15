@@ -12,11 +12,11 @@
     <% @cart_item.serve_charges.each do |serve_charge| %>
       <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
     <% end %>
-    <% @cart_item.total_serve_charges.each do |serve_charge| %>
-      <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
-    <% end %>
     <% @cart_item.for_select_serves.each do |serve_charge| %>
       <%= render partial: 'check', locals: { serve_charge: serve_charge } %>
+    <% end %>
+    <% @cart_item.total_serve_charges.each do |serve_charge| %>
+      <%= render partial: 'serve', locals: { serve_charge: serve_charge } %>
     <% end %>
     </tbody>
     <tfoot>
