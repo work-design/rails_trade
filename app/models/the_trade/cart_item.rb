@@ -55,8 +55,8 @@ class CartItem < ApplicationRecord
 
   def serve_price
     s = serve_charges.sum { |i| i.subtotal }
-    t = total_serve_charges.sum { |i| i.subtotal }
-    s + t
+    #t = total_serve_charges.sum { |i| i.subtotal }
+    #s + t
   end
 
   def bulk_price

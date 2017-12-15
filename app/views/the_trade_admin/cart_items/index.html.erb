@@ -34,16 +34,15 @@
       <td><%= check_box_tag(:cart_item_id, cart_item.id, cart_item.checked) %></td>
       <td><%= cart_item.good&.name %></td>
       <td>
-        <div class="xx_popup"><i class="info circle icon" style="color: grey;" data-content=""></i></div>
-        <div class="ui popup">
-          <div>
+        <div>
+          <%= cart_item.good.retail_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+          <div class="ui popup">
             <p>Export price: <%= cart_item.good.price %></p>
-            <% cart_item.serve_charges.each do |charge| %>
+            <% cart_item.good.serve.charges.each do |charge| %>
               <p><%= charge.item.name %>: <%= charge.subtotal %></p>
             <% end %>
           </div>
         </div>
-        <p><%= cart_item.retail_price %></p>
         <p><%= cart_item.good&.quantity %><%= cart_item.good&.unit %></p>
       </td>
       <td>
@@ -54,7 +53,15 @@
         </div>
       </td>
       <td>
-        <p id="retail_price_<%= cart_item.id %>"><%= cart_item.retail_price %></p>
+        <div id="retail_price_<%= cart_item.id %>">
+          <%= cart_item.bulk_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+          <div class="ui popup">
+            <p>Good price: <%= cart_item.pure_price %></p>
+            <% cart_item.serve_charges.each do |charge| %>
+              <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+            <% end %>
+          </div>
+        </div>
         <p id="discount_price_<%= cart_item.id %>">
           <%= render partial: 'single_price', locals: { cart_item: cart_item } %>
         </p>
