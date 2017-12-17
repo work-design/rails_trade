@@ -38,11 +38,12 @@ class Order < ApplicationRecord
   after_create_commit :confirm_ordered!
 
   enum payment_status: {
-    unpaid: 0,
+    unpaid:    0,
     part_paid: 1,
-    all_paid: 2,
+    all_paid:  2,
     refunding: 3,
-    refunded: 4
+    refunded:  4,
+    denied:    5
   }
 
   def migrate_from_cart_items(cart_item_ids)
