@@ -4,6 +4,7 @@ $('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 
 $('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 'check', locals: { serve_charge: @serve_charge }) %>');
 <% end %>
 $('#serve_price').html('<%= @cart_item.serve_price %>')
+$('#total_serve_price').html('<%= @cart_item.total_serve_price %>')
 
 $('.ui.toggle.checkbox').checkbox({
   onChecked: function(){

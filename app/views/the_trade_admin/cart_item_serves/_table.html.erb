@@ -14,17 +14,20 @@
   <% @cart_item.for_select_serves.each do |serve_charge| %>
     <%= render partial: 'the_trade_admin/cart_item_serves/check', locals: { serve_charge: serve_charge } %>
   <% end %>
+  <tr>
+    <td>合计</td>
+    <td id="serve_price"><%= @cart_item.serve_price %></td>
+    <td></td>
+  </tr>
   <% @cart_item.total_serve_charges.each do |serve_charge| %>
     <%= render partial: 'the_trade_admin/cart_item_serves/serve', locals: { serve_charge: serve_charge } %>
   <% end %>
+  <tr>
+    <td>合计</td>
+    <td id="total_serve_price"><%= @cart_item.total_serve_price %></td>
+    <td></td>
+  </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td>合计</td>
-      <td id="serve_price"><%= @cart_item.serve_price %></td>
-      <td></td>
-    </tr>
-  </tfoot>
 </table>
 
 
