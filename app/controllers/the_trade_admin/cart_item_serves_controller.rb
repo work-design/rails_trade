@@ -2,7 +2,12 @@ class TheTradeAdmin::CartItemServesController < TheTradeAdmin::BaseController
   before_action :set_cart_item
 
   def index
-    @cart_item_serves = @cart_item.cart_item_serves.includes(:serve)
+  end
+
+  def single
+  end
+
+  def total
   end
 
   def show

@@ -22,10 +22,13 @@
   <tr class="">
     <th><%= check_box_tag :all %></th>
     <th>Name</th>
-    <th>单价</th>
+    <th>报价</th>
     <th>数量</th>
-    <th>总价</th>
-    <th></th>
+    <th>原价</th>
+    <th>最终价格</th>
+    <th>批发折扣</th>
+    <th>预成单报价</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -52,23 +55,33 @@
           <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="plus icon"></i></div>
         </div>
       </td>
+      <td><%= cart_item.retail_price %></td>
       <td>
-        <div id="retail_price_<%= cart_item.id %>">
-          <%= cart_item.bulk_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+        <div>Good price: <%= cart_item.pure_price %></div>
+        <div>
+          Serve Price: <%= cart_item.serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
           <div class="ui popup">
-            <p>Good price: <%= cart_item.pure_price %></p>
             <% cart_item.serve_charges.each do |charge| %>
               <p><%= charge.item.name %>: <%= charge.subtotal %></p>
             <% end %>
           </div>
+          <%= link_to 'edit price', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
         </div>
+        <div id="retail_price_<%= cart_item.id %>">
+          Final Price: <%= cart_item.bulk_price %>
+        </div>
+      </td>
+      <td style="color: red;">
+        <%= cart_item.discount_price %>
         <p id="discount_price_<%= cart_item.id %>">
           <%= render partial: 'single_price', locals: { cart_item: cart_item } %>
         </p>
       </td>
       <td>
+        <%= link_to 'edit price', total_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+      </td>
+      <td>
         <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true, class: 'ui mini label' %>
-        <%= link_to 'edit price', admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
       </td>
     </tr>
   <% end %>

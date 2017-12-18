@@ -2,7 +2,7 @@ class CartItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
   belongs_to :buyer, class_name: '::Buyer', optional: true
   belongs_to :user, optional: true
-  has_many :cart_item_serves, dependent: :destroy
+  has_many :cart_item_serves, -> { includes(:serve) }, dependent: :destroy
   has_many :order_items, dependent: :nullify
 
   validates :user_id, presence: true, if: -> { session_id.blank? }
