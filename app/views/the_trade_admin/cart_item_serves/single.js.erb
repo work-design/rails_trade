@@ -4,7 +4,12 @@ if ($('.ui.modals').length === 0) {
   $('.ui.modals').html('<%= j(render 'single') %>');
 }
 
-$('#good_serves_index').modal('setting', {autofocus: false}).modal('show');
+$('#good_serves_index').modal({
+  onHidden: function(){
+    location.reload();
+  },
+  autofocus: false
+}).modal('show');
 
 $('.ui.toggle.checkbox').checkbox({
   onChecked: function(){
