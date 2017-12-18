@@ -4,7 +4,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
   end
 
   def create
@@ -18,7 +18,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = AdditionService.new(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
 
     render 'index'
   end
@@ -30,17 +30,17 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
     CartItem.where(id: @checked_ids).update_all(checked: true) if @checked_ids.size > 0
     CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
 
-    @additions = AdditionService.new(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = AdditionService.new(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
   end
 
   def destroy
     @cart_item.update(status: :deleted, checked: false)
-    @additions = AdditionService.new(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
   end
 
   private
