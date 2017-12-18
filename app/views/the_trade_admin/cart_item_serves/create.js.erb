@@ -1,1 +1,2 @@
 $('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 'serve', locals: { serve_charge: @serve_charge }) %>');
+$('#serve_price').html('<%= @cart_item.serve_price %>')
