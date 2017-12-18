@@ -62,7 +62,7 @@ class TheTradeAdmin::AddressesController < TheTradeAdmin::BaseController
   end
 
   def address_params
-    params.fetch(:address, {}).permit(:user_id, :buyer_id, :area_id, :kind, :contact_person, :tel, :address)
+    params.fetch(:address, {}).permit! #(:user_id, :buyer_id, :area_id, :kind, :contact_person, :tel, :address)
   end
 
 end

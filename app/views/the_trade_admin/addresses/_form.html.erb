@@ -1,15 +1,15 @@
 <div class="fields">
   <div class="field">
     <%= label :nation, 'Nation' %>
-    <%= select_tag :nation, options_for_select(Area.all_nations), class: 'ui search selection dropdown' %>
+    <%= f.select :nation, options_for_select(Area.all_nations), { on: { wrapper_all: false, wrapper_input: false }, label: false }, { class: 'ui search selection dropdown' } %>
   </div>
   <div class="field">
     <%= label :province, 'Province' %>
-    <%= select_tag :province, options_for_select([]), class: 'ui search selection dropdown' %>
+    <%= f.select :province, options_for_select([]), { on: { wrapper_all: false, wrapper_input: false }, label: false }, { class: 'ui search selection dropdown' } %>
   </div>
   <div class="field">
     <%= label :city, 'City' %>
-    <%= select_tag :city, options_for_select([]), class: 'ui search selection dropdown' %>
+    <%= f.select :city, options_for_select([]), { on: { wrapper_all: false, wrapper_input: false }, label: false }, { class: 'ui search selection dropdown' } %>
   </div>
 </div>
 <%= f.hidden_field :area_id %>
@@ -17,5 +17,7 @@
 <%= f.select :kind, options_for_select(Address.options_i18n(:kind)) %>
 <%= f.text_field :contact_person %>
 <%= f.text_field :tel %>
+<%= f.email_field :email %>
 <%= f.text_field :address %>
+<%= f.text_field :postcode %>
 <%= f.submit %>
