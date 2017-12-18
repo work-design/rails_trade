@@ -1,6 +1,18 @@
-<% if cart_item.discount_price < 0 %>
-  <span style="color: red;"><%= cart_item.discount_price %></span>
-  <i class="info circle icon" style="color: grey;"></i>
-<% end %>
-
-
+<div>
+  <span style="color: grey;">Good price: </span>
+  <%= cart_item.pure_price %>
+</div>
+<div>
+  <span style="color: grey;">Serve Price: </span>
+  <%= cart_item.serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+  <div class="ui popup">
+    <% cart_item.serve_charges.each do |charge| %>
+      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% end %>
+  </div>
+  <%= link_to 'edit', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+</div>
+<div>
+  <span style="color: grey;">Final Price: </span>
+  <span><%= cart_item.bulk_price %></span>
+</div>

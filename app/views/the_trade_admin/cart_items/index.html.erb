@@ -26,7 +26,6 @@
     <th>数量</th>
     <th>原价</th>
     <th>最终价格</th>
-    <th>批发折扣</th>
     <th>预成单报价</th>
     <th>Actions</th>
   </tr>
@@ -51,46 +50,13 @@
       <td>
         <div class="ui left right action input">
           <div class="ui button" onclick="decrease_quantity(<%= cart_item.id %>)"><i class="minus icon"></i></div>
-          <%= text_field_tag :quantity, cart_item.quantity, id: "quantity_#{cart_item.id}", onkeyup: "update_quantity(#{cart_item.id})" %>
+          <%= text_field_tag :quantity, cart_item.quantity, id: "quantity_#{cart_item.id}", onkeyup: "update_quantity(#{cart_item.id})", disabled: true %>
           <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="plus icon"></i></div>
         </div>
       </td>
-      <td><%= cart_item.retail_price %></td>
-      <td>
-        <div>Good price: <%= cart_item.pure_price %></div>
-        <div>
-          Serve Price: <%= cart_item.serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
-          <div class="ui popup">
-            <% cart_item.serve_charges.each do |charge| %>
-              <p><%= charge.item.name %>: <%= charge.subtotal %></p>
-            <% end %>
-          </div>
-          <%= link_to 'edit', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
-        </div>
-        <div id="retail_price_<%= cart_item.id %>">
-          Final Price: <%= cart_item.bulk_price %>
-        </div>
-      </td>
-      <td style="color: red;">
-        <%= cart_item.discount_price %>
-        <p id="discount_price_<%= cart_item.id %>">
-          <%= render partial: 'single_price', locals: { cart_item: cart_item } %>
-        </p>
-      </td>
-      <td>
-        <div>Item Price: <%= cart_item.bulk_price %></div>
-        <div>
-          Total Serve Price: <%= cart_item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
-          <div class="ui popup">
-            <% cart_item.total_serve_charges.each do |charge| %>
-              <p><%= charge.item.name %>: <%= charge.subtotal %></p>
-            <% end %>
-          </div>
-          <%= link_to 'edit', total_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
-        </div>
-        <div>Promote Price: <%= cart_item.total_promote_price %></div>
-        <div>Final Price: <%= cart_item.estimate_price %></div>
-      </td>
+      <td id="retail_price_<%= cart_item.id %>"><%= render partial: 'retail_price', locals: { cart_item: cart_item } %></td>
+      <td id="single_price_<%= cart_item.id %>"><%= render partial: 'single_price', locals: { cart_item: cart_item } %></td>
+      <td id="order_price_<%= cart_item.id %>"><%= render partial: 'order_price', locals: { cart_item: cart_item } %></td>
       <td>
         <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true, class: 'ui mini label' %>
       </td>
@@ -102,21 +68,19 @@
   </tbody>
   <tfoot>
     <tr>
-      <th colspan="4"></th>
+      <th colspan="5"></th>
       <th id="total_price">
         <%= render 'total_price' %>
       </th>
-      <th></th>
+      <th colspan="3"></th>
     </tr>
     <tr>
-      <th colspan="5">
-        <div class="">
-          <% if @user %>
-            <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red right floated button', id: 'new_order_bottom' %>
-          <% end %>
-        </div>
+      <th colspan="5"></th>
+      <th colspan="4">
+        <% if @user %>
+          <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_bottom' %>
+        <% end %>
       </th>
-      <th></th>
     </tr>
   </tfoot>
 </table>

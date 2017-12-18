@@ -2,20 +2,18 @@
   <tr class="error">
     <td></td>
     <td><%= charge.item.name %></td>
-    <td></td>
-    <td></td>
+    <td colspan="3"></td>
     <td><%= charge.subtotal %></td>
-    <td></td>
+    <td colspan="3"></td>
   </tr>
 <% end %>
 <% @additions.serve_charges.each do |charge| %>
   <tr class="warning">
     <td></td>
     <td><%= charge.item.name %></td>
-    <td></td>
-    <td></td>
+    <td colspan="3"></td>
     <td><%= charge.subtotal %></td>
-    <td></td>
+    <td colspan="3"></td>
   </tr>
 <% end %>
 

@@ -1,0 +1,22 @@
+<div>
+  <span style="color: grey;">Item Price: </span>
+  <%= cart_item.bulk_price %>
+</div>
+<div>
+  <span style="color: grey;">Total Serve Price: </span>
+  <%= cart_item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+  <div class="ui popup">
+    <% cart_item.total_serve_charges.each do |charge| %>
+      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% end %>
+  </div>
+  <%= link_to 'edit', total_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+</div>
+<div>
+  <span style="color: grey;">Promote Price: </span>
+  <%= cart_item.total_promote_price %>
+</div>
+<div>
+  <span style="color: grey;">Final Price: </span>
+  <%= cart_item.estimate_price %>
+</div>
