@@ -54,13 +54,31 @@ class CartItem < ApplicationRecord
   end
 
   def serve_price
-    s = serve_charges.sum { |i| i.subtotal }
-    #t = total_serve_charges.sum { |i| i.subtotal }
-    #s + t
+    serve_charges.sum { |i| i.subtotal }
   end
 
   def bulk_price
     pure_price + serve_price
+  end
+
+  def final_price
+    self.bulk_price + self.promote.subtotal
+  end
+
+  def total_quantity
+    good.quantity.to_d * self.quantity
+  end
+
+  def total_serve_price
+    total_serve_charges.sum { |i| i.subtotal }
+  end
+
+  def total_promote_price
+    total.promote_charges.sum { |i| i.subtotal }
+  end
+
+  def estimate_price
+    bulk_price + total_serve_price + total_promote_price
   end
 
   def get_charge(serve)
@@ -95,7 +113,7 @@ class CartItem < ApplicationRecord
 
   def total_serve_charges
     charges = []
-    serve.total_charges.each do |charge|
+    total.serve_charges.each do |charge|
       cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
       if cart_item_serve
         charge.cart_item_serve = cart_item_serve
@@ -104,7 +122,7 @@ class CartItem < ApplicationRecord
       charges << charge
     end
 
-    cart_item_serves.where(scope: 'total').where.not(serve_id: serve.total_charges.map(&:serve_id)).each do |cart_item_serve|
+    cart_item_serves.where(scope: 'total').where.not(serve_id: total.serve_charges.map(&:serve_id)).each do |cart_item_serve|
       charge = self.serve.get_charge(cart_item_serve.serve)
       charge.cart_item_serve = cart_item_serve
       charge.subtotal = cart_item_serve.price
@@ -118,14 +136,6 @@ class CartItem < ApplicationRecord
     @for_sales.map do |serve|
       self.serve.get_charge(serve)
     end.compact
-  end
-
-  def final_price
-    self.bulk_price + self.promote.subtotal
-  end
-
-  def total_quantity
-    good.quantity.to_d * self.quantity
   end
 
   def same_cart_items

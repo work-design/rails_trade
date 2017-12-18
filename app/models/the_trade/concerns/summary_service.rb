@@ -50,9 +50,10 @@ class SummaryService
     @serve_charges = []
 
     QuantityServe.total.overall.each do |serve|
-      serve = serve.compute_price(total_quantity)
-      @serve_charges << serve if serve.persisted?
+      charge = serve.compute_price(total_quantity)
+      @serve_charges << charge if charge.persisted?
     end
+
     @serve_price = checked_items.sum { |cart_item| cart_item.serve_price }
   end
 

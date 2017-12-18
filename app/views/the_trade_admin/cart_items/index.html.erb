@@ -65,7 +65,7 @@
               <p><%= charge.item.name %>: <%= charge.subtotal %></p>
             <% end %>
           </div>
-          <%= link_to 'edit price', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+          <%= link_to 'edit', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
         </div>
         <div id="retail_price_<%= cart_item.id %>">
           Final Price: <%= cart_item.bulk_price %>
@@ -78,7 +78,18 @@
         </p>
       </td>
       <td>
-        <%= link_to 'edit price', total_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+        <div>Item Price: <%= cart_item.bulk_price %></div>
+        <div>
+          Total Serve Price: <%= cart_item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+          <div class="ui popup">
+            <% cart_item.total_serve_charges.each do |charge| %>
+              <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+            <% end %>
+          </div>
+          <%= link_to 'edit', total_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+        </div>
+        <div>Promote Price: <%= cart_item.total_promote_price %></div>
+        <div>Final Price: <%= cart_item.estimate_price %></div>
       </td>
       <td>
         <%= link_to 'delete', admin_cart_item_path(cart_item), method: :delete, remote: true, class: 'ui mini label' %>
