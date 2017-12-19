@@ -4,31 +4,7 @@
     Cart Item Servers
   </div>
   <div class="content">
-    <table class="ui table">
-      <thead>
-      <tr>
-        <th></th>
-        <th>Price</th>
-        <th></th>
-      </tr>
-      </thead>
-
-      <tbody id="serve_tbody">
-      <% @cart_item.serve_charges.each do |serve_charge| %>
-        <%= render partial: 'the_trade_admin/cart_item_serves/serve', locals: { serve_charge: serve_charge } %>
-      <% end %>
-      <% @cart_item.for_select_serves.each do |serve_charge| %>
-        <%= render partial: 'the_trade_admin/cart_item_serves/check', locals: { serve_charge: serve_charge } %>
-      <% end %>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td>合计</td>
-        <td id="serve_price"><%= @cart_item.serve_price %></td>
-        <td></td>
-      </tr>
-      </tfoot>
-    </table>
+    <%= render 'the_trade_admin/cart_item_serves/single_table' %>
   </div>
 </div>
 

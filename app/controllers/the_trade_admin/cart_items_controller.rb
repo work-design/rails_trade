@@ -1,11 +1,31 @@
 class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
-  before_action :current_cart, only: [:index, :create, :total]
+  before_action :current_cart, only: [:index, :create, :only, :total]
   before_action :set_cart_item, only: [:update, :destroy]
   skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(good_type: params[:good_type], good_id: params[:good_id], user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+  end
+
+  def only
+    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
+    if cart_item.present?
+      params[:quantity] ||= 0
+      cart_item.checked = true
+      cart_item.quantity = cart_item.quantity + params[:quantity].to_i
+      cart_item.save
+    else
+      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
+      cart_item.checked = true
+      cart_item.save
+    end
+    @user.cart_items.where.not(good_id: params[:good_id], good_type: params[:good_type], assistant: true).update_all(checked: false)
+
+    @checked_ids = @cart_items.checked.pluck(:id)
+    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
+
+    redirect_to action: 'index', good_type: params[:good_type], good_id: params[:good_id]
   end
 
   def create
@@ -72,23 +92,21 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def current_cart
-    if params[:user_id].present?
-      @user_id = params[:user_id]
+    if params[:good_type] && params[:good_id]
+      good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
+      if good.respond_to?(:user_id)
+        @user = User.find good.user_id
+        @buyer = @user.buyer
+        @cart_items = CartItem.where(assistant: true, good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
+        @cart_items.where(assistant: true)
+      end
+    elsif params[:user_id].present?
       @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
-      @user = User.find @user_id
+      @user = User.find params[:user_id]
       @buyer = @user.buyer
     elsif params[:buyer_id].present?
       @buyer = Buyer.find params[:buyer_id]
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
-    elsif params[:good_type] && params[:good_id]
-      good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
-      if good.respond_to?(:user_id)
-        @user_id = good.user_id
-        @user = User.find @user_id
-        @buyer = @user.buyer
-        @cart_items = CartItem.where(assistant: true, good_type: params[:good_type], good_id: params[:good_id], user_id: @user_id)
-        @cart_items.where(assistant: true)
-      end
     else
       @cart_items = CartItem.limit(0)
     end

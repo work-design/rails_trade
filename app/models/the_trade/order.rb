@@ -39,8 +39,12 @@ class Order < ApplicationRecord
     refunded: 4
   }
 
-  def migrate_from_cart_items
-    cart_items = user.cart_items.checked.where(status: 'init', assistant: self.assistant)
+  def migrate_from_cart_items(check_ids: [])
+    if check_ids.present?
+      cart_items = user.cart_items.where(id: check_ids, status: 'init', assistant: self.assistant)
+    else
+      cart_items = user.cart_items.checked.where(status: 'init', assistant: self.assistant)
+    end
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end

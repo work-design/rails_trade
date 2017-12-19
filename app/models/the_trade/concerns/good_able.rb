@@ -14,6 +14,7 @@ module GoodAble
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
+    before_save :compute_price
   end
 
   def plenty_price
@@ -30,6 +31,10 @@ module GoodAble
 
   def order_done
     puts 'Should realize in good entity'
+  end
+
+  def compute_price
+    self.price = self.import_price + self.profit_price
   end
 
   def get_cart_item(user, params = {})
@@ -70,6 +75,8 @@ end
 
 # sku
 # price
+# import_price
+# profit_price
 
 
 # t.integer  "provider_id", limit: 4
