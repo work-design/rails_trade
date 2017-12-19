@@ -6,7 +6,7 @@ $('#serve_<%= @cart_item_serve.serve_id %>').replaceWith('<%= j(render partial: 
 $('#serve_price').html('<%= @cart_item.serve_price %>')
 $('#total_serve_price').html('<%= @cart_item.total_serve_price %>')
 
-$('.ui.toggle.checkbox').checkbox({
+$('.ui.slider.checkbox').checkbox({
   onChecked: function(){
     var url = this.dataset['url'];
     var params = {

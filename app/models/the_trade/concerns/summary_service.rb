@@ -1,7 +1,7 @@
 class SummaryService
   attr_reader :checked_items, :buyer,
               :promote_charges, :promote_price,
-              :serve_charges, :serve_price
+              :serve_charges, :serve_price, :total_serve_price
   attr_accessor :bulk_price, :discount_price, :retail_price, :promote_price,
                 :total_quantity
 
@@ -55,10 +55,11 @@ class SummaryService
     end
 
     @serve_price = checked_items.sum { |cart_item| cart_item.serve_price }
+    @total_serve_price = serve_charges.sum { |i| i.subtotal }
   end
 
   def total_price
-    @total_price ||= @bulk_price + @promote_price + @serve_price
+    @total_price ||= @bulk_price + @promote_price + @total_serve_price
   end
 
 end
