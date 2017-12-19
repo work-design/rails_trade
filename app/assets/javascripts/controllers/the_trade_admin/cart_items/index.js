@@ -77,6 +77,9 @@ $('.xx_popup').popup({
 $('#user_id').dropdown({
   onChange: function(value, text, $selectedItem){
     var path = new URL(window.location.href);
+    path.searchParams.delete('good_type');
+    path.searchParams.delete('good_id');
+    console.log(path)
     path.searchParams.set('user_id', value);
     window.location.href = path;
   }
