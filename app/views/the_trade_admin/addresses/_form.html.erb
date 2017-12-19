@@ -14,7 +14,8 @@
 </div>
 <%= f.hidden_field :area_id %>
 <%= f.hidden_field :user_id %>
-<%= f.select :kind, options_for_select(Address.options_i18n(:kind)) %>
+<%= f.select :address_type, options_for_select(Address.options_i18n(:address_type)) %>
+<%= f.select :proxy_shipment, options_for_select(Address.options_i18n(:proxy_shipment)) %>
 <%= f.text_field :contact_person %>
 <%= f.text_field :tel %>
 <%= f.email_field :email %>

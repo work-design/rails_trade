@@ -6,7 +6,7 @@ class TheTradeAdmin::AddressesController < TheTradeAdmin::BaseController
   end
 
   def new
-    @address = Address.new(user_id: params[:user_id])
+    @address = Address.new(user_id: params[:user_id], kind: params[:kind], address_type: params[:address_type])
   end
 
   def create
