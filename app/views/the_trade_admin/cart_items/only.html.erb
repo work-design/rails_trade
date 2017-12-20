@@ -2,13 +2,13 @@
   <% if @user %>
     <p>
       Name: <%= @user.name %>
-      <%= link_to 'carts', user_id: @user.id %>
+      <%= link_to 'carts', admin_cart_items_path(user_id: @user.id) %>
     </p>
     <p>Email: <%= @user.email %></p>
   <% end %>
   <% if @buyer %>
     <p>Company Name: <% @buyer.name %>(<%= @buyer.id %>)
-      <%= link_to 'carts', buyer_id: @buyer.id %>
+      <%= link_to 'carts', admin_cart_items_path(buyer_id: @buyer.id) %>
     </p>
   <% end %>
 </div>
@@ -64,7 +64,7 @@
       <th colspan="5"></th>
       <th colspan="4">
         <% if @user %>
-          <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_bottom' %>
+          <%= link_to '生成订单', new_admin_order_path(cart_item_id: @cart_item.id), class: 'ui red button', id: 'new_order_bottom' %>
         <% end %>
       </th>
     </tr>

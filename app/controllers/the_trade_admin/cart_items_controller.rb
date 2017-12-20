@@ -10,7 +10,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def only
     unless params[:good_type] && params[:good_id]
-      redirect_back fallback_location: admin_cart_items_url, notice: 'Need Good type and Good ID'
+      redirect_back(fallback_location: admin_cart_items_url, notice: 'Need Good type and Good ID') and return
     end
 
     @cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
