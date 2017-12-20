@@ -5,7 +5,7 @@
 module ThePayment
 
   def unreceived_amount
-    self.amount - self.received_amount
+    self.amount.to_d - self.received_amount
   end
 
   def init_received_amount

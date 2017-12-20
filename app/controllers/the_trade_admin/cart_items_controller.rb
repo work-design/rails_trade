@@ -20,7 +20,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       cart_item.checked = true
       cart_item.save
     end
-    @user.cart_items.where.not(good_id: params[:good_id], good_type: params[:good_type], assistant: true).update_all(checked: false)
+    @user.cart_items.where(assistant: true).where.not(id: cart_item.id).update_all(checked: false)
 
     @checked_ids = @cart_items.checked.pluck(:id)
     @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
