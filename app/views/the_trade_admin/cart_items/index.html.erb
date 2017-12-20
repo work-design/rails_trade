@@ -39,7 +39,12 @@
   <% @cart_items.each do |cart_item| %>
     <tr class="<%= active_asserts join: false, active: cart_item.checked, positive: cart_item.good_id.to_s == params[:good_id] %>" id="cart_item_<%= cart_item.id %>">
       <td><%= check_box_tag(:cart_item_id, cart_item.id, cart_item.checked) %></td>
-      <td><%= cart_item.good&.name %></td>
+      <td>
+        <%= cart_item.good&.name %>
+        <%= link_to only_admin_cart_items_path(good_type: cart_item.good_type, good_id: cart_item.good_id) do %>
+          <i class="legal icon"></i>
+        <% end %>
+      </td>
       <td>
         <div>
           <%= cart_item.good.retail_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>

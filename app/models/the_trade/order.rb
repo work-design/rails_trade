@@ -39,6 +39,20 @@ class Order < ApplicationRecord
     refunded: 4
   }
 
+  def migrate_from_cart_item(cart_item_id)
+    cart_item = CartItem.find cart_item_id
+    self.user = cart_item.user
+    self.buyer = cart_item.buyer
+    self.order_items.build(cart_item_id: cart_item_id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity)
+    summary = cart_item.total
+    summary.promote_charges.each do |promote_charge|
+      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+    end
+    cart_item.total_serve_charges.each do |serve_charge|
+      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
+    end
+  end
+
   def migrate_from_cart_items
     cart_items = user.cart_items.checked.where(status: 'init', assistant: self.assistant)
     cart_items.each do |cart_item|

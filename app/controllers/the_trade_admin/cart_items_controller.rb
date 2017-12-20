@@ -9,23 +9,25 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def only
-    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
-    if cart_item.present?
-      params[:quantity] ||= 0
-      cart_item.checked = true
-      cart_item.quantity = cart_item.quantity + params[:quantity].to_i
-      cart_item.save
-    else
-      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
-      cart_item.checked = true
-      cart_item.save
+    unless params[:good_type] && params[:good_id]
+      redirect_back fallback_location: admin_cart_items_url, notice: 'Need Good type and Good ID'
     end
-    @user.cart_items.where(assistant: true).where.not(id: cart_item.id).update_all(checked: false)
 
-    @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
+    @cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
+    if @cart_item.present?
+      params[:quantity] ||= 0
+      @cart_item.checked = true
+      @cart_item.quantity = @cart_item.quantity + params[:quantity].to_i
+      @cart_item.save
+    else
+      @cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
+      @cart_item.checked = true
+      @cart_item.save
+    end
 
-    redirect_to action: 'index', good_type: params[:good_type], good_id: params[:good_id]
+    @additions = @cart_item.total
+
+    render 'only'
   end
 
   def create

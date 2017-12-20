@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :cart_items, except: [:new] do
       get :total, on: :collection
       get :doc, on: :collection
-      post :only, on: :collection
+      get :only, on: :collection
       resources :cart_item_serves do
         get :single, on: :collection
         get :total, on: :collection

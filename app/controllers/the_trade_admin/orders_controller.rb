@@ -11,8 +11,12 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
 
   def new
     @order = Order.new(user_id: params[:user_id], assistant: true)
-    @order.migrate_from_cart_items
-    @order.init_with_default_serves
+    if params[:cart_item_id]
+      @order.migrate_from_cart_item(params[:cart_item_id])
+    else
+      @order.migrate_from_cart_items
+      @order.init_with_default_serves
+    end
 
     respond_to do |format|
       format.html
