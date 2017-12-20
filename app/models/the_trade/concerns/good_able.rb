@@ -34,7 +34,7 @@ module GoodAble
   end
 
   def compute_price
-    self.price = self.import_price + self.profit_price
+    self.price = self.import_price.to_d + self.profit_price.to_d
   end
 
   def get_cart_item(user, params = {})
