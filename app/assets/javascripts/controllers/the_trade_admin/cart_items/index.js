@@ -47,11 +47,16 @@ function getCheckedIds() {
 }
 
 $('input[name="cart_item_id"]').change(function(){
-  var remind_link = new URL($('#new_order_top')[0].href);
-  $('#cart_items_doc').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
+  console.log(this);
+  window.xxxs = this;
 
   var search_path = window.location.search;
-  var total_url = '/admin/cart_items/total' + search_path + '&cart_item_ids=' + getCheckedIds();
+  var total_url;
+  if (this.checked) {
+    total_url = '/admin/cart_items/total' + search_path + '&add_id=' + this.value;
+  } else {
+    total_url = '/admin/cart_items/total' + search_path + '&remove_id=' + this.value;
+  }
   var params = {
     credentials: 'include',
     headers: {

@@ -5,7 +5,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
   end
 
   def only
@@ -63,7 +63,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     CartItem.where(id: @checked_ids).update_all(checked: true) if @checked_ids.size > 0
     CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
 
-    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
 
     response.headers['X-Request-URL'] = request.url
   end
