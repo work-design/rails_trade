@@ -1,0 +1,2 @@
+class BalancePayment < Payment
+end
