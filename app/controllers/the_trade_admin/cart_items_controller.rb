@@ -5,12 +5,19 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(good_type: params[:good_type], good_id: params[:good_id], user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
   end
 
   def only
     unless params[:good_type] && params[:good_id]
       redirect_back(fallback_location: admin_cart_items_url, notice: 'Need Good type and Good ID') and return
+    end
+
+    good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
+    if good.respond_to?(:user_id)
+      @user = User.find good.user_id
+      @buyer = @user.buyer
+      @cart_items = CartItem.where(assistant: true, good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
     end
 
     @cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
@@ -94,15 +101,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def current_cart
-    if params[:good_type] && params[:good_id]
-      good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
-      if good.respond_to?(:user_id)
-        @user = User.find good.user_id
-        @buyer = @user.buyer
-        @cart_items = CartItem.where(assistant: true, good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
-        @cart_items.where(assistant: true)
-      end
-    elsif params[:user_id].present?
+    if params[:user_id].present?
       @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
       @user = User.find params[:user_id]
       @buyer = @user.buyer

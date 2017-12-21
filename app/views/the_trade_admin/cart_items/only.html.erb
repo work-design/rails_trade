@@ -15,7 +15,7 @@
 
 <div class="ui segment top attached">
   <%= link_to '生成订单', new_admin_order_path(cart_item_id: @cart_item.id), class: 'ui red button', id: 'new_order_top' %>
-  <%= link_to '生成文档', doc_admin_cart_items_path(cart_item_ids: @cart_item.id), class: 'ui orange button', id: 'cart_items_doc' %>
+  <%= link_to '生成文档', doc_admin_cart_items_path(cart_item_id: @cart_item.id), class: 'ui orange button', id: 'cart_items_doc' %>
 </div>
 <table class="ui bottom attached table">
   <thead>
@@ -63,9 +63,8 @@
     <tr>
       <th colspan="5"></th>
       <th colspan="4">
-        <% if @user %>
-          <%= link_to '生成订单', new_admin_order_path(cart_item_id: @cart_item.id), class: 'ui red button', id: 'new_order_bottom' %>
-        <% end %>
+        <%= link_to '生成订单', new_admin_order_path(cart_item_id: @cart_item.id), class: 'ui red button', id: 'new_order_bottom' %>
+        <%= link_to '生成文档', doc_admin_cart_items_path(cart_item_id: @cart_item.id), class: 'ui orange button', id: 'cart_items_doc' %>
       </th>
     </tr>
   </tfoot>
