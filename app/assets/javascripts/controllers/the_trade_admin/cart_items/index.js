@@ -47,9 +47,6 @@ function getCheckedIds() {
 }
 
 $('input[name="cart_item_id"]').change(function(){
-  console.log(this);
-  window.xxxs = this;
-
   var search_path = window.location.search;
   var total_url;
   if (this.checked) {

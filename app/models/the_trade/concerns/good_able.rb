@@ -17,10 +17,6 @@ module GoodAble
     before_save :compute_price
   end
 
-  def plenty_price
-    self.retail_price + self.get_cart_item(user)
-  end
-
   def retail_price
     self.price.to_d + self.serve.subtotal
   end
@@ -37,11 +33,7 @@ module GoodAble
     self.price = self.import_price.to_d + self.profit_price.to_d
   end
 
-  def get_cart_item(user, params = {})
-    self.cart_items.find_or_create_by(params.merge(user: user))
-  end
-
-  def generate_order(user, params)
+  def generate_order(user, params = {})
     o = user.orders.build
     o.buyer_id = user.buyer_id
 
