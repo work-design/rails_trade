@@ -57,11 +57,13 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def total
-    @checked_ids = params[:cart_item_ids].to_s.split(',').map { |id| id.to_i }
-    @unchecked_ids = @cart_items.pluck(:id) - @checked_ids
-
-    CartItem.where(id: @checked_ids).update_all(checked: true) if @checked_ids.size > 0
-    CartItem.where(id: @unchecked_ids).update_all(checked: false) if @unchecked_ids.size > 0
+    if params[:add_id].present?
+      @add = @cart_items.find_by(id: params[:add_id])
+      @add.update(checked: true)
+    elsif params[:remove_id].present?
+      @remove = @cart_items.find_by(id: params[:remove_id])
+      @remove.update(checked: false)
+    end
 
     @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
 
