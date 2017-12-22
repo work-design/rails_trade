@@ -168,5 +168,5 @@ class CartItem < ApplicationRecord
     end
     SummaryService.new(@checked_items, buyer_id: buyer_id)
   end
-  
+
 end
