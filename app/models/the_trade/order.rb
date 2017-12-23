@@ -21,7 +21,7 @@ class Order < ApplicationRecord
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
-    self.payment_status = 'unpaid'
+    self.payment_status = slef.amount == 0 ? 'all_paid': 'unpaid'
     self.buyer_id = self.user&.buyer_id
     self.payment_strategy_id = self.buyer&.payment_strategy_id
 
