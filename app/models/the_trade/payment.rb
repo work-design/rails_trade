@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
   attribute :currency, :string, default: 'USD'
 
   belongs_to :payment_method, optional: true
-  has_many :payment_orders, dependent: :destroy, inverse_of: :payment
+  has_many :payment_orders, dependent: :destroy
   has_many :orders, through: :payment_orders
 
   default_scope -> { order(created_at: :desc) }

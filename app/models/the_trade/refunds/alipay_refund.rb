@@ -1,5 +1,5 @@
 class AlipayRefund < Refund
-  
+
   def do_refund(params = {})
     return unless can_refund?
 

@@ -11,26 +11,33 @@ class Order < ApplicationRecord
   has_many :refunds, dependent: :nullify
   has_many :order_promotes, autosave: true, inverse_of: :order
   has_many :order_serves, autosave: true
-  has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
-  has_many :pure_order_serves, -> { where(order_item_id: nil) }, class_name: 'OrderServe'
+  has_many :pure_order_promotes, -> { where(order_item_id: nil) },
+    class_name: 'OrderPromote'
+  has_many :pure_order_serves, -> { where(order_item_id: nil) },
+    class_name: 'OrderServe'
 
   accepts_nested_attributes_for :order_items
 
-  scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
+  scope :credited, -> { where(payment_strategy_id:
+           PaymentStrategy.where.not(period: 0).pluck(:id)) }
   scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
-    self.payment_status = slef.amount == 0 ? 'all_paid': 'unpaid'
+    self.payment_status = self.amount == 0 ? 'all_paid': 'unpaid'
     self.buyer_id = self.user&.buyer_id
     self.payment_strategy_id = self.buyer&.payment_strategy_id
 
-    additions = AdditionService.new(user_id: self.user_id, buyer_id: self.buyer_id)
+    additions = AdditionService.new(user_id: self.user_id,
+                                    buyer_id: self.buyer_id)
     additions.promote_charges.each do |promote_charge|
-      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+      self.order_promotes.build(promote_charge_id: promote_charge.id,
+        promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
     end
     additions.serve_charges.each do |serve_charge|
-      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
+      self.order_serves.build(serve_charge_id: serve_charge.id,
+                              serve_id:        serve_charge.serve_id,
+                              amount:          serve_charge.subtotal)
     end
   end
   before_create :sum_cache
