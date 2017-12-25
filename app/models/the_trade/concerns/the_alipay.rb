@@ -4,12 +4,6 @@ module TheAlipay
   included do
   end
 
-  def create_balnace_pay(buyer)
-    self.update payment_type: 'balance'
-    BalancePayService.pay(buyer_id: buyer.id,
-                          amount:   self.amount,
-                          order_id: self.id)
-  end
 
   def create_alipay
     self.update payment_type: 'alipay'
