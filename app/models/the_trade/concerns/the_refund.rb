@@ -7,12 +7,13 @@ module TheRefund
       payment = self.payments.first
     end
 
-    refund = Refund.find_or_initialize_by(order_id: self.id, payment_id: payment.id)
-    refund.type = payment.type.sub(/Payment/, '') + 'Refund'
+    refund =
+      Refund.find_or_initialize_by(order_id: self.id, payment_id: payment.id)
+    refund.type         = payment.type.sub(/Payment/, '') + 'Refund'
     refund.total_amount = payment.total_amount
-    refund.currency = payment.currency
+    refund.currency     = payment.currency
 
-    self.payment_status = 'refunding'
+    self.payment_status   = 'refunding'
     self.received_amount -= payment.total_amount
 
     self.class.transaction do

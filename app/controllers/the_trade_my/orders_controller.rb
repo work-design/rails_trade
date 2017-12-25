@@ -1,5 +1,7 @@
 class TheTradeMy::OrdersController < TheTradeMy::BaseController
-  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :paypal_pay,
+     :stripe_pay, :alipay_pay, :balance_pay, :paypal_execute, :update_date,
+     :refund, :destroy]
 
   def index
     @orders = current_user.orders.page(params[:page])
@@ -45,6 +47,19 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     respond_to do |format|
       format.json { render json: { result: result } }
       format.html { redirect_to @order.approve_url }
+    end
+  end
+
+  def balance_pay
+    respond_to do |format|
+      if @order.payment_status != 'all_paid'
+        result = @order.create_balance_pay(current_user)
+        format.json { render json: { result: result } }
+        format.html { redirect_to @order.approve_url }
+      else
+        format.json
+        format.html { redirect_to my_orders_url }
+      end
     end
   end
 

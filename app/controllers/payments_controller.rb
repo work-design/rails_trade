@@ -39,7 +39,6 @@ class PaymentsController < ApplicationController
   end
 
   def notify
-    binding.pry
   end
 
   def result

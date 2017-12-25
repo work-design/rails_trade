@@ -32,19 +32,21 @@ class Refund < ApplicationRecord
   end
 
   def do_refund(params = {})
-    order.payment_status = 'refunded'
+    rails "Not Impleted Method."
+    # order.payment_status = 'refunded'
 
-    self.state = 'completed'
-    self.refunded_at = Time.now
+    # self.state = 'completed'
+    # self.refunded_at = Time.now
 
-    self.class.transaction do
-      order.save!
-      self.save!
-    end
+    # self.class.transaction do
+    #   order.save!
+    #   self.save!
+    # end
   end
 
   def can_refund?
-    self.init? && ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
+    self.init? &&
+      ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
   end
 
 end
