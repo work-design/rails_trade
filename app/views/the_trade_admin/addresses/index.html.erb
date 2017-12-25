@@ -18,7 +18,7 @@
 
     <tbody>
     <% @addresses.each do |address| %>
-      <tr>
+      <tr id="address_<%= address.id %>">
         <td><%= address.kind_i18n %></td>
         <td><%= address.contact_person %></td>
         <td><%= address.tel %></td>
@@ -30,7 +30,7 @@
         <td><%= address.address %></td>
         <td><%= link_to 'Show', address_path(address) %></td>
         <td><%= link_to 'Edit', edit_admin_address_path(address), remote: true %></td>
-        <td><%= link_to 'Destroy', admin_address_path(address), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', admin_address_path(address), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>

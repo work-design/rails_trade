@@ -6,7 +6,7 @@ if ($('.ui.modals').length === 0) {
 
 $('.ui.modal').modal('setting', { autofocus: false }).modal('show');
 
-$('#nation').dropdown({
+$('#address_nation').dropdown({
   onChange: function(value, text, $selectedItem){
     var search_path = '/areas/search'
     var search_url = new URL(window.location.origin + search_path)
@@ -14,12 +14,12 @@ $('#nation').dropdown({
     fetch(search_url).then(function(response){
       return response.json();
     }).then(function(response){
-      $('#province').dropdown('clear').dropdown('setup menu', response);
+      $('#address_province').dropdown('clear').dropdown('setup menu', response);
     })
   }
 });
 
-$('#province').dropdown({
+$('#address_province').dropdown({
   onChange: function(value, text, $selectedItem){
     var search_path = '/areas/search'
     var search_url = new URL(window.location.origin + search_path)
@@ -27,12 +27,12 @@ $('#province').dropdown({
     fetch(search_url).then(function(response){
       return response.json();
     }).then(function(response){
-      $('#city').dropdown('clear').dropdown('setup menu', response);
+      $('#address_city').dropdown('clear').dropdown('setup menu', response);
     })
   }
 });
 
-$('#city').dropdown({
+$('#address_city').dropdown({
   onChange: function(value, text, $selectedItem){
     $('#address_area_id').val(value);
   }

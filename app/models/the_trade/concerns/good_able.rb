@@ -69,7 +69,7 @@ end
 # price
 # import_price
 # profit_price
-
+# advance_payment
 
 # t.integer  "provider_id", limit: 4
 # t.string   "sku",         limit: 255

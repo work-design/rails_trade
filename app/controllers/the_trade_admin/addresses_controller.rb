@@ -34,16 +34,23 @@ class TheTradeAdmin::AddressesController < TheTradeAdmin::BaseController
   end
 
   def update
-    if @address.update(address_params)
-      redirect_to admin_addresses_url(user_id: @address.user_id), notice: 'Address was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @address.update(address_params)
+        format.html { redirect_to admin_addresses_url(user_id: @address.user_id), notice: 'Address was successfully updated.' }
+        format.js
+      else
+        format.html { render :edit }
+        format.js
+      end
     end
   end
 
   def destroy
     @address.destroy
-    redirect_to admin_addresses_url(user_id: @address.user_id), notice: 'Address was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to admin_addresses_url(user_id: @address.user_id), notice: 'Address was successfully destroyed.' }
+      format.js
+    end
   end
 
   private
