@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     end
     resources :good_providers
     resources :orders do
+      patch :balance_pay, on: :member
       patch :paypal_pay, on: :member
       patch :stripe_pay, on: :member
       get :alipay_pay, on: :member
