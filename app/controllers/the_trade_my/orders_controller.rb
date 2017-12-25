@@ -53,7 +53,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   def balance_pay
     respond_to do |format|
       if @order.payment_status != 'all_paid'
-        result = @order.create_balance_pay(current_user)
+        result = @order.create_balance_pay(current_buyer)
         format.json { render json: { result: result } }
         format.html { redirect_to @order.approve_url }
       else
