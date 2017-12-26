@@ -20,7 +20,7 @@ module GoodAble
 
   def reset_payment_status
     self.payment_status =
-     self.orders.sum(:amount) == self.order.sum(:received_amount) ? true : false
+     self.orders.sum(:amount) == self.orders.sum(:received_amount) ? true : false
   end
 
   def retail_price
