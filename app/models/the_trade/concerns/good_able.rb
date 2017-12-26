@@ -14,6 +14,13 @@ module GoodAble
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
+
+    after_commit :reset_payment_status, on: [:create, :update]
+  end
+
+  def reset_payment_status
+    self.payment_status =
+     self.orders.sum(:amount) == self.order.sum(:received_amount) ? true : false
   end
 
   def retail_price
