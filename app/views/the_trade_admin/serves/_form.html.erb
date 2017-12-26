@@ -1,6 +1,7 @@
 <%= f.text_field :name %>
 <%= f.select :type, options_for_select(Serve.options_i18n(:type), @serve.type) %>
 <%= f.select :scope, options_for_select(Serve.options_i18n(:scope), @serve.scope) %>
+<%= f.text_field : %>
 <%= f.select :extra, options_for_select(ServeCharge.extra_options, @serve.extra), {}, { multiple: true } %>
 <%= f.submit %>
 

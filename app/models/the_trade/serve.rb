@@ -1,8 +1,8 @@
 class Serve < ApplicationRecord
-  include GoodAble
   attr_accessor :price
   serialize :extra, Array
 
+  belongs_to :deal, polymorphic: true
   has_many :charges, class_name: 'ServeCharge', dependent: :delete_all
 
   scope :verified, -> { where(verified: true) }

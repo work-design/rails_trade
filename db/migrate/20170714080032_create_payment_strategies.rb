@@ -50,6 +50,7 @@ class CreatePaymentStrategies < ActiveRecord::Migration[5.1]
       t.boolean :overall, default: true
       t.boolean :contain_max, default: false
       t.boolean :default, default: false
+      t.references :deal, polymorphic: true
       t.timestamps
     end
 

@@ -42,7 +42,7 @@ class Order < ApplicationRecord
   def migrate_from_cart_item(cart_item_id)
     cart_item = CartItem.find cart_item_id
     self.user = cart_item.user
-    self.buyer = cart_item.buyer
+    self.buyer = user.buyer
     self.order_items.build(cart_item_id: cart_item_id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity)
     summary = cart_item.total
     summary.promote_charges.each do |promote_charge|

@@ -14,7 +14,7 @@ module GoodAble
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
-    before_save :compute_price
+    before_save :sync_price
   end
 
   def retail_price
@@ -29,7 +29,7 @@ module GoodAble
     puts 'Should realize in good entity'
   end
 
-  def compute_price
+  def sync_price
     self.price = self.import_price.to_d + self.profit_price.to_d
   end
 
