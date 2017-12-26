@@ -52,7 +52,7 @@ module GoodAble
     end
 
     o.currency = self.currency
-    o.payment_status = 'unpaid'
+    o.payment_status = o.amount == 0 ? 'all_paid' : 'unpaid'
 
     self.class.transaction do
       o.save!
