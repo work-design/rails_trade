@@ -52,11 +52,19 @@ module GoodAble
     end
 
     o.currency = self.currency
-    o.payment_status = o.amount == 0 ? 'all_paid' : 'unpaid'
+    if o.amount == 0
+      o.payment_status = 'all_paid'
+    else
+      o.payment_status = 'unpaid'
+    end
 
     self.class.transaction do
       o.save!
       oi.save!
+      if o.amount == 0
+        o.check_state!
+        o.confirm_paid!
+      end
     end
     o
   end
