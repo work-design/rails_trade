@@ -5,6 +5,7 @@ class BalanceRefund < Refund
     order = self.order
     refunded_amount = 0
     self.class.transaction do
+      # 1. Refund to app_user_balances
       order.app_user_balance_payments
         .includes(:source, app_user_balance: [:app_user, :balance_rule])
         .each do |payment|
@@ -15,13 +16,20 @@ class BalanceRefund < Refund
         refunded_amount += payment.price
         payment.refunded!
       end
+
+      # 2. Update payments table status
+      order.payments.each do |payment|
+        payment.refunded!
+      end
+
+      # 3. Update orders
       order.update_attributes(
         received_amount: order.received_amount - refunded_amount,
         payment_status: :refunded)
 
       self.update_attributes(
                 operator_id: params[:operator_id],
-                state: 'completed',
+                state:       'completed',
                 refunded_at: Time.now)
     end
   rescue Exception => e
