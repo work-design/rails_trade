@@ -24,6 +24,7 @@
       <th>Scope</th>
       <th>Verified</th>
       <th>Status</th>
+      <th>Deal</th>
       <th>Use Extra</th>
       <th colspan="3"></th>
     </tr>
@@ -62,6 +63,9 @@
             <%= check_box_tag :default, 1, serve.default, onChange: 'this.form.submit()' %>
           </span>
           <% end %>
+        </td>
+        <td>
+          <%= serve.deal_type %>: <%= serve.deal_id %>
         </td>
         <td>
           <% serve.extra.each do |e| %>

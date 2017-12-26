@@ -5,6 +5,7 @@ class OrderItem < ApplicationRecord
   belongs_to :provider, optional: true
   has_many :order_promotes, autosave: true
   has_many :order_serves, autosave: true
+  has_many :serves, through: :order_serves
 
   composed_of :promote,
               class_name: 'PromoteFee',
