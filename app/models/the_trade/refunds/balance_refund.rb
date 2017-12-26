@@ -19,7 +19,7 @@ class BalanceRefund < Refund
 
       # 2. Update payments table status
       order.payments.each do |payment|
-        payment.refunded!
+        payment.pay_status = 'REFUNDED'
       end
 
       # 3. Update orders
