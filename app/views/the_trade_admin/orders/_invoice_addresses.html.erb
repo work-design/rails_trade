@@ -9,7 +9,7 @@
   </thead>
   <tbody id="invoice_addresses_tbody">
   <% addresses.each do |address| %>
-    <tr>
+    <tr id="address_<%= address.id %>">
       <td>
         <div class="ui radio checkbox">
           <%= radio_button_tag :'order[invoice_address_id]', address.id, @order.address_id == address.id, form: 'new_order' %><label></label>
