@@ -150,7 +150,7 @@ class CartItem < ApplicationRecord
     query = {
       good_type: self.good_type,
       good_id: self.good_id,
-      status: self.status,
+      status: 'init'
     }
     if self.user_id
       query.merge! user_id: self.user_id
@@ -158,7 +158,7 @@ class CartItem < ApplicationRecord
       return self.class.limit(0)
     end
 
-    self.class.where(query)
+    self.class.where(query).where.not(id: self.id)
   end
 
   def total
