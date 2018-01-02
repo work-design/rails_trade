@@ -27,6 +27,7 @@ class TheTradeAdmin::CartItemServesController < TheTradeAdmin::BaseController
 
     respond_to do |format|
       if @cart_item_serve.save
+        @cart_item.cart_item_serves.reload
         format.js
         format.html { redirect_to @cart_item_serve, notice: 'Taxon item was successfully created.' }
       else
