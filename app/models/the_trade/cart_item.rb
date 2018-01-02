@@ -146,6 +146,21 @@ class CartItem < ApplicationRecord
     end
   end
 
+  def repeat_cart_item
+    query = {
+      good_type: self.good_type,
+      good_id: self.good_id,
+      status: self.status,
+    }
+    if self.user_id
+      query.merge! user_id: self.user_id
+    else
+      return self.class.limit(0)
+    end
+
+    self.class.where(query)
+  end
+
   def total
     relation = CartItem.where(id: self.id)
     SummaryService.new(relation, buyer_id: self.buyer_id)
