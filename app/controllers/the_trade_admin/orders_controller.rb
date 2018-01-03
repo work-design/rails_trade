@@ -15,7 +15,6 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
       @order.migrate_from_cart_item(params[:cart_item_id])
     else
       @order.migrate_from_cart_items
-      @order.init_with_default_serves
     end
 
     respond_to do |format|

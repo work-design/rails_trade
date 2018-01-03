@@ -58,6 +58,7 @@ class Order < ApplicationRecord
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
+    init_with_default_serves
   end
 
   def init_with_default_serves
