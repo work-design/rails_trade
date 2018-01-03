@@ -37,15 +37,6 @@ function update_quantity(cart_item_id){
   })
 }
 
-function getCheckedIds() {
-  var ids = [];
-  $('input[name="cart_item_id"]:checked').each(function(){
-    ids.push($(this).val())
-  });
-  ids = ids.join(',');
-  return ids
-}
-
 $('input[name="cart_item_id"]').change(function(){
   var search_path = window.location.search;
   var total_url;

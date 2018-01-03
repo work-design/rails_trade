@@ -37,20 +37,13 @@ function update_quantity(cart_item_id){
   })
 }
 
-function getCheckedIds() {
-  var ids = [];
-  $('input[name="cart_item_id"]:checked').each(function(){
-    ids.push($(this).val())
-  });
-  ids = ids.join(',');
-  return ids
-}
-
 $('input[name="cart_item_id"]').change(function(){
-  var remind_link = new URL($('#new_order')[0].href);
-  $('#new_order').attr('href', remind_link.pathname + '?cart_item_ids=' + getCheckedIds());
-
-  var total_url = '/my/cart_items/total' + '?cart_item_ids=' + getCheckedIds();
+  var total_url;
+  if (this.checked) {
+    total_url = '/my/cart_items/total' + '?add_id=' + this.value;
+  } else {
+    total_url = '/my/cart_items/total' + '?remove_id=' + this.value;
+  }
   var params = {
     credentials: 'include',
     headers: {

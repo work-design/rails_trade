@@ -1,11 +1,11 @@
 $('#additions_body').html('<%= j(render partial: 'additions') %>');
 $('#total_price').html('<%= j(render partial: 'total_price') %>');
 
-<% @checked_ids.each do |checked_id| %>
-  $("#cart_item_<%= checked_id %>").addClass('active');
+<% if params[:add_id].present? %>
+  $("#cart_item_<%= params[:add_id] %>").addClass('active');
 <% end %>
 
-<% @unchecked_ids.each do |unchecked_id| %>
-  $("#cart_item_<%= unchecked_id %>").removeClass('active');
+<% if params[:remove_id].present? %>
+  $("#cart_item_<%= params[:remove_id] %>").removeClass('active');
 <% end %>
 
