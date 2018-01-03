@@ -1,5 +1,5 @@
 class CartItemServe < ApplicationRecord
-  belongs_to :cart_item
+  belongs_to :cart_item, touch: true
   belongs_to :serve
 
   validates :serve_id, uniqueness: { scope: [:cart_item_id] }

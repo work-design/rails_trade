@@ -113,7 +113,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.limit(0)
     end
-    @cart_items = @cart_items.init
+    @cart_items = @cart_items.init.page(params[:page]).per(5)
   end
 
 
