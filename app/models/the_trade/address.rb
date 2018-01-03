@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  belongs_to :buyer, optional: true
+  belongs_to :buyer, class_name: '::Buyer', optional: true
   belongs_to :user, optional: true
   belongs_to :area, optional: true
 
