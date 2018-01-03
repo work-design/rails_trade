@@ -21,8 +21,9 @@ class BalanceRefund < Refund
         end
 
         balance.update_attributes(
-          price: (balance.price + available_refund_amount),
-          status: 'usable')
+          price:          (balance.price + available_refund_amount),
+          payment_status: false,
+          status:         'usable')
 
         refunded_amount += payment.price
         payment.refunded!
