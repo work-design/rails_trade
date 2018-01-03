@@ -12,10 +12,11 @@ class WxpayRefund < Refund
   # https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_4
   def invoke_refund
     params = {
-      out_refund_no: self.refund_uuid, # 商户系统内部的退款单号，商户系统内部唯一，同一退款单号多次请求只退一笔
+      # 商户系统内部的退款单号，商户系统内部唯一，同一退款单号多次请求只退一笔
+      out_refund_no: self.refund_uuid,
       # out_trade_no: out_trade_no, # 与transaction_id 二选一
       total_fee: (refunded_payment.total_amount * 100).to_i,
-      refund_fee: (amount * 100).to_i,
+      refund_fee: (refund_price * 100).to_i,
       transaction_id: transaction_id
     }
 

@@ -7,7 +7,7 @@ class PaypalRefund < Refund
 
     params = params.merge({
       amount: {
-        total: self.total_amount.to_s(:rounded, precision: 2),
+        total: self.refund_price.to_s(:rounded, precision: 2),
         currency: self.currency.upcase
       }
     })
