@@ -11,7 +11,6 @@ class AlipayRefund < Refund
 
     refund_res = Alipay::Service.trade_refund(refund_params)
 
-    order.payment_status = 'refunded'
     self.operator_id = params[:operator_id]
 
     refund = JSON.parse(refund_res).fetch('alipay_trade_refund_response', {})
@@ -21,11 +20,14 @@ class AlipayRefund < Refund
       self.state = 'completed'
       self.refunded_at = Time.now
       self.class.transaction do
+        order.refunded!
         order.save!
         self.save!
       end
     else
-      self.update reason: 'failed'
+      self.update reason: "code: #{refund['code']}. " +
+                          "msg:  #{refund['msg']}"
+      Rails.logger.debug refund
     end
     refund
   end

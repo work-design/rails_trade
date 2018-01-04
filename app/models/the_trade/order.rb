@@ -85,4 +85,8 @@ class Order < ApplicationRecord
     end
   end
 
+  def refund_failed_reasons
+    self.refunds.pluck(:reason).join(" ")
+  end
+
 end
