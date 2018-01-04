@@ -29,7 +29,7 @@ class ServeFee
 
   def get_charge(serve)
     if serve.is_a? QuantityServe
-      charge = serve.compute_price(good.quantity * number, extra)
+      charge = serve.compute_price(good.unified_quantity * number, extra)
     elsif serve.is_a? NumberServe
       charge = serve.compute_price(number, extra)
     else

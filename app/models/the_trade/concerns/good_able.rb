@@ -9,12 +9,16 @@ module GoodAble
     composed_of :serve,
                 class_name: 'ServeFee',
                 mapping: ['id', 'good_id'],
-                constructor: Proc.new { |id| ServeFee.new(self.name, id) }
+                constructor: Proc.new { |id| ServeFee.new(self.name, id, 1, nil, self.extra) }
     composed_of :promote,
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
     before_save :sync_price
+
+    def self.extra
+      {}
+    end
   end
 
   def retail_price

@@ -37,6 +37,7 @@ class CartItem < ApplicationRecord
     good.price.to_d * quantity
   end
 
+  # 零售价
   def retail_price
     self.good.retail_price * self.quantity
   end
@@ -53,10 +54,12 @@ class CartItem < ApplicationRecord
     self.promote.subtotal
   end
 
+  # 附加服务价格汇总
   def serve_price
     serve_charges.sum { |i| i.subtotal }
   end
 
+  # 批发价
   def bulk_price
     pure_price + serve_price
   end
@@ -66,7 +69,7 @@ class CartItem < ApplicationRecord
   end
 
   def total_quantity
-    good.quantity.to_d * self.quantity
+    good.unified_quantity.to_d * self.quantity
   end
 
   def total_serve_price
