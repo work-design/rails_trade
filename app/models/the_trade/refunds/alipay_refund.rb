@@ -4,8 +4,8 @@ class AlipayRefund < Refund
     return unless can_refund?
 
     refund_params = {
-      out_trade_no: self.order.uuid,
-      refund_amount: self.refund_price.to_s,
+      out_trade_no:   self.order.uuid,
+      refund_amount:  self.order.refund_price.to_s,
       out_request_no: self.refund_uuid
     }
 
