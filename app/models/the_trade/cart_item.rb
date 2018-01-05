@@ -20,7 +20,7 @@ class CartItem < ApplicationRecord
   composed_of :serve,
               class_name: 'ServeFee',
               mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']],
-              constructor: Proc.new { |type, id, num, buyer| ServeFee.new(type, id, num, buyer) }
+              constructor: Proc.new { |type, id, num, buyer| ServeFee.new(type, id, num, buyer, self.extra) }
 
   composed_of :promote,
               class_name: 'PromoteFee',
@@ -169,7 +169,7 @@ class CartItem < ApplicationRecord
     SummaryService.new(relation, buyer_id: self.buyer_id)
   end
 
-  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: false)
+  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: false, extra: nil)
     if user_id
       @checked_items = CartItem.where(user_id: user_id, assistant: assistant).init.checked
       buyer_id = User.find(user_id).buyer_id
@@ -184,7 +184,11 @@ class CartItem < ApplicationRecord
       @checked_items = CartItem.limit(0)
       puts "-----> Checked None!"
     end
-    SummaryService.new(@checked_items, buyer_id: buyer_id)
+    SummaryService.new(@checked_items, buyer_id: buyer_id, extra: extra)
+  end
+
+  def self.extra
+    {}
   end
 
 end

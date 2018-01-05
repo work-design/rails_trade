@@ -1,13 +1,14 @@
 class SummaryService
-  attr_reader :checked_items, :buyer,
+  attr_reader :checked_items, :buyer, :extra,
               :promote_charges, :promote_price,
               :serve_charges, :serve_price, :total_serve_price
   attr_accessor :bulk_price, :discount_price, :retail_price, :promote_price,
                 :total_quantity
 
-    def initialize(_checked_items, buyer_id: nil)
+    def initialize(_checked_items, buyer_id: nil, extra: nil)
     @checked_items = _checked_items
     @buyer = Buyer.find(buyer_id) if buyer_id
+    @extra = extra
     compute_total
     compute_promote
     compute_serve
@@ -50,7 +51,7 @@ class SummaryService
     @serve_charges = []
 
     QuantityServe.total.overall.each do |serve|
-      charge = serve.compute_price(total_quantity)
+      charge = serve.compute_price(total_quantity, extra)
       @serve_charges << charge if charge.persisted?
     end
 
