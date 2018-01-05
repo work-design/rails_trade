@@ -3,7 +3,10 @@ class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
   before_action :set_charge, only: [:edit, :update, :destroy]
 
   def index
-    @charges = @serve.charges.default_where(type: params[:type], 'min-gte': params[:min], 'max-lte': params[:max])
+    extra_params = params.fetch(:q, {}).permit(ServeCharge.extra_columns)
+    value_params = params.fetch(:q, {}).permit(:value)
+    extra_params.merge! 'min-lte': value_params[:value], 'max-gte': value_params[:value]
+    @charges = @serve.charges.default_where(extra_params)
     @charges = @charges.order(min: :asc).page(params[:page]).per(20)
   end
 

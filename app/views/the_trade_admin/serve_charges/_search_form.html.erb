@@ -1,8 +1,9 @@
 <%= search_form_with css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
   <div class="fields">
-    <%= f.text_field :buyer_name, placeholder: 'Account Name' %>
-    <%= f.text_field :buyer_identifier, placeholder: 'Account Num' %>
-    <%= f.text_field :buyer_bank, placeholder: 'Buyer Bank' %>
+    <%= f.text_field :value, placeholder: 'Value' %>
+    <% ServeCharge.extra_columns.each do |extra| %>
+      <%= f.text_field extra, placeholder: extra %>
+    <% end %>
     <%= f.submit 'Search' %>
   </div>
 <% end %>
