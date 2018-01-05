@@ -3,8 +3,10 @@ class StripeRefund < Refund
   def do_refund(params = {})
     return unless can_refund?
 
-    refund = Stripe::Refund.create(charge: payment.payment_uuid,
-                                   amount: (self.refund_price * 100).to_i)
+    refund = Stripe::Refund.create(
+                              charge: payment.payment_uuid,
+                              amount: (order.refund_price * 100).to_i
+                             )
 
     order.payment_status = 'refunded'
 
