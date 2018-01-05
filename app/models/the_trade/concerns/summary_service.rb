@@ -5,7 +5,7 @@ class SummaryService
   attr_accessor :bulk_price, :discount_price, :retail_price, :promote_price,
                 :total_quantity
 
-    def initialize(_checked_items, buyer_id: nil, extra: nil)
+    def initialize(_checked_items, buyer_id: nil, extra: {})
     @checked_items = _checked_items
     @buyer = Buyer.find(buyer_id) if buyer_id
     @extra = extra
