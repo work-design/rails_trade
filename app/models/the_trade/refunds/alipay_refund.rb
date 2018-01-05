@@ -5,11 +5,13 @@ class AlipayRefund < Refund
 
     refund_params = {
       out_trade_no:   self.order.uuid,
-      refund_amount:  self.order.received_amount.to_s,
+      refund_amount:  self.order.refund_price.to_s,
       out_request_no: self.refund_uuid
     }
 
+    Rails.logger.debug refund_params
     refund_res = Alipay::Service.trade_refund(refund_params)
+    Rails.logger.debug refund_res
 
     self.operator_id = params[:operator_id]
 
