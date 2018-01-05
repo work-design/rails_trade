@@ -169,7 +169,7 @@ class CartItem < ApplicationRecord
     SummaryService.new(relation, buyer_id: self.buyer_id)
   end
 
-  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: false, extra: nil)
+  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: false, extra: {})
     if user_id
       @checked_items = CartItem.where(user_id: user_id, assistant: assistant).init.checked
       buyer_id = User.find(user_id).buyer_id
