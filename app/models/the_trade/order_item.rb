@@ -6,6 +6,8 @@ class OrderItem < ApplicationRecord
   has_many :order_promotes, autosave: true
   has_many :order_serves, autosave: true
 
+  validates_presence_of :good_type, :good_id
+
   composed_of :promote,
               class_name: 'PromoteFee',
               mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
