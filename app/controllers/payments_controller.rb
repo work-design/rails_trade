@@ -7,7 +7,7 @@ class PaymentsController < ApplicationController
     notify_params = alipay_params.except(*request.path_parameters.keys).to_h
 
     @order = Order.find_by(uuid: params[:out_trade_no])
-    render plain: 'success' and return if @order.all_paid?
+    render plain: 'success' and return unless @order.unpaid?
 
     result = nil
 
