@@ -111,7 +111,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @buyer = Buyer.find params[:buyer_id]
       @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
     else
-      @cart_items = CartItem.limit(0)
+      @cart_items = CartItem.none
     end
     @cart_items = @cart_items.init.page(params[:page]).per(5)
   end
