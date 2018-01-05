@@ -21,6 +21,10 @@ module GoodAble
     end
   end
 
+  def extra
+    {}
+  end
+
   def retail_price
     self.price.to_d + self.serve.subtotal
   end
