@@ -4,11 +4,14 @@ class BalanceRefund < Refund
 
     order = self.order
     refunded_amount = 0
-    # self.class.transaction do
+    self.class.transaction do
       # 1. Refund to app_user_balances
        # .includes(:source, app_user_balance: [:app_user, :balance_rule])
       order.app_user_balance_payments.each do |payment|
         balance = payment.app_user_balance
+        raise ActiveRecord::Rollback,
+          "Your balance are refunding, please try later." if balance.pending?
+
         available_refund_amount = order.refund_price - refunded_amount
 
         if available_refund_amount >= payment.price
@@ -43,7 +46,7 @@ class BalanceRefund < Refund
                 operator_id: params[:operator_id],
                 state:       'completed',
                 refunded_at: Time.now)
-    # end
+    end
   rescue Exception => e
     Rails.logger.fatal e.inspect
     self.update reason: 'failed'
