@@ -21,9 +21,13 @@ class BalanceRefund < Refund
         if available_refund_amount < 0
           available_refund_amount = 0
         end
-
+        balance_price = if balance.usable?
+                          balance.price + available_refund_amount
+                        else
+                          available_refund_amount
+                        end
         balance.update_attributes(
-          price:          (balance.price + available_refund_amount),
+          price:          balance_price,
           status:         'usable')
 
         refunded_amount += available_refund_amount
