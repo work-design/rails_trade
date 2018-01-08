@@ -22,6 +22,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.column :state, :integer, limit: 4, default: 0
       t.string :comment
       t.references :payment_method
+      t.references :creator
       t.timestamps
     end
 
