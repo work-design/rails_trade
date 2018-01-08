@@ -25,10 +25,10 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.references :cart_item
       t.references :good, polymorphic: true
       t.integer :quantity
-      t.decimal :amount, precision: 10, scale: 2
       t.decimal :pure_price, precision: 10, scale: 2
       t.decimal :promote_sum, precision: 10, scale: 2
       t.decimal :serve_sum, precision: 10, scale: 2
+      t.decimal :amount, precision: 10, scale: 2
       t.timestamps
     end
 

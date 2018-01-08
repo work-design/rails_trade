@@ -28,7 +28,6 @@ class Order < ApplicationRecord
     self.payment_strategy_id = self.buyer&.payment_strategy_id
   end
 
-  before_create :sum_cache
   after_create_commit :confirm_ordered!
 
   enum payment_status: {
@@ -51,6 +50,8 @@ class Order < ApplicationRecord
     cart_item.total_serve_charges.each do |serve_charge|
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
+    self.pure_serve_sum = self.order_serves.sum { |o| o.amount }
+    self.pure_promote_sum = self.order_promotes.sum { |o| o.amount }
   end
 
   def migrate_from_cart_items
@@ -59,6 +60,8 @@ class Order < ApplicationRecord
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
     init_with_default_serves
+    self.subtotal = self.order_items.sum { |o| o.amount }
+    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
   end
 
   def init_with_default_serves
@@ -69,25 +72,18 @@ class Order < ApplicationRecord
     additions.serve_charges.each do |serve_charge|
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
+    self.pure_serve_sum = self.order_serves.sum { |o| o.amount }
+    self.pure_promote_sum = self.order_promotes.sum { |o| o.amount }
   end
 
   def promote_amount
     order_promotes.sum(:amount)
   end
 
-  def sum_cache
-    self.pure_serve_sum = self.order_serves.sum { |o| o.amount }
-    self.pure_promote_sum = self.order_promotes.sum { |o| o.amount }
-    self.subtotal = self.order_items.sum { |o| o.amount }
-    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
-    self.order_items.each do |order_item|
-      order_item.sum_cache
-    end
-  end
-
   def sum_items_cache
     self.serve_sum = self.order_serves.sum { |o| o.amount }
     self.promote_sum = self.order_promotes.sum { |o| o.amount }
+    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
     self.save
   end
 

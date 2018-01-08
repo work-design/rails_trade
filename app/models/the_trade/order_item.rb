@@ -19,8 +19,8 @@ class OrderItem < ApplicationRecord
       self.good_type = cart_item.good_type
       self.good_id = cart_item.good_id
       self.number = cart_item.quantity
-      self.amount = cart_item.bulk_price
       self.pure_price = cart_item.pure_price
+      self.amount = cart_item.bulk_price
       self.advance_payment = self.good.advance_payment
       #self.provider = cart_item.good.provider
 
@@ -32,14 +32,11 @@ class OrderItem < ApplicationRecord
         op = self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
         op.order = self.order
       end
+      self.serve_sum = self.order_serves.sum { |os| os.amount }
+      self.promote_sum = self.order_promotes.sum { |op| op.amount }
 
       cart_item.status = 'ordered'
     end
-  end
-
-  def sum_cache
-    self.serve_sum = self.order_serves.sum { |os| os.amount }
-    self.promote_sum = self.order_promotes.sum { |op| op.amount }
   end
 
   def confirm_ordered!
