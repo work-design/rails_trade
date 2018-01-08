@@ -64,10 +64,18 @@
           <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="plus icon"></i></div>
         </div>
       </td>
-      <td id="retail_price_<%= cart_item.id %>"><%= render partial: 'retail_price', locals: { cart_item: cart_item } %></td>
-      <td id="single_price_<%= cart_item.id %>"><%= render partial: 'single_price', locals: { cart_item: cart_item } %></td>
+      <td id="retail_price_<%= cart_item.id %>">
+        <% cache [cart_item, 'retail_price'] do %>
+          <%= render partial: 'retail_price', locals: { cart_item: cart_item } %>
+        <% end %>
+      </td>
+      <td id="single_price_<%= cart_item.id %>">
+        <% cache [cart_item, 'single_price'] do %>
+          <%= render partial: 'single_price', locals: { cart_item: cart_item } %>
+        <% end %>
+      </td>
       <td id="order_price_<%= cart_item.id %>">
-        <% cache cart_item do %>
+        <% cache [cart_item, 'order_price'] do %>
           <%= render partial: 'order_price', locals: { cart_item: cart_item } %>
         <% end %>
       </td>
@@ -99,3 +107,4 @@
   </tfoot>
 </table>
 
+<%= paginate @cart_items %>
