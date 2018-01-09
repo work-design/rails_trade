@@ -1,10 +1,10 @@
 <div>
   <span style="color: grey;">Item Price: </span>
-  <%= cart_item.bulk_price %>
+  <%= cart_item.final_price %>
 </div>
 <div>
   <span style="color: grey;">Total Serve Price: </span>
-  <%= cart_item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+  <%= cart_item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
     <% cart_item.total_serve_charges.each do |charge| %>
       <p><%= charge.item.name %>: <%= charge.subtotal %></p>
@@ -14,7 +14,12 @@
 </div>
 <div>
   <span style="color: grey;">Promote Price: </span>
-  <%= cart_item.total_promote_price %>
+  <%= cart_item.total_promote_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <div class="ui popup">
+    <% cart_item.total.promote_charges.each do |charge| %>
+      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% end %>
+  </div>
 </div>
 <div>
   <span style="color: grey;">Final Price: </span>

@@ -2,7 +2,7 @@ class SummaryService
   attr_reader :checked_items, :buyer, :extra,
               :promote_charges, :promote_price,
               :serve_charges, :serve_price, :total_serve_price
-  attr_accessor :bulk_price, :discount_price, :retail_price, :promote_price,
+  attr_accessor :bulk_price, :final_price, :discount_price, :retail_price, :reduced_price,
                 :total_quantity
 
     def initialize(_checked_items, buyer_id: nil, extra: {})
@@ -20,9 +20,10 @@ class SummaryService
 
   def compute_total
     compute_price
-    self.promote_price = checked_items.sum { |cart_item| cart_item.promote_price }
+    self.reduced_price = checked_items.sum { |cart_item| cart_item.reduced_price }
     self.discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
     self.retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
+    self.final_price = checked_items.sum { |cart_item| cart_item.final_price }
     self.total_quantity = checked_items.sum { |cart_item| cart_item.total_quantity }
   end
 
@@ -60,7 +61,7 @@ class SummaryService
   end
 
   def total_price
-    @total_price ||= @bulk_price + @promote_price + @total_serve_price
+    @total_price ||= @bulk_price + @reduced_price + @promote_price + @total_serve_price
   end
 
 end

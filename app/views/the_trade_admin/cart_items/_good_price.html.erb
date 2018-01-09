@@ -1,0 +1,10 @@
+<div>
+  <%= cart_item.good.final_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <div class="ui popup">
+    <p>Export price: <%= cart_item.good.price %></p>
+    <% cart_item.good.serve.charges.each do |charge| %>
+      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% end %>
+  </div>
+</div>
+<p><%= cart_item.good&.quantity %><%= cart_item.good&.unit %></p>

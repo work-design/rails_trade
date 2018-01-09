@@ -4,7 +4,7 @@
 </div>
 <div>
   <span style="color: grey;">Serve Price: </span>
-  <%= cart_item.serve_price %><i class="info circle icon xx_popup" style="color: grey;" data-content=""></i>
+  <%= cart_item.serve_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
     <% cart_item.serve_charges.each do |charge| %>
       <p><%= charge.item.name %>: <%= charge.subtotal %></p>
@@ -13,6 +13,16 @@
   <%= link_to 'edit', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
 </div>
 <div>
+  <span style="color: grey;">Promote Price: </span>
+  <span style="color: red;"><%= cart_item.reduced_price %></span>
+  <i class="info circle icon xx_popup" style="color: grey;"></i>
+  <div class="ui popup">
+    <% cart_item.promote.charges.each do |charge| %>
+      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% end %>
+  </div>
+</div>
+<div>
   <span style="color: grey;">Final Price: </span>
-  <span><%= cart_item.bulk_price %></span>
+  <span><%= cart_item.final_price %></span>
 </div>

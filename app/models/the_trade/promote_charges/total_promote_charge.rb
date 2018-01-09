@@ -1,7 +1,7 @@
 class TotalPromoteCharge < PromoteCharge
 
   def final_price(amount = nil)
-    price
+    price.round(2)
   end
 
 end
