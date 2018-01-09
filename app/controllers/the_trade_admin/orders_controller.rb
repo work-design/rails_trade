@@ -61,6 +61,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   def order_params
     params.fetch(:order, {}).permit(:user_id, :quantity, :payment_id, :payment_type,
                                     :address_id, :invoice_address_id,
+                                    :amount,
                                     order_items_attributes: [:cart_item_id, :deliver_on, :advance_payment, :comment],
                                     order_serves_attributes: [:serve_id, :serve_charge_id, :amount],
                                     order_promotes_attributes: [:promote_id, :promote_charge_id, :amount])

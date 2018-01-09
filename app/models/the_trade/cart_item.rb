@@ -33,6 +33,10 @@ class CartItem < ApplicationRecord
     self.quantity = 1 if self.quantity.to_i < 1
   end
 
+  def total_quantity
+    good.unified_quantity.to_d * self.quantity
+  end
+
   # 零售价
   def retail_price
     self.good.retail_price * self.quantity
@@ -68,10 +72,6 @@ class CartItem < ApplicationRecord
 
   def final_price
     self.bulk_price + self.reduced_price
-  end
-
-  def total_quantity
-    good.unified_quantity.to_d * self.quantity
   end
 
   def total_serve_price
@@ -134,6 +134,10 @@ class CartItem < ApplicationRecord
       charges << charge
     end
     charges
+  end
+
+  def total_promote_charges
+    total.promote_charges
   end
 
   def for_select_serves

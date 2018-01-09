@@ -26,6 +26,8 @@ class Order < ApplicationRecord
     self.payment_status = 'unpaid'
     self.buyer_id = self.user&.buyer_id
     self.payment_strategy_id = self.buyer&.payment_strategy_id
+
+    compute_sum
   end
 
   after_create_commit :confirm_ordered!
@@ -43,15 +45,14 @@ class Order < ApplicationRecord
     self.user = cart_item.user
     self.buyer = user.buyer
     self.order_items.build(cart_item_id: cart_item_id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity)
-    summary = cart_item.total
-    summary.promote_charges.each do |promote_charge|
-      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
-    end
+
     cart_item.total_serve_charges.each do |serve_charge|
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
-    self.pure_serve_sum = self.order_serves.sum { |o| o.amount }
-    self.pure_promote_sum = self.order_promotes.sum { |o| o.amount }
+    cart_item.total_promote_charges.each do |promote_charge|
+      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+    end
+    compute_sum
   end
 
   def migrate_from_cart_items
@@ -60,31 +61,33 @@ class Order < ApplicationRecord
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
     init_with_default_serves
-    self.subtotal = self.order_items.sum { |o| o.amount }
-    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
+    compute_sum
   end
 
   def init_with_default_serves
-    additions = CartItem.checked_items(user_id: self.user_id, buyer_id: self.buyer_id, assistant: self.assistant)
-    additions.promote_charges.each do |promote_charge|
+    summary = CartItem.checked_items(user_id: self.user_id, buyer_id: self.buyer_id, assistant: self.assistant)
+
+    summary.promote_charges.each do |promote_charge|
       self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
     end
-    additions.serve_charges.each do |serve_charge|
+    summary.serve_charges.each do |serve_charge|
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
+  end
+
+  def compute_sum
     self.pure_serve_sum = self.order_serves.sum { |o| o.amount }
     self.pure_promote_sum = self.order_promotes.sum { |o| o.amount }
+    self.subtotal = self.order_items.sum { |o| o.amount }
+    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
   end
 
   def promote_amount
     order_promotes.sum(:amount)
   end
 
-  def sum_items_cache
-    self.serve_sum = self.order_serves.sum { |o| o.amount }
-    self.promote_sum = self.order_promotes.sum { |o| o.amount }
-    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
-    self.save
+  def serve_amount
+    serve_promotes.sum(:amount)
   end
 
   def confirm_ordered!

@@ -20,7 +20,7 @@ class OrderItem < ApplicationRecord
       self.good_id = cart_item.good_id
       self.number = cart_item.quantity
       self.pure_price = cart_item.pure_price
-      self.amount = cart_item.bulk_price
+      self.amount = cart_item.final_price
       self.advance_payment = self.good.advance_payment
       #self.provider = cart_item.good.provider
 
