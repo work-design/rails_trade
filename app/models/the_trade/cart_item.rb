@@ -164,7 +164,7 @@ class CartItem < ApplicationRecord
     if self.user_id
       query.merge! user_id: self.user_id
     else
-      return self.class.limit(0)
+      return self.class.none
     end
 
     self.class.where(query).where.not(id: self.id)
@@ -187,7 +187,7 @@ class CartItem < ApplicationRecord
       @checked_items = CartItem.where(session_id: session_id, assistant: assistant).init.checked
       puts "-----> Checked Session: #{session_id}"
     else
-      @checked_items = CartItem.limit(0)
+      @checked_items = CartItem.none
       puts "-----> Checked None!"
     end
     SummaryService.new(@checked_items, buyer_id: buyer_id, extra: extra)

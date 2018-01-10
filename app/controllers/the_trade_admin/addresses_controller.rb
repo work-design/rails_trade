@@ -60,7 +60,7 @@ class TheTradeAdmin::AddressesController < TheTradeAdmin::BaseController
     elsif params[:buyer_id]
       @addresses = Address.includes(:area).where(buyer_id: params[:buyer_id])
     else
-      @addresses = Address.limit(0)
+      @addresses = Address.none
     end
   end
 
