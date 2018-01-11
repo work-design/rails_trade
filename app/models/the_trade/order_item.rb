@@ -41,7 +41,6 @@ class OrderItem < ApplicationRecord
 
   def confirm_ordered!
     self.good.order_done
-    self.cart_item.repeat_cart_item.update_all(status: 'ordered')
   end
 
   def confirm_paid!

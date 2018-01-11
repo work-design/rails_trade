@@ -1,0 +1,9 @@
+<p>
+  <span>Good Type:</span>
+  <%= link_to 'All', filter_params(except: [:good_type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <% CartItem.good_types.each do |good_type| %>
+    <%= link_to good_type, filter_params(good_type: good_type), class: active_params(type: good_type, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <% end %>
+</p>
+
+

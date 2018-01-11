@@ -155,36 +155,21 @@ class CartItem < ApplicationRecord
     end
   end
 
-  def repeat_cart_item
-    query = {
-      good_type: self.good_type,
-      good_id: self.good_id,
-      status: 'init'
-    }
-    if self.user_id
-      query.merge! user_id: self.user_id
-    else
-      return self.class.none
-    end
-
-    self.class.where(query).where.not(id: self.id)
-  end
-
   def total
     relation = CartItem.where(id: self.id)
     SummaryService.new(relation, buyer_id: self.buyer_id)
   end
 
-  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: false, extra: {})
+  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, assistant: nil, extra: {})
     if user_id
-      @checked_items = CartItem.where(user_id: user_id, assistant: assistant).init.checked
+      @checked_items = CartItem.default_where(user_id: user_id, assistant: assistant).init.checked
       buyer_id = User.find(user_id).buyer_id
       puts "-----> Checked User: #{user_id}"
     elsif buyer_id
-      @checked_items = CartItem.where(buyer_id: buyer_id, assistant: assistant).init.checked
+      @checked_items = CartItem.default_where(buyer_id: buyer_id, assistant: assistant).init.checked
       puts "-----> Checked Buyer: #{buyer_id}"
     elsif session_id
-      @checked_items = CartItem.where(session_id: session_id, assistant: assistant).init.checked
+      @checked_items = CartItem.default_where(session_id: session_id, assistant: assistant).init.checked
       puts "-----> Checked Session: #{session_id}"
     else
       @checked_items = CartItem.none
@@ -195,6 +180,10 @@ class CartItem < ApplicationRecord
 
   def self.extra
     {}
+  end
+
+  def self.good_types
+    CartItem.select(:good_type).distinct.pluck(:good_type)
   end
 
 end

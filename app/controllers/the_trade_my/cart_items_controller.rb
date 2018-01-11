@@ -11,9 +11,11 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
     cart_item = current_cart.where(good_id: params[:good_id], good_type: params[:good_type]).first
     params[:quantity] ||= 1
     if cart_item.present?
-      cart_item.increment!(:quantity, params[:quantity].to_i)
+      cart_item.quantity = cart_item.quantity + params[:quantity].to_i
+      cart_item.assistant = false
+      cart_item.save
     else
-      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'unpaid')
+      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'unpaid', assistant: false)
       cart_item.save
     end
 

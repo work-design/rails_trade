@@ -20,7 +20,7 @@
   <% if @user %>
     <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_top' %>
     <%= link_to '生成文档', doc_admin_cart_items_path(user_id: @user.id), class: 'ui orange button', id: 'cart_items_doc' %>
-<% end %>
+  <% end %>
 </div>
 <table class="ui bottom attached table">
   <thead>

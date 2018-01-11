@@ -5,7 +5,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id])
   end
 
   def only
@@ -17,17 +17,17 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     if good.respond_to?(:user_id)
       @user = User.find good.user_id
       @buyer = @user.buyer
-      @cart_items = CartItem.where(assistant: true, good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
+      @cart_items = CartItem.where(good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
     end
 
-    @cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
+    @cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type]).first
     if @cart_item.present?
       params[:quantity] ||= 0
       @cart_item.checked = true
       @cart_item.quantity = @cart_item.quantity + params[:quantity].to_i
       @cart_item.save
     else
-      @cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
+      @cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity])
       @cart_item.checked = true
       @cart_item.save
     end
@@ -38,7 +38,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def create
-    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type], assistant: true).first
+    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type]).first
     if cart_item.present?
       params[:quantity] ||= 0
       cart_item.checked = true
@@ -51,7 +51,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id])
 
     render 'index'
   end
@@ -65,7 +65,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       @remove.update(checked: false)
     end
 
-    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id], assistant: true)
+    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id])
 
     response.headers['X-Request-URL'] = request.url
   end
@@ -76,13 +76,13 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
+    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id)
   end
 
   def destroy
     @cart_item = CartItem.find params[:id]
     @cart_item.destroy
-    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id, assistant: true)
+    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id)
   end
 
   private
@@ -104,17 +104,16 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
   def current_cart
     if params[:user_id].present?
-      @cart_items = CartItem.where(assistant: true, user_id: params[:user_id])
+      @cart_items = CartItem.where(user_id: params[:user_id])
       @user = User.find params[:user_id]
       @buyer = @user.buyer
     elsif params[:buyer_id].present?
       @buyer = Buyer.find params[:buyer_id]
-      @cart_items = CartItem.where(assistant: true, buyer_id: params[:buyer_id])
+      @cart_items = CartItem.where(buyer_id: params[:buyer_id])
     else
       @cart_items = CartItem.none
     end
-    @cart_items = @cart_items.init.page(params[:page])
+    @cart_items = @cart_items.init.default_where(params.permit(:good_type)).page(params[:page])
   end
-
 
 end
