@@ -33,10 +33,7 @@
       </td>
       <td>
         <p id="retail_price_<%= cart_item.id %>">
-          <%= cart_item.retail_price %>
           <%= cart_item.bulk_price %>
-          <%= cart_item.final_price %>
-
         </p>
         <p id="discount_price_<%= cart_item.id %>">
           <%= render partial: 'single_price', locals: { cart_item: cart_item } %>
