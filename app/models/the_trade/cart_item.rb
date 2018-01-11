@@ -43,11 +43,7 @@ class CartItem < ApplicationRecord
   end
 
   def discount_price
-    if quantity > 1
-      -(retail_price - bulk_price)
-    else
-      0
-    end
+    bulk_price - retail_price
   end
 
   # 商品原价
