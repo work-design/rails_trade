@@ -5,5 +5,11 @@
     <%= link_to good_type, filter_params(good_type: good_type), class: active_params(type: good_type, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
   <% end %>
 </p>
+<p>
+  <span>Assistant:</span>
+  <%= link_to 'All', filter_params(except: [:assistant]), class: active_params(assistant: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to 'Assistant', filter_params(assistant: 1), class: active_params(assistant: 1, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to 'Self', filter_params(assistant: 0), class: active_params(assistant: 0, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+</p>
 
 

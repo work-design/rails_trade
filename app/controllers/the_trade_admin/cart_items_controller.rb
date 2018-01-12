@@ -113,7 +113,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.none
     end
-    @cart_items = @cart_items.init.default_where(params.permit(:good_type)).page(params[:page])
+    @cart_items = @cart_items.init.default_where(params.permit(:good_type, :assistant)).page(params[:page])
   end
 
 end
