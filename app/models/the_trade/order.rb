@@ -61,7 +61,6 @@ class Order < ApplicationRecord
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
     init_with_default_serves
-    compute_sum
   end
 
   def init_with_default_serves
@@ -73,6 +72,7 @@ class Order < ApplicationRecord
     summary.serve_charges.each do |serve_charge|
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
     end
+    compute_sum
   end
 
   def compute_sum
