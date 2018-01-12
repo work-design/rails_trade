@@ -5,6 +5,10 @@ module GoodAble
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
+    has_many :promote_goods, as: :good
+    has_many :promotes, through: :promote_goods
+    has_many :null_promote_goods, -> { self.or(PromoteGood.where(good_id: nil)) }, class_name: 'PromoteGood', as: :good
+    has_many :null_promotes, through: :null_promote_goods, source: :promote
 
     composed_of :serve,
                 class_name: 'ServeFee',
