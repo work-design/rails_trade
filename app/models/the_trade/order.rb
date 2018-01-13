@@ -56,7 +56,7 @@ class Order < ApplicationRecord
   end
 
   def migrate_from_cart_items
-    cart_items = user.cart_items.checked
+    cart_items = user.cart_items.checked.default_where(assistant: self.assistant)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
@@ -64,7 +64,7 @@ class Order < ApplicationRecord
   end
 
   def init_with_default_serves
-    summary = CartItem.checked_items(user_id: self.user_id)
+    summary = CartItem.checked_items(user_id: self.user_id, assistant: self.assistant)
 
     summary.promote_charges.each do |promote_charge|
       self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
