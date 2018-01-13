@@ -10,7 +10,7 @@ class ServeCharge < ApplicationRecord
   end
 
   def extra
-    self.attributes.except('id', 'serve_id', 'min', 'max', 'price', 'type', 'created_at', 'updated_at')
+    self.attributes.slice(*item.extra)
   end
 
   def self.extra_columns
