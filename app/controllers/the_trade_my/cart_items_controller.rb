@@ -4,7 +4,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
 
   def index
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
   end
 
   def create
@@ -12,15 +12,15 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
     params[:quantity] ||= 1
     if cart_item.present?
       cart_item.quantity = cart_item.quantity + params[:quantity].to_i
-      cart_item.assistant = false
+      cart_item.myself = false
       cart_item.save
     else
-      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'unpaid', assistant: false)
+      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'unpaid', myself: true)
       cart_item.save
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
 
     render 'index'
   end
@@ -34,17 +34,17 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
       @remove.update(checked: false)
     end
 
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
   end
 
   def destroy
     @cart_item.update(status: :deleted, checked: false)
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, assistant: false)
+    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
   end
 
   private

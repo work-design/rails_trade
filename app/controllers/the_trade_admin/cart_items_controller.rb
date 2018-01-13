@@ -45,7 +45,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
       cart_item.quantity = cart_item.quantity + params[:quantity].to_i
       cart_item.save
     else
-      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], assistant: true)
+      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], myself: false)
       cart_item.checked = true
       cart_item.save
     end
@@ -89,9 +89,9 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   def set_cart_item
     @cart_item = CartItem.find(params[:id])
     if @cart_item.user_id
-      @cart_items = CartItem.where(assistant: true, user_id: @cart_item.user_id)
+      @cart_items = CartItem.where(user_id: @cart_item.user_id)
     else
-      @cart_items = CartItem.where(assistant: true, buyer_id: @cart_item.buyer_id)
+      @cart_items = CartItem.where(buyer_id: @cart_item.buyer_id)
     end
   end
 
@@ -113,7 +113,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.none
     end
-    @cart_items = @cart_items.init.default_where(params.permit(:good_type, :assistant)).page(params[:page])
+    @cart_items = @cart_items.init.default_where(params.permit(:good_type, :myself)).page(params[:page])
   end
 
 end

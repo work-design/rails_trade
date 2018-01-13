@@ -10,7 +10,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   end
 
   def new
-    @order = Order.new(user_id: params[:user_id], assistant: true)
+    @order = Order.new(user_id: params[:user_id])
     if params[:cart_item_id]
       @order.migrate_from_cart_item(params[:cart_item_id])
     else

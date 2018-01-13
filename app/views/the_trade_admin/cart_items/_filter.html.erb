@@ -7,9 +7,9 @@
 </p>
 <p>
   <span>Assistant:</span>
-  <%= link_to 'All', filter_params(except: [:assistant]), class: active_params(assistant: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  <%= link_to 'Assistant', filter_params(assistant: 1), class: active_params(assistant: 1, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  <%= link_to 'Self', filter_params(assistant: 0), class: active_params(assistant: 0, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to 'All', filter_params(except: [:myself]), class: active_params(myself: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to 'Assistant', filter_params(myself: 0), class: active_params(myself: 0, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to 'Self', filter_params(myself: 1), class: active_params(myself: 1, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
 </p>
 
 
