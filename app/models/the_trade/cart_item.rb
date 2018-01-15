@@ -158,14 +158,14 @@ class CartItem < ApplicationRecord
 
   def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, myself: nil, extra: {})
     if user_id
-      @checked_items = CartItem.default_where(user_id: user_id, myself: myself).init.checked
+      @checked_items = CartItem.default_where(user_id: user_id, myself: myself).pending.checked
       buyer_id = User.find(user_id).buyer_id
       puts "-----> Checked User: #{user_id}"
     elsif buyer_id
-      @checked_items = CartItem.default_where(buyer_id: buyer_id, myself: myself).init.checked
+      @checked_items = CartItem.default_where(buyer_id: buyer_id, myself: myself).pending.checked
       puts "-----> Checked Buyer: #{buyer_id}"
     elsif session_id
-      @checked_items = CartItem.default_where(session_id: session_id, myself: myself).init.checked
+      @checked_items = CartItem.default_where(session_id: session_id, myself: myself).pending.checked
       puts "-----> Checked Session: #{session_id}"
     else
       @checked_items = CartItem.none
