@@ -4,6 +4,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
+    @cart_items = @cart_items.page(params[:page])
     @checked_ids = @cart_items.checked.pluck(:id)
     @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id])
   end
@@ -114,7 +115,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.none
     end
-    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself)).page(params[:page])
+    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself))
   end
 
 end
