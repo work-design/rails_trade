@@ -33,7 +33,7 @@ module ThePayment
     end
   end
 
-  def change_to_paid!(params)
+  def change_to_paid!(params = {})
     if self.amount == 0
       return paid_result
     end

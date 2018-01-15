@@ -1,10 +1,9 @@
 class PaymentsController < ApplicationController
   include TheCommonApi
   skip_before_action :verify_authenticity_token
-  before_action :set_order, only: [:result]
 
   def alipay_notify
-    notify_params = alipay_params.except(*request.path_parameters.keys).to_h
+    notify_params = params.permit!.except(*request.path_parameters.keys).to_h
 
     @order = Order.find_by(uuid: params[:out_trade_no])
     result = nil
@@ -39,20 +38,13 @@ class PaymentsController < ApplicationController
   end
 
   def notify
+    @notify_params = params.permit!.except(*request.path_parameters.keys).to_h
   end
 
   def result
+    @order = Order.find(params[:order_id])
     @order.change_to_paid!
     render json: @order.as_json(only: [:id, :amount, :received_amount, :currency, :payment_status])
-  end
-
-  private
-  def set_order
-    @order = Order.find(params[:order_id])
-  end
-
-  def alipay_params
-    params.permit!
   end
 
 end

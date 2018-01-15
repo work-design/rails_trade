@@ -2,7 +2,6 @@ module TheStripe
   extend ActiveSupport::Concern
 
   included do
-
   end
 
   # execute payment
@@ -34,7 +33,7 @@ module TheStripe
   end
 
   def stripe_result
-    if self.payment_type == 'stripe' && self.payment_id.present?
+    if self.payment_id.present?
       charge = Stripe::Charge.retrieve(self.payment_id)
       self.stripe_record(charge)
     end

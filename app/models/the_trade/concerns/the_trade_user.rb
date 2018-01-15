@@ -10,6 +10,5 @@ module TheTradeUser
     has_many :orders, dependent: :nullify
   end
 
-
 end
 
