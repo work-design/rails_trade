@@ -20,27 +20,10 @@ module ThePayment
     Payment.where.not(id: self.payment_orders.pluck(:payment_id)).exists?(payment_method_id: self.buyer.payment_method_ids, state: ['init', 'part_checked'])
   end
 
-  def pay_result
-    if self.amount == 0
-      return paid_result
-    end
-
-    if self.payment_status == 'all_paid'
-      return self
-    end
-
-    begin
-      self.send self.payment_type + '_result'
-    rescue NoMethodError
-      self
-    end
-    self
-  end
-
   def paid_result
     self.payment_status = 'all_paid'
     self.received_amount = self.amount
-    self.confirm_paid!
+    self.check_state!
     self
   end
 
@@ -51,6 +34,26 @@ module ThePayment
   end
 
   def change_to_paid!(params)
+    if self.amount == 0
+      return paid_result
+    end
+
+    if self.payment_status == 'all_paid'
+      return self
+    end
+
+    if params[:type]
+      self.save_detail(params)
+    elsif self.payment_type.present?
+      begin
+        self.send self.payment_type + '_result'
+      rescue NoMethodError
+        self
+      end
+    end
+  end
+
+  def save_detail(params)
     payment = self.payments.build(type: params[:type])
     payment.assign_detail params
     payment_order = payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
