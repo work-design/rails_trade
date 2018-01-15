@@ -32,13 +32,13 @@ class SummaryService
     Promote.sequence.each do |quence|
       AmountPromote.total.overall.where(sequence: quence).each do |promote|
         charge = promote.compute_price(bulk_price)
-        @promote_charges << charge if charge
+        @promote_charges << charge if charge.persisted?
       end
 
       if buyer
         buyer.promotes.total.where(sequence: quence).each do |promote|
           charge = promote.compute_price(bulk_price)
-          @promote_charges << charge if charge
+          @promote_charges << charge if charge.persisted?
         end
       end
 
