@@ -28,10 +28,11 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.references :buyer
       t.references :good, polymorphic: true
       t.string :session_id, limit: 128
-      t.integer :status, default: 0
+      t.string :status
       t.integer :quantity
       t.boolean :checked, default: false
       t.boolean :myself
+      t.boolean :archived, default: false
       t.timestamps
     end
 

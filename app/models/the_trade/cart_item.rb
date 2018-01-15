@@ -7,15 +7,15 @@ class CartItem < ApplicationRecord
 
   validates :user_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { user_id.blank?  }
-  scope :valid, -> { where(status: 'init', myself: true) }
-  scope :checked, -> { where(status: 'init', checked: true) }
+  scope :valid, -> { where(status: 'init') }
+  scope :checked, -> { where(status: 'pending', checked: true) }
 
-  enum status: [
-    :init,
-    :ordered,
-    :archived,
-    :deleted
-  ]
+  enum status: {
+    init: 'init',
+    pending: 'pending',
+    ordered: 'ordered',
+    deleted: 'deleted'
+  }
 
   composed_of :serve,
               class_name: 'ServeFee',

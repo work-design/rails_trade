@@ -1,6 +1,6 @@
 class AlipayPayment < Payment
 
-  def assign_detail(params)
+  def save_notify(params)
     self.notified_at = params['notify_time']
     self.payment_uuid = params['trade_no']
     self.pay_status = params['trade_status']

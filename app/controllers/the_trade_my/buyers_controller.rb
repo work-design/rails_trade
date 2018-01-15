@@ -21,7 +21,7 @@ class TheTradeMy::BuyersController < TheTradeMy::BaseController
     end
 
     if @buyer.saved_changes?
-      redirect_to my_buyer_path, notice: 'Buyer 更新成功。'
+      redirect_to my_buyer_path, notice: 'Buyer 更新成功!'
     else
       render action: 'edit'
     end

@@ -42,6 +42,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     if cart_item.present?
       params[:quantity] ||= 0
       cart_item.checked = true
+      cart_item.status = 'pending'
       cart_item.quantity = cart_item.quantity + params[:quantity].to_i
       cart_item.save
     else
