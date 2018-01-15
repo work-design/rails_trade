@@ -79,7 +79,7 @@ class Order < ApplicationRecord
     self.pure_serve_sum = self.order_serves.sum { |o| o.amount }
     self.pure_promote_sum = self.order_promotes.sum { |o| o.amount }
     self.subtotal = self.order_items.sum { |o| o.amount }
-    self.amount = self.subtotal + self.pure_serve_sum + self.pure_promote_sum
+    self.amount = self.subtotal.to_d + self.pure_serve_sum.to_d + self.pure_promote_sum.to_d
   end
 
   def promote_amount

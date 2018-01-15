@@ -38,7 +38,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
   end
 
   def create
-    cart_item = @cart_items.where(good_id: params[:good_id], good_type: params[:good_type]).first
+    cart_item = @cart_items.unscope(where: :status).where(good_id: params[:good_id], good_type: params[:good_type]).first
     if cart_item.present?
       params[:quantity] ||= 0
       cart_item.checked = true
@@ -114,7 +114,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     else
       @cart_items = CartItem.none
     end
-    @cart_items = @cart_items.init.default_where(params.permit(:good_type, :myself)).page(params[:page])
+    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself)).page(params[:page])
   end
 
 end
