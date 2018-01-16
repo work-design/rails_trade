@@ -28,7 +28,7 @@ class CartItem < ApplicationRecord
               constructor: Proc.new { |type, id, num, buyer| PromoteFee.new(type, id, num, buyer) }
 
   after_initialize if: :new_record? do |t|
-    self.status = 'init'
+    self.status = 'init' if self.status.blank?
     self.buyer_id = self.user&.buyer_id
     self.quantity = 1 if self.quantity.to_i < 1
   end
