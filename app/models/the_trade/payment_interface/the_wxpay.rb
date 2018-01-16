@@ -6,13 +6,6 @@ module TheWxpay
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
-  def wxpay_result
-    params = {
-      out_trade_no: self.uuid,
-    }
-    WxPay::Service.order_query params
-  end
-
   def wxpay_prepay
     return @wxpay_prepay if @wxpay_prepay
     params = {
@@ -27,7 +20,7 @@ module TheWxpay
     @wxpay_prepay = WxPay::Service.invoke_unifiedorder params
   end
 
-  def pay_order
+  def wxpay_order
     return @pay_order if @pay_order
 
     prepay = wxpay_prepay
@@ -48,5 +41,16 @@ module TheWxpay
     end
   end
 
+  def wxpay_result
+    params = {
+      out_trade_no: self.uuid,
+    }
+    result = WxPay::Service.order_query params
+    wxpay_record(result)
+  end
+
+  def wxpay_record(result)
+
+  end
 
 end
