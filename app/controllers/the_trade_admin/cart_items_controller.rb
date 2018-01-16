@@ -112,10 +112,12 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
     elsif params[:buyer_id].present?
       @buyer = Buyer.find params[:buyer_id]
       @cart_items = CartItem.where(buyer_id: params[:buyer_id])
+    elsif params[:id].present?
+      @cart_items = CartItem.where(id: params[:id])
     else
       @cart_items = CartItem.none
     end
-    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself))
+    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself, :id))
   end
 
 end
