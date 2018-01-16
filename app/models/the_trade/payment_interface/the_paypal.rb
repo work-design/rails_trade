@@ -7,9 +7,9 @@ module ThePaypal
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
-  # first step
-  def create_paypal_payment
-    self.paypal_payment = PAYMENT.new(final_params)
+  # generate params
+  def paypal_prepay
+    self.paypal_payment = PAYMENT.new(paypal_params)
 
     result = paypal_payment.create
     if result
@@ -34,8 +34,15 @@ module ThePaypal
     return unless self.payment_id
     self.paypal_payment ||= PAYMENT.find(self.payment_id)
 
-    if paypal_payment.state == 'approved'
-      trans = paypal_payment.transactions[0]
+    paypal_record(paypal_payment)
+  end
+
+  def paypal_record(record)
+    if record.state == 'approved'
+      paypal = PaypalPayment.find_by(payment_uuid: trans.related_resources[0].sale.id)
+      return paypal if paypal
+
+      trans = record.transactions[0]
 
       paypal = PaypalPayment.new
       paypal.payment_uuid = trans.related_resources[0].sale.id
@@ -43,46 +50,32 @@ module ThePaypal
 
       payment_order = paypal.payment_orders.build(order_id: self.id, check_amount: paypal.total_amount)
 
-      begin
-        Payment.transaction do
-          payment_order.confirm!
-          paypal.save!
-        end
-        paypal
-      rescue
-        PaypalPayment.find_by(payment_uuid: trans.related_resources[0].sale.id)
+      Payment.transaction do
+        payment_order.confirm!
+        paypal.save!
       end
+      paypal
     else
-      errors.add :uuid, paypal_payment.error.inspect
+      errors.add :uuid, record.error.inspect
     end
   end
 
-  def final_params
-    if self.deposit_payment? && self.unpaid?
-      result = origin_final_params
-      result[:transactions][:amount][:total] = self.advance_payment_amount.to_money.exchange_to(self.currency).to_s
-    else
-      result = origin_final_params
-    end
-    result
-  end
-
-  def origin_final_params
+  def paypal_params
     {
       intent: 'sale',
       payer: {
         payment_method: 'paypal'
       },
       redirect_urls: {
-        return_url: self.return_url || url_helpers.execute_my_order_url(self.id),
+        return_url: self.return_url || url_helpers.paypal_execute_my_order_url(self.id),
         cancel_url: url_helpers.cancel_my_order_url(self.id)
       },
       transactions: {
         item_list: {
-          items: items_params
+          items: origin_items_params
         },
         amount: {
-          total: items_params.sum { |i| i[:quantity] * i[:price].to_d },
+          total: self.unreceived_amount,
           currency: self.currency.upcase
         },
         description: ''
@@ -90,17 +83,7 @@ module ThePaypal
     }
   end
 
-  def items_params
-    if self.deposit_payment? && self.unpaid?
-      deposit_items_params
-    elsif self.part_paid?
-      remain_items_params
-    else
-      origin_items_params
-    end
-  end
-
-  def origin_items_params
+  def paypal_items_params
     order_items.map do |item|
       {
         name: item.good.name,
@@ -110,36 +93,15 @@ module ThePaypal
         quantity: item.number
       }
     end
-  end
-
-  def shipping_items_params
-    {
-      name: 'Shipping & Handling fee',
-      sku: 'Shipping & Handling fee',
-      price: (shipping_fee + handling_fee).to_money.exchange_to(self.currency).to_s,
-      currency: self.currency.upcase,
-      quantity: 1
-    }
-  end
-
-  def deposit_items_params
-    {
-      name: 'Advance',
-      sku: 'Advance',
-      price: self.advance_payment_amount.to_money.exchange_to(self.currency).to_s,
-      currency: self.currency.upcase,
-      quantity: 1
-    }
-  end
-
-  def remain_items_params
-    {
-      name: 'Advanced amount',
-      sku: 'Advanced amount',
-      price: self.unreceived_amount.to_money.exchange_to(self.currency).to_s,
-      currency: self.currency.upcase,
-      quantity: 1
-    }
+    order_serves.map do |item|
+      {
+        name: item.serve.name,
+        sku: item.serve.id,
+        price: item.price.to_money.exchange_to(self.currency).to_s,
+        currency: self.currency.upcase,
+        quantity: 1
+      }
+    end
   end
 
 

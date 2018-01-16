@@ -40,6 +40,10 @@ class Order < ApplicationRecord
     refunded: 4
   }
 
+  def subject
+    order_items.map { |oi| oi.good.name }.join(', ')
+  end
+
   def migrate_from_cart_item(cart_item_id)
     cart_item = CartItem.find cart_item_id
     self.user = cart_item.user

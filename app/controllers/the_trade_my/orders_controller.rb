@@ -63,7 +63,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   def alipay_pay
     respond_to do |format|
       if @order.payment_status != 'all_paid'
-        result = @order.create_alipay
+        result = @order.alipay_api
         format.json { render json: { result: result } }
         format.html { redirect_to @order.approve_url }
       else

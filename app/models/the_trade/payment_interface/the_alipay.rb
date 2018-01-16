@@ -4,12 +4,12 @@ module TheAlipay
   included do
   end
 
-  def create_alipay
+  def alipay_prepay
     self.update payment_type: 'alipay'
     Alipay::Service.trade_app_pay_params(subject: self.subject, out_trade_no: self.uuid, total_amount: self.amount.to_s)
   end
 
-  def create_alipay_url
+  def alipay_prepay_url
     self.update payment_type: 'alipay'
     Alipay::Service.trade_page_pay subject: self.subject, out_trade_no: self.uuid, total_amount: self.amount.to_s
   end
@@ -19,8 +19,14 @@ module TheAlipay
     result = Alipay::Service.trade_query out_trade_no: self.uuid
     result = JSON.parse(result)
     result = result['alipay_trade_query_response']
+    alipay_record(result)
+  end
 
+  def alipay_record(result)
     if result['trade_status'] == 'TRADE_SUCCESS'
+      alipay = AlipayPayment.find_by(payment_uuid: result['trade_no'])
+      return alipay if alipay
+
       alipay = AlipayPayment.new
       alipay.payment_uuid = result['trade_no']
       alipay.buyer_identifier = result['buyer_user_id']
@@ -30,22 +36,14 @@ module TheAlipay
 
       payment_order = alipay.payment_orders.build(order_id: self.id, check_amount: alipay.total_amount)
 
-      begin
-        Payment.transaction do
-          payment_order.confirm!
-          alipay.save!
-        end
-        alipay
-      rescue
-        AlipayPayment.find_by(payment_uuid: result['trade_no'])
+      Payment.transaction do
+        payment_order.confirm!
+        alipay.save!
       end
+      alipay
     else
       errors.add :uuid, result['msg']
     end
-  end
-
-  def subject
-    order_items.map { |oi| oi.good.name }.join(', ')
   end
 
 end
