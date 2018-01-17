@@ -64,9 +64,9 @@ module GoodAble
     end
 
     o.currency = self.currency
-    o.payment_status = 'unpaid'
 
     self.class.transaction do
+      o.check_state
       o.save!
       oi.save!
     end

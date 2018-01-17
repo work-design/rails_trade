@@ -37,7 +37,8 @@ class Order < ApplicationRecord
     part_paid: 1,
     all_paid: 2,
     refunding: 3,
-    refunded: 4
+    refunded: 4,
+    denied: 5
   }
 
   def subject

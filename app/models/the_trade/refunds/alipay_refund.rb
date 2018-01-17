@@ -25,7 +25,7 @@ class AlipayRefund < Refund
         self.save!
       end
     else
-      self.update reason: 'failed'
+      self.update reason: "code: #{refund['code']}, msg: #{refund['msg']}"
     end
     refund
   end
