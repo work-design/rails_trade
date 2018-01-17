@@ -2,8 +2,10 @@ class Refund < ApplicationRecord
   attribute :currency, :string, default: 'USD'
 
   belongs_to :operator, polymorphic: true, optional: true
-  belongs_to :order, optional: true
+  belongs_to :order, inverse_of: :refunds, optional: true
   belongs_to :payment
+
+  validates :payment_id, uniqueness: { scope: :order_id }
 
   after_initialize if: -> { new_record? } do
     self.refund_uuid = UidHelper.nsec_uuid('RD')

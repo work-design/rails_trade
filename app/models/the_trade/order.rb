@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
   has_many :payments, through: :payment_orders
   has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
-  has_many :refunds, dependent: :nullify
+  has_many :refunds, dependent: :nullify, inverse_of: :order
   has_many :order_promotes, autosave: true, inverse_of: :order
   has_many :order_serves, autosave: true
   has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
