@@ -1,5 +1,6 @@
 class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:refresh]
 
   def index
     @orders = Order.default_where(params.permit(:uuid)).page(params[:page])
@@ -18,6 +19,25 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
     end
 
     respond_to do |format|
+      format.html
+      format.json { render json: @order }
+    end
+  end
+
+  def refresh
+    @order = Order.new(user_id: params[:user_id])
+    extra_params = params.fetch(:extra, {}).permit(ServeCharge.extra_columns)
+
+    if params[:cart_item_id]
+      cart_item = CartItem.find(params[:cart_item_id])
+      cart_item.update extra: extra_params
+      @order.migrate_from_cart_item(params[:cart_item_id])
+    else
+      @order.migrate_from_cart_items(extra: extra_params.to_h)
+    end
+
+    respond_to do |format|
+      format.js
       format.html
       format.json { render json: @order }
     end

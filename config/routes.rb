@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     resources :orders do
       get :payments, on: :collection
+      get :refresh, on: :collection
       resources :order_payments
     end
     resources :payments do

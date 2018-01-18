@@ -10,6 +10,8 @@ class CartItem < ApplicationRecord
   scope :valid, -> { where(status: 'pending', myself: true) }
   scope :checked, -> { where(status: 'pending', checked: true) }
 
+  serialize :extra, Hash
+
   enum status: {
     init: 'init',
     pending: 'pending',
@@ -153,7 +155,7 @@ class CartItem < ApplicationRecord
 
   def total
     relation = CartItem.where(id: self.id)
-    SummaryService.new(relation, buyer_id: self.buyer_id)
+    SummaryService.new(relation, buyer_id: self.buyer_id, extra: self.extra)
   end
 
   def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, myself: nil, extra: {})

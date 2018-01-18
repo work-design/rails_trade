@@ -30,6 +30,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.string :session_id, limit: 128
       t.string :status
       t.integer :quantity
+      t.string :extra, limit: 1024
       t.boolean :checked, default: false
       t.boolean :myself
       t.boolean :archived, default: false
