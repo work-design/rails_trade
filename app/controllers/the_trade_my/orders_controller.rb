@@ -20,6 +20,18 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     end
   end
 
+  def refresh
+    @order = current_user.orders.build(myself: true)
+    @order.assign_attributes order_params
+    @order.migrate_from_cart_items
+
+    respond_to do |format|
+      format.js
+      format.html
+      format.json { render json: @order }
+    end
+  end
+
   def create
     @order = current_user.orders.build(order_params)
 

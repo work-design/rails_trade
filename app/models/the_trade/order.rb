@@ -41,6 +41,10 @@ class Order < ApplicationRecord
     denied: 5
   }
 
+  def extra
+    {}
+  end
+
   def subject
     order_items.map { |oi| oi.good.name }.join(', ')
   end
@@ -60,16 +64,16 @@ class Order < ApplicationRecord
     compute_sum
   end
 
-  def migrate_from_cart_items(extra: {})
+  def migrate_from_cart_items
     cart_items = user.cart_items.checked.default_where(myself: self.myself)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
-    init_with_default_serves(extra: extra)
+    init_with_default_serves
   end
 
-  def init_with_default_serves(extra: {})
-    summary = CartItem.checked_items(user_id: self.user_id, myself: self.myself, extra: extra)
+  def init_with_default_serves
+    summary = CartItem.checked_items(user_id: self.user_id, myself: self.myself, extra: self.extra)
 
     summary.promote_charges.each do |promote_charge|
       self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)

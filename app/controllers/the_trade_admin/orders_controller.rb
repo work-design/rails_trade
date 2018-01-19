@@ -26,14 +26,14 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
 
   def refresh
     @order = Order.new(user_id: params[:user_id])
-    extra_params = params.fetch(:extra, {}).permit(ServeCharge.extra_columns)
+    @order.assign_attributes order_params
 
     if params[:cart_item_id]
       cart_item = CartItem.find(params[:cart_item_id])
-      cart_item.update extra: extra_params
+      cart_item.update extra: @order.extra
       @order.migrate_from_cart_item(params[:cart_item_id])
     else
-      @order.migrate_from_cart_items(extra: extra_params.to_h)
+      @order.migrate_from_cart_items
     end
 
     respond_to do |format|
