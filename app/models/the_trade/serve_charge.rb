@@ -13,8 +13,16 @@ class ServeCharge < ApplicationRecord
     self.attributes.slice(*item.extra)
   end
 
+  def self.min_step
+    0.1.to_d.power(ServeCharge.columns.find { |i| i.name == 'min' }.scale)
+  end
+
+  def self.max_step
+    0.1.to_d.power(ServeCharge.columns.find { |i| i.name == 'max' }.scale)
+  end
+
   def self.extra_columns
-    ServeCharge.attribute_names - ['id', 'serve_id', 'min', 'max', 'price', 'type', 'created_at', 'updated_at']
+    ServeCharge.attribute_names - ['id', 'serve_id', 'min', 'max', 'price', 'base_price', 'type', 'created_at', 'updated_at']
   end
 
   def self.extra_options

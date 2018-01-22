@@ -1,7 +1,7 @@
 class SingleServeCharge < ServeCharge
 
   def final_price(amount)
-    price * amount
+    base_price.to_d + (price * amount)
   end
 
 end

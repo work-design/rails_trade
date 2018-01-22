@@ -52,7 +52,7 @@ class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
 
   private
   def charge_params
-    attrs = [:min, :max, :price, :type] + @serve.extra
+    attrs = [:min, :max, :price, :base_price, :type] + @serve.extra
     params.fetch(:charge, {}).permit(attrs)
   end
 
