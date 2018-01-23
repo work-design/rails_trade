@@ -46,7 +46,7 @@ class Order < ApplicationRecord
   end
 
   def subject
-    order_items.map { |oi| oi.good.name }.join(', ')
+    order_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
   end
 
   def migrate_from_cart_item(cart_item_id)
