@@ -1,6 +1,7 @@
 <%= search_form_with css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
   <div class="fields">
-  <%= f.text_field :uuid, placeholder: 'UUID' %>
-  <%= f.submit I18n.t('action.search'), class: 'ui green small button' %>
+    <%= f.text_field :uuid, placeholder: 'UUID', css: { wrapper_input: 'two wide field' } %>
+    <%= f.submit t('action.search'), class: 'ui green small button' %>
+    <%= link_to 'Clear All Filters', filter_params(only: []), class: 'ui white button' %>
   </div>
 <% end %>

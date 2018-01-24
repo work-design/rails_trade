@@ -1,0 +1,9 @@
+<p>
+  <span>Payment State:</span>
+  <%= link_to 'All', filter_params(except: [:payment_status]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <% Order.payment_statuses.each do |payment_status, _| %>
+    <%= link_to payment_status, filter_params(payment_status: payment_status), class: active_params(payment_status: payment_status, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <% end %>
+</p>
+
+

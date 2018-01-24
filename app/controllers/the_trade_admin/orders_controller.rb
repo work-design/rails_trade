@@ -1,9 +1,13 @@
 class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
   skip_before_action :verify_authenticity_token, only: [:refresh]
 
   def index
-    @orders = Order.default_where(params.permit(:uuid)).page(params[:page])
+    query_params = params.permit(:id, :payment_status)
+    q_params = params.fetch(:q, {}).permit(:uuid)
+    query_params.merge! q_params
+
+    @orders = Order.default_where(query_params).page(params[:page])
   end
 
   def payments
@@ -65,6 +69,15 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
       redirect_to @order, notice: 'Order was successfully updated.'
     else
       render :edit
+    end
+  end
+
+  def refund
+    @order.apply_for_refund
+
+    respond_to do |format|
+      format.html { redirect_to admin_orders_url(id: @order.id) }
+      format.json { render json: @order.as_json(include: [:refunds]) }
     end
   end
 

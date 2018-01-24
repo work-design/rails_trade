@@ -29,6 +29,15 @@
           <time><%= refund.refunded_at.to_s(:admin) %></time>
         <% else %>
           <%= link_to 'Do Refund', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'ui red button' %>
+          <div class="ui buttons">
+            <%= button_to 'Approve', [:admin, order], method: :put,
+                          params: { approve: true },
+                          class: "positive ui button",
+                          data: { confirm: "Are you sure?" },
+                          remote: true %>
+            <div class="or"></div>
+            <%= button_to 'Deny', [:admin, order], method: :put, params: { approve: false}, class: "negative ui button", remote: true %>
+          </div>
         <% end %>
         <% if refund.reason %>
           <p><%= refund.reason.truncate(27) %></p>

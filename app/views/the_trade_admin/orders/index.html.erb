@@ -7,22 +7,24 @@
 
     <div class="ui top attached segment">
       <%= render 'search_form' %>
+      <%= render 'filter' %>
     </div>
 
     <table class="ui bottom attached table">
       <thead>
       <tr>
         <th>ID</th>
-        <th><%= I18n.t 'orders.uuid' %></th>
-        <th><%= I18n.t 'orders.buyer' %></th>
-        <th><%= I18n.t 'orders.good_type' %></th>
-        <th width="10%"><%= I18n.t 'orders.payment_type' %></th>
-        <th><%= I18n.t 'orders.amount' %></th>
-        <th><%= I18n.t 'orders.received_amount' %></th>
-        <th><%= I18n.t 'orders.left_amount' %></th>
-        <th><%= I18n.t 'orders.currency' %></th>
-        <th><%= I18n.t 'orders.payment_status' %></th>
-        <th><%= I18n.t 'orders.created_at' %></th>
+        <th><%= t 'orders.uuid' %></th>
+        <th><%= t 'orders.buyer' %></th>
+        <th><%= t 'orders.good_type' %></th>
+        <th width="10%"><%= t 'orders.payment_type' %></th>
+        <th><%= t 'orders.amount' %></th>
+        <th><%= t 'orders.received_amount' %></th>
+        <th><%= t 'orders.left_amount' %></th>
+        <th><%= t 'orders.currency' %></th>
+        <th><%= t 'orders.payment_status' %></th>
+        <th><%= t 'orders.created_at' %></th>
+        <th><%= t 'orders.state' %></th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -35,33 +37,17 @@
             <%= link_to order.user&.name, admin_user_path(order.user_id) %>
           </td>
           <td><%= order.good_type %></td>
-          <td><%= order.payment_type %></td>
+          <td><span class="ui label"><%= order.payment_type %></span></td>
           <td><%= order.amount %></td>
           <td><%= order.received_amount %></td>
           <td><%= order.refund_price %></td>
-          <td><%= I18n.t "currency.#{ order.currency&.upcase }" %></td>
-          <td id='<%= "order-#{ order }"  %>'>
-            <% if order.payment_status == 'refunding' %>
-              <div class="ui buttons">
-                <%= button_to "Approve", [:admin, order], method: :put,
-                              params: { approve: true },
-                              class: "positive ui button",
-                              data: { confirm: "Are you sure?" },
-                              remote: true %>
-                <div class="or"></div>
-                <%= button_to "Deny", [:admin, order], method: :put,
-                              params: { approve: false},
-                              class: "negative ui button", remote: true %>
-              </div>
-            <% else %>
-              <%= I18n.t "orders.#{ order.payment_status }" %>
-            <% end %>
+          <td><%= t "currency.#{ order.currency&.upcase }" %></td>
+          <td>
+            <%= order.payment_status_i18n %>
+            <%= link_to 'Refund', refund_admin_order_path(order.id), method: :patch, class: 'ui mini gray button' %>
           </td>
           <td><%= order.created_at.to_s %></td>
           <td><%= order.amount %></td>
-          <td>
-            <span class="ui label"><%= order.payment_type %></span>
-          </td>
           <td>
             <%= link_to 'Show', admin_order_path(order) %>
             <%= link_to 'Edit', edit_admin_order_path(order) %>

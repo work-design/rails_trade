@@ -2,6 +2,8 @@ module GoodAble
   extend ActiveSupport::Concern
 
   included do
+    attribute :import_price, :decimal
+
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
