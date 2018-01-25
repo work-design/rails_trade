@@ -45,6 +45,17 @@ class Refund < ApplicationRecord
     end
   end
 
+  def deny_refund(params = {})
+    order.payment_status = 'denied'
+
+    self.state = 'failed'
+
+    self.class.transaction do
+      order.save!
+      self.save!
+    end
+  end
+
   def can_refund?
     self.init? && ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
   end

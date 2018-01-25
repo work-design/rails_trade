@@ -5,6 +5,7 @@
     <%= f.text_field :bank, placeholder: PaymentMethod.human_attribute_name(:bank) %>
     <%= f.text_field :'buyers.name-like', placeholder: Buyer.human_attribute_name(:name) %>
     <%= f.submit 'Search' %>
+    <%= link_to 'Clear All Filters', filter_params(only: []), class: 'ui white button' %>
   </div>
 <% end %>
 

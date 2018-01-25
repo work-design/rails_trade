@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
     resources :refunds do
       patch :confirm, on: :member
+      patch :deny, on: :member
     end
     resources :serves do
       get :search, on: :collection

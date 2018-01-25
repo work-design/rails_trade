@@ -1,5 +1,5 @@
 class TheTradeAdmin::RefundsController < TheTradeAdmin::BaseController
-  before_action :set_refund, only: [:show, :edit, :update, :confirm, :destroy]
+  before_action :set_refund, only: [:show, :edit, :update, :confirm, :deny, :destroy]
 
   def index
     @refunds = Refund.default_where(params.permit(:order_id, :payment_id)).page(params[:page])
@@ -35,6 +35,12 @@ class TheTradeAdmin::RefundsController < TheTradeAdmin::BaseController
 
   def confirm
     @refund.do_refund(operator_id: current_user.id, operator_type: 'User')
+    redirect_to admin_refunds_url(order_id: @refund.order_id)
+  end
+
+  def deny
+    @refund.deny_refund(operator_id: current_user.id, operator_type: 'User')
+    redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 
   def destroy

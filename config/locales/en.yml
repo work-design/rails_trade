@@ -28,6 +28,8 @@ en:
         transport: Transport
         forwarder: Forwarder
         invoice: Invoice
+      buyer:
+        name: 公司名称
       order/payment_type:
         paypal: paypal
         alipay: alipay
