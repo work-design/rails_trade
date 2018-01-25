@@ -16,11 +16,9 @@
         <th>ID</th>
         <th><%= t 'orders.uuid' %></th>
         <th><%= t 'orders.buyer' %></th>
-        <th><%= t 'orders.good_type' %></th>
         <th width="10%"><%= t 'orders.payment_type' %></th>
         <th><%= t 'orders.amount' %></th>
         <th><%= t 'orders.received_amount' %></th>
-        <th><%= t 'orders.left_amount' %></th>
         <th><%= t 'orders.currency' %></th>
         <th><%= t 'orders.payment_status' %></th>
         <th><%= t 'orders.created_at' %></th>
@@ -36,15 +34,17 @@
           <td>
             <%= link_to order.user&.name, admin_user_path(order.user_id) %>
           </td>
-          <td><%= order.good_type %></td>
           <td><span class="ui label"><%= order.payment_type %></span></td>
           <td><%= order.amount %></td>
           <td><%= order.received_amount %></td>
-          <td><%= order.refund_price %></td>
           <td><%= t "currency.#{ order.currency&.upcase }" %></td>
           <td>
             <%= order.payment_status_i18n %>
-            <%= link_to 'Refund', refund_admin_order_path(order.id), method: :patch, class: 'ui mini gray button' %>
+            <% if ['part_paid', 'all_paid'].include?(order.payment_status) %>
+              <%= link_to 'Refund', refund_admin_order_path(order.id), method: :patch, class: 'ui mini gray button' %>
+            <% elsif ['refunding', 'refunded', 'denied'].include?(order.payment_status) %>
+              <%= link_to 'Refund List', admin_refunds_path(order_id: order.id), class: 'ui mini green button' %>
+            <% end %>
           </td>
           <td><%= order.created_at.to_s %></td>
           <td><%= order.amount %></td>

@@ -1,9 +1,10 @@
 <%= search_form_with css: { submit: 'ui green button'} do |f| %>
   <div class="fields">
-  <%= f.text_field :account_name, placeholder: 'Account Name' %>
-  <%= f.text_field :account_num, placeholder: 'Account Number' %>
-  <%= f.text_field :bank, placeholder: 'Bank Name' %>
-  <%= f.submit 'Search' %>
+    <%= f.text_field :account_name, placeholder: PaymentMethod.human_attribute_name(:account_name) %>
+    <%= f.text_field :account_num, placeholder: PaymentMethod.human_attribute_name(:account_num) %>
+    <%= f.text_field :bank, placeholder: PaymentMethod.human_attribute_name(:bank) %>
+    <%= f.text_field :'buyers.name-like', placeholder: Buyer.human_attribute_name(:name) %>
+    <%= f.submit 'Search' %>
   </div>
 <% end %>
 

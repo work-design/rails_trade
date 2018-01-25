@@ -3,11 +3,11 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   default_form_builder nil
 
   def index
-    @payment_methods = PaymentMethod.includes(:payment_references).default_where(params.permit(:id)).default_where(params.fetch(:q, {}).permit(:account_name, :account_num, :bank)).page(params[:page])
+    @payment_methods = PaymentMethod.includes(:payment_references).default_where(query_params).page(params[:page])
   end
 
   def unverified
-    @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).page(params[:page]).references(:payment_references)
+    @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).default_where(query_params).page(params[:page]).references(:payment_references)
   end
 
   def new
@@ -64,6 +64,12 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   end
 
   private
+  def query_params
+    path_params = params.permit(:id)
+    query_params = params.fetch(:q, {}).permit(:account_name, :account_num, :bank, 'buyers.name-like')
+    query_params.merge! path_params
+  end
+
   def set_payment_method
     @payment_method = PaymentMethod.unscoped.find(params[:id])
   end

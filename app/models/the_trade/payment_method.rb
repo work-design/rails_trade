@@ -3,6 +3,7 @@ class PaymentMethod < ApplicationRecord
 
   has_many :payments, dependent: :nullify
   has_many :payment_references, dependent: :destroy, autosave: true, inverse_of: :payment_method
+  has_many :buyers, through: :payment_references
 
   default_scope -> { where(verified: true) }
 

@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   include TheRefund
 
   belongs_to :payment_strategy, optional: true
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :buyer, class_name: '::Buyer', foreign_key: :buyer_id
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
   has_many :payments, through: :payment_orders
@@ -24,7 +24,7 @@ class Order < ApplicationRecord
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
     self.payment_status = 'unpaid'
-    self.buyer_id = self.user&.buyer_id
+    self.buyer_id = self.user&.buyer_id if self.buyer_id.blank?
     self.payment_strategy_id = self.buyer&.payment_strategy_id
 
     compute_sum

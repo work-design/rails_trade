@@ -26,8 +26,8 @@
     <p>
       <span>State:</span>
       <%= link_to 'All', filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to '待确认', filter_params('payment_orders.state': 'init'), class: active_params('payment_orders.state': 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to '已确认', filter_params('payment_orders.state': 'confirmed'), class: active_params('payment_orders.state': 'confirmed', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to t('init'), filter_params('payment_orders.state': 'init'), class: active_params('payment_orders.state': 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to t('confirmed'), filter_params('payment_orders.state': 'confirmed'), class: active_params('payment_orders.state': 'confirmed', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
     </p>
     <p>
       <%= link_to t('.add_new'), new_admin_payment_path, class: 'ui teal button' %>

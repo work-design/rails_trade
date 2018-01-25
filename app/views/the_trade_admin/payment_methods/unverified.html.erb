@@ -3,11 +3,11 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Account Name</th>
-      <th>Account Num</th>
-      <th>Bank</th>
-      <th>Related Buyers</th>
-      <th>Verified</th>
+      <th><%= PaymentMethod.human_attribute_name(:account_name) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:account_num) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:bank) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:payment_references) %></th>
+      <th><%= PaymentMethod.human_attribute_name(:verified) %></th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -35,8 +35,8 @@
           <% end %>
         </td>
         <td>
-          <%= link_to 'Edit', edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
-          <%= link_to 'Destroy', admin_payment_method_path(payment_method), class: 'ui mini red button', method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
+          <%= link_to t('.destroy'), admin_payment_method_path(payment_method), class: 'ui mini red button', method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
       <% payment_method.repeat_results.each do |result| %>
@@ -52,7 +52,7 @@
           </td>
           <td></td>
           <td>
-            <%= link_to 'Merge to This', merge_from_admin_payment_method_path(result, other_id: payment_method.id), method: :patch %>
+            <%= link_to '并入此账户', merge_from_admin_payment_method_path(result, other_id: payment_method.id), method: :patch %>
           </td>
         </tr>
       <% end %>
