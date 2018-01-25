@@ -33,7 +33,7 @@
       <tr>
         <th colspan="5"></th>
         <th class="center aligned">
-          已核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
+          预核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
         </th>
         <th colspan="2"></th>
       </tr>

@@ -4,7 +4,7 @@
   <td><%= payment_order.payment.total_amount %></td>
   <td><%= payment_order.payment.unchecked_amount %></td>
   <td class="center aligned"><%= payment_order.payment.created_at.to_s %></td>
-  <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（已核销）</span></td>
+  <td class="center aligned"><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %><span style="color: #999;">（预核销）</span></td>
   <td class="center aligned"><%= payment_order.created_at.to_s %></td>
   <td>
     <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>

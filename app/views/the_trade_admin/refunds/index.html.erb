@@ -1,11 +1,16 @@
-<div class="ui top attached menu borderless">
+<div class="ui borderless menu">
   <div class="item">Refund</div>
 </div>
 
-<table class="ui table">
+<div class="ui top attached segment">
+  <%= render 'search_form' %>
+</div>
+
+<table class="ui bottom attached table">
   <thead>
   <tr>
     <th>UUID</th>
+    <th>Order</th>
     <th>Total Amount</th>
     <th>Type</th>
     <th>Created At</th>
@@ -19,6 +24,7 @@
   <% @refunds.each do |refund| %>
     <tr>
       <td><%= refund.refund_uuid %></td>
+      <td><%= link_to refund.order.uuid, admin_order_path(refund.order_id) %></td>
       <td><%= refund.total_amount.to_money(refund.currency).format %></td>
       <td><%= refund.type %></td>
       <td><time><%= refund.created_at.to_s(:admin) %></time></td>

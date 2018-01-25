@@ -19,7 +19,7 @@ class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
 
   def orders
     @orders = @buyer.orders.to_pay.order(overdue_date: :asc).page(params[:page])
-    payment_method_ids = PaymentReference.where(buyer_id: params[:buyer_id]).pluck(:payment_method_id)
+    payment_method_ids = @buyer.payment_references.pluck(:payment_method_id)
     @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
   end
 
