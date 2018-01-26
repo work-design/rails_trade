@@ -24,7 +24,10 @@
   <% @refunds.each do |refund| %>
     <tr>
       <td><%= refund.refund_uuid %></td>
-      <td><%= link_to refund.order.uuid, admin_order_path(refund.order_id) %></td>
+      <td>
+        <p><%= link_to refund.order.uuid, admin_order_path(refund.order_id) %></p>
+        <p><%= link_to refund.payment.payment_uuid, admin_payments_path(id: refund.payment_id) %></p>
+      </td>
       <td><%= refund.total_amount.to_money(refund.currency).format %></td>
       <td><%= refund.type %></td>
       <td><time><%= refund.created_at.to_s(:admin) %></time></td>

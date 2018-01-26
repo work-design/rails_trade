@@ -32,7 +32,9 @@
           <td><%= order.id %></td>
           <td><%= link_to order.uuid, admin_order_path(order) %></td>
           <td>
-            <p><%= link_to order.user&.name, admin_user_path(order.user_id) %></p>
+            <% if order.user_id %>
+              <p><%= link_to order.user&.name, admin_user_path(order.user_id) %></p>
+            <% end %>
             <% if order.buyer_id %>
               <p><%= link_to order.buyer&.name, orders_admin_buyer_path(order.buyer_id) %></p>
             <% end %>

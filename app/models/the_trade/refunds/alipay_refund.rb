@@ -15,9 +15,9 @@ class AlipayRefund < Refund
     self.operator_id = params[:operator_id]
 
     refund = JSON.parse(refund_res).fetch('alipay_trade_refund_response', {})
-    self.refund_uuid = refund['trade_no']
 
     if refund['code'] == '10000' || refund['msg'] == 'Success'
+      self.refund_uuid = refund['trade_no']
       self.state = 'completed'
       self.refunded_at = Time.now
       self.class.transaction do

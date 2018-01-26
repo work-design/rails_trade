@@ -31,9 +31,9 @@ en:
       buyer:
         name: 公司名称
       order/payment_type:
-        paypal: paypal
-        alipay: alipay
-        stripe: stripe
+        paypal: Paypal
+        alipay: Alipay
+        stripe: Stripe
       payment/type:
         HandPayment: Hand Record
         BankPayment: Bank Record

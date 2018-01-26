@@ -2,7 +2,7 @@ class TheTradeAdmin::RefundsController < TheTradeAdmin::BaseController
   before_action :set_refund, only: [:show, :edit, :update, :confirm, :deny, :destroy]
 
   def index
-    @refunds = Refund.default_where(params.permit(:order_id, :payment_id)).page(params[:page])
+    @refunds = Refund.includes(:order, :payment).default_where(params.permit(:order_id, :payment_id)).page(params[:page])
   end
 
   def show

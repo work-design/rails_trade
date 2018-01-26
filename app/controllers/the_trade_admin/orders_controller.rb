@@ -3,7 +3,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
   skip_before_action :verify_authenticity_token, only: [:refresh]
 
   def index
-    query_params = params.permit(:id, :payment_status)
+    query_params = params.permit(:id, :payment_status, :payment_type)
     q_params = params.fetch(:q, {}).permit(:uuid)
     query_params.merge! q_params
 
