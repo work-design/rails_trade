@@ -18,7 +18,9 @@
     <% if payment_order.confirmed? %>
       <%= payment_order.check_amount %>
     <% else %>
-      <%= number_field_tag 'payment_order[check_amount]', payment_order.check_amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "edit_payment_order_#{payment_order.id}" %>
+      <div class="ui input">
+        <%= number_field_tag 'payment_order[check_amount]', payment_order.check_amount, placeholder: 'Result:', class: 'three wide field', step: '0.01', form: "edit_payment_order_#{payment_order.id}" %>
+      </div>
     <% end %>
   </td>
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
