@@ -79,10 +79,10 @@ Rails.application.routes.draw do
     resources :good_providers
     resources :orders do
       get :refresh, on: :collection
-      patch :paypal_pay, on: :member
-      patch :stripe_pay, on: :member
+      get :paypal_pay, on: :member
       get :alipay_pay, on: :member
-      get :execute, on: :member
+      patch :stripe_pay, on: :member
+      get :paypal_execute, on: :member
       get :pay, on: :member
       get 'payment_type' => :edit_payment_type, on: :member
       put 'payment_type' => :update_payment_type, on: :member

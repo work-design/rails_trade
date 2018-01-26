@@ -2,7 +2,8 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
 
   def index
-    @orders = current_user.orders.page(params[:page])
+    query_params = params.permit(:id, :payment_type, :payment_status)
+    @orders = current_user.orders.default_where(query_params).page(params[:page])
 
     respond_to do |format|
       format.html
@@ -91,7 +92,8 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
 
   def paypal_pay
     respond_to do |format|
-      if @order.payment_status != 'all_paid' && @order.create_paypal_payment
+      if @order.payment_status != 'all_paid'
+        @order.paypal_prepay
         format.json
         format.html { redirect_to @order.approve_url }
       else
@@ -105,9 +107,9 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     respond_to do |format|
       if @order.paypal_execute(params)
         format.json {  }
-        format.html { redirect_to payment_success_orders_path, notice: "Order[#{@order.uuid}] placed successfully" }
+        format.html { redirect_to my_order_url(@order.id), notice: "Order[#{@order.uuid}] placed successfully" }
       else
-        format.html { redirect_to payment_fail_orders_path, alert: @order.error.inspect }
+        format.html { redirect_to my_orders_url, alert: @order.error.inspect }
         format.json {  }
       end
     end

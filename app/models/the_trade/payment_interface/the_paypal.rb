@@ -7,7 +7,6 @@ module ThePaypal
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
-  # generate params
   def paypal_prepay
     self.paypal_payment = PAYMENT.new(paypal_params)
 
@@ -22,14 +21,14 @@ module ThePaypal
     result
   end
 
-  # 2 step: execute payment
   def paypal_execute(params)
     return unless self.payment_id
     self.paypal_payment ||= PAYMENT.find(self.payment_id)
     paypal_payment.execute(payer_id: params[:PayerID])
+
+    paypal_record(paypal_payment)
   end
 
-  # 3 step: check result
   def paypal_result
     return unless self.payment_id
     self.paypal_payment ||= PAYMENT.find(self.payment_id)
@@ -38,11 +37,11 @@ module ThePaypal
   end
 
   def paypal_record(record)
+    trans = record.transactions[0]
+
     if record.state == 'approved'
       paypal = PaypalPayment.find_by(payment_uuid: trans.related_resources[0].sale.id)
       return paypal if paypal
-
-      trans = record.transactions[0]
 
       paypal = PaypalPayment.new
       paypal.payment_uuid = trans.related_resources[0].sale.id
@@ -72,7 +71,7 @@ module ThePaypal
       },
       transactions: {
         item_list: {
-          items: origin_items_params
+          items: paypal_items_params
         },
         amount: {
           total: self.unreceived_amount,
@@ -84,16 +83,16 @@ module ThePaypal
   end
 
   def paypal_items_params
-    order_items.map do |item|
+    items = order_items.map do |item|
       {
         name: item.good.name,
         sku: item.good.sku,
-        price: item.price.to_money.exchange_to(self.currency).to_s,
+        price: item.good.price.to_money.exchange_to(self.currency).to_s,
         currency: self.currency.upcase,
         quantity: item.number
       }
     end
-    order_serves.map do |item|
+    serves = order_serves.map do |item|
       {
         name: item.serve.name,
         sku: item.serve.id,
@@ -102,7 +101,7 @@ module ThePaypal
         quantity: 1
       }
     end
+    items + serves
   end
-
 
 end
