@@ -5,7 +5,7 @@
     <% end %>
   </td>
   <td>
-    <%= payment_order.order.uuid %>
+    <%= link_to payment_order.order.uuid, admin_order_path(payment_order.order_id) %>
     <span style="color: #999;">（<%= payment_order.order.charger&.name %>）</span>
   </td>
   <td>

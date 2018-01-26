@@ -4,6 +4,8 @@ module GoodAble
   included do
     attribute :import_price, :decimal
     attribute :profit_price, :decimal
+    attribute :price, :decimal
+    attribute :advance_payment, :decimal
 
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify

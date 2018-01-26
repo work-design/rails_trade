@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       patch :refund, on: :member
       resources :order_payments
     end
+    resources :order_items
     resources :payments do
       resources :payment_orders do
         patch :cancel, on: :member

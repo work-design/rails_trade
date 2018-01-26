@@ -26,7 +26,7 @@
             <%# link_to order_item.good&.name, controller: '/' + order_item.good_type.underscore.pluralize, action: 'show', id: order_item.good_id %>
           </td>
           <td><%= order_item.number %></td>
-          <td><%= link_to '订单流程', my_order_item_path(order_item) %></td>
+          <td><%= link_to '订单流程', admin_order_item_path(order_item) %></td>
           <td><%= order_item.pure_price %></td>
           <td><%= order_item.serve_sum %></td>
           <td><%= order_item.promote_sum %></td>
@@ -68,7 +68,12 @@
       <tr class="active">
         <td>总价</td>
         <td colspan="5"></td>
-        <td><%= @order.amount %></td>
+        <td>
+          <%= @order.amount %>
+          <%= link_to new_admin_order_order_payment_path(@order.id), remote: true, class: 'ui icon green button' do %>
+            <i class="payment icon"></i>
+          <% end %>
+        </td>
       </tr>
     </table>
   </div>

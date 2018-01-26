@@ -31,7 +31,7 @@ class CartItem < ApplicationRecord
 
   after_initialize if: :new_record? do |t|
     self.status = 'init' if self.status.blank?
-    self.buyer_id = self.user&.buyer_id
+    self.buyer_id = self.user&.buyer_id if self.buyer_id.blank?
     self.quantity = 1 if self.quantity.to_i < 1
   end
 
