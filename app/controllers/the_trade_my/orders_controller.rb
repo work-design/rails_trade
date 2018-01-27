@@ -93,9 +93,9 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   def paypal_pay
     respond_to do |format|
       if @order.payment_status != 'all_paid'
-        @order.paypal_prepay
+        result = @order.paypal_prepay
         format.json
-        format.html { redirect_to @order.approve_url }
+        format.html { redirect_to result }
       else
         format.json
         format.html { redirect_to my_orders_url }

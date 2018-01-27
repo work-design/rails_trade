@@ -3,27 +3,24 @@ module ThePaypal
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :approve_url, :return_url, :cancel_url, :paypal_payment
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
   def paypal_prepay
-    self.paypal_payment = PAYMENT.new(paypal_params)
+    paypal_payment = PAYMENT.new(paypal_params)
 
     result = paypal_payment.create
     if result
-      self.payment_id = paypal_payment.id
-      self.approve_url = paypal_payment.links.find{ |v| v.rel == 'approval_url' }.href
-      self.save
+      self.update(payment_id: paypal_payment.id)
     else
       self.errors.add :payment_id, paypal_payment.error.inspect
     end
-    result
+    paypal_payment.links.find{ |v| v.rel == 'approval_url' }.href
   end
 
   def paypal_execute(params)
     return unless self.payment_id
-    self.paypal_payment ||= PAYMENT.find(self.payment_id)
+    paypal_payment = PAYMENT.find(self.payment_id)
     paypal_payment.execute(payer_id: params[:PayerID])
 
     paypal_record(paypal_payment)
@@ -66,7 +63,7 @@ module ThePaypal
         payment_method: 'paypal'
       },
       redirect_urls: {
-        return_url: self.return_url || url_helpers.paypal_execute_my_order_url(self.id),
+        return_url: url_helpers.paypal_execute_my_order_url(self.id),
         cancel_url: url_helpers.cancel_my_order_url(self.id)
       },
       transactions: {
