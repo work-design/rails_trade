@@ -17,13 +17,13 @@ class PromoteFee
 
     Promote.single.overall.each do |promote|
       charge = get_charge(promote)
-      @charges << charge if charge.persisted?
+      @charges << charge
     end
 
     if buyer
       buyer.promotes.single.each do |promote|
         charge = get_charge(promote)
-        @charges << charge if charge.persisted?
+        @charges << charge
       end
     end
 

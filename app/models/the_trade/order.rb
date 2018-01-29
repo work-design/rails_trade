@@ -64,7 +64,7 @@ class Order < ApplicationRecord
     compute_sum
   end
 
-  def migrate_from_cart_items
+  def migrate_from_cart_items(cart_item_ids: nil)
     cart_items = user.cart_items.checked.default_where(myself: self.myself)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
@@ -72,7 +72,7 @@ class Order < ApplicationRecord
     init_with_default_serves
   end
 
-  def init_with_default_serves
+  def init_with_default_serves(cart_item_ids: nil)
     summary = CartItem.checked_items(user_id: self.user_id, myself: self.myself, extra: self.extra)
 
     summary.promote_charges.each do |promote_charge|

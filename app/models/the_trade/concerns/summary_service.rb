@@ -32,13 +32,13 @@ class SummaryService
     Promote.sequence.each do |quence|
       AmountPromote.total.overall.where(sequence: quence).each do |promote|
         charge = promote.compute_price(bulk_price)
-        @promote_charges << charge if charge.persisted?
+        @promote_charges << charge
       end
 
       if buyer
         buyer.promotes.total.where(sequence: quence).each do |promote|
           charge = promote.compute_price(bulk_price)
-          @promote_charges << charge if charge.persisted?
+          @promote_charges << charge
         end
       end
 
@@ -53,7 +53,7 @@ class SummaryService
 
     QuantityServe.total.overall.each do |serve|
       charge = serve.compute_price(total_quantity, extra)
-      @serve_charges << charge if charge.persisted?
+      @serve_charges << charge
     end
 
     @serve_price = checked_items.sum { |cart_item| cart_item.serve_price }

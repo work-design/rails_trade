@@ -17,7 +17,7 @@ class ServeFee
 
     Serve.single.overall.default.each do |serve|
       charge = get_charge(serve)
-      @charges << charge if charge.persisted?
+      @charges << charge
     end
 
     @charges
