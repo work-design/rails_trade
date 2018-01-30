@@ -2,12 +2,12 @@ module GoodAble
   extend ActiveSupport::Concern
 
   included do
-    attribute :import_price, :decimal
-    attribute :profit_price, :decimal
-    attribute :price, :decimal
-    attribute :advance_payment, :decimal
+    attribute :import_price, :decimal, default: 0
+    attribute :profit_price, :decimal, default: 0
+    attribute :price, :decimal, default: 0
+    attribute :advance_payment, :decimal, default: 0
     attribute :sku, :string, default: 'item'
-
+    
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
@@ -51,47 +51,4 @@ module GoodAble
     self.price = self.import_price.to_d + self.profit_price.to_d
   end
 
-  def generate_order(user, params = {})
-    o = user.orders.build
-    o.buyer_id = user.buyer_id
-
-    oi = o.order_items.build
-    oi.good = self
-    if params[:quantity].to_i > 0
-      oi.quantity = params[:quantity]
-    else
-      oi.quantity = 1
-    end
-
-    if params[:amount]
-      oi.amount = params[:amount]
-    else
-      oi.amount = oi.quantity * self.price.to_d
-    end
-
-    o.currency = self.currency
-
-    self.class.transaction do
-      o.check_state
-      o.save!
-      oi.save!
-    end
-    o
-  end
-
 end
-
-# required attributes
-
-# sku
-# price
-# import_price
-# profit_price
-# advance_payment
-
-# t.integer  "provider_id", limit: 4
-# t.string   "sku",         limit: 255
-# t.float    "price",       limit: 24,    default: 9999.0
-# t.integer  "sales_count", limit: 4,     default: 0
-# t.boolean  "published",   limit: 1,     default: true
-# t.integer  "promote_id",  limit: 4
