@@ -8,11 +8,7 @@ module OrderAble
   end
 
   def update_order
-    _order = get_order
-    _order_item = _order.order_items.first
-
-    _order_item.update amount: self.price
-    _order.update subtotal: self.price, amount: self.price
+    order_item.update amount: self.price
   end
 
   def get_order

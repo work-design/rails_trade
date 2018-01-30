@@ -20,7 +20,6 @@ class OrderItem < ApplicationRecord
       self.good_id = cart_item.good_id
       self.number = cart_item.quantity
       self.pure_price = cart_item.pure_price
-      self.amount = cart_item.final_price
       self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
       #self.provider = cart_item.good.provider
 
@@ -32,8 +31,11 @@ class OrderItem < ApplicationRecord
         op = self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
         op.order = self.order
       end
-      self.serve_sum = self.order_serves.sum { |os| os.amount }
-      self.promote_sum = self.order_promotes.sum { |op| op.amount }
+      compute_sum
+
+      unless self.amount == cart_item.final_price
+        puts 'amount is wrong'
+      end
 
       cart_item.status = 'ordered'
     end
@@ -43,6 +45,12 @@ class OrderItem < ApplicationRecord
   def sync_amount
     order.compute_sum
     order.save
+  end
+
+  def compute_sum
+    self.serve_sum = self.order_serves.sum { |os| os.amount }
+    self.promote_sum = self.order_promotes.sum { |op| op.amount }
+    self.amount = self.pure_price + self.serve_sum + self.promote_sum  # 校验是否等于cart_item.final_price
   end
 
   def confirm_ordered!
