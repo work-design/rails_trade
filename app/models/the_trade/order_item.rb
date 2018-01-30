@@ -47,6 +47,10 @@ class OrderItem < ApplicationRecord
 
   end
 
+  def confirm_part_paid!
+
+  end
+
   def confirm_refund!
 
   end

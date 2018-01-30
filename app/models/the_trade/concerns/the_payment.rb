@@ -20,22 +20,23 @@ module ThePayment
     Payment.where.not(id: self.payment_orders.pluck(:payment_id)).exists?(payment_method_id: self.buyer.payment_method_ids, state: ['init', 'part_checked'])
   end
 
-  def paid_result
-    self.payment_status = 'all_paid'
-    self.received_amount = self.amount
-    self.check_state!
-    self
-  end
-
   def confirm_paid!
     self.order_items.each do |oi|
       oi.confirm_paid!
     end
   end
 
+  def confirm_part_paid!
+    self.order_items.each do |oi|
+      oi.confirm_part_paid!
+    end
+  end
+
   def change_to_paid!(params = {})
     if self.amount == 0
-      return paid_result
+      self.received_amount = self.amount
+      self.check_state!
+      return self
     end
 
     if self.payment_status == 'all_paid'
@@ -69,6 +70,7 @@ module ThePayment
       self.confirm_paid!
     elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount
       self.payment_status = 'part_paid'
+      self.confirm_part_paid!
     elsif self.received_amount.to_d <= 0
       self.payment_status = 'unpaid'
     end
