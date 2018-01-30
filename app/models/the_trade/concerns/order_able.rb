@@ -7,30 +7,37 @@ module OrderAble
     has_one :order, -> { where(payment_status: [:unpaid, :part_paid, :all_paid]) }, through: :order_item
   end
 
+  def update_order
+    _order = get_order
+    _order_item = _order.order_items.first
+
+    _order_item.update amount: self.price
+    _order.update subtotal: self.price, amount: self.price
+  end
+
   def get_order
     return @order if @order
-    @order = self.order || generate_order(self.user, { quantity: 1 })
+    @order = self.order || generate_order(self.user, { number: 1 })
   end
 
   def generate_order(user, params = {})
     o = user.orders.build
     o.buyer_id = user.buyer_id
+    o.currency = self.currency
 
     oi = o.order_items.build
     oi.good = self
-    if params[:quantity].to_i > 0
-      oi.quantity = params[:quantity]
+    if params[:number].to_i > 0
+      oi.number = params[:number]
     else
-      oi.quantity = 1
+      oi.number = 1
     end
 
     if params[:amount]
       oi.amount = params[:amount]
     else
-      oi.amount = oi.quantity * self.price.to_d
+      oi.amount = oi.number * self.price.to_d
     end
-
-    o.currency = self.currency
 
     self.class.transaction do
       o.check_state
