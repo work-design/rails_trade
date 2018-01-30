@@ -38,10 +38,11 @@ class OrderItem < ApplicationRecord
       cart_item.status = 'ordered'
     end
   end
-  before_save :sync_amount, if: -> { amount.changed? }
-  
+  after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
+
   def sync_amount
     order.compute_sum
+    order.save
   end
 
   def confirm_ordered!
