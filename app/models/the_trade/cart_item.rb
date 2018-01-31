@@ -21,8 +21,8 @@ class CartItem < ApplicationRecord
 
   composed_of :serve,
               class_name: 'ServeFee',
-              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id']],
-              constructor: Proc.new { |type, id, num, buyer| ServeFee.new(type, id, num, buyer, self.extra) }
+              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number'], ['buyer_id', 'buyer_id'], ['extra', 'extra']],
+              constructor: Proc.new { |type, id, num, buyer, o_extra| ServeFee.new(type, id, num, buyer, self.extra.merge(o_extra)) }
 
   composed_of :promote,
               class_name: 'PromoteFee',
