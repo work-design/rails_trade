@@ -2,9 +2,10 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'mysql2'
+gem 'sqlite3'
 gem 'capybara', '2.15.1'
 gem 'puma'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'pry-rails'
 gem 'the_history', github: 'yigexiangfa/the_history', tag: 'v0.2.8'
 gem 'default_where', github: 'qinmingyuan/default_where', tag: 'v2.0.5'
