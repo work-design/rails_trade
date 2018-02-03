@@ -12,6 +12,12 @@ class CreatePromoteBuyers < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
+    create_table :serve_goods do |t|
+      t.references :good, polymorphic: true
+      t.references :serve
+      t.timestamps
+    end
+
     create_table :cart_item_serves do |t|
       t.references :cart_item
       t.references :serve

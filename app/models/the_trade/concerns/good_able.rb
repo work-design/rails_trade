@@ -13,8 +13,6 @@ module GoodAble
     has_many :orders, through: :order_items
     has_many :promote_goods, as: :good
     has_many :promotes, through: :promote_goods
-    has_many :null_promote_goods, -> { self.or(PromoteGood.where(good_id: nil)) }, class_name: 'PromoteGood', as: :good
-    has_many :null_promotes, through: :null_promote_goods, source: :promote
 
     composed_of :serve,
                 class_name: 'ServeFee',
@@ -24,7 +22,7 @@ module GoodAble
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
-    before_save :sync_price
+    before_save :sync_price, if: -> { import_price_changed? || profit_price_changed? }
 
     def self.extra
       {}
@@ -47,6 +45,15 @@ module GoodAble
     puts 'Should realize in good entity'
   end
 
+  def all_serves
+    Serve.default_where('serve_goods.good_type': self.class.name, 'serve_goods.good_id': [nil, self.id])
+  end
+
+  def all_promotes
+    Promote.default_where('promote_goods.good_type': self.class.name, 'promote_goods.good_id': [nil, self.id])
+  end
+
+  private
   def sync_price
     self.price = self.import_price.to_d + self.profit_price.to_d
   end

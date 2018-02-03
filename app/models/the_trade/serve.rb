@@ -4,6 +4,7 @@ class Serve < ApplicationRecord
 
   belongs_to :deal, polymorphic: true, optional: true
   has_many :charges, class_name: 'ServeCharge', dependent: :delete_all
+  has_many :serve_goods, dependent: :delete_all
 
   scope :verified, -> { where(verified: true) }
   scope :special, -> { where(verified: true, overall: false) }
