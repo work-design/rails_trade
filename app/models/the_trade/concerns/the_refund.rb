@@ -1,6 +1,10 @@
 module TheRefund
 
   def apply_for_refund(payment_id = nil)
+    if ['unpaid', 'refunding', 'refunded'].include? self.payment_status
+      return
+    end
+    
     if payment_id
       payments = self.payments.where(id: payment_id)
     else

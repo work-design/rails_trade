@@ -4,7 +4,7 @@ module OrderAble
 
   included do
     has_one :order_item, as: :good, dependent: :nullify
-    has_one :order, -> { where(payment_status: [:unpaid, :part_paid, :all_paid]) }, through: :order_item
+    has_one :order, through: :order_item
   end
 
   def update_order
@@ -34,6 +34,8 @@ module OrderAble
     else
       oi.amount = oi.number * self.price.to_d
     end
+    
+    o.amount = oi.amount
 
     self.class.transaction do
       o.check_state
