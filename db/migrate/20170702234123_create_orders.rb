@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :uuid, null: false
       t.integer :state, default: 0
       t.decimal :amount, precision: 10, scale: 2
-      t.decimal :received_amount, precision: 10, scale: 2
+      t.decimal :received_amount, precision: 10, scale: 2, default: 0
       t.decimal :subtotal, precision: 10, scale: 2
       t.decimal :pure_serve_sum, precision: 10, scale: 2
       t.decimal :pure_promote_sum, precision: 10, scale: 2

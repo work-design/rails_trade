@@ -40,7 +40,7 @@
           <div class="ui buttons">
             <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'ui positive button' %>
             <div class="or"></div>
-            <%= link_to 'Deny', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'ui negative button' %>
+            <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'ui negative button' %>
           </div>
         <% end %>
         <% if refund.reason %>
