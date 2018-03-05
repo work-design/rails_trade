@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   include ThePayment
   include TheRefund
+  include PaymentInterfaceBase
 
   belongs_to :payment_strategy, optional: true
   belongs_to :user, optional: true

@@ -31,7 +31,7 @@ module TheStripe
       return self.errors.add :payment_id, 'Please add credit card at first.'
     end
 
-    charge = Stripe::Charge.create(amount: (self.amount * 100).to_i, currency: self.currency, customer: stripe_payment_method.account_num)
+    charge = Stripe::Charge.create(amount: self.amount_money.cents, currency: self.currency, customer: stripe_payment_method.account_num)
     self.update payment_type: 'stripe', payment_id: charge.id
     self.stripe_record(charge)
   end
@@ -50,7 +50,7 @@ module TheStripe
 
       stripe = StripePayment.new
       stripe.payment_uuid = charge.id
-      stripe.total_amount = charge.amount / 100.0
+      stripe.total_amount = Money.new(charge.amount, self.currency).to_d
 
       payment_order = stripe.payment_orders.build(order_id: self.id, check_amount: stripe.total_amount)
 

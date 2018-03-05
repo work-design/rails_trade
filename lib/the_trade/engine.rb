@@ -1,3 +1,4 @@
+require 'monetize'
 module TheTrade
   class Engine < ::Rails::Engine
 
