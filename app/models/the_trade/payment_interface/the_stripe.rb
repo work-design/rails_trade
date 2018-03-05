@@ -51,6 +51,7 @@ module TheStripe
       stripe = StripePayment.new
       stripe.payment_uuid = charge.id
       stripe.total_amount = Money.new(charge.amount, self.currency).to_d
+      stripe.currency = charge.currency.upcase
 
       payment_order = stripe.payment_orders.build(order_id: self.id, check_amount: stripe.total_amount)
 
