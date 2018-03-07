@@ -16,7 +16,7 @@ class TheTradeMy::ProvidersController < TheTradeMy::BaseController
     @provider.assign_attributes(provider_params)
 
     Provider.transaction do
-      current_user.save! if @provider.new_record?
+      current_buyer.save! if @provider.new_record?
       @provider.save!
     end
 
@@ -30,7 +30,7 @@ class TheTradeMy::ProvidersController < TheTradeMy::BaseController
 
   private
   def set_provider
-    @provider = current_user.provider || current_user.build_provider
+    @provider = current_buyer.provider || current_buyer.build_provider
   end
 
   def provider_params

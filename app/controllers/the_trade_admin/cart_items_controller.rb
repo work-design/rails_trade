@@ -16,7 +16,7 @@ class TheTradeAdmin::CartItemsController < TheTradeAdmin::BaseController
 
     good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
     if good.respond_to?(:user_id)
-      @user = User.find good.user_id
+      @user = good.user
       @buyer = @user.buyer
       @cart_items = CartItem.where(good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
     end

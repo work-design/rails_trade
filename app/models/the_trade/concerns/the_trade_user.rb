@@ -1,13 +1,21 @@
+# should define methods: buyer & buyer_id
 module TheTradeUser
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :buyer, class_name: '::Buyer', optional: true
+    attribute :buyer_id, :integer
+  
     belongs_to :provider, inverse_of: :users, autosave: true, optional: true
+    belongs_to :buyer, class_name: self.name
 
-    has_many :addresses, dependent: :nullify
-    has_many :cart_items, dependent: :nullify
-    has_many :orders, dependent: :nullify
+    has_many :addresses, foreign_key: :user_id, dependent: :nullify
+    has_many :cart_items, foreign_key: :user_id, dependent: :nullify
+    has_many :orders, foreign_key: :user_id, dependent: :nullify
+
+    CartItem.belongs_to :user, class_name: self.name, optional: true
+    Order.belongs_to :user, class_name: self.name, optional: true
+    Address.belongs_to :user, class_name: self.name, optional: true
+    PaymentReference.belongs_to :user, class_name: self.name, optional: true
   end
 
 end

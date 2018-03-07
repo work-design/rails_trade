@@ -4,8 +4,6 @@ class Order < ApplicationRecord
   include PaymentInterfaceBase
 
   belongs_to :payment_strategy, optional: true
-  belongs_to :user, optional: true
-  belongs_to :buyer, class_name: '::Buyer', foreign_key: :buyer_id
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
   has_many :payments, through: :payment_orders
   has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order

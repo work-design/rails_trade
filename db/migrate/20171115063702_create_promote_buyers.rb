@@ -1,5 +1,6 @@
 class CreatePromoteBuyers < ActiveRecord::Migration[5.1]
   def change
+    
     create_table :promote_buyers do |t|
       t.references :buyer
       t.references :promote
@@ -25,5 +26,6 @@ class CreatePromoteBuyers < ActiveRecord::Migration[5.1]
       t.decimal :price, precision: 10, scale: 2
       t.timestamps
     end
+    
   end
 end

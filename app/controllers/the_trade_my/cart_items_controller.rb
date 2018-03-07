@@ -4,7 +4,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   def index
     @cart_items = current_cart.pending
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
+    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   def create
@@ -21,7 +21,7 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
+    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
 
     render 'index'
   end
@@ -35,17 +35,17 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
       @remove.update(checked: false)
     end
 
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
+    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
+    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   def destroy
     @cart_item.update(status: :deleted, checked: false)
-    @additions = CartItem.checked_items(user_id: current_user&.id, session_id: session.id, myself: true)
+    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   private
@@ -61,8 +61,8 @@ class TheTradeMy::CartItemsController < TheTradeMy::BaseController
   end
 
   def current_cart
-    if current_user
-      @cart_items = current_user.cart_items
+    if current_buyer
+      @cart_items = current_buyer.cart_items
     else
       @cart_items = CartItem.where(session_id: session.id)
     end

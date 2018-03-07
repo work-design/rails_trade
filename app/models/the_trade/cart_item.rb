@@ -1,7 +1,5 @@
 class CartItem < ApplicationRecord
   belongs_to :good, polymorphic: true, optional: true
-  belongs_to :buyer, class_name: '::Buyer', optional: true
-  belongs_to :user, optional: true
   has_many :cart_item_serves, -> { includes(:serve) }, dependent: :destroy
   has_many :order_items, dependent: :nullify
 
@@ -161,7 +159,7 @@ class CartItem < ApplicationRecord
   def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, myself: nil, extra: self.extra)
     if user_id
       @checked_items = CartItem.default_where(user_id: user_id, myself: myself).pending.checked
-      buyer_id = User.find(user_id).buyer_id
+      buyer_id = @checked_items.first&.buyer_id
       puts "-----> Checked User: #{user_id}"
     elsif buyer_id
       @checked_items = CartItem.default_where(buyer_id: buyer_id, myself: myself).pending.checked

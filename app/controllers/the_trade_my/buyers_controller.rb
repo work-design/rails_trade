@@ -29,7 +29,7 @@ class TheTradeMy::BuyersController < TheTradeMy::BaseController
 
   private
   def set_buyer
-    @buyer = current_user.buyer || current_user.build_buyer
+    @buyer = current_buyer.buyer || current_buyer.build_buyer
   end
 
   def buyer_params

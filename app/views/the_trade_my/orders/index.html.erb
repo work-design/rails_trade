@@ -1,52 +1,45 @@
-<div class="ui grid">
-  <div class="three wide column">
-    <%= render 'nav' %>
-  </div>
-
-  <div class="thirteen wide column">
-    <div class="ui segment">
-      <h1>订单列表</h1>
-    </div>
-
-    <table class="ui table">
-      <thead>
-      <tr>
-        <th>订单号</th>
-        <th>Amount</th>
-        <th>Payment Status</th>
-        <th>Pay</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-
-      <% @orders.each do |order| %>
-        <tr>
-          <td><%= order.uuid %></td>
-          <td>
-            <%= order.amount %>
-          </td>
-          <td><%= order.payment_status_i18n %></td>
-          <td>
-            <% if order.payment_type %>
-              <span class="ui label"><%= order.payment_type %></span>
-            <% else %>
-              <%= link_to '选择支付方式', payment_type_my_order_path(order), class: 'ui label' %>
-            <% end %>
-            <% if order.payment_status != 'all_paid' %>
-              <%= link_to 'pay', "/my/orders/#{order.id}/#{order.payment_type}_pay" %>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to 'Show', my_order_path(order) %>
-            <%= link_to 'Edit', edit_my_order_path(order) %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
-
-    <%= paginate @orders %>
-  </div>
+<div class="ui segment">
+  <h1>订单列表</h1>
 </div>
+
+<table class="ui table">
+  <thead>
+  <tr>
+    <th>订单号</th>
+    <th>Amount</th>
+    <th>Payment Status</th>
+    <th>Pay</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.uuid %></td>
+      <td>
+        <%= order.amount %>
+      </td>
+      <td><%= order.payment_status_i18n %></td>
+      <td>
+        <% if order.payment_type %>
+          <span class="ui label"><%= order.payment_type %></span>
+        <% else %>
+          <%= link_to '选择支付方式', payment_type_my_order_path(order), class: 'ui label' %>
+        <% end %>
+        <% if order.payment_status != 'all_paid' %>
+          <%= link_to 'pay', "/my/orders/#{order.id}/#{order.payment_type}_pay" %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to 'Show', my_order_path(order) %>
+        <%= link_to 'Edit', edit_my_order_path(order) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @orders %>
+
 
 
 

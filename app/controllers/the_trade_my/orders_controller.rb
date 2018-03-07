@@ -3,7 +3,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
 
   def index
     query_params = params.permit(:id, :payment_type, :payment_status)
-    @orders = current_user.orders.default_where(query_params).page(params[:page])
+    @orders = current_buyer.orders.default_where(query_params).page(params[:page])
 
     respond_to do |format|
       format.html
@@ -12,7 +12,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def new
-    @order = current_user.orders.build
+    @order = current_buyer.orders.build
     @order.migrate_from_cart_items
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def refresh
-    @order = current_user.orders.build(myself: true)
+    @order = current_buyer.orders.build(myself: true)
     @order.assign_attributes order_params
     @order.migrate_from_cart_items
 
@@ -34,7 +34,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def create
-    @order = current_user.orders.build(order_params)
+    @order = current_buyer.orders.build(order_params)
 
     respond_to do |format|
       if @order.save

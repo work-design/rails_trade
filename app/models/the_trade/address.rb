@@ -1,6 +1,4 @@
 class Address < ApplicationRecord
-  belongs_to :buyer, class_name: '::Buyer', optional: true
-  belongs_to :user, optional: true
   belongs_to :area, optional: true
 
   enum kind: {

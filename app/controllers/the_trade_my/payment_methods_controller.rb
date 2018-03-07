@@ -1,9 +1,8 @@
 class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
-  before_action :set_buyer, only: [:index, :new, :create]
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 
   def index
-    @payment_methods = @buyer.payment_methods
+    @payment_methods = current_buyer.payment_methods
 
     respond_to do |format|
       format.html { redirect_to my_orders_url }
@@ -15,14 +14,14 @@ class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
   end
 
   def new
-    @payment_method = @buyer.payment_methods.build
+    @payment_method = current_buyer.payment_methods.build
   end
 
   def edit
   end
 
   def create
-    @payment_method = @buyer.payment_methods.build(payment_method_params)
+    @payment_method = current_buyer.payment_methods.build(payment_method_params)
 
     if @payment_method.detective_save
       render json: @payment_method.as_json(methods: 'kind')
@@ -46,10 +45,6 @@ class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
   end
 
   private
-  def set_buyer
-    @buyer = current_buyer
-  end
-
   def set_payment_method
     @payment_method = PaymentMethod.find(params[:id])
   end
