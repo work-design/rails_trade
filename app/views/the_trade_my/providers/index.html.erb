@@ -1,22 +1,12 @@
-<div class="ui grid">
-  <div class="three wide column">
-    <%= render 'nav' %>
-  </div>
+<div class="ui basic segment">
 
-  <div class="thirteen wide column">
-
-    <div class="ui basic segment">
-
-      <h3 class="ui header">
-        <%= link_to '申请供应商', new_my_provider_path, class: 'ui right floated mini blue button' %>
-      </h3>
-      <div class="ui divided items">
-        <% @providers.each do |provider| %>
-          <%= render partial: 'provider', locals: { provider: provider } %>
-        <% end %>
-      </div>
-    </div>
-
-
+  <h3 class="ui header">
+    <%= link_to '申请供应商', new_my_provider_path, class: 'ui right floated mini blue button' %>
+  </h3>
+  <div class="ui divided items">
+    <% @providers.each do |provider| %>
+      <%= render partial: 'provider', locals: { provider: provider } %>
+    <% end %>
   </div>
 </div>
+

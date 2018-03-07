@@ -2,6 +2,8 @@ module TheTradeBuyer
   extend ActiveSupport::Concern
   
   included do
+    attribute :deposit_ratio, :integer, default: 100
+    
     belongs_to :payment_strategy, optional: true
     # todo has_many :users, foreign_key: :buyer_id, dependent: :nullify
     has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer

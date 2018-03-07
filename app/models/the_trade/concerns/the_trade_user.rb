@@ -4,6 +4,7 @@ module TheTradeUser
 
   included do
     attribute :buyer_id, :integer
+    attribute :provider_id, :integer
   
     belongs_to :provider, inverse_of: :users, autosave: true, optional: true
     belongs_to :buyer, class_name: self.name
