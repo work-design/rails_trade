@@ -3,7 +3,7 @@
     <%= f.text_field :account_name, placeholder: PaymentMethod.human_attribute_name(:account_name) %>
     <%= f.text_field :account_num, placeholder: PaymentMethod.human_attribute_name(:account_num) %>
     <%= f.text_field :bank, placeholder: PaymentMethod.human_attribute_name(:bank) %>
-    <%= f.text_field :'buyers.name-like', placeholder: Buyer.human_attribute_name(:name) %>
+    <%= f.text_field :'buyers.name-like', placeholder: 'name' %>
     <%= f.submit 'Search' %>
     <%= link_to 'Clear All Filters', filter_params(only: []), class: 'ui white button' %>
   </div>

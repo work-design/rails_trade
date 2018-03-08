@@ -1,6 +1,9 @@
 class TheTradeAdmin::PaymentOrdersController < TheTradeAdmin::BaseController
   before_action :set_payment
   before_action :set_payment_order, only: [:update, :cancel]
+  after_action only: [:create] do
+    mark_audits(Payment: [:payment_orders])
+  end
 
   def new
     @payment_order = PaymentOrder.new
@@ -11,7 +14,6 @@ class TheTradeAdmin::PaymentOrdersController < TheTradeAdmin::BaseController
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
     if @payment_order.confirm!
-      @payment.save_audits operator_type: 'User', operator_id: current_user.id, include: [:payment_orders]
       respond_to do |format|
         format.js
       end

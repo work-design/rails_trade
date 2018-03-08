@@ -34,18 +34,18 @@ class TheTradeAdmin::RefundsController < TheTradeAdmin::BaseController
   end
 
   def confirm
-    @refund.do_refund(operator_id: current_user.id, operator_type: 'User')
+    @refund.do_refund(operator_id: administrator.id, operator_type: administrator.class.name)
     redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 
   def deny
-    @refund.deny_refund(operator_id: current_user.id, operator_type: 'User')
+    @refund.deny_refund(operator_id: administrator.id, operator_type: administrator.class.name)
     redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 
   def destroy
     @refund.destroy
-    redirect_to refunds_url, notice: 'Refund was successfully destroyed.'
+    redirect_to admin_refunds_url, notice: 'Refund was successfully destroyed.'
   end
 
   private

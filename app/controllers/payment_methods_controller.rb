@@ -1,23 +1,22 @@
 class PaymentMethodsController < ApplicationController
-  before_action :set_buyer, only: [:index, :new, :create]
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 
   def index
-    @payment_methods = @buyer.payment_methods
+    @payment_methods = current_buyer.payment_methods
   end
 
   def show
   end
 
   def new
-    @payment_method = @buyer.payment_methods.build
+    @payment_method = current_buyer.payment_methods.build
   end
 
   def edit
   end
 
   def create
-    @payment_method = @buyer.payment_methods.build(payment_method_params)
+    @payment_method = current_buyer.payment_methods.build(payment_method_params)
 
     if @payment_method.detective_save
       render 'create'
@@ -40,16 +39,15 @@ class PaymentMethodsController < ApplicationController
   end
 
   private
-  def set_buyer
-    @buyer = Buyer.find params[:buyer_id]
-  end
-
   def set_payment_method
     @payment_method = PaymentMethod.find(params[:id])
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id)
+    params.fetch(:payment_method, {}).permit(:account_name,
+                                             :account_num,
+                                             :bank,
+                                             :buyer_id)
   end
 
 end
