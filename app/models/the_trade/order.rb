@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   include ThePayment
   include TheRefund
   include PaymentInterfaceBase
-
+  
   belongs_to :payment_strategy, optional: true
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
   has_many :payments, through: :payment_orders

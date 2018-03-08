@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     end
     resources :good_providers
     resources :orders do
+      post :direct, on: :collection
       get :refresh, on: :collection
       get :paypal_pay, on: :member
       get :alipay_pay, on: :member

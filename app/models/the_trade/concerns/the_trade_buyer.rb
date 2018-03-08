@@ -3,6 +3,7 @@ module TheTradeBuyer
   
   included do
     attribute :deposit_ratio, :integer, default: 100
+    attribute :payment_strategy_id, :integer
     
     belongs_to :payment_strategy, optional: true
     # todo has_many :users, foreign_key: :buyer_id, dependent: :nullify

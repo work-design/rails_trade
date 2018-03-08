@@ -4,6 +4,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
     create_table :orders do |t|
       t.references :user
       t.references :buyer
+      t.references :payment_strategy
       t.string :uuid, null: false
       t.integer :state, default: 0
       t.decimal :amount, precision: 10, scale: 2
@@ -26,6 +27,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.references :cart_item
       t.references :good, polymorphic: true
       t.integer :quantity
+      t.integer :number
       t.decimal :pure_price, precision: 10, scale: 2
       t.decimal :promote_sum, precision: 10, scale: 2
       t.decimal :serve_sum, precision: 10, scale: 2

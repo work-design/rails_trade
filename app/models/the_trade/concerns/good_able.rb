@@ -7,6 +7,7 @@ module GoodAble
     attribute :price, :decimal, default: 0
     attribute :advance_payment, :decimal, default: 0
     attribute :sku, :string, default: 'item'
+    attribute :currency, :string
     
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify

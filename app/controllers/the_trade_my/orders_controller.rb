@@ -46,6 +46,22 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
       end
     end
   end
+  
+  def direct
+    @order = current_buyer.orders.build(order_params)
+  
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to my_orders_url(id: @order.id), notice: 'Order was successfully created.' }
+        format.json { render json: @order, status: :created, location: @order }
+      else
+        format.html {
+          redirect_back fallback_location: my_root_url
+        }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def pay
     if @order.payment_status != 'all_paid'
