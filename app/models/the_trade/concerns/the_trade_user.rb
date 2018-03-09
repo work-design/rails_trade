@@ -7,7 +7,7 @@ module TheTradeUser
     attribute :provider_id, :integer
   
     belongs_to :provider, inverse_of: :users, autosave: true, optional: true
-    belongs_to :buyer, class_name: self.name
+    belongs_to :buyer, class_name: self.name, optional: true
 
     has_many :addresses, foreign_key: :user_id, dependent: :nullify
     has_many :cart_items, foreign_key: :user_id, dependent: :nullify
