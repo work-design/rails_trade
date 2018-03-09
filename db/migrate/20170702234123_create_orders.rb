@@ -19,6 +19,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :payment_type
       t.integer :payment_status
       t.boolean :myself
+      t.string :note, limit: 4096
       t.timestamps
     end
 

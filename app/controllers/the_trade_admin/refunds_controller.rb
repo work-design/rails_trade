@@ -34,12 +34,12 @@ class TheTradeAdmin::RefundsController < TheTradeAdmin::BaseController
   end
 
   def confirm
-    @refund.do_refund(operator_id: administrator.id, operator_type: administrator.class.name)
+    @refund.do_refund(operator_id: the_audit_user.id, operator_type: the_audit_user.class.name)
     redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 
   def deny
-    @refund.deny_refund(operator_id: administrator.id, operator_type: administrator.class.name)
+    @refund.deny_refund(operator_id: the_audit_user.id, operator_type: the_audit_user.class.name)
     redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 

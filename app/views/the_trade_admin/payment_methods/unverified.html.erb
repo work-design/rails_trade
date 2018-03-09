@@ -24,14 +24,11 @@
           <% end %>
         </td>
         <td>
-          <% if payment_method.repeat_results.blank? %>
-            <%= form_with model: payment_method, url: admin_payment_method_path(payment_method), method: :patch do |f| %>
-              <%= hidden_field_tag :'payment_method[verified]', '0' %>
-              <span class="ui toggle checkbox">
-                <label></label>
-                <%= f.check_box :verified, include_hidden: false, onChange: 'this.form.submit()' %>
-              </span>
-            <% end %>
+          <%= form_with model: payment_method, url: admin_payment_method_path(payment_method), method: :patch do |f| %>
+            <div class="ui toggle checkbox">
+              <label></label>
+              <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, on: { wrapper_all: false, wrapper_checkbox: false, offset: false } %>
+            </div>
           <% end %>
         </td>
         <td>

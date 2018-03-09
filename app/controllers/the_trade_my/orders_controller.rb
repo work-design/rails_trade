@@ -169,6 +169,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     respond_to do |format|
       format.html { redirect_to my_orders_url }
       format.json { head :no_content }
+      format.js
     end
   end
 

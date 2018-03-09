@@ -1,6 +1,5 @@
 class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   before_action :set_payment_method, only: [:show, :edit, :update, :verify, :merge_from, :destroy]
-  default_form_builder nil
 
   def index
     @payment_methods = PaymentMethod.includes(:payment_references).default_where(query_params).page(params[:page])
@@ -9,18 +8,34 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   def unverified
     @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).default_where(query_params).page(params[:page]).references(:payment_references)
   end
+  
+  def mine
+    default_params = {
+      creator_id: the_audit_user.id
+    }
+    @payment_methods = PaymentMethod.includes(:payment_references).default_where(default_params).page(params[:page])
+  end
 
   def new
     @payment_method = PaymentMethod.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
-    @payment_method = PaymentMethod.new(payment_method_params.merge(verified: true))
+    @payment_method = PaymentMethod.new(payment_method_params.merge(verified: true, creator_id: the_audit_user.id))
 
-    if @payment_method.save
-      redirect_to admin_payment_methods_url, notice: 'Payment method was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @payment_method.save
+        format.html { redirect_to admin_payment_methods_url, notice: 'Payment method was successfully created.' }
+        format.js
+      else
+        format.html { render :new }
+        format.js
+      end
     end
   end
 
@@ -28,6 +43,10 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update

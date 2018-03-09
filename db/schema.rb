@@ -12,12 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150130123018) do
-
-  create_table "administrators", force: :cascade do |t|
-    t.integer "user_id",    limit: 4
-    t.integer "admin_id",   limit: 4
-    t.string  "admin_type", limit: 255
-  end
+  
 
   create_table "areas", force: :cascade do |t|
     t.string  "name",      limit: 255, null: false
