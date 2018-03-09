@@ -1,0 +1,7 @@
+class BankMethod < PaymentMethod
+
+
+end
+
+
+

@@ -94,7 +94,11 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :verified)
+    params.fetch(:payment_method, {}).permit(:type,
+                                             :account_name,
+                                             :account_num,
+                                             :bank,
+                                             :verified)
   end
 
   def payment_reference_params

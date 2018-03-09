@@ -1,1 +1,1 @@
-$('.ui.toggle.checkbox').checkbox({debug: true});
+$('.ui.toggle.checkbox').checkbox();
