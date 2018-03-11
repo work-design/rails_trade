@@ -1,5 +1,5 @@
 <div class="ui blue segment">
-  <%= search_form_for :q do |f| %>
+  <%= search_form_with do |f| %>
     <div class="fields">
       <%= hidden_field_tag :payment_status, params[:payment_status] %>
       <%= f.text_field :'company.name', placeholder: 'Company Name' %>

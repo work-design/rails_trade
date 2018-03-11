@@ -16,6 +16,10 @@ class Payment < ApplicationRecord
   before_save :compute_amount
   after_create :analyze_payment_method
 
+  after_initialize if: :new_record? do |o|
+    self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+  end
+  
   enum state: [
     :init,
     :part_checked,
