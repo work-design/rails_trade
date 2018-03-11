@@ -30,7 +30,7 @@
     <% end %>
   </td>
   <td><%= payment.buyer_bank %></td>
-  <td><%= payment.notified_at.to_s(:admin) if payment.notified_at %></td>
+  <td><time><%= payment.notified_at.to_s(:rfc822) if payment.notified_at %></time></td>
   <td>
     <% if payment.payment_method.present? %>
       <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini blue button', target: '_blank' %>

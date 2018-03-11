@@ -30,12 +30,12 @@
       </td>
       <td><%= refund.total_amount.to_money(refund.currency).format %></td>
       <td><%= refund.type %></td>
-      <td><time><%= refund.created_at.to_s(:admin) %></time></td>
+      <td><time><%= refund.created_at.to_s(:rfc822) %></time></td>
       <td><%= refund.state %></td>
       <td><%= refund.comment %></td>
       <td>
         <% if refund.refunded_at %>
-          <time><%= refund.refunded_at.to_s(:admin) %></time>
+          <time><%= refund.refunded_at.to_s(:rfc822) %></time>
         <% else %>
           <div class="ui buttons">
             <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'ui positive button' %>

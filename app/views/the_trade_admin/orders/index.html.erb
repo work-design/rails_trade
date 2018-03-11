@@ -51,7 +51,7 @@
               <%= link_to 'Refund List', admin_refunds_path(order_id: order.id), class: 'ui mini green button' %>
             <% end %>
           </td>
-          <td><%= order.created_at.to_s %></td>
+          <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
           <td><%= order.amount %></td>
           <td>
             <%= link_to 'Show', admin_order_path(order) %>
