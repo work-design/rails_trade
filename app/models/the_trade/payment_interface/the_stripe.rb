@@ -30,7 +30,7 @@ module TheStripe
     unless stripe_payment_method
       return self.errors.add :payment_id, 'Please add credit card at first.'
     end
-
+    return if self.amount <= 0
     charge = Stripe::Charge.create(amount: self.amount_money.cents, currency: self.currency, customer: stripe_payment_method.account_num)
     self.update payment_type: 'stripe', payment_id: charge.id
     self.stripe_record(charge)
