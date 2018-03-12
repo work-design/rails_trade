@@ -14,11 +14,7 @@ class TheTradeMy::BuyersController < TheTradeMy::BaseController
 
   def update
     @buyer.assign_attributes(buyer_params)
-
-    Buyer.transaction do
-      current_user.save! if @buyer.new_record?
-      @buyer.save!
-    end
+    @buyer.save
 
     if @buyer.saved_changes?
       redirect_to my_buyer_path, notice: 'Buyer 更新成功!'
@@ -29,7 +25,7 @@ class TheTradeMy::BuyersController < TheTradeMy::BaseController
 
   private
   def set_buyer
-    @buyer = current_buyer.buyer || current_buyer.build_buyer
+    @buyer = current_buyer
   end
 
   def buyer_params
