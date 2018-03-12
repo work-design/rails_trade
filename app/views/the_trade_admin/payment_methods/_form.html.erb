@@ -1,7 +1,5 @@
-<%= form_with model: [:admin, @payment_method], local: true do |f| %>
-  <%= f.select :type, options_for_select(PaymentMethod.options_i18n(:type), @payment_method.type) %>
-  <%= f.text_field :account_name %>
-  <%= f.text_field :account_num %>
-  <%= f.text_field :bank %>
-  <%= f.submit %>
-<% end %>
+<%= f.select :type, options_for_select(PaymentMethod.options_i18n(:type), @payment_method.type) %>
+<%= f.text_field :account_name %>
+<%= f.text_field :account_num %>
+<%= f.text_field :bank %>
+<%= f.submit %>

@@ -1,8 +1,8 @@
 if ($('.ui.modals').length === 0) {
-  $('body').append('<%= j(render 'new') %>');
+  $('body').append('<%= j(render 'edit') %>');
 } else {
-  $('.ui.modals').html('<%= j(render 'new') %>');
+  $('.ui.modals').html('<%= j(render 'edit') %>');
 }
 
-
+$('#payment_method_type').dropdown();
 $('.ui.modal').modal('setting', { autofocus: false }).modal('show');

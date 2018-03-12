@@ -1,6 +1,13 @@
-<h1>Editing Payment Method</h1>
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="ui header blue">
+    Edit Payment Method
+  </div>
 
-<%= render 'form', payment_method: @payment_method %>
+  <div class="content">
+    <%= form_with model: @payment_method, scope: 'payment_method', url: my_payment_method_path(@payment_method) do |f| %>
+      <%= render partial: 'form', locals: { f: f } %>
+    <% end %>
+  </div>
 
-<%= link_to 'Show', @payment_method %> |
-<%= link_to 'Back', payment_methods_path %>
+</div>

@@ -4,5 +4,5 @@ if ($('.ui.modals').length === 0) {
   $('.ui.modals').html('<%= j(render 'new') %>');
 }
 
-
+$('#payment_method_type').dropdown();
 $('.ui.modal').modal('setting', { autofocus: false }).modal('show');

@@ -58,12 +58,13 @@ class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name,
-                                             :account_num,
-                                             :bank,
-                                             :buyer_id,
-                                             :type,
-                                             :token)
+    _params = params.fetch(:payment_method, {}).permit(:account_name,
+                                                       :account_num,
+                                                       :bank,
+                                                       :buyer_id,
+                                                       :type,
+                                                       :token)
+    _params.merge(verified: true)
   end
 
 end

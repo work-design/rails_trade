@@ -1,7 +1,5 @@
-<%= default_form_with model: @payment_method do |f| %>
-  <%= hidden_field_tag :buyer_id, params[:buyer_id] %>
-  <%= f.text_field :account_name %>
-  <%= f.text_field :account_num %>
-  <%= f.text_field :bank %>
-  <%= f.submit %>
-<% end %>
+<%= f.select :type, options_for_select(PaymentMethod.options_i18n(:type)) %>
+<%= f.text_field :account_name %>
+<%= f.text_field :account_num %>
+<%= f.text_field :bank %>
+<%= f.submit %>

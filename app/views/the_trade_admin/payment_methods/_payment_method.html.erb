@@ -13,7 +13,7 @@
     <% end %>
   </td>
   <td>
-    <%= form_with model: payment_method, url: admin_payment_method_path(payment_method), method: :patch do |f| %>
+    <%= form_with model: payment_method, scope: 'payment_method', url: admin_payment_method_path(payment_method), method: :patch do |f| %>
       <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, on: { wrapper_all: false, offset: false } %>
     <% end %>
   </td>

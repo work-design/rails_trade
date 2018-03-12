@@ -7,7 +7,9 @@
   </div>
 
   <div class="ui segment">
-    <%= render 'form' %>
+    <%= form_with model: [:admin, @payment_method], local: true do |f| %>
+      <%= render partial: 'form', locals: { f: f } %>
+    <% end %>
   </div>
 
 </div>
