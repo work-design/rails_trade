@@ -5,29 +5,37 @@ class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
     @payment_methods = current_buyer.payment_methods
 
     respond_to do |format|
-      format.html { redirect_to my_orders_url }
+      format.html {
+      
+      }
       format.json { render json: @payment_methods.as_json(methods: 'kind') }
     end
-  end
-
-  def show
   end
 
   def new
     @payment_method = current_buyer.payment_methods.build
   end
 
-  def edit
-  end
-
   def create
     @payment_method = current_buyer.payment_methods.build(payment_method_params)
-
-    if @payment_method.detective_save
-      render json: @payment_method.as_json(methods: 'kind')
-    else
-      render :new
+    
+    respond_to do |format|
+      if @payment_method.detective_save
+        format.html
+        format.json { render json: @payment_method.as_json(methods: 'kind') }
+        format.js
+      else
+        format.html { render :new }
+        format.json
+        format.js
+      end
     end
+  end
+
+  def show
+  end
+
+  def edit
   end
 
   def update
@@ -50,7 +58,12 @@ class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:account_name, :account_num, :bank, :buyer_id, :type, :token)
+    params.fetch(:payment_method, {}).permit(:account_name,
+                                             :account_num,
+                                             :bank,
+                                             :buyer_id,
+                                             :type,
+                                             :token)
   end
 
 end

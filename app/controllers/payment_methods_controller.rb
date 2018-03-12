@@ -5,15 +5,10 @@ class PaymentMethodsController < ApplicationController
     @payment_methods = current_buyer.payment_methods
   end
 
-  def show
-  end
 
-  def new
-    @payment_method = current_buyer.payment_methods.build
-  end
 
-  def edit
-  end
+
+
 
   def create
     @payment_method = current_buyer.payment_methods.build(payment_method_params)
