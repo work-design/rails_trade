@@ -28,12 +28,19 @@ module TheStripe
     end
 
     unless stripe_payment_method
-      return self.errors.add :payment_id, 'Please add credit card at first.'
+      self.errors.add :base, 'Please add credit card at first.'
+      return self
     end
-    return if self.amount <= 0
-    charge = Stripe::Charge.create(amount: self.amount_money.cents, currency: self.currency, customer: stripe_payment_method.account_num)
-    self.update payment_type: 'stripe', payment_id: charge.id
-    self.stripe_record(charge)
+    return self if self.amount <= 0
+
+    begin
+      charge = Stripe::Charge.create(amount: self.amount_money.cents, currency: self.currency, customer: stripe_payment_method.account_num)
+      self.update payment_type: 'stripe', payment_id: charge.id
+      self.stripe_record(charge)
+    rescue Stripe::StripeError => ex
+      self.errors.add :base, ex.message
+    end
+    self
   end
 
   def stripe_result
