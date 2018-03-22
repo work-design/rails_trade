@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
 gem 'puma'
+gem 'rails', '5.2.0.rc2'
 
 gem 'mysql2'
 gem 'sqlite3'
@@ -13,7 +15,7 @@ gem 'sprockets', github: 'rails/sprockets', ref: '3c542c1'
 
 # for test
 gem 'factory_bot_rails'
-gem 'capybara', '2.15.1'
+gem 'capybara'
 
 # dependence engines
 gem 'default_where', github: 'qinmingyuan/default_where', tag: 'v2.0.5'
