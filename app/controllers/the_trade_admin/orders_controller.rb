@@ -7,7 +7,7 @@ class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
     q_params = params.fetch(:q, {}).permit(:uuid)
     query_params.merge! q_params
 
-    @orders = Order.default_where(query_params).page(params[:page])
+    @orders = Order.default_where(query_params).order(id: :desc).page(params[:page])
   end
 
   def payments
