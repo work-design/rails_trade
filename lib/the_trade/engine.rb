@@ -4,7 +4,6 @@ module TheTrade
 
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/concerns"]
-    config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/payment_interface"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/payments"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/payment_methods"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/refunds"]
@@ -13,6 +12,8 @@ module TheTrade
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/promote_charges"]
     config.eager_load_paths += Dir["#{config.root}/app/models/the_trade/serve_charges"]
 
+    config.autoload_paths += Dir["#{config.root}/app/models/the_trade/payment_interface"]
+    
     initializer 'the_trade.assets.precompile' do |app|
       app.config.assets.precompile += ['the_trade_manifest.js']
     end
