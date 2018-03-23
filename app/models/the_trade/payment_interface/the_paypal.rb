@@ -1,5 +1,4 @@
 module ThePaypal
-  PAYMENT =  PayPal::SDK::REST::DataTypes::Payment
   extend ActiveSupport::Concern
 
   included do
@@ -7,7 +6,7 @@ module ThePaypal
   end
 
   def paypal_prepay
-    paypal_payment = PAYMENT.new(paypal_params)
+    paypal_payment = PayPal::SDK::REST::DataTypes::Payment.new(paypal_params)
 
     result = paypal_payment.create
     if result
@@ -20,7 +19,7 @@ module ThePaypal
 
   def paypal_execute(params)
     return unless self.payment_id
-    paypal_payment = PAYMENT.find(self.payment_id)
+    paypal_payment = PayPal::SDK::REST::DataTypes::Payment.find(self.payment_id)
     paypal_payment.execute(payer_id: params[:PayerID])
 
     paypal_record(paypal_payment)
@@ -28,7 +27,7 @@ module ThePaypal
 
   def paypal_result
     return unless self.payment_id
-    self.paypal_payment ||= PAYMENT.find(self.payment_id)
+    self.paypal_payment ||= PayPal::SDK::REST::DataTypes::Payment.find(self.payment_id)
 
     paypal_record(paypal_payment)
   end
