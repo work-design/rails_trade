@@ -1,9 +1,8 @@
 class PaypalRefund < Refund
-  SALE = PayPal::SDK::REST::DataTypes::Sale
 
   def do_refund(params = {})
     return unless can_refund?
-    sale = SALE.find(payment.payment_uuid)
+    sale = PayPal::SDK::REST::DataTypes::Sale.find(payment.payment_uuid)
 
     params = params.merge({
       amount: {
