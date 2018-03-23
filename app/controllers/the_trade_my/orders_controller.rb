@@ -46,10 +46,10 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
       end
     end
   end
-  
+
   def direct
     @order = current_buyer.orders.build(order_params)
-  
+
     respond_to do |format|
       if @order.save
         format.html { redirect_to my_orders_url(id: @order.id), notice: 'Order was successfully created.' }
@@ -77,13 +77,18 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def stripe_pay
+    if @order.payment_status != 'all_paid'
+      @order.stripe_charge(params)
+    end
+
     respond_to do |format|
-      if @order.payment_status != 'all_paid'
-        result = @order.stripe_charge(params)
-        format.json { render json: { result: result } }
+      if @order.errors.blank?
+        format.json { render json: { result: @order } }
         format.html { redirect_to @order.approve_url }
       else
-        format.json
+        format.json {
+          process_errors(@order)
+        }
         format.html { redirect_to my_orders_url }
       end
     end
