@@ -14,11 +14,11 @@ class ServeCharge < ApplicationRecord
   end
 
   def self.min_step
-    0.1.to_d.power(ServeCharge.columns.find { |i| i.name == 'min' }.scale)
+    0.1.to_d.power(ServeCharge.columns_hash['min'].scale)
   end
 
   def self.max_step
-    0.1.to_d.power(ServeCharge.columns.find { |i| i.name == 'max' }.scale)
+    0.1.to_d.power(ServeCharge.columns_hash['max'].scale)
   end
 
   def self.extra_columns
