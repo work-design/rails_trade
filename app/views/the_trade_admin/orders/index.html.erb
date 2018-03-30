@@ -14,15 +14,14 @@
       <thead>
       <tr>
         <th>ID</th>
-        <th><%= t 'orders.uuid' %></th>
-        <th><%= t 'orders.buyer' %></th>
-        <th width="10%"><%= t 'orders.payment_type' %></th>
-        <th><%= t 'orders.amount' %></th>
-        <th><%= t 'orders.received_amount' %></th>
-        <th><%= t 'orders.currency' %></th>
-        <th><%= t 'orders.payment_status' %></th>
-        <th><%= t 'orders.created_at' %></th>
-        <th><%= t 'orders.state' %></th>
+        <th><%= Order.human_attribute_name(:id) %></th>
+        <th><%= Order.human_attribute_name(:buyer) %></th>
+        <th><%= Order.human_attribute_name(:payment_type) %></th>
+        <th><%= Order.human_attribute_name(:amount) %></th>
+        <th><%= Order.human_attribute_name(:received_amount) %></th>
+        <th><%= Order.human_attribute_name(:currency) %></th>
+        <th><%= Order.human_attribute_name(:payment_status) %></th>
+        <th><%= Order.human_attribute_name(:created_at) %></th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -52,10 +51,9 @@
             <% end %>
           </td>
           <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
-          <td><%= order.amount %></td>
-          <td>
-            <%= link_to 'Show', admin_order_path(order) %>
-            <%= link_to 'Edit', edit_admin_order_path(order) %>
+          <td class="ui labels">
+            <%= link_to 'Show', admin_order_path(order), class: 'ui blue label' %>
+            <%= link_to 'Edit', edit_admin_order_path(order), class: 'ui red label' %>
           </td>
         </tr>
       <% end %>

@@ -23,6 +23,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.string :comment
       t.references :payment_method
       t.references :creator
+      t.boolean :verified, default: true
       t.timestamps
     end
 

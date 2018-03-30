@@ -12,14 +12,16 @@ class Payment < ApplicationRecord
   validates :total_amount, numericality: { equal_to: -> (o) { o.income_amount + o.fee_amount } }, if: -> { income_amount.present? && fee_amount.present? && total_amount.present? }
   validates :adjust_amount, numericality: { less_than: 1, greater_than: -1 }, allow_blank: true
   validates :payment_uuid, uniqueness: true
-  
+
   before_save :compute_amount
   after_create :analyze_payment_method
+
+  has_one_attached :proof
 
   after_initialize if: :new_record? do |o|
     self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
   end
-  
+
   enum state: [
     :init,
     :part_checked,
