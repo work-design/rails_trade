@@ -66,7 +66,7 @@
           <label class="ui red label">Canceled</label>
           <% end %>
         </td>
-        <td><%= order.charger&.name %></td>
+        <td><%# order.charger&.name %></td>
         <td><%= order.created_at %></td>
         <td>
           <% order.order_items.each do |order_item| %>

@@ -6,7 +6,7 @@
   </td>
   <td>
     <%= link_to order.uuid, admin_order_path(order.id) %>
-    <span style="color: #999;">（<%= order.charger&.name %>）</span>
+    <span style="color: #999;">（<%# order.charger&.name %>）</span>
   </td>
   <td>
     <% if order.payment_memo_id %>

@@ -6,12 +6,9 @@
   </td>
   <td>
     <%= link_to payment_order.order.uuid, admin_order_path(payment_order.order_id) %>
-    <span style="color: #999;">（<%= payment_order.order.charger&.name %>）</span>
+    <span style="color: #999;">（<%# payment_order.order.charger&.name %>）</span>
   </td>
   <td>
-    <% if payment_order.order.payment_memo_id %>
-      <%= link_to 'Download', attachment_url(payment_order.order, :payment_memo), download: "payment_memo_#{payment_order.order_id}", target: '_self' %>
-    <% end %>
   </td>
   <td><%= payment_order.order.amount %></td>
   <td>

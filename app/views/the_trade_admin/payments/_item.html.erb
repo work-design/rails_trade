@@ -31,14 +31,14 @@
   </td>
   <td><%= payment.buyer_bank %></td>
   <td><time><%= payment.notified_at.to_s(:rfc822) if payment.notified_at %></time></td>
-  <td>
+  <td class="ui labels">
     <% if payment.payment_method.present? %>
-      <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini blue button', target: '_blank' %>
+      <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini blue label', target: '_blank' %>
     <% else %>
-      <%= link_to t('.analyze'), analyze_admin_payment_path(payment), method: :patch, class: 'ui mini blue button', remote: true %>
+      <%= link_to t('.analyze'), analyze_admin_payment_path(payment), method: :patch, class: 'ui mini blue label', remote: true %>
     <% end %>
-    <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'ui mini red button', remote: true %>
-    <%= link_to audits_path('Payment', payment.id), remote: true, class: 'ui mini icon blue button' do %>
+    <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'ui mini red label', remote: true %>
+    <%= link_to audits_path('Payment', payment.id), remote: true, class: 'ui mini icon blue label' do %>
       <i class="comments icon"></i>
     <% end %>
   </td>
