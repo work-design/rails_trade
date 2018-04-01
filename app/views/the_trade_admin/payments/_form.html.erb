@@ -1,3 +1,4 @@
+<%= hidden_field_tag :order_id, params[:order_id] %>
 <%= f.select :type, options_for_select(Payment.options_i18n(:type), @payment.type) %>
 <%= f.text_field :payment_uuid %>
 <%= f.number_field :total_amount, step: '0.01' %>

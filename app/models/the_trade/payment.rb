@@ -5,7 +5,7 @@ class Payment < ApplicationRecord
 
   belongs_to :payment_method, optional: true
   has_many :payment_orders, dependent: :destroy, inverse_of: :payment
-  has_many :orders, through: :payment_orders
+  has_many :orders, through: :payment_orders, inverse_of: :payments
 
   default_scope -> { order(created_at: :desc) }
 
@@ -16,7 +16,7 @@ class Payment < ApplicationRecord
   before_save :compute_amount
   after_create :analyze_payment_method
 
-  has_one_attached :proof
+  #has_one_attached :proof
 
   after_initialize if: :new_record? do |o|
     self.payment_uuid ||= UidHelper.nsec_uuid('PAY')

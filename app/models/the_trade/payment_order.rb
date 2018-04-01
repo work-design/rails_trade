@@ -1,6 +1,6 @@
 class PaymentOrder < ApplicationRecord
   belongs_to :order, inverse_of: :payment_orders
-  belongs_to :payment
+  belongs_to :payment, inverse_of: :payment_orders
 
   validate :for_check_amount
 

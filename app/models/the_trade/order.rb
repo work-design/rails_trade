@@ -2,10 +2,10 @@ class Order < ApplicationRecord
   include ThePayment
   include TheRefund
   include PaymentInterfaceBase
-  
+
   belongs_to :payment_strategy, optional: true
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
-  has_many :payments, through: :payment_orders
+  has_many :payments, through: :payment_orders, inverse_of: :orders
   has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
   has_many :refunds, dependent: :nullify, inverse_of: :order
   has_many :order_promotes, autosave: true, inverse_of: :order
@@ -86,7 +86,7 @@ class Order < ApplicationRecord
   def compute_sum
     _pure_order_serves = self.order_serves.select { |os| os.order_item_id.nil? }
     _pure_order_promotes = self.order_promotes.select { |op| op.order_item_id.nil? }
-    
+
     self.pure_serve_sum = _pure_order_serves.sum { |o| o.amount }
     self.pure_promote_sum = _pure_order_promotes.sum { |o| o.amount }
     self.subtotal = self.order_items.sum { |o| o.amount }
