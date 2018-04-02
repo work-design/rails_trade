@@ -1,21 +1,6 @@
-<%= default_form_for [:admin, @provider] do |f| %>
-
-  <%= render "shared/error_messages", :target => @provider %>
-
-  <%= f.text_field :area_id, label: "地区：" %>
-  <%= f.text_field :name, label: '名称：' %>
-
-
-  <div class="inline field">
-    <%= f.label :logo, "logo图：", :class => "six wide field" %>
-    <%= image_tag(@provider.logo_url) if @provider.logo? %>
-    <%= f.file_field :logo %>
-    <%= f.hidden_field :logo_cache %>
-  </div>
-
-  <%= f.text_field :address, label: '地址：' %>
-  <%= f.phone_field :service_tel, label: '客服电话' %>
-  <%= f.phone_field :service_qq, label: 'QQ：' %>
-  <%= f.submit %>
-
-<% end %>
+<%= render 'shared/error_messages', target: @provider %>
+<%= f.text_field :name %>
+<%= f.text_field :address %>
+<%= f.phone_field :service_tel %>
+<%= f.phone_field :service_qq %>
+<%= f.submit %>

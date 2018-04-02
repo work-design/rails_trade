@@ -22,10 +22,12 @@ class TheTradeAdmin::ProvidersController < TheTradeAdmin::BaseController
   def create
     @provider = Provider.new(provider_params)
 
-    if @provider.save
-      format.html { redirect_to admin_providers_url, notice: 'Provider was successfully created.' }
-    else
-      format.html { render action: "new" }
+    respond_to do |format|
+      if @provider.save
+        format.html { redirect_to admin_providers_url, notice: 'Provider was successfully created.' }
+      else
+        format.html { render action: 'new' }
+      end
     end
   end
 
@@ -73,7 +75,7 @@ class TheTradeAdmin::ProvidersController < TheTradeAdmin::BaseController
 
     respond_to do |format|
       if @provider.update(provider_params)
-        format.html { redirect_to @provider, notice: 'Provider was successfully updated.' }
+        format.html { redirect_to admin_providers_url, notice: 'Provider was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -109,7 +111,7 @@ class TheTradeAdmin::ProvidersController < TheTradeAdmin::BaseController
   end
 
   def provider_params
-    params[:provider].permit(:area_id, :name, :logo, :logo_cache, :address, :service_tel, :service_qq)
+    params[:provider].permit(:area_id, :name, :logo, :address, :service_tel, :service_qq)
   end
 
   def type_params
