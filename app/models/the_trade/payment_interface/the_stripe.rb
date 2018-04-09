@@ -6,7 +6,7 @@ module TheStripe
 
   def stripe_charge(params = {})
     if params[:token]
-      TheStripe.stripe_customer(token: params[:token], buyer: self.buyer)
+      TheStripe.stripe_customer(buyer: self.buyer, token: params[:token])
     end
 
     if params[:payment_method_id]
@@ -63,11 +63,11 @@ module TheStripe
   # execute payment
   # required:
   # token
-  def self.stripe_customer(params, buyer: )
+  def self.stripe_customer(buyer:, **params)
     payment_method = buyer.payment_methods.build(type: 'StripeMethod')
 
     begin
-      customer = Stripe::Customer.create(description: "buyer: #{params[:buyer_id]}", source: params[:token])
+      customer = Stripe::Customer.create(description: "buyer: #{buyer.id}", source: params[:token])
       payment_method.account_num = customer.id
       payment_method.extra = payment_method.customer_info(customer)
     rescue Stripe::StripeError => ex
