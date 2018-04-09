@@ -35,12 +35,20 @@ class StripeMethod < PaymentMethod
   end
 
   def detective_save
-    customer = Stripe::Customer.create(description: "buyer_id: #{payment_references.map { |i| i.buyer_id }}", source: self.token)
+    begin
+      customer = Stripe::Customer.create(description: "buyer_id: #{payment_references.map { |i| i.buyer_id }}", source: self.token)
+      self.account_num = customer.id
+      self.extra = self.customer_info(customer)
+    rescue Stripe::StripeError => ex
+      self.errors.add :base, ex.message
+    end
 
-    self.account_num = customer.id
-    self.extra = self.customer_info(customer)
     self.verified = true
-    self.save
+    if self.errors.blank?
+      self.save
+    else
+      false
+    end
   end
 
 end
