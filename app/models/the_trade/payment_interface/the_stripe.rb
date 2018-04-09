@@ -4,23 +4,6 @@ module TheStripe
   included do
   end
 
-  # execute payment
-  # required:
-  # token
-  def self.stripe_customer(params)
-    payment_method = PaymentMethod.new(buyer_id: params[:buyer_id], type: 'StripeMethod')
-
-    begin
-      customer = Stripe::Customer.create(description: "buyer: #{params[:buyer_id]}", source: params[:token])
-      payment_method.account_num = customer.id
-      payment_method.extra = payment_method.customer_info(customer)
-    rescue Stripe::StripeError => ex
-      payment_method.errors.add :base, ex.message
-    end
-    payment_method.save if payment_method.valid?
-    payment_method
-  end
-
   def stripe_charge(params = {})
     if params[:token]
       TheStripe.stripe_customer(token: params[:token], buyer_id: self.buyer_id)
@@ -75,6 +58,23 @@ module TheStripe
     else
       errors.add :uuid, 'error'
     end
+  end
+
+  # execute payment
+  # required:
+  # token
+  def self.stripe_customer(params)
+    payment_method = PaymentMethod.new(buyer_id: params[:buyer_id], type: 'StripeMethod')
+
+    begin
+      customer = Stripe::Customer.create(description: "buyer: #{params[:buyer_id]}", source: params[:token])
+      payment_method.account_num = customer.id
+      payment_method.extra = payment_method.customer_info(customer)
+    rescue Stripe::StripeError => ex
+      payment_method.errors.add :base, ex.message
+    end
+    payment_method.save if payment_method.valid?
+    payment_method
   end
 
 end
