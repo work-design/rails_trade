@@ -6,7 +6,7 @@
   </div>
   <div class="ui divider"></div>
   <div class="content">
-    <%= default_form_for @refund, url: work_refunds_path, method: 'post' do |f| %>
+    <%= form_with model: @refund, url: work_refunds_path, method: 'post' do |f| %>
       <%= hidden_field_tag :order_id, @order.id %>
       <%= f.text_field :order_amount, label: 'Refund Amount:', placeholder: '$' %>
       <%= f.text_area :comment, label: 'Comment:' %>

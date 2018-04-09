@@ -7,18 +7,23 @@ module TheStripe
   # execute payment
   # required:
   # token
-  def stripe_customer(params)
-    customer = Stripe::Customer.create(description: "#{buyer_id}", source: params[:token])
+  def self.stripe_customer(params)
+    payment_method = PaymentMethod.new(buyer_id: params[:buyer_id], type: 'StripeMethod')
 
-    payment_method = buyer.payment_methods.build(type: 'StripeMethod')
-    payment_method.account_num = customer.id
-    payment_method.extra = payment_method.customer_info(customer)
-    payment_method.save
+    begin
+      customer = Stripe::Customer.create(description: "buyer: #{params[:buyer_id]}", source: params[:token])
+      payment_method.account_num = customer.id
+      payment_method.extra = payment_method.customer_info(customer)
+    rescue Stripe::StripeError => ex
+      payment_method.errors.add :base, ex.message
+    end
+    payment_method.save if payment_method.valid?
+    payment_method
   end
 
   def stripe_charge(params = {})
     if params[:token]
-      stripe_customer(token: params[:token])
+      TheStripe.stripe_customer(token: params[:token], buyer_id: self.buyer_id)
     end
 
     if params[:payment_method_id]
