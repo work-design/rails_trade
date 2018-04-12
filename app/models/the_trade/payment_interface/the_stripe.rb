@@ -25,7 +25,7 @@ module TheStripe
       charge = Stripe::Charge.create(amount: self.amount_money.cents, currency: self.currency, customer: stripe_payment_method.account_num)
       self.update payment_type: 'stripe', payment_id: charge.id
       self.stripe_record(charge)
-    rescue Stripe::StripeError => ex
+    rescue Stripe::StripeError, Stripe::CardError => ex
       self.errors.add :base, ex.message
     end
     self
