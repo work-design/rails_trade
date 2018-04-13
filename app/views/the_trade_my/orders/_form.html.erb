@@ -1,12 +1,4 @@
-<%= form_for [:my, @order], :html => { :class => 'ui form' } do |f| %>
-
-  <div class="inline field">
-    <%= f.label :quantity, '数量：', :class => '' %>
-    <%= f.text_field :quantity, :class => '' %>
-
-    <%= f.submit class: 'right floated compact ui button' %>
-  </div>
-
-
-
+<%= form_with model: [:my, @order] do |f| %>
+  <%= f.text_area :note %>
+  <%= f.submit %>
 <% end %>

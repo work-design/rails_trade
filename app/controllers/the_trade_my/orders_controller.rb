@@ -145,11 +145,17 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @order }
+    end
   end
 
   def update
     respond_to do |format|
       if @order.update(order_params)
+        format.js
         format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
@@ -184,7 +190,13 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity, :payment_id, :payment_type, :address_id, :invoice_address_id, order_items_attributes: [:cart_item_id])
+    params.fetch(:order, {}).permit(:quantity,
+                                    :payment_id,
+                                    :payment_type,
+                                    :address_id,
+                                    :invoice_address_id,
+                                    :note,
+                                    order_items_attributes: [:cart_item_id])
   end
 
 end
