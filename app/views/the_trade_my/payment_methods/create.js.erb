@@ -1,2 +1,3 @@
 $('.ui.modal').modal('hide');
+Turbolinks.visit(location);
 $('#payment_method_tbody').append('<%= j(render partial: 'item', locals: { payment_method: @payment_method}) %>')
