@@ -109,6 +109,10 @@ class Payment < ApplicationRecord
     self.save!
   end
 
+  def self.total_amount_step
+    0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
+  end
+
 end
 
 #  :id, :integer, limit: 4, null: false
