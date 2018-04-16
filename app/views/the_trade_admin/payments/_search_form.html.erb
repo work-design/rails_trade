@@ -4,6 +4,8 @@
     <%= f.text_field :'buyer_name-like', placeholder: 'Account Name' %>
     <%= f.text_field :buyer_identifier, placeholder: 'Account Num' %>
     <%= f.text_field :buyer_bank, placeholder: 'Buyer Bank' %>
+  </div>
+  <div class="fields">
     <%= f.text_field :'orders.uuid', placeholder: 'Order UUID' %>
     <%= f.submit 'Search' %>
     <%= link_to 'Clear All Filters', filter_params(only: []), class: 'ui white button' %>
