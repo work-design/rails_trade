@@ -36,7 +36,10 @@ OrderItem <=> Shipment
 #### Dev 
 -[] support process to order by cart item ids
 
-
+### Warning
+* Order: amount
+* Payment: total_amount, checked_amount
+* PaymentOrder: check_amount
 
 ### 依赖
 [default_form](https://github.com/qinmingyuan/default_form)
