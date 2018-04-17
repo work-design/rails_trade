@@ -37,7 +37,7 @@ OrderItem <=> Shipment
 -[] support process to order by cart item ids
 
 ### Warning
-* Order: amount
+* Order: amount, received_amount
 * Payment: total_amount, checked_amount
 * PaymentOrder: check_amount
 
