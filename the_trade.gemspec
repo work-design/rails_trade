@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '>= 5.0.0'
   s.add_dependency 'jbuilder', '>= 2.7.0'
   s.add_dependency 'stripe'
-  s.add_dependency 'money-rails', '~> 1.10.0'
+  s.add_dependency 'money-rails', '~> 1.11'
 end
