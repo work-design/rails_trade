@@ -20,7 +20,7 @@ class TheTradeAdmin::PaymentsController < TheTradeAdmin::BaseController
   end
 
   def create
-    if params[:order_id]
+    if params[:order_id].present?
       @order = Order.find params[:order_id]
       @payment = @order.payments.build(payment_params.merge(creator_id: the_role_user.id))
     else
