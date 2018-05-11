@@ -1,15 +1,23 @@
-<div class="ui menu vertical fluid">
-  <div class="item">
+<div class="ui fluid icon vertical menu">
+  <div class="header center link item" id="close_side">
+    <i class="content icon"></i>
+  </div>
+  <div class="ui dropdown item">
     <span>商品管理</span>
     <div class="menu">
-      <%= link_to '供应商', admin_providers_path, class: active_controller('providers') %>
-      <%= link_to '商品列表', admin_goods_path, class: active_controller('goods') %>
+      <%= link_to '供应商', admin_providers_path, class: active_helper(controller: 'providers') %>
     </div>
   </div>
-  <div class="item">
+  <div class="ui dropdown item">
+    <span>Orders Admin</span>
+    <div class="menu">
+      <%= link_to 'orders', admin_orders_path, class: active_helper(controller: 'orders') %>
+    </div>
+  </div>
+  <div class="ui dropdown item">
     <span>促销管理</span>
     <div class="menu">
-      <%= link_to '促销管理', admin_promotes_path, class: active_controller('promotes') %>
+      <%= link_to '促销管理', admin_promotes_path, class: active_helper(controller: 'promotes') %>
     </div>
   </div>
 </div>

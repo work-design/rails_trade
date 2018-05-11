@@ -1,23 +1,21 @@
-<div class="thirteen wide column">
-
-  <div class="ui top attached menu borderless">
-    <%= link_to '促销列表', admin_promotes_path, class: active_helper(controllers: ['promotes', 'promote_charges']) %>
-    <%= link_to '服务列表', admin_serves_path, class: active_helper(controllers: ['serves', 'serve_charges']) %>
-    <div class="right menu">
-      <div class="item"><%= link_to '新建', new_admin_promote_path, class: 'ui teal button' %></div>
-    </div>
+<div class="ui top attached borderless menu">
+  <%= link_to '促销列表', admin_promotes_path, class: active_helper(controllers: ['promotes', 'promote_charges']) %>
+  <%= link_to '服务列表', admin_serves_path, class: active_helper(controllers: ['serves', 'serve_charges']) %>
+  <div class="right menu">
+    <div class="item"><%= link_to '新建', new_admin_promote_path, class: 'ui teal button' %></div>
   </div>
+</div>
 
-  <div class="ui segment bottom attached">
-    <p>
-      <span>Scope: </span>
-      <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    </p>
-  </div>
+<div class="ui attached segment">
+  <p>
+    <span>Scope: </span>
+    <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  </p>
+</div>
 
-  <table class="ui table">
-    <thead>
+<table class="ui bottom attached table">
+  <thead>
     <tr>
       <th>Type</th>
       <th>Name</th>
@@ -27,44 +25,41 @@
       <th>Verified</th>
       <th>Overall</th>
       <th>Sequence</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
-    <% @promotes.each do |promote| %>
-      <tr>
-        <td><%= promote.type %></td>
-        <td><%= promote.name %></td>
-        <td><%= promote.scope_i18n %></td>
-        <td><%= promote.start_at %></td>
-        <td><%= promote.finish_at %></td>
-        <td>
-          <%= form_tag toggle_admin_promote_path(promote.id), method: :patch do %>
-          <span class="ui toggle checkbox">
-            <label></label>
-            <%= check_box_tag :verified, 1, promote.verified, onChange: 'this.form.submit()' %>
-          </span>
-          <% end %>
-        </td>
-        <td>
-          <%= form_tag overall_admin_promote_path(promote.id), method: :patch do %>
-          <span class="ui toggle checkbox">
-            <label></label>
-            <%= check_box_tag :overall, 1, promote.overall, onChange: 'this.form.submit()' %>
-          </span>
-          <% end %>
-        </td>
-        <td><%= promote.sequence %></td>
-        <td><%= link_to '详细', admin_promote_charges_path(promote) %></td>
-        <td><%= link_to '编辑', edit_admin_promote_path(promote) %></td>
-        <td><%= link_to '删除', admin_promote_path(promote), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
-
-
-
-
+  <tbody>
+  <% @promotes.each do |promote| %>
+    <tr>
+      <td><%= promote.type %></td>
+      <td><%= promote.name %></td>
+      <td><%= promote.scope_i18n %></td>
+      <td><%= promote.start_at %></td>
+      <td><%= promote.finish_at %></td>
+      <td>
+        <%= form_tag toggle_admin_promote_path(promote.id), method: :patch do %>
+        <span class="ui toggle checkbox">
+          <label></label>
+          <%= check_box_tag :verified, 1, promote.verified, onChange: 'this.form.submit()' %>
+        </span>
+        <% end %>
+      </td>
+      <td>
+        <%= form_tag overall_admin_promote_path(promote.id), method: :patch do %>
+        <span class="ui toggle checkbox">
+          <label></label>
+          <%= check_box_tag :overall, 1, promote.overall, onChange: 'this.form.submit()' %>
+        </span>
+        <% end %>
+      </td>
+      <td><%= promote.sequence %></td>
+      <td class="ui labels">
+        <%= link_to '详细', admin_promote_charges_path(promote), class: 'ui green label' %>
+        <%= link_to '编辑', edit_admin_promote_path(promote), class: 'ui yellow label' %>
+        <%= link_to '删除', admin_promote_path(promote), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

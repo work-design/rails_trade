@@ -1,66 +1,61 @@
-<div class="">
-
-  <div class="thirteen wide column">
-    <div class="ui segment">
-      <h1>订单列表</h1>
-    </div>
-
-    <div class="ui top attached segment">
-      <%= render 'search_form' %>
-      <%= render 'filter' %>
-    </div>
-
-    <table class="ui bottom attached table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th><%= Order.human_attribute_name(:id) %></th>
-        <th><%= Order.human_attribute_name(:buyer) %></th>
-        <th><%= Order.human_attribute_name(:payment_type) %></th>
-        <th><%= Order.human_attribute_name(:amount) %></th>
-        <th><%= Order.human_attribute_name(:received_amount) %></th>
-        <th><%= Order.human_attribute_name(:currency) %></th>
-        <th><%= Order.human_attribute_name(:payment_status) %></th>
-        <th><%= Order.human_attribute_name(:created_at) %></th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-
-      <% @orders.each do |order| %>
-        <tr id="order_<%= order.id %>">
-          <td><%= order.id %></td>
-          <td><%= link_to order.uuid, admin_order_path(order) %></td>
-          <td>
-            <% if order.user_id %>
-              <p><%= link_to order.user&.name, admin_user_path(order.user_id) %></p>
-            <% end %>
-            <% if order.buyer_id %>
-              <p><%= link_to order.buyer&.name, orders_admin_buyer_path(order.buyer_id) %></p>
-            <% end %>
-          </td>
-          <td><span class="ui label"><%= order.payment_type %></span></td>
-          <td><%= order.amount %></td>
-          <td><%= order.received_amount %></td>
-          <td><%= t "currency.#{ order.currency&.upcase }" %></td>
-          <td>
-            <%= order.payment_status_i18n %>
-            <% if ['part_paid', 'all_paid'].include?(order.payment_status) %>
-              <%= link_to 'Refund', refund_admin_order_path(order.id), method: :patch, class: 'ui mini gray button' %>
-            <% elsif ['refunding', 'refunded', 'denied'].include?(order.payment_status) %>
-              <%= link_to 'Refund List', admin_refunds_path(order_id: order.id), class: 'ui mini green button' %>
-            <% elsif ['unpaid'].include?(order.payment_status) %>
-              <%= link_to 'Add Payment', new_admin_payment_path(order_id: order.id), class: 'ui mini green button' %>
-            <% end %>
-          </td>
-          <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
-          <td class="ui labels">
-            <%= link_to 'Show', admin_order_path(order), class: 'ui blue label' %>
-            <%= link_to 'Edit', edit_admin_order_path(order), class: 'ui red label' %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
+<div class="ui top attached segment">
+  <h1>订单列表</h1>
 </div>
+
+<div class="ui attached segment">
+  <%= render 'search_form' %>
+  <%= render 'filter' %>
+</div>
+
+<table class="ui bottom attached table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th><%= Order.human_attribute_name(:id) %></th>
+    <th><%= Order.human_attribute_name(:buyer) %></th>
+    <th><%= Order.human_attribute_name(:payment_type) %></th>
+    <th><%= Order.human_attribute_name(:amount) %></th>
+    <th><%= Order.human_attribute_name(:received_amount) %></th>
+    <th><%= Order.human_attribute_name(:currency) %></th>
+    <th><%= Order.human_attribute_name(:payment_status) %></th>
+    <th><%= Order.human_attribute_name(:created_at) %></th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <% @orders.each do |order| %>
+    <tr id="order_<%= order.id %>">
+      <td><%= order.id %></td>
+      <td><%= link_to order.uuid, admin_order_path(order) %></td>
+      <td>
+        <% if order.user_id %>
+          <p><%= link_to order.user&.name, admin_user_path(order.user_id) %></p>
+        <% end %>
+        <% if order.buyer_id %>
+          <p><%= link_to order.buyer&.name, orders_admin_buyer_path(order.buyer_id) %></p>
+        <% end %>
+      </td>
+      <td><span class="ui label"><%= order.payment_type %></span></td>
+      <td><%= order.amount %></td>
+      <td><%= order.received_amount %></td>
+      <td><%= t "currency.#{ order.currency&.upcase }" %></td>
+      <td>
+        <%= order.payment_status_i18n %>
+        <% if ['part_paid', 'all_paid'].include?(order.payment_status) %>
+          <%= link_to 'Refund', refund_admin_order_path(order.id), method: :patch, class: 'ui mini gray button' %>
+        <% elsif ['refunding', 'refunded', 'denied'].include?(order.payment_status) %>
+          <%= link_to 'Refund List', admin_refunds_path(order_id: order.id), class: 'ui mini green button' %>
+        <% elsif ['unpaid'].include?(order.payment_status) %>
+          <%= link_to 'Add Payment', new_admin_payment_path(order_id: order.id), class: 'ui mini green button' %>
+        <% end %>
+      </td>
+      <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
+      <td class="ui labels">
+        <%= link_to 'Show', admin_order_path(order), class: 'ui blue label' %>
+        <%= link_to 'Edit', edit_admin_order_path(order), class: 'ui red label' %>
+      </td>
+    </tr>
+  <% end %>
+</table>
 
 <%= paginate @orders %>
