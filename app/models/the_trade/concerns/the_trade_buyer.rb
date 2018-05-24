@@ -1,10 +1,11 @@
 module TheTradeBuyer
   extend ActiveSupport::Concern
-  
+
   included do
+    attribute :name, :string
     attribute :deposit_ratio, :integer, default: 100
     attribute :payment_strategy_id, :integer
-    
+
     belongs_to :payment_strategy, optional: true
     # todo has_many :users, foreign_key: :buyer_id, dependent: :nullify
     has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer
@@ -22,14 +23,15 @@ module TheTradeBuyer
     PromoteBuyer.belongs_to :buyer, class_name: self.name
 
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
-  
+
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-    
+
     def self.credit_ids
       PaymentStrategy.where.not(period: 0).pluck(:id)
     end
+    TheTrade.buyer_class = self
   end
-  
+
   def name_detail
     "#{name} (#{id})"
   end
