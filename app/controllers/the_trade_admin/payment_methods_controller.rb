@@ -8,7 +8,7 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   def unverified
     @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).default_where(query_params).page(params[:page]).references(:payment_references)
   end
-  
+
   def mine
     default_params = {
       creator_id: the_audit_user.id
@@ -84,9 +84,9 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
 
   private
   def query_params
-    path_params = params.permit(:id)
-    query_params = params.fetch(:q, {}).permit(:account_name, :account_num, :bank, 'buyers.name-like')
-    query_params.merge! path_params
+    query_params = { myself: false }.with_indifferent_access
+    query_params.merge! params.fetch(:q, {}).permit(:account_name, :account_num, :bank, 'buyers.name-like')
+    query_params.merge! params.permit(:id, :myself)
   end
 
   def set_payment_method
@@ -94,11 +94,14 @@ class TheTradeAdmin::PaymentMethodsController < TheTradeAdmin::BaseController
   end
 
   def payment_method_params
-    params.fetch(:payment_method, {}).permit(:type,
-                                             :account_name,
-                                             :account_num,
-                                             :bank,
-                                             :verified)
+    p = params.fetch(:payment_method, {}).permit(
+      :type,
+      :account_name,
+      :account_num,
+      :bank,
+      :verified
+    )
+    p.merge! myself: false
   end
 
   def payment_reference_params

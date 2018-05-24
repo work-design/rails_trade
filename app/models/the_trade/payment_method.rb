@@ -31,7 +31,7 @@ class PaymentMethod < ApplicationRecord
   end
 
   def repeat_results
-    self.class.unscoped.where.not(id: self.id).where(account_name: self.account_name, account_num: self.account_num)
+    self.class.where.not(id: self.id).where(account_name: self.account_name, account_num: self.account_num)
   end
 
   def merge_from(other_id)

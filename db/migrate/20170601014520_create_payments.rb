@@ -43,6 +43,7 @@ class CreatePayments < ActiveRecord::Migration[5.1]
       t.string :bank
       t.text :extra
       t.boolean :verified
+      t.boolean :myself
       t.references :creator
       t.timestamps
     end
