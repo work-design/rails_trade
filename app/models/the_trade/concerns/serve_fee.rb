@@ -7,7 +7,7 @@ class ServeFee
   def initialize(good_type, good_id, number = 1, buyer_id = nil, extra = {})
     @good = good_type.constantize.unscoped.find good_id
     @number = number
-    @buyer = Buyer.find(buyer_id) if buyer_id
+    @buyer = TheTrade.buyer_class.find(buyer_id) if buyer_id
     @extra = extra.merge! good.extra
     verbose_fee
   end
