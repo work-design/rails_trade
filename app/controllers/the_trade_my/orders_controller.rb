@@ -1,5 +1,12 @@
 class TheTradeMy::OrdersController < TheTradeMy::BaseController
-  before_action :set_order, only: [:show, :edit, :update, :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :update_date, :refund, :destroy]
+  include ControllerOrderTypes
+  before_action :set_order, only: [
+    :show,
+    :edit,
+    :update,
+    :refund,
+    :destroy
+  ]
 
   def index
     query_params = params.permit(:id, :payment_type, :payment_status)
@@ -63,79 +70,6 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     end
   end
 
-  def pay
-    if @order.payment_status != 'all_paid'
-      result = @order.stripe_charge(params)
-    else
-      result = {}
-    end
-
-    respond_to do |format|
-      format.json { render json: { result: result } }
-      format.html { redirect_to @order.approve_url }
-    end
-  end
-
-  def stripe_pay
-    if @order.payment_status != 'all_paid'
-      @order.stripe_charge(params)
-    end
-
-    respond_to do |format|
-      if @order.errors.blank?
-        format.json { render json: { result: @order } }
-        format.html { redirect_to @order.approve_url }
-      else
-        format.json {
-          process_errors(@order)
-        }
-        format.html { redirect_to my_orders_url }
-      end
-    end
-  end
-
-  def alipay_pay
-    respond_to do |format|
-      if @order.payment_status != 'all_paid'
-        format.json {
-          result = @order.alipay_prepay
-          render json: { result: result }
-        }
-        format.html {
-          redirect_to @order.alipay_prepay_url
-        }
-      else
-        format.json
-        format.html { redirect_to my_orders_url }
-      end
-    end
-  end
-
-  def paypal_pay
-    respond_to do |format|
-      if @order.payment_status != 'all_paid'
-        result = @order.paypal_prepay
-        format.json
-        format.html { redirect_to result }
-      else
-        format.json
-        format.html { redirect_to my_orders_url }
-      end
-    end
-  end
-
-  def paypal_execute
-    respond_to do |format|
-      if @order.paypal_execute(params)
-        format.json {  }
-        format.html { redirect_to my_order_url(@order.id), notice: "Order[#{@order.uuid}] placed successfully" }
-      else
-        format.html { redirect_to my_orders_url, alert: @order.error.inspect }
-        format.json {  }
-      end
-    end
-  end
-
   def show
 
     respond_to do |format|
@@ -159,7 +93,7 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
         format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -190,13 +124,15 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(:quantity,
-                                    :payment_id,
-                                    :payment_type,
-                                    :address_id,
-                                    :invoice_address_id,
-                                    :note,
-                                    order_items_attributes: [:cart_item_id])
+    params.fetch(:order, {}).permit(
+      :quantity,
+      :payment_id,
+      :payment_type,
+      :address_id,
+      :invoice_address_id,
+      :note,
+      order_items_attributes: [:cart_item_id]
+    )
   end
 
 end

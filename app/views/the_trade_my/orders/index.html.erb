@@ -24,9 +24,9 @@
         <% if order.payment_type %>
           <span class="ui label"><%= order.payment_type %></span>
         <% else %>
-          <%= link_to '选择支付方式', payment_type_my_order_path(order), class: 'ui label' %>
+          <%= link_to '选择支付方式', payment_type_my_order_path(order), remote: true, class: 'ui label' %>
         <% end %>
-        <% if order.payment_status != 'all_paid' %>
+        <% if order.can_pay? %>
           <%= link_to 'pay', "/my/orders/#{order.id}/#{order.payment_type}_pay" %>
         <% end %>
       </td>

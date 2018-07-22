@@ -4,6 +4,10 @@
 # received_amount
 module ThePayment
 
+  def can_pay?
+    self.payment_type.present? && self.payment_status != 'all_paid'
+  end
+
   def unreceived_amount
     self.amount.to_d - self.received_amount.to_d
   end
