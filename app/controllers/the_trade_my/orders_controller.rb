@@ -5,7 +5,10 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     :edit,
     :update,
     :refund,
-    :destroy
+    :edit_payment_type,
+    :update_payment_type,
+    :destroy,
+    :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute
   ]
 
   def index
@@ -87,6 +90,27 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
   end
 
   def update
+    respond_to do |format|
+      if @order.update(order_params)
+        format.js
+        format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit_payment_type
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @order }
+    end
+  end
+
+  def update_payment_type
     respond_to do |format|
       if @order.update(order_params)
         format.js

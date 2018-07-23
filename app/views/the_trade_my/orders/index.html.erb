@@ -31,8 +31,12 @@
         <% end %>
       </td>
       <td>
-        <%= link_to 'Show', my_order_path(order) %>
-        <%= link_to 'Edit', edit_my_order_path(order) %>
+        <%= link_to my_order_path(order), data: { tooltip: t('.show') }, class: 'ui blue mini icon button' do %>
+          <i class="location arrow icon"></i>
+        <% end %>
+        <%= link_to edit_my_order_path(order), remote: true, data: { tooltip: t('.edit') }, class: 'ui pink mini icon button' do %>
+          <i class="pencil alternate icon"></i>
+        <% end %>
       </td>
     </tr>
   <% end %>

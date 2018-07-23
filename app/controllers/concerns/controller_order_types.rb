@@ -1,10 +1,6 @@
 module ControllerOrderTypes
   extend ActiveSupport::Concern
 
-  included do
-    before_action :set_order, only: [:paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute]
-  end
-
   def stripe_pay
     if @order.payment_status != 'all_paid'
       @order.stripe_charge(params)

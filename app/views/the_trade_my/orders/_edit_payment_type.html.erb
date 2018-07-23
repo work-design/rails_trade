@@ -1,0 +1,13 @@
+<div class="ui modal" id="modal">
+  <i class="close icon"></i>
+  <div class="ui header blue">
+    Select Payment Type
+  </div>
+  
+  <div class="content">
+    <%= form_with model: @order, url: payment_type_my_order_path(@order), method: :patch do |f| %>
+      <%= f.select :payment_type, options_for_select(Order.options_i18n(:payment_type), @order.payment_type) %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>

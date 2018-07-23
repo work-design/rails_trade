@@ -6,17 +6,17 @@ module TheAlipay
 
   def alipay_prepay
     self.update payment_type: 'alipay'
-    Alipay::Service.trade_app_pay_params(subject: self.subject, out_trade_no: self.uuid, total_amount: self.amount.to_s)
+    Alipay2::Service.trade_app_pay_params(subject: self.subject, out_trade_no: self.uuid, total_amount: self.amount.to_s)
   end
 
   def alipay_prepay_url
     self.update payment_type: 'alipay'
-    Alipay::Service.trade_page_pay subject: self.subject, out_trade_no: self.uuid, total_amount: self.amount.to_s
+    Alipay2::Service.trade_page_pay subject: self.subject, out_trade_no: self.uuid, total_amount: self.amount.to_s
   end
 
   # 3 step: check result
   def alipay_result
-    result = Alipay::Service.trade_query out_trade_no: self.uuid
+    result = Alipay2::Service.trade_query out_trade_no: self.uuid
     result = JSON.parse(result)
     result = result['alipay_trade_query_response']
     alipay_record(result)

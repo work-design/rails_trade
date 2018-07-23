@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       get :pay, on: :member
       get 'payment_type' => :edit_payment_type, on: :member
       put 'payment_type' => :update_payment_type, on: :member
+      patch 'payment_type' => :update_payment_type, on: :member
       get 'cancel' => :edit_cancel, on: :member
       put 'cancel' => :update_cancel, on: :member
       put :refund, on: :member
