@@ -1,11 +1,13 @@
-<div class="ui modal">
+<div class="ui modal" id="modal">
   <i class="close icon"></i>
   <div class="ui header blue">
     Add Payment Method
   </div>
 
   <div class="content">
-    <%= render partial: 'form' %>
+    <%= form_with model: [:admin, @payment_method] do |f| %>
+      <%= render partial: 'form', locals: { f: f } %>
+    <% end %>
   </div>
 
 </div>
