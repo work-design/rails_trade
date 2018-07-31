@@ -56,11 +56,11 @@ en:
         type: 类别
         comment: 备注
       payment_method:
-        account_name: 账号名称
-        account_num: 账号
-        bank: 银行
-        verified: 已审核
-        payment_references: 关联账号
+        account_name: Account Name
+        account_num: Account
+        bank: Bank
+        verified: Verified
+        payment_references: Associated Account
       payment_method/type:
         StripeMethod: Stripe
         AlipayMethod: Alipay
