@@ -5,6 +5,6 @@
   <td><%= payment_method.bank %></td>
   <td>
     <%= link_to 'Edit', edit_my_payment_method_path(payment_method), class: 'ui mini blue button', remote: true %>
-    <%= link_to 'Destroy', my_payment_method_path(payment_method), class: 'ui mini button', remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Delete', my_payment_method_path(payment_method), class: 'ui mini button', remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
   </td>
 </tr>
