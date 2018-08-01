@@ -61,10 +61,6 @@ en:
         bank: 银行
         verified: 已审核
         payment_references: 关联账号
-      payment_method/type:
-        StripeMethod: Stripe
-        AlipayMethod: Alipay
-        BankMethod: Bank Account
       payment_order/state:
         init: 预核销
         confirmed: 已核销
