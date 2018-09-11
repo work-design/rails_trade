@@ -8,7 +8,6 @@ class TheTradeMy::OrdersController < TheTradeMy::BaseController
     :edit_payment_type,
     :update_payment_type,
     :destroy,
-    :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute
   ]
 
   def index

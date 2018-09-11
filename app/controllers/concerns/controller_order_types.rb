@@ -1,6 +1,15 @@
 module ControllerOrderTypes
   extend ActiveSupport::Concern
 
+  included do
+    before_action :set_payment_order, only: [
+      :paypal_pay,
+      :stripe_pay,
+      :alipay_pay,
+      :paypal_execute
+    ]
+  end
+
   def stripe_pay
     if @order.payment_status != 'all_paid'
       @order.stripe_charge(params)
@@ -59,6 +68,11 @@ module ControllerOrderTypes
         format.json {  }
       end
     end
+  end
+
+  private
+  def set_payment_order
+    set_order
   end
 
 end

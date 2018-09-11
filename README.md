@@ -1,6 +1,5 @@
 # TheTrade
 
-This project rocks and uses MIT-LICENSE.
 
 
 ## 核心模型
@@ -29,7 +28,6 @@ QuotationItem -> Order(OrderItem)
 OrderItem <=> Shipment
          
 * Buyer
- 
  
 * Provider
 
