@@ -105,6 +105,7 @@ Rails.application.routes.draw do
     get :result, on: :collection
     match :notify, on: :collection, via: [:get, :post]
     match :alipay_notify, on: :collection, via: [:get, :post]
+    match :wxpay_notify, on: :collection, via: [:get, :post]
   end
   resources :providers, only: [] do
     get :search, on: :collection

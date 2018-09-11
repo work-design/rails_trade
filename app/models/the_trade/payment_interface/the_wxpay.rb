@@ -13,7 +13,7 @@ module TheWxpay
       out_trade_no: self.uuid,
       total_fee: (self.amount * 100).to_i,
       spbill_create_ip: spbill_create_ip,
-      notify_url: "#{Settings.callback_host}/yifubao/wxpay_notify",
+      notify_url: url_helpers.wxpay_notify_payments_url,
       trade_type: 'JSAPI',
       openid: openid
     }
@@ -21,7 +21,7 @@ module TheWxpay
   end
 
   def wxpay_order
-    return @pay_order if @pay_order
+    return @wxpay_order if @wxpay_order
 
     prepay = wxpay_prepay
     if prepay['result_code'] == 'SUCCESS'
@@ -29,15 +29,15 @@ module TheWxpay
         nonceStr: prepay['nonce_str'],
         package: 'prepay_id=' + prepay['prepay_id']
       }
-      @pay_order = WxPay::Service.generate_js_pay_req params
+      @wxpay_order = WxPay::Service.generate_js_pay_req params
     elsif prepay['result_code'] == 'FAIL'
-      @pay_order = {
+      @wxpay_order = {
         result_code: 'FAIL',
         err_code: prepay['err_code'],
         err_code_des: prepay['err_code_des']
       }
     else
-      @pay_order = {}
+      @wxpay_order = {}
     end
   end
 
