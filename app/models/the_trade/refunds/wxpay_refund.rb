@@ -8,31 +8,28 @@ class WxpayRefund < Refund
     self.origin&.payment_entity_no
   end
 
-  # https://github.com/jasl/wx_pay
-  # https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_4
-  def invoke_refund
+  def do_refund(params = {})
     params = {
-      out_refund_no: self.refund_uuid, # 商户系统内部的退款单号，商户系统内部唯一，同一退款单号多次请求只退一笔
-      # out_trade_no: out_trade_no, # 与transaction_id 二选一
-      total_fee: (refunded_payment.total_amount * 100).to_i,
-      refund_fee: (amount * 100).to_i,
-      transaction_id: transaction_id
+      out_refund_no: self.refund_uuid,
+      total_fee: (payment.total_amount * 100).to_i,
+      refund_fee: (total_amount * 100).to_i,
+      transaction_id: self.payment.payment_uuid
     }
 
     begin
-      self.start_refund!
       result = WxPay::Service.invoke_refund(params)
       if result['result_code'] == 'SUCCESS'
-        self.do_refund!
+        self.update(state: 'completed')
       else
-        self.refund_failed!( note:result['result_code'])
+        self.update(state: 'failed', comment: result['result_code'])
       end
     rescue StandardError => e
       result = e.message
-      self.refund_failed!( note: result )
+      self.update(state: 'failed', comment: result.truncate(225))
     end
     result
   end
+
   def refund_query
     params = {
       out_refund_no: self.refund_uuid
