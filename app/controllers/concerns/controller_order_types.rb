@@ -6,8 +6,10 @@ module ControllerOrderTypes
       :paypal_pay,
       :stripe_pay,
       :alipay_pay,
-      :paypal_execute
+      :paypal_execute,
+      :wxpay_pay
     ]
+    wechat_api
   end
 
   def stripe_pay

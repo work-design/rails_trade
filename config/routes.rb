@@ -83,6 +83,7 @@ Rails.application.routes.draw do
       get :refresh, on: :collection
       get :paypal_pay, on: :member
       get :alipay_pay, on: :member
+      get :wxpay_pay, on: :member
       patch :stripe_pay, on: :member
       get :paypal_execute, on: :member
       get :pay, on: :member
