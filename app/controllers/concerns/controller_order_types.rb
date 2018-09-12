@@ -70,6 +70,18 @@ module ControllerOrderTypes
     end
   end
 
+  def wxpay_pay
+    #@order.openid = current_wechat_user.open_id
+    @order.spbill_create_ip = request.remote_ip
+
+    @wxpay_order = @order.wxpay_order
+    if @wxpay_order[:result_code] == 'FAIL' || @wxpay_order.empty?
+      render 'wxpay_pay_err'
+    else
+      render 'wxpay_pay'
+    end
+  end
+
   private
   def set_payment_order
     set_order

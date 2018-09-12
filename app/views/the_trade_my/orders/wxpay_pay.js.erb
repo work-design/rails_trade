@@ -1,0 +1,16 @@
+wx.ready(function() {
+  wx.chooseWXPay({
+    timestamp: "<%= @wxpay_order[:timeStamp] %>",
+    nonceStr: "<%= @wxpay_order[:nonceStr] %>",
+    package: "<%= @wxpay_order[:package] %>",
+    signType: "<%= @wxpay_order[:signType] %>",
+    paySign: "<%= @wxpay_order[:paySign] %>",
+    success: function(res) {
+      alert(res);
+      window.location.href = '<%= my_orders_url %>';
+    },
+    error: function(e) {
+      alert(e)
+    }
+  });
+});

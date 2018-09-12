@@ -27,7 +27,7 @@
           <%= link_to '选择支付方式', payment_type_my_order_path(order), remote: true, class: 'ui label' %>
         <% end %>
         <% if order.can_pay? %>
-          <%= link_to 'pay', "/my/orders/#{order.id}/#{order.payment_type}_pay" %>
+          <%= link_to 'pay', "/my/orders/#{order.id}/#{order.payment_type}_pay", remote: order.payment_type == 'wxpay' %>
         <% end %>
       </td>
       <td>

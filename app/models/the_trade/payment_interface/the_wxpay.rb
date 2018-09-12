@@ -26,8 +26,8 @@ module TheWxpay
     prepay = wxpay_prepay
     if prepay['result_code'] == 'SUCCESS'
       params = {
-        nonceStr: prepay['nonce_str'],
-        package: 'prepay_id=' + prepay['prepay_id']
+        noncestr: prepay['nonce_str'],
+        prepayid: prepay['prepay_id']
       }
       @wxpay_order = WxPay::Service.generate_js_pay_req params
     elsif prepay['result_code'] == 'FAIL'
