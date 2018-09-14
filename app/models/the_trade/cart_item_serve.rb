@@ -9,7 +9,7 @@ class CartItemServe < ApplicationRecord
     self.scope = self.serve.scope
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('CartItemServe')
 
 
 # :cart_item_id, :integer

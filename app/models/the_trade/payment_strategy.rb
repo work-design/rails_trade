@@ -5,7 +5,7 @@ class PaymentStrategy < ApplicationRecord
     self.period.to_i > 0
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('PaymentStrategy')
 
 
 # :name, comment: '名称'

@@ -72,4 +72,4 @@ class PaymentOrder < ApplicationRecord
     payment.check_state!
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('PaymentOrder')

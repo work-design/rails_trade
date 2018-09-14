@@ -60,4 +60,4 @@ class Refund < ApplicationRecord
     self.init? && ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('Refund')

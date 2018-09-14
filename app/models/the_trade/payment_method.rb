@@ -51,7 +51,7 @@ class PaymentMethod < ApplicationRecord
     type.to_s.sub('Method', '').downcase
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('PaymentMethod')
 
 
 

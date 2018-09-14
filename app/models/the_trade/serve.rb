@@ -38,7 +38,7 @@ class Serve < ApplicationRecord
     charge
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('Serve')
 
 # :start_at, :datetime
 # :finish_at, :datetime

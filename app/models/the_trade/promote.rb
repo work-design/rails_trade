@@ -34,7 +34,7 @@ class Promote < ApplicationRecord
     end
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('Promote')
 
 # :start_at, :datetime
 # :finish_at, :datetime

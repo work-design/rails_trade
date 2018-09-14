@@ -3,7 +3,7 @@ class OrderShipment < ApplicationRecord
   belongs_to :shipment
 
 
-end
+end unless TheTrade.config.disabled_models.include?('OrderShipment')
 
 # :order_id, :integer
 # :shipment_id, :integer

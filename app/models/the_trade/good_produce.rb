@@ -2,7 +2,7 @@ class GoodProduce < ApplicationRecord
   belongs_to :good
   belongs_to :produce
 
-end
+end unless TheTrade.config.disabled_models.include?('GoodProduce')
 
 
 # t.integer  "good_id",    limit: 4

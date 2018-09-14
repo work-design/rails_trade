@@ -16,7 +16,7 @@ class OrderServe < ApplicationRecord
     end
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('OrderServe')
 
 # :order_id, :integer
 # :order_item_id :integer

@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: https://github.com/qinmingyuan/rails_com.git
-  revision: 719d3f4b8054b906202bae500de12ba6a518977d
+  revision: 53fd3c0147a23df778e9184a39d7f3d17490e431
   branch: master
   specs:
     rails_com (1.2.1)

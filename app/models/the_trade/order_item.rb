@@ -69,7 +69,7 @@ class OrderItem < ApplicationRecord
 
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('OrderItem')
 
 # :cart_item_id, :integer
 # :good_type, :string

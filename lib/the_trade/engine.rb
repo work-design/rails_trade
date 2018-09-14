@@ -2,8 +2,11 @@ require 'monetize'
 module TheTrade
   class Engine < ::Rails::Engine
 
-    config.eager_load_paths += Dir[
+    config.autoload_paths += Dir[
       "#{config.root}/app/models/the_trade",
+    ]
+
+    config.eager_load_paths += Dir[
       "#{config.root}/app/models/the_trade/concerns",
       "#{config.root}/app/models/the_trade/payment_interface",
       "#{config.root}/app/models/the_trade/payments",

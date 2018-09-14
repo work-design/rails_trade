@@ -7,7 +7,7 @@ class Provider < ApplicationRecord
     "#{name} (#{id})"
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('Provider')
 
 =begin
 

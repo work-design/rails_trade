@@ -1,7 +1,7 @@
 class GoodPartner < ApplicationRecord
 
 
-end
+end unless TheTrade.config.disabled_models.include?('GoodPartner')
 
 
 # :good_id, :integer

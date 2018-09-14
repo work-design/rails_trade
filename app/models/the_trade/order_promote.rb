@@ -16,7 +16,7 @@ class OrderPromote < ApplicationRecord
     end
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('OrderPromtote')
 
 # :order_id, :integer
 # :order_item_id :integer

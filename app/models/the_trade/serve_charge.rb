@@ -29,7 +29,7 @@ class ServeCharge < ApplicationRecord
     extra_columns.map { |extra_column| [ServeCharge.human_attribute_name(extra_column), extra_column] }.to_h
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('ServeCharge')
 
 # :min, :integer
 # :max, :integer

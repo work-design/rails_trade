@@ -9,7 +9,7 @@ class PromoteCharge < ApplicationRecord
     raise 'Should Implement in Subclass'
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('PromoteCharge')
 
 # :min, :integer
 # :max, :integer

@@ -12,4 +12,4 @@ class PaymentReference < ApplicationRecord
     end
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('PaymentReference')

@@ -182,4 +182,4 @@ class CartItem < ApplicationRecord
     CartItem.select(:good_type).distinct.pluck(:good_type)
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('CartItem')

@@ -11,4 +11,4 @@ class Address < ApplicationRecord
     self.buyer_id = self.user&.buyer_id
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('Address')

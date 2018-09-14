@@ -113,7 +113,7 @@ class Payment < ApplicationRecord
     0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
   end
 
-end
+end unless TheTrade.config.disabled_models.include?('Payment')
 
 #  :id, :integer, limit: 4, null: false
 #  :type, :string, limit: 255
