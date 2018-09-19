@@ -1,0 +1,23 @@
+<div class="ui segment top attached">
+  <p><%= @order.buyer.name %></p>
+  <p><%= @order.user.name %> <%= @order.user.email %></p>
+  <p>
+    <span class="ui blue label"><%= @order.buyer.payment_strategy&.name %></span>
+    <% if @order.buyer.deposit_ratio %>
+      <span class="ui orange label">Deposit Ratio: <%= @order.buyer.deposit_ratio %>%</span>
+    <% end %>
+  </p>
+</div>
+
+<%= render partial: 'shared/error_messages', locals: { target: @order } %>
+
+<%= render partial: 'new_items', locals: { order: @order } %>
+
+
+<%= render partial: 'rails_trade_admin/orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
+<%= render partial: 'rails_trade_admin/orders/invoice_addresses', locals: { addresses: @order.user.addresses.invoice } %>
+
+
+<div class="ui center aligned segment">
+  <%= submit_tag '确认订单', class: 'ui red button', form: 'new_order' %>
+</div>

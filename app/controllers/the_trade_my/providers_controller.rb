@@ -1,4 +1,4 @@
-class TheTradeMy::ProvidersController < TheTradeMy::BaseController
+class RailsTradeMy::ProvidersController < RailsTradeMy::BaseController
   before_action :set_provider, only: [:show, :edit, :update]
 
   def show

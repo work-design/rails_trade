@@ -1,4 +1,4 @@
-class TheTradeAdmin::ServesController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::ServesController < RailsTradeAdmin::BaseController
   before_action :set_serve, only: [:show, :edit, :update, :toggle, :overall, :contain, :default, :destroy]
 
   def index

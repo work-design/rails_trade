@@ -1,4 +1,4 @@
-class TheTradeMy::PaymentMethodsController < TheTradeMy::BaseController
+class RailsTradeMy::PaymentMethodsController < RailsTradeMy::BaseController
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 
   def index

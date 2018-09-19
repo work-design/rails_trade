@@ -1,4 +1,4 @@
-class TheTradeAdmin::CartItemServesController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::CartItemServesController < RailsTradeAdmin::BaseController
   before_action :set_cart_item
 
   def index

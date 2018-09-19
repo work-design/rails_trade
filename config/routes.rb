@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope :admin, as: 'admin', module: 'the_trade_admin' do
+  scope :admin, as: 'admin', module: 'rails_trade_admin' do
     get 'trade' => 'trade#index'
     resources :addresses
     resources :areas
@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :my, as: 'my', module: 'the_trade_my' do
+  scope :my, as: 'my', module: 'rails_trade_my' do
     resource :buyer
     resource :provider
 

@@ -1,4 +1,4 @@
-class TheTradeAdmin::ProvidersController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::ProvidersController < RailsTradeAdmin::BaseController
   before_action :set_provider, :only => [:show, :edit, :update, :type, :destroy, :products, :posts, :channel]
 
   def index

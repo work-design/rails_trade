@@ -1,0 +1,37 @@
+<div class="ui modal" id="good_serves_index">
+  <i class="close icon"></i>
+  <div class="ui header blue">
+    Cart Item Servers
+  </div>
+  <div class="content">
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody id="serve_tbody">
+      <% @cart_item.serve_charges.each do |serve_charge| %>
+        <%= render partial: 'rails_trade_admin/cart_item_serves/serve', locals: { serve_charge: serve_charge } %>
+      <% end %>
+      <% @cart_item.for_select_serves.each do |serve_charge| %>
+        <%= render partial: 'rails_trade_admin/cart_item_serves/check', locals: { serve_charge: serve_charge } %>
+      <% end %>
+      <% @cart_item.total_serve_charges.each do |serve_charge| %>
+        <%= render partial: 'rails_trade_admin/cart_item_serves/serve', locals: { serve_charge: serve_charge } %>
+      <% end %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th>合计</th>
+        <th id="serve_price"><%= @cart_item.serve_price %></th>
+        <th></th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+

@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class TheTradeTest < ActiveSupport::TestCase
+class RailsTradeTest < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, TheTrade
+    assert_kind_of Module, RailsTrade
   end
 end

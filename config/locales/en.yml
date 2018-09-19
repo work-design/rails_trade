@@ -1,5 +1,5 @@
 en:
-  the_trade_admin:
+  rails_trade_admin:
     payments:
       index:
         add_new: add

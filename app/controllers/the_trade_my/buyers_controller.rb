@@ -1,4 +1,4 @@
-class TheTradeMy::BuyersController < TheTradeMy::BaseController
+class RailsTradeMy::BuyersController < RailsTradeMy::BaseController
   before_action :set_buyer, only: [:show, :edit, :update]
 
   def show

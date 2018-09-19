@@ -1,4 +1,4 @@
-class TheTradeAdmin::OrderPaymentsController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::OrderPaymentsController < RailsTradeAdmin::BaseController
   before_action :set_order
   before_action :set_payment_order, only: [:destroy]
   after_action only: [:create] do
@@ -17,7 +17,7 @@ class TheTradeAdmin::OrderPaymentsController < TheTradeAdmin::BaseController
   def create
     @payment_order = @order.payment_orders.build(payment_order_params)
     @order = @payment_order.order
-    
+
     if @payment_order.save
       respond_to do |format|
         format.js

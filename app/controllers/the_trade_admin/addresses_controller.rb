@@ -1,4 +1,4 @@
-class TheTradeAdmin::AddressesController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::AddressesController < RailsTradeAdmin::BaseController
   before_action :set_addresses, only: [:index]
   before_action :set_address, only: [:show, :edit, :update, :destroy]
 

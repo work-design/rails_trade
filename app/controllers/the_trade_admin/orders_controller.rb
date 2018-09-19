@@ -1,4 +1,4 @@
-class TheTradeAdmin::OrdersController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::OrdersController < RailsTradeAdmin::BaseController
   before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
   skip_before_action :verify_authenticity_token, only: [:refresh]
 

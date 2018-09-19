@@ -1,4 +1,4 @@
-class TheTradeAdmin::PromoteBuyersController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::PromoteBuyersController < RailsTradeAdmin::BaseController
   before_action :set_promote_buyer, only: [:show, :edit, :update, :destroy]
 
   def index

@@ -1,4 +1,4 @@
-class TheTradeMy::OrdersController < TheTradeMy::BaseController
+class RailsTradeMy::OrdersController < RailsTradeMy::BaseController
   include ControllerOrderTypes
   before_action :set_order, only: [
     :show,

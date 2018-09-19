@@ -1,4 +1,4 @@
-class TheTradeMy::AddressesController < TheTradeMy::BaseController
+class RailsTradeMy::AddressesController < RailsTradeMy::BaseController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
 
   def index

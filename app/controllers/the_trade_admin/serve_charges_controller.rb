@@ -1,4 +1,4 @@
-class TheTradeAdmin::ServeChargesController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::ServeChargesController < RailsTradeAdmin::BaseController
   before_action :set_serve
   before_action :set_charge, only: [:edit, :update, :destroy]
 

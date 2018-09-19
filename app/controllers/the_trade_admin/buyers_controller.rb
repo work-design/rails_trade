@@ -1,4 +1,4 @@
-class TheTradeAdmin::BuyersController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::BuyersController < RailsTradeAdmin::BaseController
   before_action :set_buyer, only: [:orders]
 
   def index

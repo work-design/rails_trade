@@ -1,4 +1,4 @@
-class TheTradeAdmin::AreasController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::AreasController < RailsTradeAdmin::BaseController
   before_action :set_area, only: [:show, :edit, :update, :destroy]
 
   def index

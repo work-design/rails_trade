@@ -1,4 +1,4 @@
-class TheTradeMy::CartItemsController < TheTradeMy::BaseController
+class RailsTradeMy::CartItemsController < RailsTradeMy::BaseController
   before_action :set_cart_item, only: [:update, :destroy]
 
   def index

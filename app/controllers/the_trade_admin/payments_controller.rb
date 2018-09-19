@@ -1,4 +1,4 @@
-class TheTradeAdmin::PaymentsController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::PaymentsController < RailsTradeAdmin::BaseController
   before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
 
   def dashboard

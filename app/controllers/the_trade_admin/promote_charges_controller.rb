@@ -1,4 +1,4 @@
-class TheTradeAdmin::PromoteChargesController < TheTradeAdmin::BaseController
+class RailsTradeAdmin::PromoteChargesController < RailsTradeAdmin::BaseController
   before_action :set_promote
   before_action :set_charge, only: [:edit, :update, :destroy]
 
