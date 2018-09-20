@@ -7,16 +7,20 @@ Gem::Specification.new do |s|
   s.authors = ['qinmingyuan']
   s.email = ['mingyuan0715@foxmail.com']
   s.homepage = 'https://github.com/yougexiangfa/rails_trade'
-  s.summary = "Summary of TheSync."
+  s.summary = "Summary of Rails Trade."
   s.description = "Description of TheSync."
-  s.license = "LGPL-3.0"
+  s.license = 'LGPL-3.0'
 
   s.files = Dir[
-    "{app,config,db,lib}/**/*",
-    "LICENSE",
-    "Rakefile",
-    "README.md"
+    '{app,config,db,lib}/**/*',
+    'LICENSE',
+    'Rakefile',
+    'README.md'
   ]
 
   s.add_dependency 'rails', '~> 5.0'
+  s.add_dependency 'default_where', '~> 2.2'
+  s.add_dependency 'default_form', '~> 1.3'
+  s.add_dependency 'rails_com', '~> 1.2'
+  s.add_dependency 'money-rails', '~> 1.12'
 end

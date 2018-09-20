@@ -42,6 +42,6 @@ OrderItem <=> Shipment
 ### 依赖
 * [default_form](https://github.com/qinmingyuan/default_form)
 * [default_where](https://github.com/qinmingyuan/default_where)
-* [the_audit](https://github.com/yougexiangfa/the_audit)
-* [the_data](https://github.com/yougexiangfa/the_data)
+* [rails_audit](https://github.com/yougexiangfa/rails_audit)
+* [rails_data](https://github.com/yougexiangfa/rails_data)
   * admin/payments

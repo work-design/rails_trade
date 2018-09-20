@@ -81,7 +81,10 @@ PATH
   remote: .
   specs:
     rails_trade (0.0.1)
+      default_form
+      default_where
       rails (~> 5.0)
+      rails_com
 
 GEM
   remote: https://rubygems.org/
