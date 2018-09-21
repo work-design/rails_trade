@@ -1,6 +1,6 @@
-require 'auditable'
+#gem 'rails_audit'
 class Payment < ApplicationRecord
-  include Auditable
+  #include Auditable
 
   attribute :currency, :string, default: 'USD'
 
