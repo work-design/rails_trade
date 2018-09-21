@@ -1,3 +1,4 @@
+require 'auditable'
 class Payment < ApplicationRecord
   include Auditable
 
