@@ -7,7 +7,7 @@ module RailsTradeBuyer
     attribute :payment_strategy_id, :integer
 
     belongs_to :payment_strategy, optional: true
-    # todo has_many :users, foreign_key: :buyer_id, dependent: :nullify
+    has_many :users, foreign_key: :buyer_id, dependent: :nullify
     has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer
     has_many :payment_references, foreign_key: :buyer_id, dependent: :destroy, autosave: true
     has_many :payment_methods, through: :payment_references, autosave: true

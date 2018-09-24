@@ -25,19 +25,11 @@ GIT
 
 GIT
   remote: https://github.com/qinmingyuan/default_where.git
-  revision: e1b38bcbd63c6ef00a1245b5a9bdac633ea1d323
+  revision: 4d8bf256cf97cb277ed6de5cec289c011389c8c5
   branch: master
   specs:
-    default_where (2.2.1)
-      activerecord (>= 4.0)
-
-GIT
-  remote: https://github.com/qinmingyuan/rails_com.git
-  revision: 53fd3c0147a23df778e9184a39d7f3d17490e431
-  branch: master
-  specs:
-    rails_com (1.2.1)
-      rails
+    default_where (2.2.2)
+      activerecord (>= 4.0, <= 6.0)
 
 GIT
   remote: https://github.com/rails/sprockets.git
@@ -48,19 +40,27 @@ GIT
       rack (> 1, < 3)
 
 GIT
-  remote: https://github.com/yougexiangfa/the_audit.git
-  revision: 8e4c037d17fc5b5a5e646d5774fe0396688d8459
+  remote: https://github.com/yougexiangfa/rails_audit.git
+  revision: 72be0eb046171d3cb87cfe2309d6cad43569b2ca
   branch: master
   specs:
-    the_audit (0.0.1)
-      rails (>= 5.0)
+    rails_audit (1.0.0)
+      rails (>= 5.0, <= 6.0)
 
 GIT
-  remote: https://github.com/yougexiangfa/the_data.git
-  revision: fdf490939f84d5eb4baf1838eb1fd10682e500a5
+  remote: https://github.com/yougexiangfa/rails_com.git
+  revision: 46353ef8b5562e20f555d766ab7e19d2b87570c7
   branch: master
   specs:
-    the_data (1.0.0)
+    rails_com (1.2.4)
+      rails (>= 5.2, <= 6.0)
+
+GIT
+  remote: https://github.com/yougexiangfa/rails_data.git
+  revision: 44664623e5e28f64004a2f8c62ad9b3d972a01e6
+  branch: master
+  specs:
+    rails_data (0.0.1)
       prawn
       prawn-table
       rails (>= 5.0)
@@ -69,11 +69,11 @@ GIT
       write_xlsx (~> 0.83.0)
 
 GIT
-  remote: https://github.com/yougexiangfa/the_role.git
-  revision: a8893749d51292199c921eb2adee54ece5149e1b
+  remote: https://github.com/yougexiangfa/rails_role.git
+  revision: b04a45f78b6af659cac84602b02f8a99e843c119
   branch: master
   specs:
-    the_role (1.0.0)
+    rails_role (1.0.1)
       acts_as_list
       rails (>= 4.2)
 
@@ -81,10 +81,13 @@ PATH
   remote: .
   specs:
     rails_trade (0.0.1)
-      default_form
-      default_where
+      default_form (~> 1.3)
+      default_where (~> 2.2)
+      money-rails (~> 1.12)
       rails (~> 5.0)
-      rails_com
+      rails_audit (~> 1.0)
+      rails_com (~> 1.2)
+      rails_data (~> 0)
 
 GEM
   remote: https://rubygems.org/
@@ -136,7 +139,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     builder (3.2.3)
-    capybara (3.7.1)
+    capybara (3.8.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -161,13 +164,22 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    marcel (0.3.2)
+    marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.0)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    monetize (1.9.0)
+      money (~> 6.12)
+    money (6.12.0)
+      i18n (>= 0.6.4, < 1.1)
+    money-rails (1.12.0)
+      activesupport (>= 3.0)
+      monetize (~> 1.9.0)
+      money (~> 6.12.0)
+      railties (>= 3.0)
     mysql2 (0.5.2)
     nio4r (2.3.1)
     nokogiri (1.8.4)
@@ -258,13 +270,13 @@ DEPENDENCIES
   pry-rails
   puma
   rails (>= 5.2.0)
+  rails_audit!
   rails_com!
+  rails_data!
+  rails_role!
   rails_trade!
   sprockets!
   sqlite3
-  the_audit!
-  the_data!
-  the_role!
 
 BUNDLED WITH
    1.16.3
