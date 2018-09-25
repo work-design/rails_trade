@@ -9,7 +9,7 @@ class WxpayRefund < Refund
   end
 
   def do_refund(params = {})
-    params = {
+    _params = {
       out_refund_no: self.refund_uuid,
       total_fee: (payment.total_amount * 100).to_i,
       refund_fee: (total_amount * 100).to_i,
@@ -17,15 +17,19 @@ class WxpayRefund < Refund
     }
 
     begin
-      result = WxPay::Service.invoke_refund(params)
+      result = WxPay::Service.invoke_refund(_params)
       if result['result_code'] == 'SUCCESS'
-        self.update(state: 'completed')
+        self.state = 'completed'
       else
-        self.update(state: 'failed', comment: result['result_code'])
+        self.state = 'failed'
+        self.comment = result['result_code']
       end
     rescue StandardError => e
       result = e.message
-      self.update(state: 'failed', comment: result.truncate(225))
+      self.state = 'failed'
+      self.comment = result.truncate(225)
+    ensure
+      self.save
     end
     result
   end
@@ -34,7 +38,7 @@ class WxpayRefund < Refund
     params = {
       out_refund_no: self.refund_uuid
     }
-    result = WxPay::Service.refund_query(params)
+    WxPay::Service.refund_query(params)
   end
 
 end
