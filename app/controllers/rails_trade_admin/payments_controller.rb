@@ -72,16 +72,17 @@ class RailsTradeAdmin::PaymentsController < RailsTradeAdmin::BaseController
   end
 
   def payment_params
-    p = params.fetch(:payment, {}).permit(:type,
-                                          :payment_uuid,
-                                          :total_amount,
-                                          :fee_amount,
-                                          :income_amount,
-                                          :notified_at,
-                                          :comment,
-                                          :buyer_name,
-                                          :buyer_identifier,
-                                          :buyer_bank
+    p = params.fetch(:payment, {}).permit(
+      :type,
+      :payment_uuid,
+      :total_amount,
+      :fee_amount,
+      :income_amount,
+      :notified_at,
+      :comment,
+      :buyer_name,
+      :buyer_identifier,
+      :buyer_bank
     )
     p.reverse_merge(type: 'BankPayment')
   end

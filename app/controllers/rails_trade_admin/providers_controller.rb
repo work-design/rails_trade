@@ -111,7 +111,14 @@ class RailsTradeAdmin::ProvidersController < RailsTradeAdmin::BaseController
   end
 
   def provider_params
-    params[:provider].permit(:area_id, :name, :logo, :address, :service_tel, :service_qq)
+    params[:provider].permit(
+      :area_id,
+      :name,
+      :logo,
+      :address,
+      :service_tel,
+      :service_qq
+    )
   end
 
   def type_params

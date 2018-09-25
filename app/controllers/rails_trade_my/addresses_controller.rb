@@ -44,7 +44,12 @@ class RailsTradeMy::AddressesController < RailsTradeMy::BaseController
   end
 
   def address_params
-    params.fetch(:address, {}).permit(:area_id, :contact_person, :tel, :address)
+    params.fetch(:address, {}).permit(
+      :area_id,
+      :contact_person,
+      :tel,
+      :address
+    )
   end
 
 end

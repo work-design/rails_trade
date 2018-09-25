@@ -33,7 +33,10 @@ class RailsTradeAdmin::PromoteBuyersController < RailsTradeAdmin::BaseController
   end
 
   def promote_buyer_params
-    params.fetch(:promote_buyer, {}).permit(:buyer_id, :promote_id)
+    params.fetch(:promote_buyer, {}).permit(
+      :buyer_id,
+      :promote_id
+    )
   end
 
 end

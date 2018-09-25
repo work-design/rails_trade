@@ -50,7 +50,12 @@ class RailsTradeAdmin::PaymentOrdersController < RailsTradeAdmin::BaseController
   end
 
   def payment_order_params
-    params.fetch(:payment_order, {}).permit(:order_id, :check_amount).merge(state: 'confirmed')
+    params.fetch(:payment_order, {}).permit(
+      :order_id,
+      :check_amount
+    ).merge(
+      state: 'confirmed'
+    )
   end
 
 end

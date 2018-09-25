@@ -100,7 +100,16 @@ class RailsTradeAdmin::ServesController < RailsTradeAdmin::BaseController
   end
 
   def serve_params
-    sp = params.fetch(:serve, {}).permit(:unit, :type, :name, :verified, :scope, :deal_type, :deal_id, extra: [])
+    sp = params.fetch(:serve, {}).permit(
+      :unit,
+      :type,
+      :name,
+      :verified,
+      :scope,
+      :deal_type,
+      :deal_id,
+      extra: []
+    )
     sp.fetch(:extra, []).reject! { |i| i.blank? }
     sp
   end

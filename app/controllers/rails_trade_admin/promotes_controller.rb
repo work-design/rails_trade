@@ -100,6 +100,15 @@ class RailsTradeAdmin::PromotesController < RailsTradeAdmin::BaseController
   end
 
   def promote_params
-    params.fetch(:promote, {}).permit(:unit, :type, :name, :start_at, :finish_at, :verified, :scope, :discount)
+    params.fetch(:promote, {}).permit(
+      :unit,
+      :type,
+      :name,
+      :start_at,
+      :finish_at,
+      :verified,
+      :scope,
+      :discount
+    )
   end
 end

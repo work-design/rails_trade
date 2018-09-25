@@ -105,7 +105,10 @@ class RailsTradeAdmin::PaymentMethodsController < RailsTradeAdmin::BaseControlle
   end
 
   def payment_reference_params
-    params.fetch(:payment_reference, {}).permit(:account_type, :account_id)
+    params.fetch(:payment_reference, {}).permit(
+      :account_type,
+      :account_id
+    )
   end
 
 end

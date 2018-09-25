@@ -46,7 +46,10 @@ class RailsTradeAdmin::OrderPaymentsController < RailsTradeAdmin::BaseController
   end
 
   def payment_order_params
-    params.fetch(:payment_order, {}).permit(:payment_id, :check_amount)
+    params.fetch(:payment_order, {}).permit(
+      :payment_id,
+      :check_amount
+    )
   end
 
 end

@@ -48,7 +48,12 @@ class RailsTradeAdmin::PromoteChargesController < RailsTradeAdmin::BaseControlle
 
   private
   def charge_params
-    params.fetch(:charge, {}).permit(:min, :max, :price, :type)
+    params.fetch(:charge, {}).permit(
+      :min,
+      :max,
+      :price,
+      :type
+    )
   end
 
   def set_promote

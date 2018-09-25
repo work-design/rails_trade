@@ -57,7 +57,10 @@ class RailsTradeAdmin::CartItemServesController < RailsTradeAdmin::BaseControlle
   end
 
   def cart_item_serve_params
-    params.fetch(:cart_item_serve, {}).permit(:serve_id, :price)
+    params.fetch(:cart_item_serve, {}).permit(
+      :serve_id,
+      :price
+    )
   end
 
 end

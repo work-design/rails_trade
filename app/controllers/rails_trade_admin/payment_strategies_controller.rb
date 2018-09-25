@@ -44,7 +44,11 @@ class RailsTradeAdmin::PaymentStrategiesController < RailsTradeAdmin::BaseContro
   end
 
   def payment_strategy_params
-    params.fetch(:payment_strategy, {}).permit(:name, :strategy, :period)
+    params.fetch(:payment_strategy, {}).permit(
+      :name,
+      :strategy,
+      :period
+    )
   end
 
 end

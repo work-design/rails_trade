@@ -98,10 +98,12 @@ class RailsTradeAdmin::CartItemsController < RailsTradeAdmin::BaseController
   end
 
   def cart_item_params
-    params.require(:cart_item).permit(id: [],
-                                      single_price: [],
-                                      amount: [],
-                                      total_price: [])
+    params.require(:cart_item).permit(
+      id: [],
+      single_price: [],
+      amount: [],
+      total_price: []
+    )
   end
 
   def current_cart
