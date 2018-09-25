@@ -1,0 +1,1 @@
+$('#q_payment_method').dropdown();

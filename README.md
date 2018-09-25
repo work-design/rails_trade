@@ -41,3 +41,5 @@ OrderItem <=> Shipment
 * [rails_audit](https://github.com/yougexiangfa/rails_audit)
 * [rails_data](https://github.com/yougexiangfa/rails_data)
   * admin/payments
+* [rails_role](https://github.com/yougexiangfa/rails_role)
+  * admin/payments_controller

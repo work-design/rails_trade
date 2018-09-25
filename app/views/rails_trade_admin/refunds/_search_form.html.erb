@@ -1,13 +1,11 @@
-<div class="ui blue segment">
-  <%= search_form_with do |f| %>
-    <div class="fields">
-      <%= hidden_field_tag :payment_status, params[:payment_status] %>
-      <%= f.text_field :'company.name', placeholder: 'Company Name' %>
-      <%= f.text_field :uuid, placeholder: 'PO No.' %>
-      <%= f.select :payment_method, options_for_select(Order.options_i18n(:payment_method)), { include_blank: true, prompt: 'Select one' }, { } %>
-      <%= f.date_field :'created_at.gte', placeholder: 'Transaction Start Date' %>
-      <%= f.date_field :'created_at.lte', placeholder: 'Transaction End Date' %>
-      <%= f.submit 'Search', class: 'ui blue button' %>
-    </div>
-  <% end %>
-</div>
+<%= search_form_with do |f| %>
+  <div class="fields">
+    <%= hidden_field_tag :payment_status, params[:payment_status] %>
+    <%= f.text_field :'company.name', placeholder: 'Company Name' %>
+    <%= f.text_field :uuid, placeholder: 'PO No.' %>
+    <%= f.select :payment_method, options_for_select(Order.options_i18n(:payment_method)), { include_blank: true, prompt: 'Select one' }, { } %>
+    <%= f.date_field :'created_at.gte', placeholder: 'Transaction Start Date' %>
+    <%= f.date_field :'created_at.lte', placeholder: 'Transaction End Date' %>
+    <%= f.submit 'Search', class: 'ui blue button' %>
+  </div>
+<% end %>

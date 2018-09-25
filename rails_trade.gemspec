@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails_com', '~> 1.2'
   s.add_dependency 'rails_data', '~> 0'
   s.add_dependency 'rails_audit', '~> 1.0'
+  s.add_dependency 'rails_role', '~> 1.0'
 end

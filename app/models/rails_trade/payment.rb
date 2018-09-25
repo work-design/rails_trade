@@ -1,6 +1,6 @@
-#gem 'rails_audit'
 class Payment < ApplicationRecord
-  #include Auditable
+  include Auditable
+  extend RailsRoleOwner
 
   attribute :currency, :string, default: RailsTrade.config.default_currency
 
