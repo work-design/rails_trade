@@ -39,44 +39,6 @@ GIT
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
 
-GIT
-  remote: https://github.com/yougexiangfa/rails_audit.git
-  revision: 72be0eb046171d3cb87cfe2309d6cad43569b2ca
-  branch: master
-  specs:
-    rails_audit (1.0.0)
-      rails (>= 5.0, <= 6.0)
-
-GIT
-  remote: https://github.com/yougexiangfa/rails_com.git
-  revision: 46353ef8b5562e20f555d766ab7e19d2b87570c7
-  branch: master
-  specs:
-    rails_com (1.2.4)
-      rails (>= 5.2, <= 6.0)
-
-GIT
-  remote: https://github.com/yougexiangfa/rails_data.git
-  revision: 44664623e5e28f64004a2f8c62ad9b3d972a01e6
-  branch: master
-  specs:
-    rails_data (0.0.1)
-      prawn
-      prawn-table
-      rails (>= 5.0)
-      roo
-      roo-xls
-      write_xlsx (~> 0.83.0)
-
-GIT
-  remote: https://github.com/yougexiangfa/rails_role.git
-  revision: b04a45f78b6af659cac84602b02f8a99e843c119
-  branch: master
-  specs:
-    rails_role (1.0.1)
-      acts_as_list
-      rails (>= 4.2)
-
 PATH
   remote: .
   specs:
@@ -88,6 +50,7 @@ PATH
       rails_audit (~> 1.0)
       rails_com (~> 1.2)
       rails_data (~> 0)
+      rails_role (~> 1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -218,6 +181,20 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails_audit (1.0.0)
+      rails (>= 5.0, <= 6.0)
+    rails_com (1.2.4)
+      rails (>= 5.2, <= 6.0)
+    rails_data (0.0.1)
+      prawn
+      prawn-table
+      rails (>= 5.0)
+      roo
+      roo-xls
+      write_xlsx (~> 0.83.0)
+    rails_role (1.0.0)
+      acts_as_list
+      rails (>= 4.2)
     railties (5.2.1)
       actionpack (= 5.2.1)
       activesupport (= 5.2.1)
@@ -273,10 +250,10 @@ DEPENDENCIES
   pry-rails
   puma
   rails (>= 5.2.0)
-  rails_audit!
-  rails_com!
-  rails_data!
-  rails_role!
+  rails_audit
+  rails_com
+  rails_data
+  rails_role
   rails_trade!
   sdoc
   sprockets!
