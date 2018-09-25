@@ -1,26 +1,25 @@
 # RailsTrade
 
-
+处理订单、支付（退款）、促销策略、附加服务策略；
 
 ## 核心模型
  
 * good_type / good_id
  
-可进行售卖，出租的实体，将其关联 good 即可处理。`Good`模型会处理涉及由可交易产生的信息，比如价格、促销方式等。
+可进行售卖，出租的实体，将其关联 good 即可处理。
+
+`Good`模型会处理涉及由可交易产生的信息，比如价格、促销方式等。
 
 * User/Buyer
 
-#### 流程  
-CartItem -> Order(OrderItem) <=> Payment
+## 流程  
 
-
-QuotationItem -> Order(OrderItem)
-  
 ```
-└ Promote
+Good -> [CartItem] -> Order(OrderItem) <=> Payment
+ └ Promote(Serve)
 ```
   
-#### 集成商品编辑信息
+## 集成商品编辑信息
 ```erb
 
 ```
@@ -31,10 +30,7 @@ OrderItem <=> Shipment
  
 * Provider
 
-#### Dev 
--[] support process to order by cart item ids
-
-### Warning
+## 注意
 * Order: amount, received_amount
 * Payment: total_amount, checked_amount
 * PaymentOrder: check_amount

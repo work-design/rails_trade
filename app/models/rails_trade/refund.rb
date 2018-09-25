@@ -1,5 +1,5 @@
 class Refund < ApplicationRecord
-  attribute :currency, :string, default: 'USD'
+  attribute :currency, :string, default: RailsTrade.config.default_currency
 
   belongs_to :operator, polymorphic: true, optional: true
   belongs_to :order, inverse_of: :refunds, optional: true

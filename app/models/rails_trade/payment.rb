@@ -2,7 +2,7 @@
 class Payment < ApplicationRecord
   #include Auditable
 
-  attribute :currency, :string, default: 'USD'
+  attribute :currency, :string, default: RailsTrade.config.default_currency
 
   belongs_to :payment_method, optional: true
   has_many :payment_orders, dependent: :destroy, inverse_of: :payment
