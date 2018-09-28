@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  include TheCommonApi
+  include RailsCommonApi
   skip_before_action :verify_authenticity_token
 
   def alipay_notify
