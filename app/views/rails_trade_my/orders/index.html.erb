@@ -1,7 +1,3 @@
-<%= content_for(:wechat_js) do %>
-  <%= wechat_config_js debug: false, api: ['chooseWXPay'] -%>
-<% end %>
-
 <div class="ui segment">
   <h1>订单列表</h1>
 </div>
@@ -47,9 +43,3 @@
 </table>
 
 <%= paginate @orders %>
-
-
-
-
-
-

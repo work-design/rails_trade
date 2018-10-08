@@ -9,7 +9,6 @@ module ControllerOrderTypes
       :paypal_execute,
       :wxpay_pay
     ]
-    wechat_api
   end
 
   def stripe_pay
@@ -73,7 +72,6 @@ module ControllerOrderTypes
   end
 
   def wxpay_pay
-    #@order.openid = current_wechat_user.open_id
     @order.spbill_create_ip = request.remote_ip
 
     @wxpay_order = @order.wxpay_order

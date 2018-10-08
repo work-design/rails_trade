@@ -1,5 +1,5 @@
 <%= form_with model: @provider, url: my_provider_path, method: :patch do |f| %>
-  <%= f.text_field :name, label: 'Name' %>
-  <%= f.file_field :logo, label: 'logo' %>
+  <%= f.text_field :name %>
+  <%= f.file_field :logo %>
   <%= f.submit %>
 <% end %>
