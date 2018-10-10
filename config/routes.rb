@@ -1,6 +1,24 @@
 Rails.application.routes.draw do
 
-  scope :admin, as: 'admin', module: 'rails_trade_admin' do
+  scope module: 'trade' do
+    resources :areas, only: [] do
+      get :search, on: :collection
+    end
+    resources :payments, only: [:index] do
+      get :result, on: :collection
+      match :notify, on: :collection, via: [:get, :post]
+      match :alipay_notify, on: :collection, via: [:get, :post]
+      match :wxpay_notify, on: :collection, via: [:get, :post]
+    end
+    resources :providers, only: [] do
+      get :search, on: :collection
+    end
+    resources :buyers, only: [] do
+      get :search, on: :collection
+    end
+  end
+
+  scope :admin, module: 'trade/admin', as: 'admin' do
     get 'trade' => 'trade#index'
     resources :addresses
     resources :areas
@@ -68,7 +86,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :my, as: 'my', module: 'rails_trade_my' do
+  scope :my, module: 'trade/my', as: 'my' do
     resource :buyer
     resource :provider
 
@@ -97,22 +115,6 @@ Rails.application.routes.draw do
     end
     resources :order_items
     resources :payment_methods
-  end
-
-  resources :areas, only: [] do
-    get :search, on: :collection
-  end
-  resources :payments, only: [:index] do
-    get :result, on: :collection
-    match :notify, on: :collection, via: [:get, :post]
-    match :alipay_notify, on: :collection, via: [:get, :post]
-    match :wxpay_notify, on: :collection, via: [:get, :post]
-  end
-  resources :providers, only: [] do
-    get :search, on: :collection
-  end
-  resources :buyers, only: [] do
-    get :search, on: :collection
   end
 
 end
