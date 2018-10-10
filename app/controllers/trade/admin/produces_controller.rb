@@ -1,4 +1,4 @@
-class Admin::ProducesController < Admin::BaseController
+class Trade::Admin::ProducesController < Trade::Admin::BaseController
   before_action :set_produce, only: [:show, :edit, :update, :destroy]
 
   def index
