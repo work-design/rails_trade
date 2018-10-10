@@ -4,8 +4,6 @@ gemspec
 
 gem 'puma'
 gem 'rails', '>= 5.2.0'
-
-gem 'mysql2'
 gem 'sqlite3'
 
 gem 'sdoc'
