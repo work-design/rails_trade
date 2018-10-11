@@ -1,4 +1,4 @@
-class PaymentsController < ApplicationController
+class Trade::PaymentsController < ApplicationController
   include RailsCommonApi
   skip_before_action :verify_authenticity_token
 

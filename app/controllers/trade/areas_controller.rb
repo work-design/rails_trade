@@ -1,4 +1,4 @@
-class AreasController < ApplicationController
+class Trade::AreasController < ApplicationController
 
   def search
 

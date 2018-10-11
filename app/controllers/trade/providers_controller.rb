@@ -1,4 +1,4 @@
-class ProvidersController < ApplicationController
+class Trade::ProvidersController < ApplicationController
 
   def search
     @providers = Provider.default_where('name-like': params[:q])

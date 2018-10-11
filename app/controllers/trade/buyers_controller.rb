@@ -1,4 +1,4 @@
-class BuyersController < ApplicationController
+class Trade::BuyersController < ApplicationController
 
   def search
     @buyers = RailsTrade.buyer_class.default_where('name-like': params[:q])
