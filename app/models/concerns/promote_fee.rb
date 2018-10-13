@@ -4,10 +4,10 @@ class PromoteFee
   attr_reader :good, :number, :buyer,
               :extra, :charges
 
-  def initialize(good_type, good_id, number = 1, buyer_id = nil, extra = {})
+  def initialize(good_type, good_id, number = 1, buyer_type = 'User', buyer_id = nil, extra = {})
     @good = good_type.constantize.unscoped.find good_id
     @number = number
-    @buyer = RailsTrade.buyer_class.find(buyer_id) if buyer_id
+    @buyer = buyer_type.constantize.find(buyer_id) if buyer_id
     @extra = extra
     verbose_fee
   end

@@ -21,7 +21,7 @@ module GoodAble
     composed_of :serve,
                 class_name: 'ServeFee',
                 mapping: ['id', 'good_id'],
-                constructor: Proc.new { |id| ServeFee.new(self.name, id, 1, nil, self.extra) }
+                constructor: Proc.new { |id| ServeFee.new(self.name, id, 1, nil, nil, self.extra) }
     composed_of :promote,
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
