@@ -4,6 +4,7 @@ module RailsTradeUser
 
   included do
     attribute :provider_id, :integer
+    attribute :buyer_type, :string, default: self.name
 
     belongs_to :provider, inverse_of: :users, autosave: true, optional: true
 

@@ -5,8 +5,10 @@ class Trade::My::BaseController < RailsTrade.config.my_class.constantize
   def current_buyer
     if defined? super
       super
+    elsif current_user.buyer_type == 'User'
+      current_user
     else
-      current_user.buyer
+      current_user
     end
   end
 
