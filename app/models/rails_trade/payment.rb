@@ -18,7 +18,7 @@ class Payment < ApplicationRecord
   before_save :compute_amount
   after_create :analyze_payment_method
 
-  #has_one_attached :proof
+  has_one_attached :proof
 
   after_initialize if: :new_record? do |o|
     self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
