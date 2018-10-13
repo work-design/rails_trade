@@ -1,6 +1,6 @@
-class CreateOrders < ActiveRecord::Migration[5.1]
+class CreateProviders < ActiveRecord::Migration[5.1]
   def change
-    
+
     create_table :orders do |t|
       t.references :user
       t.references :buyer
@@ -36,19 +36,52 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :refunds do |t|
-      t.references :order
-      t.references :payment
-      t.references :operator
+    create_table :providers do |t|
+      t.references :area
       t.string :type
-      t.decimal :total_amount, precision: 10, scale: 2
-      t.string :buyer_identifier
-      t.string :comment, limit: 512
-      t.integer :state, default: 0
-      t.datetime :refunded_at
-      t.string :reason, limit: 512
-      t.string :currency
-      t.string :refund_uuid
+      t.string :name
+      t.string :service_tel
+      t.string :service_qq
+      t.string :address
+      t.timestamps
+    end
+
+    create_table :cart_items do |t|
+      t.references :user
+      t.references :buyer
+      t.references :good, polymorphic: true
+      t.string :session_id, limit: 128
+      t.string :status
+      t.integer :quantity
+      t.string :extra, limit: 1024
+      t.boolean :checked, default: false
+      t.boolean :myself
+      t.boolean :archived, default: false
+      t.timestamps
+    end
+
+    create_table :payment_strategies do |t|
+      t.string :name
+      t.string :strategy
+      t.integer :period, default: 0
+      t.timestamps
+    end
+
+    create_table :areas do |t|
+      t.string :nation, default: ''
+      t.string :province, default: ''
+      t.string :city, default: ''
+      t.string :district, default: ''
+      t.boolean :published, default: true
+      t.boolean :popular, default: false
+      t.timestamps
+    end
+
+    create_table :addresses do |t|
+      t.references :area
+      t.references :user
+      t.references :buyer
+      t.string :kind
       t.timestamps
     end
 
