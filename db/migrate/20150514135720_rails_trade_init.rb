@@ -2,8 +2,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
   def change
 
     create_table :orders do |t|
-      t.references :user
-      t.references :buyer
+      t.references :buyer, polymorphic: true
       t.references :payment_strategy
       t.string :uuid, null: false
       t.integer :state, default: 0
@@ -47,8 +46,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
     end
 
     create_table :cart_items do |t|
-      t.references :user
-      t.references :buyer
+      t.references :buyer, polymorphic: true
       t.references :good, polymorphic: true
       t.string :session_id, limit: 128
       t.string :status
@@ -79,15 +77,14 @@ class CreateProviders < ActiveRecord::Migration[5.1]
 
     create_table :addresses do |t|
       t.references :area
-      t.references :user
-      t.references :buyer
+      t.references :buyer, polymorphic: true
       t.string :kind
       t.timestamps
     end
 
     create_table :shipments do |t|
-      t.references :user
-      t.references :area
+      t.references :buyer, polymorphic: true
+      t.references :address
     end
 
   end

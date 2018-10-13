@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   include PaymentInterfaceBase
 
   belongs_to :payment_strategy, optional: true
-  belongs_to :buyer, optional: true
+  belongs_to :buyer, polymorphic: true
   has_many :payment_orders, inverse_of: :order, dependent: :destroy
   has_many :payments, through: :payment_orders, inverse_of: :orders
   has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
@@ -24,8 +24,7 @@ class Order < ApplicationRecord
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
     self.payment_status = 'unpaid'
-    self.buyer_id = self.user&.buyer_id if self.buyer_id.blank?
-    self.payment_strategy_id = self.buyer&.payment_strategy_id
+    self.payment_strategy_id = self.buyer.payment_strategy_id
 
     compute_sum
   end

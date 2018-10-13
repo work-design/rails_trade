@@ -1,10 +1,11 @@
 class CartItem < ApplicationRecord
-  belongs_to :good, polymorphic: true, optional: true
+  belongs_to :buyer, polymorphic: true, optional: true
+  belongs_to :good, polymorphic: true
   has_many :cart_item_serves, -> { includes(:serve) }, dependent: :destroy
   has_many :order_items, dependent: :nullify
 
-  validates :user_id, presence: true, if: -> { session_id.blank? }
-  validates :session_id, presence: true, if: -> { user_id.blank?  }
+  validates :buyer_id, presence: true, if: -> { session_id.blank? }
+  validates :session_id, presence: true, if: -> { buyer_id.blank?  }
   scope :valid, -> { where(status: 'pending', myself: true) }
   scope :checked, -> { where(status: 'pending', checked: true) }
 
@@ -29,7 +30,6 @@ class CartItem < ApplicationRecord
 
   after_initialize if: :new_record? do |t|
     self.status = 'init' if self.status.blank?
-    self.buyer_id = self.user&.buyer_id if self.buyer_id.blank?
     self.quantity = 1 if self.quantity.to_i < 1
   end
 

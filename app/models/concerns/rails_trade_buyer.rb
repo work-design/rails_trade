@@ -7,20 +7,17 @@ module RailsTradeBuyer
     attribute :payment_strategy_id, :integer
 
     belongs_to :payment_strategy, optional: true
-    has_many :users, foreign_key: :buyer_id, dependent: :nullify
-    has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer
-    has_many :payment_references, foreign_key: :buyer_id, dependent: :destroy, autosave: true
-    has_many :payment_methods, through: :payment_references, autosave: true
-    has_many :cart_items, foreign_key: :buyer_id
-    has_many :addresses, foreign_key: :buyer_id, dependent: :destroy
-    has_many :promote_buyers, foreign_key: :buyer_id, dependent: :destroy
+
+    has_many :orders, as: :buyer, inverse_of: :buyer
+    has_many :cart_items, as: :buyer, dependent: :destroy
+    has_many :addresses, as: :buyer, dependent: :destroy
+
+    has_many :promote_buyers, as: :buyer, dependent: :destroy
     has_many :promotes, ->{ special }, through: :promote_buyers
 
-    CartItem.belongs_to :buyer, class_name: self.name, optional: true
-    Order.belongs_to :buyer, class_name: self.name, optional: true
-    Address.belongs_to :buyer, class_name: self.name, optional: true
-    PaymentReference.belongs_to :buyer, class_name: self.name, optional: true
-    PromoteBuyer.belongs_to :buyer, class_name: self.name
+    has_many :payment_references, as: :buyer, dependent: :destroy, autosave: true
+    has_many :payment_methods, through: :payment_references, autosave: true
+
 
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
@@ -29,7 +26,7 @@ module RailsTradeBuyer
     def self.credit_ids
       PaymentStrategy.where.not(period: 0).pluck(:id)
     end
-    RailsTrade.buyer_class = self
+    RailsTrade.buyer_classes << self.name
   end
 
   def name_detail

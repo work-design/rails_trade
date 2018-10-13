@@ -7,7 +7,6 @@ module RailsTrade
     ]
 
     config.eager_load_paths += Dir[
-      "#{config.root}/app/models/rails_trade/concerns",
       "#{config.root}/app/models/rails_trade/payment_interface",
       "#{config.root}/app/models/rails_trade/payments",
       "#{config.root}/app/models/rails_trade/payment_methods",
