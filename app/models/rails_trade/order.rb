@@ -72,7 +72,7 @@ class Order < ApplicationRecord
   end
 
   def init_with_default_serves(cart_item_ids: nil)
-    summary = CartItem.checked_items(user_id: self.user_id, myself: self.myself, extra: self.extra)
+    summary = CartItem.checked_items(buyer_type: self.buyer_type, buyer_id: self.buyer_id, myself: self.myself, extra: self.extra)
 
     summary.promote_charges.each do |promote_charge|
       self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)

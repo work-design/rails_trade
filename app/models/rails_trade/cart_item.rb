@@ -66,7 +66,7 @@ class CartItem < ApplicationRecord
 
   # 附加服务价格汇总
   def serve_price
-    serve_charges.sum { |i| i.subtotal }
+    serve_charges.sum(&:subtotal)
   end
 
   # 促销价格
@@ -84,11 +84,11 @@ class CartItem < ApplicationRecord
   end
 
   def total_serve_price
-    total_serve_charges.sum { |i| i.subtotal }
+    total_serve_charges.sum(&:subtotal)
   end
 
   def total_promote_price
-    total.promote_charges.sum { |i| i.subtotal }
+    total.promote_charges.sum(&:subtotal)
   end
 
   def estimate_price
@@ -157,8 +157,8 @@ class CartItem < ApplicationRecord
   end
 
   def same_cart_items
-    if self.user_id
-      CartItem.where(buyer_id: self.user_id).valid
+    if self.buyer_id
+      CartItem.where(buyer_type: self.buyer_type, buyer_id: self.buyer_id).valid
     else
       CartItem.where(session_id: self.session_id).valid
     end
@@ -166,16 +166,12 @@ class CartItem < ApplicationRecord
 
   def total
     relation = CartItem.where(id: self.id)
-    SummaryService.new(relation, buyer_id: self.buyer_id, extra: self.extra)
+    SummaryService.new(relation, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra)
   end
 
-  def self.checked_items(user_id: nil, buyer_id: nil, session_id: nil, myself: nil, extra: self.extra)
-    if user_id
-      @checked_items = CartItem.default_where(user_id: user_id, myself: myself).pending.checked
-      buyer_id = @checked_items.first&.buyer_id
-      puts "-----> Checked User: #{user_id}"
-    elsif buyer_id
-      @checked_items = CartItem.default_where(buyer_id: buyer_id, myself: myself).pending.checked
+  def self.checked_items(buyer_type: nil, buyer_id: nil, session_id: nil, myself: nil, extra: self.extra)
+    if buyer_id
+      @checked_items = CartItem.default_where(buyer_type: buyer_type, buyer_id: buyer_id, myself: myself).pending.checked
       puts "-----> Checked Buyer: #{buyer_id}"
     elsif session_id
       @checked_items = CartItem.default_where(session_id: session_id, myself: myself).pending.checked
@@ -184,7 +180,7 @@ class CartItem < ApplicationRecord
       @checked_items = CartItem.none
       puts "-----> Checked None!"
     end
-    SummaryService.new(@checked_items, buyer_id: buyer_id, extra: extra)
+    SummaryService.new(@checked_items, buyer_type: buyer_type, buyer_id: buyer_id, extra: extra)
   end
 
   def self.extra

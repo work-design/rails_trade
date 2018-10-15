@@ -1,10 +1,10 @@
 class Trade::My::CartItemsController < Trade::My::BaseController
   before_action :set_cart_item, only: [:update, :destroy]
+  before_action :set_additions
 
   def index
     @cart_items = current_cart.pending
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   def create
@@ -21,7 +21,6 @@ class Trade::My::CartItemsController < Trade::My::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
 
     render 'index'
   end
@@ -34,23 +33,27 @@ class Trade::My::CartItemsController < Trade::My::BaseController
       @remove = current_cart.find_by(id: params[:remove_id])
       @remove.update(checked: false)
     end
-
-    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   def destroy
     @cart_item.update(status: :deleted, checked: false)
-    @additions = CartItem.checked_items(user_id: current_buyer&.id, session_id: session.id, myself: true)
   end
 
   private
   def set_cart_item
     @cart_item = current_cart.find(params[:id])
+  end
+
+  def set_additions
+    if current_buyer
+      @additions = CartItem.checked_items(buyer_type: current_buyer.type, buyer_id: current_buyer.id, myself: true)
+    else
+      @additions = CartItem.checked_items(session_id: session.id, myself: true)
+    end
   end
 
   def cart_item_params

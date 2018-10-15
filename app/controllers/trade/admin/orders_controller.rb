@@ -3,7 +3,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   skip_before_action :verify_authenticity_token, only: [:refresh]
 
   def index
-    query_params = params.permit(:id, :user_id, :payment_status, :payment_type)
+    query_params = params.permit(:id, :buyer_type, :buyer_id, :payment_status, :payment_type)
     q_params = params.fetch(:q, {}).permit(:uuid)
     query_params.merge! q_params
 
@@ -15,7 +15,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   end
 
   def new
-    @order = Order.new(user_id: params[:user_id])
+    @order = Order.new(buyer_id: params[:buyer_id])
     if params[:cart_item_id]
       @order.migrate_from_cart_item(params[:cart_item_id])
     else
@@ -29,7 +29,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   end
 
   def refresh
-    @order = Order.new(user_id: params[:user_id])
+    @order = Order.new(buyer_id: params[:buyer_id])
     @order.assign_attributes order_params
 
     if params[:cart_item_id]
@@ -83,7 +83,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
 
   def destroy
     @order.destroy
-    redirect_to admin_orders_url(user_id: @order.user_id), notice: 'Order was successfully destroyed.'
+    redirect_to admin_orders_url(buyer_id: @order.buyer_id), notice: 'Order was successfully destroyed.'
   end
 
   private
@@ -93,7 +93,8 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
 
   def order_params
     params.fetch(:order, {}).permit(
-      :user_id,
+      :buyer_type,
+      :buyer_id,
       :quantity,
       :payment_id,
       :payment_type,

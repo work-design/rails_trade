@@ -1,12 +1,12 @@
 class Trade::Admin::CartItemsController < Trade::Admin::BaseController
-  before_action :current_cart, only: [:index, :create, :only, :total]
+  before_action :set_cart_items, only: [:index, :create, :only, :total]
   before_action :set_cart_item, only: [:update, :destroy]
+  before_action :set_additions
   skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
     @cart_items = @cart_items.page(params[:page])
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id])
   end
 
   def only
@@ -53,7 +53,6 @@ class Trade::Admin::CartItemsController < Trade::Admin::BaseController
     end
 
     @checked_ids = @cart_items.checked.pluck(:id)
-    @additions = CartItem.checked_items(user_id: @user_id, buyer_id: params[:buyer_id])
 
     render 'index'
   end
@@ -67,8 +66,6 @@ class Trade::Admin::CartItemsController < Trade::Admin::BaseController
       @remove.update(checked: false)
     end
 
-    @additions = CartItem.checked_items(user_id: @user&.id, buyer_id: params[:buyer_id])
-
     response.headers['X-Request-URL'] = request.url
   end
 
@@ -78,23 +75,38 @@ class Trade::Admin::CartItemsController < Trade::Admin::BaseController
 
   def update
     @cart_item.update(quantity: params[:quantity])
-    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id)
   end
 
   def destroy
-    @cart_item = CartItem.find params[:id]
     @cart_item.destroy
-    @additions = CartItem.checked_items(user_id: @cart_item.user_id, buyer_id: @cart_item.buyer_id)
   end
 
   private
   def set_cart_item
     @cart_item = CartItem.find(params[:id])
-    if @cart_item.user_id
-      @cart_items = CartItem.where(user_id: @cart_item.user_id)
+    @cart_items = CartItem.where(buyer_type: @cart_item.buyer_type, buyer_id: @cart_item.buyer_id)
+  end
+
+  def set_additions
+    if params[:buyer_type].present? && params[:buyer_id].present?
+      @additions = CartItem.checked_items(buyer_type: params[:buyer_type], buyer_id: params[:buyer_id])
+    elsif params[:id]
+      @additions = CartItem.checked_items(buyer_type: @cart_item.buyer_type, buyer_id: @cart_item.buyer_id)
     else
-      @cart_items = CartItem.where(buyer_id: @cart_item.buyer_id)
+      @additions = CartItem.checked_items(buyer_type: nil, buyer_id: nil)
     end
+  end
+
+  def set_cart_items
+    if params[:buyer_type].present? && params[:buyer_id].present?
+      @buyer = params[:buyer_type].constantize.find params[:buyer_id]
+      @cart_items = CartItem.where(buyer_type: params[:buyer_type], buyer_id: params[:buyer_id])
+    elsif params[:id].present?
+      @cart_items = CartItem.where(id: params[:id])
+    else
+      @cart_items = CartItem.none
+    end
+    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself, :id))
   end
 
   def cart_item_params
@@ -104,22 +116,6 @@ class Trade::Admin::CartItemsController < Trade::Admin::BaseController
       amount: [],
       total_price: []
     )
-  end
-
-  def current_cart
-    if params[:user_id].present?
-      @cart_items = CartItem.where(user_id: params[:user_id])
-      @user = User.find params[:user_id]
-      @buyer = @user.buyer
-    elsif params[:buyer_id].present?
-      @buyer = Buyer.find params[:buyer_id]
-      @cart_items = CartItem.where(buyer_id: params[:buyer_id])
-    elsif params[:id].present?
-      @cart_items = CartItem.where(id: params[:id])
-    else
-      @cart_items = CartItem.none
-    end
-    @cart_items = @cart_items.pending.default_where(params.permit(:good_type, :myself, :id))
   end
 
 end
