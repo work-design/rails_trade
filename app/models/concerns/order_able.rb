@@ -18,7 +18,6 @@ module OrderAble
 
   def generate_order(user, params = {})
     o = user.orders.build
-    o.buyer_id = user.buyer_id if user.buyer_id && self.respond_to?(:buyer_id)
     o.currency = self.currency
 
     oi = o.order_items.build
