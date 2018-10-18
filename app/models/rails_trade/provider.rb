@@ -3,6 +3,8 @@ class Provider < ApplicationRecord
   has_many :users, inverse_of: :provider
   has_many :products
 
+  has_one_attached :logo
+
   def name_detail
     "#{name} (#{id})"
   end

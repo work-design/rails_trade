@@ -18,7 +18,6 @@ module RailsTradeBuyer
     has_many :payment_references, as: :buyer, dependent: :destroy, autosave: true
     has_many :payment_methods, through: :payment_references, autosave: true
 
-
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
