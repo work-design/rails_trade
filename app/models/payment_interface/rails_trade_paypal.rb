@@ -1,4 +1,4 @@
-module ThePaypal
+module RailsTradePaypal
   extend ActiveSupport::Concern
 
   included do
@@ -27,31 +27,15 @@ module ThePaypal
 
   def paypal_result
     return unless self.payment_id
-    self.paypal_payment ||= PayPal::SDK::REST::DataTypes::Payment.find(self.payment_id)
+    paypal_payment ||= PayPal::SDK::REST::DataTypes::Payment.find(self.payment_id)
+    trans = paypal_payment.transactions[0]
 
-    paypal_record(paypal_payment)
-  end
-
-  def paypal_record(record)
-    trans = record.transactions[0]
-
-    if record.state == 'approved'
+    if paypal_payment.state == 'approved'
       paypal = PaypalPayment.find_by(payment_uuid: trans.related_resources[0].sale.id)
       return paypal if paypal
-
-      paypal = PaypalPayment.new
-      paypal.payment_uuid = trans.related_resources[0].sale.id
-      paypal.total_amount = trans.amount.total
-
-      payment_order = paypal.payment_orders.build(order_id: self.id, check_amount: paypal.total_amount)
-
-      Payment.transaction do
-        payment_order.confirm!
-        paypal.save!
-      end
-      paypal
+      self.change_to_paid! type: 'PaypalPayment', params: trans
     else
-      errors.add :uuid, record.error.inspect
+      errors.add :base, paypal_payment.error.inspect
     end
   end
 

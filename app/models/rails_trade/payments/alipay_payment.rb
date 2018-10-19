@@ -1,12 +1,17 @@
 class AlipayPayment < Payment
 
   def assign_detail(params)
-    self.notified_at = params['notify_time']
     self.payment_uuid = params['trade_no']
+
+    self.buyer_identifier = params['buyer_login_id']
     self.pay_status = params['trade_status']
-    self.seller_identifier = params['seller_id']
-    self.buyer_identifier = params['buyer_id']
+
     self.total_amount = params['total_amount']
+    self.income_amount = params['receipt_amount']
+
+    self.notified_at = params['send_pay_date']
+
+    self.seller_identifier = params['store_id'].to_s + params['terminal_id'].to_s
   end
 
 end

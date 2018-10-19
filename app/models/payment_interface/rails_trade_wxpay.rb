@@ -1,4 +1,4 @@
-module TheWxpay
+module RailsTradeWxpay
   extend ActiveSupport::Concern
 
   included do
@@ -46,11 +46,11 @@ module TheWxpay
       out_trade_no: self.uuid,
     }
     result = WxPay::Service.order_query params
-    wxpay_record(result)
-  end
-
-  def wxpay_record(result)
-
+    if result
+      self.change_to_paid! type: 'WxpayPayment', params: result
+    else
+      self.errors.add :base, 'err'
+    end
   end
 
 end

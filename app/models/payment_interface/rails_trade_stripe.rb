@@ -1,4 +1,4 @@
-module TheStripe
+module RailsTradeStripe
   extend ActiveSupport::Concern
 
   included do
@@ -34,29 +34,13 @@ module TheStripe
   def stripe_result
     if self.payment_id.present?
       charge = Stripe::Charge.retrieve(self.payment_id)
-      self.stripe_record(charge)
-    end
-  end
 
-  def stripe_record(charge)
-    if charge.paid && !charge.refunded
-      existing = StripePayment.find_by(payment_uuid: charge.id)
-      return existing if existing
-
-      stripe = StripePayment.new
-      stripe.payment_uuid = charge.id
-      stripe.total_amount = Money.new(charge.amount, self.currency).to_d
-      stripe.currency = charge.currency.upcase
-
-      payment_order = stripe.payment_orders.build(order_id: self.id, check_amount: stripe.total_amount)
-
-      Payment.transaction do
-        payment_order.confirm!
-        stripe.save!
+      if charge.paid && !charge.refunded
+         self.change_to_paid! type: 'StripePayment', params: charge
+      else
+        errors.add :uuid, 'error'
       end
-      stripe
-    else
-      errors.add :uuid, 'error'
+
     end
   end
 

@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
-  include ThePayment
-  include TheRefund
+  include RailsTradePayment
+  include RailsTradeRefund
   include PaymentInterfaceBase
 
   belongs_to :payment_strategy, optional: true

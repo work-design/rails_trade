@@ -3,7 +3,8 @@ module RailsTrade
   class Engine < ::Rails::Engine
 
     config.autoload_paths += Dir[
-      "#{config.root}/app/models/rails_trade",
+      "#{config.root}/app/models/payment_interface",
+      "#{config.root}/app/models/rails_trade"
     ]
 
     config.eager_load_paths += Dir[

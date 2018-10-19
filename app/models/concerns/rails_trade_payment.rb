@@ -2,7 +2,7 @@
 # payment_type
 # amount
 # received_amount
-module ThePayment
+module RailsTradePayment
 
   def can_pay?
     self.payment_type.present? && self.payment_status != 'all_paid'
@@ -36,7 +36,7 @@ module ThePayment
     end
   end
 
-  def change_to_paid!(params = {})
+  def change_to_paid!(type: , params: {})
     if self.amount == 0
       self.received_amount = self.amount
       self.check_state!
@@ -47,8 +47,8 @@ module ThePayment
       return self
     end
 
-    if params[:type]
-      self.save_detail(params)
+    if type
+      self.save_detail(type, params)
     elsif self.payment_type.present?
       begin
         self.send self.payment_type + '_result'
@@ -58,14 +58,15 @@ module ThePayment
     end
   end
 
-  def save_detail(params)
-    payment = self.payments.build(type: params[:type])
+  def save_detail(type, params)
+    payment = self.payments.build(type: type)
     payment.assign_detail params
     payment_order = payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
     Payment.transaction do
       payment.save!
       payment_order.confirm!
     end
+    payment
   end
 
   def check_state

@@ -9,7 +9,7 @@ class Trade::PaymentsController < ApplicationController
     result = nil
 
     if Alipay::Notify.verify?(notify_params)
-      result = @order.change_to_paid! notify_params.merge(type: 'AlipayPayment')
+      result = @order.change_to_paid! params: notify_params, type: 'AlipayPayment'
     end
 
     if result
@@ -26,7 +26,7 @@ class Trade::PaymentsController < ApplicationController
     result = nil
 
     if WxPay::Sign.verify?(notify_params)
-      result = @order.change_to_paid! notify_params.merge(type: 'WxpayPayment')
+      result = @order.change_to_paid! params: notify_params, type: 'WxpayPayment'
     end
 
     if result
@@ -43,7 +43,7 @@ class Trade::PaymentsController < ApplicationController
 
   def result
     @order = Order.find(params[:order_id])
-    @order.change_to_paid!
+    @order.change_to_paid! type: 'HandPayment'
     render json: @order.as_json(only: [:id, :amount, :received_amount, :currency, :payment_status])
   end
 
