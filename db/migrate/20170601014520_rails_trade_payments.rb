@@ -15,7 +15,6 @@ class RailsTradePayments < ActiveRecord::Migration[5.1]
       t.string :notify_type
       t.datetime :notified_at
       t.string :pay_status
-      t.string :sign
       t.string :seller_identifier
       t.string :buyer_name
       t.string :buyer_identifier

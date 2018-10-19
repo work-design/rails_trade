@@ -3,7 +3,7 @@ module RailsTradeBuyer
 
   included do
     attribute :name, :string
-    attribute :deposit_ratio, :integer, default: 100
+    attribute :deposit_ratio, :integer, default: 100  # 最小预付比例
     attribute :payment_strategy_id, :integer
 
     belongs_to :payment_strategy, optional: true
@@ -37,10 +37,3 @@ module RailsTradeBuyer
   end
 
 end
-
-
-# required attributes
-# id
-# :name
-# :payment_strategy_id
-# :deposit_ratio, :integer, default: 100, comment: '最小预付比例'

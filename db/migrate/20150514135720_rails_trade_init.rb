@@ -16,7 +16,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.string :currency
       t.integer :payment_id
       t.string :payment_type
-      t.integer :payment_status
+      t.string :payment_status, index: true
       t.boolean :myself
       t.string :note, limit: 4096
       t.timestamps

@@ -3,6 +3,7 @@ class PaymentOrder < ApplicationRecord
   belongs_to :payment, inverse_of: :payment_orders
 
   validate :for_check_amount
+  validates :order_id, uniqueness: { scope: :payment_id }
 
   enum state: [
     :init,

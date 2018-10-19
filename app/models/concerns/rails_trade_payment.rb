@@ -25,25 +25,21 @@ module RailsTradePayment
   end
 
   def confirm_paid!
-    self.order_items.each do |oi|
-      oi.confirm_paid!
-    end
+    self.order_items.each(&:confirm_paid!)
   end
 
   def confirm_part_paid!
-    self.order_items.each do |oi|
-      oi.confirm_part_paid!
-    end
+    self.order_items.each(&:confirm_part_paid!)
   end
 
   def change_to_paid!(type: , params: {})
-    if self.amount == 0
-      self.received_amount = self.amount
-      self.check_state!
+    if self.payment_status == 'all_paid'
       return self
     end
 
-    if self.payment_status == 'all_paid'
+    if self.amount == 0
+      self.received_amount = self.amount
+      self.check_state!
       return self
     end
 

@@ -32,12 +32,12 @@ class Order < ApplicationRecord
   after_create_commit :confirm_ordered!
 
   enum payment_status: {
-    unpaid: 0,
-    part_paid: 1,
-    all_paid: 2,
-    refunding: 3,
-    refunded: 4,
-    denied: 5
+    unpaid: 'unpaid',
+    part_paid: 'part_paid',
+    all_paid: 'all_paid',
+    refunding: 'refunding',
+    refunded: 'refunded',
+    denied: 'denied'
   }
 
   def extra

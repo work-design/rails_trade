@@ -1,7 +1,6 @@
 class WxpayPayment < Payment
 
   def assign_detail(params)
-    self.sign = params['sign']
     self.notified_at = params['time_end']
     self.payment_uuid = params['transaction_id']
     self.pay_status = params['result_code']
