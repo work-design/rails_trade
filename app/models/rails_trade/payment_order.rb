@@ -1,14 +1,20 @@
 class PaymentOrder < ApplicationRecord
+  attribute :check_amount, :decimal
+
   belongs_to :order, inverse_of: :payment_orders
   belongs_to :payment, inverse_of: :payment_orders
 
   validate :for_check_amount
   validates :order_id, uniqueness: { scope: :payment_id }
 
-  enum state: [
-    :init,
-    :confirmed
-  ]
+  enum state: {
+    init: 'init',
+    confirmed: 'confirmed'
+  }
+
+  after_initialize do
+    self.check_amount ||= self.payment.total_amount
+  end
 
   def for_check_amount
     if (same_payment_amount + self.check_amount.to_d) >= self.payment.total_amount.floor + 0.99
@@ -30,47 +36,37 @@ class PaymentOrder < ApplicationRecord
     received - refund
   end
 
-  def payment_amount
-    PaymentOrder.where(payment_id: self.payment_id, state: 'confirmed').sum(:check_amount)
-  end
-
-  def order_amount
-    PaymentOrder.where(order_id: self.order_id, state: 'confirmed').sum(:check_amount)
-  end
-
   def confirm!
+    self.confirm
+    self.save!
+  end
+
+  def confirm
     self.state = 'confirmed'
-
-    begin
-      self.save!
-
-      self.class.transaction do
-        update_order_state
-        update_payment_state
-      end
-    rescue => e
-      raise e
-    end
+    update_state
   end
 
   def revert_confirm!
-    self.state = 'init'
+    self.revert_confirm
     self.save!
-
-    self.class.transaction do
-      update_order_state
-      update_payment_state
-    end
   end
 
-  def update_order_state
-    order.received_amount = order_amount
-    order.check_state!
+  def revert_confirm
+    self.state = 'init'
+    update_state
   end
 
-  def update_payment_state
-    payment.checked_amount = payment_amount
-    payment.check_state!
+  def update_state
+    order.check_state
+    payment.check_state
   end
+
+  def update_state!
+    update_state
+
+    order.save!
+    payment.save!
+  end
+
 
 end unless RailsTrade.config.disabled_models.include?('PaymentOrder')

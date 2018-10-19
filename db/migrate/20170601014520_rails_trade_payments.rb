@@ -29,9 +29,8 @@ class RailsTradePayments < ActiveRecord::Migration[5.1]
     create_table :payment_orders do |t|
       t.references :payment
       t.references :order
-      t.decimal :order_amount, precision: 10, scale: 2
       t.decimal :check_amount, precision: 10, scale: 2
-      t.integer :state, default: 0
+      t.string :state, index: true
       t.timestamps
     end
 

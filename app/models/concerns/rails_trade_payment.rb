@@ -57,15 +57,20 @@ module RailsTradePayment
   def save_detail(type, params)
     payment = self.payments.build(type: type)
     payment.assign_detail params
+
+    binding.pry
     payment_order = payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
-    Payment.transaction do
-      payment.save!
-      payment_order.confirm!
-    end
+
+    binding.pry
+    payment_order.confirm
+
+    payment.save!
     payment
   end
 
   def check_state
+    self.received_amount = payment_orders.sum(&:check_amount)
+
     if self.received_amount.to_d >= self.amount
       self.payment_status = 'all_paid'
       self.confirm_paid!

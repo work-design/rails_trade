@@ -87,9 +87,9 @@ class Order < ApplicationRecord
     _pure_order_serves = self.order_serves.select { |os| os.order_item_id.nil? }
     _pure_order_promotes = self.order_promotes.select { |op| op.order_item_id.nil? }
 
-    self.pure_serve_sum = _pure_order_serves.sum { |o| o.amount }
-    self.pure_promote_sum = _pure_order_promotes.sum { |o| o.amount }
-    self.subtotal = self.order_items.sum { |o| o.amount }
+    self.pure_serve_sum = _pure_order_serves.sum(&:amount)
+    self.pure_promote_sum = _pure_order_promotes.sum(&:amount)
+    self.subtotal = self.order_items.sum(&:amount)
     self.amount = self.subtotal.to_d + self.pure_serve_sum.to_d + self.pure_promote_sum.to_d
   end
 
@@ -102,9 +102,7 @@ class Order < ApplicationRecord
   end
 
   def confirm_ordered!
-    self.order_items.each do |oi|
-      oi.confirm_ordered!
-    end
+    self.order_items.each(&:confirm_ordered!)
   end
 
 end unless RailsTrade.config.disabled_models.include?('Order')

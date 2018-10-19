@@ -48,8 +48,8 @@ class OrderItem < ApplicationRecord
   end
 
   def compute_sum
-    self.serve_sum = self.order_serves.sum { |os| os.amount }
-    self.promote_sum = self.order_promotes.sum { |op| op.amount }
+    self.serve_sum = self.order_serves.sum(&:amount)
+    self.promote_sum = self.order_promotes.sum(&:amount)
     self.amount = self.pure_price + self.serve_sum + self.promote_sum  # 校验是否等于cart_item.final_price
   end
 
