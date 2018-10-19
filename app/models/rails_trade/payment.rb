@@ -47,7 +47,7 @@ class Payment < ApplicationRecord
   end
 
   def pending_checked_amount
-    PaymentOrder.where(payment_id: self.id).sum(:check_amount)
+    payment_orders.sum(&:check_amount)
   end
 
   def compute_amount

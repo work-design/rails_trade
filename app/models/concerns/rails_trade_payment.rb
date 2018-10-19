@@ -62,8 +62,6 @@ module RailsTradePayment
     payment_order.check_amount = payment.total_amount
     payment_order.confirm
 
-    binding.pry
-
     payment.save!
     payment
   end

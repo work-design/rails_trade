@@ -4,6 +4,9 @@ class PaymentOrder < ApplicationRecord
 
   belongs_to :order, inverse_of: :payment_orders
   belongs_to :payment, inverse_of: :payment_orders
+  belongs_to :refund, foreign_key: :payment_id
+  has_one :refund, ->(o){ where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
+
 
   validate :for_check_amount
   validates :order_id, uniqueness: { scope: :payment_id }
@@ -29,9 +32,7 @@ class PaymentOrder < ApplicationRecord
 
   def same_order_amount
     received = self.order.payment_orders.select(&:confirmed?).sum(&:check_amount)
-
-    #if self.order_id
-    refund = self.orders.refunds.where(payment_id: payment_id).sum(&:total_amount)
+    refund = self.order.refunds.reject(&:failed?).sum(&:total_amount)
     received - refund
   end
 
