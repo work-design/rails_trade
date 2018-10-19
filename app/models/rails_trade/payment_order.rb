@@ -1,5 +1,6 @@
 class PaymentOrder < ApplicationRecord
   attribute :check_amount, :decimal
+  attribute :state, :string, default: 'init'
 
   belongs_to :order, inverse_of: :payment_orders
   belongs_to :payment, inverse_of: :payment_orders
@@ -11,10 +12,6 @@ class PaymentOrder < ApplicationRecord
     init: 'init',
     confirmed: 'confirmed'
   }
-
-  after_initialize do
-    self.check_amount ||= self.payment.total_amount
-  end
 
   def for_check_amount
     if (same_payment_amount + self.check_amount.to_d) >= self.payment.total_amount.floor + 0.99

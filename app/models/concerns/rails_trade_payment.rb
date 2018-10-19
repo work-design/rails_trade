@@ -58,10 +58,8 @@ module RailsTradePayment
     payment = self.payments.build(type: type)
     payment.assign_detail params
 
-    binding.pry
-    payment_order = payment.payment_orders.build(order_id: self.id, check_amount: payment.total_amount)
-
-    binding.pry
+    payment_order = self.payment_orders.find { |i| i.id.nil? }
+    payment_order.check_amount = payment.total_amount
     payment_order.confirm
 
     payment.save!
