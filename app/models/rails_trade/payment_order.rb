@@ -14,22 +14,24 @@ class PaymentOrder < ApplicationRecord
   }
 
   def for_check_amount
-    if (same_payment_amount + self.check_amount.to_d) >= self.payment.total_amount.floor + 0.99
+    if same_payment_amount >= self.payment.total_amount.floor + 0.99
       self.errors.add(:check_amount, 'The Amount Large than the Total Payment')
     end
 
-    if (same_order_amount + self.check_amount.to_d) >= self.order.amount.floor + 0.99
+    if same_order_amount >= self.order.amount.floor + 0.99
       self.errors.add(:check_amount, 'The Amount Large than the Total Order')
     end
   end
 
   def same_payment_amount
-    PaymentOrder.where.not(id: self.id).where(payment_id: self.payment_id).sum(:check_amount)
+    self.payment.payment_orders.select(&:confirmed?).sum(&:check_amount)
   end
 
   def same_order_amount
-    received = PaymentOrder.where.not(id: self.id).where(order_id: self.order_id).sum(:check_amount)
-    refund = Refund.where(payment_id: payment_id, order_id: order_id).sum(:total_amount)
+    received = self.order.payment_orders.select(&:confirmed?).sum(&:check_amount)
+
+    #if self.order_id
+    refund = self.orders.refunds.where(payment_id: payment_id).sum(&:total_amount)
     received - refund
   end
 
