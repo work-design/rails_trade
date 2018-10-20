@@ -94,8 +94,6 @@ class Payment < ApplicationRecord
   end
 
   def check_state
-    self.checked_amount = payment_orders.select(&:confirmed?).sum(&:check_amount)
-
     if checked_amount.to_d >= total_amount
       self.state = 'all_checked'
       self.adjust_amount = self.checked_amount.to_d - self.total_amount

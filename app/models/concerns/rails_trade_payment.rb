@@ -67,8 +67,6 @@ module RailsTradePayment
   end
 
   def check_state
-    self.received_amount = payment_orders.select(&:confirmed?).sum(&:check_amount)
-
     if self.received_amount.to_d >= self.amount
       self.payment_status = 'all_paid'
       self.confirm_paid!
