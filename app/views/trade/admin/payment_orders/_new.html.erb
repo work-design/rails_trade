@@ -4,12 +4,11 @@
       <thead>
       <tr>
         <th><%= PaymentOrder.human_attribute_name(:id) %></th>
-        <th>UUID</th>
-        <th>水单</th>
-        <th>订单金额</th>
-        <th>核销金额</th>
-        <th>状态</th>
-        <th>操作</th>
+        <th><%= Order.human_attribute_name(:uuid) %></th>
+        <th><%= Order.human_attribute_name(:amount) %></th>
+        <th><%= PaymentOrder.human_attribute_name(:check_amount) %></th>
+        <th><%= PaymentOrder.human_attribute_name(:state) %></th>
+        <th>Actions</th>
       </tr>
       </thead>
 
