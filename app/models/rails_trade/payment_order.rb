@@ -26,19 +26,20 @@ class PaymentOrder < ApplicationRecord
 
   def the_payment_amount
     other_amount = PaymentOrder.default_where('id-not': self.id, state: 'confirmed', payment_id: self.payment_id).sum(:check_amount)
-    other_amount + self.check_amount
+    if self.confirmed?
+      other_amount + self.check_amount
+    else
+      other_amount
+    end
   end
 
   def the_order_amount
     received_amount = PaymentOrder.default_where('id-not': self.id, state: 'confirmed', order_id: self.order_id).sum(:check_amount)
-    received_amount = received_amount + self.check_amount
+    if self.confirmed?
+      received_amount = received_amount + self.check_amount
+    end
     refund_amount = self.order.refunds.where.not(state: :failed).sum(:total_amount)
     received_amount - refund_amount
-  end
-
-  def confirm!
-    self.confirm
-    self.save!
   end
 
   def confirm
@@ -46,8 +47,9 @@ class PaymentOrder < ApplicationRecord
     update_state
   end
 
-  def revert_confirm!
-    self.revert_confirm
+  def confirm!
+    self.state = 'confirmed'
+    update_state!
     self.save!
   end
 
@@ -56,6 +58,13 @@ class PaymentOrder < ApplicationRecord
     update_state
   end
 
+  def revert_confirm!
+    self.state = 'init'
+    update_state!
+    self.save!
+  end
+
+  private
   def update_state
     payment.checked_amount = the_payment_amount
     payment.check_state
@@ -70,6 +79,5 @@ class PaymentOrder < ApplicationRecord
     order.save!
     payment.save!
   end
-
 
 end unless RailsTrade.config.disabled_models.include?('PaymentOrder')
