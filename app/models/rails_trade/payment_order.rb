@@ -4,11 +4,9 @@ class PaymentOrder < ApplicationRecord
 
   belongs_to :order, inverse_of: :payment_orders
   belongs_to :payment, inverse_of: :payment_orders
-  belongs_to :refund, foreign_key: :payment_id
   has_one :refund, ->(o){ where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
-
-  validate :for_check_amount
+  validate :valid_check_amount
   validates :order_id, uniqueness: { scope: :payment_id }
 
   enum state: {
@@ -16,24 +14,26 @@ class PaymentOrder < ApplicationRecord
     confirmed: 'confirmed'
   }
 
-  def for_check_amount
-    if same_payment_amount >= self.payment.total_amount.floor + 0.99
-      self.errors.add(:check_amount, 'The Amount Large than the Total Payment')
+  def valid_check_amount
+    if the_payment_amount >= self.payment.total_amount.floor + 0.99
+      self.errors.add(:check_amount, 'Total amount greater than payment\'s amount')
     end
 
-    if same_order_amount >= self.order.amount.floor + 0.99
-      self.errors.add(:check_amount, 'The Amount Large than the Total Order')
+    if the_order_amount >= self.order.amount.floor + 0.99
+      self.errors.add(:check_amount, 'Total amount greater than Order\' amount')
     end
   end
 
-  def same_payment_amount
-    self.payment.payment_orders.select(&:confirmed?).sum(&:check_amount)
+  def the_payment_amount
+    other_amount = PaymentOrder.default_where('id-not': self.id, state: 'confirmed', payment_id: self.payment_id).sum(:check_amount)
+    other_amount + self.check_amount
   end
 
-  def same_order_amount
-    received = self.order.payment_orders.select(&:confirmed?).sum(&:check_amount)
-    refund = self.order.refunds.reject(&:failed?).sum(&:total_amount)
-    received - refund
+  def the_order_amount
+    received_amount = PaymentOrder.default_where('id-not': self.id, state: 'confirmed', payment_id: self.order_id).sum(:check_amount)
+    received_amount = received_amount + self.check_amount
+    refund_amount = self.order.refunds.where.not(state: :failed).sum(:total_amount)
+    received_amount - refund_amount
   end
 
   def confirm!

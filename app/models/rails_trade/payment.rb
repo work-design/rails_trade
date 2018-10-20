@@ -6,7 +6,7 @@ class Payment < ApplicationRecord
   attribute :currency, :string, default: RailsTrade.config.default_currency
 
   belongs_to :payment_method, optional: true
-  has_many :payment_orders, dependent: :destroy, inverse_of: :payment
+  has_many :payment_orders, dependent: :destroy
   has_many :orders, through: :payment_orders, inverse_of: :payments
 
   default_scope -> { order(created_at: :desc) }

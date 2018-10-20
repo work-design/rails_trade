@@ -1,11 +1,13 @@
 class Order < ApplicationRecord
+  attribute :payment_status, :string, default: 'unpaid'
+
   include RailsTradePayment
   include RailsTradeRefund
   include PaymentInterfaceBase
 
-  belongs_to :payment_strategy, optional: true
   belongs_to :buyer, polymorphic: true
-  has_many :payment_orders, inverse_of: :order, dependent: :destroy
+  belongs_to :payment_strategy, optional: true
+  has_many :payment_orders, dependent: :destroy
   has_many :payments, through: :payment_orders, inverse_of: :orders
   has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
   has_many :refunds, dependent: :nullify, inverse_of: :order
@@ -23,8 +25,7 @@ class Order < ApplicationRecord
 
   after_initialize if: :new_record? do |o|
     self.uuid = UidHelper.nsec_uuid('OD')
-    self.payment_status = 'unpaid'
-    self.payment_strategy_id = self.buyer.payment_strategy_id
+    self.payment_strategy_id = self.buyer&.payment_strategy_id
 
     compute_sum
   end

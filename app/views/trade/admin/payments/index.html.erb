@@ -1,66 +1,63 @@
-<div>
-
-  <div class="ui top attached menu borderless">
-    <div class="item"><strong>Payments List</strong></div>
-  </div>
-
-  <div class="ui segment bottom attached">
-    <%= render 'search_form' %>
-  </div>
-
-  <div class="ui segment top attached">
-    <dl>
-      <dt>Type:</dt>
-      <dd>
-        <%= link_to 'All', filter_params(except: [:type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: active_params(type: 'BankPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: active_params(type: 'HandPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: active_params(type: 'PaypalPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      </dd>
-    </dl>
-    <dl>
-      <dt>State:</dt>
-      <dd>
-        <%= link_to 'All', filter_params(except: [:state]), class: active_params(state: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to '未核销', filter_params(state: 'init'), class: active_params(state: 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to '部分核销', filter_params(state: 'part_checked'), class: active_params(state: 'part_checked', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to '全部核销', filter_params(state: 'all_checked'), class: active_params(state: 'all_checked', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      </dd>
-    </dl>
-    <dl>
-      <dt>State:</dt>
-      <dd>
-        <%= link_to 'All', filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to t('init'), filter_params('payment_orders.state': 'init'), class: active_params('payment_orders.state': 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-        <%= link_to t('confirmed'), filter_params('payment_orders.state': 'confirmed'), class: active_params('payment_orders.state': 'confirmed', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      </dd>
-    </dl>
-    <p>
-      <%= link_to t('.add_new'), new_admin_payment_path, class: 'ui teal button' %>
-      <%= link_to t('.import'), import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
-    </p>
-  </div>
-
-  <table class="ui bottom attached fixed table">
-    <thead>
-      <tr>
-        <th><%= Payment.human_attribute_name(:uuid) %></th>
-        <th><%= Payment.human_attribute_name(:total_amount) %></th>
-        <th>已核销</th>
-        <th><%= Payment.human_attribute_name(:income_amount) %> + <%= Payment.human_attribute_name(:fee_amount) %></th>
-        <th><%= Payment.human_attribute_name(:adjust_amount) %></th>
-        <th><%= Payment.human_attribute_name(:buyer_name) %></th>
-        <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
-        <th><%= Payment.human_attribute_name(:buyer_bank) %></th>
-        <th><%= Payment.human_attribute_name(:notified_at) %></th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <%= render partial: 'item', collection: @payments, as: :payment %>
-    </tbody>
-  </table>
-
-  <%= paginate @payments %>
+<div class="ui top attached borderless menu">
+  <div class="item header">Payments List</div>
 </div>
+
+<div class="ui attached segment">
+  <%= render 'search_form' %>
+</div>
+
+<div class="ui attached segment">
+  <dl>
+    <dt>Type:</dt>
+    <dd>
+      <%= link_to 'All', filter_params(except: [:type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: active_params(type: 'BankPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: active_params(type: 'HandPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: active_params(type: 'PaypalPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </dd>
+  </dl>
+  <dl>
+    <dt>State:</dt>
+    <dd>
+      <%= link_to 'All', filter_params(except: [:state]), class: active_params(state: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to '未核销', filter_params(state: 'init'), class: active_params(state: 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to '部分核销', filter_params(state: 'part_checked'), class: active_params(state: 'part_checked', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to '全部核销', filter_params(state: 'all_checked'), class: active_params(state: 'all_checked', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </dd>
+  </dl>
+  <dl>
+    <dt>State:</dt>
+    <dd>
+      <%= link_to 'All', filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to t('init'), filter_params('payment_orders.state': 'init'), class: active_params('payment_orders.state': 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to t('confirmed'), filter_params('payment_orders.state': 'confirmed'), class: active_params('payment_orders.state': 'confirmed', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </dd>
+  </dl>
+  <p>
+    <%= link_to t('.add_new'), new_admin_payment_path, class: 'ui teal button' %>
+    <%= link_to t('.import'), import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
+  </p>
+</div>
+
+<table class="ui bottom attached fixed table">
+  <thead>
+    <tr>
+      <th><%= Payment.human_attribute_name(:uuid) %></th>
+      <th><%= Payment.human_attribute_name(:total_amount) %></th>
+      <th>已核销</th>
+      <th><%= Payment.human_attribute_name(:income_amount) %> + <%= Payment.human_attribute_name(:fee_amount) %></th>
+      <th><%= Payment.human_attribute_name(:adjust_amount) %></th>
+      <th><%= Payment.human_attribute_name(:buyer_name) %></th>
+      <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
+      <th><%= Payment.human_attribute_name(:buyer_bank) %></th>
+      <th><%= Payment.human_attribute_name(:notified_at) %></th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: 'item', collection: @payments, as: :payment %>
+  </tbody>
+</table>
+
+<%= paginate @payments %>
