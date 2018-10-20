@@ -24,12 +24,12 @@ class Payment < ApplicationRecord
     self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
   end
 
-  enum state: [
-    :init,
-    :part_checked,
-    :all_checked,
-    :abusive_checked
-  ]
+  enum state: {
+    init: 'init',
+    part_checked: 'part_checked',
+    all_checked: 'all_checked',
+    abusive_checked: 'abusive_checked'
+  }
 
   def analyze_payment_method
     if self.buyer_name.present? || self.buyer_identifier.present?

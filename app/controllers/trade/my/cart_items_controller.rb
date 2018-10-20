@@ -50,7 +50,7 @@ class Trade::My::CartItemsController < Trade::My::BaseController
 
   def set_additions
     if current_buyer
-      @additions = CartItem.checked_items(buyer_type: current_buyer.type, buyer_id: current_buyer.id, myself: true)
+      @additions = CartItem.checked_items(buyer_type: current_buyer.class.name, buyer_id: current_buyer.id, myself: true)
     else
       @additions = CartItem.checked_items(session_id: session.id, myself: true)
     end

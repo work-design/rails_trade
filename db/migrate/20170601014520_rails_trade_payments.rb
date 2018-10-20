@@ -20,7 +20,7 @@ class RailsTradePayments < ActiveRecord::Migration[5.1]
       t.string :buyer_identifier
       t.string :buyer_bank
       t.string :currency
-      t.integer :state, :integer, limit: 4, default: 0
+      t.string :state, index: true
       t.string :comment
       t.boolean :verified, default: true
       t.timestamps
