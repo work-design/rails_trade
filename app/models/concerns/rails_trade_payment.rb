@@ -47,6 +47,7 @@ module RailsTradePayment
         payment_order.confirm
 
         payment.save!
+        self.save!
         payment
       end
     elsif self.payment_type.present?
