@@ -13,7 +13,7 @@ module RailsTradePayment
   end
 
   def init_received_amount
-    self.payment_orders.sum(:check_amount)
+    self.payment_orders.confirmed.sum(:check_amount)
   end
 
   def pending_payments
@@ -84,6 +84,7 @@ module RailsTradePayment
   end
 
   def check_state!
+    self.received_amount = init_received_amount
     self.check_state
     self.save!
   end
