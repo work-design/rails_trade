@@ -20,7 +20,7 @@ class OrderItem < ApplicationRecord
       self.good_id = cart_item.good_id
       self.number = cart_item.quantity
       self.pure_price = cart_item.pure_price
-      self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
+      #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
       #self.provider = cart_item.good.provider
 
       cart_item.serve_charges.each do |serve_charge|

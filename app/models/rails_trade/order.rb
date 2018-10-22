@@ -51,8 +51,7 @@ class Order < ApplicationRecord
 
   def migrate_from_cart_item(cart_item_id)
     cart_item = CartItem.find cart_item_id
-    self.user = cart_item.user
-    self.buyer = user.buyer
+    self.buyer = cart_item.user
     self.order_items.build(cart_item_id: cart_item_id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity)
 
     cart_item.total_serve_charges.each do |serve_charge|
@@ -65,7 +64,7 @@ class Order < ApplicationRecord
   end
 
   def migrate_from_cart_items(cart_item_ids: nil)
-    cart_items = user.cart_items.checked.default_where(myself: self.myself)
+    cart_items = buyer.cart_items.checked.default_where(myself: self.myself)
     cart_items.each do |cart_item|
       self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
     end
