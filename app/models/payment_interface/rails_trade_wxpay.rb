@@ -42,6 +42,8 @@ module RailsTradeWxpay
   end
 
   def wxpay_result
+    return self if self.payment_status == 'all_paid'
+
     params = {
       out_trade_no: self.uuid,
     }

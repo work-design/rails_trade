@@ -26,6 +26,8 @@ module RailsTradePaypal
   end
 
   def paypal_result
+    return self if self.payment_status == 'all_paid'
+
     return unless self.payment_id
     paypal_payment ||= PayPal::SDK::REST::DataTypes::Payment.find(self.payment_id)
     trans = paypal_payment.transactions[0]

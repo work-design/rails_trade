@@ -32,6 +32,8 @@ module RailsTradeStripe
   end
 
   def stripe_result
+    return self if self.payment_status == 'all_paid'
+
     if self.payment_id.present?
       charge = Stripe::Charge.retrieve(self.payment_id)
 

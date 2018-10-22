@@ -13,7 +13,7 @@ class Payment < ApplicationRecord
 
   validates :total_amount, numericality: { equal_to: -> (o) { o.income_amount + o.fee_amount } }, if: -> { income_amount.present? && fee_amount.present? && total_amount.present? }
   validates :adjust_amount, numericality: { less_than: 1, greater_than: -1 }, allow_blank: true
-  validates :payment_uuid, uniqueness: true
+  validates :payment_uuid, uniqueness: { scope: :type }
 
   before_save :compute_amount
   after_create :analyze_payment_method

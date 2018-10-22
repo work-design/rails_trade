@@ -32,7 +32,7 @@ module RailsTradePayment
     self.order_items.each(&:confirm_part_paid!)
   end
 
-  def change_to_paid!(type: , params: {})
+  def change_to_paid!(type: nil, params: {})
     if self.payment_status == 'all_paid'
       return self
     end
@@ -63,7 +63,7 @@ module RailsTradePayment
     payment_order.confirm
 
     payment.save!
-    payment
+    self
   end
 
   def check_state

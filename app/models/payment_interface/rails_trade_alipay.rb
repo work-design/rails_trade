@@ -13,6 +13,8 @@ module RailsTradeAlipay
   end
 
   def alipay_result
+    return self if self.payment_status == 'all_paid'
+
     result = Alipay2::Service.trade_query out_trade_no: self.uuid
     result = JSON.parse(result)
     result = result['alipay_trade_query_response']
