@@ -3,21 +3,22 @@ module OrderAble
   include GoodAble
 
   included do
+    belongs_to :buyer, polymorphic: true, optional: true
     has_one :order_item, as: :good, dependent: :nullify
-    has_one :order, through: :order_item
+    has_one :order, ->(o){ where(buyer_type: o.buyer.class.name, buyer_id: o.buyer.id) }, through: :order_item
   end
 
   def update_order
     order_item.update amount: self.price
   end
 
-  def get_order
+  def get_order(buyer: buyer)
     return @order if @order
-    @order = self.order || generate_order(self.user, { number: 1 })
+    @order = self.order || generate_order(buyer, { number: 1 })
   end
 
-  def generate_order(user, params = {})
-    o = user.orders.build
+  def generate_order(buyer, params = {})
+    o = buyer.orders.build
     o.currency = self.currency
 
     oi = o.order_items.build
