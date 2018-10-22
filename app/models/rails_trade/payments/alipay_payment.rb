@@ -1,8 +1,6 @@
 class AlipayPayment < Payment
 
   def assign_detail(params)
-    self.payment_uuid = params['trade_no']
-
     self.buyer_identifier = params['buyer_login_id']
     self.pay_status = params['trade_status']
 

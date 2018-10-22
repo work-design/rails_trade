@@ -32,19 +32,23 @@ module RailsTradePayment
     self.order_items.each(&:confirm_part_paid!)
   end
 
-  def change_to_paid!(type: nil, params: {})
-    if self.payment_status == 'all_paid'
-      return self
-    end
+  def change_to_paid!(type: nil, payment_uuid: nil, params: {})
+    if type && payment_uuid
+      payment = self.payments.find_by(type: type, payment_uuid: payment_uuid)
 
-    if self.amount == 0
-      self.received_amount = self.amount
-      self.check_state!
-      return self
-    end
+      if payment
+        return payment
+      else
+        payment = self.payments.build(type: type, payment_uuid: payment_uuid)
+        payment.assign_detail params
 
-    if type
-      self.save_detail(type, params)
+        payment_order = self.payment_orders.find { |i| i.id.nil? }
+        payment_order.check_amount = payment.total_amount
+        payment_order.confirm
+
+        payment.save!
+        payment
+      end
     elsif self.payment_type.present?
       begin
         self.send self.payment_type + '_result'
@@ -54,15 +58,16 @@ module RailsTradePayment
     end
   end
 
-  def save_detail(type, params)
-    payment = self.payments.build(type: type)
-    payment.assign_detail params
+  def payment_result
+    if self.payment_status == 'all_paid'
+      return self
+    end
 
-    payment_order = self.payment_orders.find { |i| i.id.nil? }
-    payment_order.check_amount = payment.total_amount
-    payment_order.confirm
+    if self.amount == 0
+      self.received_amount = self.amount
+      self.check_state!
+    end
 
-    payment.save!
     self
   end
 

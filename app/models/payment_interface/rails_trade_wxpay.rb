@@ -50,7 +50,7 @@ module RailsTradeWxpay
     result = WxPay::Service.order_query params
 
     if result['return_code'] == 'SUCCESS'
-      self.change_to_paid! type: 'WxpayPayment', params: result
+      self.change_to_paid! type: 'WxpayPayment', payment_uuid: result['transaction_id'], params: result
     else
       self.errors.add :base, result['return_msg']
     end

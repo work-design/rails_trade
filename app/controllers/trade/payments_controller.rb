@@ -9,7 +9,7 @@ class Trade::PaymentsController < ApplicationController
     result = nil
 
     if Alipay::Notify.verify?(notify_params)
-      result = @order.change_to_paid! params: notify_params, type: 'AlipayPayment'
+      result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['trade_no'], type: 'AlipayPayment'
     end
 
     if result
@@ -26,7 +26,7 @@ class Trade::PaymentsController < ApplicationController
     result = nil
 
     if WxPay::Sign.verify?(notify_params)
-      result = @order.change_to_paid! params: notify_params, type: 'WxpayPayment'
+      result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'WxpayPayment'
     end
 
     if result

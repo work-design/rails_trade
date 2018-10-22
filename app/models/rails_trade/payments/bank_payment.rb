@@ -1,7 +1,6 @@
 class BankPayment < Payment
   #validates :buyer_name, presence: true
   #validates :buyer_identifier, presence: true
-  validates :payment_uuid, uniqueness: true
 
   def assign_detail(params)
     self.notified_at = Time.now

@@ -1,6 +1,4 @@
 class StripePayment < Payment
-  validates :payment_uuid, uniqueness: true
-
 
   def assign_detail(charge)
     self.payment_uuid = charge.id

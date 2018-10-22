@@ -33,9 +33,7 @@ module RailsTradePaypal
     trans = paypal_payment.transactions[0]
 
     if paypal_payment.state == 'approved'
-      paypal = PaypalPayment.find_by(payment_uuid: trans.related_resources[0].sale.id)
-      return paypal if paypal
-      self.change_to_paid! type: 'PaypalPayment', params: trans
+      self.change_to_paid! type: 'PaypalPayment', payment_uuid: trans.related_resources[0].sale.id, params: trans
     else
       errors.add :base, paypal_payment.error.inspect
     end
