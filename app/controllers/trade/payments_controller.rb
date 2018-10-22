@@ -1,6 +1,7 @@
 class Trade::PaymentsController < ApplicationController
   include RailsCommonApi
   skip_before_action :verify_authenticity_token
+  before_action :set_order, only: [:wxpay_result, :result]
 
   def alipay_notify
     notify_params = params.permit!.except(*request.path_parameters.keys).to_h
@@ -37,14 +38,22 @@ class Trade::PaymentsController < ApplicationController
     end
   end
 
+  def wxpay_result
+    @order.loop_payment_result(payment_kind: 'wxpay')
+  end
+
   def notify
     @notify_params = params.permit!.except(*request.path_parameters.keys).to_h
   end
 
   def result
-    @order = Order.find(params[:order_id])
     @order.change_to_paid! type: 'HandPayment'
     render json: @order.as_json(only: [:id, :amount, :received_amount, :currency, :payment_status])
+  end
+
+  private
+  def set_order
+    @order = Order.find(params[:order_id])
   end
 
 end

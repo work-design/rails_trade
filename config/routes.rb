@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
     resources :payments, only: [:index] do
       get :result, on: :collection
+      get :wxpay_result, on: :collection
       match :notify, on: :collection, via: [:get, :post]
       match :alipay_notify, on: :collection, via: [:get, :post]
       match :wxpay_notify, on: :collection, via: [:get, :post]

@@ -32,34 +32,27 @@ module RailsTradePayment
     self.order_items.each(&:confirm_part_paid!)
   end
 
-  def change_to_paid!(type: nil, payment_uuid: nil, params: {})
-    if type && payment_uuid
-      payment = self.payments.find_by(type: type, payment_uuid: payment_uuid)
+  def change_to_paid!(type:, payment_uuid:, params: {})
+    payment = self.payments.find_by(type: type, payment_uuid: payment_uuid)
 
-      if payment
-        return payment
-      else
-        payment = self.payments.build(type: type, payment_uuid: payment_uuid)
-        payment.assign_detail params
+    if payment
+      self.check_state!
+      payment
+    else
+      payment = self.payments.build(type: type, payment_uuid: payment_uuid)
+      payment.assign_detail params
 
-        payment_order = self.payment_orders.find { |i| i.id.nil? }
-        payment_order.check_amount = payment.total_amount
-        payment_order.confirm
+      payment_order = self.payment_orders.find { |i| i.id.nil? }
+      payment_order.check_amount = payment.total_amount
+      payment_order.confirm
 
-        payment.save!
-        self.save!
-        payment
-      end
-    elsif self.payment_type.present?
-      begin
-        self.send self.payment_type + '_result'
-      rescue NoMethodError
-        self
-      end
+      payment.save!
+      self.save!
+      payment
     end
   end
 
-  def payment_result
+  def payment_result(payment_kind: payment_type)
     if self.payment_status == 'all_paid'
       return self
     end
@@ -67,6 +60,26 @@ module RailsTradePayment
     if self.amount == 0
       self.received_amount = self.amount
       self.check_state!
+    end
+
+    if payment_kind.present?
+      begin
+        self.send payment_kind.to_s + '_result'
+      rescue NoMethodError
+        self
+      end
+    end
+
+    self
+  end
+
+  def loop_payment_result(payment_kind: payment_type, max_times: 10)
+    times = 0
+
+    while self.payment_status != 'all_paid' do
+      self.payment_result(payment_kind: payment_kind)
+      times += 1
+      break if times >= max_times
     end
 
     self
