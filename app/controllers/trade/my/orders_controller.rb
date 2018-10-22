@@ -16,7 +16,10 @@ class Trade::My::OrdersController < Trade::My::BaseController
 
     respond_to do |format|
       format.html
-      format.html.wechat { render 'index', layout: 'wx' }
+      format.html.wechat do
+        self.class.wechat_api
+        render 'index', layout: 'wx'
+      end
       format.json
     end
   end

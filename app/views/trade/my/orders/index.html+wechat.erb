@@ -1,5 +1,10 @@
+<%= content_for(:wechat_js) do %>
+  <%= wechat_config_js debug: true, api: ['chooseWXPay'] -%>
+<% end %>
+
 <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">图文组合列表</div>
+  <% @orders.each do |order| %>
+  <div class="weui-panel__hd">订单号：<%= order.uuid %></div>
   <div class="weui-panel__bd">
     <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
       <div class="weui-media-box__hd">
@@ -19,11 +24,21 @@
         <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
       </div>
     </a>
+    <div class="weui-media-box weui-media-box_text">
+      <ul class="weui-media-box__info">
+        <li class="weui-media-box__info__meta"><%= order.amount %></li>
+        <li class="weui-media-box__info__meta"></li>
+        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+          <%= link_to '微信支付', wxpay_pay_my_order_path(order.id), remote: true %>
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="weui-panel__ft">
-    <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-      <div class="weui-cell__bd">查看更多</div>
+    <%= link_to my_order_path(order), class: 'weui-cell weui-cell_access weui-cell_link' do %>
+      <div class="weui-cell__bd">更多</div>
       <span class="weui-cell__ft"></span>
-    </a>
+    <% end %>
   </div>
+  <% end %>
 </div>
