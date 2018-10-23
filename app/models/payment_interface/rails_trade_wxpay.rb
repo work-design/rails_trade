@@ -47,12 +47,16 @@ module RailsTradeWxpay
     params = {
       out_trade_no: self.uuid,
     }
-    result = WxPay::Service.order_query params
+    begin
+      result = WxPay::Service.order_query params
+    rescue
+      result = { 'err_code_des' => 'network error' }
+    end
 
-    if result['return_code'] == 'SUCCESS'
+    if result['result_code'] == 'SUCCESS'
       self.change_to_paid! type: 'WxpayPayment', payment_uuid: result['transaction_id'], params: result
     else
-      self.errors.add :base, result['return_msg']
+      self.errors.add :base, result['err_code_des']
     end
   end
 
