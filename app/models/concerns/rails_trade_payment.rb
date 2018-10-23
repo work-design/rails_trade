@@ -73,7 +73,7 @@ module RailsTradePayment
     self
   end
 
-  def loop_payment_result(payment_kind: payment_type, max_times: 10)
+  def loop_payment_result(payment_kind: payment_type, max_times: 100)
     times = 0
 
     while self.payment_status != 'all_paid' do
