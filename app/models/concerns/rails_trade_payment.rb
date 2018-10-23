@@ -46,8 +46,12 @@ module RailsTradePayment
       payment_order.check_amount = payment.total_amount
       payment_order.confirm
 
-      payment.save!
-      self.save!
+      begin
+        payment.save!
+        self.save!
+      rescue ActiveRecord::RecordInvalid => e
+        payment.errors.details[:payment_uuid]
+      end
       payment
     end
   end
