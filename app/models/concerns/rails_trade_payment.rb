@@ -26,6 +26,7 @@ module RailsTradePayment
 
   def confirm_paid!
     self.order_items.each(&:confirm_paid!)
+    notic_client
   end
 
   def confirm_part_paid!

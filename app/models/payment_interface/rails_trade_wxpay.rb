@@ -2,7 +2,7 @@ module RailsTradeWxpay
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :openid, :spbill_create_ip
+    attr_accessor :openid, :spbill_create_ip, :notify_url
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
@@ -13,7 +13,7 @@ module RailsTradeWxpay
       out_trade_no: self.uuid,
       total_fee: (self.amount * 100).to_i,
       spbill_create_ip: spbill_create_ip,
-      notify_url: url_helpers.wxpay_notify_payments_url,
+      notify_url: self.notify_url || url_helpers.wxpay_notify_payments_url,
       trade_type: 'JSAPI',
       openid: openid
     }

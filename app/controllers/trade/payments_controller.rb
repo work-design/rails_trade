@@ -38,6 +38,10 @@ class Trade::PaymentsController < ApplicationController
     end
   end
 
+  def wxpay_faker
+    render xml: { return_code: 'SUCCESS' }.to_xml(root: 'xml', dasherize: false)
+  end
+
   def wxpay_result
     @order.loop_payment_result(payment_kind: 'wxpay')
   end
