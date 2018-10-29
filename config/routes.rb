@@ -84,8 +84,6 @@ Rails.application.routes.draw do
   end
 
   scope :my, module: 'trade/my', as: 'my' do
-    resource :provider
-
     resources :addresses
     resources :buyers
     resources :cart_items do
