@@ -12,9 +12,6 @@ Rails.application.routes.draw do
       match :wxpay_notify, on: :collection, via: [:get, :post]
       match :wxpay_faker, on: :collection, via: [:get, :post]
     end
-    resources :providers, only: [] do
-      get :search, on: :collection
-    end
     resources :buyers, only: [] do
       get :search, on: :collection
     end
@@ -72,8 +69,6 @@ Rails.application.routes.draw do
     end
     resources :promote_buyers
     resources :promote_goods
-    resources :providers
-
     resources :refunds do
       patch :confirm, on: :member
       patch :deny, on: :member

@@ -35,16 +35,6 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :providers do |t|
-      t.references :area
-      t.string :type
-      t.string :name
-      t.string :service_tel
-      t.string :service_qq
-      t.string :address
-      t.timestamps
-    end
-
     create_table :cart_items do |t|
       t.references :buyer, polymorphic: true
       t.references :good, polymorphic: true
