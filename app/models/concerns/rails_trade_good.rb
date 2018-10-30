@@ -1,12 +1,9 @@
-module GoodAble
+module RailsTradeGood
   extend ActiveSupport::Concern
 
   included do
     attribute :name, :string
-    attribute :quantity, :decimal
-    attribute :unit, :string
-    attribute :import_price, :decimal, default: 0
-    attribute :profit_price, :decimal, default: 0
+
     attribute :price, :decimal, default: 0
     attribute :advance_payment, :decimal, default: 0
     attribute :sku, :string, default: 'item'

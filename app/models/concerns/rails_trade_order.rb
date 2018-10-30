@@ -1,6 +1,6 @@
-module OrderAble
+module RailsTradeOrder
   extend ActiveSupport::Concern
-  include GoodAble
+  include RailsTradeGood
 
   included do
     belongs_to :buyer, polymorphic: true, optional: true
