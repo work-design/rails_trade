@@ -7,7 +7,7 @@ class SummaryService
 
   def initialize(_checked_items, buyer_type: nil, buyer_id: nil, extra: {})
     @checked_items = _checked_items
-    @buyer = buyer_type.constantize.find(buyer_id) if buyer_id
+    @buyer = buyer_type.constantize.find(buyer_id) if buyer_type && buyer_id
     @extra = extra
     compute_total
     compute_promote
@@ -15,16 +15,16 @@ class SummaryService
   end
 
   def compute_price
-    @bulk_price = checked_items.sum { |cart_item| cart_item.bulk_price }
+    @bulk_price = checked_items.sum(&:bulk_price)
   end
 
   def compute_total
     compute_price
-    self.reduced_price = checked_items.sum { |cart_item| cart_item.reduced_price }
-    self.discount_price = checked_items.sum { |cart_item| cart_item.discount_price }
-    self.retail_price = checked_items.sum { |cart_item| cart_item.retail_price }
-    self.final_price = checked_items.sum { |cart_item| cart_item.final_price }
-    self.total_quantity = checked_items.sum { |cart_item| cart_item.total_quantity }
+    self.reduced_price = checked_items.sum(&:reduced_price)
+    self.discount_price = checked_items.sum(&:discount_price)
+    self.retail_price = checked_items.sum(&:retail_price)
+    self.final_price = checked_items.sum(&:final_price)
+    self.total_quantity = checked_items.sum(&:total_quantity)
   end
 
   def compute_promote
@@ -56,8 +56,8 @@ class SummaryService
       @serve_charges << charge
     end
 
-    @serve_price = checked_items.sum { |cart_item| cart_item.serve_price }
-    @total_serve_price = serve_charges.sum { |i| i.subtotal }
+    @serve_price = checked_items.sum(&:serve_price)
+    @total_serve_price = serve_charges.sum(&:subtotal)
   end
 
   def total_price

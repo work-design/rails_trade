@@ -23,7 +23,6 @@ module RailsTradeGood
                 class_name: 'PromoteFee',
                 mapping: [['id', 'good_id']],
                 constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
-    before_save :sync_price, if: -> { import_price_changed? || profit_price_changed? }
 
     def self.extra
       {}
@@ -52,11 +51,6 @@ module RailsTradeGood
 
   def all_promotes
     Promote.default_where('promote_goods.good_type': self.class.name, 'promote_goods.good_id': [nil, self.id])
-  end
-
-  private
-  def sync_price
-    self.price = self.import_price.to_d + self.profit_price.to_d
   end
 
 end

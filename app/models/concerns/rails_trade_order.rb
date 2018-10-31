@@ -12,7 +12,7 @@ module RailsTradeOrder
     order_item.update amount: self.price
   end
 
-  def get_order(buyer: buyer)
+  def get_order(buyer)
     return @order if @order
     @order = self.order || generate_order(buyer, { number: 1 })
   end
