@@ -17,6 +17,12 @@ module RailsTradeOrder
     @order = self.order || generate_order(buyer, { number: 1 })
   end
 
+  def generate_order!(buyer, params = {})
+    o = gennerate_order(buyer, params)
+    o.check_state
+    o.save!
+  end
+
   def generate_order(buyer, params = {})
     o = buyer.orders.build
     o.currency = self.currency
@@ -37,12 +43,6 @@ module RailsTradeOrder
 
     o.assign_attributes params
     o.amount = oi.amount
-
-    self.class.transaction do
-      o.check_state
-      o.save!
-      oi.save!
-    end
     o
   end
 
