@@ -18,7 +18,7 @@ module RailsTradeOrder
   end
 
   def generate_order!(buyer, params = {})
-    o = gennerate_order(buyer, params)
+    o = generate_order(buyer, params)
     o.check_state
     o.save!
   end
