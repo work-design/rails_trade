@@ -24,17 +24,18 @@ module RailsTradeOrder
     oi = o.order_items.build
     oi.good = self
     if params[:number].to_i > 0
-      oi.number = params[:number]
+      oi.number = params.delete(:number)
     else
       oi.number = 1
     end
 
     if params[:amount]
-      oi.amount = params[:amount]
+      oi.amount = params.delete(:amount)
     else
       oi.amount = oi.number * self.price.to_d
     end
 
+    o.assign_attributes params
     o.amount = oi.amount
 
     self.class.transaction do
