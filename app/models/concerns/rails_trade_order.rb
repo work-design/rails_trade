@@ -14,7 +14,7 @@ module RailsTradeOrder
 
   def get_order(buyer)
     return @order if @order
-    @order = self.order || generate_order(buyer, { number: 1 })
+    @order = self.order || generate_order!(buyer, { number: 1 })
   end
 
   def generate_order!(buyer, params = {})
