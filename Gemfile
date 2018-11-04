@@ -10,9 +10,6 @@ gem 'sdoc'
 
 gem 'pry-rails'
 
-gem 'kaminari', github: 'amatsuda/kaminari'
-gem 'sprockets', github: 'rails/sprockets'
-
 # for test
 gem 'factory_bot_rails'
 gem 'capybara'
