@@ -3,14 +3,14 @@
 
 <table class="ui table">
   <thead>
-  <tr class="">
-    <th><%= check_box_tag :all %></th>
-    <th>Name</th>
-    <th>单价</th>
-    <th>数量</th>
-    <th>总价</th>
-    <th></th>
-  </tr>
+    <tr>
+      <th><%= check_box_tag :all %></th>
+      <th>Name</th>
+      <th>单价</th>
+      <th>数量</th>
+      <th>总价</th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
   <% @cart_items.each do |cart_item| %>
