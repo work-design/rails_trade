@@ -14,10 +14,6 @@ gem 'pry-rails'
 gem 'factory_bot_rails'
 gem 'capybara'
 
-# dependence engines
-gem 'default_where', github: 'qinmingyuan/default_where', branch: 'master'
-gem 'default_form', github: 'qinmingyuan/default_form', branch: 'master'
-
 # engines
 gem 'rails_com'
 gem 'rails_data'
