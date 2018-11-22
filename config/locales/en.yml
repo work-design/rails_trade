@@ -1,25 +1,26 @@
 en:
-  rails_trade_admin:
-    payments:
-      index:
-        add_new: add
-        import: Import
-        init: 预核销
-        confirmed: 未预核销
-      item:
-        edit: Edit
-        destroy: Destroy
-        show: 支付方式
-        checking: 核销
-        analyze: 分析支付方式
-        adjust: 平账
-    payment_methods:
-      index_layout:
-        remove: Remove
-        edit: Edit
-        destroy: Delete
-        new: Add
-        relate: Refer Buyer
+  trade:
+    admin:
+      payments:
+        index:
+          add_new: add
+          import: Import
+          init: 预核销
+          confirmed: 未预核销
+        item:
+          edit: Edit
+          destroy: Destroy
+          show: 支付方式
+          checking: 核销
+          analyze: 分析支付方式
+          adjust: 平账
+      payment_methods:
+        index_layout:
+          remove: Remove
+          edit: Edit
+          destroy: Delete
+          new: Add
+          relate: Refer Buyer
   activerecord:
     models:
       role: ''
