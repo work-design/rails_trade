@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.version = RailsTrade::VERSION
   s.authors = ['qinmingyuan']
   s.email = ['mingyuan0715@foxmail.com']
-  s.homepage = 'https://github.com/yougexiangfa/rails_trade'
-  s.summary = "Summary of Rails Trade."
-  s.description = "Description of TheSync."
+  s.homepage = 'https://github.com/work-design/rails_trade'
+  s.summary = 'Rails engine for trade, payment and more'
+  s.description = 'trade, payment'
   s.license = 'LGPL-3.0'
 
   s.files = Dir[
