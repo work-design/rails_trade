@@ -10,8 +10,8 @@ class Promote < ApplicationRecord
   #after_update_commit :delete_cache, if: -> { sequence_changed? }
 
   enum scope: {
-    'total': 'total',
-    'single': 'single'
+    total: 'total',
+    single: 'single'
   }
 
   def compute_price(amount, extra = {})

@@ -13,8 +13,8 @@ class Serve < ApplicationRecord
   scope :for_sale, -> { where(verified: true, default: false) }
 
   enum scope: {
-    'total': 'total',
-    'single': 'single'
+    total: 'total',
+    single: 'single'
   }
 
   def compute_price(amount, extra_hash = {})

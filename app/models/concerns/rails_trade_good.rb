@@ -3,15 +3,16 @@ module RailsTradeGood
 
   included do
     attribute :name, :string
-
+    attribute :sku, :string, default: -> { SecureRandom.hex }
     attribute :price, :decimal, default: 0
-    attribute :advance_payment, :decimal, default: 0
-    attribute :sku, :string, default: 'item'
     attribute :currency, :string
+    attribute :advance_payment, :decimal, default: 0
 
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
+
     has_many :order_items, as: :good, dependent: :nullify
     has_many :orders, through: :order_items
+
     has_many :promote_goods, as: :good
     has_many :promotes, through: :promote_goods
 
@@ -51,6 +52,36 @@ module RailsTradeGood
 
   def all_promotes
     Promote.default_where('promote_goods.good_type': self.class.name, 'promote_goods.good_id': [nil, self.id])
+  end
+
+  def generate_order!(buyer, params = {})
+    o = generate_order(buyer, params)
+    o.check_state
+    o.save!
+    o
+  end
+
+  def generate_order(buyer, params = {})
+    o = buyer.orders.build
+    o.currency = self.currency
+
+    oi = o.order_items.build
+    oi.good = self
+    if params[:number].to_i > 0
+      oi.number = params.delete(:number)
+    else
+      oi.number = 1
+    end
+
+    if params[:amount]
+      oi.amount = params.delete(:amount)
+    else
+      oi.amount = oi.number * self.price.to_d
+    end
+
+    o.assign_attributes params
+    o.amount = oi.amount
+    o
   end
 
 end
