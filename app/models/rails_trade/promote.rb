@@ -1,5 +1,5 @@
 class Promote < ApplicationRecord
-  attr_accessor :price
+  attribute :price
 
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
 

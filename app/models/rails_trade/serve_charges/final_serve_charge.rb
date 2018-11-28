@@ -1,4 +1,4 @@
-class TotalServeCharge < ServeCharge
+class FinalServeCharge < ServeCharge
 
   def final_price(amount = nil)
     price
