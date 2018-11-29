@@ -12,7 +12,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
 
   def index
     query_params = params.permit(:id, :payment_type, :payment_status)
-    @orders = current_buyer.orders.default_where(query_params).page(params[:page])
+    @orders = current_buyer.orders.default_where(query_params).order(id: :desc).page(params[:page])
 
     respond_to do |format|
       format.html
