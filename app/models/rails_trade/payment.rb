@@ -4,6 +4,7 @@ class Payment < ApplicationRecord
 
   attribute :type, :string, default: 'HandPayment'
   attribute :currency, :string, default: RailsTrade.config.default_currency
+  attribute :adjust_amount, :decimal, default: 0
 
   belongs_to :payment_method, optional: true
   has_many :payment_orders, dependent: :destroy
@@ -11,8 +12,8 @@ class Payment < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
-  validates :total_amount, numericality: { equal_to: -> (o) { o.income_amount + o.fee_amount } }, if: -> { income_amount.present? && fee_amount.present? && total_amount.present? }
-  validates :adjust_amount, numericality: { less_than: 1, greater_than: -1 }, allow_blank: true
+  validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.income_amount + o.fee_amount } }
+  validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
   validates :payment_uuid, uniqueness: { scope: :type }
 
   before_save :compute_amount
@@ -28,6 +29,7 @@ class Payment < ApplicationRecord
     init: 'init',
     part_checked: 'part_checked',
     all_checked: 'all_checked',
+    adjust_checked: 'adjust_checked',
     abusive_checked: 'abusive_checked'
   }
 
@@ -43,23 +45,15 @@ class Payment < ApplicationRecord
   end
 
   def unchecked_amount
-    total_amount.to_d - pending_checked_amount.to_d
-  end
-
-  def pending_checked_amount
-    payment_orders.sum(&:check_amount)
+    total_amount.to_d - payment_orders.sum(&:check_amount).to_d
   end
 
   def compute_amount
-    if total_amount.blank? && fee_amount.present? && income_amount.present?
-      self.total_amount = self.fee_amount + self.income_amount
-    end
-
-    if income_amount.blank? && total_amount.present? && fee_amount.present?
+    if income_amount.blank? && fee_amount.present?
       self.income_amount = self.total_amount - self.fee_amount
     end
 
-    if fee_amount.blank? && total_amount.present? && income_amount.present?
+    if fee_amount.blank? && income_amount.present?
       self.fee_amount = self.total_amount - self.income_amount
     end
     self.check_state
@@ -75,13 +69,9 @@ class Payment < ApplicationRecord
   end
 
   def analyze_adjust_amount
-    self.adjust_amount = init_adjust_amount
+    self.adjust_amount = self.checked_amount.to_d - self.total_amount.to_d
     self.state = 'all_checked'
     self.save
-  end
-
-  def init_adjust_amount
-    self.checked_amount.to_d - self.total_amount.to_d
   end
 
   def check_order(order_id)
@@ -94,13 +84,14 @@ class Payment < ApplicationRecord
   end
 
   def check_state
-    if checked_amount.to_d >= total_amount
+    if self.checked_amount.to_d == self.total_amount
       self.state = 'all_checked'
-      self.adjust_amount = self.checked_amount.to_d - self.total_amount
-    elsif self.checked_amount.to_d > 0 && self.checked_amount.to_d < self.total_amount
-      self.state = 'part_checked'
     elsif self.checked_amount.to_d == 0
       self.state = 'init'
+    elsif self.checked_amount.to_d < self.total_amount
+      self.state = 'part_checked'
+    elsif self.checked_amount > self.total_amount
+      self.state = 'adjust_checked'
     else
       self.state = 'abusive_checked'
     end

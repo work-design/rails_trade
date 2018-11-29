@@ -1,26 +1,28 @@
 <tr id="payment_<%= payment.id %>">
   <td>
-    <%= payment.payment_uuid %>
-    <span class="ui tiny orange label"><%= Payment.enum_i18n(:type, payment.type) %></span>
+    <p><%= payment.payment_uuid %></p>
+    <div class="ui tiny orange label"><%= Payment.enum_i18n(:type, payment.type) %></div>
+  </td>
+  <td id="checked_amount_<%= payment.id %>" class="warning">
+    <%= payment.checked_amount %>
+    <% if payment.part_checked? %>
+      <%= link_to t('.adjust'), adjust_admin_payment_path(payment), method: :patch, class: 'ui mini grey button' %>
+    <% elsif ['init', 'part_checked'].include?(payment.state) %>
+      <span class="ui tiny grey label"><%= Payment.enum_i18n(:state, payment.state) %></span>
+    <% elsif payment.all_checked? %>
+      <span class="ui tiny green label"><%= Payment.enum_i18n(:state, payment.state) %></span>
+    <% elsif payment.adjust_checked? %>
+      <span class="ui tiny teal label"><%= Payment.enum_i18n(:state, payment.state) %></span>
+    <% end %>
   </td>
   <td>
     <%= payment.total_amount %>
   </td>
-  <td id="checked_amount_<%= payment.id %>" class="warning">
-    <%= payment.checked_amount %>
-    <% if payment.part_checked? && payment.init_adjust_amount > -1 && payment.init_adjust_amount < 1 %>
-      <%= link_to t('.adjust'), adjust_admin_payment_path(payment), method: :patch, class: 'ui mini grey button' %>
-    <% elsif payment.init? || payment.part_checked? %>
-      <span class="ui tiny grey label"><%= Payment.enum_i18n(:state, payment.state) %></span>
-    <% elsif payment.all_checked? %>
-      <span class="ui tiny green label"><%= Payment.enum_i18n(:state, payment.state) %></span>
-    <% end %>
-  </td>
   <td>
     <p><%= payment.income_amount.to_d %></p>
     <p><%= payment.fee_amount.to_d %></p>
-    <p><%= payment.adjust_amount %></p>
   </td>
+  <td><%= payment.adjust_amount %></td>
   <td>
     <p><%= payment.buyer_name %></p>
     <p><%= payment.buyer_identifier %></p>

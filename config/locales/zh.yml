@@ -36,6 +36,7 @@ zh:
         init: 未核销
         part_checked: 部分核销
         all_checked: 全部核销
+        adjust_checked: 调整核销
         abusive_checked: 问题核销
       payment:
         total_amount: 总金额
