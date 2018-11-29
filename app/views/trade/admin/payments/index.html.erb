@@ -42,16 +42,21 @@
 <table class="ui bottom attached fixed table">
   <thead>
     <tr>
-      <th><%= Payment.human_attribute_name(:uuid) %></th>
-      <th><%= Payment.human_attribute_name(:total_amount) %></th>
-      <th>已核销</th>
-      <th><%= Payment.human_attribute_name(:income_amount) %> + <%= Payment.human_attribute_name(:fee_amount) %></th>
-      <th><%= Payment.human_attribute_name(:adjust_amount) %></th>
-      <th><%= Payment.human_attribute_name(:buyer_name) %></th>
-      <th><%= Payment.human_attribute_name(:buyer_identifier) %></th>
-      <th><%= Payment.human_attribute_name(:buyer_bank) %></th>
-      <th><%= Payment.human_attribute_name(:notified_at) %></th>
-      <th colspan="2"></th>
+      <th class="four wide"><%= Payment.human_attribute_name(:uuid) %></th>
+      <th class="one wide"><%= Payment.human_attribute_name(:total_amount) %></th>
+      <th class="two wide">已核销</th>
+      <th class="one wide">
+        <p><%= Payment.human_attribute_name(:income_amount) %></p>
+        <p><%= Payment.human_attribute_name(:fee_amount) %></p>
+        <p><%= Payment.human_attribute_name(:adjust_amount) %></p>
+      </th>
+      <th class="four wide">
+        <p><%= Payment.human_attribute_name(:buyer_name) %></p>
+        <p><%= Payment.human_attribute_name(:buyer_identifier) %></p>
+        <p><%= Payment.human_attribute_name(:buyer_bank) %></p>
+      </th>
+      <th class="two wide"><%= Payment.human_attribute_name(:notified_at) %></th>
+      <th colspan="2" class="three wide"></th>
     </tr>
   </thead>
 

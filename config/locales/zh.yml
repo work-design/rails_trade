@@ -1,25 +1,26 @@
 zh:
-  rails_trade_admin:
-    payments:
-      index:
-        add_new: 新增
-        import: 导入
-        init: 预核销
-        confirmed: 未预核销
-      item:
-        edit: 编辑
-        destroy: 删除
-        show: 支付方式
-        checking: 核销
-        analyze: 分析支付方式
-        adjust: 平账
-    payment_methods:
-      index_layout:
-        remove: 移除
-        edit: 编辑
-        destroy: 删除
-        new: 新增
-        relate: 关联买家
+  trade:
+    admin:
+      payments:
+        index:
+          add_new: 新增
+          import: 导入
+          init: 预核销
+          confirmed: 未预核销
+        item:
+          edit: 编辑
+          destroy: 删除
+          show: 支付方式
+          checking: 核销
+          analyze: 分析支付方式
+          adjust: 平账
+      payment_methods:
+        index_layout:
+          remove: 移除
+          edit: 编辑
+          destroy: 删除
+          new: 新增
+          relate: 关联买家
   activerecord:
     models:
       role: ''
@@ -40,7 +41,7 @@ zh:
         total_amount: 总金额
         income_amount: 净收入
         fee_amount: 手续费
-        adjust_amount: 四舍五入
+        adjust_amount: 冲抵
         buyer_name: 账号名称
         buyer_identifier: 账号
         buyer_bank: 银行

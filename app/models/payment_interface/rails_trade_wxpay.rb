@@ -6,22 +6,22 @@ module RailsTradeWxpay
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
-  def wxpay_prepay
-    return @wxpay_prepay if @wxpay_prepay
+  def wxpay_prepay(trade_type = 'JSAPI')
+    return @wxpay_prepay if defined?(@wxpay_prepay)
     params = {
       body: "订单编号: #{self.uuid}",
       out_trade_no: self.uuid,
       total_fee: (self.amount * 100).to_i,
       spbill_create_ip: spbill_create_ip,
       notify_url: self.notify_url || url_helpers.wxpay_notify_payments_url,
-      trade_type: 'JSAPI',
+      trade_type: trade_type,
       openid: openid
     }
     @wxpay_prepay = WxPay::Service.invoke_unifiedorder params
   end
 
   def wxpay_order
-    return @wxpay_order if @wxpay_order
+    return @wxpay_order if defined?(@wxpay_order)
 
     prepay = wxpay_prepay
     if prepay['result_code'] == 'SUCCESS'

@@ -17,19 +17,18 @@
     <% end %>
   </td>
   <td>
-    <% if payment.income_amount.present? || payment.fee_amount %>
-      <%= [payment.income_amount, payment.fee_amount].join(' + ') %>
-    <% end %>
+    <p><%= payment.income_amount.to_d %></p>
+    <p><%= payment.fee_amount.to_d %></p>
+    <p><%= payment.adjust_amount %></p>
   </td>
-  <td><%= payment.adjust_amount %></td>
-  <td><%= payment.buyer_name %></td>
   <td>
-    <%= payment.buyer_identifier %>
+    <p><%= payment.buyer_name %></p>
+    <p><%= payment.buyer_identifier %></p>
+    <p><%= payment.buyer_bank %></p>
     <% if payment.payment_method %>
       <%= link_to 'Payment Method', admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini label', targe: '_blank' %>
     <% end %>
   </td>
-  <td><%= payment.buyer_bank %></td>
   <td><time><%= payment.notified_at.to_s(:rfc822) if payment.notified_at %></time></td>
   <td class="ui labels">
     <% if payment.payment_method.present? %>
