@@ -6,7 +6,7 @@ module RailsTradeWxpay
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
-  def wxpay_prepay(trade_type = 'JSAPI')
+  def wxpay_prepay(trade_type = 'JSAPI', options = {})
     return @wxpay_prepay if defined?(@wxpay_prepay)
     params = {
       body: "订单编号: #{self.uuid}",
@@ -15,12 +15,12 @@ module RailsTradeWxpay
       spbill_create_ip: spbill_create_ip,
       notify_url: self.notify_url || url_helpers.wxpay_notify_payments_url,
       trade_type: trade_type,
-      openid: openid
     }
-    @wxpay_prepay = WxPay::Service.invoke_unifiedorder params
+    params.merge!(openid: openid) if openid
+    @wxpay_prepay = WxPay::Service.invoke_unifiedorder params, options
   end
 
-  def wxpay_order
+  def wxpay_order(trade_type = 'JSAPI', options = {})
     return @wxpay_order if defined?(@wxpay_order)
 
     prepay = wxpay_prepay
@@ -29,7 +29,11 @@ module RailsTradeWxpay
         noncestr: prepay['nonce_str'],
         prepayid: prepay['prepay_id']
       }
-      @wxpay_order = WxPay::Service.generate_js_pay_req params
+      if trade_type == 'JSAPI'
+        @wxpay_order = WxPay::Service.generate_js_pay_req params, options
+      else
+        @wxpay_order = WxPay::Service.generate_app_pay_req params, options
+      end
     elsif prepay['result_code'] == 'FAIL'
       @wxpay_order = {
         result_code: 'FAIL',
@@ -41,14 +45,14 @@ module RailsTradeWxpay
     end
   end
 
-  def wxpay_result
+  def wxpay_result(options = {})
     return self if self.payment_status == 'all_paid'
 
     params = {
       out_trade_no: self.uuid,
     }
     begin
-      result = WxPay::Service.order_query params
+      result = WxPay::Service.order_query params, options
     rescue
       result = { 'err_code_des' => 'network error' }
     end
