@@ -13,7 +13,7 @@ class Payment < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.income_amount + o.fee_amount.to_d } }
-  validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
+  #validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
   validates :payment_uuid, uniqueness: { scope: :type }
 
   before_save :compute_amount
@@ -56,6 +56,7 @@ class Payment < ApplicationRecord
     if fee_amount.blank? && income_amount.present?
       self.fee_amount = self.total_amount - self.income_amount
     end
+
     self.check_state
   end
 

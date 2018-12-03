@@ -25,19 +25,11 @@ class PaymentOrder < ApplicationRecord
   end
 
   def the_payment_amount
-    other_amount = PaymentOrder.default_where('id-not': self.id, state: 'confirmed', payment_id: self.payment_id).sum(:check_amount)
-    if self.confirmed?
-      other_amount + self.check_amount
-    else
-      other_amount
-    end
+    self.payment.payment_orders.select(&:confirmed?).sum(&:check_amount).to_d
   end
 
   def the_order_amount
-    received_amount = PaymentOrder.default_where('id-not': self.id, state: 'confirmed', order_id: self.order_id).sum(:check_amount)
-    if self.confirmed?
-      received_amount = received_amount + self.check_amount
-    end
+    received_amount = self.order.payment_orders.select(&:confirmed?).sum(&:check_amount).to_d
     refund_amount = self.order.refunds.where.not(state: :failed).sum(:total_amount)
     received_amount - refund_amount
   end
