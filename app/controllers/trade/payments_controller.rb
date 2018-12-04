@@ -20,6 +20,19 @@ class Trade::PaymentsController < ApplicationController
     end
   end
 
+  def apple_notify
+    @order = Order.find_by(uuid: params[:order_uuid])
+    if ApplePay.verify?
+      result = @order.changed_to_paid! params: params, type: 'ApplePayment'
+    end
+
+    if reslut
+      render json: { code: 200 }
+    else
+      render json: { }, status: :bad_request
+    end
+  end
+
   def wxpay_notify
     notify_params = Hash.from_xml(request.body.read)['xml']
 
