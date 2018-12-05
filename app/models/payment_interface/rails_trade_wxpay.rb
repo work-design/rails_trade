@@ -22,7 +22,7 @@ module RailsTradeWxpay
   def wxpay_order(trade_type = 'JSAPI', options = {})
     prepay = wxpay_prepay(trade_type, options)
 
-    return { return_code: prepay[:return_code], return_msg: prepay[:return_msg] } unless prepay.success?
+    return { return_code: prepay['return_code'], return_msg: prepay['return_msg'] } unless prepay.success?
 
     if prepay['result_code'] == 'SUCCESS'
       params = {
