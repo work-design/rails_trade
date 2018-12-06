@@ -12,16 +12,11 @@ module ApplePay
     end
 
     options = {
-      headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
-      body: { 'receipt-data' => receipt_data }
+      body: { 'receipt-data' => receipt_data }.to_json
     }
 
     r = HTTParty.post(url, options)
-
-    binding.pry
-
-    resp_body = resp
-    json_resp = JSON.parse(resp_body.body)
+    JSON.parse(r.body)
   end
 
 end
