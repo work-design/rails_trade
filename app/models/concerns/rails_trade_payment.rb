@@ -39,10 +39,10 @@ module RailsTradePayment
       self.check_state!
       payment
     else
-      payment_order = self.payment_orders.build
-      payment = payment_order.build_payment(type: type, payment_uuid: payment_uuid)
+      payment = self.payments.build(type: type, payment_uuid: payment_uuid)
       payment.assign_detail params
 
+      payment_order = self.payment_orders.find { |i| i.id.nil? }
       payment_order.check_amount = payment.total_amount
 
       begin

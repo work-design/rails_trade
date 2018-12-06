@@ -7,6 +7,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.string :uuid, null: false
       t.integer :state, default: 0
       t.decimal :amount, precision: 10, scale: 2
+      t.decimal :adjust_amount, precision: 10, scale: 2
       t.decimal :received_amount, precision: 10, scale: 2, default: 0
       t.decimal :subtotal, precision: 10, scale: 2
       t.decimal :pure_serve_sum, precision: 10, scale: 2
@@ -19,6 +20,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.string :payment_status, index: true
       t.boolean :myself
       t.string :note, limit: 4096
+      t.string :adjust_comment
       t.timestamps
     end
 

@@ -15,12 +15,12 @@ class PaymentOrder < ApplicationRecord
   }
 
   def valid_check_amount
-    if the_payment_amount >= self.payment.total_amount.floor + 0.99
-      self.errors.add(:check_amount, 'Total amount greater than payment\'s amount')
+    if the_payment_amount > payment.total_amount + payment.adjust_amount
+      self.errors.add(:check_amount, 'Total checked amount greater than payment\'s amount')
     end
 
-    if the_order_amount >= self.order.amount.floor + 0.99
-      self.errors.add(:check_amount, 'Total amount greater than Order\' amount')
+    if the_order_amount > order.amount + order.adjust_amount
+      self.errors.add(:check_amount, 'Total checked amount greater than Order\'s amount')
     end
   end
 

@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   attribute :payment_status, :string, default: 'unpaid'
+  attribute :adjust_amount, :decimal
 
   include RailsTradePayment
   include RailsTradeRefund
