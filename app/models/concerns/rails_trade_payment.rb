@@ -39,18 +39,21 @@ module RailsTradePayment
       self.check_state!
       payment
     else
-      payment = self.payments.build(type: type, payment_uuid: payment_uuid)
+      payment_order = self.payment_orders.build
+      payment = payment_order.build_payment(type: type, payment_uuid: payment_uuid)
       payment.assign_detail params
 
-      payment_order = self.payment_orders.find { |i| i.id.nil? }
       payment_order.check_amount = payment.total_amount
-      payment_order.confirm
 
       begin
-        payment.save!
-        self.save!
+        self.class.transaction do
+          payment_order.confirm
+          payment.save!
+          self.save!
+        end
       rescue ActiveRecord::RecordInvalid => e
-        payment.errors.details[:payment_uuid]
+        payment.errors.add :base, 'can not save'
+        raise e
       end
       payment
     end
