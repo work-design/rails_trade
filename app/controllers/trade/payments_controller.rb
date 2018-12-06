@@ -26,7 +26,7 @@ class Trade::PaymentsController < ApplicationController
       result = @order.changed_to_paid! params: params, params: {amount: @order.amount}, type: 'ApplePayment'
     end
 
-    if reslut
+    if result
       render json: { code: 200 }
     else
       render json: { }, status: :bad_request
