@@ -25,7 +25,7 @@ class Order < ApplicationRecord
   scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
   after_initialize if: :new_record? do |o|
-    self.uuid = UidHelper.nsec_uuid('OD')
+    self.uuid = generate_order_uuid
     self.payment_strategy_id = self.buyer&.payment_strategy_id
 
     compute_sum
@@ -104,6 +104,13 @@ class Order < ApplicationRecord
 
   def confirm_ordered!
     self.order_items.each(&:confirm_ordered!)
+  end
+
+  private
+
+  # override this to implement your own uuid generation rules
+  def generate_order_uuid
+    UidHelper.nsec_uuid('OD')
   end
 
 end unless RailsTrade.config.disabled_models.include?('Order')
