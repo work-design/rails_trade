@@ -79,7 +79,7 @@ module RailsTradeGood
       oi.amount = oi.number * self.price.to_d
     end
 
-    oi.good_name = self.good_name
+    oi.good_name = good_name
 
     o.assign_attributes params
     o.amount = oi.amount
