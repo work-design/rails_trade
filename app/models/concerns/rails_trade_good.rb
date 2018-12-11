@@ -79,9 +79,17 @@ module RailsTradeGood
       oi.amount = oi.number * self.price.to_d
     end
 
+    oi.good_name = self.good_name
+
     o.assign_attributes params
     o.amount = oi.amount
     o
   end
 
+  private
+
+  # override this customize good name stored in order items
+  def good_name
+    name
+  end
 end
