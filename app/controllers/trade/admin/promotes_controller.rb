@@ -39,21 +39,13 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       if @promote.update(promote_params)
         format.html { redirect_to admin_promotes_url, notice: 'Promote was successfully updated.' }
         format.json { head :no_content }
+        format.js { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @promote.errors, status: :unprocessable_entity }
+        format.js { head :no_content }
       end
     end
-  end
-
-  def toggle
-    if params[:verified] == '1'
-      @promote.update(verified: true)
-    else
-      @promote.update(verified: false)
-    end
-
-    head :no_content
   end
 
   def discount
@@ -61,16 +53,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       @promote.update(discount: true)
     else
       @promote.update(discount: false)
-    end
-
-    head :no_content
-  end
-
-  def overall
-    if params[:overall] == '1'
-      @promote.update(overall: true)
-    else
-      @promote.update(overall: false)
     end
 
     head :no_content
@@ -107,6 +89,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :start_at,
       :finish_at,
       :verified,
+      :overall,
       :scope,
       :discount
     )
