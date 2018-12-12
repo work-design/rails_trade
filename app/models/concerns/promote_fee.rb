@@ -53,7 +53,7 @@ class PromoteFee
     if promote.is_a?(AmountPromote)
       charge = promote.compute_price(retail_price)
     else
-      charge = promote.compute_price(retail_price)
+      charge = promote.compute_price(number)
     end
     charge
   end
