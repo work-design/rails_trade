@@ -29,6 +29,11 @@ class PromoteFee
       end
     end
 
+    good.promotes.each do |promote|
+      charge = get_charge(promote)
+      @charges << charge
+    end
+
     @charges
   end
 

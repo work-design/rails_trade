@@ -1,5 +1,5 @@
 class PromoteCharge < ApplicationRecord
-  attr_accessor :subtotal
+  attribute :subtotal, :decimal
   belongs_to :item, class_name: 'Promote', foreign_key: :promote_id
 
   validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }

@@ -73,8 +73,9 @@ en:
         total: 全部应用
         single: 单独应用
       promote_charge/type:
-        SinglePromoteCharge: Single Charge
-        TotalPromoteCharge: Total Charge
+        DiscountPromoteCharge: Discount
+        FinalPromoteCharge: Final
+        MinusPromoteCharge: Minus
       serve/type:
         QuantityServe: 总重量
         NumberServe: 购买件数

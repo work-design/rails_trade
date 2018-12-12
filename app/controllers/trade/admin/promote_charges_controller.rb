@@ -51,7 +51,7 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
     params.fetch(:charge, {}).permit(
       :min,
       :max,
-      :price,
+      :parameter,
       :type
     )
   end
