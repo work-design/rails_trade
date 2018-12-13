@@ -7,12 +7,22 @@ class OrderItem < ApplicationRecord
   has_many :order_serves, autosave: true
   has_many :serves, through: :order_serves
 
-  composed_of :promote,
-              class_name: 'PromoteFee',
-              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
   composed_of :serve,
               class_name: 'ServeFee',
-              mapping: [['good_type', 'good_type'], ['good_id', 'good_id'], ['quantity', 'number']]
+              mapping: [
+                ['quantity', 'number']
+              ],
+              constructor: Proc.new { |number| ServeFee.new(
+                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
+              ) }
+  composed_of :promote,
+              class_name: 'PromoteFee',
+              mapping: [
+                ['quantity', 'number']
+              ],
+              constructor: Proc.new { |number| PromoteFee.new(
+                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
+              ) }
 
   after_initialize if: :new_record? do |oi|
     if cart_item

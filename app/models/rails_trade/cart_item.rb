@@ -1,4 +1,7 @@
 class CartItem < ApplicationRecord
+
+  attribute :status, :string, default: 'init'
+
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
   has_many :cart_item_serves, -> { includes(:serve) }, dependent: :destroy
@@ -21,28 +24,22 @@ class CartItem < ApplicationRecord
   composed_of :serve,
               class_name: 'ServeFee',
               mapping: [
-                ['good_type', 'good_type'],
-                ['good_id', 'good_id'],
                 ['quantity', 'number'],
-                ['buyer_type', 'buyer_type'],
-                ['buyer_id', 'buyer_id'],
-                ['extra', 'extra']
               ],
-              constructor: Proc.new { |type, id, num, b_type, b_id, o_extra| ServeFee.new(type, id, num, b_type, b_id, self.extra.merge(Hash(o_extra))) }
+              constructor: Proc.new { |number| ServeFee.new(
+                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
+              ) }
 
   composed_of :promote,
               class_name: 'PromoteFee',
               mapping: [
-                ['good_type', 'good_type'],
-                ['good_id', 'good_id'],
-                ['quantity', 'number'],
-                ['buyer_type', 'buyer_type'],
-                ['buyer_id', 'buyer_id']
+                ['quantity', 'number']
               ],
-              constructor: Proc.new { |type, id, num, b_type, b_id| PromoteFee.new(type, id, num, b_type, b_id) }
+              constructor: Proc.new { |number| PromoteFee.new(
+                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
+              ) }
 
   after_initialize if: :new_record? do |t|
-    self.status = 'init' if self.status.blank?
     self.quantity = 1 if self.quantity.to_i < 1
   end
 

@@ -46,46 +46,6 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
     end
   end
 
-  def toggle
-    if params[:verified] == '1'
-      @serve.update(verified: true)
-    else
-      @serve.update(verified: false)
-    end
-
-    head :no_content
-  end
-
-  def overall
-    if params[:overall] == '1'
-      @serve.update(overall: true)
-    else
-      @serve.update(overall: false)
-    end
-
-    head :no_content
-  end
-
-  def contain
-    if params[:contain_max] == '1'
-      @serve.update(contain_max: true)
-    else
-      @serve.update(contain_max: false)
-    end
-
-    head :no_content
-  end
-
-  def default
-    if params[:default] == '1'
-      @serve.update(default: true)
-    else
-      @serve.update(default: false)
-    end
-
-    head :no_content
-  end
-
   def destroy
     @serve.destroy
     respond_to do |format|
@@ -108,9 +68,13 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
       :scope,
       :deal_type,
       :deal_id,
+      :verified,
+      :overall,
+      :contain_max,
+      :default,
       extra: []
     )
-    sp.fetch(:extra, []).reject! { |i| i.blank? }
+    sp.fetch(:extra, []).reject!(&:blank?)
     sp
   end
 end

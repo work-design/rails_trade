@@ -18,12 +18,16 @@ module RailsTradeGood
 
     composed_of :serve,
                 class_name: 'ServeFee',
-                mapping: ['id', 'good_id'],
-                constructor: Proc.new { |id| ServeFee.new(self.name, id, 1, nil, nil, self.extra) }
+                mapping: [
+                  ['id', 'good_id']
+                ],
+                constructor: Proc.new { |id| ServeFee.new(self.name, id, extra: self.extra) }
     composed_of :promote,
                 class_name: 'PromoteFee',
-                mapping: [['id', 'good_id']],
-                constructor: Proc.new { |id| PromoteFee.new(self.name, id) }
+                mapping: [
+                  ['id', 'good_id']
+                ],
+                constructor: Proc.new { |id| PromoteFee.new(self.name, id, extra: self.extra) }
 
     def self.extra
       {}

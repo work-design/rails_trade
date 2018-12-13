@@ -75,10 +75,6 @@ Rails.application.routes.draw do
     end
     resources :serves do
       get :search, on: :collection
-      patch :toggle, on: :member
-      patch :overall, on: :member
-      patch :contain, on: :member
-      patch :default, on: :member
       resources :serve_charges, as: 'charges'
     end
   end

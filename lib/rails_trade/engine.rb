@@ -15,7 +15,8 @@ module RailsTrade
       "#{config.root}/app/models/rails_trade/promotes",
       "#{config.root}/app/models/rails_trade/serves",
       "#{config.root}/app/models/rails_trade/promote_charges",
-      "#{config.root}/app/models/rails_trade/serve_charges"
+      "#{config.root}/app/models/rails_trade/serve_charges",
+      "#{config.root}/app/models/rails_trade/concerns"
     ]
 
     initializer 'rails_trade.assets.precompile' do |app|

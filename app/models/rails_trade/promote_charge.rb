@@ -1,4 +1,5 @@
 class PromoteCharge < ApplicationRecord
+  include ChargeModel
   attribute :subtotal, :decimal
   belongs_to :item, class_name: 'Promote', foreign_key: :promote_id
 

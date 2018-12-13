@@ -35,12 +35,23 @@
       <td><%= serve.name %></td>
       <td><span class="ui blue label"><%= serve.scope_i18n %></span></td>
       <td>
-        <%= check_box_tag :verified, nil, serve.verified, data: { method: :patch, remote: true, url: toggle_admin_serve_path(serve.id) }, id: nil %>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag :verified, nil, serve.verified, data: { method: :patch, remote: true, params: "[serve]verified=#{!serve.verified}", url: admin_serve_path(serve.id) }, id: nil %>
+        </div>
       </td>
       <td>
-        <%= check_box_tag :overall, nil, serve.overall, data: { method: :patch, remote: true, url: overall_admin_serve_path(serve.id) }, id: nil %>
-        <%= check_box_tag :contain_max, nil, serve.contain_max, data: { method: :patch, remote: true, url: contain_admin_serve_path(serve.id) }, id: nil %>
-        <%= check_box_tag :default, nil, serve.default, data: { method: :patch, remote: true, url: default_admin_serve_path(serve.id) }, id: nil %>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag :overall, nil, serve.overall, data: { method: :patch, remote: true, params: "[serve]overall=#{!serve.overall}", url: admin_serve_path(serve.id) }, id: nil %>
+          <label><%= Serve.human_attribute_name(:overall) %></label>
+        </div>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag :contain_max, nil, serve.contain_max, data: { method: :patch, remote: true, params: "[serve]contain_max=#{!serve.contain_max}", url: admin_serve_path(serve.id) }, id: nil %>
+          <label><%= Serve.human_attribute_name(:contain_max) %></label>
+        </div>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag :default, nil, serve.default, data: { method: :patch, remote: true, params: "[serve]default=#{!serve.default}", url: admin_serve_path(serve.id) }, id: nil %>
+          <label><%= Serve.human_attribute_name(:default) %></label>
+        </div>
       </td>
       <td>
         <%= serve.deal_type %>: <%= serve.deal_id %>
