@@ -34,6 +34,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.decimal :promote_sum, precision: 10, scale: 2
       t.decimal :serve_sum, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
+      t.jsonb :extra
       t.timestamps
     end
 
@@ -44,6 +45,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.string :status
       t.integer :quantity
       t.string :extra, limit: 1024
+      #t.jsonb :extra
       t.boolean :checked, default: false
       t.boolean :myself
       t.boolean :archived, default: false

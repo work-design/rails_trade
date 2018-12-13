@@ -8,7 +8,7 @@ class ServeFee
     @good = good_type.constantize.unscoped.find good_id
     @number = number
     @buyer = buyer_type.constantize.find(buyer_id) if buyer_id
-    @extra = extra.merge! good.extra
+    @extra = extra
     verbose_fee
   end
 

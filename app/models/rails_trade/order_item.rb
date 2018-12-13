@@ -1,4 +1,5 @@
 class OrderItem < ApplicationRecord
+  include ServeAndPromote
   belongs_to :order, autosave: true, inverse_of: :order_items
   belongs_to :cart_item, optional: true, autosave: true
   belongs_to :good, polymorphic: true, optional: true
@@ -7,29 +8,13 @@ class OrderItem < ApplicationRecord
   has_many :order_serves, autosave: true
   has_many :serves, through: :order_serves
 
-  composed_of :serve,
-              class_name: 'ServeFee',
-              mapping: [
-                ['quantity', 'number']
-              ],
-              constructor: Proc.new { |number| ServeFee.new(
-                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
-              ) }
-  composed_of :promote,
-              class_name: 'PromoteFee',
-              mapping: [
-                ['quantity', 'number']
-              ],
-              constructor: Proc.new { |number| PromoteFee.new(
-                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
-              ) }
-
   after_initialize if: :new_record? do |oi|
     if cart_item
       self.good_type = cart_item.good_type
       self.good_id = cart_item.good_id
       self.number = cart_item.quantity
       self.pure_price = cart_item.pure_price
+      self.extra = cart_item.extra
       #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
 
       cart_item.serve_charges.each do |serve_charge|

@@ -19,15 +19,17 @@ module RailsTradeGood
     composed_of :serve,
                 class_name: 'ServeFee',
                 mapping: [
-                  ['id', 'good_id']
+                  ['id', 'good_id'],
+                  ['extra', 'extra']
                 ],
-                constructor: Proc.new { |id| ServeFee.new(self.name, id, extra: self.extra) }
+                constructor: Proc.new { |id, extra| ServeFee.new(self.name, id, extra: extra) }
     composed_of :promote,
                 class_name: 'PromoteFee',
                 mapping: [
-                  ['id', 'good_id']
+                  ['id', 'good_id'],
+                  ['extra', 'extra']
                 ],
-                constructor: Proc.new { |id| PromoteFee.new(self.name, id, extra: self.extra) }
+                constructor: Proc.new { |id, extra| PromoteFee.new(self.name, id, extra: extra) }
 
     def self.extra
       {}
@@ -71,29 +73,19 @@ module RailsTradeGood
 
     oi = o.order_items.build
     oi.good = self
-    if params[:number].to_i > 0
-      oi.number = params.delete(:number)
-    else
-      oi.number = 1
-    end
 
-    if params[:amount]
-      oi.amount = params.delete(:amount)
-    else
-      oi.amount = oi.number * self.price.to_d
-    end
+    number = params.delete(:number) || 1
+    amount = params.delete(:amount) || number * self.price.to_d
+    extra = params.delete(:extra)
 
-    oi.good_name = good_name
+    oi.number = number
+    oi.extra = extra
+    oi.amount = amount
+    oi.good_name = name
 
     o.assign_attributes params
     o.amount = oi.amount
     o
   end
 
-  private
-
-  # override this customize good name stored in order items
-  def good_name
-    name
-  end
 end

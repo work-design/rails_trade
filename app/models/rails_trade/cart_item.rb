@@ -1,5 +1,5 @@
 class CartItem < ApplicationRecord
-
+  include ServeAndPromote
   attribute :status, :string, default: 'init'
 
   belongs_to :buyer, polymorphic: true, optional: true
@@ -20,24 +20,6 @@ class CartItem < ApplicationRecord
     ordered: 'ordered',
     deleted: 'deleted'
   }
-
-  composed_of :serve,
-              class_name: 'ServeFee',
-              mapping: [
-                ['quantity', 'number'],
-              ],
-              constructor: Proc.new { |number| ServeFee.new(
-                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
-              ) }
-
-  composed_of :promote,
-              class_name: 'PromoteFee',
-              mapping: [
-                ['quantity', 'number']
-              ],
-              constructor: Proc.new { |number| PromoteFee.new(
-                self.good_type, self.good_id, number: number, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra.merge(Hash(o_extra))
-              ) }
 
   after_initialize if: :new_record? do |t|
     self.quantity = 1 if self.quantity.to_i < 1
@@ -178,10 +160,6 @@ class CartItem < ApplicationRecord
       puts "-----> Checked None!"
     end
     SummaryService.new(@checked_items, buyer_type: buyer_type, buyer_id: buyer_id, extra: extra)
-  end
-
-  def self.extra
-    {}
   end
 
   def self.good_types
