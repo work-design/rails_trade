@@ -1,10 +1,11 @@
 class ServeCharge < ApplicationRecord
   include ChargeModel
-  attr_accessor :subtotal, :default_subtotal, :cart_item_serve
+  attribute :subtotal, :decimal
+  attr_accessor :default_subtotal, :cart_item_serve
   belongs_to :item, class_name: 'Serve', foreign_key: :serve_id
 
-  validates :max, numericality: { greater_than: -> (o) { o.min } }
-  validates :min, numericality: { less_than: -> (o) { o.max } }
+  validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
+  validates :min, numericality: { less_than_or_equal_to: -> (o) { o.max } }
 
   def final_price(amount = 1)
     raise 'Should Implement in Subclass'

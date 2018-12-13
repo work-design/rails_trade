@@ -6,7 +6,7 @@ class RailsTradeServes < ActiveRecord::Migration[5.1]
       t.string :unit
       t.string :name
       t.string :scope
-      t.string :extra
+      t.string :extra, array: true
       t.boolean :verified, default: false
       t.boolean :overall, default: true
       t.boolean :contain_max, default: false

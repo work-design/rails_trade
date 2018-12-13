@@ -27,6 +27,7 @@
       <th><%= Promote.human_attribute_name(:verified) %></th>
       <th><%= Promote.human_attribute_name(:overall) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
+      <th><%= Promote.human_attribute_name(:extra) %></th>
       <th></th>
     </tr>
   </thead>
@@ -52,6 +53,11 @@
         </div>
       </td>
       <td><%= promote.sequence %></td>
+      <td>
+        <% promote.extra.each do |e| %>
+          <span class="ui label"><%= e %></span>
+        <% end %>
+      </td>
       <td class="ui labels">
         <%= link_to '详细', admin_promote_charges_path(promote), class: 'ui green label' %>
         <%= link_to '编辑', edit_admin_promote_path(promote), class: 'ui yellow label' %>

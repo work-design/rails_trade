@@ -8,6 +8,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.datetime :start_at
       t.datetime :finish_at
       t.string :scope
+      t.string :extra, array: true
       t.boolean :verified, default: false
       t.boolean :overall, default: false
       t.boolean :contain_max, default: false

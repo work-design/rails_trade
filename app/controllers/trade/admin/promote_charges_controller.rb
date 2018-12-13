@@ -48,12 +48,8 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
 
   private
   def charge_params
-    params.fetch(:charge, {}).permit(
-      :min,
-      :max,
-      :parameter,
-      :type
-    )
+    attrs = [:min, :max, :parameter, :type] + @promote.extra
+    params.fetch(:charge, {}).permit(attrs)
   end
 
   def set_promote

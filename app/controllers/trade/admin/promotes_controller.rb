@@ -82,7 +82,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   end
 
   def promote_params
-    params.fetch(:promote, {}).permit(
+    p = params.fetch(:promote, {}).permit(
       :unit,
       :type,
       :name,
@@ -91,7 +91,10 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :verified,
       :overall,
       :scope,
-      :discount
+      :discount,
+      extra: []
     )
+    p.fetch(:extra, []).reject!(&:blank?)
+    p
   end
 end

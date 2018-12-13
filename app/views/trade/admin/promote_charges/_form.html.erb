@@ -2,5 +2,8 @@
 <%= f.number_field :min, step: '0.01' %>
 <%= f.number_field :max, step: '0.01' %>
 <%= f.number_field :parameter, step: '0.01' %>
+<% @promote.extra.each do |ex| %>
+  <%= f.text_field ex %>
+<% end %>
 <%= f.submit %>
 

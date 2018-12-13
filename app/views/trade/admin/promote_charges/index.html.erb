@@ -19,6 +19,7 @@
     <tr>
       <th class="center aligned"><%= PromoteCharge.human_attribute_name(:min) %></th>
       <th class="center aligned"><%= PromoteCharge.human_attribute_name(:max) %></th>
+      <th class="center aligned"><%= PromoteCharge.human_attribute_name(:extra) %></th>
       <th class="center aligned"><%= PromoteCharge.human_attribute_name(:parameter) %></th>
       <th class="center aligned"><%= PromoteCharge.human_attribute_name(:type) %></th>
       <th class="center aligned"><%= PromoteCharge.human_attribute_name(:action) %></th>
@@ -29,6 +30,7 @@
     <tr>
       <td class="center aligned"><%= charge.min %></td>
       <td class="center aligned"><%= charge.max %></td>
+      <td><%= simple_format(charge.extra) %></td>
       <td class="center aligned"><%= charge.parameter %></td>
       <td class="center aligned"><%= charge.type_i18n %></td>
       <td class="center aligned">
