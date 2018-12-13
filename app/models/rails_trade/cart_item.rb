@@ -1,6 +1,7 @@
 class CartItem < ApplicationRecord
   include ServeAndPromote
   attribute :status, :string, default: 'init'
+  attribute :number, :integer, default: 1
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
@@ -21,17 +22,13 @@ class CartItem < ApplicationRecord
     deleted: 'deleted'
   }
 
-  after_initialize if: :new_record? do |t|
-    self.quantity = 1 if self.quantity.to_i < 1
-  end
-
   def total_quantity
-    good.unified_quantity.to_d * self.quantity
+    good.unified_quantity.to_d * self.number
   end
 
   # 零售价
   def retail_price
-    self.good.retail_price * self.quantity
+    self.good.retail_price * self.number
   end
 
   def discount_price
@@ -40,7 +37,7 @@ class CartItem < ApplicationRecord
 
   # 商品原价
   def pure_price
-    good.price.to_d * quantity
+    good.price.to_d * number
   end
 
   # 附加服务价格汇总

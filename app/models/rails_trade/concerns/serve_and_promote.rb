@@ -7,7 +7,7 @@ module ServeAndPromote
                 mapping: [
                   ['good_type', 'good_type'],
                   ['good_id', 'good_id'],
-                  ['quantity', 'number'],
+                  ['number', 'number'],
                   ['buyer_type', 'buyer_type'],
                   ['buyer_id', 'buyer_id'],
                   ['extra', 'extra']
@@ -20,7 +20,7 @@ module ServeAndPromote
                 mapping: [
                   ['good_type', 'good_type'],
                   ['good_id', 'good_id'],
-                  ['quantity', 'number'],
+                  ['number', 'number'],
                   ['buyer_type', 'buyer_type'],
                   ['buyer_id', 'buyer_id'],
                   ['extra', 'extra']

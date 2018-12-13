@@ -53,7 +53,7 @@ class Order < ApplicationRecord
   def migrate_from_cart_item(cart_item_id)
     cart_item = CartItem.find cart_item_id
     self.buyer = cart_item.user
-    self.order_items.build(cart_item_id: cart_item_id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity)
+    self.order_items.build(cart_item_id: cart_item_id, good_type: cart_item.good_type, good_id: cart_item.good_id, number: cart_item.number)
 
     cart_item.total_serve_charges.each do |serve_charge|
       self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
@@ -64,15 +64,15 @@ class Order < ApplicationRecord
     compute_sum
   end
 
-  def migrate_from_cart_items(cart_item_ids: nil)
+  def migrate_from_cart_items(cart_item_ids: [])
     cart_items = buyer.cart_items.checked.default_where(myself: self.myself)
     cart_items.each do |cart_item|
-      self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, quantity: cart_item.quantity
+      self.order_items.build cart_item_id: cart_item.id, good_type: cart_item.good_type, good_id: cart_item.good_id, number: cart_item.number
     end
     init_with_default_serves
   end
 
-  def init_with_default_serves(cart_item_ids: nil)
+  def init_with_default_serves(cart_item_ids: [])
     summary = CartItem.checked_items(buyer_type: self.buyer_type, buyer_id: self.buyer_id, myself: self.myself, extra: self.extra)
 
     summary.promote_charges.each do |promote_charge|

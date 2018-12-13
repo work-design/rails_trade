@@ -1,8 +1,7 @@
 # cart_item
 # good
 class PromoteFee
-  attr_reader :good, :number, :buyer,
-              :extra, :charges
+  attr_reader :charges
 
   def initialize(good_type, good_id, number: 1, buyer_type: 'User', buyer_id: nil, extra: {})
     @good = good_type.constantize.unscoped.find good_id
@@ -20,14 +19,14 @@ class PromoteFee
       @charges << charge
     end
 
-    if buyer
-      buyer.promotes.single.each do |promote|
+    if @buyer
+      @buyer.promotes.single.each do |promote|
         charge = get_charge(promote)
         @charges << charge
       end
     end
 
-    good.promotes.each do |promote|
+    @good.promotes.each do |promote|
       charge = get_charge(promote)
       @charges << charge
     end
@@ -36,11 +35,11 @@ class PromoteFee
   end
 
   def pure_price
-    good.price * number
+    @good.price * @number
   end
 
   def retail_price
-    good.retail_price * number
+    @good.retail_price * @number
   end
 
   def subtotal
@@ -49,9 +48,11 @@ class PromoteFee
 
   def get_charge(promote)
     if promote.is_a?(AmountPromote)
-      charge = promote.compute_price(retail_price)
+      charge = promote.compute_price(retail_price, @extra)
+    elsif promote.is_a?(NumberPromote)
+      charge = promote.compute_price(@number, @extra)
     else
-      charge = promote.compute_price(number)
+      charge = 0
     end
     charge
   end

@@ -12,7 +12,7 @@ class OrderItem < ApplicationRecord
     if cart_item
       self.good_type = cart_item.good_type
       self.good_id = cart_item.good_id
-      self.number = cart_item.quantity
+      self.number = cart_item.number
       self.pure_price = cart_item.pure_price
       self.extra = cart_item.extra
       #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?

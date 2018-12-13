@@ -28,8 +28,8 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.references :order
       t.references :cart_item
       t.references :good, polymorphic: true
-      t.integer :quantity
       t.integer :number
+      t.decimal :quantity, precision: 10, scale: 2 # 用来表示重量
       t.decimal :pure_price, precision: 10, scale: 2
       t.decimal :promote_sum, precision: 10, scale: 2
       t.decimal :serve_sum, precision: 10, scale: 2
@@ -43,7 +43,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.references :good, polymorphic: true
       t.string :session_id, limit: 128
       t.string :status
-      t.integer :quantity
+      t.integer :number
       t.string :extra, limit: 1024
       #t.jsonb :extra
       t.boolean :checked, default: false

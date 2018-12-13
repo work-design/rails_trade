@@ -1,8 +1,7 @@
 # cart_item
 # good
 class ServeFee
-  attr_reader :good, :number, :buyer,
-              :extra, :charges
+  attr_reader :charges
 
   def initialize(good_type, good_id, number: 1, buyer_type: 'User', buyer_id: nil, extra: {})
     @good = good_type.constantize.unscoped.find good_id
@@ -29,11 +28,11 @@ class ServeFee
 
   def get_charge(serve)
     if serve.is_a? QuantityServe
-      charge = serve.compute_price(good.unified_quantity * number, extra)
+      charge = serve.compute_price(@good.unified_quantity * @number, @extra)
     elsif serve.is_a? NumberServe
-      charge = serve.compute_price(number, extra)
+      charge = serve.compute_price(@number, @extra)
     else
-      charge = serve.compute_price(number, extra)
+      charge = serve.compute_price(@number, @extra)
     end
     charge
   end
