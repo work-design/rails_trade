@@ -12,8 +12,6 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.decimal :subtotal, precision: 10, scale: 2
       t.decimal :pure_serve_sum, precision: 10, scale: 2
       t.decimal :pure_promote_sum, precision: 10, scale: 2
-      t.decimal :serve_sum, precision: 10, scale: 2
-      t.decimal :promote_sum, precision: 10, scale: 2
       t.string :currency
       t.integer :payment_id
       t.string :payment_type

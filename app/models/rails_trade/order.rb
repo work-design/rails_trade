@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
   attribute :payment_status, :string, default: 'unpaid'
   attribute :adjust_amount, :decimal, default: 0
+  attribute :extra, :json, default: {}
 
   include RailsTradePayment
   include RailsTradeRefund
@@ -27,8 +28,6 @@ class Order < ApplicationRecord
   after_initialize if: :new_record? do |o|
     self.uuid = generate_order_uuid
     self.payment_strategy_id = self.buyer&.payment_strategy_id
-
-    compute_sum
   end
 
   after_create_commit :confirm_ordered!
@@ -41,10 +40,6 @@ class Order < ApplicationRecord
     refunded: 'refunded',
     denied: 'denied'
   }
-
-  def extra
-    {}
-  end
 
   def subject
     order_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
@@ -92,14 +87,6 @@ class Order < ApplicationRecord
     self.pure_promote_sum = _pure_order_promotes.sum(&:amount)
     self.subtotal = self.order_items.sum(&:amount)
     self.amount = self.subtotal.to_d + self.pure_serve_sum.to_d + self.pure_promote_sum.to_d
-  end
-
-  def promote_amount
-    order_promotes.sum(:amount)
-  end
-
-  def serve_amount
-    serve_promotes.sum(:amount)
   end
 
   def confirm_ordered!
