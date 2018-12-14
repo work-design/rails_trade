@@ -75,8 +75,9 @@ module RailsTradeGood
 
     oi.number = number
     oi.extra = extra
-    oi.amount = amount
+    oi.pure_price = amount
     oi.good_name = good_name
+    oi.compute_promote_and_serve
 
     o.assign_attributes params
     o.amount = oi.amount
