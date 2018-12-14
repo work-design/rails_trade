@@ -6,8 +6,9 @@ class Promote < ApplicationRecord
 
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
 
-  scope :special, -> { where(verified: true, overall: false) }
-  scope :overall, -> { where(verified: true, overall: true) }
+  scope :verified, -> { where(verified: true) }
+  scope :special, -> { verified.where(overall: false) }
+  scope :overall, -> { verified.where(overall: true) }
 
   after_commit :delete_cache, on: [:create, :destroy]
   after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
