@@ -7,6 +7,8 @@ module RailsTradeGood
     attribute :price, :decimal, default: 0
     attribute :currency, :string
     attribute :advance_payment, :decimal, default: 0
+    attribute :extra, :json, default: {}
+    thread_mattr_accessor :class_extra, instance_accessor: false
 
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
 
@@ -22,22 +24,14 @@ module RailsTradeGood
                   ['id', 'good_id'],
                   ['extra', 'extra']
                 ],
-                constructor: Proc.new { |id, extra| ServeFee.new(self.name, id, extra: extra) }
+                constructor: Proc.new { |id, extra| ServeFee.new(self.name, id, extra: Hash(self.class_extra).merge(extra)) }
     composed_of :promote,
                 class_name: 'PromoteFee',
                 mapping: [
                   ['id', 'good_id'],
                   ['extra', 'extra']
                 ],
-                constructor: Proc.new { |id, extra| PromoteFee.new(self.name, id, extra: extra) }
-
-    def self.extra
-      {}
-    end
-  end
-
-  def extra
-    {}
+                constructor: Proc.new { |id, extra| PromoteFee.new(self.name, id, extra: Hash(self.class_extra).merge(extra)) }
   end
 
   def retail_price
