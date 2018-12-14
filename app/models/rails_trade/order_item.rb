@@ -1,5 +1,15 @@
 class OrderItem < ApplicationRecord
   include ServeAndPromote
+
+  attribute :cart_item_id, :integer
+  attribute :good_type, :string
+  attribute :good_id, :integer
+  attribute :quantity, :decimal
+  attribute :number, :integer, default: 1
+  attribute :amount, :decimal
+  attribute :comment, :string
+  # #advance_payment, :decimal, precision: 10, scale: 2
+
   belongs_to :order, autosave: true, inverse_of: :order_items
   belongs_to :cart_item, optional: true, autosave: true
   belongs_to :good, polymorphic: true, optional: true
@@ -64,19 +74,3 @@ class OrderItem < ApplicationRecord
   end
 
 end unless RailsTrade.config.disabled_models.include?('OrderItem')
-
-# :cart_item_id, :integer
-# :good_type, :string
-# :good_id, :integer
-# :quantity, :float
-# :unit, :string
-# :number, :integer, limit: 4, default: 1
-# :total_price, :decimal, limit: 24
-# :order_at :datetime
-# :payed_at :datetime
-# :comment, :string
-# :deliver_on, :date
-# #advance_payment, :decimal, precision: 10, scale: 2
-
-
-
