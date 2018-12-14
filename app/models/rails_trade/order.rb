@@ -1,11 +1,11 @@
 class Order < ApplicationRecord
-  attribute :payment_status, :string, default: 'unpaid'
-  attribute :adjust_amount, :decimal, default: 0
-  attribute :extra, :json, default: {}
-
   include RailsTradePayment
   include RailsTradeRefund
   include PaymentInterfaceBase
+
+  attribute :payment_status, :string, default: 'unpaid'
+  attribute :adjust_amount, :decimal, default: 0
+  attribute :extra, :json, default: {}
 
   belongs_to :buyer, polymorphic: true
   belongs_to :payment_strategy, optional: true
@@ -80,11 +80,11 @@ class Order < ApplicationRecord
   end
 
   def compute_sum
-    _pure_order_serves = self.order_serves.select { |os| os.order_item_id.nil? }
-    _pure_order_promotes = self.order_promotes.select { |op| op.order_item_id.nil? }
+    _pure_order_serves = self.order_serves.select { |i| i.order_item_id.nil? }
+    _pure_order_promotes = self.order_promotes.select { |i| i.order_item_id.nil? }
 
-    self.pure_serve_sum = _pure_order_serves.sum(&:amount)
-    self.pure_promote_sum = _pure_order_promotes.sum(&:amount)
+    self.pure_serve_sum = _pure_order_serves.sum(&:amount).to_d
+    self.pure_promote_sum = _pure_order_promotes.sum(&:amount).to_d
     self.subtotal = self.order_items.sum(&:amount)
     self.amount = self.subtotal.to_d + self.pure_serve_sum.to_d + self.pure_promote_sum.to_d
   end

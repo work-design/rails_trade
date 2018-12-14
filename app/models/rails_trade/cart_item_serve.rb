@@ -1,4 +1,7 @@
 class CartItemServe < ApplicationRecord
+  attribute :cart_item_id, :integer
+  attribute :serve_id, :integer
+
   belongs_to :cart_item, touch: true
   belongs_to :serve
 
@@ -10,7 +13,3 @@ class CartItemServe < ApplicationRecord
   end
 
 end unless RailsTrade.config.disabled_models.include?('CartItemServe')
-
-
-# :cart_item_id, :integer
-# :serve_id, :integer

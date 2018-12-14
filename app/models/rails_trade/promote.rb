@@ -1,5 +1,8 @@
 class Promote < ApplicationRecord
   attribute :price
+  attribute :start_at, :datetime
+  attribute :finish_at, :datetime
+  attribute :sequence, :integer
 
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
 
@@ -7,7 +10,7 @@ class Promote < ApplicationRecord
   scope :overall, -> { where(verified: true, overall: true) }
 
   after_commit :delete_cache, on: [:create, :destroy]
-  #after_update_commit :delete_cache, if: -> { sequence_changed? }
+  after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
 
   enum scope: {
     total: 'total',
@@ -37,6 +40,3 @@ class Promote < ApplicationRecord
   end
 
 end unless RailsTrade.config.disabled_models.include?('Promote')
-
-# :start_at, :datetime
-# :finish_at, :datetime

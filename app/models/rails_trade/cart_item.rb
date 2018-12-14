@@ -1,19 +1,17 @@
 class CartItem < ApplicationRecord
   include ServeAndPromote
+
   attribute :status, :string, default: 'init'
   attribute :number, :integer, default: 1
+  serialize :extra, Hash
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
   has_many :cart_item_serves, -> { includes(:serve) }, dependent: :destroy
   has_many :order_items, dependent: :nullify
 
-  validates :buyer_id, presence: true, if: -> { session_id.blank? }
-  validates :session_id, presence: true, if: -> { buyer_id.blank?  }
   scope :valid, -> { where(status: 'pending', myself: true) }
   scope :checked, -> { where(status: 'pending', checked: true) }
-
-  serialize :extra, Hash
 
   enum status: {
     init: 'init',
@@ -21,6 +19,9 @@ class CartItem < ApplicationRecord
     ordered: 'ordered',
     deleted: 'deleted'
   }
+
+  validates :buyer_id, presence: true, if: -> { session_id.blank? }
+  validates :session_id, presence: true, if: -> { buyer_id.blank?  }
 
   def total_quantity
     good.unified_quantity.to_d * self.number

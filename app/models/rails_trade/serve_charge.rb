@@ -1,6 +1,12 @@
 class ServeCharge < ApplicationRecord
   include ChargeModel
+
+  attribute :min, :integer
+  attribute :max, :integer
+  attribute :price, :decimal
+  attribute :type, :string     # SingleCharge / TotalCharge
   attribute :subtotal, :decimal
+
   attr_accessor :default_subtotal, :cart_item_serve
   belongs_to :item, class_name: 'Serve', foreign_key: :serve_id
 
@@ -12,8 +18,3 @@ class ServeCharge < ApplicationRecord
   end
 
 end unless RailsTrade.config.disabled_models.include?('ServeCharge')
-
-# :min, :integer
-# :max, :integer
-# :price, :decimal
-# :type, :string     # SingleCharge / TotalCharge

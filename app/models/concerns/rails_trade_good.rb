@@ -80,7 +80,7 @@ module RailsTradeGood
     oi.compute_promote_and_serve
 
     o.assign_attributes params
-    o.amount = oi.amount
+    o.compute_sum
     o
   end
 

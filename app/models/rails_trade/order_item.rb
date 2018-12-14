@@ -8,7 +8,7 @@ class OrderItem < ApplicationRecord
   attribute :number, :integer, default: 1
   attribute :amount, :decimal
   attribute :comment, :string
-  # #advance_payment, :decimal, precision: 10, scale: 2
+  # advance_payment, :decimal, precision: 10, scale: 2
 
   belongs_to :order, autosave: true, inverse_of: :order_items
   belongs_to :cart_item, optional: true, autosave: true
