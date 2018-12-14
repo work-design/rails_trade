@@ -77,11 +77,12 @@ module RailsTradeGood
     number = params.delete(:number) || 1
     amount = params.delete(:amount) || number * self.price.to_d
     extra = params.delete(:extra)
+    good_name = params.delete(:name) || self.name
 
     oi.number = number
     oi.extra = extra
     oi.amount = amount
-    oi.good_name = name
+    oi.good_name = good_name
 
     o.assign_attributes params
     o.amount = oi.amount
