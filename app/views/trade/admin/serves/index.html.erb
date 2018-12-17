@@ -36,20 +36,20 @@
       <td><span class="ui blue label"><%= serve.scope_i18n %></span></td>
       <td>
         <div class="ui toggle checkbox">
-          <%= check_box_tag :verified, nil, serve.verified, data: { method: :patch, remote: true, params: "[serve]verified=#{!serve.verified}", url: admin_serve_path(serve.id) }, id: nil %>
+          <%= check_box_tag 'serve[verified]', nil, serve.verified, data: { method: :patch, remote: true, params: "[serve]verified=#{!serve.verified}", url: admin_serve_path(serve.id), submit: true }, id: nil %>
         </div>
       </td>
       <td>
         <div class="ui toggle checkbox">
-          <%= check_box_tag :overall, nil, serve.overall, data: { method: :patch, remote: true, params: "[serve]overall=#{!serve.overall}", url: admin_serve_path(serve.id) }, id: nil %>
+          <%= check_box_tag 'serve[overall]', nil, serve.overall, data: { method: :patch, remote: true, params: "[serve]overall=#{!serve.overall}", url: admin_serve_path(serve.id), submit: true }, id: nil %>
           <label><%= Serve.human_attribute_name(:overall) %></label>
         </div>
         <div class="ui toggle checkbox">
-          <%= check_box_tag :contain_max, nil, serve.contain_max, data: { method: :patch, remote: true, params: "[serve]contain_max=#{!serve.contain_max}", url: admin_serve_path(serve.id) }, id: nil %>
+          <%= check_box_tag 'serve[contain_max]', nil, serve.contain_max, data: { method: :patch, remote: true, params: "[serve]contain_max=#{!serve.contain_max}", url: admin_serve_path(serve.id), submit: true }, id: nil %>
           <label><%= Serve.human_attribute_name(:contain_max) %></label>
         </div>
         <div class="ui toggle checkbox">
-          <%= check_box_tag :default, nil, serve.default, data: { method: :patch, remote: true, params: "[serve]default=#{!serve.default}", url: admin_serve_path(serve.id) }, id: nil %>
+          <%= check_box_tag 'serve[default]', nil, serve.default, data: { method: :patch, remote: true, params: "[serve]default=#{!serve.default}", url: admin_serve_path(serve.id), submit: true }, id: nil %>
           <label><%= Serve.human_attribute_name(:default) %></label>
         </div>
       </td>

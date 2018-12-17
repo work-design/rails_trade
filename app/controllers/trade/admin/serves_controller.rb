@@ -1,5 +1,5 @@
 class Trade::Admin::ServesController < Trade::Admin::BaseController
-  before_action :set_serve, only: [:show, :edit, :update, :toggle, :overall, :contain, :default, :destroy]
+  before_action :set_serve, only: [:show, :edit, :update, :destroy]
 
   def index
     @serves = Serve.default_where(params.permit(:scope)).page(params[:page])
@@ -39,6 +39,7 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
       if @serve.update(serve_params)
         format.html { redirect_to admin_serves_url, notice: 'Serve was successfully updated.' }
         format.json { head :no_content }
+        format.js { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @serve.errors, status: :unprocessable_entity }

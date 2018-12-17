@@ -39,7 +39,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       if @promote.update(promote_params)
         format.html { redirect_to admin_promotes_url, notice: 'Promote was successfully updated.' }
         format.json { head :no_content }
-        format.js
+        format.js { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @promote.errors, status: :unprocessable_entity }

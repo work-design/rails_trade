@@ -44,12 +44,12 @@
       </td>
       <td>
         <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, params: "[promote]verified=#{!promote.verified}", url: admin_promote_path(promote.id) }, id: nil %>
+          <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, params: "[promote]verified=#{!promote.verified}", url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>
       </td>
       <td>
         <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[overall]', nil, promote.overall, data: { method: :patch, remote: true, params: "[promote]overall=#{!promote.overall}", url: admin_promote_path(promote.id) }, id: nil %>
+          <%= check_box_tag 'promote[overall]', nil, promote.overall, data: { method: :patch, remote: true, params: "[promote]overall=#{!promote.overall}", url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>
       </td>
       <td><%= promote.sequence %></td>
