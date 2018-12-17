@@ -1,13 +1,17 @@
 class SummaryService
-  attr_reader :checked_items, :buyer, :extra,
+  attr_reader :checked_items,
               :promote_charges, :promote_price,
               :serve_charges, :serve_price, :total_serve_price
-  attr_accessor :bulk_price, :final_price, :discount_price, :retail_price, :reduced_price,
+  attr_accessor :bulk_price,
+                :final_price,
+                :discount_price,
+                :retail_price,
+                :reduced_price,
                 :total_quantity
 
-  def initialize(_checked_items, buyer_type: nil, buyer_id: nil, extra: {})
+  def initialize(_checked_items, buyer_type: 'User', buyer_id: nil, extra: {})
     @checked_items = _checked_items
-    @buyer = buyer_type.constantize.find(buyer_id) if buyer_type && buyer_id
+    @buyer = buyer_type.constantize.find(buyer_id) if buyer_id
     @extra = extra
     compute_total
     compute_promote
@@ -15,7 +19,7 @@ class SummaryService
   end
 
   def compute_price
-    @bulk_price = checked_items.sum(&:bulk_price)
+    self.bulk_price = checked_items.sum(&:bulk_price)
   end
 
   def compute_total
@@ -35,8 +39,8 @@ class SummaryService
         @promote_charges << charge
       end
 
-      if buyer
-        buyer.promotes.total.where(sequence: quence).each do |promote|
+      if @buyer
+        @buyer.promotes.total.where(sequence: quence).each do |promote|
           charge = promote.compute_price(bulk_price)
           @promote_charges << charge
         end
@@ -52,7 +56,7 @@ class SummaryService
     @serve_charges = []
 
     QuantityServe.total.overall.each do |serve|
-      charge = serve.compute_price(total_quantity, extra)
+      charge = serve.compute_price(total_quantity, @extra)
       @serve_charges << charge
     end
 
@@ -61,7 +65,7 @@ class SummaryService
   end
 
   def total_price
-    @total_price ||= @bulk_price + @reduced_price + @promote_price + @total_serve_price
+    @total_price ||= bulk_price + reduced_price + promote_price + @total_serve_price
   end
 
 end

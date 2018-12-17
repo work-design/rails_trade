@@ -19,6 +19,7 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.boolean :myself
       t.string :note, limit: 4096
       t.string :adjust_comment
+      t.datetime :expire_at
       t.timestamps
     end
 

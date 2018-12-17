@@ -19,17 +19,7 @@ class OrderItem < ApplicationRecord
   has_many :serves, through: :order_serves
 
   after_initialize if: :new_record? do |oi|
-    if cart_item
-      self.assign_attributes cart_item.attributes.slice(:good_type, :good_id, :number, :pure_price, :extra)
-      #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
-
-      cart_item.serve_charges.each do |serve_charge|
-        op = self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
-        op.order = self.order
-      end
-
-      cart_item.status = 'ordered'
-    end
+    init_from_cart_item if cart_item
   end
   after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
 
@@ -71,6 +61,18 @@ class OrderItem < ApplicationRecord
 
   def confirm_refund!
 
+  end
+
+  def init_from_cart_item
+    self.assign_attributes cart_item.attributes.slice(:good_type, :good_id, :number, :pure_price, :extra)
+    #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
+
+    cart_item.serve_charges.each do |serve_charge|
+      op = self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
+      op.order = self.order
+    end
+
+    cart_item.status = 'ordered'
   end
 
 end unless RailsTrade.config.disabled_models.include?('OrderItem')
