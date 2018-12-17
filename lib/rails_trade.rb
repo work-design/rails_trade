@@ -1,5 +1,3 @@
-require 'default_where'
-require 'default_form'
 require 'rails_com'
 require 'rails_auth'
 require 'rails_role'
