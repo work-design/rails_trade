@@ -3,7 +3,7 @@ class CartItem < ApplicationRecord
 
   attribute :status, :string, default: 'init'
   attribute :number, :integer, default: 1
-  serialize :extra, Hash
+  attribute :extra, :json
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true

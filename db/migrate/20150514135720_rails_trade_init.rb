@@ -1,4 +1,4 @@
-class CreateProviders < ActiveRecord::Migration[5.1]
+class RailsTradeInit < ActiveRecord::Migration[5.2]
   def change
 
     create_table :orders do |t|
@@ -33,8 +33,13 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.decimal :promote_sum, precision: 10, scale: 2
       t.decimal :serve_sum, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
-      t.jsonb :extra
+      t.string :good_name
       t.timestamps
+      if connection.adapter_name == 'PostgreSQL'
+        t.jsonb :extra
+      else
+        t.json :extra
+      end
     end
 
     create_table :cart_items do |t|
@@ -43,12 +48,15 @@ class CreateProviders < ActiveRecord::Migration[5.1]
       t.string :session_id, limit: 128
       t.string :status
       t.integer :number
-      t.string :extra, limit: 1024
-      #t.jsonb :extra
       t.boolean :checked, default: false
       t.boolean :myself
       t.boolean :archived, default: false
       t.timestamps
+      if connection.adapter_name == 'PostgreSQL'
+        t.jsonb :extra
+      else
+        t.json :extra
+      end
     end
 
     create_table :payment_strategies do |t|
