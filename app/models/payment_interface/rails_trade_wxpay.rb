@@ -15,7 +15,12 @@ module RailsTradeWxpay
       notify_url: self.notify_url || url_helpers.wxpay_notify_payments_url,
       trade_type: trade_type,
     }
-    params.merge!(openid: openid) if openid
+    if options.key?(:openid)
+      _openid = options[:openid]
+    else
+      _openid = openid
+    end
+    params.merge!(openid: _openid) if _openid
     WxPay::Service.invoke_unifiedorder params, options.dup
   end
 
