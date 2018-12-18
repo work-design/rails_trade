@@ -38,8 +38,8 @@ OrderItem <=> Shipment
 ### 依赖
 * [default_form](https://github.com/qinmingyuan/default_form)
 * [default_where](https://github.com/qinmingyuan/default_where)
-* [rails_audit](https://github.com/yougexiangfa/rails_audit)
-* [rails_data](https://github.com/yougexiangfa/rails_data)
+* [rails_audit](https://github.com/work-design/rails_audit)
+* [rails_data](https://github.com/work-design/rails_data)
   * admin/payments
-* [rails_role](https://github.com/yougexiangfa/rails_role)
+* [rails_role](https://github.com/work-design/rails_role)
   * admin/payments_controller
