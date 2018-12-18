@@ -18,9 +18,8 @@ Gem::Specification.new do |s|
     'README.md'
   ]
 
-  s.add_dependency 'rails', '~> 5.0'
-  s.add_dependency 'money-rails', '~> 1.12'
   s.add_dependency 'rails_com', '~> 1.2'
+  s.add_dependency 'money-rails', '~> 1.12'
   s.add_dependency 'rails_auth', '~> 1.0'
   s.add_dependency 'rails_role', '~> 1.0'
   s.add_dependency 'rails_data', '~> 1.0'

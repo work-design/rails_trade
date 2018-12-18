@@ -8,11 +8,9 @@ Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 if defined?(FactoryBot)
   FactoryBot.definition_file_paths << File.expand_path('factories', __dir__)
-  FactoryBot.find_definitions
 end
 
 class ActiveSupport::TestCase
   self.file_fixture_path = File.expand_path('fixtures/files', __dir__)
-
-  include FactoryBot::Syntax::Methods
+  include FactoryBot::Syntax::Methods if defined?(FactoryBot)
 end

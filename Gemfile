@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gemspec
 
 gem 'puma'
@@ -8,10 +9,10 @@ gem 'sqlite3'
 gem 'turbolinks'
 gem 'sdoc'
 
-gem 'pry-rails'
+gem 'byebug'
 
 # for test
-gem 'factory_bot_rails'
 gem 'capybara'
 gem 'awesome_print'
 gem 'kaminari'
+gem 'factory_bot_rails', github: 'thoughtbot/factory_bot_rails'
