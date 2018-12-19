@@ -35,7 +35,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
     end
 
     create_table :promote_buyers do |t|
-      t.references :buyer
+      t.references :buyer, polymorphic: true
       t.references :promote
       t.timestamps
     end

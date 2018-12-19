@@ -9,7 +9,7 @@ gem 'sqlite3'
 gem 'turbolinks'
 gem 'sdoc'
 
-gem 'byebug'
+gem 'pry-rails'
 
 # for test
 gem 'capybara'
