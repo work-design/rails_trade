@@ -15,8 +15,7 @@ class ServeFee
     @charges = []
 
     Serve.single.overall.default.each do |serve|
-      charge = get_charge(serve)
-      @charges << charge
+      @charges << get_charge(serve)
     end
 
     @charges

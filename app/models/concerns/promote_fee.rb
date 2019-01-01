@@ -15,23 +15,20 @@ class PromoteFee
     @charges = []
 
     Promote.single.overall.each do |promote|
-      charge = get_charge(promote)
-      @charges << charge
+      @charges << get_charge(promote)
     end
 
     if @buyer
       @buyer.promotes.single.each do |promote|
-        charge = get_charge(promote)
-        @charges << charge
+        @charges << get_charge(promote)
       end
     end
 
     @good.promotes.each do |promote|
-      charge = get_charge(promote)
-      @charges << charge
+      @charges << get_charge(promote)
     end
 
-    @charges
+    @charges.compact
   end
 
   def pure_price

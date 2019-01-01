@@ -7,15 +7,15 @@ class Promote < ApplicationRecord
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
 
   scope :verified, -> { where(verified: true) }
-  scope :special, -> { verified.where(overall: false) }
-  scope :overall, -> { verified.where(overall: true) }
+  scope :special, -> { verified.where(overall: false) }  # 仅适用于特殊商品
+  scope :overall, -> { verified.where(overall: true) }  # 使用与所有商品
 
   after_commit :delete_cache, on: [:create, :destroy]
   after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
 
   enum scope: {
-    total: 'total',
-    single: 'single'
+    total: 'total', # 适用于多个商品一起计算
+    single: 'single'  # 适用于单独计算商品
   }
 
   def compute_price(amount, extra_hash = {})
