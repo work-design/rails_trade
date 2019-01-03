@@ -18,6 +18,10 @@ class OrderItem < ApplicationRecord
   has_many :order_serves, autosave: true
   has_many :serves, through: :order_serves
 
+  attribute :buyer_type, :string
+  attribute :buyer_id, :integer
+  attribute :promote_id, :integer
+
   after_initialize if: :new_record? do |oi|
     init_from_cart_item if cart_item
   end
@@ -64,7 +68,7 @@ class OrderItem < ApplicationRecord
   end
 
   def init_from_cart_item
-    self.assign_attributes cart_item.attributes.slice(:good_type, :good_id, :number, :pure_price, :extra)
+    self.assign_attributes cart_item.attributes.slice(:good_type, :good_id, :number, :buyer_type, :buyer_id, :pure_price, :extra)
     #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
 
     cart_item.serve_charges.each do |serve_charge|

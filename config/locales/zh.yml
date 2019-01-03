@@ -70,6 +70,7 @@ zh:
         DiscountPromoteCharge: 折扣策略
         FinalPromoteCharge: 一口价策略
         MinusPromoteCharge: 满减策略
+        CashPromoteCharge: 现金抵扣
       serve/type:
         QuantityServe: 总重量
         NumberServe: 购买件数
