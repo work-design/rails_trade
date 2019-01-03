@@ -80,7 +80,7 @@ module RailsTradeGood
                              buyer_id: buyer.id,
                              extra: extra,
                              good_name: good_name,
-                             promote_id: params.delete(:promote_id))
+                             promote_buyer_id: params.delete(:promote_buyer_id))
 
     oi.compute_promote_and_serve
     o.assign_attributes params
