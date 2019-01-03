@@ -73,14 +73,16 @@ module RailsTradeGood
     extra = params.delete(:extra)
     good_name = params.delete(:name) || self.name
 
-    oi = o.order_items.build(good: self,
-                             number: number,
-                             pure_price: amount,
-                             buyer_type: buyer.class.name,
-                             buyer_id: buyer.id,
-                             extra: extra,
-                             good_name: good_name,
-                             promote_buyer_id: params.delete(:promote_buyer_id))
+    oi = o.order_items.build(
+      good: self,
+      number: number,
+      pure_price: amount,
+      buyer_type: buyer.class.name,
+      buyer_id: buyer.id,
+      extra: extra,
+      good_name: good_name,
+      promote_buyer_id: params.delete(:promote_buyer_id)
+    )
 
     oi.compute_promote_and_serve
     o.assign_attributes params
