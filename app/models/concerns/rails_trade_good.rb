@@ -66,8 +66,6 @@ module RailsTradeGood
 
     o.currency = self.currency
 
-
-
     number = params.delete(:number) || 1
     amount = params.delete(:amount) || number * self.price.to_d
     extra = params.delete(:extra)
@@ -80,8 +78,8 @@ module RailsTradeGood
       buyer_type: buyer.class.name,
       buyer_id: buyer.id,
       extra: extra,
-      good_name: good_name,
-      promote_buyer_id: params.delete(:promote_buyer_id)
+      good_name: good_name
+      #promote_buyer_id: params.delete(:promote_buyer_id)
     )
 
     oi.compute_promote_and_serve
