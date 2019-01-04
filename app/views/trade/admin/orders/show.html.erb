@@ -1,5 +1,5 @@
 <div class="ui segment breadcrumb">
-  <%= link_to '全部订单', admin_orders_path(user_id: @order.user_id), class: 'section' %>
+  <%= link_to '全部订单', admin_orders_path(buyer_type: @order.buyer_type, buyer_id: @order.buyer_id), class: 'section' %>
   <i class="right chevron icon divider"></i>
   <%= link_to '编辑', edit_admin_order_path(@order), class: 'section' %>
 </div>
