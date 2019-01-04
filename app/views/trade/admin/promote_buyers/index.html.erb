@@ -1,44 +1,41 @@
-<div>
-
-  <div class="ui top attached menu borderless">
-    <div class="item"><strong>Promote Buyers</strong></div>
+<div class="ui top attached borderless menu">
+  <div class="item header">Promote Buyers</div>
+  <div class="right menu">
+    <div class="item">
+      <%= link_to 'New Promote Buyer', new_admin_promote_buyer_path(request.GET), class: 'ui teal button' %>
+    </div>
   </div>
-
-  <div class="ui segment bottom attached">
-    <%# render 'search_form' %>
-  </div>
-
-  <div class="ui segment top attached">
-    <%= link_to 'New Promote Buyer', new_admin_promote_buyer_path(request.GET), class: 'ui teal button' %>
-  </div>
-
-  <table class="ui bottom attached table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Buyer</th>
-        <th>Promote</th>
-        <th>Scope</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-    <% @promote_buyers.each do |promote_buyer| %>
-      <tr>
-        <td><%= promote_buyer.id %></td>
-        <td><%= promote_buyer.buyer.name %></td>
-        <td><%= promote_buyer.promote.name %></td>
-        <td><%= promote_buyer.promote.scope %></td>
-        <td>
-          <%= link_to 'Destroy', admin_promote_buyer_path(promote_buyer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-  <%= paginate @promote_buyers %>
 </div>
 
+<div class="ui attached segment">
+  <%= render 'filter' %>
+</div>
+
+<table class="ui bottom attached table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Buyer</th>
+      <th>Promote</th>
+      <th>Scope</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @promote_buyers.each do |promote_buyer| %>
+    <tr>
+      <td><%= promote_buyer.id %></td>
+      <td><%= promote_buyer.buyer.name %></td>
+      <td><%= promote_buyer.promote.name %></td>
+      <td><%= promote_buyer.promote.scope %></td>
+      <td>
+        <%= link_to 'Destroy', admin_promote_buyer_path(promote_buyer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @promote_buyers %>
 

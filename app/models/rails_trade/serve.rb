@@ -1,6 +1,8 @@
 class Serve < ApplicationRecord
   attr_accessor :price
   serialize :extra, Array
+  attribute :start_at, :datetime
+  attribute :finish_at, :datetime
 
   belongs_to :deal, polymorphic: true, optional: true
   has_many :charges, class_name: 'ServeCharge', dependent: :delete_all
@@ -39,6 +41,3 @@ class Serve < ApplicationRecord
   end
 
 end unless RailsTrade.config.disabled_models.include?('Serve')
-
-# :start_at, :datetime
-# :finish_at, :datetime

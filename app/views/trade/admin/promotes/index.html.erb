@@ -39,8 +39,8 @@
       <td><%= promote.name %></td>
       <td><%= promote.scope_i18n %></td>
       <td>
-        <p><%= promote.start_at %></p>
-        <p><%= promote.finish_at %></p>
+        <p><time><%= promote.start_at.to_s(:rfc822) if promote.start_at %></time></p>
+        <p><time><%= promote.finish_at.to_s(:rfc822) if promote.finish_at %></time></p>
       </td>
       <td>
         <div class="ui toggle checkbox">
@@ -54,7 +54,7 @@
       </td>
       <td><%= promote.sequence %></td>
       <td>
-        <% promote.extra.each do |e| %>
+        <% Array(promote.extra).each do |e| %>
           <span class="ui label"><%= e %></span>
         <% end %>
       </td>
