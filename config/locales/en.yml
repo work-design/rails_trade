@@ -76,6 +76,7 @@ en:
         DiscountPromoteCharge: Discount
         FinalPromoteCharge: Final
         MinusPromoteCharge: Minus
+        CashPromoteCharge: Cash
       serve/type:
         QuantityServe: 总重量
         NumberServe: 购买件数

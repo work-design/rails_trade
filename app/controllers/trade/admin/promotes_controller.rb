@@ -92,6 +92,9 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :overall,
       :scope,
       :discount,
+      :title,
+      :worth_name,
+      :description,
       extra: []
     )
     p.fetch(:extra, []).reject!(&:blank?)

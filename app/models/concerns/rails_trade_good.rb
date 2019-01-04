@@ -63,22 +63,28 @@ module RailsTradeGood
 
   def generate_order(buyer, params = {})
     o = buyer.orders.build
+
     o.currency = self.currency
 
-    oi = o.order_items.build
-    oi.good = self
+
 
     number = params.delete(:number) || 1
     amount = params.delete(:amount) || number * self.price.to_d
     extra = params.delete(:extra)
     good_name = params.delete(:name) || self.name
 
-    oi.number = number
-    oi.extra = extra
-    oi.pure_price = amount
-    oi.good_name = good_name
-    oi.compute_promote_and_serve
+    oi = o.order_items.build(
+      good: self,
+      number: number,
+      pure_price: amount,
+      buyer_type: buyer.class.name,
+      buyer_id: buyer.id,
+      extra: extra,
+      good_name: good_name,
+      promote_buyer_id: params.delete(:promote_buyer_id)
+    )
 
+    oi.compute_promote_and_serve
     o.assign_attributes params
     o.compute_sum
     o
