@@ -5,6 +5,8 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :type
       t.string :unit
       t.string :name
+      t.string :short_name
+      t.string :description
       t.datetime :start_at
       t.datetime :finish_at
       t.string :scope

@@ -1,8 +1,10 @@
 class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
-  before_action :set_promote_buyer, only: [:show, :edit, :update, :destroy]
+  before_action :set_promote_buyer, only: [:show, :destroy]
 
   def index
-    @promote_buyers = PromoteBuyer.includes(:buyer, :promote).default_where(params.permit(:buyer_id)).page(params[:page])
+    q_params = {}.with_indifferent_access
+    q_params.merge! params.permit(:promote_id, :buyer_type, :buyer_id)
+    @promote_buyers = PromoteBuyer.includes(:buyer, :promote).default_where(q_params).page(params[:page])
   end
 
   def show

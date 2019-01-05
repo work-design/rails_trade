@@ -62,9 +62,6 @@ Rails.application.routes.draw do
     resources :produces
     resources :promotes do
       get :search, on: :collection
-      patch :toggle, on: :member
-      patch :overall, on: :member
-      patch :contain, on: :member
       resources :promote_charges, as: 'charges'
     end
     resources :promote_buyers

@@ -60,12 +60,11 @@ zh:
         init: 待确认
         confirmed: 已确认
       promote/type:
-        QuantityPromote: 总重量
         NumberPromote: 购买件数
         AmountPromote: 总金额
       promote/scope:
-        total: 全部应用
-        single: 单独应用
+        total: 多个商品
+        single: 单个商品
       promote_charge/type:
         DiscountPromoteCharge: 折扣策略
         FinalPromoteCharge: 一口价策略

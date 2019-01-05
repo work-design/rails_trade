@@ -1,28 +1,37 @@
 <div class="ui top attached borderless menu">
   <div class="header item">Promote Goods</div>
+  <div class="right menu">
+    <div class="item">
+      <%= link_to 'New', new_admin_promote_good_path(promote_id: params[:promote_id]), class: 'ui teal button' %>
+    </div>
+  </div>
 </div>
 
 <div class="ui attached segment">
   <%= render 'search_form' %>
 </div>
 
-<div class="ui segment top attached">
-  <%= link_to 'New Promote Good', new_promote_good_path, class: 'ui teal button' %>
-</div>
-
 <table class="ui bottom attached table">
   <thead>
     <tr>
-      </tr>
+      <th><%= PromoteGood.human_attribute_name(:id) %></th>
+      <th><%= PromoteGood.human_attribute_name(:promote) %></th>
+      <th>
+        <%= PromoteGood.human_attribute_name(:good) %>
+      </th>
+      <th>Actions</th>
+    </tr>
   </thead>
 
   <tbody>
   <% @promote_goods.each do |promote_good| %>
     <tr>
+      <td><%= promote_good.id %></td>
+      <td><%= promote_good.promote_id %></td>
+      <td></td>
       <td>
-        <%= link_to 'Show', promote_good_path(promote_good), class: 'ui blue label' %>
-        <%= link_to 'Edit', edit_promote_good_path(promote_good), class: 'ui pink label' %>
-        <%= link_to 'Destroy', promote_good_path(promote_good), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+        <%= link_to 'Edit', edit_admin_promote_good_path(promote_good), class: 'ui pink label' %>
+        <%= link_to 'Destroy', admin_promote_good_path(promote_good), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
       </td>
     </tr>
   <% end %>

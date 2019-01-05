@@ -86,15 +86,14 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :unit,
       :type,
       :name,
+      :short_name,
+      :description,
       :start_at,
       :finish_at,
       :verified,
-      :overall,
+      :overall_goods,
       :scope,
       :discount,
-      :title,
-      :worth_name,
-      :description,
       extra: []
     )
     p.fetch(:extra, []).reject!(&:blank?)
