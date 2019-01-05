@@ -10,7 +10,8 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :scope
       t.string :extra, array: true
       t.boolean :verified, default: false
-      t.boolean :overall, default: false
+      t.boolean :overall_buyers, default: false
+      t.boolean :overall_goods, default: true
       t.boolean :contain_max, default: false
       t.integer :sequence, default: 1
       t.timestamps
@@ -37,12 +38,14 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
     create_table :promote_buyers do |t|
       t.references :buyer, polymorphic: true
       t.references :promote
+      t.string :kind
       t.timestamps
     end
 
     create_table :promote_goods do |t|
       t.references :good, polymorphic: true
       t.references :promote
+      t.string :kind
       t.timestamps
     end
 

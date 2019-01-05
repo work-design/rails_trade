@@ -7,8 +7,8 @@ class Promote < ApplicationRecord
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
 
   scope :verified, -> { where(verified: true) }
-  scope :special, -> { verified.where(overall: false) }  # 仅适用于特殊商品
-  scope :overall, -> { verified.where(overall: true) }  # 使用与所有商品
+  scope :special_goods, -> { verified.where(overall_goods: false) }  # 仅适用于特殊商品
+  scope :overall_goods, -> { verified.where(overall_goods: true) }  # 适用于所有商品
 
   after_commit :delete_cache, on: [:create, :destroy]
   after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
