@@ -1,6 +1,7 @@
 class PromoteGood < ApplicationRecord
   belongs_to :good, polymorphic: true
   belongs_to :promote
+  validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
 
   enum kind: {
     only: 'only',

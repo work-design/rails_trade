@@ -5,6 +5,8 @@ class Promote < ApplicationRecord
   attribute :sequence, :integer
 
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
+  has_many :promote_goods, dependent: :destroy
+  has_many :promote_buyers, dependent: :destroy
 
   scope :verified, -> { where(verified: true) }
   scope :special_goods, -> { verified.where(overall_goods: false) }  # 仅适用于特殊商品
