@@ -41,6 +41,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.references :buyer, polymorphic: true
       t.references :promote
       t.string :kind
+      t.string :state
       t.timestamps
     end
 

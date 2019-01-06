@@ -6,6 +6,11 @@ class PromoteBuyer < ApplicationRecord
     except: 'except'
   }, _prefix: true
 
+  enum state: {
+    unused: 'unused',
+    used: 'used'
+  }
+  
   after_initialize if: :new_record? do
     if promote&.overall_buyers
       self.kind = 'except'

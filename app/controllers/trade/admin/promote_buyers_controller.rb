@@ -11,7 +11,11 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
   end
 
   def new
-    @promote_buyer = PromoteBuyer.new(buyer_id: params[:buyer_id], promote_id: params[:promote_id])
+    @promote_buyer = PromoteBuyer.new(
+      buyer_type: params[:buyer_type],
+      buyer_id: params[:buyer_id],
+      promote_id: params[:promote_id],
+    )
   end
 
   def create
@@ -35,10 +39,13 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
   end
 
   def promote_buyer_params
-    params.fetch(:promote_buyer, {}).permit(
+    q = params.fetch(:promote_buyer, {}).permit(
+      :buyer_type,
       :buyer_id,
       :promote_id
     )
+    q[:buyer_type] = 'User' if q[:buyer_type].blank?
+    q
   end
 
 end
