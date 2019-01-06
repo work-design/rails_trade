@@ -1,4 +1,5 @@
 class PromoteBuyer < ApplicationRecord
+  attribute :state, :string, default: 'unused'
   belongs_to :promote
   belongs_to :buyer, polymorphic: true
 
@@ -9,7 +10,8 @@ class PromoteBuyer < ApplicationRecord
 
   enum state: {
     unused: 'unused',
-    used: 'used'
+    used: 'used',
+    expired: 'expired'
   }
 
   after_initialize if: :new_record? do

@@ -8,6 +8,8 @@ class OrderItem < ApplicationRecord
   attribute :number, :integer, default: 1
   attribute :amount, :decimal
   attribute :comment, :string
+  attribute :buyer_type, :string
+  attribute :buyer_id, :integer
   # advance_payment, :decimal, precision: 10, scale: 2
 
   belongs_to :order, autosave: true, inverse_of: :order_items
@@ -17,10 +19,6 @@ class OrderItem < ApplicationRecord
   has_many :order_promotes, autosave: true
   has_many :order_serves, autosave: true
   has_many :serves, through: :order_serves
-
-  attribute :buyer_type, :string
-  attribute :buyer_id, :integer
-  attribute :promote_id, :integer
 
   after_initialize if: :new_record? do |oi|
     init_from_cart_item if cart_item

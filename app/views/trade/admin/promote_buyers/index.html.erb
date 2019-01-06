@@ -14,10 +14,10 @@
 <table class="ui bottom attached table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Buyer</th>
-      <th>Promote</th>
-      <th>Scope</th>
+      <th><%= PromoteBuyer.human_attribute_name(:id) %></th>
+      <th><%= PromoteBuyer.human_attribute_name(:buyer) %></th>
+      <th><%= PromoteBuyer.human_attribute_name(:promote) %></th>
+      <th><%= PromoteBuyer.human_attribute_name(:state) %></th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -28,7 +28,7 @@
       <td><%= promote_buyer.id %></td>
       <td><%= promote_buyer.buyer.name %></td>
       <td><%= promote_buyer.promote.name %></td>
-      <td><%= promote_buyer.promote.scope %></td>
+      <td><%= promote_buyer.state_i18n %></td>
       <td>
         <%= link_to 'Destroy', admin_promote_buyer_path(promote_buyer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
       </td>
