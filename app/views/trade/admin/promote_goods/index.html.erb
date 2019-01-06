@@ -19,6 +19,7 @@
       <th>
         <%= PromoteGood.human_attribute_name(:good) %>
       </th>
+      <th><%= PromoteGood.human_attribute_name(:kind) %></th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -29,6 +30,7 @@
       <td><%= promote_good.id %></td>
       <td><%= promote_good.promote_id %></td>
       <td></td>
+      <td><%= promote_good.kind %></td>
       <td>
         <%= link_to 'Edit', edit_admin_promote_good_path(promote_good), class: 'ui pink label' %>
         <%= link_to 'Destroy', admin_promote_good_path(promote_good), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>

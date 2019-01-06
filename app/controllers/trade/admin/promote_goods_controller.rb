@@ -7,6 +7,15 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
     @promote_goods = PromoteGood.default_where(q_params).page(params[:page])
   end
 
+  def goods
+    goods = params[:good_type].constantize.page(params[:page])
+    @goods = goods.map { |i| { name: i.name_detail, value: i.id } }
+    respond_to do |format|
+      format.json { render json: { results: @goods } }
+      format.js
+    end
+  end
+
   def show
   end
 

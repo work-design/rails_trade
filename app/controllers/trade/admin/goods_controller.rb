@@ -1,4 +1,4 @@
-class Trade::GoodsController < ApplicationController
+class Trade::Admin::GoodsController < Trade::Admin::BaseController
   before_action :set_good, only: [:show, :produce]
 
   def index
@@ -10,6 +10,12 @@ class Trade::GoodsController < ApplicationController
       format.html.phone
       format.json { render json: @goods }
     end
+  end
+
+  def search
+    @goods = params[:good_type].constantize.default_where('')
+    @buyers = RailsTrade.buyer_class.default_where('name-like': params[:q])
+    render json: { results: @buyers.as_json(only: [:id], methods: [:name_detail]) }
   end
 
   def item

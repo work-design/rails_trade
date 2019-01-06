@@ -65,7 +65,9 @@ Rails.application.routes.draw do
       resources :promote_charges, as: 'charges'
     end
     resources :promote_buyers
-    resources :promote_goods
+    resources :promote_goods do
+      get :goods, on: :collection
+    end
     resources :refunds do
       patch :confirm, on: :member
       patch :deny, on: :member
