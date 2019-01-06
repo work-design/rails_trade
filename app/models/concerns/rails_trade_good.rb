@@ -32,7 +32,7 @@ module RailsTradeGood
                   ['extra', 'extra']
                 ],
                 constructor: Proc.new { |id, extra| PromoteFee.new(self.name, id, extra: Hash(self.class_extra).merge(extra)) }
-    RailsTrade.good_classes << self.name
+    RailsTrade.good_classes << self.name unless RailsTrade.good_classes.include?(self.name)
   end
 
   def name_detail

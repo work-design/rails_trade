@@ -25,7 +25,7 @@ module RailsTradeBuyer
     def self.credit_ids
       PaymentStrategy.where.not(period: 0).pluck(:id)
     end
-    RailsTrade.buyer_classes << self.name
+    RailsTrade.buyer_classes << self.name unless RailsTrade.buyer_classes.include?(self.name)
   end
 
   def name_detail

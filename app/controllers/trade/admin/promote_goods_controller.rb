@@ -8,8 +8,8 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   end
 
   def goods
-    goods = params[:good_type].constantize.page(params[:page])
-    @goods = goods.map { |i| { name: i.name_detail, value: i.id } }
+    @goods = params[:good_type].constantize.page(params[:page])
+    @promote_good = PromoteGood.new
     respond_to do |format|
       format.json { render json: { results: @goods } }
       format.js
@@ -30,7 +30,7 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
     @promote_good = PromoteGood.new(promote_good_params)
 
     if @promote_good.save
-      redirect_to @promote_good, notice: 'Promote good was successfully created.'
+      redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id), notice: 'Promote good was successfully created.'
     else
       render :new
     end
@@ -45,8 +45,8 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   end
 
   def destroy
-  @promote_good.destroy
-    redirect_to promote_goods_url, notice: 'Promote good was successfully destroyed.'
+    @promote_good.destroy
+    redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id), notice: 'Promote good was successfully destroyed.'
   end
 
   private
@@ -55,7 +55,11 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   end
 
   def promote_good_params
-    params.fetch(:promote_good, {}).permit()
+    params.fetch(:promote_good, {}).permit(
+      :promote_id,
+      :good_type,
+      :good_id
+    )
   end
 
 end
