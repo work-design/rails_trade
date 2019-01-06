@@ -6,4 +6,12 @@ class PromoteBuyer < ApplicationRecord
     except: 'except'
   }, _prefix: true
 
+  after_initialize if: :new_record? do
+    if promote&.overall_buyers
+      self.kind = 'except'
+    else
+      self.kind = 'only'
+    end
+  end
+
 end unless RailsTrade.config.disabled_models.include?('PromoteBuyer')

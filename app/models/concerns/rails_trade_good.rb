@@ -16,7 +16,6 @@ module RailsTradeGood
     has_many :orders, through: :order_items
 
     has_many :promote_goods, as: :good
-    has_many :promotes, through: :promote_goods
 
     composed_of :serve,
                 class_name: 'ServeFee',
@@ -56,7 +55,13 @@ module RailsTradeGood
   end
 
   def all_promotes
-    Promote.default_where('promote_goods.good_type': self.class.name, 'promote_goods.good_id': [nil, self.id])
+    except_ids = PromoteGood.kind_except.where(good_id: self.id).pluck(:promote_id)
+    overalls = Promote.overall_goods.where.not(id: except_ids)
+
+    only_ids = PromoteGood.kind_except.where(good_id: self.id).pluck(:promote_id)
+    specials = Promote.special_goods.where(id: only_ids)
+
+    overalls + specials
   end
 
   def generate_order!(buyer, params = {})
