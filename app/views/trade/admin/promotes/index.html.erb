@@ -74,8 +74,8 @@
         <% end %>
       </td>
       <td>
-        <%= link_to '适用商品', admin_promote_goods_path(promote_id: promote.id) %>
-        <%= link_to '优惠券发放', admin_promote_buyers_path(promote_id: promote.id) %>
+        <%= link_to '适用商品', admin_promote_goods_path(promote_id: promote.id), class: 'ui mini button' %>
+        <%= link_to '优惠券发放', admin_promote_buyers_path(promote_id: promote.id), class: 'ui mini button' %>
       </td>
       <td class="ui labels">
         <%= link_to '详细', admin_promote_charges_path(promote), class: 'ui green label' %>

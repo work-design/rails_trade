@@ -5,6 +5,9 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
     q_params = {}.with_indifferent_access
     q_params.merge! params.permit(:promote_id, :good_type, :good_id)
     @promote_goods = PromoteGood.default_where(q_params).page(params[:page])
+    if params[:promote_id]
+      @promote = Promote.find params[:promote_id]
+    end
   end
 
   def goods

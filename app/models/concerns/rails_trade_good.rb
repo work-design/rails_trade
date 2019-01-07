@@ -63,10 +63,10 @@ module RailsTradeGood
 
     all_ids = overall_good_ids + special_good_ids
     if buyer
-      buyer_ids = buyer.promote_buyers.pluck(:promote_id)
-      all_buyer_ids = Promote.special_buyers.overall_goods.where(id: buyer_ids).where.not(id: except_ids).pluck(:id)
-      special_buyer_ids = Promote.special_buyers.special_goods.where(id: buyer_ids).where(id: only_ids).pluck(:id)
-      all_ids += all_buyer_ids + special_buyer_ids
+      unused_promote_ids = buyer.promote_buyers.unused.pluck(:promote_id)
+      all_promote_ids = Promote.special_buyers.overall_goods.where(id: unused_promote_ids).where.not(id: except_ids).pluck(:id)
+      special_promote_ids = Promote.special_buyers.special_goods.where(id: unused_promote_ids).where(id: only_ids).pluck(:id)
+      all_ids += all_promote_ids + special_promote_ids
     end
 
     Promote.where(id: all_ids)
@@ -79,6 +79,7 @@ module RailsTradeGood
     o
   end
 
+  # todo selected promote ids
   def generate_order(buyer, params = {})
     o = buyer.orders.build
 
@@ -97,7 +98,6 @@ module RailsTradeGood
       buyer_id: buyer.id,
       extra: extra,
       good_name: good_name
-      #promote_buyer_id: params.delete(:promote_buyer_id)
     )
 
     oi.compute_promote_and_serve

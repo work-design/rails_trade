@@ -5,6 +5,9 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
     q_params = {}.with_indifferent_access
     q_params.merge! params.permit(:promote_id, :buyer_type, :buyer_id)
     @promote_buyers = PromoteBuyer.includes(:buyer, :promote).default_where(q_params).page(params[:page])
+    if params[:promote_id]
+      @promote = Promote.find params[:promote_id]
+    end
   end
 
   def show

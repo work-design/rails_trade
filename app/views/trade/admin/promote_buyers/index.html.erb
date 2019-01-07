@@ -1,3 +1,13 @@
+<div class="ui segment breadcrumb">
+  <%= link_to 'All Promotes', admin_promotes_path, class: 'section' %>
+  <% if params[:promote_id] %>
+    <div class="divider">/</div>
+    <div class="active section"><%= @promote.name %></div>
+  <% end %>
+  <div class="divider">/</div>
+  <div class="active section">派发用户</div>
+</div>
+
 <div class="ui top attached borderless menu">
   <div class="item header">Promote Buyers</div>
   <div class="right menu">
