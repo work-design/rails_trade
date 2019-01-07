@@ -67,8 +67,4 @@ class CartService
     @total_price ||= bulk_price + reduced_price + promote_price + @total_serve_price
   end
 
-  def migrate_to_order
-
-  end
-
 end

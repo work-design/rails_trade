@@ -75,12 +75,12 @@ class CartItem < ApplicationRecord
 
   def sync_cart_charges
     serve.charges.each do |charge|
-      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal)
+      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal, scope: 'single')
       cart_serve.save
     end
 
     serve.promotes.each do |charge|
-      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal)
+      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal, scope: 'single')
       cart_promote.save
     end
   end
