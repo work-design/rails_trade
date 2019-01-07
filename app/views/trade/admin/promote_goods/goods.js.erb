@@ -1,3 +1,2 @@
 <% form_object = default_form_object(@promote_good) %>
 $('#promote_good_good_id').html('<%= j(render partial: 'goods_options', locals: { f: form_object }) %>');
-$('#promote_good_good_id').dropdown('setup menu')
