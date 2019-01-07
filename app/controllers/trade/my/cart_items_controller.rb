@@ -22,7 +22,7 @@ class Trade::My::CartItemsController < Trade::My::BaseController
     render 'index'
   end
 
-  def total
+  def check
     if params[:add_id].present?
       @add = current_cart.find_by(id: params[:add_id])
       @add.update(checked: true)
