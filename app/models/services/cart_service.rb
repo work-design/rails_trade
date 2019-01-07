@@ -11,7 +11,6 @@ class CartService
                 :reduced_price,
                 :total_quantity
 
-
   def initialize(buyer_type: 'User', buyer_id: nil, session_id: nil, cart_item_id: nil, myself: nil, extra: {})
     if cart_item_id
       @checked_items = CartItem.where(id: cart_item_id)
@@ -25,22 +24,12 @@ class CartService
       @checked_items = CartItem.none
     end
     @extra = extra
-    compute_total
     compute_promote
     compute_serve
   end
 
   def compute_price
     self.bulk_price = @checked_items.sum(&:bulk_price)
-  end
-
-  def compute_total
-    compute_price
-    self.reduced_price = @checked_items.sum(&:reduced_price)
-    self.discount_price = @checked_items.sum(&:discount_price)
-    self.retail_price = @checked_items.sum(&:retail_price)
-    self.final_price = @checked_items.sum(&:final_price)
-    self.total_quantity = @checked_items.sum(&:total_quantity)
   end
 
   def compute_promote

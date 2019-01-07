@@ -30,6 +30,13 @@ OrderItem <=> Shipment
  
 * Provider
 
+## 购物车中价格字段说明
+
+cart/cart_item 中价格字段说明
+
+* single_price: 商品单价
+* original_price: 商品原价
+
 ## 注意
 * Order: amount, received_amount
 * Payment: total_amount, checked_amount

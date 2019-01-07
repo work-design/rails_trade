@@ -5,9 +5,11 @@ class CartItem < ApplicationRecord
   attribute :number, :integer, default: 1
   attribute :myself, :boolean, default: true
   attribute :extra, :json
+  attribute :single_price, :decimal  # 单价
   attribute :original_price, :decimal  # 商品原价
   attribute :retail_price, :decimal  # 单个商品零售价(商品原价 + 服务价)
-  attribute :serve_price, :decimal    # 附加服务价格汇总
+  attribute :serve_price, :decimal  # 附加服务价格汇总
+  attribute :bulk_price, :decimal  # 多个商品批发价
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
@@ -34,28 +36,24 @@ class CartItem < ApplicationRecord
   def total_quantity
     good.unified_quantity.to_d * self.number
   end
-  
-  # 多个商品批发价
-  def bulk_price
-    original_price + serve_price
-  end
+
+
 
   # 批发价和零售价之间的差价，即批发折扣
   def discount_price
     bulk_price - retail_price
   end
 
-  # 最终价格
   def final_price
     self.bulk_price + self.reduced_price
   end
 
   def total_serve_price
-    total_serve_charges.sum(&:subtotal)
+    total.serve_charges.sum(:amount)
   end
 
   def total_promote_price
-    total.promote_charges.sum(&:subtotal)
+    total.promote_charges.sum(:amount)
   end
 
   def estimate_price
@@ -63,11 +61,16 @@ class CartItem < ApplicationRecord
   end
 
   def sync_amount
+    self.single_price = good.price
+
     self.original_price = good.price.to_d * number
-    self.retail_price = self.good.retail_price * number
+    self.retail_price = good.retail_price * number
     self.serve_price = cart_serves.sum(:amount)
-    self.reduced_price = -self.promote.subtotal  # 促销价格
-    self.amount = self.good.price * number
+    self.bulk_price = original_price + serve_price
+
+    self.reduced_price = -cart_promotes.sum(:amount)  # 促销价格
+
+    self.amount = self.bulk_price + self.reduced_price  # 最终价格
   end
 
   def sync_cart_charges
@@ -84,12 +87,12 @@ class CartItem < ApplicationRecord
 
   def total_cart_charges
     total.serve_charges.each do |charge|
-      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal)
+      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal, scope: 'total')
       cart_serve.save
     end
 
     total.promote_charges.each do |charge|
-      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal)
+      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal, scope: 'total')
       cart_promote.save
     end
   end

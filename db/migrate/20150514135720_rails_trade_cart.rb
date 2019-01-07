@@ -13,10 +13,10 @@ class RailsTradeCart < ActiveRecord::Migration[5.2]
       t.references :good, polymorphic: true
       t.string :session_id, limit: 128
       t.string :status
-      t.integer :number
       t.boolean :checked, default: false
       t.boolean :myself
       t.boolean :archived, default: false
+      t.integer :number
       t.decimal :price, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       if connection.adapter_name == 'PostgreSQL'
