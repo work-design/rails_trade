@@ -3,6 +3,7 @@ class CartItem < ApplicationRecord
 
   attribute :status, :string, default: 'init'
   attribute :number, :integer, default: 1
+  attribute :myself, :boolean, default: true
   attribute :extra, :json
 
   belongs_to :buyer, polymorphic: true, optional: true
@@ -15,7 +16,6 @@ class CartItem < ApplicationRecord
 
   enum status: {
     init: 'init',
-    pending: 'pending',
     ordered: 'ordered',
     deleted: 'deleted'
   }
@@ -27,18 +27,14 @@ class CartItem < ApplicationRecord
     good.unified_quantity.to_d * self.number
   end
 
-  # 零售价
-  def retail_price
-    self.good.retail_price * self.number
-  end
-
-  def discount_price
-    bulk_price - retail_price
-  end
-
   # 商品原价
   def pure_price
     good.price.to_d * number
+  end
+
+  # 单个商品零售价(商品原价 + 服务价)
+  def retail_price
+    self.good.retail_price * number
   end
 
   # 附加服务价格汇总
@@ -46,16 +42,22 @@ class CartItem < ApplicationRecord
     serve_charges.sum(&:subtotal)
   end
 
+  # 多个商品批发价
+  def bulk_price
+    pure_price + serve_price
+  end
+
+  # 批发价和零售价之间的差价，即批发折扣
+  def discount_price
+    bulk_price - retail_price
+  end
+
   # 促销价格
   def reduced_price
     self.promote.subtotal
   end
 
-  # 批发价
-  def bulk_price
-    pure_price + serve_price
-  end
-
+  # 最终价格
   def final_price
     self.bulk_price + self.reduced_price
   end
@@ -142,22 +144,7 @@ class CartItem < ApplicationRecord
   end
 
   def total
-    relation = CartItem.where(id: self.id)
-    SummaryService.new(relation, buyer_type: self.buyer_type, buyer_id: self.buyer_id, extra: self.extra)
-  end
-
-  def self.checked_items(buyer_type: nil, buyer_id: nil, session_id: nil, myself: nil, extra: self.extra)
-    if buyer_id
-      @checked_items = CartItem.default_where(buyer_type: buyer_type, buyer_id: buyer_id, myself: myself).pending.checked
-      puts "-----> Checked Buyer: #{buyer_id}"
-    elsif session_id
-      @checked_items = CartItem.default_where(session_id: session_id, myself: myself).pending.checked
-      puts "-----> Checked Session: #{session_id}"
-    else
-      @checked_items = CartItem.none
-      puts "-----> Checked None!"
-    end
-    SummaryService.new(@checked_items, buyer_type: buyer_type, buyer_id: buyer_id, extra: extra)
+    CartItemService.new(cart_item_id: self.id, extra: self.extra)
   end
 
   def self.good_types

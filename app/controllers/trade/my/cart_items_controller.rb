@@ -3,24 +3,21 @@ class Trade::My::CartItemsController < Trade::My::BaseController
   before_action :set_additions
 
   def index
-    @cart_items = current_cart.pending
-    @checked_ids = @cart_items.checked.pluck(:id)
+    @checked_ids = current_cart.checked.pluck(:id)
   end
 
   def create
-    cart_item = current_cart.where(good_id: params[:good_id], good_type: params[:good_type]).first
-    params[:quantity] ||= 1
+    cart_item = current_cart.find_by(good_id: params[:good_id], good_type: params[:good_type])
+    params[:number] ||= 1
     if cart_item.present?
-      cart_item.quantity = cart_item.quantity + params[:quantity].to_i
-      cart_item.status = 'pending'
-      cart_item.myself = false
+      cart_item.number = cart_item.number + params[:number].to_i
       cart_item.save
     else
-      cart_item = @cart_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], status: 'pending', myself: true)
+      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
       cart_item.save
     end
 
-    @checked_ids = @cart_items.checked.pluck(:id)
+    @checked_ids = current_cart.checked.pluck(:id)
 
     render 'index'
   end
@@ -33,10 +30,15 @@ class Trade::My::CartItemsController < Trade::My::BaseController
       @remove = current_cart.find_by(id: params[:remove_id])
       @remove.update(checked: false)
     end
+
+    respond_to do |format|
+      format.js
+      format.json { render 'cart_item' }
+    end
   end
 
   def update
-    @cart_item.update(quantity: params[:quantity])
+    @cart_item.update(number: params[:number])
   end
 
   def destroy
@@ -67,9 +69,9 @@ class Trade::My::CartItemsController < Trade::My::BaseController
 
   def current_cart
     if current_buyer
-      @cart_items = current_buyer.cart_items
+      @cart_items = current_buyer.cart_items.init
     else
-      @cart_items = CartItem.where(session_id: session.id)
+      @cart_items = CartItem.where(session_id: session.id).init
     end
   end
 

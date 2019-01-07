@@ -15,26 +15,11 @@ function decrease_quantity(cart_item_id){
 function update_quantity(cart_item_id){
   var q = $('#quantity_' + cart_item_id);
   var url = '/my/cart_items/' + cart_item_id;
-  var params = {
-    method: 'PATCH',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
-    },
-    body: JSON.stringify({
-      quantity: q.val()
-    })
-  };
-  fetch(url, params).then(function(response) {
-    return response.text()
-  }).then(function(response) {
-    var script = document.createElement('script');
-    script.text = response;
-    document.head.appendChild(script).parentNode.removeChild(script);
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
+  var body = JSON.stringify({
+    quantity: q.val()
   })
+  
+  Rails.ajax({ url: url, type: 'PATCH', dataType: 'script', data: body })
 }
 
 $('input[name="cart_item_id"]').change(function(){
@@ -44,22 +29,8 @@ $('input[name="cart_item_id"]').change(function(){
   } else {
     total_url = '/my/cart_items/total' + '?remove_id=' + this.value;
   }
-  var params = {
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/js',
-      'X-CSRF-Token': document.head.querySelector("[name=csrf-token]").content
-    }
-  };
-  fetch(total_url, params).then(function(response) {
-    return response.text()
-  }).then(function(response) {
-    var script = document.createElement('script');
-    script.text = response;
-    document.head.appendChild(script).parentNode.removeChild(script);
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
-  })
+
+  Rails.ajax({ url: total_url, type: 'GET', dataType: 'script' })
 });
 
 

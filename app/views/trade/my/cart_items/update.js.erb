@@ -1,8 +1,3 @@
 $("#retail_price_<%= @cart_item.id %>").html('<%= @cart_item.retail_price %>');
-
 $("#discount_price_<%= @cart_item.id %>").html('<%= j(render partial: 'single_price', locals: { cart_item: @cart_item }) %>');
 
-
-$('#additions_body').html('<%= j(render partial: 'additions') %>');
-
-$('#total_price').html('<%= j(render partial: 'total_price') %>');

@@ -1,5 +1,3 @@
-$('#additions_body').html('<%= j(render partial: 'additions') %>');
-$('#total_price').html('<%= j(render partial: 'total_price') %>');
 
 <% if params[:add_id].present? %>
   $("#cart_item_<%= params[:add_id] %>").addClass('active');
@@ -8,4 +6,3 @@ $('#total_price').html('<%= j(render partial: 'total_price') %>');
 <% if params[:remove_id].present? %>
   $("#cart_item_<%= params[:remove_id] %>").removeClass('active');
 <% end %>
-
