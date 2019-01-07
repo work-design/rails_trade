@@ -1,13 +1,11 @@
 require 'monetize'
 module RailsTrade
   class Engine < ::Rails::Engine
-
-    config.autoload_paths += Dir[
-      "#{config.root}/app/models/payment_interface",
-      "#{config.root}/app/models/rails_trade"
-    ]
-
+    
     config.eager_load_paths += Dir[
+      "#{config.root}/app/models/payment_interface",
+      "#{config.root}/app/models/rails_trade",
+      "#{config.root}/app/models/services",
       "#{config.root}/app/models/rails_trade/payment_interface",
       "#{config.root}/app/models/rails_trade/payments",
       "#{config.root}/app/models/rails_trade/payment_methods",
