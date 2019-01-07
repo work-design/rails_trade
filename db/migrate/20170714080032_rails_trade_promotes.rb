@@ -3,9 +3,9 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
 
     create_table :promotes do |t|
       t.string :type
-      t.string :unit
       t.string :name
       t.string :short_name
+      t.string :code
       t.string :description
       t.datetime :start_at
       t.datetime :finish_at

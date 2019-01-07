@@ -20,7 +20,7 @@
       <th><%= Promote.human_attribute_name(:type) %></th>
       <th>
         <p><%= Promote.human_attribute_name(:name) %></p>
-        <p><%= Promote.human_attribute_name(:short_name) %></p>
+        <p><%= Promote.human_attribute_name(:short_name) %>(<%= Promote.human_attribute_name(:code) %>)</p>
       </th>
       <th><%= Promote.human_attribute_name(:scope) %></th>
       <th>
@@ -45,7 +45,7 @@
       <td><%= promote.type_i18n %></td>
       <td>
         <p><%= promote.name %></p>
-        <p><%= promote.short_name %></p>
+        <p><%= promote.short_name %>(<%= promote.code %>)</p>
       </td>
       <td><%= promote.scope_i18n %></td>
       <td>

@@ -14,6 +14,8 @@ class Promote < ApplicationRecord
   scope :overall_buyers, -> { verified.where(overall_buyers: true) }  # 适用于所有顾客
   scope :special_buyers, -> { verified.where(overall_buyers: false) }  # 仅适用于特定顾客
 
+  validates :code, uniqueness: true
+
   after_commit :delete_cache, on: [:create, :destroy]
   after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
 

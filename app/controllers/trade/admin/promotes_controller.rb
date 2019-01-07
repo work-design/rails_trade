@@ -63,9 +63,9 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
   def promote_params
     p = params.fetch(:promote, {}).permit(
-      :unit,
       :type,
       :name,
+      :code,
       :short_name,
       :description,
       :start_at,
