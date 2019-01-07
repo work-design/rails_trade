@@ -5,6 +5,9 @@ class CartItem < ApplicationRecord
   attribute :number, :integer, default: 1
   attribute :myself, :boolean, default: true
   attribute :extra, :json
+  attribute :original_price, :decimal  # 商品原价
+  attribute :retail_price, :decimal  # 单个商品零售价(商品原价 + 服务价)
+  attribute :serve_price, :decimal    # 附加服务价格汇总
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
@@ -26,39 +29,20 @@ class CartItem < ApplicationRecord
   validates :session_id, presence: true, if: -> { buyer_id.blank?  }
 
   after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
+  before_save :sync_amount
 
   def total_quantity
     good.unified_quantity.to_d * self.number
   end
-
-  # 商品原价
-  def pure_price
-    good.price.to_d * number
-  end
-
-  # 单个商品零售价(商品原价 + 服务价)
-  def retail_price
-    self.good.retail_price * number
-  end
-
-  # 附加服务价格汇总
-  def serve_price
-    cart_serves.sum(:amount)
-  end
-
+  
   # 多个商品批发价
   def bulk_price
-    pure_price + serve_price
+    original_price + serve_price
   end
 
   # 批发价和零售价之间的差价，即批发折扣
   def discount_price
     bulk_price - retail_price
-  end
-
-  # 促销价格
-  def reduced_price
-    self.promote.subtotal
   end
 
   # 最终价格
@@ -76,6 +60,14 @@ class CartItem < ApplicationRecord
 
   def estimate_price
     final_price + total_serve_price + total_promote_price
+  end
+
+  def sync_amount
+    self.original_price = good.price.to_d * number
+    self.retail_price = self.good.retail_price * number
+    self.serve_price = cart_serves.sum(:amount)
+    self.reduced_price = -self.promote.subtotal  # 促销价格
+    self.amount = self.good.price * number
   end
 
   def sync_cart_charges
