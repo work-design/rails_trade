@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       get :total, on: :collection
       get :doc, on: :collection
       get :only, on: :collection
-      resources :cart_item_serves do
+      resources :cart_serves do
         get :single, on: :collection
         get :total, on: :collection
         post :add, on: :collection

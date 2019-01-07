@@ -1,4 +1,5 @@
-class RailsTradeInit < ActiveRecord::Migration[5.2]
+class RailsTradeOrder < ActiveRecord::Migration[5.2]
+
   def change
 
     create_table :orders do |t|
@@ -42,23 +43,6 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       end
     end
 
-    create_table :cart_items do |t|
-      t.references :buyer, polymorphic: true
-      t.references :good, polymorphic: true
-      t.string :session_id, limit: 128
-      t.string :status
-      t.integer :number
-      t.boolean :checked, default: false
-      t.boolean :myself
-      t.boolean :archived, default: false
-      t.timestamps
-      if connection.adapter_name == 'PostgreSQL'
-        t.jsonb :extra
-      else
-        t.json :extra
-      end
-    end
-
     create_table :payment_strategies do |t|
       t.string :name
       t.string :strategy
@@ -89,4 +73,5 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
     end
 
   end
+
 end

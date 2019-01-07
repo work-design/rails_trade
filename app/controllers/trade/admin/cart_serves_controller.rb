@@ -1,4 +1,4 @@
-class Trade::Admin::CartItemServesController < Trade::Admin::BaseController
+class Trade::Admin::CartServesController < Trade::Admin::BaseController
   before_action :set_cart_item
 
   def index
@@ -14,8 +14,8 @@ class Trade::Admin::CartItemServesController < Trade::Admin::BaseController
   end
 
   def new
-    @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: params[:serve_id])
-    @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
+    @cart_serve = @cart_item.cart_serves.find_or_initialize_by(serve_id: params[:serve_id])
+    @serve_charge = @cart_item.get_charge(@cart_serve.serve)
   end
 
   def create

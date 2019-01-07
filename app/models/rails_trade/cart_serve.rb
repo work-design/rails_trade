@@ -12,4 +12,14 @@ class CartItemServe < ApplicationRecord
     self.scope = self.serve.scope
   end
 
+  def get_charge
+    charge = self.cart_item.serve.get_charge(serve)
+    cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
+    if cart_item_serve.persisted?
+      charge.cart_item_serve = cart_item_serve
+      charge.subtotal = cart_item_serve.price
+    end
+    charge
+  end
+
 end unless RailsTrade.config.disabled_models.include?('CartItemServe')

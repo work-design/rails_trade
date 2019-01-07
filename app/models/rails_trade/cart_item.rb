@@ -8,7 +8,8 @@ class CartItem < ApplicationRecord
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
-  has_many :cart_item_serves, -> { includes(:serve) }, dependent: :destroy
+  has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
+  has_many :cart_promotes, dependent: :destroy
   has_many :order_items, dependent: :nullify
 
   scope :valid, -> { where(status: 'pending', myself: true) }
@@ -74,16 +75,6 @@ class CartItem < ApplicationRecord
     final_price + total_serve_price + total_promote_price
   end
 
-  def get_charge(serve)
-    charge = self.serve.get_charge(serve)
-    cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
-    if cart_item_serve.persisted?
-      charge.cart_item_serve = cart_item_serve
-      charge.subtotal = cart_item_serve.price
-    end
-    charge
-  end
-
   def serve_charges
     charges = []
     serve.charges.each do |charge|
@@ -124,10 +115,6 @@ class CartItem < ApplicationRecord
     charges
   end
 
-  def total_promote_charges
-    total.promote_charges
-  end
-
   def for_select_serves
     @for_sales = Serve.for_sale.where.not(id: cart_item_serves.map(&:serve_id).uniq)
     @for_sales.map do |serve|
@@ -144,7 +131,7 @@ class CartItem < ApplicationRecord
   end
 
   def total
-    CartItemService.new(cart_item_id: self.id, extra: self.extra)
+    CartService.new(cart_item_id: self.id, extra: self.extra)
   end
 
   def self.good_types

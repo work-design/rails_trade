@@ -7,4 +7,4 @@ class OrderPromote < ApplicationRecord
   belongs_to :promote
   belongs_to :promote_charge, optional: true
 
-end unless RailsTrade.config.disabled_models.include?('OrderPromtote')
+end unless RailsTrade.config.disabled_models.include?('OrderPromote')
