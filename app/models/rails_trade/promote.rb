@@ -9,12 +9,15 @@ class Promote < ApplicationRecord
   has_many :promote_buyers, dependent: :destroy
 
   scope :verified, -> { where(verified: true) }
-  scope :overall_goods, -> { verified.where(overall_goods: true) }  # 适用于所有商品
-  scope :special_goods, -> { verified.where(overall_goods: false) }  # 仅适用于特定商品
-  scope :overall_buyers, -> { verified.where(overall_buyers: true) }  # 适用于所有顾客
-  scope :special_buyers, -> { verified.where(overall_buyers: false) }  # 仅适用于特定顾客
+  scope :overall_goods, -> { valid.where(overall_goods: true) }  # 适用于所有商品
+  scope :special_goods, -> { valid.where(overall_goods: false) }  # 仅适用于特定商品
+  scope :overall_buyers, -> { valid.where(overall_buyers: true) }  # 适用于所有顾客
+  scope :special_buyers, -> { valid.where(overall_buyers: false) }  # 仅适用于特定顾客
+  scope :valid, -> { t = Time.now; verified.default_where('start_at-lte': t, 'finish_at-gte': t) }
 
   validates :code, uniqueness: true
+  validates :start_at, presence: true
+  validates :finish_at, presence: true
 
   after_commit :delete_cache, on: [:create, :destroy]
   after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }

@@ -3,6 +3,10 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
   def index
     @promotes = Promote.default_where(params.permit(:scope)).order(id: :desc).page(params[:page])
+    respond_to do |format|
+      format.json
+      format.html
+    end
   end
 
   def search

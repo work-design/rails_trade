@@ -1,11 +1,11 @@
-<%= f.text_field :name %>
+<%= f.text_field :name, required: true %>
 <%= f.text_field :short_name %>
 <%= f.text_field :code %>
 <%= f.text_field :description %>
 <%= f.select :type, options_for_select(Promote.options_i18n(:type), @promote.type) %>
 <%= f.select :scope, options_for_select(Promote.options_i18n(:scope), @promote.scope) %>
-<%= f.datetime_field :start_at %>
-<%= f.datetime_field :finish_at %>
+<%= f.datetime_field :start_at, required: true %>
+<%= f.datetime_field :finish_at, required: true %>
 <%= f.number_field :sequence %>
 <%= f.select :extra, options_for_select(PromoteCharge.extra_options, @promote.extra), {}, { multiple: true } %>
 <%= f.submit %>
