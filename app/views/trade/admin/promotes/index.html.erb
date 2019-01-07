@@ -28,7 +28,10 @@
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
       <th><%= Promote.human_attribute_name(:verified) %></th>
-      <th><%= Promote.human_attribute_name(:overall_goods) %></th>
+      <th>
+        <p><%= Promote.human_attribute_name(:overall_goods) %></p>
+        <p><%= Promote.human_attribute_name(:overall_buyers) %></p>
+      </th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:extra) %></th>
       <th></th>
@@ -57,6 +60,11 @@
       <td>
         <div class="ui toggle checkbox">
           <%= check_box_tag 'promote[overall_goods]', nil, promote.overall_goods, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
+          <label><%= Promote.human_attribute_name(:overall_goods) %></label>
+        </div>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag 'promote[overall_buyers]', nil, promote.overall_buyers, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
+          <label><%= Promote.human_attribute_name(:overall_buyers) %></label>
         </div>
       </td>
       <td><%= promote.sequence %></td>

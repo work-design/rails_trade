@@ -1,6 +1,11 @@
 class PromoteCharge < ApplicationRecord
   include ChargeModel
   attribute :subtotal, :decimal
+  attribute :min, :integer
+  attribute :max, :integer
+  attribute :parameter, :decimal
+  attribute :type, :string     # SingleCharge / TotalCharge
+
   belongs_to :item, class_name: 'Promote', inverse_of: :charges, foreign_key: :promote_id
 
   validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
@@ -11,8 +16,3 @@ class PromoteCharge < ApplicationRecord
   end
 
 end unless RailsTrade.config.disabled_models.include?('PromoteCharge')
-
-# :min, :integer
-# :max, :integer
-# :price, :decimal
-# :type, :string     # SingleCharge / TotalCharge

@@ -54,14 +54,22 @@ module RailsTradeGood
     Serve.default_where('serve_goods.good_type': self.class.name, 'serve_goods.good_id': [nil, self.id])
   end
 
-  def all_promotes
+  def all_promotes(buyer = nil)
     except_ids = PromoteGood.kind_except.where(good_id: self.id).pluck(:promote_id)
-    overalls = Promote.overall_goods.where.not(id: except_ids)
+    overall_good_ids = Promote.overall_buyers.overall_goods.where.not(id: except_ids).pluck(:id)
 
-    only_ids = PromoteGood.kind_except.where(good_id: self.id).pluck(:promote_id)
-    specials = Promote.special_goods.where(id: only_ids)
+    only_ids = PromoteGood.kind_only.where(good_id: self.id).pluck(:promote_id)
+    special_good_ids = Promote.overall_buyers.special_goods.where(id: only_ids).pluck(:id)
 
-    overalls + specials
+    all_ids = overall_good_ids + special_good_ids
+    if buyer
+      buyer_ids = buyer.promote_buyers.pluck(:promote_id)
+      all_buyer_ids = Promote.special_buyers.overall_goods.where(id: buyer_ids).where.not(id: except_ids).pluck(:id)
+      special_buyer_ids = Promote.special_buyers.special_goods.where(id: buyer_ids).where(id: only_ids).pluck(:id)
+      all_ids += all_buyer_ids + special_buyer_ids
+    end
+
+    Promote.where(id: all_ids)
   end
 
   def generate_order!(buyer, params = {})

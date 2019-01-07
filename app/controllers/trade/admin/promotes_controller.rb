@@ -1,8 +1,8 @@
 class Trade::Admin::PromotesController < Trade::Admin::BaseController
-  before_action :set_promote, only: [:show, :edit, :update, :toggle, :discount, :overall, :destroy]
+  before_action :set_promote, only: [:show, :edit, :update, :destroy]
 
   def index
-    @promotes = Promote.default_where(params.permit(:scope)).page(params[:page])
+    @promotes = Promote.default_where(params.permit(:scope)).order(id: :desc).page(params[:page])
   end
 
   def search
@@ -48,26 +48,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
     end
   end
 
-  def discount
-    if params[:discount] == '1'
-      @promote.update(discount: true)
-    else
-      @promote.update(discount: false)
-    end
-
-    head :no_content
-  end
-
-  def contain
-    if params[:contain_max] == '1'
-      @serve.update(contain_max: true)
-    else
-      @serve.update(contain_max: false)
-    end
-
-    head :no_content
-  end
-
   def destroy
     @promote.destroy
     respond_to do |format|
@@ -92,6 +72,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :finish_at,
       :verified,
       :overall_goods,
+      :overall_buyers,
       :scope,
       :discount,
       extra: []
