@@ -4,6 +4,7 @@ class RailsTradeCart < ActiveRecord::Migration[5.2]
     create_table :carts do |t|
       t.references :buyer, polymorphic: true
       t.string :session_id, limit: 128
+      t.decimal :amount, precision: 10, scale: 2
       t.timestamp
     end
 
@@ -16,6 +17,8 @@ class RailsTradeCart < ActiveRecord::Migration[5.2]
       t.boolean :checked, default: false
       t.boolean :myself
       t.boolean :archived, default: false
+      t.decimal :price, precision: 10, scale: 2
+      t.decimal :amount, precision: 10, scale: 2
       if connection.adapter_name == 'PostgreSQL'
         t.jsonb :extra
       else
@@ -28,8 +31,10 @@ class RailsTradeCart < ActiveRecord::Migration[5.2]
       t.references :cart
       t.references :cart_item
       t.references :serve
-      t.string :scope
-      t.decimal :price, precision: 10, scale: 2
+      t.references :serve_charge
+      t.decimal :original_amount, precision: 10, scale: 2
+      t.decimal :amount, precision: 10, scale: 2
+      t.string :state
       t.timestamps
     end
 
@@ -37,8 +42,9 @@ class RailsTradeCart < ActiveRecord::Migration[5.2]
       t.references :cart
       t.references :cart_item
       t.references :promote
-      t.string :scope
-      t.decimal :price, precision: 10, scale: 2
+      t.references :promote_charge
+      t.decimal :amount, precision: 10, scale: 2
+      t.string :state
       t.timestamps
     end
 

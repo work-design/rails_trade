@@ -1,15 +1,16 @@
-class CartItemServe < ApplicationRecord
+class CartServe < ApplicationRecord
   attribute :cart_item_id, :integer
   attribute :serve_id, :integer
 
   belongs_to :cart_item, touch: true
+  belongs_to :serve_charge
   belongs_to :serve
 
   validates :serve_id, uniqueness: { scope: [:cart_item_id] }
-  validates :price, presence: true
+  validates :amount, presence: true
 
   after_initialize if: :new_record? do |t|
-    self.scope = self.serve.scope
+    self.serve_id = self.serve_charge.serve_id
   end
 
   def get_charge
@@ -22,4 +23,4 @@ class CartItemServe < ApplicationRecord
     charge
   end
 
-end unless RailsTrade.config.disabled_models.include?('CartItemServe')
+end unless RailsTrade.config.disabled_models.include?('CartServe')

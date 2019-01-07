@@ -8,6 +8,7 @@ class CartItem < ApplicationRecord
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
+  belongs_to :cart, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
   has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
   has_many :cart_promotes, dependent: :destroy
   has_many :order_items, dependent: :nullify
@@ -23,6 +24,8 @@ class CartItem < ApplicationRecord
 
   validates :buyer_id, presence: true, if: -> { session_id.blank? }
   validates :session_id, presence: true, if: -> { buyer_id.blank?  }
+
+  after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
 
   def total_quantity
     good.unified_quantity.to_d * self.number
@@ -40,7 +43,7 @@ class CartItem < ApplicationRecord
 
   # 附加服务价格汇总
   def serve_price
-    serve_charges.sum(&:subtotal)
+    cart_serves.sum(:amount)
   end
 
   # 多个商品批发价
@@ -75,48 +78,32 @@ class CartItem < ApplicationRecord
     final_price + total_serve_price + total_promote_price
   end
 
-  def serve_charges
-    charges = []
+  def sync_cart_charges
     serve.charges.each do |charge|
-      cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
-      if cart_item_serve
-        charge.cart_item_serve = cart_item_serve
-        charge.subtotal = cart_item_serve.price
-      end
-      charges << charge
+      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal)
+      cart_serve.save
     end
 
-    cart_item_serves.where(scope: 'single').where.not(serve_id: serve.charges.map(&:serve_id)).each do |cart_item_serve|
-      charge = self.serve.get_charge(cart_item_serve.serve)
-      charge.cart_item_serve = cart_item_serve
-      charge.subtotal = cart_item_serve.price
-      charges << charge
+    serve.promotes.each do |charge|
+      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal)
+      cart_promote.save
     end
-    charges
   end
 
-  def total_serve_charges
-    charges = []
+  def total_cart_charges
     total.serve_charges.each do |charge|
-      cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
-      if cart_item_serve
-        charge.cart_item_serve = cart_item_serve
-        charge.subtotal = cart_item_serve.price
-      end
-      charges << charge
+      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal)
+      cart_serve.save
     end
 
-    cart_item_serves.where(scope: 'total').where.not(serve_id: total.serve_charges.map(&:serve_id)).each do |cart_item_serve|
-      charge = self.serve.get_charge(cart_item_serve.serve)
-      charge.cart_item_serve = cart_item_serve
-      charge.subtotal = cart_item_serve.price
-      charges << charge
+    total.promote_charges.each do |charge|
+      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal)
+      cart_promote.save
     end
-    charges
   end
 
   def for_select_serves
-    @for_sales = Serve.for_sale.where.not(id: cart_item_serves.map(&:serve_id).uniq)
+    @for_sales = Serve.for_sale.where.not(id: cart_serves.map(&:serve_id).uniq)
     @for_sales.map do |serve|
       self.serve.get_charge(serve)
     end.compact
@@ -131,7 +118,8 @@ class CartItem < ApplicationRecord
   end
 
   def total
-    CartService.new(cart_item_id: self.id, extra: self.extra)
+    return @total if defined?(@total)
+    @total = CartService.new(cart_item_id: self.id, extra: self.extra)
   end
 
   def self.good_types

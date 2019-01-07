@@ -14,6 +14,7 @@ class Trade::My::CartItemsController < Trade::My::BaseController
       cart_item.save
     else
       cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
+      binding.pry
       cart_item.save
     end
 
@@ -52,9 +53,9 @@ class Trade::My::CartItemsController < Trade::My::BaseController
 
   def set_additions
     if current_buyer
-      @additions = CartItem.checked_items(buyer_type: current_buyer.class.name, buyer_id: current_buyer.id, myself: true)
+      @additions = CartService.new(buyer_type: current_buyer.class.name, buyer_id: current_buyer.id, myself: true)
     else
-      @additions = CartItem.checked_items(session_id: session.id, myself: true)
+      @additions = CartService.new(session_id: session.id, myself: true)
     end
   end
 
@@ -69,8 +70,10 @@ class Trade::My::CartItemsController < Trade::My::BaseController
 
   def current_cart
     if current_buyer
+      @cart = current_buyer.cart
       @cart_items = current_buyer.cart_items.init
     else
+      @cart = Cart.find_or_create_by(session_id: session.id)
       @cart_items = CartItem.where(session_id: session.id).init
     end
   end

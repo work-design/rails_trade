@@ -8,6 +8,7 @@ module RailsTradeBuyer
 
     belongs_to :payment_strategy, optional: true
 
+    has_one :cart, as: :buyer
     has_many :orders, as: :buyer, inverse_of: :buyer
     has_many :cart_items, as: :buyer, dependent: :destroy
     has_many :addresses, as: :buyer, dependent: :destroy
@@ -26,6 +27,10 @@ module RailsTradeBuyer
       PaymentStrategy.where.not(period: 0).pluck(:id)
     end
     RailsTrade.buyer_classes << self.name unless RailsTrade.buyer_classes.include?(self.name)
+  end
+
+  def cart
+    super ? super : create_cart
   end
 
   def name_detail
