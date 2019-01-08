@@ -1,5 +1,5 @@
 class Promote < ApplicationRecord
-  attribute :price, :decimal
+
   attribute :start_at, :datetime
   attribute :finish_at, :datetime
   attribute :sequence, :integer
@@ -27,15 +27,13 @@ class Promote < ApplicationRecord
     single: 'single'  # 适用于单独计算商品
   }
 
-  def compute_price(amount, extra_hash = {})
+  def compute_charge(amount, extra_hash = {})
     extra_hash.stringify_keys!
 
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra_hash.slice(*extra))
     charge = self.charges.default_where(query).first
-    if charge
-      charge.subtotal = -(amount - charge.final_price(amount))
-    end
-    charge
+
+    [charge, -(amount - charge.final_price(amount))]
   end
 
   def self.sequence

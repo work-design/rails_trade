@@ -1,5 +1,4 @@
 class CartItem < ApplicationRecord
-  include ServeAndPromote
 
   attribute :status, :string, default: 'init'
   attribute :number, :integer, default: 1

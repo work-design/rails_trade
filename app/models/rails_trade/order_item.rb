@@ -1,5 +1,4 @@
 class OrderItem < ApplicationRecord
-  include ServeAndPromote
 
   attribute :cart_item_id, :integer
   attribute :good_type, :string
@@ -11,6 +10,7 @@ class OrderItem < ApplicationRecord
   attribute :buyer_type, :string
   attribute :buyer_id, :integer
   attribute :advance_payment, :decimal, precision: 10, scale: 2
+  attribute :extra, :json
 
   belongs_to :order, autosave: true, inverse_of: :order_items
   belongs_to :cart_item, optional: true, autosave: true
@@ -25,9 +25,12 @@ class OrderItem < ApplicationRecord
   end
   after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
 
-  def compute_promote_and_serve(promote_buyer_ids)
-    promote_buyers.each do |promote_buyer|
-
+  def compute_promote(promote_buyer_ids)
+    order.buyer.promote_buyers.where(id: promote_buyer_ids).each do |promote_buyer|
+      self.order_promotes.build(
+        promote_buyer_id: promote_buyer.id,
+        promote_id: promote_buyer.promote_id
+      )
     end
 
     promote = self.promote
@@ -36,7 +39,6 @@ class OrderItem < ApplicationRecord
         promote_charge_id: promote_charge.id,
         promote_id: promote_charge.promote_id,
         amount: promote_charge.subtotal,
-        promote_buyer_id: promote_charge.promote_buyer_id
       )
       op.order = self.order
     end
@@ -46,6 +48,10 @@ class OrderItem < ApplicationRecord
     end
 
     compute_sum
+  end
+
+  def compute_serve(serve_ids)
+    Serve.single.overall.default
   end
 
   def compute_sum
