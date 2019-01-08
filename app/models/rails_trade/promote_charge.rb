@@ -1,6 +1,10 @@
 class PromoteCharge < ApplicationRecord
   include ChargeModel
+
+  # for record data
   attribute :subtotal, :decimal
+  attribute :promote_buyer_id, :integer
+
   attribute :min, :integer
   attribute :max, :integer
   attribute :parameter, :decimal

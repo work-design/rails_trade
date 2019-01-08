@@ -33,6 +33,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.references :order_item
       t.references :promote
       t.references :promote_charge
+      t.references :promote_buyer
       t.decimal :amount, precision: 10, scale: 2
       t.timestamps
     end
@@ -42,6 +43,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.references :promote
       t.string :kind
       t.string :state
+      t.integer :order_promotes_count, default: 0
       t.timestamps
     end
 

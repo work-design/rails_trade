@@ -54,7 +54,7 @@ module RailsTradeGood
     Serve.default_where('serve_goods.good_type': self.class.name, 'serve_goods.good_id': [nil, self.id])
   end
 
-  def all_promotes(buyer = nil, promote_ids = [])
+  def all_promotes(buyer = nil)
     except_ids = self.promote_goods.kind_except.pluck(:promote_id)
     overall_good_ids = Promote.overall_buyers.overall_goods.where.not(id: except_ids).pluck(:id)
 
@@ -69,11 +69,13 @@ module RailsTradeGood
       all_ids += all_promote_ids + special_promote_ids
     end
 
-    if promote_ids.present?
-      all_ids &= Array(promote_ids)
-    end
-
     Promote.where(id: all_ids)
+  end
+
+  def apply_promotes(buyer = nil, promote_buyer_ids = [])
+    if promote_buyer_ids.present?
+      all_ids &= Array(promote_buyer_ids)
+    end
   end
 
   def compute_order_amount(buyer, params = {})

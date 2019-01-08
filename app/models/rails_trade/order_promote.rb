@@ -6,5 +6,6 @@ class OrderPromote < ApplicationRecord
   belongs_to :order_item, optional: true
   belongs_to :promote
   belongs_to :promote_charge, optional: true
+  belongs_to :promote_buyer, optional: true, counter_cache: true
 
 end unless RailsTrade.config.disabled_models.include?('OrderPromote')

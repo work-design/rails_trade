@@ -3,19 +3,19 @@
 class PromoteFee
   attr_reader :charges
 
-  def initialize(good_type, good_id, number: 1, buyer_type: 'User', buyer_id: nil, extra: {}, promote_ids: nil)
+  def initialize(good_type, good_id, number: 1, buyer_type: 'User', buyer_id: nil, extra: {}, promote_buyer_ids: nil)
     @good = good_type.constantize.unscoped.find good_id
     @number = number
     @buyer = buyer_type.constantize.find(buyer_id) if buyer_id
     @extra = extra
-    @promote_ids = Array(promote_ids)
+    @promote_buyer_ids = Array(promote_buyer_ids)
     verbose_fee
   end
 
   def verbose_fee
     @charges = []
 
-    @good.all_promotes(@buyer, @promote_ids).each do |promote|
+    @good.apply_promotes(@buyer, @promote_buyer_ids).each do |promote|
       @charges << get_charge(promote)
     end
 
