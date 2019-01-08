@@ -23,12 +23,8 @@ class OrderItem < ApplicationRecord
   after_initialize if: :new_record? do |oi|
     init_from_cart_item if cart_item
   end
+  after_create_commit :check_promote_buyer
   after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
-
-  def sync_amount
-    order.compute_sum
-    order.save
-  end
 
   def compute_promote_and_serve
     self.promote.charges.each do |promote_charge|
@@ -52,6 +48,16 @@ class OrderItem < ApplicationRecord
     self.serve_sum = self.order_serves.sum(&:amount).to_d
     self.promote_sum = self.order_promotes.sum(&:amount).to_d
     self.amount = self.pure_price + self.serve_sum + self.promote_sum
+  end
+
+  def check_promote_buyer
+    return unless promote_buyer
+    self.promote_buyer.update state: 'used'
+  end
+
+  def sync_amount
+    order.compute_sum
+    order.save
   end
 
   def confirm_ordered!
