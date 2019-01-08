@@ -55,10 +55,10 @@ module RailsTradeGood
   end
 
   def all_promotes(buyer = nil, promote_ids = [])
-    except_ids = PromoteGood.kind_except.where(good_id: self.id).pluck(:promote_id)
+    except_ids = self.promote_goods.kind_except.pluck(:promote_id)
     overall_good_ids = Promote.overall_buyers.overall_goods.where.not(id: except_ids).pluck(:id)
 
-    only_ids = PromoteGood.kind_only.where(good_id: self.id).pluck(:promote_id)
+    only_ids = self.promote_goods.kind_only.pluck(:promote_id)
     special_good_ids = Promote.overall_buyers.special_goods.where(id: only_ids).pluck(:id)
 
     all_ids = overall_good_ids + special_good_ids
