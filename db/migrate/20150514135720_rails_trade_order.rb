@@ -30,7 +30,7 @@ class RailsTradeOrder < ActiveRecord::Migration[5.2]
       t.references :good, polymorphic: true
       t.integer :number
       t.decimal :quantity, precision: 10, scale: 2 # 用来表示重量
-      t.decimal :pure_price, precision: 10, scale: 2
+      t.decimal :original_price, precision: 10, scale: 2
       t.decimal :promote_sum, precision: 10, scale: 2
       t.decimal :serve_sum, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2

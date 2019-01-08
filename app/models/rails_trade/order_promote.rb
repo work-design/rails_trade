@@ -10,6 +10,10 @@ class OrderPromote < ApplicationRecord
   belongs_to :promote_buyer, optional: true, counter_cache: true
   after_create_commit :check_promote_buyer
 
+  after_initialize if: :new_record? do
+    self.order = self.order_item.order
+  end
+
   def check_promote_buyer
     return unless promote_buyer
     self.promote_buyer.update state: 'used'

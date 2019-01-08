@@ -17,21 +17,11 @@ module RailsTradeGood
 
     has_many :promote_goods, as: :good
 
-    composed_of :serve,
-                class_name: 'ServeFee',
-                mapping: [
-                  ['id', 'good_id'],
-                  ['extra', 'extra']
-                ],
-                constructor: Proc.new { |id, extra| ServeFee.new(self.name, id, extra: Hash(self.class_extra).merge(extra)) }
-    composed_of :promote,
-                class_name: 'PromoteFee',
-                mapping: [
-                  ['id', 'good_id'],
-                  ['extra', 'extra']
-                ],
-                constructor: Proc.new { |id, extra| PromoteFee.new(self.name, id, extra: Hash(self.class_extra).merge(extra)) }
     RailsTrade.good_classes << self.name unless RailsTrade.good_classes.include?(self.name)
+  end
+
+  def extra
+    Hash(self.class_extra).merge(extra)
   end
 
   def name_detail
@@ -54,28 +44,41 @@ module RailsTradeGood
     Serve.default_where('serve_goods.good_type': self.class.name, 'serve_goods.good_id': [nil, self.id])
   end
 
-  def all_promotes(buyer = nil)
+  def overall_promote_ids
     except_ids = self.promote_goods.kind_except.pluck(:promote_id)
-    overall_good_ids = Promote.overall_buyers.overall_goods.where.not(id: except_ids).pluck(:id)
-
     only_ids = self.promote_goods.kind_only.pluck(:promote_id)
-    special_good_ids = Promote.overall_buyers.special_goods.where(id: only_ids).pluck(:id)
 
-    all_ids = overall_good_ids + special_good_ids
-    if buyer
-      unused_promote_ids = buyer.promote_buyers.unused.pluck(:promote_id)
-      all_promote_ids = Promote.special_buyers.overall_goods.where(id: unused_promote_ids).where.not(id: except_ids).pluck(:id)
-      special_promote_ids = Promote.special_buyers.special_goods.where(id: unused_promote_ids).where(id: only_ids).pluck(:id)
-      all_ids += all_promote_ids + special_promote_ids
-    end
+    overall_promote_ids = Promote.overall_buyers.overall_goods.where.not(id: except_ids).pluck(:id)
+    special_promote_ids = Promote.overall_buyers.special_goods.where(id: only_ids).pluck(:id)
 
-    Promote.where(id: all_ids)
+    overall_promote_ids + special_promote_ids
   end
 
-  def apply_promotes(buyer, promote_buyer_id = nil)
+  def overall_promotes
+    Promote.where(id: overall_promote_ids)
+  end
+
+  def buyer_promote_ids(buyer)
+    unused_promote_ids = buyer.promote_buyers.unused.pluck(:promote_id)
+    except_ids = self.promote_goods.kind_except.pluck(:promote_id)
+    only_ids = self.promote_goods.kind_only.pluck(:promote_id)
+
+    all_promote_ids = Promote.special_buyers.overall_goods.where(id: unused_promote_ids).where.not(id: except_ids).pluck(:id)
+    special_promote_ids = Promote.special_buyers.special_goods.where(id: unused_promote_ids).where(id: only_ids).pluck(:id)
+
+    all_promote_ids + special_promote_ids
+  end
+
+  def buyer_promotes(buyer)
+    Promote.where id: buyer_promote_ids(buyer)
+  end
+
+  def apply_promotes(buyer, promote_buyer_ids = nil)
+    overall_promote_ids
+
     return Promote.none unless promote_buyer_id
-    p = PromoteBuyer.where(id: Array(promote_buyer_id))
-    promotes = all_promotes(buyer).where(id: p.pluck(:promote_id))
+    select_promote_ids = PromoteBuyer.where(id: Array(promote_buyer_ids)).pluck(:promote_id)
+    promotes = all_promotes.where(id: p)
     promotes.each do |promote|
       if promote.id == p.first&.promote_id
         promote.promote_buyer_id = promote_buyer_id
@@ -109,15 +112,16 @@ module RailsTradeGood
     oi = o.order_items.build(
       good: self,
       number: number,
-      pure_price: amount,
-      buyer_type: buyer.class.name,
-      buyer_id: buyer.id,
+      original_price: amount,
       extra: extra,
       good_name: good_name
     )
 
     promote_buyer_ids = Array(params.delete(:promote_buyer_ids))
-    oi.compute_promote_and_serve(promote_buyer_ids)
+    serve_ids = Array(params.delete(:serve_ids))
+    oi.compute_promote(promote_buyer_ids)
+    oi.compute_serve(serve_ids)
+
     o.assign_attributes params
     o.compute_sum
     o

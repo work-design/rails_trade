@@ -7,8 +7,6 @@ class OrderItem < ApplicationRecord
   attribute :number, :integer, default: 1
   attribute :amount, :decimal
   attribute :comment, :string
-  attribute :buyer_type, :string
-  attribute :buyer_id, :integer
   attribute :advance_payment, :decimal, precision: 10, scale: 2
   attribute :extra, :json
 
@@ -27,31 +25,24 @@ class OrderItem < ApplicationRecord
 
   def compute_promote(promote_buyer_ids)
     order.buyer.promote_buyers.where(id: promote_buyer_ids).each do |promote_buyer|
-      self.order_promotes.build(
-        promote_buyer_id: promote_buyer.id,
-        promote_id: promote_buyer.promote_id
-      )
+      self.order_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
     end
 
-    promote = self.promote
-    promote.charges.each do |promote_charge|
-      op = self.order_promotes.build(
-        promote_charge_id: promote_charge.id,
-        promote_id: promote_charge.promote_id,
-        amount: promote_charge.subtotal,
-      )
-      op.order = self.order
+    good.overall_promote.each do |promote|
+      self.order_promotes.build(promote_id: promote.promote_id)
     end
-
-    if self.cart_item && self.amount != cart_item.final_price
-      self.errors.add :base, 'Amount is not equal to cart items'
-    end
-
-    compute_sum
   end
 
   def compute_serve(serve_ids)
     Serve.single.overall.default
+  end
+
+  def valid_sum
+    compute_sum
+
+    if self.cart_item && self.amount != cart_item.final_price
+      self.errors.add :base, 'Amount is not equal to cart items'
+    end
   end
 
   def compute_sum

@@ -19,7 +19,7 @@ class Serve < ApplicationRecord
     single: 'single'
   }
 
-  def compute_price(amount, extra_hash = {})
+  def compute_charge(amount, extra_hash = {})
     extra_hash.stringify_keys!
 
     if self.contain_max
@@ -31,13 +31,9 @@ class Serve < ApplicationRecord
     query = range.merge(extra_hash.slice(*extra))
     charge = self.charges.default_where(query).first
     if charge
-      charge.subtotal = charge.final_price(amount)
-      charge.default_subtotal = charge.subtotal
-    else
-      charge = self.charges.build
-      charge.subtotal = 0
+      amount = charge.final_price(amount)
+      [charge, amount]
     end
-    charge
   end
 
 end unless RailsTrade.config.disabled_models.include?('Serve')

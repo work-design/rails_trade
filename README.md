@@ -12,12 +12,14 @@
 
 * User/Buyer
 
-## 流程  
+## 生成订单的两种方式 
 
+* 基于购物车生成订单；
 ```
 Good -> [CartItem] -> Order(OrderItem) <=> Payment
  └ Promote(Serve)
 ```
+* 直接生成订单；
   
 ## 集成商品编辑信息
 ```erb
