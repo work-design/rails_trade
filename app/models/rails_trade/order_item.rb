@@ -10,7 +10,7 @@ class OrderItem < ApplicationRecord
   attribute :comment, :string
   attribute :buyer_type, :string
   attribute :buyer_id, :integer
-  # advance_payment, :decimal, precision: 10, scale: 2
+  attribute :advance_payment, :decimal, precision: 10, scale: 2
 
   belongs_to :order, autosave: true, inverse_of: :order_items
   belongs_to :cart_item, optional: true, autosave: true
@@ -25,8 +25,13 @@ class OrderItem < ApplicationRecord
   end
   after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
 
-  def compute_promote_and_serve
-    self.promote.charges.each do |promote_charge|
+  def compute_promote_and_serve(promote_buyer_ids)
+    promote_buyers.each do |promote_buyer|
+
+    end
+
+    promote = self.promote
+    promote.charges.each do |promote_charge|
       op = self.order_promotes.build(
         promote_charge_id: promote_charge.id,
         promote_id: promote_charge.promote_id,

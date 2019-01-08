@@ -96,7 +96,6 @@ module RailsTradeGood
     o
   end
 
-  # todo selected promote ids
   def generate_order(buyer, params = {})
     o = buyer.orders.build
 
@@ -114,11 +113,11 @@ module RailsTradeGood
       buyer_type: buyer.class.name,
       buyer_id: buyer.id,
       extra: extra,
-      good_name: good_name,
-      promote_buyer_ids: Array(params.delete(:promote_buyer_ids))
+      good_name: good_name
     )
 
-    oi.compute_promote_and_serve
+    promote_buyer_ids = Array(params.delete(:promote_buyer_ids))
+    oi.compute_promote_and_serve(promote_buyer_ids)
     o.assign_attributes params
     o.compute_sum
     o
