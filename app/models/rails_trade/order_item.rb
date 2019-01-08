@@ -8,7 +8,7 @@ class OrderItem < ApplicationRecord
   attribute :amount, :decimal
   attribute :comment, :string
   attribute :advance_payment, :decimal, precision: 10, scale: 2
-  attribute :extra, :json
+  attribute :extra, :json, default: {}
 
   belongs_to :order, autosave: true, inverse_of: :order_items
   belongs_to :cart_item, optional: true, autosave: true
@@ -23,13 +23,13 @@ class OrderItem < ApplicationRecord
   end
   after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
 
-  def compute_promote(promote_buyer_ids)
-    order.buyer.promote_buyers.where(id: promote_buyer_ids).each do |promote_buyer|
+  def compute_promote(promote_buyer_ids = nil)
+    order.buyer.promote_buyers.where(id: Array(promote_buyer_ids)).each do |promote_buyer|
       self.order_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
     end
 
-    good.overall_promote.each do |promote|
-      self.order_promotes.build(promote_id: promote.promote_id)
+    good.overall_promotes.each do |promote|
+      self.order_promotes.build(promote_id: promote.id)
     end
   end
 

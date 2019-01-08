@@ -12,6 +12,7 @@ class OrderPromote < ApplicationRecord
 
   after_initialize if: :new_record? do
     self.order = self.order_item.order
+    compute_amount
   end
 
   def check_promote_buyer

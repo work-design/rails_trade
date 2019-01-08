@@ -29,7 +29,7 @@ module RailsTradeGood
   end
 
   def retail_price
-    self.price.to_d + self.serve.subtotal
+    self.price.to_d #+ self.serve.subtotal
   end
 
   def final_price
@@ -71,20 +71,6 @@ module RailsTradeGood
 
   def buyer_promotes(buyer)
     Promote.where id: buyer_promote_ids(buyer)
-  end
-
-  def apply_promotes(buyer, promote_buyer_ids = nil)
-    overall_promote_ids
-
-    return Promote.none unless promote_buyer_id
-    select_promote_ids = PromoteBuyer.where(id: Array(promote_buyer_ids)).pluck(:promote_id)
-    promotes = all_promotes.where(id: p)
-    promotes.each do |promote|
-      if promote.id == p.first&.promote_id
-        promote.promote_buyer_id = promote_buyer_id
-      end
-    end
-    promotes
   end
 
   def compute_order_amount(buyer, params = {})
