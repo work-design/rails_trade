@@ -73,8 +73,8 @@ module RailsTradeGood
   end
 
   def apply_promotes(buyer, promote_buyer_id = nil)
-    return Promote.none unless promote_buyer_ids
-    p = PromoteBuyer.where(id: Array(promote_buyer_ids))
+    return Promote.none unless promote_buyer_id
+    p = PromoteBuyer.where(id: Array(promote_buyer_id))
     promotes = all_promotes(buyer).where(id: p.pluck(:promote_id))
     promotes.each do |promote|
       if promote.id == p.first&.promote_id
