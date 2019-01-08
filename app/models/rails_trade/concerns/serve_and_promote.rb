@@ -24,11 +24,12 @@ module ServeAndPromote
                   ['number', 'number'],
                   ['buyer_type', 'buyer_type'],
                   ['buyer_id', 'buyer_id'],
-                  ['extra', 'extra']
+                  ['extra', 'extra'],
+                  ['promote_ids', 'promote_ids']
                 ],
-                constructor: Proc.new { |good_type, good_id, number, buyer_type, buyer_id, extra| PromoteFee.new(
-                  good_type, good_id, number: number, buyer_type: buyer_type, buyer_id: buyer_id, extra: self.extra.merge(Hash(extra))
-                ) }
+                constructor: Proc.new { |good_type, good_id, number, buyer_type, buyer_id, extra, promote_ids|
+                  PromoteFee.new(good_type, good_id, number: number, buyer_type: buyer_type, buyer_id: buyer_id, extra: self.extra.merge(Hash(extra)), promote_ids: promote_ids)
+                }
 
     def self.extra
       {}

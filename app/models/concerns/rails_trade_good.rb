@@ -69,7 +69,9 @@ module RailsTradeGood
       all_ids += all_promote_ids + special_promote_ids
     end
 
-    all_ids &= promote_ids
+    if promote_ids.present?
+      all_ids &= Array(promote_ids)
+    end
 
     Promote.where(id: all_ids)
   end
@@ -104,7 +106,8 @@ module RailsTradeGood
       buyer_type: buyer.class.name,
       buyer_id: buyer.id,
       extra: extra,
-      good_name: good_name
+      good_name: good_name,
+      promote_ids: Array(params.delete(:promote_ids))
     )
 
     oi.compute_promote_and_serve
