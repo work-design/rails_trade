@@ -2,6 +2,7 @@ module ServeAndPromote
   extend ActiveSupport::Concern
 
   included do
+    attribute :promote_ids, :integer, array: true
     composed_of :serve,
                 class_name: 'ServeFee',
                 mapping: [

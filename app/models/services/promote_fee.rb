@@ -15,7 +15,7 @@ class PromoteFee
   def verbose_fee
     @charges = []
 
-    @good.all_promotes(@buyer).each do |promote|
+    @good.all_promotes(@buyer, @promote_ids).each do |promote|
       @charges << get_charge(promote)
     end
 

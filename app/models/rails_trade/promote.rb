@@ -32,7 +32,9 @@ class Promote < ApplicationRecord
 
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra_hash.slice(*extra))
     charge = self.charges.default_where(query).first
-    charge.subtotal = charge.final_price(amount) if charge
+    if charge
+      charge.subtotal = -(amount - charge.final_price(amount))
+    end
     charge
   end
 
