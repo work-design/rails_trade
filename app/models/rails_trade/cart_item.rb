@@ -37,8 +37,6 @@ class CartItem < ApplicationRecord
     good.unified_quantity.to_d * self.number
   end
 
-
-
   # 批发价和零售价之间的差价，即批发折扣
   def discount_price
     bulk_price - retail_price

@@ -43,6 +43,7 @@ class RailsTradeCart < ActiveRecord::Migration[5.2]
       t.references :cart_item
       t.references :promote
       t.references :promote_charge
+      t.references :promote_buyer
       t.decimal :amount, precision: 10, scale: 2
       t.string :state
       t.timestamps

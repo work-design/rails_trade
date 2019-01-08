@@ -40,7 +40,7 @@ class PromoteFee
     elsif promote.is_a?(NumberPromote)
       charge = promote.compute_price(@number, @extra)
     else
-      charge = 0
+      charge = nil
     end
     charge
   end

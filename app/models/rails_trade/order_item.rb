@@ -32,7 +32,12 @@ class OrderItem < ApplicationRecord
 
   def compute_promote_and_serve
     self.promote.charges.each do |promote_charge|
-      op = self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
+      op = self.order_promotes.build(
+        promote_charge_id: promote_charge.id,
+        promote_id: promote_charge.promote_id,
+        amount: promote_charge.subtotal,
+        promote_buyer_id: promote_charge.promote_buyer_id
+      )
       op.order = self.order
     end
 

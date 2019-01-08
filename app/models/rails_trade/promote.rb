@@ -4,6 +4,9 @@ class Promote < ApplicationRecord
   attribute :finish_at, :datetime
   attribute :sequence, :integer
 
+  # todo removed
+  attribute :promote_buyer_id, :integer
+
   has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
   has_many :promote_goods, dependent: :destroy
   has_many :promote_buyers, dependent: :destroy
@@ -33,6 +36,7 @@ class Promote < ApplicationRecord
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra_hash.slice(*extra))
     charge = self.charges.default_where(query).first
     if charge
+      charge.promote_buyer_id = self.promote_buyer_id
       charge.subtotal = -(amount - charge.final_price(amount))
     end
     charge

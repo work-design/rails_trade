@@ -72,10 +72,16 @@ module RailsTradeGood
     Promote.where(id: all_ids)
   end
 
-  def apply_promotes(buyer = nil, promote_buyer_ids = [])
-    if promote_buyer_ids.present?
-      all_ids &= Array(promote_buyer_ids)
+  def apply_promotes(buyer, promote_buyer_id = nil)
+    return unless promote_buyer_ids
+    p = PromoteBuyer.where(id: Array(promote_buyer_ids))
+    promotes = all_promotes(buyer).where(id: p.pluck(:promote_id))
+    promotes.each do |promote|
+      if promote.id == p.first&.promote_id
+        promote.promote_buyer_id = promote_buyer_id
+      end
     end
+    promotes
   end
 
   def compute_order_amount(buyer, params = {})
@@ -109,7 +115,7 @@ module RailsTradeGood
       buyer_id: buyer.id,
       extra: extra,
       good_name: good_name,
-      promote_ids: Array(params.delete(:promote_ids))
+      promote_buyer_ids: Array(params.delete(:promote_buyer_ids))
     )
 
     oi.compute_promote_and_serve
