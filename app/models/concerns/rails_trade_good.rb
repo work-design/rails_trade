@@ -21,7 +21,7 @@ module RailsTradeGood
   end
 
   def extra
-    Hash(self.class_extra).merge(extra)
+    Hash(self.class_extra).merge(super)
   end
 
   def name_detail
