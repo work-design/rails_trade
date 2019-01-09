@@ -1,7 +1,7 @@
 class CashPromoteCharge < PromoteCharge
 
   def final_price(amount)
-    amount <= parameter ? 0 : (amount - parameter).round(2)
+    amount <= parameter.abs ? 0 : (amount - parameter.abs).round(2)
   end
 
 end

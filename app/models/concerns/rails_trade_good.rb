@@ -87,7 +87,6 @@ module RailsTradeGood
 
   def generate_order(buyer, params = {})
     o = buyer.orders.build
-
     o.currency = self.currency
 
     number = params.delete(:number) || 1
