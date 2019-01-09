@@ -3,9 +3,12 @@ class OrderItem < ApplicationRecord
   attribute :cart_item_id, :integer
   attribute :good_type, :string
   attribute :good_id, :integer
+
   attribute :quantity, :decimal
   attribute :number, :integer, default: 1
-  attribute :amount, :decimal
+  attribute :amount, :decimal, default: 0
+  attribute :promote_sum, :decimal, default: 0
+  attribute :serve_sum, :decimal, default: 0
   attribute :comment, :string
   attribute :advance_payment, :decimal, precision: 10, scale: 2
   attribute :extra, :json, default: {}
@@ -46,9 +49,9 @@ class OrderItem < ApplicationRecord
   end
 
   def compute_sum
-    self.serve_sum = self.order_serves.sum(&:amount).to_d
-    self.promote_sum = self.order_promotes.sum(&:amount).to_d
-    self.amount = self.pure_price + self.serve_sum + self.promote_sum
+    self.serve_sum = self.order_serves.sum(&:amount)
+    self.promote_sum = self.order_promotes.sum(&:amount)
+    self.amount = self.original_price + self.serve_sum + self.promote_sum
   end
 
   def sync_amount

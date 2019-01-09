@@ -92,7 +92,7 @@ module RailsTradeGood
 
     number = params.delete(:number) || 1
     amount = params.delete(:amount) || number * self.price.to_d
-    extra = params.delete(:extra)
+    extra = params.delete(:extra) || {}
     good_name = params.delete(:name) || self.name
 
     oi = o.order_items.build(
@@ -107,6 +107,7 @@ module RailsTradeGood
     serve_ids = Array(params.delete(:serve_ids))
     oi.compute_promote(promote_buyer_ids)
     oi.compute_serve(serve_ids)
+    oi.compute_sum
 
     o.assign_attributes params
     o.compute_sum

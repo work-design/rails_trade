@@ -1,7 +1,7 @@
 class OrderServe < ApplicationRecord
   attribute :order_id, :integer
   attribute :order_item_id, :integer
-
+  attribute :amount, :decimal, default: 0
   belongs_to :order, inverse_of: :order_serves
   belongs_to :order_item, optional: true
   belongs_to :serve_charge, optional: true
