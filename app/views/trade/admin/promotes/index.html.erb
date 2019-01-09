@@ -22,15 +22,24 @@
         <p><%= Promote.human_attribute_name(:name) %></p>
         <p><%= Promote.human_attribute_name(:short_name) %>(<%= Promote.human_attribute_name(:code) %>)</p>
       </th>
-      <th><%= Promote.human_attribute_name(:scope) %></th>
+      <th>
+        <%= Promote.human_attribute_name(:scope) %>
+        <span data-tooltip="<%= t('.scope_help') %>"><i class="grey question circle icon"></i></span>
+      </th>
       <th>
         <p><%= Promote.human_attribute_name(:start_at) %></p>
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
       <th><%= Promote.human_attribute_name(:verified) %></th>
       <th>
-        <p><%= Promote.human_attribute_name(:overall_goods) %></p>
-        <p><%= Promote.human_attribute_name(:overall_buyers) %></p>
+        <p>
+          <%= Promote.human_attribute_name(:overall_goods) %>
+          <span data-tooltip="<%= t('.overall_goods_help') %>"><i class="grey question circle icon"></i></span>
+        </p>
+        <p>
+          <%= Promote.human_attribute_name(:overall_buyers) %>
+          <span data-tooltip="<%= t('.overall_buyers_help') %>"><i class="grey question circle icon"></i></span>
+        </p>
       </th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:extra) %></th>
@@ -80,9 +89,15 @@
         <% end %>
       </td>
       <td class="ui labels">
-        <%= link_to '详细', admin_promote_charges_path(promote), class: 'ui green label' %>
-        <%= link_to '编辑', edit_admin_promote_path(promote), class: 'ui yellow label' %>
-        <%= link_to '删除', admin_promote_path(promote), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+        <%= link_to admin_promote_charges_path(promote), data: { tooltip: t('.show') }, class: 'ui blue mini icon button' do %>
+          <i class="location arrow icon"></i>
+        <% end %>
+        <%= link_to edit_admin_promote_path(promote), data: { tooltip: t('.edit') }, class: 'ui pink mini icon button' do %>
+          <i class="pencil alternate icon"></i>
+        <% end %>
+        <%= link_to admin_promote_path(promote), method: :delete, data: { tooltip: t('.destroy'), confirm: 'Are you sure?' }, class: 'ui red mini icon button' do %>
+          <i class="times icon"></i>
+        <% end %>
       </td>
     </tr>
   <% end %>
