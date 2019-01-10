@@ -33,7 +33,12 @@ module RailsTradeGood
   end
 
   def final_price
-    self.retail_price + self.promote.subtotal
+    compute_order_amount
+    #self.retail_price + self.promote_price
+  end
+
+  def promote_price
+
   end
 
   def order_done
@@ -73,20 +78,24 @@ module RailsTradeGood
     Promote.where id: buyer_promote_ids(buyer)
   end
 
-  def compute_order_amount(buyer, params = {})
+  def compute_order_amount(buyer = nil, params = {})
     o = generate_order(buyer, params)
     o.amount
   end
 
-  def generate_order!(buyer, params = {})
+  def generate_order!(buyer = nil, params = {})
     o = generate_order(buyer, params)
     o.check_state
     o.save!
     o
   end
 
-  def generate_order(buyer, params = {})
-    o = buyer.orders.build
+  def generate_order(buyer = nil, params = {})
+    if buyer
+      o = buyer.orders.build
+    else
+      o = Order.new
+    end
     o.currency = self.currency
 
     number = params.delete(:number) || 1

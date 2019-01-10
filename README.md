@@ -38,6 +38,8 @@ cart/cart_item 中价格字段说明
 
 * single_price: 商品单价
 * original_price: 商品原价
+* retail_price: 零售价（）
+* final_price: 最终价格
 
 ## 注意
 * Order: amount, received_amount

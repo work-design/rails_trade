@@ -27,8 +27,10 @@ class OrderItem < ApplicationRecord
   after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
 
   def compute_promote(promote_buyer_ids = nil)
-    order.buyer.promote_buyers.where(id: Array(promote_buyer_ids)).each do |promote_buyer|
-      self.order_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
+    if promote_buyer_ids.present?
+      order.buyer.promote_buyers.where(id: Array(promote_buyer_ids)).each do |promote_buyer|
+        self.order_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
+      end
     end
 
     good.overall_promotes.each do |promote|
