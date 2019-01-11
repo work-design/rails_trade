@@ -11,7 +11,6 @@ module RailsTradeBuyer
     has_one :cart, as: :buyer
     has_many :orders, as: :buyer, inverse_of: :buyer
     has_many :cart_items, as: :buyer, dependent: :destroy
-    has_many :addresses, as: :buyer, dependent: :destroy
 
     has_many :promote_buyers, as: :buyer, dependent: :destroy
     has_many :promotes, ->{ special }, through: :promote_buyers

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin::PaymentsControllerTest < ActionDispatch::IntegrationTest
+class Trade::Admin::PaymentsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @payment = create :payment
