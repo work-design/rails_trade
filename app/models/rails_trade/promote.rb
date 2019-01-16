@@ -15,7 +15,7 @@ class Promote < ApplicationRecord
   scope :special_buyers, -> { valid.where(overall_buyers: false) }  # 仅适用于特定顾客
   scope :valid, -> { t = Time.now; verified.default_where('start_at-lte': t, 'finish_at-gte': t) }
 
-  validates :code, uniqueness: true
+  validates :code, uniqueness: true, allow_blank: true
   validates :start_at, presence: true
   validates :finish_at, presence: true
 
