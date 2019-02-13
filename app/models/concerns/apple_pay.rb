@@ -4,6 +4,16 @@ module ApplePay
   SANDBOX_URL = 'https://sandbox.itunes.apple.com/verifyReceipt'
   extend self
 
+  def detect_verify(receipt_data)
+    r = verify(receipt_data)
+
+    if r['status'] == 21007
+      verify(receipt_data, true)
+    else
+      r
+    end
+  end
+
   def verify(receipt_data, sandbox = false)
     if sandbox
       url = SANDBOX_URL
