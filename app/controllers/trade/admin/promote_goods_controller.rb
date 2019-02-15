@@ -11,7 +11,8 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   end
 
   def goods
-    @goods = params[:good_type].constantize.page(params[:page])
+    # todo support search
+    @goods = params[:good_type].constantize.order(id: :desc)
     @promote_good = PromoteGood.new
     respond_to do |format|
       format.json { render json: { results: @goods } }
