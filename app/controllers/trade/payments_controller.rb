@@ -37,9 +37,11 @@ class Trade::PaymentsController < ApplicationController
     notify_params = Hash.from_xml(request.body.read)['xml']
 
     @order = Order.find_by(uuid: notify_params['out_trade_no'])
+    config = WxpayConfig.filter(notify_params['appid'])
+    key = config.dig(:key)
     result = nil
 
-    if WxPay::Sign.verify?(notify_params)
+    if WxPay::Sign.verify?(notify_params, key: key)
       result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'WxpayPayment'
     end
 

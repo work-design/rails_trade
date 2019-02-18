@@ -1,5 +1,5 @@
 class PaymentMethod < ApplicationRecord
-  
+
   attribute :extra, :json, default: {}
 
   has_many :payments, dependent: :nullify
