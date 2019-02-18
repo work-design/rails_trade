@@ -60,7 +60,7 @@ module RailsTradeWxpay
       result = { 'err_code_des' => 'network error' }
     end
 
-    if result['result_code'] == 'SUCCESS'
+    if result['trade_state'] == 'SUCCESS'
       self.change_to_paid! type: 'WxpayPayment', payment_uuid: result['transaction_id'], params: result
     else
       self.errors.add :base, result['err_code_des']
