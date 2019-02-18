@@ -1,6 +1,6 @@
 class Serve < ApplicationRecord
   attr_accessor :price
-  serialize :extra, Array
+  attribute :extra, :string, array: true
   attribute :start_at, :datetime
   attribute :finish_at, :datetime
 
