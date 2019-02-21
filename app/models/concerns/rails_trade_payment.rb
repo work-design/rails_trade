@@ -25,10 +25,12 @@ module RailsTradePayment
   end
 
   def confirm_paid!
+    self.expire_at = nil
     self.order_items.each(&:confirm_paid!)
   end
 
   def confirm_part_paid!
+    self.expire_at = nil
     self.order_items.each(&:confirm_part_paid!)
   end
 
