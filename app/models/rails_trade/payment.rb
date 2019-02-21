@@ -109,7 +109,6 @@ class Payment < ApplicationRecord
 
 end unless RailsTrade.config.disabled_models.include?('Payment')
 
-#  :id, :integer, limit: 4, null: false
 #  :type, :string, limit: 255
 #  :total_amount, :decimal, precision: 10, scale: 2
 #  :order_amount, :decimal, precision: 10, scale: 2
@@ -125,5 +124,3 @@ end unless RailsTrade.config.disabled_models.include?('Payment')
 #  :user_id, :integer, limit: 4
 #  :currency, :string, limit: 255
 #  :state, :integer, limit: 4, default: 0
-#  :created_at, :datetime, precision: 0, null: false
-#  :updated_at, :datetime, precision: 0, null: false

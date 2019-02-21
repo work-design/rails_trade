@@ -53,6 +53,7 @@ module RailsTradePayment
         end
       rescue ActiveRecord::RecordInvalid => e
         payment.errors.add :base, 'can not save'
+        logger.error "#{payment.errors.full_messages.join(', ')}"
         raise e
       end
       payment

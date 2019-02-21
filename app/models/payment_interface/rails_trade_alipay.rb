@@ -23,6 +23,7 @@ module RailsTradeAlipay
       self.change_to_paid! type: 'AlipayPayment', payment_uuid: result['trade_no'], params: result
     else
       errors.add :base, result['msg']
+      logger.error "Alipay: #{self.errors.full_messages.join(', ')}"
     end
   end
 
