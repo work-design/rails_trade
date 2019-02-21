@@ -5,6 +5,7 @@ class Order < ApplicationRecord
 
   attribute :payment_status, :string, default: 'unpaid'
   attribute :adjust_amount, :decimal, default: 0
+  attribute :expire_at, :datetime
   attribute :extra, :json, default: {}
 
   belongs_to :buyer, polymorphic: true
@@ -28,6 +29,7 @@ class Order < ApplicationRecord
   after_initialize if: :new_record? do |o|
     self.uuid = generate_order_uuid
     self.payment_strategy_id = self.buyer&.payment_strategy_id
+    self.expire_at = Time.now + RailsTrade.config.expire_after
   end
 
   after_create_commit :confirm_ordered!
