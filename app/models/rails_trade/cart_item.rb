@@ -1,14 +1,9 @@
 class CartItem < ApplicationRecord
+  include TradePriceModel
 
   attribute :status, :string, default: 'init'
-  attribute :number, :integer, default: 1
   attribute :myself, :boolean, default: true
   attribute :extra, :json
-  attribute :single_price, :decimal  # 单价
-  attribute :original_price, :decimal  # 商品原价
-  attribute :retail_price, :decimal  # 单个商品零售价(商品原价 + 服务价)
-  attribute :serve_price, :decimal  # 附加服务价格汇总
-  attribute :bulk_price, :decimal  # 多个商品批发价
 
   belongs_to :buyer, polymorphic: true, optional: true
   belongs_to :good, polymorphic: true
