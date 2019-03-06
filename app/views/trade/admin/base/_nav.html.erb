@@ -1,20 +1,3 @@
-<div class="ui fluid icon vertical menu">
-  <div class="header center link item" id="close_side">
-    <i class="content icon"></i>
-  </div>
-  <div class="ui dropdown item">
-    <span>Orders Admin</span>
-    <div class="menu">
-      <%= link_to 'Orders', admin_orders_path, class: active_helper(controller: 'orders') %>
-      <%= link_to 'Payments', admin_payments_path, class: active_helper(controller: 'payments') %>
-      <%= link_to 'Payment Methods', admin_payment_methods_path, class: active_helper(controllers: 'payment_methods') %>
-    </div>
-  </div>
-  <div class="ui dropdown item">
-    <span>促销管理</span>
-    <div class="menu">
-      <%= link_to '促销管理', admin_promotes_path, class: active_helper(controller: 'promotes') %>
-      <%= link_to '优惠卷', admin_promote_buyers_path, class: active_helper(controller: 'promote_buyers') %>
-    </div>
-  </div>
+<div class="ui vertical fluid secondary accordion menu">
+  <%= render 'trade_nav' %>
 </div>
