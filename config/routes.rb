@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
 
   scope module: 'trade' do
-    resources :areas, only: [] do
-      get :search, on: :collection
-    end
     resources :payments, only: [:index] do
       get :result, on: :collection
       get :wxpay_result, on: :collection
@@ -19,8 +16,7 @@ Rails.application.routes.draw do
 
   scope :admin, module: 'trade/admin', as: 'admin' do
     get 'trade' => 'trade#index'
-    resources :addresses
-    resources :areas
+
     resources :buyers do
       get :overdue, on: :collection
       get :orders, on: :member
@@ -79,7 +75,6 @@ Rails.application.routes.draw do
   end
 
   scope :my, module: 'trade/my', as: 'my' do
-    resources :addresses
     resources :buyers
     resources :cart_items do
       get :total, on: :collection
