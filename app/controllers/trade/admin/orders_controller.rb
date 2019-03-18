@@ -3,11 +3,10 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   skip_before_action :verify_authenticity_token, only: [:refresh]
 
   def index
-    query_params = params.permit(:id, :buyer_type, :buyer_id, :payment_status, :payment_type)
-    q_params = params.fetch(:q, {}).permit(:uuid)
-    query_params.merge! q_params
+    q_params = default_params.merge! params.permit(:id, :buyer_type, :buyer_id, :payment_status, :payment_type)
+    q_params.merge! params.fetch(:q, {}).permit(:uuid)
 
-    @orders = Order.includes(:buyer).default_where(query_params).order(id: :desc).page(params[:page])
+    @orders = Order.includes(:buyer).default_where(q_params).order(id: :desc).page(params[:page])
   end
 
   def payments
@@ -92,7 +91,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   end
 
   def order_params
-    params.fetch(:order, {}).permit(
+    p = params.fetch(:order, {}).permit(
       :buyer_type,
       :buyer_id,
       :quantity,
@@ -105,6 +104,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
       order_serves_attributes: [:serve_id, :serve_charge_id, :amount],
       order_promotes_attributes: [:promote_id, :promote_charge_id, :amount]
     )
+    p.merge! default_params
   end
 
 end

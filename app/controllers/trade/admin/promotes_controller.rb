@@ -2,7 +2,8 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   before_action :set_promote, only: [:show, :edit, :update, :destroy]
 
   def index
-    @promotes = Promote.default_where(params.permit(:scope)).order(id: :desc).page(params[:page])
+    q_params = default_params.merge! params.permit(:scope)
+    @promotes = Promote.default_where(q_params).order(id: :desc).page(params[:page])
     respond_to do |format|
       format.json
       format.html
@@ -82,6 +83,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       extra: []
     )
     p.fetch(:extra, []).reject!(&:blank?)
-    p
+    p.merge! default_params
   end
 end

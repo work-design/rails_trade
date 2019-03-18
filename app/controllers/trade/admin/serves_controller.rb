@@ -2,7 +2,8 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
   before_action :set_serve, only: [:show, :edit, :update, :destroy]
 
   def index
-    @serves = Serve.default_where(params.permit(:scope)).page(params[:page])
+    q_params = default_params.merge! params.permit(:scope)
+    @serves = Serve.default_where(q_params).page(params[:page])
   end
 
   def search
@@ -61,7 +62,7 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
   end
 
   def serve_params
-    sp = params.fetch(:serve, {}).permit(
+    p = params.fetch(:serve, {}).permit(
       :unit,
       :type,
       :name,
@@ -75,7 +76,7 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
       :default,
       extra: []
     )
-    sp.fetch(:extra, []).reject!(&:blank?)
-    sp
+    p.fetch(:extra, []).reject!(&:blank?)
+    p.merge! default_params
   end
 end

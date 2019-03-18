@@ -1,6 +1,5 @@
 class Payment < ApplicationRecord
   include Auditable
-  extend RailsRoleOwner
 
   attribute :type, :string, default: 'HandPayment'
   attribute :currency, :string, default: RailsTrade.config.default_currency
