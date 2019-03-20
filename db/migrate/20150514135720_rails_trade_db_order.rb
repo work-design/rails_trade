@@ -1,4 +1,4 @@
-class RailsTradeOrder < ActiveRecord::Migration[5.2]
+class RailsTradeDbOrder < ActiveRecord::Migration[5.2]
   def change
 
     create_table :orders do |t|

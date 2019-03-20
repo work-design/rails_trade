@@ -1,4 +1,4 @@
-class RailsTradePromotes < ActiveRecord::Migration[5.1]
+class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
   def change
 
     create_table :promotes do |t|

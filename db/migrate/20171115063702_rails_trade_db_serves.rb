@@ -1,4 +1,4 @@
-class RailsTradeServes < ActiveRecord::Migration[5.1]
+class RailsTradeDbServes < ActiveRecord::Migration[5.1]
   def change
 
     create_table :serves do |t|
