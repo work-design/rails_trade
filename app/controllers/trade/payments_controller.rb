@@ -22,8 +22,12 @@ class Trade::PaymentsController < ApplicationController
 
   def apple_notify
     @order = Order.find_by(uuid: params[:order_uuid])
+    notify_params = params.permit!
+    notify_params.merge! amount: @order.amount
+
+    result = nil
     if ApplePay.verify?
-      result = @order.changed_to_paid! params: params, params: {amount: @order.amount}, type: 'ApplePayment'
+      result = @order.changed_to_paid! params: notify_params, type: 'ApplePayment'
     end
 
     if result
