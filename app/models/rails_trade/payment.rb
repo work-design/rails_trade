@@ -44,7 +44,7 @@ class Payment < ApplicationRecord
   end
 
   def unchecked_amount
-    total_amount.to_d - payment_orders.sum(&:check_amount).to_d
+    total_amount.to_d - payment_orders.sum(:check_amount)
   end
 
   def compute_amount
