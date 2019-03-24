@@ -97,6 +97,7 @@ module RailsTradeGood
       o = Order.new
     end
     o.currency = self.currency
+    o.organ_id = self.organ_id if self.respond_to?(:organ_id)
 
     number = params.delete(:number) || 1
     amount = params.delete(:amount) || number * self.price.to_d
