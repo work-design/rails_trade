@@ -1,17 +1,11 @@
-<div class="">
+<div class="ui segment breadcrumb">
+  <%= link_to 'Back', admin_payments_path, class: 'section' %>
+  <div class="divider"> / </div>
+  <div class="active section">Add New</div>
+</div>
 
-  <div class="ui segment breadcrumb">
-    <%= link_to 'Back', admin_payments_path, class: 'section' %>
-    <div class="divider"> / </div>
-    <div class="active section">Add New</div>
-  </div>
-
-  <div class="ui segment">
-
-    <%= form_with model: @payment, url: admin_payments_path, local: true do |f| %>
-      <%= render partial: 'form', locals: { f: f } %>
-    <% end %>
-
-  </div>
-
+<div class="ui segment">
+  <%= form_with model: @payment, scope: :payment, url: admin_payments_path do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+  <% end %>
 </div>

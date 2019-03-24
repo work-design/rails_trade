@@ -14,9 +14,7 @@ class Trade::Admin::PaymentOrdersController < Trade::Admin::BaseController
     @payment_order = @payment.payment_orders.build(payment_order_params)
 
     if @payment_order.confirm!
-      respond_to do |format|
-        format.js
-      end
+      render 'create'
     else
       render 'create_fail'
     end
@@ -25,9 +23,7 @@ class Trade::Admin::PaymentOrdersController < Trade::Admin::BaseController
   def update
     @payment_order.assign_attributes payment_order_params
     if @payment_order.confirm!
-      respond_to do |format|
-        format.js
-      end
+      render 'update'
     else
       render 'create_fail'
     end
@@ -35,9 +31,6 @@ class Trade::Admin::PaymentOrdersController < Trade::Admin::BaseController
 
   def cancel
     @payment_order.revert_confirm!
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

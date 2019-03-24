@@ -23,6 +23,7 @@ class RailsTradeDbPayments < ActiveRecord::Migration[5.1]
       t.string :state, index: true
       t.string :comment
       t.boolean :verified, default: true
+      t.integer :lock_version
       t.timestamps
     end
 

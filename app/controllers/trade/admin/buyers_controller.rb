@@ -6,7 +6,7 @@ class Trade::Admin::BuyersController < Trade::Admin::BaseController
     q_params = params.fetch(:q, {}).permit(:payment_strategy_id, :'crm_permits.manager_id', :'name-like').reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
     @overdue_date = params.fetch(:q, {})['overdue_date-lte'] || Date.today
 
-    @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(the_role_user).page(params[:page])
+    @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(rails_role_user).page(params[:page])
   end
 
   def overdue
@@ -14,7 +14,7 @@ class Trade::Admin::BuyersController < Trade::Admin::BaseController
     q_params = params.fetch(:q, {}).permit(:payment_strategy_id, :'crm_permits.manager_id', :'name-like').reverse_merge('orders.payment_status': ['unpaid', 'part_paid'], 'orders.state': 'active')
     @overdue_date = params.fetch(:q, {})['overdue_date-lte'] || Date.today
 
-    @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(the_role_user).page(params[:page])
+    @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(rails_role_user).page(params[:page])
   end
 
   def orders

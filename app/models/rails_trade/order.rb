@@ -94,6 +94,12 @@ class Order < ApplicationRecord
     self.order_items.each(&:confirm_ordered!)
   end
 
+  def compute_received_amount
+    _received_amount = self.payment_orders.where(state: :confirmed).sum(:check_amount)
+    _refund_amount = self.refunds.where.not(state: :failed).sum(:total_amount)
+    _received_amount - _refund_amount
+  end
+
   private
 
   # override this to implement your own uuid generation rules

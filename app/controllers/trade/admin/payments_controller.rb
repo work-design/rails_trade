@@ -22,9 +22,9 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
   def create
     if params[:order_id].present?
       @order = Order.find params[:order_id]
-      @payment = @order.payments.build(payment_params.merge(creator_id: the_role_user.id))
+      @payment = @order.payments.build(payment_params.merge(creator_id: rails_role_user.id))
     else
-      @payment = Payment.new(payment_params.merge(creator_id: the_role_user.id))
+      @payment = Payment.new(payment_params.merge(creator_id: rails_role_user.id))
     end
 
     if @payment.save
@@ -50,6 +50,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
     respond_to do |format|
       format.js
+      format.json
     end
   end
 
@@ -84,7 +85,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
       :buyer_identifier,
       :buyer_bank
     )
-    p.reverse_merge(type: 'BankPayment')
+    p
   end
 
 end

@@ -34,8 +34,8 @@ zh:
         SingleCharge: Single Charge
         TotalCharge: Total Charge
       payment/type:
-        HandPayment: Hand Record
-        BankPayment: Bank Record
+        HandPayment: 后台支付
+        BankPayment: 银行支付
         PaypalPayment: Paypal
       payment/state:
         init: 未核销

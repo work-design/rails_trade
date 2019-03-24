@@ -6,7 +6,7 @@ class Payment < ApplicationRecord
   attribute :adjust_amount, :decimal, default: 0
 
   belongs_to :payment_method, optional: true
-  has_many :payment_orders, dependent: :destroy
+  has_many :payment_orders, inverse_of: :payment, dependent: :destroy
   has_many :orders, through: :payment_orders, inverse_of: :payments
 
   default_scope -> { order(created_at: :desc) }
@@ -57,6 +57,10 @@ class Payment < ApplicationRecord
     end
 
     self.check_state
+  end
+
+  def compute_checked_amount
+    self.payment_orders.where(state: :confirmed).sum(:check_amount)
   end
 
   def pending_orders
