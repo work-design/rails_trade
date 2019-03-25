@@ -1,5 +1,5 @@
 class PaymentOrder < ApplicationRecord
-  attribute :check_amount, :decimal
+  attribute :check_amount, :decimal, default: 0
   attribute :state, :string, default: 'init'
 
   belongs_to :order, inverse_of: :payment_orders
