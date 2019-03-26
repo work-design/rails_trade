@@ -35,7 +35,7 @@ class CartService
   def compute_promote
     @promote_charges = []
     Promote.sequence.each do |que|
-      AmountPromote.total.overall.where(sequence: que).each do |promote|
+      AmountPromote.total.overall_goods.where(sequence: que).each do |promote|
         @promote_charges << promote.compute_price(bulk_price)
       end
 
