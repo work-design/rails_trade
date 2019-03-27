@@ -1,21 +1,10 @@
-<div class="ui menu vertical fluid">
-  <div class="item">
-    <span class="header">订单</span>
-    <div class="menu">
-      <%= link_to '购物车', my_cart_items_path, class: active_helper(controllers: ['cart_items']) %>
-      <%= link_to '我的订单', my_orders_path, class: active_helper(controllers: ['orders']) %>
-    </div>
-  </div>
-  <div class="item">
-    <span class="header">服务商</span>
-    <div class="menu">
-      <%= link_to '供应商申请', my_provider_path, class: active_helper(controllers: ['providers']) %>
-    </div>
+<div class="item">
+  <span class="header">订单</span>
+  <div class="menu">
+    <%= link_to '购物车', my_cart_items_path, class: active_helper(controllers: ['cart_items']) %>
+    <%= link_to '我的订单', my_orders_path, class: active_helper(controllers: ['orders']) %>
   </div>
 </div>
-
-
-
 
 
 
