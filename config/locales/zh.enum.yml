@@ -1,0 +1,46 @@
+zh:
+  activerecord:
+    enum:
+      charge:
+        type:
+          SingleCharge: Single Charge
+          TotalCharge: Total Charge
+      payment:
+        type:
+          HandPayment: 后台支付
+          BankPayment: 银行支付
+          PaypalPayment: Paypal
+        state:
+          init: 未核销
+          part_checked: 部分核销
+          all_checked: 全部核销
+          adjust_checked: 调整核销
+          abusive_checked: 问题核销
+      payment_order:
+        state:
+          init: 待确认
+          confirmed: 已确认
+      promote:
+        type:
+          NumberPromote: 购买件数
+          AmountPromote: 总金额
+        scope:
+          total: 多个商品
+          single: 单个商品
+      promote_charge:
+        type:
+          DiscountPromoteCharge: 折扣策略
+          FinalPromoteCharge: 一口价策略
+          MinusPromoteCharge: 满减策略
+          CashPromoteCharge: 现金抵扣
+      serve:
+        type:
+          QuantityServe: 总重量
+          NumberServe: 购买件数
+        scope:
+          total: 全部应用
+          single: 单独应用
+      serve_charge:
+        type:
+          SingleServeCharge: Single Charge
+          TotalServeCharge: Total Charge

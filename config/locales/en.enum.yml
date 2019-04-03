@@ -1,0 +1,47 @@
+en:
+  activerecord:
+    enum:
+      order:
+        payment_type:
+          paypal: Paypal
+          alipay: Alipay
+          stripe: Stripe
+      payment:
+        type:
+          HandPayment: Hand Record
+          BankPayment: Bank Record
+          PaypalPayment: Paypal
+        state:
+          init: 未核销
+          part_checked: 部分核销
+          all_checked: 全部核销
+          abusive_checked: 问题核销
+      payment_order:
+        state:
+          init: 预核销
+          confirmed: 已核销
+      promote:
+        type:
+          QuantityPromote: 总重量
+          NumberPromote: 购买件数
+          AmountPromote: 总金额
+        scope:
+          total: 全部应用
+          single: 单独应用
+      promote_charge:
+        type:
+          DiscountPromoteCharge: Discount
+          FinalPromoteCharge: Final
+          MinusPromoteCharge: Minus
+          CashPromoteCharge: Cash
+      serve:
+        type:
+          QuantityServe: 总重量
+          NumberServe: 购买件数
+        scope:
+          total: 全部应用
+          single: 单独应用
+      serve_charge:
+        type:
+          SingleServeCharge: Single Charge
+          TotalServeCharge: Total Charge
