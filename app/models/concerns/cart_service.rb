@@ -8,7 +8,6 @@ class CartService
                 :final_price,
                 :discount_price,
                 :retail_price,
-                :reduced_price,
                 :total_quantity
 
   def initialize(buyer_type: 'User', buyer_id: nil, session_id: nil, cart_item_id: nil, myself: nil, extra: {})
@@ -64,7 +63,7 @@ class CartService
   end
 
   def total_price
-    @total_price ||= bulk_price + reduced_price + promote_price + @total_serve_price
+    @total_price ||= bulk_price + promote_price + @total_serve_price
   end
 
 end

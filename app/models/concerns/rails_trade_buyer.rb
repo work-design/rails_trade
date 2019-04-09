@@ -13,7 +13,7 @@ module RailsTradeBuyer
     has_many :cart_items, as: :buyer, dependent: :destroy
 
     has_many :promote_buyers, as: :buyer, dependent: :destroy
-    has_many :promotes, ->{ special }, through: :promote_buyers
+    has_many :promotes, ->{ special_goods }, through: :promote_buyers
 
     has_many :payment_references, as: :buyer, dependent: :destroy, autosave: true
     has_many :payment_methods, through: :payment_references, autosave: true
