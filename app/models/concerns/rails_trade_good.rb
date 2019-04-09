@@ -8,6 +8,9 @@ module RailsTradeGood
     attribute :currency, :string
     attribute :advance_payment, :decimal, default: 0
     attribute :extra, :json, default: {}
+    attribute :quantity
+    attribute :unit
+
     thread_mattr_accessor :class_extra, instance_accessor: false
 
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy

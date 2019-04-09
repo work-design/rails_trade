@@ -3,6 +3,8 @@ class CartItem < ApplicationRecord
 
   attribute :status, :string, default: 'init'
   attribute :myself, :boolean, default: true
+  attribute :quantity
+  attribute :reduced_price, :decimal, default: 0
   attribute :extra, :json
 
   belongs_to :buyer, polymorphic: true, optional: true
