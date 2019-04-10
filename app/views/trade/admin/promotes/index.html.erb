@@ -2,7 +2,7 @@
   <%= link_to '促销列表', admin_promotes_path, class: active_helper(controllers: ['promotes', 'promote_charges']) %>
   <%= link_to '服务列表', admin_serves_path, class: active_helper(controllers: ['serves', 'serve_charges']) %>
   <div class="right menu">
-    <div class="item"><%= link_to '新建', new_admin_promote_path, class: 'ui teal button' %></div>
+    <div class="item"></div>
   </div>
 </div>
 
@@ -44,7 +44,11 @@
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:extra) %></th>
       <th></th>
-      <th></th>
+      <th>
+        <%= link_to new_admin_promote_path, class: 'ui mini primary button' do %>
+          <i class="plus icon"></i><%= t('.new') %>
+        <% end %>
+      </th>
     </tr>
   </thead>
 

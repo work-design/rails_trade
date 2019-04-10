@@ -1,4 +1,5 @@
-<div class="ui segment breadcrumb">
+<% content_for :breadcrumb do %>
+<div class="ui basic segment breadcrumb">
   <%= link_to 'All Promotes', admin_promotes_path, class: 'section' %>
   <% if params[:promote_id] %>
     <div class="divider">/</div>
@@ -7,15 +8,7 @@
   <div class="divider">/</div>
   <div class="active section">派发用户</div>
 </div>
-
-<div class="ui top attached borderless menu">
-  <div class="item header">Promote Buyers</div>
-  <div class="right menu">
-    <div class="item">
-      <%= link_to 'New Promote Buyer', new_admin_promote_buyer_path(request.GET), class: 'ui teal button' %>
-    </div>
-  </div>
-</div>
+<% end %>
 
 <div class="ui attached segment">
   <%= render 'filter' %>
@@ -28,7 +21,11 @@
       <th><%= PromoteBuyer.human_attribute_name(:buyer) %></th>
       <th><%= PromoteBuyer.human_attribute_name(:promote) %></th>
       <th><%= PromoteBuyer.human_attribute_name(:state) %></th>
-      <th>Actions</th>
+      <th>
+        <%= link_to new_admin_promote_buyer_path(request.GET), class: 'ui mini primary button' do %>
+          <i class="plus icon"></i><%= t('.new') %>
+        <% end %>
+      </th>
     </tr>
   </thead>
 

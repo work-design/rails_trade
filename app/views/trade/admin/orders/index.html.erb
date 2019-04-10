@@ -1,9 +1,10 @@
-<div class="ui top attached segment">
-  <h1>订单列表</h1>
+<% content_for :breadcrumb do %>
+<div class="ui basic segment breadcrumb">
+  <div class="section">订单列表</div>
 </div>
+<% end %>
 
 <div class="ui attached segment">
-  <%= render 'search_form' %>
   <%= render 'filter' %>
 </div>
 
@@ -47,9 +48,13 @@
         <% end %>
       </td>
       <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
-      <td class="ui labels">
-        <%= link_to 'Show', admin_order_path(order), class: 'ui blue label' %>
-        <%= link_to 'Edit', edit_admin_order_path(order), class: 'ui red label' %>
+      <td>
+        <%= link_to admin_order_path(order), data: { tooltip: t('.show') }, class: 'ui mini circular icon button' do %>
+          <i class="location arrow icon"></i>
+        <% end %>
+        <%= link_to edit_admin_order_path(order), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
+          <i class="pencil alternate icon"></i>
+        <% end %>
       </td>
     </tr>
   <% end %>
