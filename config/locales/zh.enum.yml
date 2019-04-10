@@ -5,6 +5,14 @@ zh:
         type:
           SingleCharge: Single Charge
           TotalCharge: Total Charge
+      order:
+        payment_status:
+          unpaid: 未支付
+          part_paid: 部分支付
+          all_paid: 已支付
+          refunding: 退款中
+          refunded: 已退款
+          denied: 退款失败
       payment:
         type:
           HandPayment: 后台支付

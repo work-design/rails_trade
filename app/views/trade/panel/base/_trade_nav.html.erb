@@ -7,7 +7,6 @@
   <div class="<%= active_helper(controllers: ['orders', 'payments', 'payment_methods'], active_class: 'active content menu', item_class: 'content menu') %>">
     <%= link_to '订单列表', admin_orders_path, class: active_helper(controller: 'orders') %>
     <%= link_to '支付流水', admin_payments_path, class: active_helper(controller: 'payments') %>
-    <%= link_to 'Payment Methods', admin_payment_methods_path, class: active_helper(controllers: 'payment_methods') %>
   </div>
 </div>
 <div class="item">
@@ -19,27 +18,5 @@
   <div class="<%= active_helper(controllers: ['promotes', 'promote_buyers'], active_class: 'active content menu', item_class: 'content menu') %>">
     <%= link_to '促销管理', admin_promotes_path, class: active_helper(controller: 'promotes') %>
     <%= link_to '优惠卷', admin_promote_buyers_path, class: active_helper(controller: 'promote_buyers') %>
-  </div>
-</div>
-<div class="item">
-  <a class="title">
-    <i class="money icon"></i>
-    <span>财务</span>
-    <i class="dropdown icon"></i>
-  </a>
-  <div class="menu content">
-    <%= link_to '订单流水', payments_admin_orders_path, class: active_helper('admin/orders': ['payments']) %>
-    <%= link_to '支付流水', admin_payments_path, class: active_helper(controller: 'payments', action: 'index') %>
-    <%= link_to '支付方式', admin_payment_methods_path, class: active_helper(controller: 'payment_methods') %>
-  </div>
-</div>
-<div class="item">
-  <a class="title">
-    <i class="settings icon"></i>
-    <span>订单设置</span>
-    <i class="dropdown icon"></i>
-  </a>
-  <div class="menu content">
-    <%# link_to '手续费率', admin_charges_path, class: active_helper(controller: 'admin/charges') %>
   </div>
 </div>

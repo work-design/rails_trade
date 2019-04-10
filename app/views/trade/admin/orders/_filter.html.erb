@@ -1,6 +1,6 @@
-<%= search_form_with css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
+<%= search_form_with model: Order.new, css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
   <div class="fields">
-    <%= f.text_field :uuid, placeholder: 'UUID', css: { wrapper_input: 'two wide field' } %>
+    <%= f.text_field :order_uuid, css: { wrapper_input: 'two wide field' } %>
     <%= f.submit class: 'ui green small button' %>
     <%= link_to 'Clear All Filters', filter_params(only: []), class: 'ui white button' %>
   </div>
@@ -9,18 +9,18 @@
 <dl>
   <dt>Payment State:</dt>
   <dd>
-    <%= link_to 'All', filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  <% Order.payment_statuses.each do |payment_status, _| %>
-    <%= link_to payment_status, filter_params(payment_status: payment_status, except: [:id]), class: active_params(payment_status: payment_status, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <% Order.options_i18n(:payment_status).each do |text, value| %>
+    <%= link_to text, filter_params(payment_status: value, except: [:id]), class: active_params(payment_status: value, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
   <% end %>
   </dd>
 </dl>
 <dl>
   <dt>Payment Type:</dt>
   <dd>
-    <%= link_to 'All', filter_params(except: [:payment_type]), class: active_params(payment_type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  <% Order.options_i18n(:payment_type).each do |key, value| %>
-    <%= link_to key, filter_params(payment_type: value), class: active_params(payment_type: value, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <%= link_to t('.all'), filter_params(except: [:payment_type]), class: active_params(payment_type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <% Order.options_i18n(:payment_type).each do |text, value| %>
+    <%= link_to text, filter_params(payment_type: value), class: active_params(payment_type: value, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
   <% end %>
   </dd>
 </dl>

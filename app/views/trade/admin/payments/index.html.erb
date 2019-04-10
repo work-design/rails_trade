@@ -1,6 +1,8 @@
-<div class="ui top attached borderless menu">
-  <div class="item header">Payments List</div>
+<% content_for :breadcrumb do %>
+<div class="ui basic segment breadcrumb">
+  <div class="section">Payments List</div>
 </div>
+<% end %>
 
 <%= render 'filter' %>
 
@@ -21,7 +23,7 @@
         <p><%= Payment.human_attribute_name(:buyer_bank) %></p>
       </th>
       <th class="two wide"><%= Payment.human_attribute_name(:notified_at) %></th>
-      <th colspan="2" class="three wide"></th>
+      <th class="three wide"></th>
     </tr>
   </thead>
 
