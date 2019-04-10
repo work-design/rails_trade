@@ -5,8 +5,8 @@
     <i class="dropdown icon"></i>
   </div>
   <div class="<%= active_helper(controllers: ['orders', 'payments', 'payment_methods'], active_class: 'active content menu', item_class: 'content menu') %>">
-    <%= link_to '订单列表', admin_orders_path, class: active_helper(controller: 'orders') %>
-    <%= link_to '支付流水', admin_payments_path, class: active_helper(controller: 'payments') %>
+    <%= link_to '订单列表', admin_orders_path, class: active_helper(controllers: 'orders') %>
+    <%= link_to '支付流水', admin_payments_path, class: active_helper(controllers: 'payments') %>
   </div>
 </div>
 <div class="item">
@@ -16,7 +16,7 @@
     <i class="dropdown icon"></i>
   </div>
   <div class="<%= active_helper(controllers: ['promotes', 'promote_buyers'], active_class: 'active content menu', item_class: 'content menu') %>">
-    <%= link_to '促销管理', admin_promotes_path, class: active_helper(controller: 'promotes') %>
-    <%= link_to '优惠卷', admin_promote_buyers_path, class: active_helper(controller: 'promote_buyers') %>
+    <%= link_to '促销管理', admin_promotes_path, class: active_helper(controllers: 'promotes') %>
+    <%= link_to '优惠卷', admin_promote_buyers_path, class: active_helper(controllers: 'promote_buyers') %>
   </div>
 </div>
