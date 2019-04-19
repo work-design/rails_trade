@@ -1,4 +1,4 @@
-class Trade::Admin::BaseController < RailsTrade.config.admin_class.constantize
+class Trade::Admin::BaseController < RailsTrade.config.admin_controller.constantize
 
 
 

@@ -1,4 +1,4 @@
-class Trade::My::BaseController < RailsTrade.config.my_class.constantize
+class Trade::My::BaseController < RailsTrade.config.my_controller.constantize
   skip_before_action :verify_authenticity_token#, if: -> { request.content_type == 'application/json' }
   helper_method :current_buyer
 
