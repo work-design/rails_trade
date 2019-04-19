@@ -1,13 +1,13 @@
-<%= search_form_with model: Order.new, css: { wrapper_all: 'inline field', wrapper_input: 'field', wrapper_submit: 'field', submit: 'ui green button'} do |f| %>
+<%= search_form_with model: Order.new do |f| %>
   <div class="fields">
     <%= f.text_field :order_uuid, css: { wrapper_input: 'two wide field' } %>
-    <%= f.submit class: 'ui green small button' %>
-    <%= link_to 'Clear All Filters', filter_params(only: []), class: 'ui white button' %>
+    <%= f.submit %>
+    <%= link_to t('.clear'), filter_params(only: []), class: 'ui white button' %>
   </div>
 <% end %>
 <div class="ui divider"></div>
 <dl>
-  <dt>Payment State:</dt>
+  <dt><%= Payment.human_attribute_name(:payment_status) %>:</dt>
   <dd>
     <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
   <% Order.options_i18n(:payment_status).each do |text, value| %>
@@ -16,7 +16,7 @@
   </dd>
 </dl>
 <dl>
-  <dt>Payment Type:</dt>
+  <dt><%= Payment.human_attribute_name(:payment_type) %>:</dt>
   <dd>
     <%= link_to t('.all'), filter_params(except: [:payment_type]), class: active_params(payment_type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
   <% Order.options_i18n(:payment_type).each do |text, value| %>
