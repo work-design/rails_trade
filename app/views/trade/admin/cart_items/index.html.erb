@@ -55,7 +55,7 @@
         <div class="ui left right action input">
           <div class="ui button" onclick="decrease_quantity(<%= cart_item.id %>)"><i class="minus icon"></i></div>
           <%= text_field_tag :quantity, cart_item.quantity, id: "quantity_#{cart_item.id}", onkeyup: "update_quantity(#{cart_item.id})", disabled: true %>
-          <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="plus icon"></i></div>
+          <div class="ui button" onclick="increase_quantity(<%= cart_item.id %>)"><i class="fas fa-plus"></i></div>
         </div>
       </td>
       <td id="retail_price_<%= cart_item.id %>">
