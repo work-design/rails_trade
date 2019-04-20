@@ -1,9 +1,6 @@
-<div class="ui top attached borderless menu">
+<div class="ui top attached tabular menu">
   <%= link_to '促销列表', admin_promotes_path, class: active_helper(controllers: ['promotes', 'promote_charges']) %>
   <%= link_to '服务列表', admin_serves_path, class: active_helper(controllers: ['serves', 'serve_charges']) %>
-  <div class="right menu">
-    <div class="item"></div>
-  </div>
 </div>
 
 <div class="ui attached segment">
@@ -67,8 +64,12 @@
       </td>
       <td>
         <%= link_to '细则', admin_serve_charges_path(serve) %>
-        <%= link_to '编辑', edit_admin_serve_path(serve) %>
-        <%= link_to '删除', admin_serve_path(serve), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to edit_admin_serve_path(serve), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
+          <i class="pencil alternate icon"></i>
+        <% end %>
+        <%= link_to admin_serve_path(serve), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
+          <i class="trash alternate icon"></i>
+        <% end %>
       </td>
     </tr>
   <% end %>

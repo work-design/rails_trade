@@ -14,7 +14,7 @@
       <tr>
         <td><%= link_to 'Show', payment_reference %></td>
         <td><%= link_to 'Edit', edit_payment_reference_path(payment_reference) %></td>
-        <td><%= link_to 'Destroy', payment_reference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', payment_reference, method: :delete, data: { confirm: t('.confirm') } %></td>
       </tr>
     <% end %>
   </tbody>

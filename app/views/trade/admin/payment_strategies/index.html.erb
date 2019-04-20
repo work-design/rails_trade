@@ -24,7 +24,7 @@
         <td><%= payment_strategy.name %></td>
         <td><%= payment_strategy.period %></td>
         <td>
-          <%= link_to t('.destroy'), admin_payment_strategy_path(payment_strategy), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui mini red button' %>
+          <%= link_to t('.destroy'), admin_payment_strategy_path(payment_strategy), remote: true, method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini red button' %>
           <%= link_to t('.edit'), edit_admin_payment_strategy_path(payment_strategy), class: 'ui mini blue button' %>
         </td>
       </tr>

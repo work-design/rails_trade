@@ -33,7 +33,7 @@
         </td>
         <td>
           <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
-          <%= link_to t('.destroy'), admin_payment_method_path(payment_method), class: 'ui mini red button', method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to t('.destroy'), admin_payment_method_path(payment_method), class: 'ui mini red button', method: :delete, data: { confirm: t('.confirm') } %>
         </td>
       </tr>
       <% payment_method.repeat_results.each do |result| %>

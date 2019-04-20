@@ -26,7 +26,7 @@
       <td>
         <%= link_to 'Show', address_path(address) %>
         <%= link_to 'Edit', edit_admin_address_path(address), remote: true %>
-        <%= link_to 'Destroy', admin_address_path(address), method: :delete, remote: true, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Destroy', admin_address_path(address), method: :delete, remote: true, data: { confirm: t('.confirm') } %>
       </td>
     </tr>
   <% end %>

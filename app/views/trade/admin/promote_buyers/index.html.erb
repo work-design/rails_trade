@@ -37,7 +37,7 @@
       <td><%= promote_buyer.promote.name %></td>
       <td><%= promote_buyer.state_i18n %></td>
       <td>
-        <%= link_to 'Destroy', admin_promote_buyer_path(promote_buyer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+        <%= link_to 'Destroy', admin_promote_buyer_path(promote_buyer), method: :delete, data: { confirm: t('.confirm') }, class: 'ui red label' %>
       </td>
     </tr>
   <% end %>

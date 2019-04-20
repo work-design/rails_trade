@@ -43,7 +43,7 @@
       <td><%= promote_good.kind_i18n %></td>
       <td>
         <%= link_to 'Edit', edit_admin_promote_good_path(promote_good), class: 'ui pink label' %>
-        <%= link_to 'Destroy', admin_promote_good_path(promote_good), method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui red label' %>
+        <%= link_to 'Destroy', admin_promote_good_path(promote_good), method: :delete, data: { confirm: t('.confirm') }, class: 'ui red label' %>
       </td>
     </tr>
   <% end %>

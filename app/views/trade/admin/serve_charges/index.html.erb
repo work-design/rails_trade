@@ -39,7 +39,7 @@
         <%= link_to edit_admin_serve_charge_path(@serve, charge), class: 'ui icon green button', 'data-content' => 'Edit Charge', 'data-variation' => 'inverted', remote: true do %>
           <i class="edit white icon"></i>
         <% end %>
-        <%= link_to admin_serve_charge_path(@serve, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: 'Are you sure?' } do %>
+        <%= link_to admin_serve_charge_path(@serve, charge), method: :delete, class: 'ui icon red button floated', 'data-content': 'Delete', 'data-variation': 'inverted', data: { confirm: t('.confirm') } do %>
           <i class="center aligned remove white icon"></i>
         <% end %>
       </td>
