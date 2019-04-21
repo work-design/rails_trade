@@ -1,10 +1,10 @@
 <div class="ui segment breadcrumb">
   <%= link_to 'All Promotes', admin_promotes_path, class: 'section' %>
   <% if params[:promote_id] %>
-    <div class="divider">/</div>
+    <i class="fas fa-angle-right divider"></i>
     <div class="active section"><%= @promote.name %></div>
   <% end %>
-  <div class="divider">/</div>
+  <i class="fas fa-angle-right divider"></i>
   <div class="active section">设置商品</div>
 </div>
 

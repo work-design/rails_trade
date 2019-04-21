@@ -2,9 +2,9 @@
 
 <div class="ui breadcrumb">
   <%= link_to '全部商品', admin_goods_path, class: 'section' %>
-  <div class="divider"> / </div>
+  <i class="fas fa-angle-right divider"></i>
   <%= link_to @good.name, admin_good_path(@good), class: 'section' %>
-  <div class="divider"> / </div>
+  <i class="fas fa-angle-right divider"></i>
   <span class="section">编辑</span>
 </div>
 

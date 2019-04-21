@@ -1,6 +1,6 @@
 <div class="ui segment breadcrumb">
   <%= link_to 'back', admin_promotes_path, class: 'section' %>
-  <i class="right angle icon divider"></i>
+  <i class="fas fa-angle-right divider"></i>
   <div class="section">Charge List</div>
 </div>
 
@@ -10,7 +10,7 @@
 
 <div class="ui attached segment">
   <%= link_to new_admin_promote_charge_path(@promote), remote: true, class: 'ui blue button' do %>
-    <i class="add circle icon"></i>Add New Charge
+    <i class="fas fa-plus"></i><%= t('.new') %>
   <% end %>
 </div>
 
