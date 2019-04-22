@@ -11,7 +11,7 @@ class Trade::Admin::CartItemsController < Trade::Admin::BaseController
 
   def only
     unless params[:good_type] && params[:good_id]
-      redirect_back(fallback_location: admin_cart_items_url, notice: 'Need Good type and Good ID') and return
+      redirect_back(fallback_location: admin_cart_items_url) and return
     end
 
     good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])

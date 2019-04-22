@@ -51,7 +51,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to admin_order_url(@order), notice: 'Order was successfully created.' }
+        format.html { redirect_to admin_order_url(@order) }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: 'new' }
@@ -65,7 +65,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
 
   def update
     if @order.update(order_params)
-      redirect_to @order, notice: 'Order was successfully updated.'
+      redirect_to @order
     else
       render :edit
     end
@@ -82,7 +82,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
 
   def destroy
     @order.destroy
-    redirect_to admin_orders_url(buyer_id: @order.buyer_id), notice: 'Order was successfully destroyed.'
+    redirect_to admin_orders_url(buyer_id: @order.buyer_id)
   end
 
   private

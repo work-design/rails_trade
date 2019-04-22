@@ -20,7 +20,7 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
 
     respond_to do |format|
       if @serve.save
-        format.html { redirect_to admin_serves_url, notice: 'Serve was successfully created.' }
+        format.html { redirect_to admin_serves_url }
         format.json { render action: 'show', status: :created, location: @serve }
       else
         format.html { render action: 'new' }
@@ -38,7 +38,7 @@ class Trade::Admin::ServesController < Trade::Admin::BaseController
   def update
     respond_to do |format|
       if @serve.update(serve_params)
-        format.html { redirect_to admin_serves_url, notice: 'Serve was successfully updated.' }
+        format.html { redirect_to admin_serves_url }
         format.json { head :no_content }
         format.js { head :no_content }
       else

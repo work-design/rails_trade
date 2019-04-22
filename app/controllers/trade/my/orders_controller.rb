@@ -51,7 +51,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to my_order_url(@order), notice: 'Order was successfully created.' }
+        format.html { redirect_to my_order_url(@order) }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: 'new' }
@@ -65,7 +65,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to my_orders_url(id: @order.id), notice: 'Order was successfully created.' }
+        format.html { redirect_to my_orders_url(id: @order.id) }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html {
@@ -96,7 +96,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
     respond_to do |format|
       if @order.update(order_params)
         format.js
-        format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
+        format.html { redirect_to action: 'edit' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -117,7 +117,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
     respond_to do |format|
       if @order.update(order_params)
         format.js
-        format.html { redirect_to action: 'edit', notice: 'Order was successfully updated.' }
+        format.html { redirect_to action: 'edit' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

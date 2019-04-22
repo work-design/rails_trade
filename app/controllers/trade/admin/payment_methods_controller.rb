@@ -30,7 +30,7 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
 
     respond_to do |format|
       if @payment_method.save
-        format.html { redirect_to admin_payment_methods_url, notice: 'Payment method was successfully created.' }
+        format.html { redirect_to admin_payment_methods_url }
         format.js
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
 
   def update
     if @payment_method.update(payment_method_params)
-      redirect_to admin_payment_methods_url, notice: 'Payment method was successfully updated.'
+      redirect_to admin_payment_methods_url
     else
       render :edit
     end
@@ -79,7 +79,7 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
 
   def destroy
     @payment_method.destroy
-    redirect_to admin_payment_methods_url, notice: 'Payment method was successfully destroyed.'
+    redirect_to admin_payment_methods_url
   end
 
   private

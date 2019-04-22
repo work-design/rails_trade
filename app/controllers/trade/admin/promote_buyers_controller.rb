@@ -25,7 +25,7 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
     @promote_buyer = PromoteBuyer.new(promote_buyer_params)
 
     if @promote_buyer.save
-      redirect_to admin_promote_buyers_url(buyer_id: @promote_buyer.buyer_id), notice: 'Promote buyer was successfully created.'
+      redirect_to admin_promote_buyers_url(buyer_id: @promote_buyer.buyer_id)
     else
       render :new
     end
@@ -33,7 +33,7 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
 
   def destroy
     @promote_buyer.destroy
-    redirect_to admin_promote_buyers_url(buyer_id: @promote_buyer.buyer_id), notice: 'Promote buyer was successfully destroyed.'
+    redirect_to admin_promote_buyers_url(buyer_id: @promote_buyer.buyer_id)
   end
 
   private

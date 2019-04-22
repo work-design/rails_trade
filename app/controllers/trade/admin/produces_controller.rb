@@ -20,7 +20,7 @@ class Trade::Admin::ProducesController < Trade::Admin::BaseController
 
     respond_to do |format|
       if @produce.save
-        format.html { redirect_to @produce, notice: 'Produce was successfully created.' }
+        format.html { redirect_to @produce }
         format.json { render :show, status: :created, location: @produce }
       else
         format.html { render :new }
@@ -34,7 +34,7 @@ class Trade::Admin::ProducesController < Trade::Admin::BaseController
   def update
     respond_to do |format|
       if @produce.update(produce_params)
-        format.html { redirect_to @produce, notice: 'Produce was successfully updated.' }
+        format.html { redirect_to @produce }
         format.json { render :show, status: :ok, location: @produce }
       else
         format.html { render :edit }
@@ -48,7 +48,7 @@ class Trade::Admin::ProducesController < Trade::Admin::BaseController
   def destroy
     @produce.destroy
     respond_to do |format|
-      format.html { redirect_to produces_url, notice: 'Produce was successfully destroyed.' }
+      format.html { redirect_to produces_url }
       format.json { head :no_content }
     end
   end

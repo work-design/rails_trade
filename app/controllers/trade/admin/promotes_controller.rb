@@ -24,7 +24,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
     respond_to do |format|
       if @promote.save
-        format.html { redirect_to admin_promotes_url, notice: 'Promote was successfully created.' }
+        format.html { redirect_to admin_promotes_url }
         format.json { render action: 'show', status: :created, location: @promote }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   def update
     respond_to do |format|
       if @promote.update(promote_params)
-        format.html { redirect_to admin_promotes_url, notice: 'Promote was successfully updated.' }
+        format.html { redirect_to admin_promotes_url }
         format.json { head :no_content }
         format.js { head :no_content }
       else

@@ -15,8 +15,8 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
     @charge = @promote.charges.new(charge_params)
     respond_to do |format|
       if @charge.save
-        format.html { redirect_to admin_promote_charges_url(@promote), notice: 'Charge was successfully created.' }
-        format.js { redirect_to admin_promote_charges_url, notice: 'Charge was successfully created.' }
+        format.html { redirect_to admin_promote_charges_url(@promote) }
+        format.js { redirect_to admin_promote_charges_url }
       else
         format.html { render :new }
         format.js
@@ -31,8 +31,8 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   def update
     respond_to do |format|
       if @charge.update(charge_params)
-        format.html { redirect_to admin_promote_charges_url(@promote), notice: 'Charge was successfully updated.' }
-        format.js { redirect_to admin_promote_charges_url(@promote), notice: 'Charge was successfully created.' }
+        format.html { redirect_to admin_promote_charges_url(@promote) }
+        format.js { redirect_to admin_promote_charges_url(@promote) }
       else
         format.html { render :edit }
         format.js

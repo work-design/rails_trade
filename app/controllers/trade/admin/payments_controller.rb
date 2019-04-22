@@ -28,7 +28,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
     end
 
     if @payment.save
-      redirect_to admin_payments_url, notice: 'Payment was successfully created.'
+      redirect_to admin_payments_url
     else
       render :new
     end
@@ -39,7 +39,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
   def update
     if @payment.update(payment_params)
-      redirect_to admin_payments_url, notice: 'Payment was successfully updated.'
+      redirect_to admin_payments_url
     else
       render :edit
     end
@@ -58,13 +58,13 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
     @payment.analyze_adjust_amount
     respond_to do |format|
       format.js
-      format.html { redirect_to admin_payments_url, notice: 'Payment was successfully updated.' }
+      format.html { redirect_to admin_payments_url }
     end
   end
 
   def destroy
     @payment.destroy
-    redirect_to admin_payments_url, notice: 'Payment was successfully destroyed.'
+    redirect_to admin_payments_url
   end
 
   private

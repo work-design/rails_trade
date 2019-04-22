@@ -20,7 +20,7 @@ class Trade::Admin::PaymentReferencesController < Trade::Admin::BaseController
     @payment_reference = @payment_method.payment_references.build(payment_reference_params)
 
     if @payment_reference.save
-      redirect_to admin_payment_methods_url, notice: 'Payment reference was successfully created.'
+      redirect_to admin_payment_methods_url
     else
       render :new
     end
@@ -28,7 +28,7 @@ class Trade::Admin::PaymentReferencesController < Trade::Admin::BaseController
 
   def update
     if @payment_reference.update(payment_reference_params)
-      redirect_to @payment_reference, notice: 'Payment reference was successfully updated.'
+      redirect_to @payment_reference
     else
       render :edit
     end

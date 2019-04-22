@@ -19,7 +19,7 @@ class Trade::Admin::PaymentStrategiesController < Trade::Admin::BaseController
     @payment_strategy = PaymentStrategy.new(payment_strategy_params)
 
     if @payment_strategy.save
-      redirect_to admin_payment_strategies_url, notice: 'Payment strategy was successfully created.'
+      redirect_to admin_payment_strategies_url
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Trade::Admin::PaymentStrategiesController < Trade::Admin::BaseController
 
   def update
     if @payment_strategy.update(payment_strategy_params)
-      redirect_to admin_payment_strategies_url, notice: 'Payment strategy was successfully updated.'
+      redirect_to admin_payment_strategies_url
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class Trade::Admin::PaymentStrategiesController < Trade::Admin::BaseController
 
   def destroy
     @payment_strategy.destroy
-    redirect_to admin_payment_strategies_url, notice: 'Payment strategy was successfully destroyed.'
+    redirect_to admin_payment_strategies_url
   end
 
   private

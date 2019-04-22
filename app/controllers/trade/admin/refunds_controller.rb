@@ -19,7 +19,7 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
     @refund = Refund.new(refund_params)
 
     if @refund.save
-      redirect_to @refund, notice: 'Refund was successfully created.'
+      redirect_to @refund
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
 
   def update
     if @refund.update(refund_params)
-      redirect_to @refund, notice: 'Refund was successfully updated.'
+      redirect_to @refund
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
 
   def destroy
     @refund.destroy
-    redirect_to admin_refunds_url, notice: 'Refund was successfully destroyed.'
+    redirect_to admin_refunds_url
   end
 
   private

@@ -29,7 +29,7 @@ class Trade::Admin::CartServesController < Trade::Admin::BaseController
       if @cart_item_serve.save
         @cart_item.cart_item_serves.reload
         format.js
-        format.html { redirect_to @cart_item_serve, notice: 'Taxon item was successfully created.' }
+        format.html { redirect_to @cart_item_serve }
       else
         format.js
         format.html { render :new }

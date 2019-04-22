@@ -34,7 +34,7 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
     @promote_good = PromoteGood.new(promote_good_params)
 
     if @promote_good.save
-      redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id), notice: 'Promote good was successfully created.'
+      redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id)
     else
       render :new
     end
@@ -42,7 +42,7 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
 
   def update
     if @promote_good.update(promote_good_params)
-      redirect_to @promote_good, notice: 'Promote good was successfully updated.'
+      redirect_to @promote_good
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
 
   def destroy
     @promote_good.destroy
-    redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id), notice: 'Promote good was successfully destroyed.'
+    redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id)
   end
 
   private
