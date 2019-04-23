@@ -1,16 +1,16 @@
-<div class="ui segment">
+<div class="ui top attached segment">
   <h1>订单列表</h1>
 </div>
 
-<table class="ui table">
+<table class="ui bottom attached table">
   <thead>
-  <tr>
-    <th>订单号</th>
-    <th>Amount</th>
-    <th>Payment Status</th>
-    <th>Pay</th>
-    <th>Actions</th>
-  </tr>
+    <tr>
+      <th><%= Order.human_attribute_name(:uuid) %></th>
+      <th><%= Order.human_attribute_name(:amount) %></th>
+      <th><%= Order.human_attribute_name(:payment_status) %></th>
+      <th>Pay</th>
+      <th></th>
+    </tr>
   </thead>
 
   <% @orders.each do |order| %>
@@ -31,10 +31,10 @@
         <% end %>
       </td>
       <td>
-        <%= link_to my_order_path(order), data: { tooltip: t('.show') }, class: 'ui blue mini icon button' do %>
+        <%= link_to my_order_path(order), data: { tooltip: t('.show') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-eye"></i>
         <% end %>
-        <%= link_to edit_my_order_path(order), remote: true, data: { tooltip: t('.edit') }, class: 'ui pink mini icon button' do %>
+        <%= link_to edit_my_order_path(order), remote: true, data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
       </td>
