@@ -15,14 +15,13 @@ class Payment < ApplicationRecord
   #validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
   validates :payment_uuid, uniqueness: { scope: :type }
 
+  before_validation do
+    self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+  end
   before_save :compute_amount
   after_create :analyze_payment_method
 
   has_one_attached :proof
-
-  after_initialize if: :new_record? do |o|
-    self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
-  end
 
   enum state: {
     init: 'init',

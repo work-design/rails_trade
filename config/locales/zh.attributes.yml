@@ -1,0 +1,34 @@
+zh:
+  activerecord:
+    models:
+      role: ''
+    attributes:
+      order:
+        uuid: 订单号
+        payment_status: 付款状态
+        payment_type: 支付方式
+        amount: 金额
+        received_amount: 已收金额
+        currency: 币种
+      payment:
+        total_amount: 总金额
+        income_amount: 净收入
+        checked_amount: 已核销金额
+        fee_amount: 手续费
+        adjust_amount: 冲抵
+        buyer_name: 账号名称
+        buyer_identifier: 账号
+        buyer_bank: 银行
+        notified_at: 通知时间
+        type: 类别
+        comment: 备注
+        state: 状态
+        payment_uuid: 流水号
+      payment_method:
+        account_name: 账号名称
+        account_num: 账号
+        bank: 银行
+        verified: 已审核
+        payment_references: 关联账号
+      payment_order:
+        state: 核销状态

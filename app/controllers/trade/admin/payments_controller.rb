@@ -6,10 +6,9 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
   end
 
   def index
-    @payments = Payment.default_where(params.permit(:type, :state, :'payment_orders.state', :id))
-      .default_where(params.fetch(:q, {}).permit(:'buyer_name-like', :buyer_identifier, :buyer_bank, :payment_uuid, :'orders.uuid'))
-      .permit_with(rails_role_user)
-      .order(id: :desc).page(params[:page])
+    q_params = {}
+    q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, :'buyer_name-like', :'payment_orders.state', :'orders.uuid')
+    @payments = Payment.default_where(q_params).permit_with(rails_role_user).order(id: :desc).page(params[:page])
   end
 
   def show

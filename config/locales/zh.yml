@@ -3,7 +3,7 @@ zh:
     admin:
       payments:
         index:
-          add_new: 新增
+          new: 新增
           import: 导入
           init: 预核销
           confirmed: 未预核销
@@ -26,25 +26,3 @@ zh:
           scope_help: 是否可以对多个商品进行统一计算
           overall_buyers_help: 所有人可用/仅供发放给用户使用
           overall_goods_help: 适用于所有或者大部分商品/适用于选择的商品
-  activerecord:
-    models:
-      role: ''
-    attributes:
-      payment:
-        total_amount: 总金额
-        income_amount: 净收入
-        fee_amount: 手续费
-        adjust_amount: 冲抵
-        buyer_name: 账号名称
-        buyer_identifier: 账号
-        buyer_bank: 银行
-        notified_at: 通知时间
-        uuid: 流水号
-        type: 类别
-        comment: 备注
-      payment_method:
-        account_name: 账号名称
-        account_num: 账号
-        bank: 银行
-        verified: 已审核
-        payment_references: 关联账号

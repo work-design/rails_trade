@@ -1,48 +1,40 @@
-<div class="ui attached segment">
 <%= search_form_with model: Payment.new(params.permit(:payment_uuid)) do |f| %>
   <div class="fields">
-    <%= f.text_field :payment_uuid, css: { wrapper_input: 'two wide field' } %>
+    <%= f.text_field :payment_uuid, css: { wrapper_input: 'three wide field' } %>
     <%= f.text_field :'buyer_name-like' %>
     <%= f.text_field :buyer_identifier %>
     <%= f.text_field :buyer_bank %>
-  </div>
-  <div class="fields">
     <%= f.text_field :'orders.uuid' %>
     <%= f.submit %>
     <%= link_to t('.clear'), filter_params(except: [:payment_uuid]), class: 'ui button' %>
   </div>
 <% end %>
-</div>
 
-<div class="ui attached segment">
-  <dl>
-    <dt>Type:</dt>
-    <dd>
-      <%= link_to 'All', filter_params(except: [:type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Bank', filter_params(type: 'BankPayment'), class: active_params(type: 'BankPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Hand', filter_params(type: 'HandPayment'), class: active_params(type: 'HandPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Paypal', filter_params(type: 'PaypalPayment'), class: active_params(type: 'PaypalPayment', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    </dd>
-  </dl>
-  <dl>
-    <dt>State:</dt>
-    <dd>
-      <%= link_to 'All', filter_params(except: [:state]), class: active_params(state: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to '未核销', filter_params(state: 'init'), class: active_params(state: 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to '部分核销', filter_params(state: 'part_checked'), class: active_params(state: 'part_checked', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to '全部核销', filter_params(state: 'all_checked'), class: active_params(state: 'all_checked', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    </dd>
-  </dl>
-  <dl>
-    <dt>State:</dt>
-    <dd>
-      <%= link_to 'All', filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to t('init'), filter_params('payment_orders.state': 'init'), class: active_params('payment_orders.state': 'init', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to t('confirmed'), filter_params('payment_orders.state': 'confirmed'), class: active_params('payment_orders.state': 'confirmed', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    </dd>
-  </dl>
-  <p>
-    <%= link_to t('.add_new'), new_admin_payment_path, class: 'ui teal button' %>
-    <%= link_to t('.import'), import_data_list_table_lists_path('PaymentImport'), class: 'ui blue button', remote: true %>
-  </p>
-</div>
+<div class="ui divider"></div>
+<dl>
+  <dt><%= Payment.human_attribute_name(:type) %>:</dt>
+  <dd>
+    <%= link_to t('.all'), filter_params(except: [:type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <% Payment.options_i18n(:type).each do |text, type| %>
+      <%= link_to text, filter_params(type: type), class: active_params(type:type, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <% end %>
+  </dd>
+</dl>
+<dl>
+  <dt><%= Payment.human_attribute_name(:state) %>:</dt>
+  <dd>
+    <%= link_to t('.all'), filter_params(except: [:state]), class: active_params(state: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <% Payment.options_i18n(:state).each do |text, state| %>
+      <%= link_to text, filter_params(state: state), class: active_params(state: state, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <% end %>
+  </dd>
+</dl>
+<dl>
+  <dt><%= PaymentOrder.human_attribute_name(:state) %>:</dt>
+  <dd>
+    <%= link_to t('.all'), filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <% PaymentOrder.options_i18n(:state).each do |text, state| %>
+      <%= link_to text, filter_params('payment_orders.state': state), class: active_params('payment_orders.state': state, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <% end %>
+  </dd>
+</dl>

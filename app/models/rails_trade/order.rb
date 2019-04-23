@@ -7,6 +7,7 @@ class Order < ApplicationRecord
   attribute :adjust_amount, :decimal, default: 0
   attribute :expire_at, :datetime
   attribute :extra, :json, default: {}
+  attribute :currency, :string, default: RailsTrade.config.default_currency
 
   belongs_to :buyer, polymorphic: true
   belongs_to :payment_strategy, optional: true
@@ -26,7 +27,7 @@ class Order < ApplicationRecord
   scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
   scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
-  after_initialize if: :new_record? do |o|
+  before_validation do
     self.uuid = generate_order_uuid
     self.payment_strategy_id = self.buyer&.payment_strategy_id
     self.expire_at = Time.now + RailsTrade.config.expire_after
