@@ -3,6 +3,7 @@ zh:
     admin:
       payments:
         index:
+          title: 支付流水
           new: 新增
           import: 导入
           init: 预核销
@@ -23,6 +24,10 @@ zh:
           relate: 关联买家
       promotes:
         index:
+          title: 促销列表
           scope_help: 是否可以对多个商品进行统一计算
           overall_buyers_help: 所有人可用/仅供发放给用户使用
           overall_goods_help: 适用于所有或者大部分商品/适用于选择的商品
+      serves:
+        index:
+          title: 服务列表
