@@ -1,31 +1,33 @@
-class OrderItem < ApplicationRecord
-
-  attribute :cart_item_id, :integer
-  attribute :good_type, :string
-  attribute :good_id, :integer
-
-  attribute :quantity, :decimal
-  attribute :number, :integer, default: 1
-  attribute :amount, :decimal, default: 0
-  attribute :promote_sum, :decimal, default: 0
-  attribute :serve_sum, :decimal, default: 0
-  attribute :comment, :string
-  attribute :advance_payment, :decimal, precision: 10, scale: 2
-  attribute :extra, :json, default: {}
-
-  belongs_to :order, autosave: true, inverse_of: :order_items
-  belongs_to :cart_item, optional: true, autosave: true
-  belongs_to :good, polymorphic: true, optional: true
-  belongs_to :provider, optional: true
-  has_many :order_promotes, autosave: true
-  has_many :order_serves, autosave: true
-  has_many :serves, through: :order_serves
-
-  after_initialize if: :new_record? do |oi|
-    init_from_cart_item if cart_item
+module RailsTrade::OrderItem
+  extend ActiveSupport::Concern
+  included do
+    attribute :cart_item_id, :integer
+    attribute :good_type, :string
+    attribute :good_id, :integer
+  
+    attribute :quantity, :decimal
+    attribute :number, :integer, default: 1
+    attribute :amount, :decimal, default: 0
+    attribute :promote_sum, :decimal, default: 0
+    attribute :serve_sum, :decimal, default: 0
+    attribute :comment, :string
+    attribute :advance_payment, :decimal, precision: 10, scale: 2
+    attribute :extra, :json, default: {}
+  
+    belongs_to :order, autosave: true, inverse_of: :order_items
+    belongs_to :cart_item, optional: true, autosave: true
+    belongs_to :good, polymorphic: true, optional: true
+    belongs_to :provider, optional: true
+    has_many :order_promotes, autosave: true
+    has_many :order_serves, autosave: true
+    has_many :serves, through: :order_serves
+  
+    after_initialize if: :new_record? do |oi|
+      init_from_cart_item if cart_item
+    end
+    after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
   end
-  after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
-
+  
   def compute_promote(promote_buyer_ids = nil)
     if promote_buyer_ids.present?
       order.buyer.promote_buyers.where(id: Array(promote_buyer_ids)).each do |promote_buyer|
@@ -89,4 +91,4 @@ class OrderItem < ApplicationRecord
     cart_item.status = 'ordered'
   end
 
-end unless RailsTrade.config.disabled_models.include?('OrderItem')
+end

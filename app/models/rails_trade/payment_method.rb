@@ -1,15 +1,17 @@
-class PaymentMethod < ApplicationRecord
-
-  attribute :extra, :json, default: {}
-
-  has_many :payments, dependent: :nullify
-  has_many :payment_references, dependent: :destroy, autosave: true, inverse_of: :payment_method
-  has_many :buyers, through: :payment_references
-
-  default_scope -> { where(verified: true) }
-
-  validates :account_num, uniqueness: { scope: [:account_name, :verified] }, if: :verified?
-
+module RailsTrade::PaymentMethod
+  extend ActiveSupport::Concern
+  included do
+    attribute :extra, :json, default: {}
+  
+    has_many :payments, dependent: :nullify
+    has_many :payment_references, dependent: :destroy, autosave: true, inverse_of: :payment_method
+    has_many :buyers, through: :payment_references
+  
+    default_scope -> { where(verified: true) }
+  
+    validates :account_num, uniqueness: { scope: [:account_name, :verified] }, if: :verified?
+  end
+  
   def account_types
     PaymentReference.pluck(:account_type).uniq
   end
@@ -52,7 +54,7 @@ class PaymentMethod < ApplicationRecord
     type.to_s.sub('Method', '').downcase
   end
 
-end unless RailsTrade.config.disabled_models.include?('PaymentMethod')
+end
 
 
 

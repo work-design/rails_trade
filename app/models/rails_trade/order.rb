@@ -1,49 +1,52 @@
-class Order < ApplicationRecord
-  include RailsTradePayment
-  include RailsTradeRefund
-  include PaymentInterfaceBase
-
-  attribute :payment_status, :string, default: 'unpaid'
-  attribute :adjust_amount, :decimal, default: 0
-  attribute :expire_at, :datetime
-  attribute :extra, :json, default: {}
-  attribute :currency, :string, default: RailsTrade.config.default_currency
-
-  belongs_to :buyer, polymorphic: true
-  belongs_to :payment_strategy, optional: true
-  has_many :payment_orders, dependent: :destroy
-  has_many :payments, through: :payment_orders, inverse_of: :orders
-  has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
-  has_many :refunds, dependent: :nullify, inverse_of: :order
-  has_many :order_promotes, autosave: true, inverse_of: :order
-  has_many :order_serves, autosave: true
-  has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
-  has_many :pure_order_serves, -> { where(order_item_id: nil) }, class_name: 'OrderServe'
-
-  accepts_nested_attributes_for :order_items
-  accepts_nested_attributes_for :order_serves
-  accepts_nested_attributes_for :order_promotes
-
-  scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
-  scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
-
-  before_validation do
-    self.uuid = generate_order_uuid
-    self.payment_strategy_id = self.buyer&.payment_strategy_id
-    self.expire_at = Time.now + RailsTrade.config.expire_after
+module RailsTrade::Order
+  extend ActiveSupport::Concern
+  included do
+    include RailsTradePayment
+    include RailsTradeRefund
+    include PaymentInterfaceBase
+  
+    attribute :payment_status, :string, default: 'unpaid'
+    attribute :adjust_amount, :decimal, default: 0
+    attribute :expire_at, :datetime
+    attribute :extra, :json, default: {}
+    attribute :currency, :string, default: RailsTrade.config.default_currency
+  
+    belongs_to :buyer, polymorphic: true
+    belongs_to :payment_strategy, optional: true
+    has_many :payment_orders, dependent: :destroy
+    has_many :payments, through: :payment_orders, inverse_of: :orders
+    has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
+    has_many :refunds, dependent: :nullify, inverse_of: :order
+    has_many :order_promotes, autosave: true, inverse_of: :order
+    has_many :order_serves, autosave: true
+    has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
+    has_many :pure_order_serves, -> { where(order_item_id: nil) }, class_name: 'OrderServe'
+  
+    accepts_nested_attributes_for :order_items
+    accepts_nested_attributes_for :order_serves
+    accepts_nested_attributes_for :order_promotes
+  
+    scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
+    scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
+  
+    before_validation do
+      self.uuid = generate_order_uuid
+      self.payment_strategy_id = self.buyer&.payment_strategy_id
+      self.expire_at = Time.now + RailsTrade.config.expire_after
+    end
+  
+    after_create_commit :confirm_ordered!
+  
+    enum payment_status: {
+      unpaid: 'unpaid',
+      part_paid: 'part_paid',
+      all_paid: 'all_paid',
+      refunding: 'refunding',
+      refunded: 'refunded',
+      denied: 'denied'
+    }
   end
-
-  after_create_commit :confirm_ordered!
-
-  enum payment_status: {
-    unpaid: 'unpaid',
-    part_paid: 'part_paid',
-    all_paid: 'all_paid',
-    refunding: 'refunding',
-    refunded: 'refunded',
-    denied: 'denied'
-  }
-
+  
   def subject
     order_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
   end
@@ -108,4 +111,4 @@ class Order < ApplicationRecord
     UidHelper.nsec_uuid('OD')
   end
 
-end unless RailsTrade.config.disabled_models.include?('Order')
+end

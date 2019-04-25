@@ -2,19 +2,16 @@ require 'monetize'
 module RailsTrade
   class Engine < ::Rails::Engine
 
-    config.eager_load_paths += Dir[
+    config.autoload_paths += Dir[
       "#{config.root}/app/models/payment_interface",
-      "#{config.root}/app/models/rails_trade",
       "#{config.root}/app/models/services",
-      "#{config.root}/app/models/rails_trade/payment_interface",
-      "#{config.root}/app/models/rails_trade/payments",
-      "#{config.root}/app/models/rails_trade/payment_methods",
-      "#{config.root}/app/models/rails_trade/refunds",
-      "#{config.root}/app/models/rails_trade/promotes",
-      "#{config.root}/app/models/rails_trade/serves",
-      "#{config.root}/app/models/rails_trade/promote_charges",
-      "#{config.root}/app/models/rails_trade/serve_charges",
-      "#{config.root}/app/models/rails_trade/concerns"
+      "#{config.root}/app/models/payments",
+      "#{config.root}/app/models/payment_methods",
+      "#{config.root}/app/models/refunds",
+      "#{config.root}/app/models/promotes",
+      "#{config.root}/app/models/serves",
+      "#{config.root}/app/models/promote_charges",
+      "#{config.root}/app/models/serve_charges"
     ]
 
     initializer 'rails_trade.assets.precompile' do |app|

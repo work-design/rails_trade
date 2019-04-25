@@ -4,16 +4,17 @@
 #   * 更新数量
 #   * 选择或更换优惠券
 #   * 选择服务
-class Cart < ApplicationRecord
+module RailsTrade::Cart
+  extend ActiveSupport::Concern
+  included do
+    attribute :retail_price, :decimal
 
-  attribute :retail_price, :decimal
-
-  belongs_to :buyer, polymorphic: true, optional: true
-  has_many :cart_items, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
-  has_many :check_items, ->(o){ where(buyer_type: o.buyer_type, checked: true) }, primary_key: :buyer_id, foreign_key: :buyer_id
-  has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
-  has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
-
+    belongs_to :buyer, polymorphic: true, optional: true
+    has_many :cart_items, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
+    has_many :check_items, ->(o){ where(buyer_type: o.buyer_type, checked: true) }, primary_key: :buyer_id, foreign_key: :buyer_id
+    has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
+    has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
+  end
 
   def compute_price
     self.reduced_price = checked_items.sum(:reduced_price)

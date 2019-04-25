@@ -1,4 +1,4 @@
-module RailsTradeAlipay
+module RailsTrade::Order::Alipay
   extend ActiveSupport::Concern
   include PaymentInterfaceBase
 

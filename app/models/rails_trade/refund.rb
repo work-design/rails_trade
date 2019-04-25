@@ -1,23 +1,25 @@
-class Refund < ApplicationRecord
-  attribute :currency, :string, default: RailsTrade.config.default_currency
-
-  belongs_to :operator, polymorphic: true, optional: true
-  belongs_to :order, inverse_of: :refunds, optional: true
-  belongs_to :payment
-
-  validates :payment_id, uniqueness: { scope: :order_id }
-
-  after_initialize if: -> { new_record? } do
-    self.refund_uuid = UidHelper.nsec_uuid('RD')
-    self.state = :init
+module RailsTrade::Refund
+  extend ActiveSupport::Concern
+  included do
+    attribute :currency, :string, default: RailsTrade.config.default_currency
+  
+    belongs_to :operator, polymorphic: true, optional: true
+    belongs_to :order, inverse_of: :refunds, optional: true
+    belongs_to :payment
+  
+    validates :payment_id, uniqueness: { scope: :order_id }
+  
+    after_initialize if: -> { new_record? } do
+      self.refund_uuid = UidHelper.nsec_uuid('RD')
+      self.state = :init
+    end
+  
+    enum state: [
+      :init,
+      :completed,
+      :failed
+    ]
   end
-
-  enum state: [
-    :init,
-    :completed,
-    :failed
-  ]
-
   #validate :valid_total_amount
 
   # 微信是同一个批次号未退款成功可重复申请
@@ -60,4 +62,4 @@ class Refund < ApplicationRecord
     self.init? && ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
   end
 
-end unless RailsTrade.config.disabled_models.include?('Refund')
+end

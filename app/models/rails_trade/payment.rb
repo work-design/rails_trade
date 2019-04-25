@@ -1,35 +1,38 @@
-class Payment < ApplicationRecord
-  include Auditable
-
-  attribute :type, :string, default: 'HandPayment'
-  attribute :currency, :string, default: RailsTrade.config.default_currency
-  attribute :adjust_amount, :decimal, default: 0
-
-  belongs_to :payment_method, optional: true
-  has_many :payment_orders, inverse_of: :payment, dependent: :destroy
-  has_many :orders, through: :payment_orders, inverse_of: :payments
-
-  default_scope -> { order(created_at: :desc) }
-
-  # validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.income_amount + o.fee_amount.to_d } }
-  #validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
-  validates :payment_uuid, uniqueness: { scope: :type }
-
-  before_validation do
-    self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+module RailsTrade::Payment
+  extend ActiveSupport::Concern
+  included do
+    include Auditable
+  
+    attribute :type, :string, default: 'HandPayment'
+    attribute :currency, :string, default: RailsTrade.config.default_currency
+    attribute :adjust_amount, :decimal, default: 0
+  
+    belongs_to :payment_method, optional: true
+    has_many :payment_orders, inverse_of: :payment, dependent: :destroy
+    has_many :orders, through: :payment_orders, inverse_of: :payments
+  
+    default_scope -> { order(created_at: :desc) }
+  
+    # validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.income_amount + o.fee_amount.to_d } }
+    #validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
+    validates :payment_uuid, uniqueness: { scope: :type }
+  
+    before_validation do
+      self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+    end
+    before_save :compute_amount
+    after_create :analyze_payment_method
+  
+    has_one_attached :proof
+  
+    enum state: {
+      init: 'init',
+      part_checked: 'part_checked',
+      all_checked: 'all_checked',
+      adjust_checked: 'adjust_checked',
+      abusive_checked: 'abusive_checked'
+    }
   end
-  before_save :compute_amount
-  after_create :analyze_payment_method
-
-  has_one_attached :proof
-
-  enum state: {
-    init: 'init',
-    part_checked: 'part_checked',
-    all_checked: 'all_checked',
-    adjust_checked: 'adjust_checked',
-    abusive_checked: 'abusive_checked'
-  }
 
   def analyze_payment_method
     if self.buyer_name.present? || self.buyer_identifier.present?
@@ -109,7 +112,7 @@ class Payment < ApplicationRecord
     0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
   end
 
-end unless RailsTrade.config.disabled_models.include?('Payment')
+end
 
 #  :type, :string, limit: 255
 #  :total_amount, :decimal, precision: 10, scale: 2

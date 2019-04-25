@@ -1,33 +1,36 @@
-class CartItem < ApplicationRecord
-  include TradePriceModel
+module RailsTrade::CartItem
+  extend ActiveSupport::Concern
+  included do
+    include TradePriceModel
 
-  attribute :status, :string, default: 'init'
-  attribute :myself, :boolean, default: true
-  attribute :quantity
-  attribute :reduced_price, :decimal, default: 0
-  attribute :extra, :json
+    attribute :status, :string, default: 'init'
+    attribute :myself, :boolean, default: true
+    attribute :quantity
+    attribute :reduced_price, :decimal, default: 0
+    attribute :extra, :json
 
-  belongs_to :buyer, polymorphic: true, optional: true
-  belongs_to :good, polymorphic: true
-  belongs_to :cart, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
-  has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
-  has_many :cart_promotes, dependent: :destroy
-  has_many :order_items, dependent: :nullify
+    belongs_to :buyer, polymorphic: true, optional: true
+    belongs_to :good, polymorphic: true
+    belongs_to :cart, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
+    has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
+    has_many :cart_promotes, dependent: :destroy
+    has_many :order_items, dependent: :nullify
 
-  scope :valid, -> { where(status: 'pending', myself: true) }
-  scope :checked, -> { where(status: 'pending', checked: true) }
+    scope :valid, -> { where(status: 'pending', myself: true) }
+    scope :checked, -> { where(status: 'pending', checked: true) }
 
-  enum status: {
-    init: 'init',
-    ordered: 'ordered',
-    deleted: 'deleted'
-  }
+    enum status: {
+      init: 'init',
+      ordered: 'ordered',
+      deleted: 'deleted'
+    }
 
-  validates :buyer_id, presence: true, if: -> { session_id.blank? }
-  validates :session_id, presence: true, if: -> { buyer_id.blank?  }
+    validates :buyer_id, presence: true, if: -> { session_id.blank? }
+    validates :session_id, presence: true, if: -> { buyer_id.blank?  }
 
-  after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
-  before_save :sync_amount
+    after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
+    before_save :sync_amount
+  end
 
   def total_quantity
     good.unified_quantity.to_d * self.number
@@ -115,4 +118,4 @@ class CartItem < ApplicationRecord
     CartItem.select(:good_type).distinct.pluck(:good_type)
   end
 
-end unless RailsTrade.config.disabled_models.include?('CartItem')
+end
