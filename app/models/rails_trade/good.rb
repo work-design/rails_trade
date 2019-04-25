@@ -1,4 +1,4 @@
-module RailsTradeGood
+module RailsTrade::Good
   extend ActiveSupport::Concern
 
   included do

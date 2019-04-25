@@ -1,5 +1,5 @@
 # should define methods: buyer
-module RailsTradeUser
+module RailsTrade::User
   extend ActiveSupport::Concern
 
   included do

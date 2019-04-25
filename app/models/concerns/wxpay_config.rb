@@ -5,4 +5,4 @@ module WxpayConfig
     r[1]
   end
 
-end unless RailsTrade.config.disabled_models.include?('WxpayConfig')
+end
