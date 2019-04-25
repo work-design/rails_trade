@@ -1,5 +1,0 @@
-class BankRefund < Refund
-
-
-
-end

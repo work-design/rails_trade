@@ -1,5 +1,0 @@
-class HandRefund < Refund
-
-
-
-end

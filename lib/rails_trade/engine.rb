@@ -5,8 +5,8 @@ module RailsTrade
     config.autoload_paths += Dir[
       "#{config.root}/app/models/payment_interface",
       "#{config.root}/app/models/services",
-      "#{config.root}/app/models/payments",
-      "#{config.root}/app/models/payment_methods",
+      "#{config.root}/app/models/payment",
+      "#{config.root}/app/models/payment_method",
       "#{config.root}/app/models/refunds",
       "#{config.root}/app/models/promotes",
       "#{config.root}/app/models/serves",

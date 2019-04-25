@@ -1,7 +1,0 @@
-class AlipayMethod < PaymentMethod
-
-
-end
-
-
-
