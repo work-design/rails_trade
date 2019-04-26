@@ -1,7 +1,7 @@
 module RailsTrade::ServeCharge
   extend ActiveSupport::Concern
   included do
-    include ChargeModel
+    include RailsTrade::ChargeModel
   
     attribute :min, :integer
     attribute :max, :integer

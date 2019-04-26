@@ -1,7 +1,7 @@
 module RailsTrade::PromoteCharge
   extend ActiveSupport::Concern
   included do
-    include ChargeModel
+    include RailsTrade::ChargeModel
   
     # for record data
     attribute :subtotal, :decimal
