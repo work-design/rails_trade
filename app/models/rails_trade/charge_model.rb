@@ -1,4 +1,4 @@
-module ChargeModel
+module RailsTrade::ChargeModel
   extend ActiveSupport::Concern
 
   included do

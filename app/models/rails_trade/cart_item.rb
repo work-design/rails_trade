@@ -1,7 +1,7 @@
 module RailsTrade::CartItem
   extend ActiveSupport::Concern
   included do
-    include TradePriceModel
+    include RailsTrade::PriceModel
 
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true

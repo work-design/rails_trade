@@ -1,4 +1,4 @@
-module TradePriceModel
+module RailsTrade::PriceModel
   extend ActiveSupport::Concern
 
   included do
