@@ -1,9 +1,9 @@
 module RailsTrade::Order
   extend ActiveSupport::Concern
   included do
-    include RailsTradePayment
-    include RailsTradeRefund
-    include PaymentInterfaceBase
+    include RailsTrade::Ordering::Payment
+    include RailsTrade::Ordering::Refund
+    include RailsTrade::Ordering::Base
   
     attribute :payment_status, :string, default: 'unpaid'
     attribute :adjust_amount, :decimal, default: 0

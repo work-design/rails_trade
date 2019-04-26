@@ -1,6 +1,6 @@
-module RailsTrade::Order::Alipay
+module RailsTrade::Ordering::Alipay
   extend ActiveSupport::Concern
-  include PaymentInterfaceBase
+  include RailsTrade::Ordering::Base
 
   def alipay_prepay
     self.update payment_type: 'alipay'

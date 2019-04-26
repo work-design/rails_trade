@@ -1,8 +1,8 @@
-module RailsTradeOrder
+module RailsTrade::Sell
   extend ActiveSupport::Concern
-  include RailsTradeGood
 
   included do
+    include RailsTrade::Good
     attribute :buyer_type, :string
     attribute :buyer_id, :integer
 

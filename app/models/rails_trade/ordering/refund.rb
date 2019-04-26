@@ -1,4 +1,4 @@
-module RailsTradeRefund
+module RailsTrade::Ordering::Refund
 
   def apply_for_refund(payment_id = nil)
     if ['unpaid', 'refunding', 'refunded'].include? self.payment_status

@@ -3,15 +3,13 @@ module RailsTrade
   class Engine < ::Rails::Engine
 
     config.autoload_paths += Dir[
-      "#{config.root}/app/models/payment_interface",
-      "#{config.root}/app/models/services",
       "#{config.root}/app/models/payment",
       "#{config.root}/app/models/payment_method",
-      "#{config.root}/app/models/refunds",
-      "#{config.root}/app/models/promotes",
-      "#{config.root}/app/models/serves",
-      "#{config.root}/app/models/promote_charges",
-      "#{config.root}/app/models/serve_charges"
+      "#{config.root}/app/models/promote",
+      "#{config.root}/app/models/promote_charge",
+      "#{config.root}/app/models/refund",
+      "#{config.root}/app/models/serve",
+      "#{config.root}/app/models/serve_charge"
     ]
 
     initializer 'rails_trade.assets.precompile' do |app|

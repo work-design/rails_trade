@@ -1,4 +1,4 @@
-module RailsTradeStripe
+module RailsTrade::Ordering::Stripe
   extend ActiveSupport::Concern
 
   included do

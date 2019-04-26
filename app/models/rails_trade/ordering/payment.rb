@@ -2,7 +2,7 @@
 # payment_type
 # amount
 # received_amount
-module RailsTradePayment
+module RailsTrade::Ordering::Payment
 
   def can_pay?
     self.payment_type.present? && self.payment_status != 'all_paid'

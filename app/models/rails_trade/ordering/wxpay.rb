@@ -1,4 +1,4 @@
-module RailsTradeWxpay
+module RailsTrade::Ordering::Wxpay
   extend ActiveSupport::Concern
 
   included do

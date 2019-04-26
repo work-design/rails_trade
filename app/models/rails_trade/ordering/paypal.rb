@@ -1,4 +1,4 @@
-module RailsTradePaypal
+module RailsTrade::Ordering::Paypal
   extend ActiveSupport::Concern
 
   included do
