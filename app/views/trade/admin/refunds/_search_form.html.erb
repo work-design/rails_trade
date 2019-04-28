@@ -6,6 +6,6 @@
     <%= f.select :payment_method, options_for_select(Order.options_i18n(:payment_method)), { include_blank: true, prompt: 'Select one' }, { } %>
     <%= f.date_field :'created_at.gte', placeholder: 'Transaction Start Date' %>
     <%= f.date_field :'created_at.lte', placeholder: 'Transaction End Date' %>
-    <%= f.submit 'Search', class: 'ui blue button' %>
+    <%= f.submit %>
   </div>
 <% end %>
