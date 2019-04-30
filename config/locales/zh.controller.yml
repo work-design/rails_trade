@@ -31,3 +31,10 @@ zh:
       serves:
         index:
           title: 服务列表
+    my:
+      carts:
+        index:
+          title: 我的购物车
+      orders:
+        index:
+          title: 我的订单
