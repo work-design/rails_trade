@@ -1,15 +1,9 @@
 class Trade::My::BaseController < RailsTrade.config.my_controller.constantize
   skip_before_action :verify_authenticity_token#, if: -> { request.content_type == 'application/json' }
-  helper_method :current_buyer
+  helper_method :current_cart
 
-  def current_buyer
-    if defined? super
-      super
-    elsif current_user.buyer_type == 'User'
-      current_user
-    else
-      current_user
-    end
+  def current_cart
+  
   end
 
 end

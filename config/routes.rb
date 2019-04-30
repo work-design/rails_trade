@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       get :orders, on: :member
       put :remind, on: :collection
     end
-    resources :cart_items, except: [:new] do
+    resources :carts, except: [:new] do
       get :total, on: :collection
       get :doc, on: :collection
       get :only, on: :collection
@@ -76,8 +76,8 @@ Rails.application.routes.draw do
 
   scope :my, module: 'trade/my', as: 'my' do
     resources :buyers
-    resources :cart_items do
-      get :total, on: :collection
+    resources :carts do
+      get :total, on: :member
     end
     resources :good_providers
     resources :orders do

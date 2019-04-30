@@ -3,7 +3,7 @@ module RailsTrade::User
   extend ActiveSupport::Concern
 
   included do
-    attribute :buyer_type, :string, default: self.name
+    has_many :carts, dependent: :destroy
   end
 
 end

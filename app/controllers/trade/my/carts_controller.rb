@@ -1,5 +1,5 @@
-class Trade::My::CartItemsController < Trade::My::BaseController
-  before_action :set_cart_item, only: [:update, :destroy]
+class Trade::My::CartsController < Trade::My::BaseController
+  before_action :set_cart, only: [:show, :update, :destroy]
   before_action :set_additions
 
   def index
@@ -14,7 +14,6 @@ class Trade::My::CartItemsController < Trade::My::BaseController
       cart_item.save
     else
       cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
-      binding.pry
       cart_item.save
     end
 
@@ -37,6 +36,9 @@ class Trade::My::CartItemsController < Trade::My::BaseController
       format.json { render 'cart_item' }
     end
   end
+  
+  def show
+  end
 
   def update
     @cart_item.update(number: params[:number])
@@ -47,8 +49,8 @@ class Trade::My::CartItemsController < Trade::My::BaseController
   end
 
   private
-  def set_cart_item
-    @cart_item = current_cart.find(params[:id])
+  def set_cart
+    @cart = current_user.carts.find(params[:id])
   end
 
   def set_additions

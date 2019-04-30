@@ -8,12 +8,19 @@ module RailsTrade::Cart
   extend ActiveSupport::Concern
   included do
     attribute :retail_price, :decimal
+    attribute :deposit_ratio, :integer, default: 100  # 最小预付比例
+    attribute :payment_strategy_id, :integer
+    attribute :default, :boolean, default: false
 
-    belongs_to :buyer, polymorphic: true, optional: true
+    belongs_to :user
+    belongs_to :buyer, polymorphic: true
+    belongs_to :payment_strategy, optional: true
     has_many :cart_items, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
     has_many :check_items, ->(o){ where(buyer_type: o.buyer_type, checked: true) }, primary_key: :buyer_id, foreign_key: :buyer_id
     has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
+
+    after_update :set_default, if: -> { self.default? && saved_change_to_default? }
   end
 
   def compute_price
@@ -22,6 +29,10 @@ module RailsTrade::Cart
     self.retail_price = checked_items.sum(:retail_price)
     self.final_price = checked_items.sum(:final_price)
     self.total_quantity = checked_items.sum(:total_quantity)
+  end
+
+  def set_default
+    self.class.where.not(id: self.id).where(user_id: self.user_id).update_all(default: false)
   end
 
 end
