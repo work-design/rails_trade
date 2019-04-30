@@ -16,7 +16,6 @@ module RailsTrade::Buyer
 
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
 
-    validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
     def self.credit_ids
       PaymentStrategy.where.not(period: 0).pluck(:id)

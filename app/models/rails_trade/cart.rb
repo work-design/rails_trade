@@ -20,6 +20,8 @@ module RailsTrade::Cart
     has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
 
+    validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
+
     after_update :set_default, if: -> { self.default? && saved_change_to_default? }
   end
 
