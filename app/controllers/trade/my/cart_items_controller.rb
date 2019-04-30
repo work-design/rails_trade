@@ -1,11 +1,4 @@
-class Trade::My::CartsController < Trade::My::BaseController
-  before_action :set_cart, only: [:show, :update, :destroy]
-  before_action :set_additions
-
-  def index
-    @cart_items = current_cart.cart_items
-    @checked_ids = current_cart.checked_items.pluck(:id)
-  end
+class Trade::My::CartItemsController < Trade::My::BaseController
 
   def create
     cart_item = current_cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])

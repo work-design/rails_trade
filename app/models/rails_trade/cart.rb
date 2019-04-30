@@ -12,11 +12,11 @@ module RailsTrade::Cart
     attribute :payment_strategy_id, :integer
     attribute :default, :boolean, default: false
 
-    belongs_to :user
-    belongs_to :buyer, polymorphic: true
+    belongs_to :user, optional: true
+    belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :cart_items, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
-    has_many :check_items, ->(o){ where(buyer_type: o.buyer_type, checked: true) }, primary_key: :buyer_id, foreign_key: :buyer_id
+    has_many :checked_items, ->(o){ where(buyer_type: o.buyer_type, checked: true) }, class_name: 'CartItem', primary_key: :buyer_id, foreign_key: :buyer_id
     has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
 

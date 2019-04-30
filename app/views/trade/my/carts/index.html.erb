@@ -5,10 +5,10 @@
   <thead>
     <tr>
       <th><%= check_box_tag :all %></th>
-      <th>Name</th>
-      <th>单价</th>
-      <th>数量</th>
-      <th>总价</th>
+      <th><%= CartItem.human_attribute_name(:name) %></th>
+      <th><%= CartItem.human_attribute_name(:price) %></th>
+      <th><%= CartItem.human_attribute_name(:number) %></th>
+      <th><%= CartItem.human_attribute_name(:amount) %></th>
       <th></th>
     </tr>
   </thead>
@@ -40,7 +40,7 @@
         </p>
       </td>
       <td>
-        <%= link_to 'delete', my_cart_item_path(cart_item), method: :delete, remote: true %>
+        <%= link_to 'delete', my_cart_cart_item_path(current_cart, cart_item), method: :delete, remote: true %>
       </td>
     </tr>
   <% end %>

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     resources :buyers
     resources :carts do
       get :total, on: :member
+      resources :cart_items
     end
     resources :good_providers
     resources :orders do
