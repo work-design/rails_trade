@@ -1,5 +1,4 @@
 class Trade::PaymentsController < ApplicationController
-  include RailsCommonApi
   skip_before_action :verify_authenticity_token
   before_action :set_order, only: [:wxpay_result, :result]
 
