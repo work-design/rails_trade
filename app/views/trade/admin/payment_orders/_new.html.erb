@@ -2,14 +2,14 @@
   <td colspan="11">
     <table class="ui very basic table">
       <thead>
-      <tr>
-        <th><%= PaymentOrder.human_attribute_name(:id) %></th>
-        <th><%= Order.human_attribute_name(:uuid) %></th>
-        <th><%= Order.human_attribute_name(:amount) %></th>
-        <th><%= PaymentOrder.human_attribute_name(:check_amount) %></th>
-        <th><%= PaymentOrder.human_attribute_name(:state) %></th>
-        <th>Actions</th>
-      </tr>
+        <tr>
+          <th><%= PaymentOrder.human_attribute_name(:id) %></th>
+          <th><%= Order.human_attribute_name(:uuid) %></th>
+          <th><%= Order.human_attribute_name(:amount) %></th>
+          <th><%= PaymentOrder.human_attribute_name(:check_amount) %></th>
+          <th><%= PaymentOrder.human_attribute_name(:state) %></th>
+          <th></th>
+        </tr>
       </thead>
 
       <% unless @payment.all_checked? %>

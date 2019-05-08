@@ -32,3 +32,4 @@ zh:
         payment_references: 关联账号
       payment_order:
         state: 核销状态
+        check_amount: 核销金额
