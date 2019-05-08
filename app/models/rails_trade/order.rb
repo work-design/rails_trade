@@ -12,6 +12,7 @@ module RailsTrade::Order
     attribute :currency, :string, default: RailsTrade.config.default_currency
   
     belongs_to :buyer, polymorphic: true
+    belongs_to :cart, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders
@@ -31,8 +32,8 @@ module RailsTrade::Order
   
     before_validation do
       self.uuid = generate_order_uuid
-      self.payment_strategy_id = self.buyer&.payment_strategy_id
       self.expire_at = Time.now + RailsTrade.config.expire_after
+      self.payment_strategy_id = self.cart.payment_strategy_id if cart
     end
   
     after_create_commit :confirm_ordered!

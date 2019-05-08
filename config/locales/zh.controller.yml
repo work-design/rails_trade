@@ -1,6 +1,10 @@
 zh:
   trade:
     admin:
+      orders:
+        index:
+          add_payment: 添加支付流水
+          refund: 申请退款
       payments:
         index:
           title: 支付流水

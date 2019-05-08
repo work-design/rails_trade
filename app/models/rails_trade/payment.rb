@@ -15,10 +15,10 @@ module RailsTrade::Payment
   
     # validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.income_amount + o.fee_amount.to_d } }
     #validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
-    validates :payment_uuid, uniqueness: { scope: :type }
+    validates :payment_uuid, presence: true, uniqueness: { scope: :type }
   
     before_validation do
-      self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+      self.payment_uuid = UidHelper.nsec_uuid('PAY') if payment_uuid.blank?
     end
     before_save :compute_amount
     after_create :analyze_payment_method
@@ -107,9 +107,11 @@ module RailsTrade::Payment
     self.check_state
     self.save!
   end
-
-  def self.total_amount_step
-    0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
+  
+  class_methods do
+    def total_amount_step
+      0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
+    end
   end
 
 end

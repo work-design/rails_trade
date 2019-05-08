@@ -1,8 +1,10 @@
+<% content_for :breadcrumb do %>
 <div class="ui segment breadcrumb">
-  <%= link_to 'Back', admin_payments_path, class: 'section' %>
+  <%= link_to t('trade.admin.payments.index.title'), admin_payments_path, class: 'section' %>
   <i class="fas fa-angle-right divider"></i>
-  <div class="active section">Add New</div>
+  <div class="active section"><%= t('.new') %></div>
 </div>
+<% end %>
 
 <div class="ui segment">
   <%= form_with model: @payment, scope: :payment, url: admin_payments_path do |f| %>
