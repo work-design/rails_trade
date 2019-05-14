@@ -9,14 +9,3 @@
     <%= link_to '支付流水', admin_payments_path, class: active_helper(controllers: 'payments') %>
   </div>
 </div>
-<div class="item">
-  <div class="<%= active_helper(controllers: ['promotes', 'promote_buyers'], active_class: 'title active', item_class: 'title') %>">
-    <i class="fas fa-tags"></i>
-    <span>促销管理</span>
-    <i class="dropdown icon"></i>
-  </div>
-  <div class="<%= active_helper(controllers: ['promotes', 'promote_buyers'], active_class: 'active content menu', item_class: 'content menu') %>">
-    <%= link_to '促销管理', admin_promotes_path, class: active_helper(controllers: 'promotes') %>
-    <%= link_to '优惠卷', admin_promote_buyers_path, class: active_helper(controllers: 'promote_buyers') %>
-  </div>
-</div>
