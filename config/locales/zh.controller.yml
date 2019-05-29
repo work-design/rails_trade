@@ -26,12 +26,17 @@ zh:
           destroy: 删除
           new: 新增
           relate: 关联买家
+        index:
+          title: 支付方式
       promotes:
         index:
           title: 促销列表
           scope_help: 是否可以对多个商品进行统一计算
           overall_buyers_help: 所有人可用/仅供发放给用户使用
           overall_goods_help: 适用于所有或者大部分商品/适用于选择的商品
+      promote_buyers:
+        index:
+          title: 优惠券发放
       serves:
         index:
           title: 服务列表

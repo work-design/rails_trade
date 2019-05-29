@@ -2,7 +2,6 @@
   <table class="ui bottom attached selectable table">
     <thead>
     <tr>
-      <th>ID</th>
       <th><%= PaymentMethod.human_attribute_name(:account_name) %></th>
       <th><%= PaymentMethod.human_attribute_name(:account_num) %></th>
       <th><%= PaymentMethod.human_attribute_name(:bank) %></th>
@@ -14,7 +13,6 @@
   <tbody>
     <% @payment_methods.each do |payment_method| %>
       <tr>
-        <td><%= payment_method.id %></td>
         <td><%= payment_method.account_name %></td>
         <td><%= payment_method.account_num %></td>
         <td><%= payment_method.bank %></td>
