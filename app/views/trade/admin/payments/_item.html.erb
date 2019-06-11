@@ -1,19 +1,10 @@
 <tr id="payment_<%= payment.id %>">
   <td>
     <p><%= payment.payment_uuid %></p>
-    <div class="ui tiny orange label"><%= Payment.enum_i18n(:type, payment.type) %></div>
+    <div class="ui tiny orange label"><%= payment.type_i18n %></div>
   </td>
   <td id="checked_amount_<%= payment.id %>" class="warning">
-    <%= payment.checked_amount %>
-    <% if payment.part_checked? %>
-      <%= link_to t('.adjust'), adjust_admin_payment_path(payment), method: :patch, class: 'ui mini grey button' %>
-    <% elsif ['init', 'part_checked'].include?(payment.state) %>
-      <span class="ui tiny grey label"><%= Payment.enum_i18n(:state, payment.state) %></span>
-    <% elsif payment.all_checked? %>
-      <span class="ui tiny green label"><%= Payment.enum_i18n(:state, payment.state) %></span>
-    <% elsif payment.adjust_checked? %>
-      <span class="ui tiny teal label"><%= Payment.enum_i18n(:state, payment.state) %></span>
-    <% end %>
+    <%= render partial: 'checked_amount', locals: { payment: payment } %>
   </td>
   <td>
     <%= payment.total_amount %>
@@ -42,7 +33,7 @@
     <%= link_to audits_path('Payment', payment.id), data: { tooltip: t('.log') }, remote: true, class: 'ui mini circular icon button' do %>
       <i class="comments icon"></i>
     <% end %>
-    <%= link_to edit_admin_payment_path(payment), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
+    <%= link_to edit_admin_payment_path(payment), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
   </td>

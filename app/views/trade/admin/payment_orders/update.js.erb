@@ -1,2 +1,2 @@
 $('#checked_<%= @payment_order.order_id %>').replaceWith('<%= j(render partial: 'index', locals: { payment_order: @payment_order }) %>')
-$('#checked_amount_<%= @payment_order.payment_id %>').html('<%= @payment_order.payment.checked_amount %>')
+$('#checked_amount_<%= @payment_order.payment_id %>').html('<%= j(render partial: 'trade/admin/payments/checked_amount', locals: { payment: @payment_order.payment }) %>')

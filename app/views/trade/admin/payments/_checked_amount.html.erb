@@ -1,0 +1,6 @@
+<%= payment.checked_amount %>
+<% if payment.part_checked? %>
+  <%= link_to t('.adjust'), adjust_admin_payment_path(payment), method: :patch, class: 'ui mini grey button' %>
+<% else %>
+  <span class="ui tiny <%= active_asserts(false, grey: ['init', 'part_checked'].include?(payment.state), teal: payment.adjust_checked?, green: payment.all_checked?) %> label"><%= payment.state_i18n %></span>
+<% end %>

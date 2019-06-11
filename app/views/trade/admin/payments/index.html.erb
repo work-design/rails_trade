@@ -26,7 +26,7 @@
       </th>
       <th class="two wide"><%= Payment.human_attribute_name(:notified_at) %></th>
       <th class="three wide">
-        <%= link_to t('.new'), new_admin_payment_path, class: 'ui mini primary button' %>
+        <%= link_to t('.new'), new_admin_payment_path, remote: true, class: 'ui mini primary button' %>
         <%= link_to t('.import'), import_data_list_table_lists_path('PaymentImport'), remote: true, class: 'ui mini blue button' %>
       </th>
     </tr>
