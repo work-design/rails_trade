@@ -1,10 +1,7 @@
 class Trade::My::CartsController < Trade::My::BaseController
-  before_action :set_cart, only: [:show, :update, :destroy]
-  before_action :set_additions
 
   def index
-    @cart_items = current_cart.cart_items
-    @checked_ids = current_cart.checked_items.pluck(:id)
+    @carts = current_user.carts
   end
 
   def create
@@ -52,14 +49,6 @@ class Trade::My::CartsController < Trade::My::BaseController
   private
   def set_cart
     @cart = current_user.carts.find(params[:id])
-  end
-
-  def set_additions
-    if current_buyer
-      @additions = CartService.new(buyer_type: current_buyer.class.name, buyer_id: current_buyer.id, myself: true)
-    else
-      @additions = CartService.new(session_id: session.id, myself: true)
-    end
   end
 
   def cart_item_params

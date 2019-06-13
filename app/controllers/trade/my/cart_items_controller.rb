@@ -1,5 +1,12 @@
 class Trade::My::CartItemsController < Trade::My::BaseController
+  before_action :set_cart
+  #before_action :set_additions
 
+  
+  def index
+    @checked_ids = current_cart.checked_items.pluck(:id)
+  end
+  
   def create
     cart_item = current_cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1

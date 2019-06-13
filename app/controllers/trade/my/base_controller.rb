@@ -4,7 +4,7 @@ class Trade::My::BaseController < RailsTrade.config.my_controller.constantize
 
   def current_cart
     if current_user
-      @current_cart = current_user.cart
+      @current_cart = current_user.carts.default
     else
       @current_cart = Cart.find_or_create_by(session_id: session.id)
     end
