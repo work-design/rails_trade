@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Trade My Carts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Payment strategy</th>
+      <th>Deposit ratio</th>
+      <th>Buyer type</th>
+      <th>Buyer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trade_my_carts.each do |trade_my_cart| %>
+      <tr>
+        <td><%= trade_my_cart.payment_strategy_id %></td>
+        <td><%= trade_my_cart.deposit_ratio %></td>
+        <td><%= trade_my_cart.buyer_type %></td>
+        <td><%= trade_my_cart.buyer_id %></td>
+        <td><%= link_to 'Show', trade_my_cart %></td>
+        <td><%= link_to 'Edit', edit_trade_my_cart_path(trade_my_cart) %></td>
+        <td><%= link_to 'Destroy', trade_my_cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trade My Cart', new_trade_my_cart_path %>

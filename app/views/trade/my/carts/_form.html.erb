@@ -1,0 +1,37 @@
+<%= form_with(model: trade_my_cart, local: true) do |form| %>
+  <% if trade_my_cart.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trade_my_cart.errors.count, "error") %> prohibited this trade_my_cart from being saved:</h2>
+
+      <ul>
+        <% trade_my_cart.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :payment_strategy_id %>
+    <%= form.text_field :payment_strategy_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deposit_ratio %>
+    <%= form.text_field :deposit_ratio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :buyer_type %>
+    <%= form.text_field :buyer_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :buyer_id %>
+    <%= form.text_field :buyer_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

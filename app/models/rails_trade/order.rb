@@ -31,9 +31,9 @@ module RailsTrade::Order
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
   
     before_validation do
-      self.uuid = generate_order_uuid
-      self.expire_at = Time.now + RailsTrade.config.expire_after
-      self.payment_strategy_id = self.cart.payment_strategy_id if cart
+      self.uuid ||= UidHelper.nsec_uuid('OD')
+      self.expire_at ||= Time.now + RailsTrade.config.expire_after
+      self.payment_strategy_id ||= self.cart.payment_strategy_id if cart
     end
   
     after_create_commit :confirm_ordered!
@@ -103,13 +103,6 @@ module RailsTrade::Order
     _received_amount = self.payment_orders.where(state: :confirmed).sum(:check_amount)
     _refund_amount = self.refunds.where.not(state: :failed).sum(:total_amount)
     _received_amount - _refund_amount
-  end
-
-  private
-
-  # override this to implement your own uuid generation rules
-  def generate_order_uuid
-    UidHelper.nsec_uuid('OD')
   end
 
 end
