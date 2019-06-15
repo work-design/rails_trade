@@ -24,6 +24,8 @@ zh:
         comment: 备注
         state: 状态
         payment_uuid: 流水号
+      payment/orders:
+        uuid: 订单号
       payment_method:
         account_name: 账号名称
         account_num: 账号
