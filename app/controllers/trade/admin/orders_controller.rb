@@ -3,8 +3,9 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   skip_before_action :verify_authenticity_token, only: [:refresh]
 
   def index
-    q_params = default_params.merge! params.permit(:id, :buyer_type, :buyer_id, :payment_status, :payment_type)
-    q_params.merge! params.fetch(:q, {}).permit(:uuid)
+    q_params = {}
+    q_params.merge! default_params
+    q_params.merge! params.permit(:id, :uuid, :buyer_type, :buyer_id, :payment_status, :payment_type)
 
     @orders = Order.includes(:buyer).default_where(q_params).order(id: :desc).page(params[:page])
   end
