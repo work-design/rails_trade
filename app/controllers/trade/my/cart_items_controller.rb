@@ -1,34 +1,34 @@
 class Trade::My::CartItemsController < Trade::My::BaseController
   before_action :set_cart
   #before_action :set_additions
-
   
   def index
-    @checked_ids = current_cart.checked_items.pluck(:id)
+    @cart_items = @cart.cart_items.page(params[:page])
+    @checked_ids = @cart.cart_items.checked.pluck(:id)
   end
   
   def create
-    cart_item = current_cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
+    cart_item = @cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1
     if cart_item.present?
       cart_item.number = cart_item.number + params[:number].to_i
       cart_item.save
     else
-      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
+      cart_item = @cart.build(good_id: params[:good_id], good_type: params[:good_type])
       cart_item.save
     end
 
-    @checked_ids = current_cart.checked_items.pluck(:id)
+    @checked_ids = @cart.checked_items.pluck(:id)
 
     render 'index'
   end
 
   def check
     if params[:add_id].present?
-      @add = current_cart.find_by(id: params[:add_id])
+      @add = @cart.find_by(id: params[:add_id])
       @add.update(checked: true)
     elsif params[:remove_id].present?
-      @remove = current_cart.find_by(id: params[:remove_id])
+      @remove = @cart.find_by(id: params[:remove_id])
       @remove.update(checked: false)
     end
 
@@ -51,7 +51,7 @@ class Trade::My::CartItemsController < Trade::My::BaseController
 
   private
   def set_cart
-    @cart = current_user.carts.find(params[:id])
+    @cart = current_user.carts.find(params[:cart_id])
   end
 
   def set_additions

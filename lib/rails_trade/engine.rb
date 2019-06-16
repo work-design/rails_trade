@@ -1,4 +1,5 @@
 require 'monetize'
+require 'rails_com'
 module RailsTrade
   class Engine < ::Rails::Engine
 
@@ -11,6 +12,17 @@ module RailsTrade
       "#{config.root}/app/models/serve",
       "#{config.root}/app/models/serve_charge"
     ]
+
+    config.generators do |g|
+      g.rails = {
+        helper: false
+      }
+      g.test_unit = {
+        fixture: true,
+        fixture_replacement: :factory_girl
+      }
+      g.templates.unshift File.expand_path('lib/templates', RailsCom::Engine.root)
+    end
 
     initializer 'rails_trade.assets.precompile' do |app|
       app.config.assets.precompile += ['rails_trade_manifest.js']

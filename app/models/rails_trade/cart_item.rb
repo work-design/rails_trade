@@ -9,9 +9,8 @@ module RailsTrade::CartItem
     attribute :reduced_price, :decimal, default: 0
     attribute :extra, :json
 
-    belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :good, polymorphic: true
-    belongs_to :cart, ->(o){ where(buyer_type: o.buyer_type) }, primary_key: :buyer_id, foreign_key: :buyer_id
+    belongs_to :cart, counter_cache: true
     has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
     has_many :cart_promotes, dependent: :destroy
     has_many :order_items, dependent: :nullify
@@ -24,9 +23,6 @@ module RailsTrade::CartItem
       ordered: 'ordered',
       deleted: 'deleted'
     }
-
-    validates :buyer_id, presence: true, if: -> { session_id.blank? }
-    validates :session_id, presence: true, if: -> { buyer_id.blank?  }
 
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
     before_save :sync_amount

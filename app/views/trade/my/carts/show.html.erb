@@ -1,24 +1,7 @@
-<p id="notice"><%= notice %></p>
+<div class="ui segment breadcrumb">
+  <%= link_to 'Back', my_carts_path, class: 'section' %>
+  <i class="fas fa-angle-right divider"></i>
+  <div class="active section">Show</div>
+</div>
 
-<p>
-  <strong>Payment strategy:</strong>
-  <%= @trade_my_cart.payment_strategy_id %>
-</p>
-
-<p>
-  <strong>Deposit ratio:</strong>
-  <%= @trade_my_cart.deposit_ratio %>
-</p>
-
-<p>
-  <strong>Buyer type:</strong>
-  <%= @trade_my_cart.buyer_type %>
-</p>
-
-<p>
-  <strong>Buyer:</strong>
-  <%= @trade_my_cart.buyer_id %>
-</p>
-
-<%= link_to 'Edit', edit_trade_my_cart_path(@trade_my_cart) %> |
-<%= link_to 'Back', trade_my_carts_path %>
+<%= render 'show_table' %>

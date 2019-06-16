@@ -1,5 +1,9 @@
-<h1>New Trade My Cart</h1>
+<div class="ui segment breadcrumb">
+  <%= link_to 'Back', my_carts_path, class: 'section' %>
+  <i class="fas fa-angle-right divider"></i>
+  <div class="active section">Add</div>
+</div>
 
-<%= render 'form', trade_my_cart: @trade_my_cart %>
-
-<%= link_to 'Back', trade_my_carts_path %>
+<div class="ui segment">
+  <%= render 'form' %>
+</div>

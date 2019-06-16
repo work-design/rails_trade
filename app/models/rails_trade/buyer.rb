@@ -4,7 +4,7 @@ module RailsTrade::Buyer
   included do
     attribute :name, :string
 
-    has_one :cart, as: :buyer
+    has_many :carts, as: :buyer
     has_many :orders, as: :buyer, inverse_of: :buyer
     has_many :cart_items, as: :buyer, dependent: :destroy
 
@@ -21,10 +21,6 @@ module RailsTrade::Buyer
       PaymentStrategy.where.not(period: 0).pluck(:id)
     end
     RailsTrade.buyer_classes << self.name unless RailsTrade.buyer_classes.include?(self.name)
-  end
-
-  def cart
-    super ? super : create_cart
   end
 
   def name_detail

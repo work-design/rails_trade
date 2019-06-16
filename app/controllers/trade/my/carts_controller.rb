@@ -2,6 +2,9 @@ class Trade::My::CartsController < Trade::My::BaseController
 
   def index
     @carts = current_user.carts
+    if @carts.blank?
+      current_user.carts.create(default: true)
+    end
   end
 
   def create

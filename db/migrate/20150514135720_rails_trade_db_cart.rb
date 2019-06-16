@@ -9,14 +9,13 @@ class RailsTradeDbCart < ActiveRecord::Migration[5.2]
       t.decimal :amount, precision: 10, scale: 2
       t.integer :deposit_ratio
       t.boolean :default
+      t.integer :cart_items_count, default: 0
       t.timestamps
     end
 
     create_table :cart_items do |t|
       t.references :cart
-      t.references :buyer, polymorphic: true
       t.references :good, polymorphic: true
-      t.string :session_id, limit: 128
       t.string :status
       t.boolean :checked, default: false
       t.boolean :myself
