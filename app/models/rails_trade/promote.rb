@@ -1,24 +1,22 @@
 module RailsTrade::Promote
   extend ActiveSupport::Concern
   included do
+    attribute :extra, :string, array: true
     attribute :start_at, :datetime
     attribute :finish_at, :datetime
     attribute :sequence, :integer
-  
-    has_many :charges, class_name: 'PromoteCharge', dependent: :delete_all
+    
+    belongs_to :deal, polymorphic: true, optional: true
+    has_many :promote_charges, dependent: :delete_all
     has_many :promote_goods, dependent: :destroy
     has_many :promote_buyers, dependent: :destroy
   
     scope :verified, -> { where(verified: true) }
-    scope :overall_goods, -> { valid.where(overall_goods: true) }  # 适用于所有商品
-    scope :special_goods, -> { valid.where(overall_goods: false) }  # 仅适用于特定商品
-    scope :overall_buyers, -> { valid.where(overall_buyers: true) }  # 适用于所有顾客
-    scope :special_buyers, -> { valid.where(overall_buyers: false) }  # 仅适用于特定顾客
+    scope :default, -> { verified.where(default: true) }
+    scope :for_sale, -> { verified.where(default: false) }
     scope :valid, -> { t = Time.now; verified.default_where('start_at-lte': t, 'finish_at-gte': t) }
-  
+
     validates :code, uniqueness: true, allow_blank: true
-    validates :start_at, presence: true
-    validates :finish_at, presence: true
   
     after_commit :delete_cache, on: [:create, :destroy]
     after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }

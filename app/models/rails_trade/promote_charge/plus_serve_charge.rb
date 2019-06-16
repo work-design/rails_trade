@@ -1,4 +1,4 @@
-module RailsTrade::ServeCharge::PlusServeCharge
+module RailsTrade::ServeCharge::PlusPromoteCharge
 
   def final_price(amount)
     base_price.to_d + (amount * parameter).round(2)

@@ -31,23 +31,14 @@ class RailsTradeDbCart < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :cart_serves do |t|
-      t.references :cart
-      t.references :cart_item
-      t.references :serve
-      t.references :serve_charge
-      t.decimal :original_amount, precision: 10, scale: 2
-      t.decimal :amount, precision: 10, scale: 2
-      t.string :state
-      t.timestamps
-    end
-
     create_table :cart_promotes do |t|
       t.references :cart
       t.references :cart_item
       t.references :promote
       t.references :promote_charge
+      t.references :promote_good
       t.references :promote_buyer
+      t.decimal :original_amount, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       t.string :state
       t.timestamps

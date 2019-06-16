@@ -4,18 +4,19 @@ module RailsTrade::OrderPromote
     attribute :order_id, :integer
     attribute :order_item_id, :integer
     attribute :amount, :decimal, default: 0
-  
+    
     belongs_to :order, inverse_of: :order_promotes
     belongs_to :order_item, optional: true
     belongs_to :promote
     belongs_to :promote_charge, optional: true
     belongs_to :promote_buyer, optional: true, counter_cache: true
-    after_create_commit :check_promote_buyer
+    belongs_to :promote_good, optional: true
   
     after_initialize if: :new_record? do
       self.order = self.order_item.order
       compute_amount
     end
+    after_create_commit :check_promote_buyer
   end
 
   def check_promote_buyer
@@ -28,5 +29,6 @@ module RailsTrade::OrderPromote
     self.amount = amount
     self.promote_charge_id = promote_charge.id
   end
+  
 
 end
