@@ -68,13 +68,6 @@ Rails.application.routes.draw do
       patch :confirm, on: :member
       patch :deny, on: :member
     end
-    resources :serves do
-      get :search, on: :collection
-      resources :serve_charges, as: 'charges'
-    end
-    resources :serve_goods do
-      get :goods, on: :collection
-    end
   end
 
   scope :my, module: 'trade/my', as: 'my' do

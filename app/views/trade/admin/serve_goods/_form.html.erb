@@ -1,8 +1,0 @@
-<%= form_with model: [:admin, @serve_good] do |f| %>
-  <%= render '/shared/error_messages', target: @serve_good  %>
-  <%= f.hidden_field :serve_id %>
-  <%= f.select :good_type, options_for_select(ServeGood.options_i18n(:good_type), @serve_good.good_type), include_blank: true %>
-  <%= f.select :good_id, options_for_select([]) %>
-  <%= f.check_box :available %>
-  <%= f.submit %>
-<% end %>
