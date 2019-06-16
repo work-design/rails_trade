@@ -1,7 +1,7 @@
 <%= f.select :type, options_for_select(ServeCharge.options_i18n(:type), @charge.type) %>
 <%= f.number_field :min, step: ServeCharge.min_step %>
 <%= f.number_field :max, step: ServeCharge.max_step %>
-<%= f.number_field :price, step: '0.01' %>
+<%= f.number_field :parameter, step: '0.01' %>
 <%= f.number_field :base_price, step: '0.01' %>
 <% @serve.extra.each do |ex| %>
   <%= f.text_field ex %>

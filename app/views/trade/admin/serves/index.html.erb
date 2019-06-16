@@ -4,11 +4,13 @@
 </div>
 
 <div class="ui attached segment">
-  <p>
-    <span>Scope: </span>
-    <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  </p>
+  <dl>
+    <dt><%= Serve.human_attribute_name(:scope) %></dt>
+    <dd>
+      <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </dd>
+  </dl>
 </div>
 
 <table class="ui bottom attached selectable table">
@@ -22,7 +24,7 @@
       <th><%= Serve.human_attribute_name(:deal) %></th>
       <th><%= Serve.human_attribute_name(:extra) %></th>
       <th>
-        <%= link_to new_admin_serve_path, class: 'ui mini primary button' do %>
+        <%= link_to new_admin_serve_path, remote: true, class: 'ui mini primary button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
         <% end %>
       </th>
@@ -32,12 +34,12 @@
   <tbody>
   <% @serves.each do |serve| %>
     <tr>
-      <td><%= serve.type %></td>
+      <td><%= serve.type_i18n %></td>
       <td><%= serve.name %></td>
       <td><span class="ui blue label"><%= serve.scope_i18n %></span></td>
       <td>
         <div class="ui toggle checkbox">
-          <%= check_box_tag 'serve[verified]', nil, serve.verified, data: { method: :patch, remote: true, params: "[serve]verified=#{!serve.verified}", url: admin_serve_path(serve.id), submit: true }, id: nil %>
+          <%= check_box_tag 'serve[verified]', nil, serve.verified, data: { method: :patch, remote: true, url: admin_serve_path(serve.id), submit: true }, id: nil %>
         </div>
       </td>
       <td>
@@ -64,7 +66,7 @@
       </td>
       <td>
         <%= link_to '细则', admin_serve_charges_path(serve) %>
-        <%= link_to edit_admin_serve_path(serve), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
+        <%= link_to edit_admin_serve_path(serve), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
         <%= link_to admin_serve_path(serve), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>

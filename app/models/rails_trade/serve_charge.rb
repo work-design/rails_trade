@@ -6,7 +6,7 @@ module RailsTrade::ServeCharge
     attribute :min, :integer
     attribute :max, :integer
     attribute :price, :decimal
-    attribute :type, :string     # SingleCharge / TotalCharge
+    attribute :type, :string
     attribute :subtotal, :decimal
   
     attr_accessor :default_subtotal, :cart_item_serve

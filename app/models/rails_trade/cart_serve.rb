@@ -3,8 +3,12 @@ module RailsTrade::CartServe
   included do
     attribute :cart_item_id, :integer
     attribute :serve_id, :integer
+    attribute :good_type, :string
+    attribute :good_id, :integer
 
-    belongs_to :cart_item, touch: true
+    belongs_to :cart
+    belongs_to :cart_item, touch: true, optional: true
+    belongs_to :good, polymorphic: true
     belongs_to :serve_charge
     belongs_to :serve
 
@@ -12,7 +16,7 @@ module RailsTrade::CartServe
     validates :amount, presence: true
 
     after_initialize if: :new_record? do |t|
-      self.serve_id = self.serve_charge.serve_id
+      self.serve_id = self.serve_charge.serve_id if serve
     end
 
     def get_charge

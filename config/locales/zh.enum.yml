@@ -48,7 +48,10 @@ zh:
         scope:
           total: 全部应用
           single: 单独应用
+        overall:
+          true: 适用于所有商品
+          false: 适用于特定商品
       serve_charge:
         type:
-          SingleServeCharge: Single Charge
-          TotalServeCharge: Total Charge
+          FinalServeCharge: 总金额
+          PlusServeCharge: 附加金额

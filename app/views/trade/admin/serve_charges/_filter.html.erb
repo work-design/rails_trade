@@ -1,0 +1,11 @@
+<%= search_form_with model: ServeCharge.new do |f| %>
+  <div class="fields">
+    <%= f.text_field :value %>
+    <% @serve.extra.each do |extra| %>
+      <%= f.text_field extra, placeholder: extra %>
+    <% end %>
+    <%= f.submit %>
+    <%= link_to t('.clear'), filter_params(except: [:value]), class: 'ui button' %>
+  </div>
+<% end %>
+
