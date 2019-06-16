@@ -40,6 +40,9 @@ zh:
       serves:
         index:
           title: 服务列表
+      serve_charges:
+        index:
+          title: 服务计算细则
     my:
       carts:
         index:

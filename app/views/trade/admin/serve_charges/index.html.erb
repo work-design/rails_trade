@@ -1,8 +1,8 @@
 <% content_for :breadcrumb do %>
 <div class="ui basic segment breadcrumb">
-  <%= link_to 'back', admin_serves_path, class: 'section' %>
+  <%= link_to t('.back'), admin_serves_path, class: 'section' %>
   <i class="fas fa-angle-right divider"></i>
-  <div class="section">Charge List</div>
+  <div class="active section"><%= t('.title') %></div>
 </div>
 <% end %>
 

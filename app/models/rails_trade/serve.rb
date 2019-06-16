@@ -7,7 +7,9 @@ module RailsTrade::Serve
     attribute :finish_at, :datetime
   
     belongs_to :deal, polymorphic: true, optional: true
-    has_many :charges, class_name: 'ServeCharge', dependent: :delete_all
+    has_many :serve_charges, dependent: :delete_all
+    has_many :plus_serve_charges, dependent: :delete_all
+    has_many :final_serve_charges, dependent: :delete_all
     has_many :serve_goods, dependent: :delete_all
   
     scope :verified, -> { where(verified: true) }

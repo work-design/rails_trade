@@ -68,14 +68,19 @@ module RailsTrade::CartItem
   end
 
   def sync_cart_charges
-    serve.charges.each do |charge|
-      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal, scope: 'single')
-      cart_serve.save
+    NumberServe.overall.each do |serve|
+      charge = serve.compute_charge(number)
+      self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.final_price(number))
+    end
+    
+    QuantityServe.overall.each do |serve|
+      charge = serve.compute_charge(quantity)
+      self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.final_price(quantity))
     end
 
-    serve.promotes.each do |charge|
-      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal, scope: 'single')
-      cart_promote.save
+    NumberPromote.overall.each do |promote|
+      charge = promote.compute_charge(number)
+      self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.final_price(number))
     end
   end
 
