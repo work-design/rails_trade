@@ -2,7 +2,7 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
   before_action :set_promote_buyer, only: [:show, :destroy]
 
   def index
-    q_params = {}.with_indifferent_access
+    q_params = {}
     q_params.merge! params.permit(:promote_id, :buyer_type, :buyer_id)
     @promote_buyers = PromoteBuyer.includes(:buyer, :promote).default_where(q_params).page(params[:page])
     if params[:promote_id]
@@ -45,7 +45,8 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
     q = params.fetch(:promote_buyer, {}).permit(
       :buyer_type,
       :buyer_id,
-      :promote_id
+      :promote_id,
+      :available
     )
     q[:buyer_type] = 'User' if q[:buyer_type].blank?
     q

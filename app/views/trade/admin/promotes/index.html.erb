@@ -28,16 +28,6 @@
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
       <th><%= Promote.human_attribute_name(:verified) %></th>
-      <th>
-        <p>
-          <%= Promote.human_attribute_name(:overall_goods) %>
-          <span data-tooltip="<%= t('.overall_goods_help') %>"><i class="grey question circle icon"></i></span>
-        </p>
-        <p>
-          <%= Promote.human_attribute_name(:overall_buyers) %>
-          <span data-tooltip="<%= t('.overall_buyers_help') %>"><i class="grey question circle icon"></i></span>
-        </p>
-      </th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:extra) %></th>
       <th></th>
@@ -67,16 +57,6 @@
           <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>
       </td>
-      <td>
-        <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[overall_goods]', nil, promote.overall_goods, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
-          <label><%= Promote.human_attribute_name(:overall_goods) %></label>
-        </div>
-        <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[overall_buyers]', nil, promote.overall_buyers, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
-          <label><%= Promote.human_attribute_name(:overall_buyers) %></label>
-        </div>
-      </td>
       <td><%= promote.sequence %></td>
       <td>
         <% Array(promote.extra).each do |e| %>
@@ -85,9 +65,7 @@
       </td>
       <td>
         <%= link_to '适用商品', admin_promote_goods_path(promote_id: promote.id), class: 'ui mini button' %>
-        <% unless promote.overall_buyers %>
-          <%= link_to '优惠券发放', admin_promote_buyers_path(promote_id: promote.id), class: 'ui mini button' %>
-        <% end %>
+        <%= link_to '优惠券发放', admin_promote_buyers_path(promote_id: promote.id), class: 'ui mini button' %>
       </td>
       <td>
         <%= link_to admin_promote_charges_path(promote), data: { tooltip: t('.show') }, class: 'ui mini circular icon button' do %>

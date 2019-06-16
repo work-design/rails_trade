@@ -11,4 +11,6 @@ $('#promote_good_good_type').dropdown({
     })
   }
 })
-$('#promote_good_good_id').dropdown();
+$('#promote_good_good_id').dropdown({
+  placeholder: false
+});

@@ -1,7 +1,8 @@
-<%= form_with model: [:admin, @promote_good], local: true do |f| %>
+<%= form_with model: [:admin, @promote_good] do |f| %>
   <%= render '/shared/error_messages', target: @promote_good  %>
   <%= f.hidden_field :promote_id %>
-  <%= f.select :good_type, options_for_select(PromoteGood.good_types), include_blank: true %>
+  <%= f.select :good_type, options_for_select(PromoteGood.options_i18n(:good_type), @promote_good.good_type), include_blank: true %>
   <%= f.select :good_id, options_for_select([]) %>
+  <%= f.check_box :available %>
   <%= f.submit %>
 <% end %>

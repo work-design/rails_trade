@@ -8,7 +8,6 @@ class RailsTradeDbServes < ActiveRecord::Migration[5.1]
       t.string :scope
       t.string :extra, array: true
       t.boolean :verified, default: false
-      t.boolean :overall, default: true
       t.boolean :contain_max, default: false
       t.boolean :default, default: false
       t.references :deal, polymorphic: true
@@ -37,10 +36,9 @@ class RailsTradeDbServes < ActiveRecord::Migration[5.1]
     create_table :serve_goods do |t|
       t.references :good, polymorphic: true
       t.references :serve
+      t.boolean :available
       t.timestamps
     end
-
-
 
   end
 end

@@ -1,4 +1,5 @@
-<div class="ui segment breadcrumb">
+<% content_for :breadcrumb do %>
+<div class="ui basic segment breadcrumb">
   <%= link_to 'All Promotes', admin_promotes_path, class: 'section' %>
   <% if params[:promote_id] %>
     <i class="fas fa-angle-right divider"></i>
@@ -7,15 +8,7 @@
   <i class="fas fa-angle-right divider"></i>
   <div class="active section">设置商品</div>
 </div>
-
-<div class="ui top attached borderless menu">
-  <div class="header item">Promote Goods</div>
-  <div class="right menu">
-    <div class="item">
-      <%= link_to 'New', new_admin_promote_good_path(promote_id: params[:promote_id]), class: 'ui teal button' %>
-    </div>
-  </div>
-</div>
+<% end %>
 
 <div class="ui attached segment">
   <%= render 'search_form' %>
@@ -25,12 +18,16 @@
   <thead>
     <tr>
       <th><%= PromoteGood.human_attribute_name(:id) %></th>
-      <th><%= PromoteGood.human_attribute_name(:promote) %></th>
       <th>
-        <%= PromoteGood.human_attribute_name(:good) %>
+        <p><%= PromoteGood.human_attribute_name(:good_type) %></p>
+        <p><%= PromoteGood.human_attribute_name(:good_id) %></p>
       </th>
-      <th><%= PromoteGood.human_attribute_name(:kind) %></th>
-      <th>Actions</th>
+      <th><%= PromoteGood.human_attribute_name(:available) %></th>
+      <th>
+        <%= link_to new_admin_promote_good_path(promote_id: params[:promote_id]), remote: true, class: 'ui teal button' do %>
+          <i class="fas fa-plus"></i><%= t('.new') %>
+        <% end %>
+      </th>
     </tr>
   </thead>
 
@@ -38,12 +35,23 @@
   <% @promote_goods.each do |promote_good| %>
     <tr>
       <td><%= promote_good.id %></td>
-      <td><%= promote_good.promote_id %></td>
-      <td><%= promote_good.good.name_detail %></td>
-      <td><%= promote_good.kind_i18n %></td>
       <td>
-        <%= link_to 'Edit', edit_admin_promote_good_path(promote_good), class: 'ui pink label' %>
-        <%= link_to 'Destroy', admin_promote_good_path(promote_good), method: :delete, data: { confirm: t('.confirm') }, class: 'ui red label' %>
+        <p><%= promote_good.good_type %></p>
+        <% if promote_good.good_id %>
+          <p><%= promote_good.good.name_detail %></p>
+        <% else %>
+          <p>不限商品</p>
+        <% end %>
+      </td>
+      <td>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag 'promote_good[available]', nil, promote_good.available, data: { method: :patch, remote: true, url: admin_promote_good_path(promote_good.id), submit: true }, id: nil %>
+        </div>
+      </td>
+      <td>
+        <%= link_to admin_promote_good_path(promote_good), method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
+          <i class="fas fa-trash-alt"></i>
+        <% end %>
       </td>
     </tr>
   <% end %>

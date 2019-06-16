@@ -44,10 +44,6 @@
       </td>
       <td>
         <div class="ui toggle checkbox">
-          <%= check_box_tag 'serve[overall]', nil, serve.overall, data: { method: :patch, remote: true, url: admin_serve_path(serve.id), submit: true }, id: nil %>
-          <label><%= Serve.human_attribute_name(:overall) %></label>
-        </div>
-        <div class="ui toggle checkbox">
           <%= check_box_tag 'serve[contain_max]', nil, serve.contain_max, data: { method: :patch, remote: true, url: admin_serve_path(serve.id), submit: true }, id: nil %>
           <label><%= Serve.human_attribute_name(:contain_max) %></label>
         </div>

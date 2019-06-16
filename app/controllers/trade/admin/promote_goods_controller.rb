@@ -42,7 +42,7 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
 
   def update
     if @promote_good.update(promote_good_params)
-      redirect_to @promote_good
+      redirect_to admin_promote_goods_url(promote_id: @promote_good.promote_id)
     else
       render :edit
     end
@@ -59,11 +59,13 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   end
 
   def promote_good_params
-    params.fetch(:promote_good, {}).permit(
-      :promote_id,
+    p = params.fetch(:promote_good, {}).permit(
       :good_type,
-      :good_id
+      :good_id,
+      :available
     )
+    p.merge! promote_id: params[:promote_id] if params[:promote_id]
+    p
   end
 
 end
