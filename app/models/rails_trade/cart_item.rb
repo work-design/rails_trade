@@ -24,8 +24,8 @@ module RailsTrade::CartItem
       deleted: 'deleted'
     }
 
+    before_validation :sync_amount
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
-    before_save :sync_amount
   end
 
   def total_quantity
@@ -55,9 +55,10 @@ module RailsTrade::CartItem
 
   def sync_amount
     self.single_price = good.price
-
-    self.original_price = good.price.to_d * number
-    self.retail_price = good.retail_price * number
+    self.original_price = good.price * number
+    
+    self.single_serve_price = cart_serves.sum(:price)
+    self.retail_price = single_price + serve_price
     self.serve_price = cart_serves.sum(:amount)
     self.bulk_price = original_price + serve_price
 

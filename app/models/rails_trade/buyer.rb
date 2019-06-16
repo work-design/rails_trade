@@ -4,9 +4,8 @@ module RailsTrade::Buyer
   included do
     attribute :name, :string
 
-    has_many :carts, as: :buyer
+    has_many :carts, as: :buyer, dependent: :destroy
     has_many :orders, as: :buyer, inverse_of: :buyer
-    has_many :cart_items, as: :buyer, dependent: :destroy
 
     has_many :promote_buyers, as: :buyer, dependent: :destroy
     has_many :promotes, ->{ special_goods }, through: :promote_buyers
@@ -20,7 +19,6 @@ module RailsTrade::Buyer
     def self.credit_ids
       PaymentStrategy.where.not(period: 0).pluck(:id)
     end
-    RailsTrade.buyer_classes << self.name unless RailsTrade.buyer_classes.include?(self.name)
   end
 
   def name_detail

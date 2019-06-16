@@ -1,7 +1,8 @@
 module RailsTrade::Good
   extend ActiveSupport::Concern
-
+  
   included do
+    
     attribute :name, :string
     attribute :sku, :string, default: -> { SecureRandom.hex }
     attribute :price, :decimal, default: 0
@@ -14,13 +15,11 @@ module RailsTrade::Good
     thread_mattr_accessor :class_extra, instance_accessor: false
 
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
-
     has_many :order_items, as: :good, dependent: :nullify
+    
     has_many :orders, through: :order_items
 
     has_many :promote_goods, as: :good
-
-    RailsTrade.good_classes << self.name unless RailsTrade.good_classes.include?(self.name)
   end
 
   def extra
@@ -30,18 +29,11 @@ module RailsTrade::Good
   def name_detail
     "#{name}-#{id}"
   end
-
-  def retail_price
-    self.price.to_d #+ self.serve.subtotal
-  end
+  
 
   def final_price
     compute_order_amount
     #self.retail_price + self.promote_price
-  end
-
-  def promote_price
-
   end
 
   def order_done

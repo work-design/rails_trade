@@ -8,11 +8,5 @@ require 'rails_trade/engine'
 require 'rails_trade/config'
 
 module RailsTrade
-  @buyer_classes = []
-  @good_classes = []
-
-  class << self
-    attr_accessor :buyer_classes, :good_classes
-  end
 
 end
