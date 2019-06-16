@@ -4,9 +4,12 @@ module RailsTrade::ServeGood
     attribute :serve_id, :integer
     attribute :good_id, :integer
     attribute :good_type, :string
-  
-    belongs_to :good, polymorphic: true
+    attribute :available, :boolean, default: false
+
     belongs_to :serve
+    belongs_to :good, polymorphic: true, optional: true
+
+    validates :serve_id, uniqueness: { scope: [:good_type, :good_id] }
   end
 
 end

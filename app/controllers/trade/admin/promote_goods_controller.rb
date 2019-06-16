@@ -59,13 +59,12 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   end
 
   def promote_good_params
-    p = params.fetch(:promote_good, {}).permit(
+    params.fetch(:promote_good, {}).permit(
+      :promote_id,
       :good_type,
       :good_id,
       :available
     )
-    p.merge! promote_id: params[:promote_id] if params[:promote_id]
-    p
   end
 
 end

@@ -72,6 +72,9 @@ Rails.application.routes.draw do
       get :search, on: :collection
       resources :serve_charges, as: 'charges'
     end
+    resources :serve_goods do
+      get :goods, on: :collection
+    end
   end
 
   scope :my, module: 'trade/my', as: 'my' do

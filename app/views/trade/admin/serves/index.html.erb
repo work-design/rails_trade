@@ -61,7 +61,8 @@
         <% end %>
       </td>
       <td>
-        <%= link_to '细则', admin_serve_charges_path(serve) %>
+        <%= link_to '适用商品', admin_serve_goods_path(serve_id: serve.id), class: 'ui mini button' %>
+        <%= link_to '细则', admin_serve_charges_path(serve), class: 'ui mini button' %>
         <%= link_to edit_admin_serve_path(serve), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
