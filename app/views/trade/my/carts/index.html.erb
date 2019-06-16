@@ -9,6 +9,7 @@
       <th><%= Cart.human_attribute_name(:deposit_ratio) %></th>
       <th><%= Cart.human_attribute_name(:buyer_type) %></th>
       <th><%= Cart.human_attribute_name(:buyer_id) %></th>
+      <th><%= Cart.human_attribute_name(:default) %></th>
       <th>
         <%= link_to new_my_cart_path, remote: true, class: 'ui mini green button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
@@ -23,6 +24,12 @@
       <td><%= cart.deposit_ratio %></td>
       <td><%= cart.buyer_type %></td>
       <td><%= cart.buyer_id %></td>
+      <td>
+        <div class="ui toggle checkbox inverted <%= active_assert(cart.default, expected: 'disabled green label', unexpected: 'label') %>">
+          <%= check_box_tag '[cart]default', nil, cart.default, data: { method: :patch, remote: true, url: my_cart_path(cart), submit: true }, id: nil %>
+          <label><%= t('.default') %></label>
+        </div>
+      </td>
       <td>
         <%= link_to my_cart_cart_items_path(cart), data: { tooltip: t('.show') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-eye"></i>

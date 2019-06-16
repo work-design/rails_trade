@@ -17,7 +17,7 @@ module RailsTrade::CartItem
 
     scope :valid, -> { where(status: 'pending', myself: true) }
     scope :checked, -> { where(status: 'pending', checked: true) }
-
+    
     enum status: {
       init: 'init',
       ordered: 'ordered',

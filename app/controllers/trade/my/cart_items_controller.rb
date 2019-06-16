@@ -1,5 +1,5 @@
 class Trade::My::CartItemsController < Trade::My::BaseController
-  before_action :set_cart
+  before_action :set_cart, except: [:create]
   #before_action :set_additions
   
   def index
@@ -8,19 +8,22 @@ class Trade::My::CartItemsController < Trade::My::BaseController
   end
   
   def create
+    @cart = current_cart
+    
     cart_item = @cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1
     if cart_item.present?
       cart_item.number = cart_item.number + params[:number].to_i
       cart_item.save
     else
-      cart_item = @cart.build(good_id: params[:good_id], good_type: params[:good_type])
+      cart_item = @cart.cart_items.build(good_id: params[:good_id], good_type: params[:good_type])
       cart_item.save
     end
+    
+    @cart_items = @cart.cart_items
+    @checked_ids = @cart.cart_items.checked.pluck(:id)
 
-    @checked_ids = @cart.checked_items.pluck(:id)
-
-    render 'index'
+    redirect_to my_cart_cart_items_url(@cart)
   end
 
   def check

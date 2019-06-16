@@ -78,8 +78,9 @@ Rails.application.routes.draw do
     resources :buyers
     resources :carts do
       get :total, on: :member
-      resources :cart_items
+      resources :cart_items, except: [:create]
     end
+    resources :cart_items, only: [:create]
     resources :good_providers
     resources :orders do
       post :direct, on: :collection

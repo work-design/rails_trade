@@ -18,7 +18,9 @@ module RailsTrade::Cart
     has_many :cart_items, dependent: :destroy
     has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
-
+    
+    scope :default, -> { find_by(default: true) }
+    
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
     validates :user_id, presence: true, if: -> { session_id.blank? }
