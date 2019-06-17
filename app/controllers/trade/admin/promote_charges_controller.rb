@@ -12,15 +12,16 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   end
 
   def new
-    @charge = @promote.charges.new
+    @charge = @promote.promote_charges.build
   end
 
   def create
-    @charge = @promote.charges.new(charge_params)
+    @charge = @promote.promote_charges.build(charge_params)
+    
     respond_to do |format|
       if @charge.save
         format.html { redirect_to admin_promote_charges_url(@promote) }
-        format.js { redirect_to admin_promote_charges_url }
+        format.js { redirect_to admin_promote_charges_url(@promote) }
       else
         format.html { render :new }
         format.js
@@ -61,7 +62,7 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   end
 
   def set_charge
-    @charge = PromoteCharge.find params[:id]
+    @promote_charge = PromoteCharge.find params[:id]
   end
 
 end
