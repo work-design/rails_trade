@@ -1,4 +1,3 @@
-# should define methods: buyer
 module RailsTrade::User
   extend ActiveSupport::Concern
 

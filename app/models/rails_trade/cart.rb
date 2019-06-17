@@ -25,8 +25,6 @@ module RailsTrade::Cart
     
     after_update :set_default, if: -> { self.default? && saved_change_to_default? }
   end
-  
-
 
   def compute_price
     self.reduced_price = cart_items.checked.sum(:reduced_price)

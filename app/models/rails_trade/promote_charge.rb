@@ -27,6 +27,7 @@ module RailsTrade::PromoteCharge
     validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
     validates :min, numericality: { less_than_or_equal_to: -> (o) { o.max } }
   end
+  
   # amount: 商品价格
   # return 计算后的价格
   def final_price(amount = 1)

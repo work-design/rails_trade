@@ -10,7 +10,7 @@ module RailsTrade::Refund
     validates :payment_id, uniqueness: { scope: :order_id }
   
     after_initialize if: -> { new_record? } do
-      self.refund_uuid = UidHelper.nsec_uuid('RD')
+      self.refund_uuid ||= UidHelper.nsec_uuid('RD')
       self.state = :init
     end
   

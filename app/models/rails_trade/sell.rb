@@ -18,7 +18,7 @@ module RailsTrade::Sell
 
   def get_order
     return @get_order if defined?(@get_order)
-    @get_order = self.order || generate_order!(self.buyer, { number: 1 })
+    @get_order = self.order || generate_order!(buyer: self.buyer, number: 1)
   end
 
 end
