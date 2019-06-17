@@ -30,7 +30,6 @@ module RailsTrade::Good
     "#{name}-#{id}"
   end
   
-
   def final_price
     compute_order_amount
     #self.retail_price + self.promote_price
@@ -78,19 +77,24 @@ module RailsTrade::Good
     o.amount
   end
 
-  def generate_order!(buyer = nil, params = {})
-    o = generate_order(buyer, params)
+  def generate_order!(user = nil, params = {})
+    o = generate_order(user, params)
     o.check_state
     o.save!
     o
   end
 
-  def generate_order(buyer = nil, params = {})
-    if buyer
-      o = buyer.orders.build
+  def generate_order(user = nil, params = {})
+    if user
+      o = user.orders.build
+      cart = user.carts.default
+      if cart
+        o.buyer = cart.buyer
+      end
     else
       o = Order.new
     end
+    
     o.currency = self.currency
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
 

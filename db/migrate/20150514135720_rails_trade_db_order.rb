@@ -2,6 +2,7 @@ class RailsTradeDbOrder < ActiveRecord::Migration[5.2]
   def change
 
     create_table :orders do |t|
+      t.references :user
       t.references :buyer, polymorphic: true
       t.references :payment_strategy
       t.string :uuid, null: false

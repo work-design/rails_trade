@@ -27,7 +27,7 @@
     <tr id="order_<%= order.id %>">
       <td><%= link_to order.uuid, admin_order_path(order) %></td>
       <td>
-        <% if order.buyer_id %>
+        <% if order.user_id %>
           <p><%= link_to order.buyer&.name, orders_admin_buyer_path(order.buyer_id) %></p>
         <% end %>
       </td>
