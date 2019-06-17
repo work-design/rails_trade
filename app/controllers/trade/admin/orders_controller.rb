@@ -7,7 +7,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
     q_params.merge! default_params
     q_params.merge! params.permit(:id, :uuid, :user_id, :buyer_type, :buyer_id, :payment_status, :payment_type)
 
-    @orders = Order.includes(:buyer).default_where(q_params).order(id: :desc).page(params[:page])
+    @orders = Order.includes(:user).default_where(q_params).order(id: :desc).page(params[:page])
   end
 
   def payments
