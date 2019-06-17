@@ -10,6 +10,7 @@ zh:
         amount: 金额
         received_amount: 已收金额
         currency: 币种
+        user_id: 购买者
       payment:
         total_amount: 总金额
         income_amount: 净收入
