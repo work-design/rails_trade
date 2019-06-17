@@ -3,8 +3,12 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   before_action :set_charge, only: [:edit, :update, :destroy]
 
   def index
-    @charges = @promote.charges.default_where(type: params[:type], 'min-gte': params[:min], 'max-lte': params[:max])
-    @charges = @charges.order(min: :asc).page(params[:page]).per(20)
+    q_params = {}
+    q_params.merge! params.permit(@promote.extra)
+    q_params.merge! 'min-lte': params[:value], 'max-gte': params[:value]
+  
+  
+    @promote_charges = @promote.promote_charges.default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
   end
 
   def new

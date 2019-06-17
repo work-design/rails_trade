@@ -1,14 +1,15 @@
 <div class="ui top attached tabular menu">
   <%= link_to '促销列表', admin_promotes_path, class: active_helper(controllers: ['promotes', 'promote_charges']) %>
-  <%= link_to '服务列表', admin_serves_path, class: active_helper(controllers: ['serves', 'serve_charges']) %>
 </div>
 
 <div class="ui attached segment">
-  <p>
-    <span>Scope: </span>
-    <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  </p>
+  <dl>
+    <dt><%= Promote.human_attribute_name(:scope) %></dt>
+    <dd>
+      <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    </dd>
+  </dl>
 </div>
 
 <table class="ui bottom attached selectable table">
@@ -29,10 +30,11 @@
       </th>
       <th><%= Promote.human_attribute_name(:verified) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
+      <th><%= Promote.human_attribute_name(:deal) %></th>
       <th><%= Promote.human_attribute_name(:extra) %></th>
       <th></th>
       <th>
-        <%= link_to new_admin_promote_path, class: 'ui mini primary button' do %>
+        <%= link_to new_admin_promote_path, remote: true, class: 'ui mini primary button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
         <% end %>
       </th>
@@ -59,6 +61,9 @@
       </td>
       <td><%= promote.sequence %></td>
       <td>
+        <%= promote.deal_type %>: <%= promote.deal_id %>
+      </td>
+      <td>
         <% Array(promote.extra).each do |e| %>
           <span class="ui label"><%= e %></span>
         <% end %>
@@ -71,7 +76,7 @@
         <%= link_to admin_promote_charges_path(promote), data: { tooltip: t('.show') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-eye"></i>
         <% end %>
-        <%= link_to edit_admin_promote_path(promote), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
+        <%= link_to edit_admin_promote_path(promote), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
         <%= link_to admin_promote_path(promote), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
