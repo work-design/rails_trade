@@ -31,9 +31,9 @@ module RailsTrade::Promote
     extra_hash.stringify_keys!
 
     query = { 'min-lte': amount.to_d, 'max-gt': amount.to_d }.merge(extra_hash.slice(*extra))
-    charge = self.charges.default_where(query).first
+    charge = self.promote_charges.default_where(query).first
 
-    [charge, -(amount - charge.final_price(amount))]
+    [charge, -(amount - charge.final_price(amount))] if charge
   end
 
   private

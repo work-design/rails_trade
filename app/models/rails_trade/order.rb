@@ -11,7 +11,7 @@ module RailsTrade::Order
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
     
-    belongs_to :user
+    belongs_to :user, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :cart, optional: true
     belongs_to :payment_strategy, optional: true
@@ -88,13 +88,11 @@ module RailsTrade::Order
   end
 
   def compute_sum
-    _pure_order_serves = self.order_serves.select { |i| i.order_item_id.nil? }
     _pure_order_promotes = self.order_promotes.select { |i| i.order_item_id.nil? }
 
-    self.pure_serve_sum = _pure_order_serves.sum(&:amount).to_d
     self.pure_promote_sum = _pure_order_promotes.sum(&:amount).to_d
     self.subtotal = self.order_items.sum(&:amount)
-    self.amount = self.subtotal.to_d + self.pure_serve_sum.to_d + self.pure_promote_sum.to_d
+    self.amount = self.subtotal.to_d + self.pure_promote_sum.to_d
   end
 
   def confirm_ordered!

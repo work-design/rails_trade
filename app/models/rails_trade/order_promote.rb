@@ -27,7 +27,7 @@ module RailsTrade::OrderPromote
   def compute_amount
     promote_charge, amount = self.promote.compute_amount(order_item.good, order_item.number, order_item.extra)
     self.amount = amount
-    self.promote_charge_id = promote_charge.id
+    self.promote_charge_id = promote_charge.id if promote_charge
   end
   
 

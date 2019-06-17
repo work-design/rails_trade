@@ -52,9 +52,8 @@ module RailsTrade::OrderItem
   end
 
   def compute_sum
-    self.serve_sum = self.order_serves.sum(&:amount)
     self.promote_sum = self.order_promotes.sum(&:amount)
-    self.amount = self.original_price + self.serve_sum + self.promote_sum
+    self.amount = self.original_price + self.promote_sum
   end
 
   def sync_amount

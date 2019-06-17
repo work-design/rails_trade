@@ -18,8 +18,6 @@ module RailsTrade::Cart
     has_many :cart_items, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
     
-    scope :default, -> { find_by(default: true) }
-    
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
     validates :user_id, presence: true, if: -> { session_id.blank? }
@@ -27,6 +25,8 @@ module RailsTrade::Cart
     
     after_update :set_default, if: -> { self.default? && saved_change_to_default? }
   end
+  
+
 
   def compute_price
     self.reduced_price = cart_items.checked.sum(:reduced_price)
@@ -38,6 +38,14 @@ module RailsTrade::Cart
 
   def set_default
     self.class.where.not(id: self.id).where(user_id: self.user_id).update_all(default: false)
+  end
+  
+  class_methods do
+    
+    def default
+      find_by(default: true)
+    end
+    
   end
 
 end

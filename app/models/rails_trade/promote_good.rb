@@ -10,6 +10,9 @@ module RailsTrade::PromoteGood
     belongs_to :promote
     belongs_to :good, polymorphic: true, optional: true
     
+    scope :available, -> { where(available: true) }
+    scope :unavailable, -> { where(available: false) }
+    
     validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
   end
   

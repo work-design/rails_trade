@@ -44,13 +44,9 @@ module RailsTrade::Good
   end
 
   def overall_promote_ids
-    except_ids = self.promote_goods.kind_except.pluck(:promote_id)
-    only_ids = self.promote_goods.kind_only.pluck(:promote_id)
-
-    overall_promote_ids = Promote.overall_buyers.overall_goods.where.not(id: except_ids).pluck(:id)
-    special_promote_ids = Promote.overall_buyers.special_goods.where(id: only_ids).pluck(:id)
-
-    overall_promote_ids + special_promote_ids
+    ids = PromoteGood.available.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:promote_id)
+    un_ids = self.promote_goods.unavailable.pluck(:promote_id)
+    ids - un_ids
   end
 
   def overall_promotes
@@ -72,20 +68,22 @@ module RailsTrade::Good
     Promote.where id: buyer_promote_ids(buyer)
   end
 
-  def compute_order_amount(buyer = nil, params = {})
-    o = generate_order(buyer, params)
+  def compute_order_amount(user: nil, buyer: nil, **params)
+    o = generate_order(user: user, buyer: buyer, **params)
     o.amount
   end
 
-  def generate_order!(user = nil, params = {})
-    o = generate_order(user, params)
+  def generate_order!(user: nil, buyer: nil, **params)
+    o = generate_order(user: user, buyer: buyer, **params)
     o.check_state
     o.save!
     o
   end
 
-  def generate_order(user = nil, params = {})
-    if user
+  def generate_order(user: nil, buyer: nil, **params)
+    if buyer
+      o = buyer.orders.build
+    elsif user
       o = user.orders.build
       cart = user.carts.default
       if cart
@@ -112,9 +110,7 @@ module RailsTrade::Good
     )
 
     promote_buyer_ids = Array(params.delete(:promote_buyer_ids))
-    serve_ids = Array(params.delete(:serve_ids))
     oi.compute_promote(promote_buyer_ids)
-    oi.compute_serve(serve_ids)
     oi.compute_sum
 
     o.assign_attributes params
