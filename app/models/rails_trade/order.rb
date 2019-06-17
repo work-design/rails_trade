@@ -10,8 +10,9 @@ module RailsTrade::Order
     attribute :expire_at, :datetime
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
-  
-    belongs_to :buyer, polymorphic: true
+    
+    belongs_to :user
+    belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :cart, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :payment_orders, dependent: :destroy
@@ -47,6 +48,10 @@ module RailsTrade::Order
   
   def subject
     order_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
+  end
+  
+  def user_name
+    user&.name.presence || '当前用户'
   end
 
   def migrate_from_cart_item(cart_item_id)
