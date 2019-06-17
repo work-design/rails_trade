@@ -16,7 +16,6 @@ module RailsTrade::Cart
     belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :cart_items, dependent: :destroy
-    has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
     
     scope :default, -> { find_by(default: true) }

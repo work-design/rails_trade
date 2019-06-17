@@ -19,8 +19,7 @@ module RailsTrade::OrderItem
     belongs_to :good, polymorphic: true, optional: true
     belongs_to :provider, optional: true
     has_many :order_promotes, autosave: true
-    has_many :order_serves, autosave: true
-    has_many :serves, through: :order_serves
+    has_many :promotes, through: :order_promotes
   
     after_initialize if: :new_record? do |oi|
       init_from_cart_item if cart_item

@@ -11,8 +11,7 @@ module RailsTrade::CartItem
 
     belongs_to :good, polymorphic: true
     belongs_to :cart, counter_cache: true
-    has_many :cart_serves, -> { includes(:serve) }, dependent: :destroy
-    has_many :cart_promotes, dependent: :destroy
+    has_many :cart_promotes, -> { includes(:serve) }, dependent: :destroy
     has_many :order_items, dependent: :nullify
 
     scope :valid, -> { where(status: 'pending', myself: true) }
@@ -68,14 +67,9 @@ module RailsTrade::CartItem
   end
 
   def sync_cart_charges
-    NumberServe.overall.each do |serve|
-      charge = serve.compute_charge(number)
-      self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.final_price(number))
-    end
-    
-    QuantityServe.overall.each do |serve|
-      charge = serve.compute_charge(quantity)
-      self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.final_price(quantity))
+    QuantityPromote.overall.each do |promote|
+      charge = promote.compute_charge(quantity)
+      self.cart_serves.build(promote_charge_id: charge.id, original_amount: charge.final_price(quantity))
     end
 
     NumberPromote.overall.each do |promote|

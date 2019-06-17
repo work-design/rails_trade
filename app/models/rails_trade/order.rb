@@ -19,12 +19,9 @@ module RailsTrade::Order
     has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
     has_many :order_promotes, autosave: true, inverse_of: :order
-    has_many :order_serves, autosave: true
     has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
-    has_many :pure_order_serves, -> { where(order_item_id: nil) }, class_name: 'OrderServe'
   
     accepts_nested_attributes_for :order_items
-    accepts_nested_attributes_for :order_serves
     accepts_nested_attributes_for :order_promotes
   
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
