@@ -11,7 +11,7 @@ module RailsTrade::CartItem
 
     belongs_to :good, polymorphic: true
     belongs_to :cart, counter_cache: true
-    has_many :cart_promotes, -> { includes(:serve) }, dependent: :destroy
+    has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
     has_many :order_items, dependent: :nullify
 
     scope :valid, -> { where(status: 'pending', myself: true) }
