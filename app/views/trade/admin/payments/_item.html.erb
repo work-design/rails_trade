@@ -26,8 +26,6 @@
   <td>
     <% if payment.payment_method.present? %>
       <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini circular icon button', target: '_blank' %>
-    <% else %>
-      <%= link_to t('.analyze'), analyze_admin_payment_path(payment), method: :patch, class: 'ui mini circular icon button', remote: true %>
     <% end %>
     <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'ui mini circular icon button', remote: true %>
     <%= link_to audits_path('Payment', payment.id), data: { tooltip: t('.log') }, remote: true, class: 'ui mini circular icon button' do %>

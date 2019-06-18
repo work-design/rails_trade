@@ -18,6 +18,7 @@ zh:
         fee_amount: 手续费
         adjust_amount: 冲抵
         buyer_name: 账号名称
+        buyer_name-like: 账号名称包含
         buyer_identifier: 账号
         buyer_bank: 银行
         notified_at: 通知时间
