@@ -28,19 +28,20 @@ module RailsTrade::OrderItem
   end
   
   def compute_promote(promote_buyer_ids = nil)
+    all_ids = good.available_promote_ids & Promote.single.default.pluck(:id)
+    
     if promote_buyer_ids.present?
-      order.buyer.promote_buyers.where(id: Array(promote_buyer_ids)).each do |promote_buyer|
+      buyer_promotes = order.buyer.promote_buyers.where(id: Array(promote_buyer_ids))
+      buyer_promotes.each do |promote_buyer|
         self.order_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
       end
+      
+      all_ids -= buyer_promotes.pluck(:promote_id)
     end
 
-    good.overall_promotes.each do |promote|
-      self.order_promotes.build(promote_id: promote.id)
+    all_ids.each do |promote_id|
+      self.order_promotes.build(promote_id: promote_id)
     end
-  end
-
-  def compute_serve(serve_ids)
-    Serve.single.overall.default
   end
 
   def valid_sum

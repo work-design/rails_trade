@@ -38,6 +38,7 @@ zh:
       payment_order:
         state: 核销状态
         check_amount: 核销金额
-      serve:
+      promote:
         scope: 应用范围
         verified: 是否生效
+        default: 是否默认选择

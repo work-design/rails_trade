@@ -14,11 +14,15 @@ module RailsTrade::Buyer
     has_many :payment_methods, through: :payment_references, autosave: true
 
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
+  end
 
-
-    def self.credit_ids
-      PaymentStrategy.where.not(period: 0).pluck(:id)
-    end
+  def all_promote_ids
+    PromoteBuyer.available.where(buyer_type: self.class.base_class.name, buyer_id: [nil, self.id]).pluck(:promote_id)
+  end
+  
+  def available_promote_ids
+    un_ids = self.promote_buyers.unavailable.pluck(:promote_id)
+    all_promote_ids - un_ids
   end
 
   def name_detail
@@ -27,6 +31,14 @@ module RailsTrade::Buyer
 
   def last_overdue_date
     orders.order(overdue_date: :asc).first&.overdue_date
+  end
+
+  class_methods do
+  
+    def credit_ids
+      PaymentStrategy.where.not(period: 0).pluck(:id)
+    end
+    
   end
 
 end

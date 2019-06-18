@@ -32,26 +32,14 @@ zh:
         type:
           NumberPromote: 购买件数
           AmountPromote: 总金额
+          QuantityServe: 总重量
         scope:
           total: 多个商品
           single: 单个商品
       promote_charge:
         type:
           DiscountPromoteCharge: 折扣策略
-          FinalPromoteCharge: 一口价策略
+          FinalPromoteCharge: 一口价策略(总金额)
           MinusPromoteCharge: 满减策略
           CashPromoteCharge: 现金抵扣
-      serve:
-        type:
-          QuantityServe: 总重量
-          NumberServe: 购买件数
-        scope:
-          total: 全部应用
-          single: 单独应用
-        overall:
-          true: 适用于所有商品
-          false: 适用于特定商品
-      serve_charge:
-        type:
-          FinalServeCharge: 总金额
-          PlusServeCharge: 附加金额
+          PlusPromoteCharge: 附加金额

@@ -10,7 +10,7 @@ $('#promote_good_good_type').dropdown({
       dataType: 'script'
     })
   }
-})
+});
 $('#promote_good_good_id').dropdown({
   placeholder: false
 });

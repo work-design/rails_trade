@@ -32,29 +32,19 @@ module RailsTrade::Good
     puts 'Should realize in good entity'
   end
 
-  def overall_promote_ids
+  def available_promote_ids
     ids = PromoteGood.available.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:promote_id)
     un_ids = self.promote_goods.unavailable.pluck(:promote_id)
     ids - un_ids
   end
 
-  def overall_promotes
+  def available_promotes
     Promote.where(id: overall_promote_ids)
   end
 
-  def buyer_promote_ids(buyer)
-    unused_promote_ids = buyer.promote_buyers.unused.pluck(:promote_id)
-    except_ids = self.promote_goods.kind_except.pluck(:promote_id)
-    only_ids = self.promote_goods.kind_only.pluck(:promote_id)
-
-    all_promote_ids = Promote.special_buyers.overall_goods.where(id: unused_promote_ids).where.not(id: except_ids).pluck(:id)
-    special_promote_ids = Promote.special_buyers.special_goods.where(id: unused_promote_ids).where(id: only_ids).pluck(:id)
-
-    all_promote_ids + special_promote_ids
-  end
-
-  def buyer_promotes(buyer)
-    Promote.where id: buyer_promote_ids(buyer)
+  def available_promotes_with_buyer(buyer)
+    ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.unavailable.pluck(:promote_id)
+    Promote.where(id: ids)
   end
 
   def compute_order_amount(user: nil, buyer: nil, **params)

@@ -1,3 +1,4 @@
+$('#promote_buyer_buyer_type').dropdown();
 $('#promote_buyer_buyer_id').dropdown({
   apiSettings: {
     url: '/buyers/search?q={query}',

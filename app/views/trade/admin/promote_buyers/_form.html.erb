@@ -1,7 +1,14 @@
 <%= form_with model: [:admin, @promote_buyer] do |f| %>
   <%= render '/shared/error_messages', target: @promote_buyer %>
-  <%= f.select :buyer_id, options_for_select([[@promote_buyer.buyer&.name, @promote_buyer.buyer_id]], @promote_buyer.buyer_id), {}, { class: 'ui fluid dropdown search selection' } %>
-  <%= f.select :promote_id, options_for_select([[@promote_buyer.promote&.name, @promote_buyer.promote_id]], @promote_buyer.promote_id), {}, { class: 'ui fluid dropdown search selection' } %>
+  <% unless params[:buyer_type] %>
+    <%= f.select :buyer_type, options_for_select(PromoteBuyer.options_i18n(:buyer_type), @promote_buyer.buyer_type), include_blank: true %>
+  <% end %>
+  <% unless params[:buyer_id] %>
+    <%= f.select :buyer_id, options_for_select([], @promote_buyer.buyer_id), include_blank: true %>
+  <% end %>
+  <% unless params[:promote_id] %>
+    <%= f.select :promote_id, options_for_select([[@promote_buyer.promote&.name, @promote_buyer.promote_id]], @promote_buyer.promote_id) %>
+  <% end %>
   <%= f.check_box :available %>
   <%= f.submit %>
 <% end %>

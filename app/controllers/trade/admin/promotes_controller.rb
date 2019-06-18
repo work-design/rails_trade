@@ -76,8 +76,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :start_at,
       :finish_at,
       :verified,
-      :overall_goods,
-      :overall_buyers,
+      :default,
       :scope,
       :discount,
       extra: []
