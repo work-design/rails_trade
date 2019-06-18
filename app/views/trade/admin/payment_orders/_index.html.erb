@@ -1,6 +1,5 @@
 <tr id="checked_<%= payment_order.order_id %>">
   <td>
-    <%= payment_order.order.id %>
     <%= form_with url: admin_payment_payment_order_path(@payment, payment_order), id: "edit_payment_order_#{payment_order.id}", method: :patch, remote: true do |f| %>
     <% end %>
   </td>

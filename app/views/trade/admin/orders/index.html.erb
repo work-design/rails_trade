@@ -18,6 +18,7 @@
       <th><%= Order.human_attribute_name(:received_amount) %></th>
       <th><%= Order.human_attribute_name(:currency) %></th>
       <th><%= Order.human_attribute_name(:payment_status) %></th>
+      <th><%= Order.human_attribute_name(:extra) %></th>
       <th><%= Order.human_attribute_name(:created_at) %></th>
       <th></th>
     </tr>
@@ -41,6 +42,7 @@
           <%= link_to t('.add_payment'), new_admin_payment_path(order_id: order.id), remote: true, class: 'ui mini green button' %>
         <% end %>
       </td>
+      <td><%= simple_format(order.extra) %></td>
       <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
       <td>
         <%= link_to edit_admin_order_path(order), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
