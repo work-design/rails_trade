@@ -12,10 +12,9 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.datetime :finish_at
       t.string :scope
       t.string :extra, array: true
-      t.boolean :verified, default: false
-      t.boolean :contain_max, default: false
-      t.boolean :default, default: false
-      t.integer :sequence, default: 1
+      t.boolean :verified
+      t.boolean :default
+      t.integer :sequence
       t.string :unit
       t.timestamps
     end
@@ -24,6 +23,8 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.references :promote
       t.decimal :min, precision: 10, scale: 2, default: 0
       t.decimal :max, precision: 10, scale: 2, default: 99999999.99
+      t.boolean :contain_min
+      t.boolean :contain_max
       t.decimal :parameter, precision: 10, scale: 2
       t.decimal :base_price, precision: 10, scale: 2
       t.string :type

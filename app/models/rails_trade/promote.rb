@@ -4,7 +4,9 @@ module RailsTrade::Promote
     attribute :extra, :string, array: true
     attribute :start_at, :datetime
     attribute :finish_at, :datetime
-    attribute :sequence, :integer
+    attribute :sequence, :integer, default: 1
+    attribute :verified, :boolean, default: false
+    attribute :default, :boolean, default: false
     
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all

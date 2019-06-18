@@ -11,19 +11,12 @@ module RailsTrade::Good
     attribute :extra, :json, default: {}
     attribute :quantity
     attribute :unit
-
-    thread_mattr_accessor :class_extra, instance_accessor: false
-
+    
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
-    
     has_many :orders, through: :order_items
 
     has_many :promote_goods, as: :good
-  end
-
-  def extra
-    Hash(self.class_extra).merge(super)
   end
 
   def name_detail
@@ -37,10 +30,6 @@ module RailsTrade::Good
 
   def order_done
     puts 'Should realize in good entity'
-  end
-
-  def all_serves
-    Serve.default_where('serve_goods.good_type': self.class.name, 'serve_goods.good_id': [nil, self.id])
   end
 
   def overall_promote_ids

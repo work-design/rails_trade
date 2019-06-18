@@ -4,6 +4,8 @@ module RailsTrade::PromoteCharge
     'promote_id',
     'min',
     'max',
+    'contain_min',
+    'contain_max',
     'parameter',
     'base_price',
     'type',
@@ -16,6 +18,7 @@ module RailsTrade::PromoteCharge
     attribute :type, :string
     attribute :min, :integer
     attribute :max, :integer
+    attribute :contain_min, :boolean, default: true
     attribute :contain_max, :boolean, default: false
     attribute :parameter, :decimal
     attribute :base_price, :decimal, default: 0
@@ -35,7 +38,7 @@ module RailsTrade::PromoteCharge
   end
 
   def extra
-    self.attributes.slice(*item.extra)
+    self.attributes.slice(*promote.extra)
   end
 
   class_methods do
