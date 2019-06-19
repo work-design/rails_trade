@@ -42,7 +42,7 @@
           <%= link_to t('.add_payment'), new_admin_payment_path(order_id: order.id), remote: true, class: 'ui mini green button' %>
         <% end %>
       </td>
-      <td><%= simple_format(order.extra) %></td>
+      <td><%= simple_format(order.extra_i18n) %></td>
       <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
       <td>
         <%= link_to edit_admin_order_path(order), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>

@@ -71,7 +71,7 @@ module RailsTrade::Good
     else
       o = Order.new
     end
-    
+
     o.currency = self.currency
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
 
@@ -94,6 +94,7 @@ module RailsTrade::Good
 
     o.assign_attributes params
     o.compute_sum
+    o.extra = extra
     o
   end
 
