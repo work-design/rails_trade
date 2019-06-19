@@ -89,25 +89,6 @@ module RailsTrade::CartItem
     end
   end
 
-  def total_cart_charges
-    total.serve_charges.each do |charge|
-      cart_serve = self.cart_serves.build(serve_charge_id: charge.id, original_amount: charge.subtoal, scope: 'total')
-      cart_serve.save
-    end
-
-    total.promote_charges.each do |charge|
-      cart_promote = self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.subtoal, scope: 'total')
-      cart_promote.save
-    end
-  end
-
-  def for_select_serves
-    @for_sales = Serve.for_sale.where.not(id: cart_serves.map(&:serve_id).uniq)
-    @for_sales.map do |serve|
-      self.serve.get_charge(serve)
-    end.compact
-  end
-
   def same_cart_items
     if self.buyer_id
       CartItem.where(buyer_type: self.buyer_type, buyer_id: self.buyer_id).valid

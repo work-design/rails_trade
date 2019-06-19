@@ -5,6 +5,10 @@ module RailsTrade::CartPromote
     attribute :serve_id, :integer
     attribute :good_type, :string
     attribute :good_id, :integer
+    attribute :sequence, :integer
+    attribute :scope, :string
+    attribute :based_amount, :decimal  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
+    attribute :amount, :decimal  # 算出的实际价格
     
     belongs_to :cart
     belongs_to :cart_item, touch: true, optional: true
@@ -21,14 +25,27 @@ module RailsTrade::CartPromote
       init: 'init',
       checked: 'checked'
     }
+    enum scope: {
+      single: 'single',
+      total: 'total'
+    }
 
     after_initialize if: :new_record? do
-      self.promote_id = self.promote_charge.promote_id if self.promote
+      if cart_item
+        self.cart_id = cart_item.cart_id
+      end
+      if self.promote_charge
+        self.promote_id = self.promote_charge.promote_id
+      end
+      if self.promote
+        self.sequence = self.promote.sequence
+        self.scope = self.promote.scope
+      end
     end
     before_validation :compute_amount
   end
 
-  def compute_charge
+  def compute_amount
     self.amount = self.promote_charge.final_price cart_item.send(promote_charge.metering)
   end
   

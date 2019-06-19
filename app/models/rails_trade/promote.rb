@@ -24,8 +24,8 @@ module RailsTrade::Promote
     after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
   
     enum scope: {
-      total: 'total', # 适用于多个商品一起计算
-      single: 'single'  # 适用于单独计算商品
+      single: 'single',  # 适用于单独计算商品
+      total: 'total' # 适用于多个商品一起计算
     }
     enum metering: {
       amount: 'amount',

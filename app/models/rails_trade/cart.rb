@@ -37,6 +37,30 @@ module RailsTrade::Cart
   def set_default
     self.class.where.not(id: self.id).where(user_id: self.user_id).update_all(default: false)
   end
+
+  def sync_cart_charges
+    available_promote_ids = []
+    extra = {}
+    [:quantity, :number, :amount].each do |m|
+      value = send("total_#{m}")
+      q_params = {
+        promote_id: available_promote_ids,
+        'promote.scope': 'total',
+        metering: m.to_s,
+        'min-lte': value,
+        'max-gte': value,
+        **extra
+      }
+    
+      charges = PromoteCharge.default_where(q_params)
+      charges.reject! do |charge|
+        (charge.max == value && !charge.contain_max) || (charge.min == value && !charge.contain_min)
+      end
+      charges.each do |promote_charge|
+        self.cart_promotes.build(promote_charge_id: promote_charge.id)
+      end
+    end
+  end
   
   class_methods do
     
