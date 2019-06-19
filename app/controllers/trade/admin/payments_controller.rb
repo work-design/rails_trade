@@ -7,6 +7,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
   def index
     q_params = {}
+    q_params.merge! default_params
     q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, :'buyer_name-like', :'payment_orders.state', :'orders.uuid')
     @payments = Payment.default_where(q_params).permit_with(rails_role_user).order(id: :desc).page(params[:page])
   end
@@ -84,6 +85,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
       :buyer_identifier,
       :buyer_bank
     )
+    p.merge! default_params
     p
   end
 
