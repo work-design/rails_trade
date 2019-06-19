@@ -3,7 +3,6 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
 
     create_table :promotes do |t|
       t.references :deal, polymorphic: true
-      t.string :type
       t.string :name
       t.string :short_name
       t.string :code
@@ -15,6 +14,7 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.boolean :verified
       t.boolean :default
       t.integer :sequence
+      t.string :metering
       t.string :unit
       t.timestamps
     end
@@ -28,6 +28,7 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.decimal :parameter, precision: 10, scale: 2
       t.decimal :base_price, precision: 10, scale: 2
       t.string :type
+      t.string :metering
       t.timestamps
     end
     

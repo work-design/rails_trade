@@ -17,24 +17,19 @@ module RailsTrade::CartPromote
     validates :promote_id, uniqueness: { scope: [:cart_item_id] }
     validates :amount, presence: true
 
-    after_initialize if: :new_record? do |t|
-      self.promote_id = self.promote_charge.promote_id if self.promote
-    end
-
     enum state: {
       init: 'init',
       checked: 'checked'
     }
+
+    after_initialize if: :new_record? do
+      self.promote_id = self.promote_charge.promote_id if self.promote
+    end
+    before_validation :compute_amount
   end
 
-  def get_charge
-    charge = self.cart_item.serve.get_charge(serve)
-    cart_item_serve = cart_item_serves.find { |cart_item_serve| cart_item_serve.serve_id == charge.serve_id  }
-    if cart_item_serve.persisted?
-      charge.cart_item_serve = cart_item_serve
-      charge.subtotal = cart_item_serve.price
-    end
-    charge
+  def compute_charge
+    self.amount = self.promote_charge.final_price cart_item.send(promote_charge.metering)
   end
   
 end

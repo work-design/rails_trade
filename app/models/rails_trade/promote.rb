@@ -27,6 +27,11 @@ module RailsTrade::Promote
       total: 'total', # 适用于多个商品一起计算
       single: 'single'  # 适用于单独计算商品
     }
+    enum metering: {
+      amount: 'amount',
+      number: 'number',
+      quantity: 'quantity'
+    }
   end
   
   def compute_charge(amount, extra_hash = {})

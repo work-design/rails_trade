@@ -67,14 +67,18 @@ module RailsTrade::CartItem
   end
 
   def sync_cart_charges
-    QuantityPromote.overall.each do |promote|
-      charge = promote.compute_charge(quantity)
-      self.cart_serves.build(promote_charge_id: charge.id, original_amount: charge.final_price(quantity))
-    end
+    available_promote_ids = []
+    [:quantity, :number, :amount].each do |m|
+      q_params = {
+        promote_id: available_promote_ids,
+        metering: m.to_s,
+        'min-lte': send(m),
+        'max-gte': send(m)
+      }
 
-    NumberPromote.overall.each do |promote|
-      charge = promote.compute_charge(number)
-      self.cart_promotes.build(promote_charge_id: charge.id, amount: charge.final_price(number))
+      PromoteCharge.default_where(q_params).each do |promote_charge|
+        self.cart_promotes.build(promote_charge_id: promote_charge.id)
+      end
     end
   end
 
