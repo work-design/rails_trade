@@ -109,9 +109,13 @@ module RailsTrade::CartItem
     return @total if defined?(@total)
     @total = CartService.new(cart_item_id: self.id, extra: self.extra)
   end
-
-  def self.good_types
-    CartItem.select(:good_type).distinct.pluck(:good_type)
+  
+  class_methods do
+    
+    def good_types
+      CartItem.select(:good_type).distinct.pluck(:good_type)
+    end
+    
   end
 
 end
