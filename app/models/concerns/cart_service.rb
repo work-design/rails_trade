@@ -1,14 +1,5 @@
 class CartService
-  attr_reader :promote_charges,
-              :promote_price,
-              :serve_charges,
-              :serve_price,
-              :total_serve_price
-  attr_accessor :bulk_price,
-                :final_price,
-                :discount_price,
-                :retail_price,
-                :total_quantity
+  
 
   def initialize(buyer_type: 'User', buyer_id: nil, session_id: nil, cart_item_id: nil, myself: nil, extra: {})
     if cart_item_id

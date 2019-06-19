@@ -27,7 +27,7 @@ module RailsTrade::CartItem
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
-  def total_quantity
+  def origon_quantity
     good.unified_quantity.to_d * self.number
   end
 
@@ -68,15 +68,22 @@ module RailsTrade::CartItem
 
   def sync_cart_charges
     available_promote_ids = []
+    extra = {}
     [:quantity, :number, :amount].each do |m|
+      value = send(m)
       q_params = {
         promote_id: available_promote_ids,
         metering: m.to_s,
-        'min-lte': send(m),
-        'max-gte': send(m)
+        'min-lte': value,
+        'max-gte': value,
+        **extra
       }
 
-      PromoteCharge.default_where(q_params).each do |promote_charge|
+      charges = PromoteCharge.default_where(q_params)
+      charges.reject! do |charge|
+        (charge.max == value && !charge.contain_max) || (charge.min == value && !charge.contain_min)
+      end
+      charges.each do |promote_charge|
         self.cart_promotes.build(promote_charge_id: promote_charge.id)
       end
     end

@@ -33,20 +33,6 @@ module RailsTrade::Promote
       quantity: 'quantity'
     }
   end
-  
-  def compute_charge(amount, extra_hash = {})
-    extra_hash.stringify_keys!
-
-    query = { 'min-lte': amount.to_d, 'max-gte': amount.to_d }.merge(extra_hash.slice(*extra))
-    charges = self.promote_charges.default_where(query)
-    charges.reject! do |charge|
-      (charge.max == amount && !charge.contain_max) ||
-      (charge.min == amount && !charge.contain_min)
-    end
-    charge = charges.first
-
-    [charge, -(amount - charge.final_price(amount))] if charge
-  end
 
   private
   def delete_cache
