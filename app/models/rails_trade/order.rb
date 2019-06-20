@@ -53,7 +53,7 @@ module RailsTrade::Order
     user&.name.presence || '当前用户'
   end
 
-  def compute_sum
+  def compute_amount
     self.item_sum = order_items.sum(&:amount)
     self.overall_promote_sum = order_promotes.select(&:overall?).sum(&:amount)
     self.amount = self.item_sum + self.overall_promote_sum

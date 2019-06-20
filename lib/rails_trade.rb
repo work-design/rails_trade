@@ -8,3 +8,6 @@ require 'rails_audit'
 
 require_relative 'rails_trade/engine'
 require_relative 'rails_trade/config'
+
+require_relative 'rails_trade/apple_pay'
+require_relative 'rails_trade/wxpay_config'

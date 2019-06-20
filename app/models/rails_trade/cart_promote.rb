@@ -47,7 +47,13 @@ module RailsTrade::CartPromote
   end
 
   def compute_amount
-    self.amount = self.promote_charge.final_price cart_item.send(promote_charge.metering)
+    if single?
+      value = cart_item.send(promote_charge.metering)
+    else
+      value = cart.send(promote_charge.metering)
+    end
+    
+    self.amount = self.promote_charge.final_price(value)
   end
   
 end
