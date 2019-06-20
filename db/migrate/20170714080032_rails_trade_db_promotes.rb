@@ -17,12 +17,6 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.string :unit
       t.timestamps
     end
-    
-    create_table :promote_extras do |t|
-      t.references :promote
-      t.string :column
-      t.timestamps
-    end
 
     create_table :promote_charges do |t|
       t.references :promote

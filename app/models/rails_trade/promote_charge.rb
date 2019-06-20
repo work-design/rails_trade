@@ -25,7 +25,6 @@ module RailsTrade::PromoteCharge
     attribute :base_price, :decimal, default: 0
     
     belongs_to :promote
-    has_many :promote_extras, foreign_key: :promote_id, primary_key: :promote_id
     
     scope :filter_with, ->(amount){ default_where('min-lte': amount, 'max-gte': amount) }
     

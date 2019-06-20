@@ -43,6 +43,7 @@ module RailsTrade::Cart
   def sync_cart_charges
     available_promote_ids = []
     extra = {}
+    extra.transform_values! { |v| [v, nil].flatten.uniq }
     [:quantity, :number, :amount].each do |m|
       value = send("total_#{m}")
       q_params = {
@@ -52,10 +53,6 @@ module RailsTrade::Cart
         'min-lte': value,
         'max-gte': value,
         **extra
-      }
-      
-      extra.keys.map { |ex|
-      
       }
     
       charges = PromoteCharge.default_where(q_params)

@@ -1,8 +1,6 @@
 module RailsTrade::Promote
   extend ActiveSupport::Concern
   included do
-    
-    attribute :extra, :string, array: true
     attribute :start_at, :datetime
     attribute :finish_at, :datetime
     attribute :sequence, :integer, default: 1
@@ -10,11 +8,9 @@ module RailsTrade::Promote
     attribute :default, :boolean, default: false  # 默认直接添加的服务
     
     belongs_to :deal, polymorphic: true, optional: true
-    has_many :promote_extras, dependent: :delete_all
     has_many :promote_charges, dependent: :delete_all
     has_many :promote_goods, dependent: :destroy
     has_many :promote_buyers, dependent: :destroy
-    accepts_nested_attributes_for :promote_extras
     
     scope :verified, -> { where(verified: true) }
     scope :default, -> { verified.where(default: true) }
