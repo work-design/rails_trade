@@ -7,11 +7,11 @@ module RailsTrade::OrderItem
   
     attribute :quantity, :decimal
     attribute :number, :integer, default: 1
-    attribute :amount, :decimal, default: 0
+    attribute :good_sum, :decimal, default: 0
     attribute :promote_sum, :decimal, default: 0
-    attribute :serve_sum, :decimal, default: 0
+    attribute :amount, :decimal, default: 0
     attribute :comment, :string
-    attribute :advance_payment, :decimal, precision: 10, scale: 2
+    attribute :advance_payment, :decimal, default: 0
     attribute :extra, :json, default: {}
   
     belongs_to :order, autosave: true, inverse_of: :order_items
@@ -21,9 +21,7 @@ module RailsTrade::OrderItem
     has_many :order_promotes, autosave: true
     has_many :promotes, through: :order_promotes
   
-    after_initialize if: :new_record? do |oi|
-      init_from_cart_item if cart_item
-    end
+    after_initialize :init_from_cart_item, if: :new_record?
     after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
   end
   
@@ -53,8 +51,8 @@ module RailsTrade::OrderItem
   end
 
   def compute_sum
-    self.promote_sum = self.order_promotes.sum(&:amount)
-    self.amount = self.original_price + self.promote_sum
+    self.promote_sum = order_promotes.select(&:single?).sum(&:amount)
+    self.amount = self.good_sum + self.promote_sum
   end
 
   def sync_amount
@@ -78,16 +76,13 @@ module RailsTrade::OrderItem
 
   end
 
-  def init_from_cart_item
-    self.assign_attributes cart_item.attributes.slice(:good_type, :good_id, :number, :buyer_type, :buyer_id, :pure_price, :extra)
-    #self.advance_payment = self.good.advance_payment if self.advance_payment.to_f.zero?
+  def sync_from_cart_item
+    if cart_item
+      self.assign_attributes cart_item.attributes.slice(:good_type, :good_id, :number, :buyer_type, :buyer_id, :pure_price, :extra)
+      self.advance_payment = self.good.advance_payment if self.advance_payment.zero?
 
-    cart_item.serve_charges.each do |serve_charge|
-      op = self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
-      op.order = self.order
+      cart_item.status = 'ordered'
     end
-
-    cart_item.status = 'ordered'
   end
 
 end

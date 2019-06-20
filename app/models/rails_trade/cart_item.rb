@@ -89,12 +89,15 @@ module RailsTrade::CartItem
     end
   end
 
-  def same_cart_items
-    if self.buyer_id
-      CartItem.where(buyer_type: self.buyer_type, buyer_id: self.buyer_id).valid
-    else
-      CartItem.where(session_id: self.session_id).valid
+  def migrate_to_order
+    self.buyer = cart_item.buyer
+    o = Order.new
+    oi = o.order_items.build(cart_item_id: cart_item_id)
+  
+    cart_item.cart_promotes.each do |cart_promote|
+      oi.order_promotes.build(cart_promote_id: cart_promote.id)
     end
+    o
   end
   
   class_methods do

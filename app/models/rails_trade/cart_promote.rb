@@ -28,7 +28,7 @@ module RailsTrade::CartPromote
     }
     enum scope: {
       single: 'single',
-      total: 'total'
+      overall: 'overall'
     }
 
     after_initialize if: :new_record? do

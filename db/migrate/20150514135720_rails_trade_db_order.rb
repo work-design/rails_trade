@@ -6,20 +6,18 @@ class RailsTradeDbOrder < ActiveRecord::Migration[5.2]
       t.references :buyer, polymorphic: true
       t.references :payment_strategy
       t.string :uuid, null: false
-      t.integer :state, default: 0
-      t.decimal :amount, precision: 10, scale: 2
+      t.string :state
+      t.decimal :item_sum, precision: 10, scale: 2
+      t.decimal :overall_promote_sum, precision: 10, scale: 2
       t.decimal :adjust_amount, precision: 10, scale: 2
-      t.decimal :received_amount, precision: 10, scale: 2, default: 0
-      t.decimal :subtotal, precision: 10, scale: 2
-      t.decimal :pure_serve_sum, precision: 10, scale: 2
-      t.decimal :pure_promote_sum, precision: 10, scale: 2
+      t.decimal :amount, precision: 10, scale: 2
+      t.decimal :received_amount, precision: 10, scale: 2
       t.string :currency
       t.integer :payment_id
       t.string :payment_type
       t.string :payment_status, index: true
       t.boolean :myself
       t.string :note, limit: 4096
-      t.string :adjust_comment
       t.datetime :expire_at
       t.timestamps
     end
@@ -30,9 +28,8 @@ class RailsTradeDbOrder < ActiveRecord::Migration[5.2]
       t.references :good, polymorphic: true
       t.integer :number
       t.decimal :quantity, precision: 10, scale: 2 # 用来表示重量
-      t.decimal :original_price, precision: 10, scale: 2
+      t.decimal :good_sum, precision: 10, scale: 2
       t.decimal :promote_sum, precision: 10, scale: 2
-      t.decimal :serve_sum, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       t.string :good_name
       t.timestamps

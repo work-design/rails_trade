@@ -13,6 +13,11 @@ module RailsTrade::OrderPromote
     belongs_to :promote_buyer, counter_cache: true, optional: true
     belongs_to :promote_good, optional: true
   
+    enum scope: {
+      single: 'single',
+      overall: 'overall'
+    }
+    
     after_initialize if: :new_record? do
       self.order = self.order_item.order
       compute_amount

@@ -6,10 +6,15 @@ module RailsTrade::Order
     include RailsTrade::Ordering::Base
   
     attribute :payment_status, :string, default: 'unpaid'
+    attribute :item_sum, :decimal, default: 0
+    attribute :overall_promote_sum, :decimal, default: 0
     attribute :adjust_amount, :decimal, default: 0
-    attribute :expire_at, :datetime
+    attribute :amount, :decimal, default: 0
+    attribute :received_amount, :decimal, default: 0
+    attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
+    attribute :uuid, :string, default: -> { UidHelper.nsec_uuid('OD') }
     
     belongs_to :user, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
@@ -20,21 +25,12 @@ module RailsTrade::Order
     has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
     has_many :order_promotes, autosave: true, inverse_of: :order
-    has_many :pure_order_promotes, -> { where(order_item_id: nil) }, class_name: 'OrderPromote'
   
     accepts_nested_attributes_for :order_items
     accepts_nested_attributes_for :order_promotes
   
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
-  
-    before_validation do
-      self.uuid ||= UidHelper.nsec_uuid('OD')
-      self.expire_at ||= Time.now + RailsTrade.config.expire_after
-      self.payment_strategy_id ||= self.cart.payment_strategy_id if cart
-    end
-  
-    after_create_commit :confirm_ordered!
   
     enum payment_status: {
       unpaid: 'unpaid',
@@ -44,6 +40,9 @@ module RailsTrade::Order
       refunded: 'refunded',
       denied: 'denied'
     }
+    
+    before_validation :sync_from_cart
+    after_create_commit :confirm_ordered!
   end
   
   def subject
@@ -54,29 +53,20 @@ module RailsTrade::Order
     user&.name.presence || '当前用户'
   end
 
-  def migrate_from_cart_item(cart_item_id)
-    cart_item = CartItem.find cart_item_id
-    self.buyer = cart_item.buyer
-    oi = self.order_items.build(cart_item_id: cart_item_id)
-    oi.init_from_cart_item
-
-    cart_item.total_serve_charges.each do |serve_charge|
-      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
-    end
-
-    compute_sum
-  end
-
   def compute_sum
-    _pure_order_promotes = self.order_promotes.select { |i| i.order_item_id.nil? }
-
-    self.pure_promote_sum = _pure_order_promotes.sum(&:amount).to_d
-    self.subtotal = self.order_items.sum(&:amount)
-    self.amount = self.subtotal.to_d + self.pure_promote_sum.to_d
+    self.item_sum = order_items.sum(&:amount)
+    self.overall_promote_sum = order_promotes.select(&:overall?).sum(&:amount)
+    self.amount = self.item_sum + self.overall_promote_sum
   end
 
   def confirm_ordered!
     self.order_items.each(&:confirm_ordered!)
+  end
+  
+  def sync_from_cart
+    if cart
+      self.payment_strategy_id ||= cart.payment_strategy_id
+    end
   end
 
   def compute_received_amount

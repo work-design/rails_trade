@@ -25,7 +25,7 @@ module RailsTrade::Promote
   
     enum scope: {
       single: 'single',  # 适用于单独计算商品
-      total: 'total' # 适用于多个商品一起计算
+      overall: 'overall' # 适用于多个商品一起计算
     }
     enum metering: {
       amount: 'amount',

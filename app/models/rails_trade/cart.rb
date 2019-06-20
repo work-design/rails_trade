@@ -74,6 +74,7 @@ module RailsTrade::Cart
     o.cart_promotes.where(cart_item_id: nil, scope: 'total').each do |cart_promote|
       self.order_promotes.build(cart_promote_id: cart_promote.id)
     end
+    o
   end
   
   class_methods do
