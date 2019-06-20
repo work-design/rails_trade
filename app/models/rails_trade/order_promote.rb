@@ -5,11 +5,12 @@ module RailsTrade::OrderPromote
     attribute :order_item_id, :integer
     attribute :amount, :decimal, default: 0
     
+    belongs_to :cart_promote, optional: true
     belongs_to :order, inverse_of: :order_promotes
     belongs_to :order_item, optional: true
     belongs_to :promote
     belongs_to :promote_charge, optional: true
-    belongs_to :promote_buyer, optional: true, counter_cache: true
+    belongs_to :promote_buyer, counter_cache: true, optional: true
     belongs_to :promote_good, optional: true
   
     after_initialize if: :new_record? do

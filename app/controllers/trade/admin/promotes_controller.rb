@@ -11,7 +11,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   end
 
   def search
-    @promotes = Promote.special.default_where('name-like': params[:q])
+    @promotes = Promote.default_where('name-like': params[:q])
     render json: { results: @promotes.as_json(only: [:id, :name]) }
   end
 
@@ -21,7 +21,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
   def create
     @promote = Promote.new(promote_params)
-
+    
     respond_to do |format|
       if @promote.save
         format.html { redirect_to admin_promotes_url }
@@ -40,8 +40,10 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   end
 
   def update
+    @promote.assign_attributes promote_params
+    
     respond_to do |format|
-      if @promote.update(promote_params)
+      if @promote.save
         format.html { redirect_to admin_promotes_url }
         format.json { head :no_content }
         format.js { head :no_content }
@@ -68,7 +70,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
   def promote_params
     p = params.fetch(:promote, {}).permit(
-      :type,
       :name,
       :code,
       :short_name,
@@ -78,10 +79,8 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :verified,
       :default,
       :scope,
-      :discount,
       extra: []
     )
-    p.fetch(:extra, []).reject!(&:blank?)
     p.merge! default_params
   end
 end

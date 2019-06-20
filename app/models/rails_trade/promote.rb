@@ -1,6 +1,7 @@
 module RailsTrade::Promote
   extend ActiveSupport::Concern
   included do
+    
     attribute :extra, :string, array: true
     attribute :start_at, :datetime
     attribute :finish_at, :datetime
@@ -9,17 +10,20 @@ module RailsTrade::Promote
     attribute :default, :boolean, default: false  # 默认直接添加的服务
     
     belongs_to :deal, polymorphic: true, optional: true
+    has_many :promote_extras, dependent: :delete_all
     has_many :promote_charges, dependent: :delete_all
     has_many :promote_goods, dependent: :destroy
     has_many :promote_buyers, dependent: :destroy
-  
+    accepts_nested_attributes_for :promote_extras
+    
     scope :verified, -> { where(verified: true) }
     scope :default, -> { verified.where(default: true) }
     scope :for_sale, -> { verified.where(default: false) }
     scope :valid, -> { t = Time.now; verified.default_where('start_at-lte': t, 'finish_at-gte': t) }
 
     validates :code, uniqueness: true, allow_blank: true
-  
+    
+    after_save :sync_to_extras
     after_commit :delete_cache, on: [:create, :destroy]
     after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
   
@@ -32,6 +36,10 @@ module RailsTrade::Promote
       number: 'number',
       quantity: 'quantity'
     }
+  end
+  
+  def sync_to_extras
+    promote_extras.pluck(:column_names)
   end
 
   private

@@ -15,8 +15,10 @@ module RailsTrade::Cart
     belongs_to :user, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :payment_strategy, optional: true
+    
     has_many :cart_items, dependent: :destroy
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
+    has_many :orders, dependent: :nullify
     
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
@@ -51,6 +53,10 @@ module RailsTrade::Cart
         'max-gte': value,
         **extra
       }
+      
+      extra.keys.map { |ex|
+      
+      }
     
       charges = PromoteCharge.default_where(q_params)
       charges.reject! do |charge|
@@ -59,6 +65,17 @@ module RailsTrade::Cart
       charges.each do |promote_charge|
         self.cart_promotes.build(promote_charge_id: promote_charge.id)
       end
+    end
+  end
+
+  def migrate_to_order
+    o = self.order.build
+    cart_items.checked.default_where(myself: self.myself).each do |cart_item|
+      o.order_items.build cart_item_id: cart_item.id
+    end
+    
+    o.cart_promotes.where(cart_item_id: nil, scope: 'total').each do |cart_promote|
+      self.order_promotes.build(cart_promote_id: cart_promote.id)
     end
   end
   

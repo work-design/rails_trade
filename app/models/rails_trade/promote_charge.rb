@@ -9,6 +9,7 @@ module RailsTrade::PromoteCharge
     'parameter',
     'base_price',
     'type',
+    'metering',
     'created_at',
     'updated_at'
   ].freeze
@@ -24,8 +25,15 @@ module RailsTrade::PromoteCharge
     attribute :base_price, :decimal, default: 0
     
     belongs_to :promote
+    has_many :promote_extras, foreign_key: :promote_id, primary_key: :promote_id
     
     scope :filter_with, ->(amount){ default_where('min-lte': amount, 'max-gte': amount) }
+    
+    enum metering: {
+      amount: 'amount',
+      number: 'number',
+      quantity: 'quantity'
+    }
 
     validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
     validates :min, numericality: { less_than_or_equal_to: -> (o) { o.max } }
@@ -51,7 +59,7 @@ module RailsTrade::PromoteCharge
     end
 
     def extra_columns
-      self.attribute_names - COLUMN_NAMES
+      self.column_names - COLUMN_NAMES
     end
 
     def extra_options

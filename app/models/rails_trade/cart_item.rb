@@ -14,8 +14,8 @@ module RailsTrade::CartItem
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
     has_many :order_items, dependent: :nullify
 
-    scope :valid, -> { where(status: 'pending', myself: true) }
-    scope :checked, -> { where(status: 'pending', checked: true) }
+    scope :valid, -> { where(status: 'init', myself: true) }
+    scope :checked, -> { where(status: 'init', checked: true) }
     
     enum status: {
       init: 'init',
@@ -27,7 +27,7 @@ module RailsTrade::CartItem
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
-  def origon_quantity
+  def origin_quantity
     good.unified_quantity.to_d * self.number
   end
 
@@ -95,11 +95,6 @@ module RailsTrade::CartItem
     else
       CartItem.where(session_id: self.session_id).valid
     end
-  end
-
-  def total
-    return @total if defined?(@total)
-    @total = CartService.new(cart_item_id: self.id, extra: self.extra)
   end
   
   class_methods do

@@ -42,6 +42,7 @@ class RailsTradeDbCart < ActiveRecord::Migration[5.2]
       t.integer :sequence
       t.decimal :based_amount, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
+      t.decimal :original_amount, precision: 10, scale: 2
       t.string :state
       t.timestamps
     end

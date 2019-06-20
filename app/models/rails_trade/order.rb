@@ -67,26 +67,6 @@ module RailsTrade::Order
     compute_sum
   end
 
-  def migrate_from_cart_items(cart_item_id = nil)
-    cart_items = buyer.cart_items.checked.default_where(myself: self.myself)
-
-    cart_items.each do |cart_item|
-      oi = self.order_items.build cart_item_id: cart_item.id
-      oi.init_from_cart_item
-    end
-
-    summary = CartService.new(buyer_type: self.buyer_type, buyer_id: self.buyer_id, cart_item_id: cart_item_id, myself: self.myself, extra: self.extra)
-
-    summary.promote_charges.each do |promote_charge|
-      self.order_promotes.build(promote_charge_id: promote_charge.id, promote_id: promote_charge.promote_id, amount: promote_charge.subtotal)
-    end
-
-    summary.serve_charges.each do |serve_charge|
-      self.order_serves.build(serve_charge_id: serve_charge.id, serve_id: serve_charge.serve_id, amount: serve_charge.subtotal)
-    end
-    compute_sum
-  end
-
   def compute_sum
     _pure_order_promotes = self.order_promotes.select { |i| i.order_item_id.nil? }
 

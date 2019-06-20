@@ -2,7 +2,6 @@
 <%= f.text_field :short_name %>
 <%= f.text_field :code %>
 <%= f.text_field :description %>
-<%= f.select :type, options_for_select(Promote.options_i18n(:type), @promote.type) %>
 <%= f.select :scope, options_for_select(Promote.options_i18n(:scope), @promote.scope) %>
 <%= f.datetime_field :start_at, required: true %>
 <%= f.datetime_field :finish_at, required: true %>

@@ -9,6 +9,7 @@ module RailsTrade::CartPromote
     attribute :scope, :string
     attribute :based_amount, :decimal  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
     attribute :amount, :decimal  # 算出的实际价格
+    attribute :original_amount, :decimal  # 默认和amount 相等，如果客服人员修改过价格后，则amount 会发生变化
     
     belongs_to :cart
     belongs_to :cart_item, touch: true, optional: true

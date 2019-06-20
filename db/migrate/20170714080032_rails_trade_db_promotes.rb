@@ -10,12 +10,17 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.datetime :start_at
       t.datetime :finish_at
       t.string :scope
-      t.string :extra, array: true
       t.boolean :verified
       t.boolean :default
       t.integer :sequence
       t.string :metering
       t.string :unit
+      t.timestamps
+    end
+    
+    create_table :promote_extras do |t|
+      t.references :promote
+      t.string :column
       t.timestamps
     end
 
@@ -49,6 +54,7 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
     end
 
     create_table :order_promotes do |t|
+      t.references :cart_promote
       t.references :order
       t.references :order_item
       t.references :promote
