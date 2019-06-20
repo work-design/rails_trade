@@ -3,8 +3,9 @@ module RailsTrade::Order
   included do
     include RailsTrade::Ordering::Payment
     include RailsTrade::Ordering::Refund
-    include RailsTrade::Ordering::Base
-  
+
+    delegate :url_helpers, to: 'Rails.application.routes'
+    
     attribute :payment_status, :string, default: 'unpaid'
     attribute :item_sum, :decimal, default: 0
     attribute :overall_promote_sum, :decimal, default: 0
@@ -51,6 +52,10 @@ module RailsTrade::Order
   
   def user_name
     user&.name.presence || '当前用户'
+  end
+
+  def amount_money
+    amount.to_money(self.currency)
   end
 
   def compute_amount

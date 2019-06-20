@@ -1,9 +1,4 @@
-module RailsTrade::Ordering::Paypal
-  extend ActiveSupport::Concern
-
-  included do
-    delegate :url_helpers, to: 'Rails.application.routes'
-  end
+module RailsTrade::PaymentType::Paypal
 
   def paypal_prepay
     paypal_payment = PayPal::SDK::REST::DataTypes::Payment.new(paypal_params)

@@ -1,6 +1,4 @@
-module RailsTrade::Ordering::ApplePay
-  extend ActiveSupport::Concern
-  include RailsTrade::Ordering::Base
+module RailsTrade::PaymentType::ApplePay
 
   def apple_pay_result(receipt_data)
     return self if self.payment_status == 'all_paid'

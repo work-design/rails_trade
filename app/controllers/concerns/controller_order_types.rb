@@ -72,9 +72,8 @@ module ControllerOrderTypes
   end
 
   def wxpay_pay
-    @order.spbill_create_ip = request.remote_ip
-
-    @wxpay_order = @order.wxpay_order
+    @wxpay_order = @order.wxpay_order(spbill_create_ip: request.remote_ip)
+    
     if @wxpay_order[:result_code] == 'FAIL' || @wxpay_order.empty?
       render 'wxpay_pay_err'
     else

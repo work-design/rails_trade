@@ -1,8 +1,4 @@
-module RailsTrade::Ordering::Stripe
-  extend ActiveSupport::Concern
-
-  included do
-  end
+module RailsTrade::PaymentType::Stripe
 
   def stripe_charge(params = {})
     if params[:token]
