@@ -6,7 +6,6 @@
 <%= f.datetime_field :start_at, required: true %>
 <%= f.datetime_field :finish_at, required: true %>
 <%= f.number_field :sequence %>
-<%= f.select :extra, options_for_select(PromoteCharge.extra_options, @promote.extra), {}, { multiple: true } %>
 <%= f.submit %>
 
 

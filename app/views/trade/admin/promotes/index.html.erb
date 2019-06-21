@@ -33,7 +33,6 @@
       </th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:deal) %></th>
-      <th><%= Promote.human_attribute_name(:extra) %></th>
       <th></th>
       <th>
         <%= link_to new_admin_promote_path, remote: true, class: 'ui mini primary button' do %>
@@ -66,11 +65,6 @@
       <td><%= promote.sequence %></td>
       <td>
         <%= promote.deal_type %>: <%= promote.deal_id %>
-      </td>
-      <td>
-        <% Array(promote.extra).each do |e| %>
-          <span class="ui label"><%= e %></span>
-        <% end %>
       </td>
       <td>
         <%= link_to '适用商品', admin_promote_goods_path(promote_id: promote.id), class: 'ui mini button' %>
