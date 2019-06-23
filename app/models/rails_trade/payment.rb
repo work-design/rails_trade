@@ -1,12 +1,19 @@
 module RailsTrade::Payment
   extend ActiveSupport::Concern
   included do
-    include Auditable
-  
     attribute :type, :string, default: 'HandPayment'
+    attribute :state, :string, default: 'init'
+    attribute :payment_uuid, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
     attribute :adjust_amount, :decimal, default: 0
-  
+    attribute :total_amount, :decimal, default: 0
+    attribute :order_amount, :decimal, default: 0
+    attribute :fee_amount, :decimal, default: 0
+    attribute :notify_type, :string, limit: 255
+    attribute :notified_at, :datetime
+    attribute :seller_identifier, :string
+    attribute :buyer_identifier, :string
+    
     belongs_to :payment_method, optional: true
     has_many :payment_orders, inverse_of: :payment, dependent: :destroy
     has_many :orders, through: :payment_orders, inverse_of: :payments
@@ -109,25 +116,11 @@ module RailsTrade::Payment
   end
   
   class_methods do
+    
     def total_amount_step
       0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
     end
+    
   end
 
 end
-
-#  :type, :string, limit: 255
-#  :total_amount, :decimal, precision: 10, scale: 2
-#  :order_amount, :decimal, precision: 10, scale: 2
-#  :fee_amount, :decimal, precision: 10, scale: 2
-#  :payment_uuid, :string, limit: 255
-#  :notify_type, :string, limit: 255
-#  :notified_at, :datetime, precision: 0
-#  :pay_status, :string, limit: 255
-#  :buyer_email, :string, limit: 255
-#  :sign, :string, limit: 255
-#  :seller_identifier, :string, limit: 255
-#  :buyer_identifier, :string, limit: 255
-#  :user_id, :integer, limit: 4
-#  :currency, :string, limit: 255
-#  :state, :integer, limit: 4, default: 0

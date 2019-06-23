@@ -105,4 +105,4 @@ module RailsTrade::PaymentOrder
     self.save!
   end
 
-end unless RailsTrade.config.disabled_models.include?('PaymentOrder')
+end

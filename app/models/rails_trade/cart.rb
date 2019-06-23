@@ -38,11 +38,7 @@ module RailsTrade::Cart
     self.final_price = cart_items.checked.sum(:final_price)
     self.total_quantity = cart_items.checked.sum(:total_quantity)
   end
-
-  def set_default
-    self.class.where.not(id: self.id).where(user_id: self.user_id).update_all(default: false)
-  end
-
+  
   def migrate_to_order
     o = self.order.build
     cart_items.checked.default_where(myself: self.myself).each do |cart_item|
@@ -53,6 +49,10 @@ module RailsTrade::Cart
       self.order_promotes.build(cart_promote_id: cart_promote.id)
     end
     o
+  end
+
+  def set_default
+    self.class.where.not(id: self.id).where(user_id: self.user_id).update_all(default: false)
   end
   
   class_methods do
