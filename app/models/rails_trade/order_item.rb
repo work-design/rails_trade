@@ -25,21 +25,6 @@ module RailsTrade::OrderItem
     after_initialize :init_from_cart_item, if: :new_record?
     after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
   end
-  
-  def compute_promote(promote_buyer_ids = nil)
-    all_ids = good.available_promote_ids & Promote.single.default.pluck(:id)
-    
-    if promote_buyer_ids.present?
-      buyer_promotes = order.buyer.promote_buyers.where(id: Array(promote_buyer_ids))
-      buyer_promotes.each do |promote_buyer|
-        self.order_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
-      end
-      
-      all_ids -= buyer_promotes.pluck(:promote_id)
-    end
-
-    compute_charges(available_promote_ids: all_ids)
-  end
 
   def valid_sum
     compute_sum
