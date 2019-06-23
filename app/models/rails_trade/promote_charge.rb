@@ -21,7 +21,7 @@ module RailsTrade::PromoteCharge
     attribute :max, :integer
     attribute :contain_min, :boolean, default: true
     attribute :contain_max, :boolean, default: false
-    attribute :parameter, :decimal
+    attribute :parameter, :decimal, default: 0
     attribute :base_price, :decimal, default: 0
     
     belongs_to :promote

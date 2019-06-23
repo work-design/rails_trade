@@ -1,6 +1,8 @@
+# 一口价
 module RailsTrade::PromoteCharge::FinalPromoteCharge
-
-  def final_price(amount = nil)
+  
+  # 返回原价与一口价之间的差，负数。
+  def final_price(amount)
     -(amount - parameter.round(2))
   end
 
