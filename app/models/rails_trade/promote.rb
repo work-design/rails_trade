@@ -19,7 +19,6 @@ module RailsTrade::Promote
 
     validates :code, uniqueness: true, allow_blank: true
     
-    after_save :sync_to_extras
     after_commit :delete_cache, on: [:create, :destroy]
     after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
   
@@ -27,10 +26,6 @@ module RailsTrade::Promote
       single: 'single',  # 适用于单独计算商品
       overall: 'overall' # 适用于多个商品一起计算
     }
-  end
-  
-  def sync_to_extras
-    promote_extras.pluck(:column_names)
   end
 
   private

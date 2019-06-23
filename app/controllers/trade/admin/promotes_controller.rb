@@ -49,7 +49,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       if @promote.save
         format.html { redirect_to admin_promotes_url }
         format.json { head :no_content }
-        format.js { head :no_content }
+        format.js { redirect_to admin_promotes_url }
       else
         format.html { render action: 'edit' }
         format.json { render json: @promote.errors, status: :unprocessable_entity }

@@ -13,7 +13,7 @@ module RailsTrade::PricePromote
         'max-gte': value,
         **extra
       }
-    
+
       charges = PromoteCharge.default_where(q_params)
       charges = charges.reject do |charge|
         (charge.max == value && !charge.contain_max) || (charge.min == value && !charge.contain_min)

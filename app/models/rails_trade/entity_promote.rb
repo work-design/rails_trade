@@ -2,8 +2,6 @@ module RailsTrade::EntityPromote
   METERING = ['weight', 'colume', 'amount'].freeze
   extend ActiveSupport::Concern
   included do
-    attribute :good_type, :string
-    attribute :good_id, :integer
     attribute :sequence, :integer
     attribute :scope, :string
     attribute :based_amount, :decimal, default: 0  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
@@ -26,8 +24,8 @@ module RailsTrade::EntityPromote
     }
 
     after_initialize if: :new_record? do
-      if cart_item
-        self.cart_id = cart_item.cart_id
+      if item
+        #self.entity = item.cart
       end
       if self.promote_charge
         self.promote_id = self.promote_charge.promote_id
