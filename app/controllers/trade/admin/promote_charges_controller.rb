@@ -4,22 +4,21 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
 
   def index
     q_params = {}
-    q_params.merge! params.permit(@promote.extra)
+    q_params.merge! params.permit(PromoteCharge.extra_columns)
     q_params.merge! 'min-lte': params[:value], 'max-gte': params[:value]
-  
-  
+    
     @promote_charges = @promote.promote_charges.default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
   end
 
   def new
-    @charge = @promote.promote_charges.build
+    @promote_charge = @promote.promote_charges.build
   end
 
   def create
-    @charge = @promote.promote_charges.build(charge_params)
+    @promote_charge = @promote.promote_charges.build(promote_charge_params)
     
     respond_to do |format|
-      if @charge.save
+      if @promote_charge.save
         format.html { redirect_to admin_promote_charges_url(@promote) }
         format.js { redirect_to admin_promote_charges_url(@promote) }
       else
@@ -35,7 +34,7 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
 
   def update
     respond_to do |format|
-      if @charge.update(charge_params)
+      if @promote_charge.update(promote_charge_params)
         format.html { redirect_to admin_promote_charges_url(@promote) }
         format.js { redirect_to admin_promote_charges_url(@promote) }
       else
@@ -46,15 +45,22 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   end
 
   def destroy
-    if @charge.destroy
+    if @promote_charge.destroy
       redirect_to admin_promote_charges_url(@promote)
     end
   end
 
   private
-  def charge_params
-    attrs = [:min, :max, :parameter, :type] + @promote.extra
-    params.fetch(:charge, {}).permit(attrs)
+  def promote_charge_params
+    params.fetch(:promote_charge, {}).permit(
+      :min,
+      :max,
+      :type,
+      :metering,
+      :unit,
+      :parameter,
+      *PromoteCharge.extra_columns
+    )
   end
 
   def set_promote

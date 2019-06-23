@@ -13,8 +13,6 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.boolean :verified
       t.boolean :default
       t.integer :sequence
-      t.string :metering
-      t.string :unit
       t.timestamps
     end
 
@@ -28,6 +26,7 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.decimal :base_price, precision: 10, scale: 2
       t.string :type
       t.string :metering
+      t.string :unit
       t.timestamps
     end
     

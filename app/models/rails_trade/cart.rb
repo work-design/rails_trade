@@ -38,14 +38,14 @@ module RailsTrade::Cart
     self.total_quantity = cart_items.checked.sum(:total_quantity)
   end
   
-  def migrate_to_order
-    o = self.order.build
-    cart_items.checked.default_where(myself: self.myself).each do |cart_item|
+  def migrate_to_order(myself: true)
+    o = self.orders.build
+    cart_items.checked.default_where(myself: myself).each do |cart_item|
       o.order_items.build cart_item_id: cart_item.id
     end
     
-    o.cart_promotes.where(cart_item_id: nil, scope: 'total').each do |cart_promote|
-      self.order_promotes.build(cart_promote_id: cart_promote.id)
+    o.entity_promotes.where(cart_item_id: nil, scope: 'total').each do |entity_promote|
+      entity_promote.entity = o
     end
     o
   end

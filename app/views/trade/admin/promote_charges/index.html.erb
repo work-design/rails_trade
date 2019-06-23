@@ -26,18 +26,18 @@
     </tr>
   </thead>
   <tbody>
-  <% @promote_charges.each do |charge| %>
+  <% @promote_charges.each do |promote_charge| %>
     <tr>
-      <td class="center aligned"><%= charge.min %></td>
-      <td class="center aligned"><%= charge.max %></td>
-      <td><%= simple_format(charge.extra) %></td>
-      <td class="center aligned"><%= charge.parameter %></td>
-      <td class="center aligned"><%= charge.type_i18n %></td>
+      <td class="center aligned"><%= promote_charge.min %></td>
+      <td class="center aligned"><%= promote_charge.max %></td>
+      <td><%= simple_format(promote_charge.extra) %></td>
+      <td class="center aligned"><%= promote_charge.parameter %></td>
+      <td class="center aligned"><%= promote_charge.type_i18n %></td>
       <td class="center aligned">
-        <%= link_to edit_admin_promote_charge_path(@promote, charge), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
+        <%= link_to edit_admin_promote_charge_path(@promote, promote_charge), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
-        <%= link_to admin_promote_charge_path(@promote, charge), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_charge_path(@promote, promote_charge), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </td>

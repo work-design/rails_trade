@@ -27,12 +27,6 @@ module RailsTrade::Promote
       single: 'single',  # 适用于单独计算商品
       overall: 'overall' # 适用于多个商品一起计算
     }
-    enum metering: {
-      number: 'number',  # 商品购买件数
-      weight: 'weight',  # 商品总重量，support sequence
-      volume: 'volume',  # 商品总体积, support sequence
-      amount: 'amount'  # 商品总金额, support sequence
-    }
   end
   
   def sync_to_extras

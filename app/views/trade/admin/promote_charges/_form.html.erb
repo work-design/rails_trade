@@ -1,9 +1,10 @@
-<%= f.select :type, options_for_select(PromoteCharge.options_i18n(:type), @charge.type) %>
+<%= f.select :type, options_for_select(PromoteCharge.options_i18n(:type), @promote_charge.type) %>
 <%= f.number_field :min, step: PromoteCharge.min_step %>
 <%= f.number_field :max, step: PromoteCharge.max_step %>
+<%= f.select :metering, options_for_select(PromoteCharge.options_i18n(:metering), @promote_charge.metering) %>
 <%= f.number_field :parameter, step: '0.01' %>
 <%= f.number_field :base_price, step: '0.01' %>
-<% @promote.extra.each do |ex| %>
+<% PromoteCharge.extra_columns.each do |ex| %>
   <%= f.text_field ex %>
 <% end %>
 <%= f.submit %>

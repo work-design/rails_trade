@@ -6,7 +6,8 @@ module RailsTrade::CartItem
   included do
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true
-    attribute :quantity, :decimal
+    attribute :quantity, :decimal, default: 0
+    attribute :unit, :string
     attribute :reduced_price, :decimal, default: 0
     attribute :extra, :json, default: {}
 
@@ -44,8 +45,8 @@ module RailsTrade::CartItem
     self.retail_price = single_price + serve_price
     self.bulk_price = original_price + serve_price
     
-    self.serve_price = cart_promotes.select { |cp| cp.amount >= 0 }.sum(&:amount)
-    self.reduced_price = cart_promotes.select { |cp| cp.amount < 0 }.sum(&:amount)  # 促销价格
+    self.serve_price = entity_promotes.select { |cp| cp.amount >= 0 }.sum(&:amount)
+    self.reduced_price = entity_promotes.select { |cp| cp.amount < 0 }.sum(&:amount)  # 促销价格
 
     self.amount = self.bulk_price + self.reduced_price  # 最终价格
   end
@@ -53,7 +54,13 @@ module RailsTrade::CartItem
   def migrate_to_order
     self.buyer = cart_item.buyer
     o = Order.new
-    o.order_items.build(cart_item_id: cart_item_id)
+    oi = o.order_items.build(cart_item_id: cart_item_id)
+  
+    self.entity_promotes.each do |entity_promote|
+      entity_promote.entity = o
+      entity_promote.item = oi
+    end
+    o
   end
   
   class_methods do

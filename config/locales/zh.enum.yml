@@ -45,5 +45,6 @@ zh:
           PlusPromoteCharge: 附加金额
         metering:
           number: 购买件数
-          promote: 总金额
-          quantity: 总重量
+          amount: 总金额
+          weight: 总重量
+          volume: 体积

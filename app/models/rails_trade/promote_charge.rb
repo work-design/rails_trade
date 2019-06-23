@@ -10,6 +10,7 @@ module RailsTrade::PromoteCharge
     'base_price',
     'type',
     'metering',
+    'unit',
     'created_at',
     'updated_at'
   ].freeze
@@ -29,9 +30,10 @@ module RailsTrade::PromoteCharge
     scope :filter_with, ->(amount){ default_where('min-lte': amount, 'max-gte': amount) }
     
     enum metering: {
-      amount: 'amount',
-      number: 'number',
-      quantity: 'quantity'
+      number: 'number',  # 商品购买件数
+      weight: 'weight',  # 商品总重量，support sequence
+      volume: 'volume',  # 商品总体积, support sequence
+      amount: 'amount'  # 商品总金额, support sequence
     }
 
     validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
@@ -45,7 +47,7 @@ module RailsTrade::PromoteCharge
   end
 
   def extra
-    self.attributes.slice(*promote.extra)
+    self.attributes.slice(*PromoteCharge.extra_columns)
   end
 
   class_methods do

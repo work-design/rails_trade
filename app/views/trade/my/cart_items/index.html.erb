@@ -21,8 +21,8 @@
         <p style="color: grey;"><%= cart_item.good_type %></p>
       </td>
       <td>
-        <p><%= cart_item.good.retail_price %></p>
-        <p><%= cart_item.good&.quantity %><%= cart_item.good&.unit %></p>
+        <p><%= cart_item.retail_price %></p>
+        <p><%= cart_item.quantity %><%= cart_item.unit %></p>
       </td>
       <td>
         <div class="ui left right action input">
@@ -59,7 +59,7 @@
     <tr>
       <th colspan="5">
         <div class="">
-          <%= link_to '去结算', new_my_order_path(cart_item_ids: @checked_ids.join(',')), class: 'ui red right floated button', id: 'new_order' %>
+          <%= link_to '去结算', new_my_order_path(cart_id: @cart.id), class: 'ui red right floated button', id: 'new_order' %>
         </div>
       </th>
       <th></th>

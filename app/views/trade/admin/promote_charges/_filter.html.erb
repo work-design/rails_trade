@@ -1,7 +1,7 @@
 <%= search_form_with model: PromoteCharge.new do |f| %>
   <div class="fields">
     <%= f.text_field :value %>
-    <% @promote.extra.each do |extra| %>
+    <% PromoteCharge.extra_columns.each do |extra| %>
       <%= f.text_field extra, placeholder: extra %>
     <% end %>
     <%= f.submit %>

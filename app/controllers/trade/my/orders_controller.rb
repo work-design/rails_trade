@@ -25,8 +25,8 @@ class Trade::My::OrdersController < Trade::My::BaseController
   end
 
   def new
-    @order = current_buyer.orders.build
-    @order.migrate_from_cart_items
+    @cart = current_user.carts.find params[:cart_id]
+    @order = @cart.migrate_to_order
 
     respond_to do |format|
       format.html
@@ -37,7 +37,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
   def refresh
     @order = current_buyer.orders.build(myself: true)
     @order.assign_attributes order_params
-    @order.migrate_from_cart_items
+    @order.migrate_to_order
 
     respond_to do |format|
       format.js

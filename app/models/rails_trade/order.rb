@@ -27,7 +27,7 @@ module RailsTrade::Order
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
-    has_many :entity_promotes, -> { includes(:promote) }, as: :entity, autosave: true, inverse_of: :order, dependent: :destroy
+    has_many :entity_promotes, -> { includes(:promote) }, as: :entity, autosave: true, inverse_of: :entity, dependent: :destroy
 
     accepts_nested_attributes_for :order_items
     accepts_nested_attributes_for :entity_promotes
@@ -62,7 +62,7 @@ module RailsTrade::Order
 
   def compute_amount
     self.item_sum = order_items.sum(&:amount)
-    self.overall_promote_sum = order_promotes.select(&:overall?).sum(&:amount)
+    self.overall_promote_sum = entity_promotes.select(&:overall?).sum(&:amount)
     self.amount = self.item_sum + self.overall_promote_sum
   end
 

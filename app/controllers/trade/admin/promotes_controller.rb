@@ -2,7 +2,10 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   before_action :set_promote, only: [:show, :edit, :update, :destroy]
 
   def index
-    q_params = default_params.merge! params.permit(:scope)
+    q_params = {}
+    q_params.merge! default_params
+    q_params.merge! params.permit(:scope)
+    
     @promotes = Promote.default_where(q_params).order(id: :desc).page(params[:page])
     respond_to do |format|
       format.json

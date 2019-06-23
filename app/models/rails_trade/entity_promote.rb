@@ -43,17 +43,17 @@ module RailsTrade::EntityPromote
 
   def compute_amount
     if single?
-      value = cart_item.send(promote_charge.metering)
+      value = item.send(promote_charge.metering)
       if METERING.include?(promote_charge.metering)
-        added_amount = cart_item.cart_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+        added_amount = item.entity_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
       else
         added_amount = 0
       end
       self.based_amount = value + added_amount
     else
-      value = cart.send(promote_charge.metering)
+      value = entity.send(promote_charge.metering)
       if METERING.include?(promote_charge.metering)
-        added_amount = cart.cart_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+        added_amount = entity.entity_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
       else
         added_amount = 0
       end
