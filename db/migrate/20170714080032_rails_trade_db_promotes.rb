@@ -47,15 +47,18 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :order_promotes do |t|
-      t.references :cart_promote
-      t.references :order
-      t.references :order_item
+    create_table :entity_promotes do |t|
+      t.references :entity, polymorphic: true
+      t.references :item, polymorphic: true
       t.references :promote
       t.references :promote_charge
       t.references :promote_good
       t.references :promote_buyer
+      t.string :scope
+      t.integer :sequence
+      t.decimal :based_amount, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
+      t.decimal :original_amount, precision: 10, scale: 2
       t.timestamps
     end
 

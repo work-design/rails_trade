@@ -19,8 +19,7 @@ module RailsTrade::Cart
     belongs_to :payment_strategy, optional: true
     
     has_many :cart_items, dependent: :destroy
-    has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
-    has_many :item_promotes, -> { includes(:promote) }, class_name: 'CartPromote', dependent: :destroy
+    has_many :entity_promotes, -> { includes(:promote) }, as: :entity, dependent: :destroy
     has_many :orders, dependent: :nullify
     
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true

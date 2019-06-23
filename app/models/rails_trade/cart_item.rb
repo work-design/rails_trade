@@ -12,8 +12,7 @@ module RailsTrade::CartItem
 
     belongs_to :good, polymorphic: true
     belongs_to :cart, counter_cache: true
-    has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
-    has_many :item_promotes, -> { includes(:promote) }, class_name: 'CartPromote', dependent: :destroy
+    has_many :entity_promotes, -> { includes(:promote) }, as: :item, dependent: :destroy
     has_many :order_items, dependent: :nullify
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -54,12 +53,7 @@ module RailsTrade::CartItem
   def migrate_to_order
     self.buyer = cart_item.buyer
     o = Order.new
-    oi = o.order_items.build(cart_item_id: cart_item_id)
-  
-    cart_item.cart_promotes.each do |cart_promote|
-      oi.order_promotes.build(cart_promote_id: cart_promote.id)
-    end
-    o
+    o.order_items.build(cart_item_id: cart_item_id)
   end
   
   class_methods do

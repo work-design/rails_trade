@@ -20,9 +20,7 @@ module RailsTrade::OrderItem
     belongs_to :cart_item, optional: true, autosave: true
     belongs_to :good, polymorphic: true, optional: true
     belongs_to :provider, optional: true
-    has_many :order_promotes, autosave: true
-    has_many :item_promotes, -> { includes(:promote) }, class_name: 'OrderPromote', dependent: :destroy
-    has_many :promotes, through: :order_promotes
+    has_many :entity_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
   
     after_initialize :init_from_cart_item, if: :new_record?
     after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
@@ -84,6 +82,10 @@ module RailsTrade::OrderItem
 
       cart_item.status = 'ordered'
     end
+  end
+  
+  def xx
+    cart_item.entity_promotes.update_all(entity_type: 'Order', entity_id: self.order_id, item_type: 'OrderItem', item_id: self.id)
   end
 
 end

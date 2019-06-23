@@ -40,12 +40,5 @@ class RailsTradeDbOrder < ActiveRecord::Migration[5.2]
       end
     end
 
-    create_table :payment_strategies do |t|
-      t.string :name
-      t.string :strategy
-      t.integer :period, default: 0
-      t.timestamps
-    end
-
   end
 end

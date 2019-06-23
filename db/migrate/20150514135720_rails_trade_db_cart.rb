@@ -31,19 +31,10 @@ class RailsTradeDbCart < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :cart_promotes do |t|
-      t.references :cart
-      t.references :cart_item
-      t.references :promote
-      t.references :promote_charge
-      t.references :promote_good
-      t.references :promote_buyer
-      t.string :scope
-      t.integer :sequence
-      t.decimal :based_amount, precision: 10, scale: 2
-      t.decimal :amount, precision: 10, scale: 2
-      t.decimal :original_amount, precision: 10, scale: 2
-      t.string :state
+    create_table :payment_strategies do |t|
+      t.string :name
+      t.string :strategy
+      t.integer :period, default: 0
       t.timestamps
     end
 

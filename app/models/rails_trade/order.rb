@@ -27,11 +27,10 @@ module RailsTrade::Order
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
-    has_many :order_promotes, autosave: true, inverse_of: :order
-    has_many :item_promotes, -> { includes(:promote) }, class_name: 'OrderPromote', dependent: :destroy
+    has_many :entity_promotes, -> { includes(:promote) }, as: :entity, autosave: true, inverse_of: :order, dependent: :destroy
 
     accepts_nested_attributes_for :order_items
-    accepts_nested_attributes_for :order_promotes
+    accepts_nested_attributes_for :entity_promotes
   
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }

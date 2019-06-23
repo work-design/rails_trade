@@ -1,32 +1,25 @@
-module RailsTrade::CartPromote
+module RailsTrade::EntityPromote
   METERING = ['weight', 'colume', 'amount'].freeze
   extend ActiveSupport::Concern
   included do
-    attribute :cart_item_id, :integer
-    attribute :serve_id, :integer
     attribute :good_type, :string
     attribute :good_id, :integer
     attribute :sequence, :integer
     attribute :scope, :string
-    attribute :based_amount, :decimal  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
-    attribute :original_amount, :decimal  # 默认和amount 相等，如果客服人员修改过价格后，则amount 会发生变化
-    attribute :amount, :decimal  # 算出的实际价格
+    attribute :based_amount, :decimal, default: 0  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
+    attribute :original_amount, :decimal, default: 0  # 默认和amount 相等，如果客服人员修改过价格后，则amount 会发生变化
+    attribute :amount, :decimal, default: 0  # 算出的实际价格
 
-    belongs_to :cart
-    belongs_to :cart_item, touch: true, optional: true
-    belongs_to :good, polymorphic: true
-    belongs_to :promote_charge
+    belongs_to :entity, polymorphic: true, inverse_of: :entity_promotes
+    belongs_to :item, polymorphic: true, optional: true
     belongs_to :promote
-    belongs_to :promote_buyer
-    belongs_to :promote_good
+    belongs_to :promote_charge
+    belongs_to :promote_buyer, counter_cache: true, optional: true
+    belongs_to :promote_good, optional: true
     
     validates :promote_id, uniqueness: { scope: [:cart_item_id] }
     validates :amount, presence: true
-
-    enum state: {
-      init: 'init',
-      checked: 'checked'
-    }
+    
     enum scope: {
       single: 'single',
       overall: 'overall'
@@ -45,6 +38,7 @@ module RailsTrade::CartPromote
       end
     end
     before_validation :compute_amount
+    after_create_commit :check_promote_buyer
   end
 
   def compute_amount
@@ -68,6 +62,11 @@ module RailsTrade::CartPromote
     end
     
     self.amount = self.promote_charge.final_price(based_amount)
+  end
+
+  def check_promote_buyer
+    return unless promote_buyer
+    self.promote_buyer.update state: 'used'
   end
   
 end
