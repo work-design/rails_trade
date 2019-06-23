@@ -1,9 +1,11 @@
 module RailsTrade::Order
   extend ActiveSupport::Concern
-  included do
-    include RailsTrade::Ordering::Payment
-    include RailsTrade::Ordering::Refund
+  include RailsTrade::PriceModel
+  include RailsTrade::PricePromote
+  include RailsTrade::Ordering::Payment
+  include RailsTrade::Ordering::Refund
 
+  included do
     delegate :url_helpers, to: 'Rails.application.routes'
     
     attribute :payment_status, :string, default: 'unpaid'
@@ -26,7 +28,8 @@ module RailsTrade::Order
     has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
     has_many :order_promotes, autosave: true, inverse_of: :order
-  
+    has_many :item_promotes, -> { includes(:promote) }, class_name: 'OrderPromote', dependent: :destroy
+
     accepts_nested_attributes_for :order_items
     accepts_nested_attributes_for :order_promotes
   

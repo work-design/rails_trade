@@ -1,5 +1,7 @@
 module RailsTrade::OrderItem
   extend ActiveSupport::Concern
+  include RailsTrade::PricePromote
+
   included do
     attribute :cart_item_id, :integer
     attribute :good_type, :string
@@ -19,6 +21,7 @@ module RailsTrade::OrderItem
     belongs_to :good, polymorphic: true, optional: true
     belongs_to :provider, optional: true
     has_many :order_promotes, autosave: true
+    has_many :item_promotes, -> { includes(:promote) }, class_name: 'OrderPromote', dependent: :destroy
     has_many :promotes, through: :order_promotes
   
     after_initialize :init_from_cart_item, if: :new_record?
@@ -37,9 +40,7 @@ module RailsTrade::OrderItem
       all_ids -= buyer_promotes.pluck(:promote_id)
     end
 
-    all_ids.each do |promote_id|
-      self.order_promotes.build(promote_id: promote_id)
-    end
+    compute_charges(available_promote_ids: all_ids)
   end
 
   def valid_sum

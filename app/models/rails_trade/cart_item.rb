@@ -1,8 +1,9 @@
 module RailsTrade::CartItem
   extend ActiveSupport::Concern
-  included do
-    include RailsTrade::PriceModel
+  include RailsTrade::PricePromote
+  include RailsTrade::PriceModel
 
+  included do
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true
     attribute :quantity, :decimal
@@ -12,6 +13,7 @@ module RailsTrade::CartItem
     belongs_to :good, polymorphic: true
     belongs_to :cart, counter_cache: true
     has_many :cart_promotes, -> { includes(:promote) }, dependent: :destroy
+    has_many :item_promotes, -> { includes(:promote) }, class_name: 'CartPromote', dependent: :destroy
     has_many :order_items, dependent: :nullify
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -64,29 +66,6 @@ module RailsTrade::CartItem
     self.reduced_price = -cart_promotes.sum(:amount)  # 促销价格
 
     self.amount = self.bulk_price + self.reduced_price  # 最终价格
-  end
-
-  def sync_cart_charges
-    available_promote_ids = []
-    extra = {}
-    [:quantity, :number, :amount].each do |m|
-      value = send(m)
-      q_params = {
-        promote_id: available_promote_ids,
-        metering: m.to_s,
-        'min-lte': value,
-        'max-gte': value,
-        **extra
-      }
-
-      charges = PromoteCharge.default_where(q_params)
-      charges.reject! do |charge|
-        (charge.max == value && !charge.contain_max) || (charge.min == value && !charge.contain_min)
-      end
-      charges.each do |promote_charge|
-        self.cart_promotes.build(promote_charge_id: promote_charge.id)
-      end
-    end
   end
 
   def migrate_to_order
