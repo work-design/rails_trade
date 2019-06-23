@@ -30,7 +30,7 @@ module RailsTrade::CartItem
   end
 
   def origin_quantity
-    good.unified_quantity.to_d * self.number
+    good.unified_quantity * self.number
   end
 
   # 批发价和零售价之间的差价，即批发折扣
@@ -38,32 +38,15 @@ module RailsTrade::CartItem
     bulk_price - retail_price
   end
 
-  def final_price
-    self.bulk_price + self.reduced_price
-  end
-
-  def total_serve_price
-    total.serve_charges.sum(:amount)
-  end
-
-  def total_promote_price
-    total.promote_charges.sum(:amount)
-  end
-
-  def estimate_price
-    final_price + total_serve_price + total_promote_price
-  end
-
   def sync_amount
     self.single_price = good.price
     self.original_price = good.price * number
     
-    self.single_serve_price = cart_serves.sum(:price)
     self.retail_price = single_price + serve_price
-    self.serve_price = cart_serves.sum(:amount)
     self.bulk_price = original_price + serve_price
-
-    self.reduced_price = -cart_promotes.sum(:amount)  # 促销价格
+    
+    self.serve_price = cart_promotes.select { |cp| cp.amount >= 0 }.sum(&:amount)
+    self.reduced_price = cart_promotes.select { |cp| cp.amount < 0 }.sum(&:amount)  # 促销价格
 
     self.amount = self.bulk_price + self.reduced_price  # 最终价格
   end

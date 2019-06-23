@@ -21,7 +21,7 @@ class RailsTradeDbCart < ActiveRecord::Migration[5.2]
       t.boolean :myself
       t.boolean :archived, default: false
       t.integer :number
-      t.decimal :price, precision: 10, scale: 2
+      #t.decimal :price, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       if connection.adapter_name == 'PostgreSQL'
         t.jsonb :extra

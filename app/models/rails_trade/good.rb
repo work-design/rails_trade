@@ -9,8 +9,9 @@ module RailsTrade::Good
     attribute :currency, :string
     attribute :advance_payment, :decimal, default: 0
     attribute :extra, :json, default: {}
-    attribute :quantity
-    attribute :unit
+    attribute :unit, :string
+    attribute :quantity, :decimal, default: 0
+    attribute :unified_quantity, :decimal, default: 0
     
     has_many :cart_items, as: :good, autosave: true, dependent: :destroy
     has_many :order_items, as: :good, dependent: :nullify
