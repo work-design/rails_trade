@@ -5,9 +5,9 @@ module RailsTrade::CartItem
 
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true
-    attribute :quantity
+    attribute :quantity, :decimal
     attribute :reduced_price, :decimal, default: 0
-    attribute :extra, :json
+    attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
     belongs_to :cart, counter_cache: true

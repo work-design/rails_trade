@@ -28,9 +28,10 @@ module RailsTrade::Promote
       overall: 'overall' # 适用于多个商品一起计算
     }
     enum metering: {
-      amount: 'amount',
-      number: 'number',
-      quantity: 'quantity'
+      number: 'number',  # 商品购买件数
+      weight: 'weight',  # 商品总重量，support sequence
+      volume: 'volume',  # 商品总体积, support sequence
+      amount: 'amount'  # 商品总金额, support sequence
     }
   end
   

@@ -1,4 +1,5 @@
 module RailsTrade::CartPromote
+  METERING = ['weight', 'colume', 'amount'].freeze
   extend ActiveSupport::Concern
   included do
     attribute :cart_item_id, :integer
@@ -8,9 +9,9 @@ module RailsTrade::CartPromote
     attribute :sequence, :integer
     attribute :scope, :string
     attribute :based_amount, :decimal  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
-    attribute :amount, :decimal  # 算出的实际价格
     attribute :original_amount, :decimal  # 默认和amount 相等，如果客服人员修改过价格后，则amount 会发生变化
-    
+    attribute :amount, :decimal  # 算出的实际价格
+
     belongs_to :cart
     belongs_to :cart_item, touch: true, optional: true
     belongs_to :good, polymorphic: true
@@ -49,11 +50,24 @@ module RailsTrade::CartPromote
   def compute_amount
     if single?
       value = cart_item.send(promote_charge.metering)
+      if METERING.include?(promote_charge.metering)
+        added_amount = cart_item.cart_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+      else
+        added_amount = 0
+      end
+      self.based_amount = value + added_amount
     else
       value = cart.send(promote_charge.metering)
+      if METERING.include?(promote_charge.metering)
+        added_amount = cart.cart_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+      else
+        added_amount = 0
+      end
+      
+      self.based_amount = value + added_amount
     end
     
-    self.amount = self.promote_charge.final_price(value)
+    self.amount = self.promote_charge.final_price(based_amount)
   end
   
 end
