@@ -2,7 +2,6 @@ module RailsTrade::Good
   extend ActiveSupport::Concern
   
   included do
-    
     attribute :name, :string
     attribute :sku, :string, default: -> { SecureRandom.hex }
     attribute :price, :decimal, default: 0
