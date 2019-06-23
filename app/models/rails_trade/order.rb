@@ -15,7 +15,7 @@ module RailsTrade::Order
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :uuid, :string, default: -> { UidHelper.nsec_uuid('OD') }
+    attribute :uuid, :string
     
     belongs_to :user, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
@@ -69,6 +69,7 @@ module RailsTrade::Order
   end
   
   def sync_from_cart
+    self.uuid ||= UidHelper.nsec_uuid('OD')
     if cart
       self.payment_strategy_id ||= cart.payment_strategy_id
     end
