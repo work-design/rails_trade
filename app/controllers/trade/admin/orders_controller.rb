@@ -102,7 +102,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
       :invoice_address_id,
       :amount,
       order_items_attributes: [:cart_item_id, :deliver_on, :advance_payment, :comment],
-      entity_promotes_attributes: [:promote_id]
+      trade_promotes_attributes: [:promote_id]
     )
     p.merge! default_params
   end

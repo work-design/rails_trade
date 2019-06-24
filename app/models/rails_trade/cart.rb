@@ -18,8 +18,8 @@ module RailsTrade::Cart
     belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :payment_strategy, optional: true
     
-    has_many :cart_items, dependent: :destroy
-    has_many :entity_promotes, -> { includes(:promote) }, as: :entity, dependent: :destroy
+    has_many :trade_items, as: :trade, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote) }, as: :trade, dependent: :destroy
     has_many :orders, dependent: :nullify
     
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
@@ -31,21 +31,21 @@ module RailsTrade::Cart
   end
 
   def compute_price
-    self.reduced_price = cart_items.checked.sum(:reduced_price)
-    self.discount_price = cart_items.checked.sum(:discount_price)
-    self.retail_price = cart_items.checked.sum(:retail_price)
-    self.final_price = cart_items.checked.sum(:final_price)
-    self.total_quantity = cart_items.checked.sum(:total_quantity)
+    self.reduced_price = trade_items.checked.sum(&:reduced_price)
+    self.discount_price = trade_items.checked.sum(&:discount_price)
+    self.retail_price = trade_items.checked.sum(&:retail_price)
+    self.final_price = trade_items.checked.sum(&:final_price)
+    self.total_quantity = trade_items.checked.sum(&:total_quantity)
   end
  
   def migrate_to_order(myself: true)
     o = self.orders.build
-    entity_items.checked.default_where(myself: myself).each do |entity_item|
-      entity_item.entity = o
+    trade_items.checked.default_where(myself: myself).each do |trade_item|
+      trade_item.trade = o
     end
     
-    entity_promotes.each do |entity_promote|
-      entity_promote.entity = o
+    trade_promotes.each do |trade_promote|
+      trade_promote.trade = o
     end
     o
   end

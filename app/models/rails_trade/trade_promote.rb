@@ -1,4 +1,4 @@
-module RailsTrade::EntityPromote
+module RailsTrade::TradePromote
   METERING = ['weight', 'colume', 'amount'].freeze
   extend ActiveSupport::Concern
   included do
@@ -8,7 +8,7 @@ module RailsTrade::EntityPromote
     attribute :original_amount, :decimal, default: 0  # 默认和amount 相等，如果客服人员修改过价格后，则amount 会发生变化
     attribute :amount, :decimal, default: 0  # 算出的实际价格
 
-    belongs_to :entity, polymorphic: true, inverse_of: :entity_promotes
+    belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
     belongs_to :item, polymorphic: true, optional: true
     belongs_to :promote
     belongs_to :promote_charge
@@ -25,7 +25,7 @@ module RailsTrade::EntityPromote
 
     after_initialize if: :new_record? do
       if item
-        self.entity = item.entity
+        self.trade = item.trade
       end
       if self.promote_charge
         self.promote_id = self.promote_charge.promote_id
@@ -43,15 +43,15 @@ module RailsTrade::EntityPromote
     if single?
       value = item.send(promote_charge.metering)
       if METERING.include?(promote_charge.metering)
-        added_amount = item.entity_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+        added_amount = item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
       else
         added_amount = 0
       end
       self.based_amount = value + added_amount
     else
-      value = entity.send(promote_charge.metering)
+      value = trade.send(promote_charge.metering)
       if METERING.include?(promote_charge.metering)
-        added_amount = entity.entity_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+        added_amount = trade.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
       else
         added_amount = 0
       end

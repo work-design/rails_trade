@@ -35,7 +35,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :entity_items do |t|
+    create_table :trade_items do |t|
       t.references :cart
       t.references :good, polymorphic: true
       t.string :status

@@ -29,10 +29,10 @@ module RailsTrade::Order
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
-    has_many :entity_promotes, -> { includes(:promote) }, as: :entity, autosave: true, inverse_of: :entity, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote) }, as: :trade, autosave: true, inverse_of: :trade, dependent: :destroy
 
     accepts_nested_attributes_for :order_items
-    accepts_nested_attributes_for :entity_promotes
+    accepts_nested_attributes_for :trade_promotes
   
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
@@ -64,8 +64,8 @@ module RailsTrade::Order
 
   def compute_amount
     self.item_amount = order_items.sum(&:amount)
-    self.overall_additional_amount = entity_promotes.select(&->(ep){ ep.overall? && ep.amount >= 0 }).sum(&:amount)
-    self.overall_reduced_amount = entity_promotes.select(&->(ep){ ep.overall? && ep.amount < 0 }).sum(&:amount)
+    self.overall_additional_amount = trade_promotes.select(&->(ep){ ep.overall? && ep.amount >= 0 }).sum(&:amount)
+    self.overall_reduced_amount = trade_promotes.select(&->(ep){ ep.overall? && ep.amount < 0 }).sum(&:amount)
     self.amount = item_amount + overall_additional_sum + overall_reduced_amount
   end
 

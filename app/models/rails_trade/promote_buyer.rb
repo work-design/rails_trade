@@ -6,7 +6,7 @@ module RailsTrade::PromoteBuyer
     
     belongs_to :promote
     belongs_to :buyer, polymorphic: true, optional: true
-    has_many :entity_promotes, dependent: :nullify
+    has_many :trade_promotes, dependent: :nullify
     
     enum state: {
       unused: 'unused',

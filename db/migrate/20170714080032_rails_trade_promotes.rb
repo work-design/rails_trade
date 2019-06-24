@@ -34,7 +34,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.references :promote
       t.string :status
       t.string :state
-      t.integer :entity_promotes_count, default: 0
+      t.integer :trade_promotes_count, default: 0
       t.timestamps
     end
 
@@ -45,9 +45,9 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :entity_promotes do |t|
-      t.references :entity, polymorphic: true
-      t.references :entity_item
+    create_table :trade_promotes do |t|
+      t.references :trade, polymorphic: true
+      t.references :trade_item
       t.references :promote
       t.references :promote_charge
       t.references :promote_good

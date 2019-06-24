@@ -23,7 +23,7 @@ module RailsTrade::ItemPromote
         value = send("#{prefix}#{m}")
     
         promote_charge = promote.compute_charge(value, m, extra: extra)
-        self.entity_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id)
+        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id)
       end
     end
   end
@@ -35,7 +35,7 @@ module RailsTrade::ItemPromote
         value = send("#{prefix}#{m}")
         
         promote_charge = promote.compute_charge(value, m, extra: extra)
-        self.entity_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
+        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
       end
     end
   end

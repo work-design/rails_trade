@@ -1,6 +1,6 @@
-module RailsTrade::CartItem
+module RailsTrade::TradeItem
   extend ActiveSupport::Concern
-  include RailsTrade::PricePromote
+  include RailsTrade::ItemPromote
 
   included do
     attribute :status, :string, default: 'init'
@@ -29,8 +29,8 @@ module RailsTrade::CartItem
     attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
-    belongs_to :entity, counter_cache: true, polymorphic: true, autosave: true, inverse_of: :entity_items
-    has_many :entity_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
+    belongs_to :trade, counter_cache: true, polymorphic: true, autosave: true, inverse_of: :trade_items
+    has_many :trade_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
     has_many :providers, dependent: :delete_all  # 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -54,15 +54,15 @@ module RailsTrade::CartItem
 
   # 批发价和零售价之间的差价，即批发折扣
   def discount_price
-    bulk_price - retail_price
+    wholesale_price - (retail_price * number)
   end
 
   def compute_amount
     self.single_price = good.price
     self.original_price = good.price * number
   
-    self.additional_price = entity_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
-    self.reduced_price = entity_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
+    self.additional_price = trade_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
+    self.reduced_price = trade_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
 
     self.retail_price = single_price + additional_price
     self.wholesale_price = original_price + additional_price
@@ -70,13 +70,13 @@ module RailsTrade::CartItem
     self.amount = original_price + additional_price + reduced_price  # 最终价格
   end
   
-  def xxx
+  def sync_amount
     self.advance_payment = self.good.advance_payment if self.advance_payment.zero?
   end
 
   def sync_order_amount
-    entity.compute_amount
-    entity.save
+    trade.compute_amount
+    trade.save
   end
 
   def confirm_ordered!

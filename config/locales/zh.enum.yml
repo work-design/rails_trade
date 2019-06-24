@@ -28,11 +28,7 @@ zh:
         scope:
           overall: 所有商品
           single: 单个商品
-      cart_promote:
-        scope:
-          single: 单个商品
-          overall: 全体商品
-      order_promote:
+      trade_promote:
         scope:
           single: 单个商品
           overall: 全体商品
