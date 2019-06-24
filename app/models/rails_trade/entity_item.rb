@@ -4,13 +4,9 @@ module RailsTrade::CartItem
 
   included do
     attribute :status, :string, default: 'init'
-    attribute :myself, :boolean, default: true
-    attribute :extra, :json, default: {}
+    attribute :myself, :boolean, default: true  # 是否后台协助添加
     attribute :starred, :boolean, default: false  # 收藏
     
-    attribute :retail_price, :decimal, default: 0  # 单个商品零售价(商品原价 + 服务价)
-    attribute :wholesale_price, :decimal, default: 0  # 多个商品批发价
-
     attribute :good_type, :string
     attribute :good_id, :integer
 
@@ -23,12 +19,14 @@ module RailsTrade::CartItem
 
     attribute :additional_price, :decimal, default: 0  # 附加服务价格汇总
     attribute :reduced_price, :decimal, default: 0  # 已优惠的价格
-
+    
+    attribute :retail_price, :decimal, default: 0  # 单个商品零售价(商品原价 + 服务价)
+    attribute :wholesale_price, :decimal, default: 0  # 多个商品批发价
+    
     attribute :amount, :decimal, default: 0
     attribute :note, :string
     attribute :advance_payment, :decimal, default: 0
     attribute :extra, :json, default: {}
-
 
     belongs_to :good, polymorphic: true
     belongs_to :entity, counter_cache: true, polymorphic: true, autosave: true, inverse_of: :entity_items
