@@ -10,9 +10,11 @@ module RailsTrade::PromoteGood
     belongs_to :promote
     belongs_to :good, polymorphic: true, optional: true
     
+    scope :valid, -> { where(status: ['default', 'available']) }
+    
     enum status: {
       default: 'default',  # 默认直接添加的服务，不可取消
-      availdable: 'available',  # 可选
+      available: 'available',  # 可选
       unavailable: 'unavailable'  # 不可选
     }
     

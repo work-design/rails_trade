@@ -15,9 +15,11 @@ module RailsTrade::PromoteBuyer
     }
     enum status: {
       default: 'default',
-      availdable: 'available',
+      available: 'available',
       unavailable: 'unavailable'
     }
+
+    scope :valid, -> { where(status: ['default', 'available']) }
   end
 
 end

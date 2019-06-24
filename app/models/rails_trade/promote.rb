@@ -8,6 +8,7 @@ module RailsTrade::Promote
     
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all
+    has_many :promote_extras, dependent: :delete_all
     has_many :promote_goods, dependent: :destroy
     has_many :promote_buyers, dependent: :destroy
     
@@ -25,6 +26,28 @@ module RailsTrade::Promote
       single: 'single',  # 适用于单独计算商品
       overall: 'overall' # 适用于多个商品一起计算
     }
+  end
+  
+  def extra_mappings
+    x = promote_extras.pluck(:extra_name, :column_name).to_h
+  end
+
+  def compute_charge(value, metering, extra: {})
+    extra.transform_keys! { |key| extra_mappings[key.to_s] }
+    extra.delete nil
+    
+    q_params = {
+      metering: metering,
+      'min-lte': value,
+      'max-gte': value,
+      **extra
+    }
+  
+    charges = promote_charges.default_where(q_params)
+    charges = charges.reject do |charge|
+      (charge.max == value && !charge.contain_max) || (charge.min == value && !charge.contain_min)
+    end
+    charges.first
   end
 
   private
