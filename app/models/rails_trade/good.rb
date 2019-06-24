@@ -76,7 +76,7 @@ module RailsTrade::Good
     extra = params.delete(:extra) || {}
     good_name = params.delete(:name) || self.name
 
-    oi = o.order_items.build(
+    oi = o.entity_items.build(
       good: self,
       number: number,
       original_price: amount,

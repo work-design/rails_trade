@@ -50,6 +50,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.decimal :reduced_price, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       t.string :good_name
+      t.boolean :starred  # 是否收藏
       if connection.adapter_name == 'PostgreSQL'
         t.jsonb :extra
       else

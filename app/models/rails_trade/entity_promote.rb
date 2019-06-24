@@ -24,10 +24,8 @@ module RailsTrade::EntityPromote
     }
 
     after_initialize if: :new_record? do
-      if item.is_a?(CartItem)
-        self.entity = item.cart
-      elsif item.is_a?(OrderItem)
-        self.entity = item.order
+      if item
+        self.entity = item.entity
       end
       if self.promote_charge
         self.promote_id = self.promote_charge.promote_id

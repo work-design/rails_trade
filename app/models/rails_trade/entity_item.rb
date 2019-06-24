@@ -58,21 +58,17 @@ module RailsTrade::CartItem
   def discount_price
     bulk_price - retail_price
   end
-  
-  def compute_amount
-    compute_amount_items
-    
-    self.retail_price = single_price + additional_price
-    self.wholesale_price = original_price + additional_price
-  end
 
-  def compute_amount_items
+  def compute_amount
     self.single_price = good.price
     self.original_price = good.price * number
   
     self.additional_price = entity_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
     self.reduced_price = entity_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
-  
+
+    self.retail_price = single_price + additional_price
+    self.wholesale_price = original_price + additional_price
+    
     self.amount = original_price + additional_price + reduced_price  # 最终价格
   end
   
