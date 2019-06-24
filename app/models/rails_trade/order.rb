@@ -1,6 +1,5 @@
 module RailsTrade::Order
   extend ActiveSupport::Concern
-  include RailsTrade::PriceModel
   include RailsTrade::PricePromote
   include RailsTrade::Ordering::Payment
   include RailsTrade::Ordering::Refund
@@ -9,10 +8,13 @@ module RailsTrade::Order
     delegate :url_helpers, to: 'Rails.application.routes'
     
     attribute :payment_status, :string, default: 'unpaid'
-    attribute :item_sum, :decimal, default: 0
-    attribute :overall_promote_sum, :decimal, default: 0
+    
+    attribute :item_amount, :decimal, default: 0
+    attribute :overall_additional_amount, :decimal, default: 0
+    attribute :overall_reduced_amount, :decimal, default: 0
     attribute :adjust_amount, :decimal, default: 0
     attribute :amount, :decimal, default: 0
+    
     attribute :received_amount, :decimal, default: 0
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}

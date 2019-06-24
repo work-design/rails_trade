@@ -1,6 +1,5 @@
 module RailsTrade::OrderItem
   extend ActiveSupport::Concern
-  include RailsTrade::PriceModel
   include RailsTrade::PricePromote
 
   included do

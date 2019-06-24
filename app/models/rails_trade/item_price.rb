@@ -1,4 +1,4 @@
-module RailsTrade::PriceModel
+module RailsTrade::ItemPrice
   extend ActiveSupport::Concern
 
   included do
@@ -11,11 +11,9 @@ module RailsTrade::PriceModel
     
     attribute :single_price, :decimal, default: 0  # 一份产品的价格
     attribute :original_price, :decimal, default: 0  # 商品原价，合计份数之后
-    attribute :good_sum, :decimal, default: 0
 
     attribute :additional_price, :decimal, default: 0  # 附加服务价格汇总
     attribute :reduced_price, :decimal, default: 0  # 已优惠的价格
-    attribute :promote_sum, :decimal, default: 0
     
     attribute :amount, :decimal, default: 0
 
@@ -26,11 +24,9 @@ module RailsTrade::PriceModel
     self.single_price = good.price
     self.original_price = good.price * number
   
-    self.additional_price = entity_promotes.select { |cp| cp.amount >= 0 }.sum(&:amount)
-    self.reduced_price = entity_promotes.select { |cp| cp.amount < 0 }.sum(&:amount)  # 促销价格
-    self.promote_sum = entity_promotes.select(&:single?).sum(&:amount)
+    self.additional_price = entity_promotes.select(&->(cp){ single? && cp.amount >= 0 }).sum(&:amount)
+    self.reduced_price = entity_promotes.select(&->(cp){ single? && cp.amount < 0 }).sum(&:amount)  # 促销价格
     
-    self.amount = good_sum + promote_sum
     self.amount = original_price + additional_price + reduced_price  # 最终价格
   end
 

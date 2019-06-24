@@ -1,7 +1,6 @@
 module RailsTrade::CartItem
   extend ActiveSupport::Concern
   include RailsTrade::PricePromote
-  include RailsTrade::PriceModel
 
   included do
     attribute :status, :string, default: 'init'
