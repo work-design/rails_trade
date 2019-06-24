@@ -9,7 +9,7 @@ module RailsTrade::PaymentType::Wxpay
       spbill_create_ip: spbill_create_ip,
       notify_url: notify_url,
       trade_type: trade_type,
-      openid: user.oauth_users.find_by(appid: appid).uid
+      openid: user.oauth_users.find_by(app_id: appid).uid
     }
     
     WxPay::Service.invoke_unifiedorder params, options
