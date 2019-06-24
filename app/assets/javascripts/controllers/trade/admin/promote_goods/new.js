@@ -14,3 +14,4 @@ $('#promote_good_good_type').dropdown({
 $('#promote_good_good_id').dropdown({
   placeholder: false
 });
+$('#promote_good_status').dropdown();

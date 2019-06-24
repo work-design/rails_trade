@@ -63,7 +63,7 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
       :promote_id,
       :good_type,
       :good_id,
-      :available
+      :status
     )
   end
 

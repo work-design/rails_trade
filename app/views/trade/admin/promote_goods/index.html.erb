@@ -22,7 +22,7 @@
         <p><%= PromoteGood.human_attribute_name(:good_type) %></p>
         <p><%= PromoteGood.human_attribute_name(:good_id) %></p>
       </th>
-      <th><%= PromoteGood.human_attribute_name(:available) %></th>
+      <th><%= PromoteGood.human_attribute_name(:status) %></th>
       <th>
         <%= link_to new_admin_promote_good_path(promote_id: params[:promote_id]), remote: true, class: 'ui teal button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
@@ -43,13 +43,12 @@
           <p>不限商品</p>
         <% end %>
       </td>
+      <td><%= promote_good.status_i18n %></td>
       <td>
-        <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote_good[available]', nil, promote_good.available, data: { method: :patch, remote: true, url: admin_promote_good_path(promote_good.id), submit: true }, id: nil %>
-        </div>
-      </td>
-      <td>
-        <%= link_to admin_promote_good_path(promote_good), method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
+        <%= link_to edit_admin_promote_good_path(promote_good), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
+          <i class="fas fa-pencil-alt"></i>
+        <% end %>
+        <%= link_to admin_promote_good_path(promote_good), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </td>

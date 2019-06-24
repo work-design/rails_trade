@@ -46,7 +46,7 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
       :buyer_type,
       :buyer_id,
       :promote_id,
-      :available
+      :status
     )
     q[:buyer_type] = 'User' if q[:buyer_type].blank?
     q

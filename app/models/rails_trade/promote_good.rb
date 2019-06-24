@@ -5,7 +5,7 @@ module RailsTrade::PromoteGood
     attribute :promote_id, :integer
     attribute :good_id, :integer
     attribute :good_type, :string
-    attribute :available, :boolean, default: false
+    attribute :status, :string, default: 'available'
 
     belongs_to :promote
     belongs_to :good, polymorphic: true, optional: true

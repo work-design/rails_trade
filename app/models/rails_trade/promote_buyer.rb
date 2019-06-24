@@ -2,6 +2,7 @@ module RailsTrade::PromoteBuyer
   extend ActiveSupport::Concern
   included do
     attribute :state, :string, default: 'unused'
+    attribute :status, :string, default: 'available'
     
     belongs_to :promote
     belongs_to :buyer, polymorphic: true, optional: true
