@@ -9,7 +9,7 @@ module RailsTrade::TradePromote
     attribute :amount, :decimal, default: 0  # 算出的实际价格
 
     belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
-    belongs_to :item, polymorphic: true, optional: true
+    belongs_to :trade_item, optional: true
     belongs_to :promote
     belongs_to :promote_charge
     belongs_to :promote_buyer, counter_cache: true, optional: true
@@ -24,8 +24,8 @@ module RailsTrade::TradePromote
     }
 
     after_initialize if: :new_record? do
-      if item
-        self.trade = item.trade
+      if trade_item
+        self.trade = trade_item.trade
       end
       if self.promote_charge
         self.promote_id = self.promote_charge.promote_id
