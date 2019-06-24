@@ -12,10 +12,10 @@ module RailsTrade::Order
     attribute :item_amount, :decimal, default: 0
     attribute :overall_additional_amount, :decimal, default: 0
     attribute :overall_reduced_amount, :decimal, default: 0
-    attribute :adjust_amount, :decimal, default: 0
     attribute :amount, :decimal, default: 0
     
     attribute :received_amount, :decimal, default: 0
+
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
@@ -63,9 +63,10 @@ module RailsTrade::Order
   end
 
   def compute_amount
-    self.item_sum = order_items.sum(&:amount)
-    self.overall_promote_sum = entity_promotes.select(&:overall?).sum(&:amount)
-    self.amount = self.item_sum + self.overall_promote_sum
+    self.item_amount = order_items.sum(&:amount)
+    self.overall_additional_amount = entity_promotes.select(&->(ep){ ep.overall? && ep.amount >= 0 }).sum(&:amount)
+    self.overall_reduced_amount = entity_promotes.select(&->(ep){ ep.overall? && ep.amount < 0 }).sum(&:amount)
+    self.amount = item_amount + overall_additional_sum + overall_reduced_amount
   end
 
   def confirm_ordered!

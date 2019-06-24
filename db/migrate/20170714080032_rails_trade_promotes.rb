@@ -1,4 +1,4 @@
-class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
+class RailsTradePromotes < ActiveRecord::Migration[5.1]
   def change
 
     create_table :promotes do |t|
@@ -47,7 +47,7 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
 
     create_table :entity_promotes do |t|
       t.references :entity, polymorphic: true
-      t.references :item, polymorphic: true
+      t.references :entity_item
       t.references :promote
       t.references :promote_charge
       t.references :promote_good

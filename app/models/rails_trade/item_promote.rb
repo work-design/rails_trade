@@ -1,4 +1,4 @@
-module RailsTrade::PricePromote
+module RailsTrade::ItemPromote
   
   def compute_charge
     all_ids = good.valid_promote_ids

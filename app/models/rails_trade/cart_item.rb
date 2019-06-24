@@ -6,24 +6,47 @@ module RailsTrade::CartItem
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true
     attribute :extra, :json, default: {}
-
+    attribute :starred, :boolean, default: false  # 收藏
+    
     attribute :retail_price, :decimal, default: 0  # 单个商品零售价(商品原价 + 服务价)
     attribute :wholesale_price, :decimal, default: 0  # 多个商品批发价
-    
-    belongs_to :cart, counter_cache: true
-    has_many :entity_promotes, -> { includes(:promote) }, as: :item, dependent: :destroy
-    has_many :order_items, dependent: :nullify
+
+    attribute :good_type, :string
+    attribute :good_id, :integer
+
+    attribute :number, :integer, default: 1
+    attribute :quantity, :decimal, default: 0
+    attribute :unit, :string
+
+    attribute :single_price, :decimal, default: 0  # 一份产品的价格
+    attribute :original_price, :decimal, default: 0  # 商品原价，合计份数之后
+
+    attribute :additional_price, :decimal, default: 0  # 附加服务价格汇总
+    attribute :reduced_price, :decimal, default: 0  # 已优惠的价格
+
+    attribute :amount, :decimal, default: 0
+    attribute :note, :string
+    attribute :advance_payment, :decimal, default: 0
+    attribute :extra, :json, default: {}
+
+
+    belongs_to :good, polymorphic: true
+    belongs_to :entity, counter_cache: true, polymorphic: true, autosave: true, inverse_of: :entity_items
+    has_many :entity_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
+
 
     scope :valid, -> { where(status: 'init', myself: true) }
-    scope :checked, -> { where(status: 'init', checked: true) }
+    scope :starred, -> { where(status: 'init', starred: true) }
     
     enum status: {
       init: 'init',
+      checked: 'checked',
       ordered: 'ordered',
       deleted: 'deleted'
     }
 
     before_validation :sync_amount
+    after_save :sync_order_amount, if: -> { saved_change_to_amount? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -43,16 +66,39 @@ module RailsTrade::CartItem
     self.wholesale_price = original_price + additional_price
   end
 
-  def migrate_to_order
-    self.buyer = cart_item.buyer
-    o = Order.new
-    oi = o.order_items.build(cart_item_id: cart_item_id)
+  def compute_amount_items
+    self.single_price = good.price
+    self.original_price = good.price * number
   
-    self.entity_promotes.each do |entity_promote|
-      entity_promote.entity = o
-      entity_promote.item = oi
-    end
-    o
+    self.additional_price = entity_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
+    self.reduced_price = entity_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
+  
+    self.amount = original_price + additional_price + reduced_price  # 最终价格
+  end
+  
+  def xxx
+    self.advance_payment = self.good.advance_payment if self.advance_payment.zero?
+  end
+
+  def sync_order_amount
+    entity.compute_amount
+    entity.save
+  end
+
+  def confirm_ordered!
+    self.good.order_done
+  end
+
+  def confirm_paid!
+
+  end
+
+  def confirm_part_paid!
+
+  end
+
+  def confirm_refund!
+
   end
   
   class_methods do
