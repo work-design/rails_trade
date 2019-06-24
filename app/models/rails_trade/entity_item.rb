@@ -33,7 +33,7 @@ module RailsTrade::CartItem
     belongs_to :good, polymorphic: true
     belongs_to :entity, counter_cache: true, polymorphic: true, autosave: true, inverse_of: :entity_items
     has_many :entity_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
-
+    has_many :providers, dependent: :delete_all  # 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
     scope :starred, -> { where(status: 'init', starred: true) }
