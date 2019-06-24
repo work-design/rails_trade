@@ -1,33 +1,43 @@
 module RailsTrade::PricePromote
   
-  def compute_promote(promote_buyer_ids: [])
+  def compute_charge
     all_ids = good.valid_promote_ids
+    all_ids -= buyer_promotes.pluck(:promote_id)
+
+    compute_charges_with_buyer(promote_buyer_ids)
+    compute_charges_with_good(promote_good_ids)
+  end
+
+  def buyer_params
+    {
+      buyer_type: order.buyer_type,
+      buyer_id: order.buyer_id
+    }
+  end
+  
+  def compute_promote_with_buyer(promote_buyer_ids: [])
+    promote_buyers = PromoteBuyer.where(id: promote_buyer_ids)
     
-    if promote_buyer_ids.present?
-      buyer_promotes = order.buyer.promote_buyers.where(id: Array(promote_buyer_ids))
-      buyer_promotes.each do |promote_buyer|
-        self.entity_promotes.build(promote_buyer_id: promote_buyer.id, promote_id: promote_buyer.promote_id)
+    promote_buyers.each do |promote_buyer|
+      [:quantity, :number, :amount].map do |m|
+        value = send("#{prefix}#{m}")
+    
+        promote_charge = promote.compute_charge(value, m, extra: extra)
+        self.entity_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id)
       end
-      
-      all_ids -= buyer_promotes.pluck(:promote_id)
     end
-    
-    all_ids
   end
   
-  def xx()
-    compute_charges(pids: all_ids)
-  end
-  
-  def compute_charges(promote_id, extra: {}, prefix: '')
-    promote = Promote.find promote_id
-    
-    [:quantity, :number, :amount].map do |m|
-      value = send("#{prefix}#{m}")
-      
-      promote_charge = promote.compute_charge(value, m, extra: extra)
-      self.entity_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good_id)
-    end.flatten
+  def compute_charge_with_good(promote_good_ids, extra: {}, prefix: '')
+    promote_goods = PromoteGood.find promote_good_ids
+    promote_goods.map do |promote_good|
+      [:quantity, :number, :amount].map do |m|
+        value = send("#{prefix}#{m}")
+        
+        promote_charge = promote.compute_charge(value, m, extra: extra)
+        self.entity_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
+      end
+    end
   end
   
 end

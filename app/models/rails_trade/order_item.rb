@@ -27,20 +27,20 @@ module RailsTrade::OrderItem
   end
 
   def valid_sum
-    compute_sum
+    compute_amount
 
     if self.cart_item && self.amount != cart_item.final_price
       self.errors.add :base, 'Amount is not equal to cart items'
     end
   end
 
-  def compute_sum
+  def compute_amount
     self.promote_sum = order_promotes.select(&:single?).sum(&:amount)
     self.amount = self.good_sum + self.promote_sum
   end
 
   def sync_amount
-    order.compute_sum
+    order.compute_amount
     order.save
   end
 

@@ -86,10 +86,10 @@ module RailsTrade::Good
 
     promote_buyer_ids = Array(params.delete(:promote_buyer_ids))
     oi.compute_promote(promote_buyer_ids)
-    oi.compute_sum
+    oi.compute_amount
 
     o.assign_attributes params
-    o.compute_sum
+    o.compute_amount
     o.extra = extra
     o
   end
