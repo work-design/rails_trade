@@ -83,9 +83,13 @@ module RailsTrade::Good
       extra: extra,
       good_name: good_name
     )
+    
+    promote_buyer_ids = params.delete(:promote_buyer_ids)
+    oi.compute_promote(promote_buyer_ids) if promote_buyer_ids
+    
+    promote_good_ids = params.delete(:promote_good_ids)
+    oi.compute_promote(promote_goods_ids) if promote_good_ids
 
-    promote_buyer_ids = Array(params.delete(:promote_buyer_ids))
-    oi.compute_promote(promote_buyer_ids)
     oi.compute_amount
 
     o.assign_attributes params

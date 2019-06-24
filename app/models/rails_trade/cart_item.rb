@@ -6,12 +6,11 @@ module RailsTrade::CartItem
   included do
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true
-    attribute :quantity, :decimal, default: 0
-    attribute :unit, :string
-    attribute :reduced_price, :decimal, default: 0
     attribute :extra, :json, default: {}
 
-    belongs_to :good, polymorphic: true
+    attribute :retail_price, :decimal, default: 0  # 单个商品零售价(商品原价 + 服务价)
+    attribute :wholesale_price, :decimal, default: 0  # 多个商品批发价
+    
     belongs_to :cart, counter_cache: true
     has_many :entity_promotes, -> { includes(:promote) }, as: :item, dependent: :destroy
     has_many :order_items, dependent: :nullify
@@ -37,18 +36,12 @@ module RailsTrade::CartItem
   def discount_price
     bulk_price - retail_price
   end
-
-  def sync_amount
-    self.single_price = good.price
-    self.original_price = good.price * number
+  
+  def compute_amount
+    compute_amount_items
     
-    self.retail_price = single_price + serve_price
-    self.bulk_price = original_price + serve_price
-    
-    self.serve_price = entity_promotes.select { |cp| cp.amount >= 0 }.sum(&:amount)
-    self.reduced_price = entity_promotes.select { |cp| cp.amount < 0 }.sum(&:amount)  # 促销价格
-
-    self.amount = self.bulk_price + self.reduced_price  # 最终价格
+    self.retail_price = single_price + additional_price
+    self.wholesale_price = original_price + additional_price
   end
 
   def migrate_to_order

@@ -1,18 +1,12 @@
 module RailsTrade::OrderItem
   extend ActiveSupport::Concern
+  include RailsTrade::PriceModel
   include RailsTrade::PricePromote
 
   included do
     attribute :cart_item_id, :integer
-    attribute :good_type, :string
-    attribute :good_id, :integer
-  
-    attribute :quantity, :decimal
-    attribute :number, :integer, default: 1
-    attribute :good_sum, :decimal, default: 0
-    attribute :promote_sum, :decimal, default: 0
-    attribute :amount, :decimal, default: 0
-    attribute :comment, :string
+    
+    attribute :note, :string
     attribute :advance_payment, :decimal, default: 0
     attribute :extra, :json, default: {}
   
@@ -22,8 +16,8 @@ module RailsTrade::OrderItem
     belongs_to :provider, optional: true
     has_many :entity_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
   
-    after_initialize :init_from_cart_item, if: :new_record?
-    after_update_commit :sync_amount, if: -> { saved_change_to_amount? }
+    after_initialize :sync_from_cart_item, if: :new_record?
+    after_save :sync_order_amount, if: -> { saved_change_to_amount? }
   end
 
   def valid_sum
@@ -35,11 +29,10 @@ module RailsTrade::OrderItem
   end
 
   def compute_amount
-    self.promote_sum = order_promotes.select(&:single?).sum(&:amount)
-    self.amount = self.good_sum + self.promote_sum
+    compute_amount_items
   end
 
-  def sync_amount
+  def sync_order_amount
     order.compute_amount
     order.save
   end
