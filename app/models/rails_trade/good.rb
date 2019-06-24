@@ -76,7 +76,7 @@ module RailsTrade::Good
     extra = params.delete(:extra) || {}
     good_name = params.delete(:name) || self.name
 
-    oi = o.trade_items.build(
+    ti = o.trade_items.build(
       good: self,
       number: number,
       original_price: amount,
@@ -85,12 +85,12 @@ module RailsTrade::Good
     )
     
     promote_buyer_ids = params.delete(:promote_buyer_ids)
-    oi.compute_promote(promote_buyer_ids) if promote_buyer_ids
+    ti.compute_promote(promote_buyer_ids) if promote_buyer_ids
     
     promote_good_ids = params.delete(:promote_good_ids)
-    oi.compute_promote(promote_goods_ids) if promote_good_ids
+    ti.compute_promote(promote_goods_ids) if promote_good_ids
 
-    oi.compute_amount
+    ti.compute_amount
 
     o.assign_attributes params
     o.compute_amount

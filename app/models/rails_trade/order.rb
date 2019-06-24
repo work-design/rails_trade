@@ -1,6 +1,5 @@
 module RailsTrade::Order
   extend ActiveSupport::Concern
-  include RailsTrade::PricePromote
   include RailsTrade::Ordering::Payment
   include RailsTrade::Ordering::Refund
 
@@ -27,11 +26,12 @@ module RailsTrade::Order
     belongs_to :payment_strategy, optional: true
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders
-    has_many :order_items, dependent: :destroy, autosave: true, inverse_of: :order
     has_many :refunds, dependent: :nullify, inverse_of: :order
+    
+    has_many :trade_items, as: :trade, autosave: true, inverse_of: :trade, dependent: :destroy
     has_many :trade_promotes, -> { includes(:promote) }, as: :trade, autosave: true, inverse_of: :trade, dependent: :destroy
 
-    accepts_nested_attributes_for :order_items
+    accepts_nested_attributes_for :trade_items
     accepts_nested_attributes_for :trade_promotes
   
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
@@ -51,7 +51,7 @@ module RailsTrade::Order
   end
   
   def subject
-    order_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
+    trade_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
   end
   
   def user_name
@@ -63,14 +63,10 @@ module RailsTrade::Order
   end
 
   def compute_amount
-    self.item_amount = order_items.sum(&:amount)
+    self.item_amount = trade_items.sum(&:amount)
     self.overall_additional_amount = trade_promotes.select(&->(ep){ ep.overall? && ep.amount >= 0 }).sum(&:amount)
     self.overall_reduced_amount = trade_promotes.select(&->(ep){ ep.overall? && ep.amount < 0 }).sum(&:amount)
-    self.amount = item_amount + overall_additional_sum + overall_reduced_amount
-  end
-
-  def confirm_ordered!
-    self.order_items.each(&:confirm_ordered!)
+    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
   
   def sync_from_cart
@@ -78,6 +74,10 @@ module RailsTrade::Order
     if cart
       self.payment_strategy_id ||= cart.payment_strategy_id
     end
+  end
+
+  def confirm_ordered!
+    self.trade_items.each(&:confirm_ordered!)
   end
 
   def compute_received_amount

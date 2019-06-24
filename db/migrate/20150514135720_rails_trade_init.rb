@@ -36,7 +36,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
     end
 
     create_table :trade_items do |t|
-      t.references :cart
+      t.references :trade, polymorphic: true
       t.references :good, polymorphic: true
       t.string :status
       t.boolean :checked, default: false
