@@ -7,7 +7,7 @@
     <dt><%= Promote.human_attribute_name(:scope) %></dt>
     <dd>
       <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Total', filter_params(scope: 'total'), class: active_params(scope: 'total', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to 'Overall', filter_params(scope: 'overall'), class: active_params(scope: 'overall', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
     </dd>
   </dl>
 </div>
@@ -27,10 +27,7 @@
         <p><%= Promote.human_attribute_name(:start_at) %></p>
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
-      <th>
-        <p><%= Promote.human_attribute_name(:verified) %></p>
-        <p><%= Promote.human_attribute_name(:default) %></p>
-      </th>
+      <th><%= Promote.human_attribute_name(:verified) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:deal) %></th>
       <th></th>
@@ -57,9 +54,6 @@
       <td>
         <div class="ui toggle checkbox">
           <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
-        </div>
-        <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[default]', nil, promote.default, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>
       </td>
       <td><%= promote.sequence %></td>

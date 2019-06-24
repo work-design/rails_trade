@@ -38,10 +38,6 @@ module RailsTrade::Good
     ids - un_ids
   end
 
-  def available_promotes
-    Promote.where(id: overall_promote_ids)
-  end
-
   def available_promotes_with_buyer(buyer)
     ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.unavailable.pluck(:promote_id)
     Promote.where(id: ids)

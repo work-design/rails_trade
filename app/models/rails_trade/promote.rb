@@ -5,7 +5,6 @@ module RailsTrade::Promote
     attribute :finish_at, :datetime
     attribute :sequence, :integer, default: 1
     attribute :verified, :boolean, default: false
-    attribute :default, :boolean, default: false  # 默认直接添加的服务
     
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all

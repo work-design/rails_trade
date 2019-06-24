@@ -11,7 +11,6 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
       t.datetime :finish_at
       t.string :scope
       t.boolean :verified
-      t.boolean :default
       t.integer :sequence
       t.timestamps
     end
@@ -33,16 +32,16 @@ class RailsTradeDbPromotes < ActiveRecord::Migration[5.1]
     create_table :promote_buyers do |t|
       t.references :buyer, polymorphic: true
       t.references :promote
-      t.boolean :available
+      t.string :status
       t.string :state
-      t.integer :order_promotes_count, default: 0
+      t.integer :entity_promotes_count, default: 0
       t.timestamps
     end
 
     create_table :promote_goods do |t|
       t.references :good, polymorphic: true
       t.references :promote
-      t.boolean :available
+      t.string :status
       t.timestamps
     end
 

@@ -5,13 +5,17 @@ module RailsTrade::PromoteBuyer
     
     belongs_to :promote
     belongs_to :buyer, polymorphic: true, optional: true
-
-    validates :promote_id, uniqueness: { scope: [:buyer_type, :buyer_id] }
-
+    has_many :entity_promotes, dependent: :nullify
+    
     enum state: {
       unused: 'unused',
       used: 'used',
       expired: 'expired'
+    }
+    enum status: {
+      default: 'default',
+      availdable: 'available',
+      unavailable: 'unavailable'
     }
   end
 

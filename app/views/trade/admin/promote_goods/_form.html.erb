@@ -3,6 +3,6 @@
   <%= f.hidden_field :promote_id %>
   <%= f.select :good_type, options_for_select(PromoteGood.options_i18n(:good_type), @promote_good.good_type), include_blank: true %>
   <%= f.select :good_id, options_for_select([]) %>
-  <%= f.check_box :available %>
+  <%= f.select :status, options_for_select(PromoteGood.options_i18n(:status), @promote_good.status) %>
   <%= f.submit %>
 <% end %>

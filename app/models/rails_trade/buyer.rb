@@ -21,8 +21,11 @@ module RailsTrade::Buyer
   end
   
   def available_promote_ids
-    un_ids = self.promote_buyers.unavailable.pluck(:promote_id)
-    all_promote_ids - un_ids
+    all_promote_ids - un_promote_ids
+  end
+  
+  def un_promote_ids
+    self.promote_buyers.unavailable.pluck(:promote_id)
   end
 
   def name_detail
