@@ -9,7 +9,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.decimal :amount, precision: 10, scale: 2
       t.integer :deposit_ratio
       t.boolean :default
-      t.integer :cart_items_count, default: 0
+      t.integer :trade_items_count, default: 0
       t.timestamps
     end
 
