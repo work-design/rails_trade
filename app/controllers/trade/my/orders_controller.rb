@@ -17,7 +17,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
     respond_to do |format|
       format.html
       format.html.wechat do
-        self.class.wechat_api
+        self.class.include Wechat::Responder
         render 'index', layout: 'wx'
       end
       format.json

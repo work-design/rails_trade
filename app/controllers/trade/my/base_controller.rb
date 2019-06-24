@@ -11,7 +11,11 @@ class Trade::My::BaseController < RailsTrade.config.my_controller.constantize
   end
   
   def current_buyer
-    current_cart.buyer
+    if current_cart
+      current_cart.buyer
+    else
+      current_user
+    end
   end
 
 end
