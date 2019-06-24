@@ -6,7 +6,6 @@
 #   * 选择服务
 module RailsTrade::Cart
   extend ActiveSupport::Concern
-  include RailsTrade::PricePromote
   
   included do
     attribute :retail_price, :decimal

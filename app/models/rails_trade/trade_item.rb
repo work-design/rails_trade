@@ -40,7 +40,8 @@ module RailsTrade::TradeItem
       init: 'init',
       checked: 'checked',
       ordered: 'ordered',
-      deleted: 'deleted'
+      done: 'done',
+      canceled: 'canceled'
     }
 
     before_validation :sync_amount

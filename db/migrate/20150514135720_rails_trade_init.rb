@@ -39,9 +39,6 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.references :trade, polymorphic: true
       t.references :good, polymorphic: true
       t.string :status
-      t.boolean :checked, default: false
-      t.boolean :myself
-      t.boolean :archived, default: false
       t.integer :number
       t.decimal :quantity, precision: 10, scale: 2 # 用来表示重量
       t.decimal :single_price, precision: 10, scale: 2
@@ -50,6 +47,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.decimal :reduced_price, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       t.string :good_name
+      t.boolean :myself
       t.boolean :starred  # 是否收藏
       if connection.adapter_name == 'PostgreSQL'
         t.jsonb :extra
