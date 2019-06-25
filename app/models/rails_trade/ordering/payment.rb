@@ -83,18 +83,6 @@ module RailsTrade::Ordering::Payment
     self
   end
 
-  def loop_payment_result(payment_kind: payment_type, max_times: 100)
-    times = 0
-
-    while self.payment_status != 'all_paid' do
-      self.payment_result(payment_kind: payment_kind)
-      times += 1
-      break if times >= max_times
-    end
-
-    self
-  end
-
   def check_state
     if self.received_amount.to_d >= self.amount
       self.payment_status = 'all_paid'

@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   scope module: 'trade' do
     resources :payments, only: [:index] do
       get :result, on: :collection
-      get :wxpay_result, on: :collection
       match :notify, on: :collection, via: [:get, :post]
       match :alipay_notify, on: :collection, via: [:get, :post]
       match :wxpay_notify, on: :collection, via: [:get, :post]
-      match :wxpay_faker, on: :collection, via: [:get, :post]
     end
     resources :buyers, only: [] do
       get :search, on: :collection
