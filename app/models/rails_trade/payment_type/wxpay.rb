@@ -1,6 +1,6 @@
 module RailsTrade::PaymentType::Wxpay
 
-  def wxpay_prepay(trade_type: 'JSAPI', spbill_create_ip: '127.0.0.0', notify_url: 'url_helpers.wxpay_notify_payments_url', **options)
+  def wxpay_prepay(trade_type: 'JSAPI', spbill_create_ip: '127.0.0.0', notify_url: url_helpers.wxpay_notify_payments_url, **options)
     appid = options[:appid] || WxPay.appid
     params = {
       body: "订单编号: #{self.uuid}",
@@ -9,7 +9,7 @@ module RailsTrade::PaymentType::Wxpay
       spbill_create_ip: spbill_create_ip,
       notify_url: notify_url,
       trade_type: trade_type,
-      openid: user.oauth_users.find_by(app_id: appid).uid
+      openid: user.oauth_users.find_by(app_id: appid)&.uid
     }
     
     WxPay::Service.invoke_unifiedorder params, options
