@@ -49,7 +49,7 @@ module RailsTrade::Ordering::Payment
 
       begin
         self.class.transaction do
-          payment_order.confirm
+          payment_order.confirm!
           payment.save!
           self.save!
         end
