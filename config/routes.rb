@@ -77,21 +77,24 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:create]
     resources :good_providers
     resources :orders do
-      post :direct, on: :collection
-      get :refresh, on: :collection
-      get :paypal_pay, on: :member
-      get :alipay_pay, on: :member
-      get :wxpay_pay, on: :member
-      patch :stripe_pay, on: :member
-      get :paypal_execute, on: :member
-      get :pay, on: :member
-      get 'payment_type' => :edit_payment_type, on: :member
-      put 'payment_type' => :update_payment_type, on: :member
-      patch 'payment_type' => :update_payment_type, on: :member
-      get 'cancel' => :edit_cancel, on: :member
-      put 'cancel' => :update_cancel, on: :member
-      put :refund, on: :member
-      get :check, on: :member
+      collection do
+        post :direct
+        get :refresh
+      end
+      member do
+        get :paypal_pay
+        get :alipay_pay
+        get :wxpay_pay
+        patch :stripe_pay
+        get :paypal_execute
+        get :pay
+        get 'payment_type' => :edit_payment_type
+        patch 'payment_type' => :update_payment_type
+        get 'cancel' => :edit_cancel
+        put 'cancel' => :update_cancel
+        put :refund
+        get :wait
+      end
     end
     resources :order_items
     resources :payment_methods

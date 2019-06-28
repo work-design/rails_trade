@@ -7,7 +7,7 @@ wx.ready(function() {
     paySign: "<%= @wxpay_order[:paySign] %>",
     success: function(res) {
       alert(res);
-      window.location.href = '<%= my_orders_url %>';
+      window.location.href = '<%= wait_my_orders_url(@order.id) %>';
     },
     error: function(e) {
       alert(e)

@@ -62,6 +62,18 @@ module RailsTrade::Ordering::Payment
     end
   end
 
+  def send_to_socket
+    ActionCable.server.broadcast(
+      "User:#{self.user_id}",
+      id: id,
+      body: body,
+      count: unread_count,
+      link: link,
+      showtime: notification_setting.showtime
+    )
+    self.update sent_at: Time.now
+  end
+
   def payment_result(payment_kind: payment_type)
     if self.payment_status == 'all_paid'
       return self

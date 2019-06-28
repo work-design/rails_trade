@@ -18,7 +18,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
       format.html
       format.html.wechat do
         self.class.include Wechat::Responder
-        render 'index', layout: 'wx'
+        render 'index'
       end
       format.json
     end
@@ -82,6 +82,9 @@ class Trade::My::OrdersController < Trade::My::BaseController
       format.html
       format.json { render json: @order }
     end
+  end
+  
+  def wait
   end
 
   def edit

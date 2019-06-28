@@ -2,7 +2,7 @@
   <div class="fields">
     <%= f.text_field :uuid, css: { wrapper_input: 'three wide field' } %>
     <%= f.submit %>
-    <%= link_to t('.clear'), filter_params(only: []), class: 'ui white button' %>
+    <%= link_to t('.clear'), filter_params(only: []), class: 'ui button' %>
   </div>
 <% end %>
 <div class="ui divider"></div>
@@ -24,5 +24,3 @@
   <% end %>
   </dd>
 </dl>
-
-
