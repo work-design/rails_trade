@@ -74,17 +74,16 @@ module RailsTrade::Good
 
     o.currency = self.currency
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
-
+    o.extra = params.delete(:extra) || {}
+    
     number = params.delete(:number) || 1
     amount = params.delete(:amount) || number * self.price.to_d
-    extra = params.delete(:extra) || {}
     good_name = params.delete(:name) || self.name
 
     ti = o.trade_items.build(
       good: self,
       number: number,
       original_price: amount,
-      extra: extra,
       good_name: good_name
     )
     
@@ -98,7 +97,6 @@ module RailsTrade::Good
 
     o.assign_attributes params
     o.compute_amount
-    o.extra = extra
     o
   end
 
