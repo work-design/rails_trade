@@ -28,7 +28,7 @@ module RailsTrade::Ordering::Refund
   end
 
   def confirm_refund!
-    self.order_items.each(&:confirm_refund!)
+    self.trade_items.each(&:confirm_refund!)
   end
 
 end

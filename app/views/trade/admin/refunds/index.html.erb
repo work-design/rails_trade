@@ -1,24 +1,20 @@
-<div class="ui borderless menu">
-  <div class="item">Refund</div>
-</div>
-
 <div class="ui top attached segment">
-  <%= render 'search_form' %>
+  <%= render 'filter' %>
 </div>
 
 <table class="ui bottom attached selectable table">
   <thead>
-  <tr>
-    <th>UUID</th>
-    <th>Order</th>
-    <th>Total Amount</th>
-    <th>Type</th>
-    <th>Created At</th>
-    <th>State</th>
-    <th>Comment</th>
-    <th>Refunded At</th>
-    <th>Operator</th>
-  </tr>
+    <tr>
+      <th><%= Refund.human_attribute_name(:refund_uuid) %></th>
+      <th>Order</th>
+      <th><%= Refund.human_attribute_name(:total_amount) %></th>
+      <th><%= Refund.human_attribute_name(:type) %></th>
+      <th><%= Refund.human_attribute_name(:created_at) %></th>
+      <th><%= Refund.human_attribute_name(:state) %></th>
+      <th><%= Refund.human_attribute_name(:comment) %></th>
+      <th><%= Refund.human_attribute_name(:refunded_at) %>/th>
+      <th>Operator</th>
+    </tr>
   </thead>
   <tbody>
   <% @refunds.each do |refund| %>
