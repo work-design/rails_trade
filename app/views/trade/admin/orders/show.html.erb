@@ -1,6 +1,6 @@
 <% content_for :breadcrumb do %>
 <div class="ui basic segment breadcrumb">
-  <%= link_to '全部订单', admin_orders_path(buyer_type: @order.buyer_type, buyer_id: @order.buyer_id), class: 'section' %>
+  <%= link_to t('trade.admin.orders.index.title'), admin_orders_path(buyer_type: @order.buyer_type, buyer_id: @order.buyer_id), class: 'section' %>
   <i class="right chevron icon divider"></i>
   <%= link_to '编辑', edit_admin_order_path(@order), class: 'section' %>
 </div>
@@ -9,8 +9,8 @@
 <table class="ui top attached table">
   <thead>
     <tr>
-      <th>商品</th>
-      <th>数量</th>
+      <th><%= TradeItem.human_attribute_name(:good_id) %></th>
+      <th><%= TradeItem.human_attribute_name(:number) %></th>
       <th></th>
       <th>Pure Price</th>
       <th>Serve Sum</th>
@@ -28,40 +28,24 @@
       <td><%= trade_item.number %></td>
       <td><%= link_to '订单流程', admin_order_item_path(trade_item) %></td>
       <td><%= trade_item.original_price %></td>
-      <td><%= trade_item.serve_sum %></td>
-      <td><%= trade_item.promote_sum %></td>
+      <td><%= trade_item.additional_price %></td>
+      <td><%= trade_item.reduced_price %></td>
       <td><%= trade_item.amount %></td>
     </tr>
-    <% trade_item.order_serves.each do |order_serve| %>
+    <% trade_item.trade_promotes.each do |trade_promote| %>
       <tr class="warning">
-        <td><%= order_serve.serve.name %></td>
+        <td><%= trade_promote.promote.name %></td>
         <td colspan="3"></td>
-        <td><%= order_serve.amount %></td>
+        <td><%= trade_promote.amount %></td>
         <td colspan="3"></td>
       </tr>
     <% end %>
-    <% trade_item.order_promotes.each do |order_promote| %>
-      <tr class="warning">
-        <td><%= order_promote.promote.name %></td>
-        <td colspan="4"></td>
-        <td><span style="color: red;"><%= order_promote.amount %></span></td>
-        <td colspan="2"></td>
-      </tr>
-    <% end %>
   <% end %>
-  <% @order.pure_order_serves.each do |order_serve| %>
+  <% @order.trade_promotes.each do |trade_promote| %>
     <tr>
-      <td><%= order_serve.serve.name %></td>
+      <td><%= trade_promote.promote.name %></td>
       <td colspan="5"></td>
-      <td><%= order_serve.amount %></td>
-      <td></td>
-    </tr>
-  <% end %>
-  <% @order.pure_order_promotes.each do |order_promote| %>
-    <tr>
-      <td><%= order_promote.promote.name %></td>
-      <td colspan="5"></td>
-      <td><%= order_promote.amount %></td>
+      <td><%= trade_promote.amount %></td>
       <td></td>
     </tr>
   <% end %>

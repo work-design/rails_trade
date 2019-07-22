@@ -30,7 +30,7 @@ module RailsTrade::TradeItem
 
     belongs_to :good, polymorphic: true
     belongs_to :trade, polymorphic: true, autosave: true, inverse_of: :trade_items
-    has_many :trade_promotes, -> { includes(:promote) }, as: :item, autosave: true, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote) }, autosave: true, dependent: :destroy
     has_many :providers, dependent: :delete_all  # 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }

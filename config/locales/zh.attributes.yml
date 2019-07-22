@@ -12,6 +12,9 @@ zh:
         currency: 币种
         user_id: 购买者
         extra: 附加信息
+      trade_item:
+        good_id: 商品
+        number: 数量
       payment:
         total_amount: 总金额
         income_amount: 净收入
