@@ -59,7 +59,7 @@ module RailsTrade::Good
     o
   end
 
-  def generate_order(user: nil, buyer: nil, **params)
+  def generate_order(user: nil, buyer: nil, maintain_id: nil, **params)
     if buyer
       o = buyer.orders.build
     elsif user
@@ -74,6 +74,7 @@ module RailsTrade::Good
 
     o.currency = self.currency
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
+    o.maintain_id = maintain_id
     o.extra = params.delete(:extra) || {}
     
     number = params.delete(:number) || 1

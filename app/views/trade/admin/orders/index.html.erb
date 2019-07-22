@@ -12,14 +12,14 @@
   <thead>
     <tr>
       <th><%= Order.human_attribute_name(:uuid) %></th>
-      <th><%= Order.human_attribute_name(:user_id) %></th>
       <th><%= Order.human_attribute_name(:payment_type) %></th>
       <th><%= Order.human_attribute_name(:amount) %></th>
       <th><%= Order.human_attribute_name(:received_amount) %></th>
       <th><%= Order.human_attribute_name(:currency) %></th>
       <th><%= Order.human_attribute_name(:payment_status) %></th>
-      <th><%= Order.human_attribute_name(:extra) %></th>
       <th><%= Order.human_attribute_name(:created_at) %></th>
+      <th><%= Order.human_attribute_name(:user_id) %></th>
+      <th><%= Order.human_attribute_name(:extra) %></th>
       <th></th>
     </tr>
   </thead>
@@ -27,7 +27,6 @@
   <% @orders.each do |order| %>
     <tr id="order_<%= order.id %>">
       <td><%= link_to_if order.uuid, admin_order_path(order) %></td>
-      <td><%= link_to order.user_name, admin_orders_path(user_id: order.buyer_id) %></td>
       <td><span class="ui label"><%= order.payment_type %></span></td>
       <td><%= order.amount %></td>
       <td><%= order.received_amount %></td>
@@ -42,8 +41,9 @@
           <%= link_to t('.add_payment'), new_admin_payment_path(order_id: order.id), remote: true, class: 'ui mini green button' %>
         <% end %>
       </td>
-      <td><%= simple_format(order.extra_i18n) %></td>
       <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
+      <td><%= link_to order.user_name, admin_orders_path(user_id: order.buyer_id) %></td>
+      <td><%= simple_format(order.extra_i18n) %></td>
       <td>
         <%= link_to edit_admin_order_path(order), data: { tooltip: t('.edit') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
