@@ -15,6 +15,9 @@ zh:
       trade_item:
         good_id: 商品
         number: 数量
+        original_price: 原价
+        additional_price: 附加费
+        reduced_price: 优惠金额
       payment:
         total_amount: 总金额
         income_amount: 净收入

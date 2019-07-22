@@ -21,13 +21,8 @@
       </td>
       <td><%= order.payment_status_i18n %></td>
       <td>
-        <% if order.payment_type %>
-          <span class="ui label"><%= order.payment_type %></span>
-        <% else %>
-          <%= link_to '选择支付方式', payment_type_my_order_path(order), remote: true, class: 'ui label' %>
-        <% end %>
         <% if order.can_pay? %>
-          <%= link_to 'pay', "/my/orders/#{order.id}/#{order.payment_type}_pay", remote: order.payment_type == 'wxpay' %>
+          <%= link_to '支付', payment_type_my_order_path(order), remote: true, class: 'ui mini button' %>
         <% end %>
       </td>
       <td>

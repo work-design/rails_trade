@@ -1,7 +1,7 @@
 module RailsTrade::PaymentType::Wxpay
 
   def wxpay_prepay(trade_type: 'JSAPI', spbill_create_ip: '127.0.0.0', notify_url: url_helpers.wxpay_notify_payments_url, **options)
-    appid = options[:appid] || WxPay.appid
+    appid = options[:appid] || ::WxPay.appid
     params = {
       body: "订单编号: #{self.uuid}",
       out_trade_no: self.uuid,
@@ -12,7 +12,7 @@ module RailsTrade::PaymentType::Wxpay
       openid: user.oauth_users.find_by(app_id: appid)&.uid
     }
     
-    WxPay::Service.invoke_unifiedorder params, options
+    ::WxPay::Service.invoke_unifiedorder params, options
   end
 
   def wxpay_order(trade_type: 'JSAPI', **options)
@@ -26,9 +26,9 @@ module RailsTrade::PaymentType::Wxpay
         prepayid: prepay['prepay_id']
       }
       if trade_type == 'JSAPI'
-        WxPay::Service.generate_js_pay_req params, options
+        ::WxPay::Service.generate_js_pay_req params, options
       else
-        WxPay::Service.generate_app_pay_req params, options
+        ::WxPay::Service.generate_app_pay_req params, options
       end
     elsif prepay['result_code'] == 'FAIL'
       {

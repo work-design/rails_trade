@@ -1,13 +1,12 @@
 <div class="ui modal" id="modal">
   <i class="close icon"></i>
-  <div class="ui header blue">
-    Select Payment Type
+  <div class="ui header">
+    <%= t('.title') %>
   </div>
-  
+
   <div class="content">
-    <%= form_with model: @order, url: payment_type_my_order_path(@order), method: :patch do |f| %>
-      <%= f.select :payment_type, options_for_select(Order.options_i18n(:payment_type), @order.payment_type) %>
-      <%= f.submit %>
+    <% ['alipay', 'wxpay'].each do |payment_type| %>
+      <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", remote: payment_type == 'wxpay' %>
     <% end %>
   </div>
 </div>

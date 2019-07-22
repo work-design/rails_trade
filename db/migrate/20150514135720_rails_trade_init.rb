@@ -27,7 +27,6 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.decimal :received_amount, precision: 10, scale: 2
       t.string :currency
       t.integer :payment_id
-      t.string :payment_type
       t.string :payment_status, index: true
       t.boolean :myself
       t.string :note, limit: 4096

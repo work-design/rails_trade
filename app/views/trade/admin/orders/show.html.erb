@@ -12,9 +12,9 @@
       <th><%= TradeItem.human_attribute_name(:good_id) %></th>
       <th><%= TradeItem.human_attribute_name(:number) %></th>
       <th></th>
-      <th>Pure Price</th>
-      <th>Serve Sum</th>
-      <th>Promote Sum</th>
+      <th><%= TradeItem.human_attribute_name(:original_price) %></th>
+      <th><%= TradeItem.human_attribute_name(:additional_price) %></th>
+      <th><%= TradeItem.human_attribute_name(:reduced_price) %></th>
       <th></th>
     </tr>
   </thead>
@@ -26,7 +26,7 @@
         <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
       </td>
       <td><%= trade_item.number %></td>
-      <td><%= link_to '订单流程', admin_order_item_path(trade_item) %></td>
+      <td><%= link_to '订单流程', admin_trade_item_path(trade_item) %></td>
       <td><%= trade_item.original_price %></td>
       <td><%= trade_item.additional_price %></td>
       <td><%= trade_item.reduced_price %></td>
