@@ -4,17 +4,16 @@ module RailsTrade::Good
   included do
     attribute :name, :string
     attribute :sku, :string, default: -> { SecureRandom.hex }
-    attribute :price, :decimal, default: 0
     attribute :currency, :string
+    attribute :price, :decimal, default: 0
     attribute :advance_payment, :decimal, default: 0
     attribute :extra, :json, default: {}
     attribute :unit, :string
     attribute :quantity, :decimal, default: 0
     attribute :unified_quantity, :decimal, default: 0
     
-    has_many :cart_items, as: :good, autosave: true, dependent: :destroy
-    has_many :order_items, as: :good, dependent: :nullify
-    has_many :orders, through: :order_items
+    has_many :trade_items, as: :trade, autosave: true, dependent: :destroy
+    has_many :orders, through: :trade_items, source: :trade
 
     has_many :promote_goods, as: :good
   end

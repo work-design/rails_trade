@@ -21,6 +21,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
       @order = Order.find params[:order_id]
       @payment.total_amount = @order.amount
     end
+    @payment.payment_uuid = UidHelper.nsec_uuid('PAY')
   end
 
   def create
