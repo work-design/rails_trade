@@ -7,6 +7,15 @@ module RailsTrade::Ordering::Payment
   def can_pay?
     self.payment_status != 'all_paid'
   end
+  
+  def sent_notice
+    return unless self.user
+    PaidChannel.broadcast_to(
+      self.user_id,
+      id: id,
+      link: url_helpers.my_order_url(id),
+    )
+  end
 
   def unreceived_amount
     self.amount.to_d - self.received_amount.to_d

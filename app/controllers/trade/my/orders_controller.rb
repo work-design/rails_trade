@@ -6,7 +6,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
     :update,
     :refund,
     :edit_payment_type,
-    :update_payment_type,
+    :wait,
     :destroy,
   ]
 
@@ -77,14 +77,19 @@ class Trade::My::OrdersController < Trade::My::BaseController
   end
 
   def show
-
     respond_to do |format|
       format.html
       format.json { render json: @order }
     end
   end
   
+  # todo part paid case
   def wait
+    if @order.all_paid?
+      redirect_to my_order_url(@order)
+    else
+      render 'wait'
+    end
   end
 
   def edit
@@ -113,19 +118,6 @@ class Trade::My::OrdersController < Trade::My::BaseController
       format.html
       format.js
       format.json { render json: @order }
-    end
-  end
-
-  def update_payment_type
-    respond_to do |format|
-      if @order.update(order_params)
-        format.js
-        format.html { redirect_to action: 'edit' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
     end
   end
 

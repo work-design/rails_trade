@@ -89,7 +89,6 @@ Rails.application.routes.draw do
         get :paypal_execute
         get :pay
         get 'payment_type' => :edit_payment_type
-        patch 'payment_type' => :update_payment_type
         get 'cancel' => :edit_cancel
         put 'cancel' => :update_cancel
         put :refund
