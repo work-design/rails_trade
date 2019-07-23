@@ -18,9 +18,7 @@ module RailsTrade::PaymentType::Wxpay
   def wxpay_order(trade_type: 'JSAPI', **options)
     prepay = wxpay_prepay(trade_type: trade_type, **options)
 
-    return { return_code: prepay['return_code'], return_msg: prepay['return_msg'] } unless prepay.success?
-
-    if prepay['result_code'] == 'SUCCESS'
+    if prepay.success?
       params = {
         noncestr: prepay['nonce_str'],
         prepayid: prepay['prepay_id']
@@ -30,12 +28,8 @@ module RailsTrade::PaymentType::Wxpay
       else
         ::WxPay::Service.generate_app_pay_req params, options
       end
-    elsif prepay['result_code'] == 'FAIL'
-      {
-        result_code: 'FAIL',
-        err_code: prepay['err_code'],
-        err_code_des: prepay['err_code_des']
-      }
+    else
+      prepay.except(:raw)
     end
   end
 
