@@ -7,15 +7,6 @@ module RailsTrade::Ordering::Payment
   def can_pay?
     self.payment_status != 'all_paid'
   end
-  
-  def sent_notice
-    return unless self.user
-    PaidChannel.broadcast_to(
-      self.user_id,
-      id: id,
-      link: url_helpers.my_order_url(id),
-    )
-  end
 
   def unreceived_amount
     self.amount.to_d - self.received_amount.to_d
@@ -36,6 +27,7 @@ module RailsTrade::Ordering::Payment
   def confirm_paid!
     self.expire_at = nil
     self.trade_items.each(&:confirm_paid!)
+    sent_notice
   end
 
   def confirm_part_paid!
@@ -71,16 +63,12 @@ module RailsTrade::Ordering::Payment
     end
   end
 
-  def send_to_socket
-    ActionCable.server.broadcast(
-      "User:#{self.user_id}",
-      id: id,
-      body: body,
-      count: unread_count,
-      link: link,
-      showtime: notification_setting.showtime
-    )
-    self.update sent_at: Time.now
+  def sent_notice
+    return unless self.user
+    PaidChannel.broadcast_to(
+      self.user_id,
+      link: url_helpers.my_order_url(id),
+      )
   end
 
   def payment_result(payment_kind: payment_type)
