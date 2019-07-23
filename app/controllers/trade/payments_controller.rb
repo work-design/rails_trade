@@ -40,13 +40,13 @@ class Trade::PaymentsController < ApplicationController
     notify_params = Hash.from_xml(request.body.read)['xml']
 
     @order = Order.find_by(uuid: notify_params['out_trade_no'])
-    wechat_config = WechatConfig.find_by(appid: notify_params['appid'])
+    wechat_config = WechatApp.find_by(appid: notify_params['appid'])
     result = nil
 
     if WxPay::Sign.verify?(notify_params, key: wechat_config.key)
       result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'WxpayPayment'
     end
-
+binding.pry
     if result
       render xml: { return_code: 'SUCCESS' }.to_xml(root: 'xml', dasherize: false)
     else
