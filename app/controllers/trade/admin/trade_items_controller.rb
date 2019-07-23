@@ -1,4 +1,4 @@
-class Trade::Admin::CartItemsController < Trade::Admin::BaseController
+class Trade::Admin::TradeItemsController < Trade::Admin::BaseController
   before_action :set_cart_items, only: [:index, :create, :only, :total]
   before_action :set_cart_item, only: [:update, :destroy]
   before_action :set_additions
