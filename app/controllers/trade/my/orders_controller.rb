@@ -86,7 +86,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
   # todo part paid case
   def wait
     if @order.all_paid?
-      redirect_to my_order_url(@order)
+      render 'show'
     else
       render 'wait'
     end
@@ -153,7 +153,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
       :address_id,
       :invoice_address_id,
       :note,
-      order_items_attributes: [:cart_item_id]
+      trade_items_attributes: {}
     )
   end
 
