@@ -1,9 +1,6 @@
-<div class="ui top attached borderless menu">
+<div class="ui top attached tabular menu">
   <%= link_to 'Verified', admin_payment_methods_path, class: active_helper(action: 'index') %>
   <%= link_to 'Unverified', unverified_admin_payment_methods_path, class: active_helper(action: 'unverified') %>
-  <div class="right menu">
-    <div class="item"><%= link_to t('.new'), new_admin_payment_method_path, class: 'ui teal button' %></div>
-  </div>
 </div>
 
 <div class="ui attached segment">

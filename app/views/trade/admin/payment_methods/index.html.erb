@@ -9,7 +9,11 @@
       <th><%= PaymentMethod.human_attribute_name(:bank) %></th>
       <th><%= PaymentMethod.human_attribute_name(:payment_references) %></th>
       <th><%= PaymentMethod.human_attribute_name(:verified) %></th>
-      <th>Operation</th>
+      <th>
+        <%= link_to new_admin_payment_method_path, class: 'ui teal button' do %>
+          <i class="fas fa-plus"></i><%= t('.new') %>
+        <% end %>
+      </th>
     </tr>
     </thead>
 
