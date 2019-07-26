@@ -5,9 +5,11 @@ module RailsTrade::TradePromote
     attribute :sequence, :integer
     attribute :scope, :string
     attribute :based_amount, :decimal, default: 0  # 基于此价格计算，默认为cart_item 的 amount，与sequence有关
-    attribute :original_amount, :decimal, default: 0  # 默认和amount 相等，如果客服人员修改过价格后，则amount 会发生变化
+    attribute :original_amount, :decimal, default: 0  # 默认和 amount 相等，如果客服人员修改过价格后，则amount 会发生变化
+    attribute :computed_amount, :decimal, default: 0  # 默认计算出的价格，默认为amount
     attribute :amount, :decimal, default: 0  # 算出的实际价格
-
+    attribute :note, :string  # 备注
+    
     belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true
     belongs_to :promote

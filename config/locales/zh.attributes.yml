@@ -47,4 +47,14 @@ zh:
       promote:
         scope: 应用范围
         verified: 是否生效
-        default: 是否默认选择
+        editable: 是否可改价
+      promote_good:
+        good_type: 商品类型
+        good_id: 商品
+        status: 状态
+      promote_charge:
+        value: 值
+        min: 起始值
+        max: 结束值
+        extra: 额外参数
+        parameter: 参数

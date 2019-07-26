@@ -3,6 +3,7 @@ zh:
     admin:
       orders:
         index:
+          title: 订单列表
           add_payment: 添加支付流水
           refund: 申请退款
           refund_list: 退款详情

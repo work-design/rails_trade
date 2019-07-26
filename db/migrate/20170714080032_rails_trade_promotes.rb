@@ -10,8 +10,9 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.datetime :start_at
       t.datetime :finish_at
       t.string :scope
-      t.boolean :verified
       t.integer :sequence
+      t.boolean :verified
+      t.booleam :editable
       t.timestamps
     end
 
@@ -55,8 +56,10 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :scope
       t.integer :sequence
       t.decimal :based_amount, precision: 10, scale: 2
-      t.decimal :amount, precision: 10, scale: 2
       t.decimal :original_amount, precision: 10, scale: 2
+      t.decimal :computed_amount, precision: 10, scale: 2
+      t.decimal :amount, precision: 10, scale: 2
+      t.string :note
       t.timestamps
     end
 

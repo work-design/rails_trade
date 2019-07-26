@@ -3,13 +3,7 @@
 </div>
 
 <div class="ui attached segment">
-  <dl>
-    <dt><%= Promote.human_attribute_name(:scope) %></dt>
-    <dd>
-      <%= link_to 'Single', filter_params(scope: 'single'), class: active_params(scope: 'single', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-      <%= link_to 'Overall', filter_params(scope: 'overall'), class: active_params(scope: 'overall', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-    </dd>
-  </dl>
+  <%= render 'filter' %>
 </div>
 
 <table class="ui bottom attached selectable table">
@@ -28,6 +22,7 @@
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
       <th><%= Promote.human_attribute_name(:verified) %></th>
+      <th><%= Promote.human_attribute_name(:editable) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:deal) %></th>
       <th></th>
@@ -54,6 +49,11 @@
       <td>
         <div class="ui toggle checkbox">
           <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
+        </div>
+      </td>
+      <td>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>
       </td>
       <td><%= promote.sequence %></td>

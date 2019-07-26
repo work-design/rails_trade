@@ -7,10 +7,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
     q_params.merge! params.permit(:scope)
     
     @promotes = Promote.default_where(q_params).order(id: :desc).page(params[:page])
-    respond_to do |format|
-      format.json
-      format.html
-    end
   end
 
   def search
@@ -44,7 +40,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
   def update
     @promote.assign_attributes promote_params
-    
+
     respond_to do |format|
       if @promote.save
         format.html { redirect_to admin_promotes_url }
@@ -77,11 +73,11 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :code,
       :short_name,
       :description,
+      :scope,
       :start_at,
       :finish_at,
       :verified,
-      :default,
-      :scope,
+      :editable,
       extra: []
     )
     p.merge! default_params

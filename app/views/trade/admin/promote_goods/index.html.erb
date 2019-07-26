@@ -1,9 +1,9 @@
 <% content_for :breadcrumb do %>
 <div class="ui basic segment breadcrumb">
-  <%= link_to 'All Promotes', admin_promotes_path, class: 'section' %>
+  <%= link_to t('trade.admin.orders.index.title'), admin_promotes_path, class: 'section' %>
   <% if params[:promote_id] %>
     <i class="fas fa-angle-right divider"></i>
-    <div class="active section"><%= @promote.name %></div>
+    <div class="section"><%= @promote.name %></div>
   <% end %>
   <i class="fas fa-angle-right divider"></i>
   <div class="active section">设置商品</div>
@@ -17,11 +17,8 @@
 <table class="ui bottom attached selectable table">
   <thead>
     <tr>
-      <th><%= PromoteGood.human_attribute_name(:id) %></th>
-      <th>
-        <p><%= PromoteGood.human_attribute_name(:good_type) %></p>
-        <p><%= PromoteGood.human_attribute_name(:good_id) %></p>
-      </th>
+      <th><%= PromoteGood.human_attribute_name(:good_type) %></th>
+      <th><%= PromoteGood.human_attribute_name(:good_id) %></th>
       <th><%= PromoteGood.human_attribute_name(:status) %></th>
       <th>
         <%= link_to new_admin_promote_good_path(promote_id: params[:promote_id]), remote: true, class: 'ui teal button' do %>
@@ -34,13 +31,12 @@
   <tbody>
   <% @promote_goods.each do |promote_good| %>
     <tr>
-      <td><%= promote_good.id %></td>
+      <td><%= promote_good.good_type_i18n %></td>
       <td>
-        <p><%= promote_good.good_type_i18n %></p>
         <% if promote_good.good_id %>
-          <p><%= promote_good.good.name_detail %></p>
+          <%= promote_good.good.name_detail %>
         <% else %>
-          <p>不限商品</p>
+          不限商品
         <% end %>
       </td>
       <td><%= promote_good.status_i18n %></td>

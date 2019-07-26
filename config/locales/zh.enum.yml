@@ -26,12 +26,12 @@ zh:
           confirmed: 已确认
       promote:
         scope:
-          overall: 所有商品
+          overall: 全体商品
           single: 单个商品
       trade_promote:
         scope:
-          single: 单个商品
           overall: 全体商品
+          single: 单个商品
       promote_charge:
         type:
           DiscountPromoteCharge: 折扣策略
@@ -46,11 +46,11 @@ zh:
           volume: 体积
       promote_buyer:
         status:
-          default: 默认
+          default: 默认生效
           available: 可选
           unavailable: 不可选
       promote_good:
         status:
-          default: 默认
+          default: 默认生效
           available: 可选
           unavailable: 不可选

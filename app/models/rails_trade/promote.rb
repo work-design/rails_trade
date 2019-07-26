@@ -5,6 +5,7 @@ module RailsTrade::Promote
     attribute :finish_at, :datetime
     attribute :sequence, :integer, default: 1
     attribute :verified, :boolean, default: false
+    attribute :editable, :boolean, default: false  # 是否可更改价格
     
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all
