@@ -11,7 +11,6 @@
   <% else %>
     <%= f.select :promote_good_id, options_for_select([[@promote_buyer.promote&.name, @promote_buyer.promote_id]], @promote_buyer.promote_id) %>
   <% end %>
-  <%= f.select :status, options_for_select(PromoteBuyer.options_i18n(:status), @promote_buyer.status) %>
   <%= f.datetime :effect_at %>
   <%= f.datetime :expire_at %>
   <%= f.submit %>

@@ -29,11 +29,12 @@ module RailsTrade::TradePromote
       if trade_item
         self.trade = trade_item.trade
       end
-      self.sequence = self.promote.sequence
-      self.scope = self.promote.scope
       if self.promote_charge
         self.promote_id = self.promote_charge.promote_id
       end
+      self.sequence = self.promote.sequence
+      self.scope = self.promote.scope
+      
     end
     before_validation :compute_amount
     after_create_commit :check_promote_buyer
@@ -41,17 +42,18 @@ module RailsTrade::TradePromote
 
   def compute_amount
     if single?
-      value = item.send(promote_charge.metering)
-      if METERING.include?(promote_charge.metering)
-        added_amount = item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+      value = trade_item.send(promote.metering)
+      if METERING.include?(promote.metering)
+        added_amount = trade_item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote.metering)
       else
         added_amount = 0
       end
+      
       self.based_amount = value + added_amount
     else
-      value = trade.send(promote_charge.metering)
-      if METERING.include?(promote_charge.metering)
-        added_amount = trade.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote_charge.metering)
+      value = trade.send(promote.metering)
+      if METERING.include?(promote.metering)
+        added_amount = trade.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote.metering)
       else
         added_amount = 0
       end

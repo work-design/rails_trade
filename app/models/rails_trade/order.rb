@@ -28,8 +28,8 @@ module RailsTrade::Order
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :refunds, dependent: :nullify, inverse_of: :order
     
-    has_many :trade_items, as: :trade, autosave: true, inverse_of: :trade, dependent: :destroy
-    has_many :trade_promotes, -> { includes(:promote) }, as: :trade, autosave: true, inverse_of: :trade, dependent: :destroy
+    has_many :trade_items, as: :trade, inverse_of: :trade, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote).overall }, as: :trade, inverse_of: :trade, dependent: :destroy
 
     accepts_nested_attributes_for :trade_items
     accepts_nested_attributes_for :trade_promotes

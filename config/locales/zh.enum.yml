@@ -51,9 +51,6 @@ zh:
           unavailable: 不适用
           specific: 特定的
       promote_buyer:
-        status:
-          available: 可用
-          unavailable: 不可用
         state:
           unused: 未使用
           used: 已使用

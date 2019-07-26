@@ -7,7 +7,7 @@ module RailsTrade::PromoteBuyer
     attribute :expire_at, :datetime
     
     belongs_to :promote
-    belongs_to :promote_good
+    belongs_to :promote_good, optional: true
     belongs_to :buyer, polymorphic: true
     has_many :trade_promotes, dependent: :nullify
     
@@ -16,13 +16,8 @@ module RailsTrade::PromoteBuyer
       used: 'used',
       expired: 'expired'
     }
-    enum status: {
-      default: 'default',
-      available: 'available',
-      unavailable: 'unavailable'
-    }
 
-    scope :valid, -> { where(status: ['default', 'available']) }
+    scope :valid, -> { available.where('expire_at >= ?', Time.current) }
     
     before_validation do
       self.promote = self.promote_good.promote

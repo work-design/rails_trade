@@ -27,10 +27,6 @@ module RailsTrade::Good
     #self.retail_price + self.promote_price
   end
 
-  def order_done
-    puts 'Should realize in good entity'
-  end
-
   def valid_promote_good_ids
     ids = PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
     un_ids = self.promote_goods.unavailable.pluck(:id)
@@ -44,11 +40,6 @@ module RailsTrade::Good
   def default_promote_good_ids
     PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
   end
- 
-  def valid_promote_buyers(buyer)
-    ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.unavailable.pluck(:promote_id)
-    Promote.where(id: ids)
-  end
 
   def generate_order!(user: nil, buyer: nil, **params)
     o = generate_order(user: user, buyer: buyer, **params)
@@ -57,7 +48,7 @@ module RailsTrade::Good
     o
   end
 
-  def generate_order(user: nil, buyer: nil, maintain_id: nil, promote_good_ids: [], promote_buyer_ids: [], **params)
+  def generate_order(user: nil, buyer: nil, maintain_id: nil, **params)
     if buyer
       o = buyer.orders.build
     elsif user
@@ -89,8 +80,13 @@ module RailsTrade::Good
     ti.compute_amount
 
     o.assign_attributes params
+    o.compute_promote
     o.compute_amount
     o
+  end
+
+  def order_done
+    puts 'Should realize in good entity'
   end
 
 end

@@ -43,7 +43,6 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.references :promote
       t.references :promote_good
       t.references :buyer, polymorphic: true
-      t.string :status
       t.string :state
       t.integer :trade_promotes_count, default: 0
       t.datetime :effect_at

@@ -78,19 +78,11 @@ module RailsTrade::TradeItem
     trade.save
   end
 
-  def confirm_ordered!
-    self.good.order_done
+  def valid_promote_buyers(buyer)
+    ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.unavailable.pluck(:promote_id)
+    Promote.where(id: ids)
   end
-
-  def confirm_paid!
-  end
-
-  def confirm_part_paid!
-  end
-
-  def confirm_refund!
-  end
-
+  
   def compute_promote
     promote_good_ids = good.valid_promote_good_ids
     promote_buyer_ids = buyer.available_promote_buyer_ids
@@ -99,7 +91,7 @@ module RailsTrade::TradeItem
     compute_charges_with_good(promote_good_ids)
   end
 
-  def compute_promote_with_buyer(promote_buyer_ids = [], **extra)
+  def compute_promote_with_buyer(promote_buyer_ids = [])
     promote_buyers = PromoteBuyer.where(id: promote_buyer_ids)
   
     promote_buyers.each do |promote_buyer|
@@ -121,5 +113,19 @@ module RailsTrade::TradeItem
   def metering_attributes
     attributes.slice 'quantity', 'amount', 'number'
   end
+
+  def confirm_ordered!
+    self.good.order_done
+  end
+
+  def confirm_paid!
+  end
+
+  def confirm_part_paid!
+  end
+
+  def confirm_refund!
+  end
+
 
 end
