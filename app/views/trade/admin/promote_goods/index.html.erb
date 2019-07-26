@@ -43,6 +43,9 @@
       <td><%= promote_good.status_i18n %></td>
       <td><%= promote_good.promote.name %></td>
       <td>
+        <%= link_to admin_promote_buyers_path(promote_good_id: promote_good.id), data: { tooltip: '派发' }, class: 'ui mini circular icon button' do %>
+          <i class="fas fa-gift"></i>
+        <% end %>
         <%= link_to edit_admin_promote_good_path(promote_good), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>

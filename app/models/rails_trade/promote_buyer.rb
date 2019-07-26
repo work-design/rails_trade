@@ -5,6 +5,7 @@ module RailsTrade::PromoteBuyer
     attribute :status, :string, default: 'available'
     
     belongs_to :promote
+    belongs_to :promote_good
     belongs_to :buyer, polymorphic: true, optional: true
     has_many :trade_promotes, dependent: :nullify
     
@@ -20,6 +21,10 @@ module RailsTrade::PromoteBuyer
     }
 
     scope :valid, -> { where(status: ['default', 'available']) }
+    
+    before_validation do
+      self.promote = self.promote_good.promote
+    end
   end
 
 end

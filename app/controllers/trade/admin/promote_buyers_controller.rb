@@ -5,8 +5,8 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
     q_params = {}
     q_params.merge! params.permit(:promote_id, :buyer_type, :buyer_id)
     @promote_buyers = PromoteBuyer.includes(:buyer, :promote).default_where(q_params).page(params[:page])
-    if params[:promote_id]
-      @promote = Promote.find params[:promote_id]
+    if params[:promote_good_id]
+      @promote_good = PromoteGood.find params[:promote_good_id]
     end
   end
 
@@ -45,7 +45,7 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
     q = params.fetch(:promote_buyer, {}).permit(
       :buyer_type,
       :buyer_id,
-      :promote_id,
+      :promote_good_id,
       :status
     )
     q[:buyer_type] = 'User' if q[:buyer_type].blank?

@@ -30,3 +30,4 @@ $('#promote_buyer_promote_id').dropdown({
   saveRemoteData: true,
   minCharacters: 2
 });
+$('#promote_buyer_status').dropdown();

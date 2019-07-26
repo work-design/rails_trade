@@ -6,9 +6,11 @@
   <% unless params[:buyer_id] %>
     <%= f.select :buyer_id, options_for_select([], @promote_buyer.buyer_id), include_blank: true %>
   <% end %>
-  <% unless params[:promote_id] %>
-    <%= f.select :promote_id, options_for_select([[@promote_buyer.promote&.name, @promote_buyer.promote_id]], @promote_buyer.promote_id) %>
+  <% if params[:promote_good_id] %>
+    <%= f.hidden_field :promote_good_id, value: params[:promote_good_id] %>
+  <% else %>
+    <%= f.select :promote_good_id, options_for_select([[@promote_buyer.promote&.name, @promote_buyer.promote_id]], @promote_buyer.promote_id) %>
   <% end %>
-  <%= f.check_box :available %>
+  <%= f.select :status, options_for_select(PromoteBuyer.options_i18n(:status), @promote_buyer.status) %>
   <%= f.submit %>
 <% end %>

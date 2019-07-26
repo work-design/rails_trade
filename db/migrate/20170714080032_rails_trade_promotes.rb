@@ -29,23 +29,24 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :unit
       t.timestamps
     end
+
+    create_table :promote_goods do |t|
+      t.references :promote
+      t.references :good, polymorphic: true
+      t.string :status
+      t.timestamps
+    end
     
     create_table :promote_buyers do |t|
-      t.references :buyer, polymorphic: true
       t.references :promote
+      t.references :promote_good
+      t.references :buyer, polymorphic: true
       t.string :status
       t.string :state
       t.integer :trade_promotes_count, default: 0
       t.timestamps
     end
-
-    create_table :promote_goods do |t|
-      t.references :good, polymorphic: true
-      t.references :promote
-      t.string :status
-      t.timestamps
-    end
-
+    
     create_table :trade_promotes do |t|
       t.references :trade, polymorphic: true
       t.references :trade_item

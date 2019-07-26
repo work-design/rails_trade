@@ -52,6 +52,9 @@ zh:
         good_type: 商品类型
         good_id: 商品
         status: 状态
+      promote_buyer:
+        buyer_type: 用户类型
+        status: 状态
       promote_charge:
         value: 值
         min: 起始值

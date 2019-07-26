@@ -31,22 +31,21 @@ module RailsTrade::Good
     puts 'Should realize in good entity'
   end
 
-  def valid_promote_ids
-    ids = PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:promote_id)
-    un_ids = self.promote_goods.unavailable.pluck(:promote_id)
+  def valid_promote_good_ids
+    ids = PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
+    un_ids = self.promote_goods.unavailable.pluck(:id)
     ids - un_ids
   end
-  
-  def default_promote_ids
-    ids = PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:promote_id)
-    
+
+  def valid_promote_goods
+    PromoteGood.where(id: valid_promote_ids)
   end
   
-  def valid_promotes
-    Promote.where(id: valid_promote_ids)
+  def default_promote_good_ids
+    PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
   end
 
-  def valid_promotes_with_buyer(buyer)
+  def valid_promote_buyers(buyer)
     ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.unavailable.pluck(:promote_id)
     Promote.where(id: ids)
   end
