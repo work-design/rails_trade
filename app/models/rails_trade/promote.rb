@@ -33,7 +33,7 @@ module RailsTrade::Promote
     promote_extras.pluck(:extra_name, :column_name).to_h
   end
 
-  def compute_charge(value, metering, extra: {})
+  def compute_charge(metering, value, extra: {})
     extra.transform_keys! { |key| extra_mappings[key.to_s] }
     extra.delete nil
     
@@ -43,11 +43,9 @@ module RailsTrade::Promote
       'max-gte': value,
       **extra
     }
+    
   
     charges = promote_charges.default_where(q_params)
-    charges = charges.reject do |charge|
-      (charge.max == value && !charge.contain_max) || (charge.min == value && !charge.contain_min)
-    end
     charges.first
   end
 

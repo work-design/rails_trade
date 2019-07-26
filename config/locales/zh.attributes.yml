@@ -60,6 +60,8 @@ zh:
         value: 值
         min: 起始值
         max: 结束值
+        contain_min: 包含起始值
+        contain_max: 包含结束值
         extra: 额外参数
         parameter: 参数
         metering: 单位

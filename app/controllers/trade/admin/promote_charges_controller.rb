@@ -5,7 +5,7 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   def index
     q_params = {}
     q_params.merge! params.permit(PromoteCharge.extra_columns)
-    q_params.merge! 'min-lte': params[:value], 'max-gte': params[:value]
+    q_params.merge! 'filter_min-lte': params[:value], 'filter_max-gte': params[:value]
     
     @promote_charges = @promote.promote_charges.default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
   end
@@ -59,6 +59,8 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
       :metering,
       :unit,
       :parameter,
+      :contain_min,
+      :contain_max,
       *PromoteCharge.extra_columns
     )
   end

@@ -1,7 +1,5 @@
 module RailsTrade::TradeItem
   extend ActiveSupport::Concern
-  include RailsTrade::ItemPromote
-
   included do
     attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true  # 是否后台协助添加
@@ -117,22 +115,25 @@ module RailsTrade::TradeItem
       [:quantity, :number, :amount].map do |metering|
         value = send("#{prefix}#{metering}")
       
-        promote_charge = promote.compute_charge(value, metering, extra: extra)
-        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id)
+        promote_charge = promote_buyer.promote.compute_charge(value, metering, extra: extra)
+        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
       end
     end
   end
 
-  def compute_charge_with_good(promote_good_ids, extra: {}, prefix: '')
+  def compute_charge_with_good(promote_good_ids, extra: {})
     promote_goods = PromoteGood.find promote_good_ids
     promote_goods.map do |promote_good|
-      [:quantity, :number, :amount].map do |metering|
-        value = send("#{prefix}#{metering}")
+      metering_attributes.map do |metering, value|
       
-        promote_charge = promote.compute_charge(value, metering, extra: extra)
+        promote_charge = promote_good.promote.compute_charge(metering, value, extra: extra)
         self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
       end
     end
+  end
+  
+  def metering_attributes
+    attributes.slice 'quantity', 'amount', 'number'
   end
   
   class_methods do

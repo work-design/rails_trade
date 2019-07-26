@@ -17,6 +17,10 @@
         <p><%= PromoteCharge.human_attribute_name(:min) %></p>
         <p><%= PromoteCharge.human_attribute_name(:max) %></p>
       </th>
+      <th>
+        <p><%= PromoteCharge.human_attribute_name(:contain_min) %></p>
+        <p><%= PromoteCharge.human_attribute_name(:contain_max) %></p>
+      </th>
       <th><%= PromoteCharge.human_attribute_name(:metering) %></th>
       <th><%= PromoteCharge.human_attribute_name(:extra) %></th>
       <th><%= PromoteCharge.human_attribute_name(:parameter) %></th>
@@ -34,6 +38,14 @@
       <td>
         <p><%= promote_charge.min %></p>
         <p><%= promote_charge.max %></p>
+      </td>
+      <td class="ui checkboxes">
+        <div class="ui toggle checkbox">
+          <%= check_box_tag 'promote_charge[contain_min]', nil, promote_charge.contain_min, data: { method: :patch, remote: true, url: admin_promote_charge_path(@promote, promote_charge), submit: true }, id: nil %>
+        </div>
+        <div class="ui toggle checkbox">
+          <%= check_box_tag 'promote_charge[contain_max]', nil, promote_charge.contain_max, data: { method: :patch, remote: true, url: admin_promote_charge_path(@promote, promote_charge), submit: true }, id: nil %>
+        </div>
       </td>
       <td><%= promote_charge.metering_i18n %></td>
       <td><%= simple_format(promote_charge.extra) %></td>

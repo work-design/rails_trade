@@ -4,6 +4,8 @@ module RailsTrade::PromoteCharge
     'promote_id',
     'min',
     'max',
+    'filter_min',
+    'filter_max',
     'contain_min',
     'contain_max',
     'parameter',
@@ -18,8 +20,10 @@ module RailsTrade::PromoteCharge
   
   included do
     attribute :type, :string
-    attribute :min, :integer
-    attribute :max, :integer
+    attribute :min, :decimal, default: 0
+    attribute :max, :decimal, default: 99999999.99
+    attribute :filter_min, :decimal, default: 0
+    attribute :filter_max, :decimal, default: 99999999.99
     attribute :contain_min, :boolean, default: true
     attribute :contain_max, :boolean, default: false
     attribute :parameter, :decimal, default: 0
@@ -38,12 +42,27 @@ module RailsTrade::PromoteCharge
 
     validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
     validates :min, numericality: { less_than_or_equal_to: -> (o) { o.max } }
+    #validates :min, uniqueness: { scope: [:contain_min, :contain_max] }  # todo
+    before_validation :compute_filter_value
   end
   
   # amount: 商品价格
   # return 计算后的价格
   def final_price(amount = 1)
     raise 'Should Implement in Subclass'
+  end
+  
+  def compute_filter_value
+    if contain_min
+      self.filter_min = min
+    else
+      self.filter_min = min + self.class.min_step
+    end
+    if contain_max
+      self.filter_max = max
+    else
+      self.filter_max = max - self.class.max_step
+    end
   end
 
   def extra

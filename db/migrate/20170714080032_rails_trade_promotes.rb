@@ -20,6 +20,8 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.references :promote
       t.decimal :min, precision: 10, scale: 2, default: 0
       t.decimal :max, precision: 10, scale: 2, default: 99999999.99
+      t.decimal :filter_min, precision: 10, scale: 2
+      t.decimal :filter_max, precision: 10, scale: 2
       t.boolean :contain_min
       t.boolean :contain_max
       t.decimal :parameter, precision: 10, scale: 2
