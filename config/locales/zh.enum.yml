@@ -44,17 +44,18 @@ zh:
           amount: 总金额
           weight: 总重量
           volume: 体积
-      promote_buyer:
+      promote_good:
         status:
           default: 默认生效
-          available: 可选
-          unavailable: 不可选
+          available: 适用
+          unavailable: 不适用
+          specific: 特定的
+      promote_buyer:
+        status:
+          available: 可用
+          unavailable: 不可用
         state:
           unused: 未使用
           used: 已使用
           expired: 已过期
-      promote_good:
-        status:
-          default: 默认生效
-          available: 可选
-          unavailable: 不可选
+

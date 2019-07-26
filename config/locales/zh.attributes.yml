@@ -51,6 +51,7 @@ zh:
       promote_good:
         good_type: 商品类型
         good_id: 商品
+        promote_id: 优惠券
         status: 状态
       promote_buyer:
         buyer_type: 用户类型

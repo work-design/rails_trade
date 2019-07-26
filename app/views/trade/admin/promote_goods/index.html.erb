@@ -19,8 +19,8 @@
     <tr>
       <th><%= PromoteGood.human_attribute_name(:good_type) %></th>
       <th><%= PromoteGood.human_attribute_name(:good_id) %></th>
-      <th><%= PromoteGood.human_attribute_name(:status) %></th>
       <th><%= PromoteGood.human_attribute_name(:promote_id) %></th>
+      <th><%= PromoteGood.human_attribute_name(:status) %></th>
       <th>
         <%= link_to new_admin_promote_good_path(promote_id: params[:promote_id]), remote: true, class: 'ui teal button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
@@ -40,8 +40,8 @@
           不限商品
         <% end %>
       </td>
-      <td><%= promote_good.status_i18n %></td>
       <td><%= promote_good.promote.name %></td>
+      <td><%= promote_good.status_i18n %></td>
       <td>
         <%= link_to admin_promote_buyers_path(promote_good_id: promote_good.id), data: { tooltip: '派发' }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-gift"></i>

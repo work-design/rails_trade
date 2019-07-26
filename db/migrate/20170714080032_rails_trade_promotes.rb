@@ -44,6 +44,8 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :status
       t.string :state
       t.integer :trade_promotes_count, default: 0
+      t.datetime :effect_at
+      t.datetime :expire_at
       t.timestamps
     end
     

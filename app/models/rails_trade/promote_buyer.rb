@@ -3,6 +3,8 @@ module RailsTrade::PromoteBuyer
   included do
     attribute :state, :string, default: 'unused'
     attribute :status, :string, default: 'available'
+    attribute :effect_at, :datetime
+    attribute :expire_at, :datetime
     
     belongs_to :promote
     belongs_to :promote_good
