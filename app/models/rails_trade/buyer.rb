@@ -15,14 +15,6 @@ module RailsTrade::Buyer
 
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
   end
-  
-  def available_promote_ids
-    all_promote_ids - un_promote_ids
-  end
-  
-  def un_promote_ids
-    self.promote_buyers.unavailable.pluck(:promote_id)
-  end
 
   def name_detail
     "#{name} (#{id})"
