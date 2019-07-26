@@ -85,7 +85,7 @@ module RailsTrade::Good
       original_price: amount,
       good_name: good_name
     )
-    ti.compute_promote(promote_buyer_ids: promote_buyer_ids, promote_good_ids: promote_good_ids, promote_ids: default_promote_ids)
+    ti.compute_promote
     ti.compute_amount
 
     o.assign_attributes params

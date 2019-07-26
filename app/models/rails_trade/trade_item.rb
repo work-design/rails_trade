@@ -83,26 +83,17 @@ module RailsTrade::TradeItem
   end
 
   def confirm_paid!
-
   end
 
   def confirm_part_paid!
-
   end
 
   def confirm_refund!
-
   end
 
   def compute_promote
-    promote_ids.each do |promote_id|
-      self.trade_promotes.build(promote_id: promote_id)
-    end
-  end
-
-  def compute_charge(promote_good_ids: [], promote_buyer_ids: [])
-    all_ids = good.valid_promote_good_ids
-    all_ids -= buyer_promotes.pluck(:promote_id)
+    promote_good_ids = good.valid_promote_good_ids
+    promote_buyer_ids = buyer.available_promote_buyer_ids
   
     compute_charges_with_buyer(promote_buyer_ids)
     compute_charges_with_good(promote_good_ids)
@@ -118,8 +109,8 @@ module RailsTrade::TradeItem
     end
   end
 
-  def compute_charge_with_good(promote_good_ids, **extra)
-    promote_goods = PromoteGood.find promote_good_ids
+  def compute_charge_with_good(promote_good_ids = [], **extra)
+    promote_goods = PromoteGood.where(id: promote_good_ids)
     promote_goods.map do |promote_good|
       value = metering_attributes.fetch(promote_good.promote.metering)
       promote_charge = promote_good.promote.compute_charge(value, **extra)
@@ -129,14 +120,6 @@ module RailsTrade::TradeItem
   
   def metering_attributes
     attributes.slice 'quantity', 'amount', 'number'
-  end
-  
-  class_methods do
-    
-    def good_types
-      CartItem.select(:good_type).distinct.pluck(:good_type)
-    end
-    
   end
 
 end

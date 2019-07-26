@@ -49,8 +49,7 @@ module RailsTrade::Promote
       **extra
     }
     
-    charges = promote_charges.default_where(q_params)
-    charges.first
+    promote_charges.default_where(q_params).take
   end
 
   private
