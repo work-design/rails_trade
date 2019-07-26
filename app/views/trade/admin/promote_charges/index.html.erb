@@ -13,12 +13,15 @@
 <table class="ui bottom attached table">
   <thead>
     <tr>
-      <th class="center aligned"><%= PromoteCharge.human_attribute_name(:min) %></th>
-      <th class="center aligned"><%= PromoteCharge.human_attribute_name(:max) %></th>
-      <th class="center aligned"><%= PromoteCharge.human_attribute_name(:extra) %></th>
-      <th class="center aligned"><%= PromoteCharge.human_attribute_name(:parameter) %></th>
-      <th class="center aligned"><%= PromoteCharge.human_attribute_name(:type) %></th>
-      <th class="center aligned">
+      <th>
+        <p><%= PromoteCharge.human_attribute_name(:min) %></p>
+        <p><%= PromoteCharge.human_attribute_name(:max) %></p>
+      </th>
+      <th><%= PromoteCharge.human_attribute_name(:metering) %></th>
+      <th><%= PromoteCharge.human_attribute_name(:extra) %></th>
+      <th><%= PromoteCharge.human_attribute_name(:parameter) %></th>
+      <th><%= PromoteCharge.human_attribute_name(:type) %></th>
+      <th>
         <%= link_to new_admin_promote_charge_path(@promote), remote: true, class: 'ui mini primary button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
         <% end %>
@@ -28,12 +31,15 @@
   <tbody>
   <% @promote_charges.each do |promote_charge| %>
     <tr>
-      <td class="center aligned"><%= promote_charge.min %></td>
-      <td class="center aligned"><%= promote_charge.max %></td>
+      <td>
+        <p><%= promote_charge.min %></p>
+        <p><%= promote_charge.max %></p>
+      </td>
+      <td><%= promote_charge.metering_i18n %></td>
       <td><%= simple_format(promote_charge.extra) %></td>
-      <td class="center aligned"><%= promote_charge.parameter %></td>
-      <td class="center aligned"><%= promote_charge.type_i18n %></td>
-      <td class="center aligned">
+      <td><%= promote_charge.parameter %></td>
+      <td><%= promote_charge.type_i18n %></td>
+      <td>
         <%= link_to edit_admin_promote_charge_path(@promote, promote_charge), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>

@@ -58,3 +58,5 @@ zh:
         max: 结束值
         extra: 额外参数
         parameter: 参数
+        metering: 单位
+        base_price: 基础价格

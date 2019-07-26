@@ -30,7 +30,7 @@ module RailsTrade::Promote
   end
   
   def extra_mappings
-    x = promote_extras.pluck(:extra_name, :column_name).to_h
+    promote_extras.pluck(:extra_name, :column_name).to_h
   end
 
   def compute_charge(value, metering, extra: {})

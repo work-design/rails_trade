@@ -37,6 +37,11 @@ module RailsTrade::Good
     ids - un_ids
   end
   
+  def default_promote_ids
+    ids = PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:promote_id)
+    
+  end
+  
   def valid_promotes
     Promote.where(id: valid_promote_ids)
   end
@@ -58,7 +63,7 @@ module RailsTrade::Good
     o
   end
 
-  def generate_order(user: nil, buyer: nil, maintain_id: nil, **params)
+  def generate_order(user: nil, buyer: nil, maintain_id: nil, promote_good_ids: [], promote_buyer_ids: [], **params)
     if buyer
       o = buyer.orders.build
     elsif user
@@ -86,13 +91,7 @@ module RailsTrade::Good
       original_price: amount,
       good_name: good_name
     )
-    
-    promote_buyer_ids = params.delete(:promote_buyer_ids)
-    ti.compute_promote(promote_buyer_ids) if promote_buyer_ids
-    
-    promote_good_ids = params.delete(:promote_good_ids)
-    ti.compute_promote(promote_goods_ids) if promote_good_ids
-
+    ti.compute_promote(promote_buyer_ids: promote_buyer_ids, promote_good_ids: promote_good_ids, promote_ids: default_promote_ids)
     ti.compute_amount
 
     o.assign_attributes params

@@ -20,6 +20,7 @@
       <th><%= PromoteGood.human_attribute_name(:good_type) %></th>
       <th><%= PromoteGood.human_attribute_name(:good_id) %></th>
       <th><%= PromoteGood.human_attribute_name(:status) %></th>
+      <th><%= PromoteGood.human_attribute_name(:promote_id) %></th>
       <th>
         <%= link_to new_admin_promote_good_path(promote_id: params[:promote_id]), remote: true, class: 'ui teal button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
@@ -40,6 +41,7 @@
         <% end %>
       </td>
       <td><%= promote_good.status_i18n %></td>
+      <td><%= promote_good.promote.name %></td>
       <td>
         <%= link_to edit_admin_promote_good_path(promote_good), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>

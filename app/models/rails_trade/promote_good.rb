@@ -20,7 +20,5 @@ module RailsTrade::PromoteGood
     
     validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
   end
-  
-  
 
 end

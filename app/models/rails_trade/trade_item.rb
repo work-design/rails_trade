@@ -29,8 +29,8 @@ module RailsTrade::TradeItem
     attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
-    belongs_to :trade, polymorphic: true, autosave: true, inverse_of: :trade_items
-    has_many :trade_promotes, -> { includes(:promote) }, autosave: true, dependent: :destroy
+    belongs_to :trade, polymorphic: true, inverse_of: :trade_items
+    has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, dependent: :destroy
     has_many :providers, dependent: :delete_all  # 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -58,6 +58,12 @@ module RailsTrade::TradeItem
     wholesale_price - (retail_price * number)
   end
 
+  def compute_promote(promote_buyer_ids: [], promote_good_ids: [], promote_ids: [])
+    promote_ids.each do |promote_id|
+      self.trade_promotes.build(promote_id: promote_id)
+    end
+  end
+  
   def compute_amount
     self.single_price = good.price
     self.original_price = good.price * number
