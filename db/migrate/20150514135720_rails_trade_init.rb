@@ -39,7 +39,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.references :good, polymorphic: true
       t.string :status
       t.integer :number
-      t.decimal :quantity, precision: 10, scale: 2 # 用来表示重量
+      t.decimal :weight, precision: 10, scale: 2 # 用来表示重量
       t.decimal :single_price, precision: 10, scale: 2
       t.decimal :original_price, precision: 10, scale: 2
       t.decimal :additional_price, precision: 10, scale: 2

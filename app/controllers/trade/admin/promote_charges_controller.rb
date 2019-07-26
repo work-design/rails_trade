@@ -56,7 +56,6 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
       :min,
       :max,
       :type,
-      :metering,
       :unit,
       :parameter,
       :contain_min,

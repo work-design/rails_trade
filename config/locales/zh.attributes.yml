@@ -48,6 +48,7 @@ zh:
         scope: 应用范围
         verified: 是否生效
         editable: 是否可改价
+        metering: 单位
       promote_good:
         good_type: 商品类型
         good_id: 商品
@@ -64,5 +65,4 @@ zh:
         contain_max: 包含结束值
         extra: 额外参数
         parameter: 参数
-        metering: 单位
         base_price: 基础价格

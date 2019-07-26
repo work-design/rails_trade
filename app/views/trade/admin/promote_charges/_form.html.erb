@@ -3,7 +3,6 @@
 <%= f.check_box :contain_min %>
 <%= f.number_field :max, step: PromoteCharge.max_step %>
 <%= f.check_box :contain_max %>
-<%= f.select :metering, options_for_select(PromoteCharge.options_i18n(:metering), @promote_charge.metering) %>
 <%= f.number_field :parameter, step: '0.01' %>
 <%= f.number_field :base_price, step: '0.01' %>
 <% PromoteCharge.extra_columns.each do |ex| %>

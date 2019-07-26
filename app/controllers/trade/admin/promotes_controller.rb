@@ -74,6 +74,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :short_name,
       :description,
       :scope,
+      :metering,
       :start_at,
       :finish_at,
       :verified,

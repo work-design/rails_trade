@@ -10,6 +10,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.datetime :start_at
       t.datetime :finish_at
       t.string :scope
+      t.string :metering
       t.integer :sequence
       t.boolean :verified
       t.booleam :editable
@@ -27,7 +28,6 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.decimal :parameter, precision: 10, scale: 2
       t.decimal :base_price, precision: 10, scale: 2
       t.string :type
-      t.string :metering
       t.string :unit
       t.timestamps
     end

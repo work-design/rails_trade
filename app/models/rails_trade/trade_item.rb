@@ -9,8 +9,8 @@ module RailsTrade::TradeItem
     attribute :good_id, :integer
 
     attribute :number, :integer, default: 1
-    attribute :quantity, :decimal, default: 0
-    attribute :unit, :string
+    attribute :quantity, :decimal, default: 0  # 重量
+    attribute :unit, :string  # 单位
 
     attribute :single_price, :decimal, default: 0  # 一份产品的价格
     attribute :original_price, :decimal, default: 0  # 商品原价，合计份数之后
@@ -108,27 +108,22 @@ module RailsTrade::TradeItem
     compute_charges_with_good(promote_good_ids)
   end
 
-  def compute_promote_with_buyer(promote_buyer_ids = [])
+  def compute_promote_with_buyer(promote_buyer_ids = [], **extra)
     promote_buyers = PromoteBuyer.where(id: promote_buyer_ids)
   
     promote_buyers.each do |promote_buyer|
-      [:quantity, :number, :amount].map do |metering|
-        value = send("#{prefix}#{metering}")
-      
-        promote_charge = promote_buyer.promote.compute_charge(value, metering, extra: extra)
-        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
-      end
+      value = metering_attributes.fetch(promote_buyer.promote.metering)
+      promote_charge = promote_buyer.promote.compute_charge(value, **extra)
+      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
     end
   end
 
-  def compute_charge_with_good(promote_good_ids, extra: {})
+  def compute_charge_with_good(promote_good_ids, **extra)
     promote_goods = PromoteGood.find promote_good_ids
     promote_goods.map do |promote_good|
-      metering_attributes.map do |metering, value|
-      
-        promote_charge = promote_good.promote.compute_charge(metering, value, extra: extra)
-        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
-      end
+      value = metering_attributes.fetch(promote_good.promote.metering)
+      promote_charge = promote_good.promote.compute_charge(value, **extra)
+      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
     end
   end
   

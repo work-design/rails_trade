@@ -27,24 +27,28 @@ module RailsTrade::Promote
       single: 'single',  # 适用于单独计算商品
       overall: 'overall' # 适用于多个商品一起计算
     }
+    enum metering: {
+      number: 'number',  # 商品购买件数
+      weight: 'weight',  # 商品总重量，support sequence
+      volume: 'volume',  # 商品总体积, support sequence
+      amount: 'amount'  # 商品总金额, support sequence
+    }
   end
   
   def extra_mappings
     promote_extras.pluck(:extra_name, :column_name).to_h
   end
 
-  def compute_charge(metering, value, extra: {})
+  def compute_charge(value, **extra)
     extra.transform_keys! { |key| extra_mappings[key.to_s] }
     extra.delete nil
     
     q_params = {
-      metering: metering,
       'min-lte': value,
       'max-gte': value,
       **extra
     }
     
-  
     charges = promote_charges.default_where(q_params)
     charges.first
   end

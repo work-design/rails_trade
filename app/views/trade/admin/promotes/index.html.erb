@@ -17,12 +17,15 @@
         <%= Promote.human_attribute_name(:scope) %>
         <span data-tooltip="<%= t('.scope_help') %>"><i class="grey question circle icon"></i></span>
       </th>
+      <th><%= Promote.human_attribute_name(:metering) %></th>
       <th>
         <p><%= Promote.human_attribute_name(:start_at) %></p>
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
-      <th><%= Promote.human_attribute_name(:verified) %></th>
-      <th><%= Promote.human_attribute_name(:editable) %></th>
+      <th>
+        <p><%= Promote.human_attribute_name(:verified) %></p>
+        <p><%= Promote.human_attribute_name(:editable) %></p>
+      </th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:deal) %></th>
       <th>
@@ -41,6 +44,7 @@
         <p><%= promote.short_name %>(<%= promote.code %>)</p>
       </td>
       <td><%= promote.scope_i18n %></td>
+      <td><%= promote.metering_i18n %></td>
       <td>
         <p><time><%= promote.start_at.to_s(:rfc822) if promote.start_at %></time></p>
         <p><time><%= promote.finish_at.to_s(:rfc822) if promote.finish_at %></time></p>
@@ -49,8 +53,6 @@
         <div class="ui toggle checkbox">
           <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>
-      </td>
-      <td>
         <div class="ui toggle checkbox">
           <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>

@@ -28,6 +28,11 @@ zh:
         scope:
           overall: 全体商品
           single: 单个商品
+        metering:
+          number: 购买件数
+          amount: 总金额
+          weight: 总重量
+          volume: 体积
       trade_promote:
         scope:
           overall: 全体商品
@@ -39,11 +44,6 @@ zh:
           MinusPromoteCharge: 满减策略
           CashPromoteCharge: 现金抵扣
           PlusPromoteCharge: 附加金额
-        metering:
-          number: 购买件数
-          amount: 总金额
-          weight: 总重量
-          volume: 体积
       promote_good:
         status:
           default: 默认生效
