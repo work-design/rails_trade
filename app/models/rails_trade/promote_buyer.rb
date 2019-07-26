@@ -6,7 +6,7 @@ module RailsTrade::PromoteBuyer
     
     belongs_to :promote
     belongs_to :promote_good
-    belongs_to :buyer, polymorphic: true, optional: true
+    belongs_to :buyer, polymorphic: true
     has_many :trade_promotes, dependent: :nullify
     
     enum state: {

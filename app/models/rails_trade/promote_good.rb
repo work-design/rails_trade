@@ -9,6 +9,7 @@ module RailsTrade::PromoteGood
 
     belongs_to :promote
     belongs_to :good, polymorphic: true, optional: true
+    has_many :promote_buyers, dependent: :delete_all
     
     scope :valid, -> { where(status: ['default', 'available']) }
     

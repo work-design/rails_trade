@@ -44,15 +44,10 @@ module RailsTrade::Good
   def default_promote_good_ids
     PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
   end
-
+ 
   def valid_promote_buyers(buyer)
     ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.unavailable.pluck(:promote_id)
     Promote.where(id: ids)
-  end
-
-  def compute_order_amount(user: nil, buyer: nil, **params)
-    o = generate_order(user: user, buyer: buyer, **params)
-    o.amount
   end
 
   def generate_order!(user: nil, buyer: nil, **params)
