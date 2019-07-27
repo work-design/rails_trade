@@ -15,7 +15,7 @@ module RailsTrade::Good
     has_many :trade_items, as: :trade, autosave: true, dependent: :destroy
     has_many :orders, through: :trade_items, source: :trade
 
-    has_many :promote_goods, as: :good, primary_key: :extra_ids
+    has_many :promote_goods, as: :good
   end
 
   def name_detail
@@ -27,18 +27,8 @@ module RailsTrade::Good
     #self.retail_price + self.promote_price
   end
   
-  def extra_ids
-    [nil, self.id]
-  end
-
-  def valid_promote_good_ids
-    ids = PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
-    un_ids = self.promote_goods.unavailable.pluck(:id)
-    ids - un_ids
-  end
-
   def valid_promote_goods
-    PromoteGood.where(id: valid_promote_good_ids)
+    PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.unavailable.pluck(:promote_id))
   end
   
   def default_promote_good_ids
