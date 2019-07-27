@@ -28,7 +28,7 @@ module RailsTrade::TradeItem
 
     belongs_to :good, polymorphic: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items
-    has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
     has_many :providers, dependent: :delete_all  # 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -43,7 +43,7 @@ module RailsTrade::TradeItem
     }
 
     before_validation :sync_amount
-    after_save :sync_order_amount, if: -> { saved_change_to_amount? }
+    before_validation :sync_changed_amount, if: -> { amount_changed? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -73,9 +73,9 @@ module RailsTrade::TradeItem
     self.advance_payment = self.good.advance_payment if self.advance_payment.zero?
   end
 
-  def sync_order_amount
-    trade.compute_amount
-    trade.save
+  def sync_changed_amount
+    changed_amount = amount - amount_was
+    trade.amount += changed_amount
   end
 
   def valid_promote_buyers(buyer)
@@ -85,11 +85,15 @@ module RailsTrade::TradeItem
   
   def compute_promote
     good.valid_promote_goods.map do |promote_good|
-      self.trade_promotes.build(promote_good_id: promote_good.id)
+      value = metering_attributes.fetch(promote_good.promote.metering)
+      promote_charge = promote_good.promote.compute_charge(value, **extra)
+      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id) if promote_charge
     end
     
     trade.buyer.promote_buyers.each do |promote_buyer|
-      self.trade_promotes.build(promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+      value = metering_attributes.fetch(promote_buyer.promote.metering)
+      promote_charge = promote_buyer.promote.compute_charge(value, **extra)
+      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id) if promote_charge
     end
   end
   

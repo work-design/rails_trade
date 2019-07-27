@@ -64,12 +64,16 @@ module RailsTrade::Order
 
   def compute_amount
     self.item_amount = trade_items.sum(&:amount)
-    self.overall_additional_amount = trade_promotes.select(&->(ep){ ep.overall? && ep.amount >= 0 }).sum(&:amount)
-    self.overall_reduced_amount = trade_promotes.select(&->(ep){ ep.overall? && ep.amount < 0 }).sum(&:amount)
+    self.overall_additional_amount = trade_promotes.select(&->(o){ o.overall? && o.amount >= 0 }).sum(&:amount)
+    self.overall_reduced_amount = trade_promotes.select(&->(o){ o.overall? && o.amount < 0 }).sum(&:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
   
   def compute_promote
+  end
+
+  def metering_attributes
+    attributes.slice 'quantity', 'amount'
   end
   
   def sync_from_cart

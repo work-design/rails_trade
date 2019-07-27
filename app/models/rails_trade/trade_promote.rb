@@ -1,5 +1,4 @@
 module RailsTrade::TradePromote
-  METERING = ['weight', 'colume', 'amount'].freeze
   extend ActiveSupport::Concern
   included do
     attribute :sequence, :integer
@@ -17,7 +16,7 @@ module RailsTrade::TradePromote
     belongs_to :promote_good
     belongs_to :promote_buyer, counter_cache: true, optional: true
     
-    validates :promote_id, uniqueness: { scope: [:cart_item_id] }
+    validates :promote_id, uniqueness: { scope: [:trade_item_id] }
     validates :amount, presence: true
     
     enum scope: {
@@ -36,32 +35,35 @@ module RailsTrade::TradePromote
       end
     end
     before_validation :compute_amount
+    before_validation :sync_changed_amount, if: -> { amount_changed? }
     after_create_commit :check_promote_buyer
   end
 
   def compute_amount
     if single?
-      value = trade_item.metering_attributes.fetch(promote.metering)
-      if METERING.include?(promote.metering)
-        added_amount = trade_item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote.metering)
-      else
-        added_amount = 0
-      end
+      value = trade_item.metering_attributes.fetch(promote.metering, 0)
+      added_amount = trade_item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
       
       self.based_amount = value + added_amount
     else
-      value = trade.send(promote.metering)
-      if METERING.include?(promote.metering)
-        added_amount = trade.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote.metering)
-      else
-        added_amount = 0
-      end
+      value = trade.metering_attributes.fetch(promote.metering, 0)
+      added_amount = trade.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
       
       self.based_amount = value + added_amount
     end
 
-    self.promote_charge = promote.compute_charge(based_amount, **extra)
     self.amount = self.promote_charge.final_price(based_amount)
+  end
+  
+  def sync_changed_amount
+    changed_amount = amount - amount_was
+    if amount >= 0
+      trade_item.additional_price += changed_amount if single?
+      trade.overall_additional_amount += changed_amount if overall?
+    else
+      trade_item.reduced_price += changed_amount
+      trade.overall_reduced_amount += changed_amount if overall?
+    end
   end
 
   def check_promote_buyer
