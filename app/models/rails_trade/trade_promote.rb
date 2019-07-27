@@ -14,8 +14,8 @@ module RailsTrade::TradePromote
     belongs_to :trade_item, optional: true
     belongs_to :promote
     belongs_to :promote_charge
+    belongs_to :promote_good
     belongs_to :promote_buyer, counter_cache: true, optional: true
-    belongs_to :promote_good, optional: true
     
     validates :promote_id, uniqueness: { scope: [:cart_item_id] }
     validates :amount, presence: true
@@ -29,12 +29,11 @@ module RailsTrade::TradePromote
       if trade_item
         self.trade = trade_item.trade
       end
-      if self.promote_charge
-        self.promote_id = self.promote_charge.promote_id
+      if self.promote_good
+        self.promote_id = self.promote_good.promote_id
+        self.sequence = self.promote.sequence
+        self.scope = self.promote.scope
       end
-      self.sequence = self.promote.sequence
-      self.scope = self.promote.scope
-      
     end
     before_validation :compute_amount
     after_create_commit :check_promote_buyer
@@ -42,7 +41,7 @@ module RailsTrade::TradePromote
 
   def compute_amount
     if single?
-      value = trade_item.send(promote.metering)
+      value = trade_item.metering_attributes.fetch(promote.metering)
       if METERING.include?(promote.metering)
         added_amount = trade_item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(promote.metering)
       else
@@ -60,7 +59,8 @@ module RailsTrade::TradePromote
       
       self.based_amount = value + added_amount
     end
-    
+
+    self.promote_charge = promote.compute_charge(based_amount, **extra)
     self.amount = self.promote_charge.final_price(based_amount)
   end
 

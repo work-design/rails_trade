@@ -69,6 +69,9 @@ module RailsTrade::Order
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
   
+  def compute_promote
+  end
+  
   def sync_from_cart
     self.uuid ||= UidHelper.nsec_uuid('OD')
     if cart

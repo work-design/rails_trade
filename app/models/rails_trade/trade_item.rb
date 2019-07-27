@@ -85,15 +85,11 @@ module RailsTrade::TradeItem
   
   def compute_promote
     good.valid_promote_goods.map do |promote_good|
-      value = metering_attributes.fetch(promote_good.promote.metering)
-      promote_charge = promote_good.promote.compute_charge(value, **extra)
-      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id) if promote_charge
+      self.trade_promotes.build(promote_good_id: promote_good.id)
     end
     
     trade.buyer.promote_buyers.each do |promote_buyer|
-      value = metering_attributes.fetch(promote_buyer.promote.metering)
-      promote_charge = promote_buyer.promote.compute_charge(value, **extra)
-      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id) if promote_charge
+      self.trade_promotes.build(promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
     end
   end
   
