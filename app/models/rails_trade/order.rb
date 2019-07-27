@@ -47,6 +47,7 @@ module RailsTrade::Order
     }
     
     before_validation :sync_from_cart
+    before_validation :sync_changed_amount, if: -> { (changes.keys & ['item_sum', 'overall_additional_amount', 'overall_reduced_amount']).present? }
     after_create_commit :confirm_ordered!
   end
   

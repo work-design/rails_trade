@@ -60,7 +60,6 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :scope
       t.integer :sequence
       t.decimal :based_amount, precision: 10, scale: 2
-      t.decimal :original_amount, precision: 10, scale: 2
       t.decimal :computed_amount, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       t.string :note
