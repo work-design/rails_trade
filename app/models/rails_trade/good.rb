@@ -6,7 +6,7 @@ module RailsTrade::Good
     attribute :sku, :string, default: -> { SecureRandom.hex }
     attribute :currency, :string
     attribute :price, :decimal, default: 0
-    attribute :advance_payment, :decimal, default: 0
+    attribute :advance_price, :decimal, default: 0
     attribute :extra, :json, default: {}
     attribute :unit, :string
     attribute :quantity, :decimal, default: 0
@@ -55,25 +55,15 @@ module RailsTrade::Good
       o = Order.new
     end
 
-    o.currency = self.currency
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
-    o.maintain_id = maintain_id
-    o.extra = params.delete(:extra) || {}
+    o.maintain_id = maintain_id if o.respond_to?(:maintain_id)
     
-    number = params.delete(:number) || 1
-    amount = params.delete(:amount) || number * self.price.to_d
-    good_name = params.delete(:name) || self.name
-
-    ti = o.trade_items.build(
-      good: self,
-      number: number,
-      original_price: amount,
-      good_name: good_name
-    )
+    ti = o.trade_items.build(good: self)
+    ti.assign_attribute params.slice(:number)
     ti.compute_promote
     ti.compute_amount
 
-    o.assign_attributes params
+    o.assign_attributes params.slice(:extra, :currency)
     o.compute_promote
     o.compute_amount
     o

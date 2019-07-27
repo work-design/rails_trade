@@ -18,7 +18,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.references :cart
       t.references :buyer, polymorphic: true
       t.references :payment_strategy
-      t.string :uuid, null: false
+      t.string :uuid
       t.string :state
       t.decimal :item_amount, precision: 10, scale: 2
       t.decimal :overall_additional_amount, precision: 10, scale: 2
@@ -41,9 +41,11 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.integer :number
       t.decimal :weight, precision: 10, scale: 2 # 用来表示重量
       t.decimal :single_price, precision: 10, scale: 2
-      t.decimal :original_price, precision: 10, scale: 2
-      t.decimal :additional_price, precision: 10, scale: 2
-      t.decimal :reduced_price, precision: 10, scale: 2
+      t.decimal :original_amount, precision: 10, scale: 2
+      t.decimal :additional_amount, precision: 10, scale: 2
+      t.decimal :reduced_amount, precision: 10, scale: 2
+      t.decimal :retail_price, precision: 10, scale: 2
+      t.decimal :wholesale_price, precision: 10, scale: 2
       t.decimal :amount, precision: 10, scale: 2
       t.string :good_name
       t.boolean :myself

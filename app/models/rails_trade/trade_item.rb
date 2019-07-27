@@ -13,10 +13,10 @@ module RailsTrade::TradeItem
     attribute :unit, :string  # 单位
 
     attribute :single_price, :decimal, default: 0  # 一份产品的价格
-    attribute :original_price, :decimal, default: 0  # 商品原价，合计份数之后
+    attribute :original_amount, :decimal, default: 0  # 合计份数之后的价格，商品原价
 
-    attribute :additional_price, :decimal, default: 0  # 附加服务价格汇总
-    attribute :reduced_price, :decimal, default: 0  # 已优惠的价格
+    attribute :additional_amount, :decimal, default: 0  # 附加服务价格汇总
+    attribute :reduced_amount, :decimal, default: 0  # 已优惠的价格
     
     attribute :retail_price, :decimal, default: 0  # 单个商品零售价(商品原价 + 服务价)
     attribute :wholesale_price, :decimal, default: 0  # 多个商品批发价
@@ -41,7 +41,12 @@ module RailsTrade::TradeItem
       done: 'done',
       canceled: 'canceled'
     }
-
+    
+    after_initialize if: :new_record? do
+      self.good_name = good.name
+      self.single_price = good.price
+      self.original_amount = single_price * number
+    end
     before_validation :sync_amount
     before_validation :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
@@ -57,16 +62,14 @@ module RailsTrade::TradeItem
   end
   
   def compute_amount
-    self.single_price = good.price
-    self.original_price = good.price * number
   
-    self.additional_price = trade_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
-    self.reduced_price = trade_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
+    self.additional_amount = trade_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
+    self.reduced_amount = trade_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
 
-    self.retail_price = single_price + additional_price
-    self.wholesale_price = original_price + additional_price
+    self.retail_price = single_price + additional_amount
+    self.wholesale_price = original_amount + additional_amount
     
-    self.amount = original_price + additional_price + reduced_price  # 最终价格
+    self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
   end
   
   def sync_amount
@@ -74,7 +77,7 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
-    self.amount = original_price + additional_price + reduced_price
+    self.amount = original_amount + additional_amount + reduced_amount
     
     changed_amount = amount - amount_was
     trade.item_amount += changed_amount
