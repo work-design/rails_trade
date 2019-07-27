@@ -26,11 +26,11 @@ module RailsTrade::Good
     compute_order_amount
     #self.retail_price + self.promote_price
   end
-  
+
   def valid_promote_goods
-    PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.unavailable.pluck(:promote_id))
+    PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.select(:promote_id).unavailable)
   end
-  
+
   def default_promote_goods
     PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id])
   end
