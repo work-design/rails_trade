@@ -32,13 +32,13 @@ module RailsTrade::Good
   end
 
   def valid_promote_good_ids
-    ids = pluck(:id)
+    ids = PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
     un_ids = self.promote_goods.unavailable.pluck(:id)
     ids - un_ids
   end
 
   def valid_promote_goods
-    PromoteGood.where(good_id: self.id).where.not(status: 'unavailable').where(promote_id: PromoteGood.select(:promote_id).valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]))
+    PromoteGood.where(id: valid_promote_good_ids)
   end
   
   def default_promote_good_ids
