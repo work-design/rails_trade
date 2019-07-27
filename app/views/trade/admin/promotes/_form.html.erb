@@ -3,8 +3,8 @@
 <%= f.text_field :code %>
 <%= f.text_field :description %>
 <%= f.select :scope, options_for_select(Promote.options_i18n(:scope), @promote.scope) %>
-<%= f.datetime_field :start_at %>
-<%= f.datetime_field :finish_at %>
+<%= f.datetime_field :effect_at %>
+<%= f.datetime_field :expire_at %>
 <%= f.number_field :sequence %>
 <%= f.select :metering, options_for_select(Promote.options_i18n(:metering), @promote.metering) %>
 <%= f.submit %>

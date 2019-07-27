@@ -1,8 +1,8 @@
 module RailsTrade::Promote
   extend ActiveSupport::Concern
   included do
-    attribute :start_at, :datetime
-    attribute :finish_at, :datetime
+    attribute :effect_at, :datetime
+    attribute :expire_at, :datetime
     attribute :sequence, :integer, default: 1
     attribute :verified, :boolean, default: false
     attribute :editable, :boolean, default: false  # 是否可更改价格
@@ -16,7 +16,7 @@ module RailsTrade::Promote
     scope :verified, -> { where(verified: true) }
     scope :default, -> { verified.where(default: true) }
     scope :for_sale, -> { verified.where(default: false) }
-    scope :valid, -> { t = Time.now; verified.default_where('start_at-lte': t, 'finish_at-gte': t) }
+    scope :valid, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
 
     validates :code, uniqueness: true, allow_blank: true
     

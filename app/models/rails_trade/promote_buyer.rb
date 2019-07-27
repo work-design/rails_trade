@@ -13,11 +13,10 @@ module RailsTrade::PromoteBuyer
     
     enum state: {
       unused: 'unused',
-      used: 'used',
-      expired: 'expired'
+      used: 'used'
     }
 
-    scope :valid, -> { available.where('expire_at >= ?', Time.current) }
+    scope :valid, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
     
     before_validation do
       self.promote = self.promote_good.promote

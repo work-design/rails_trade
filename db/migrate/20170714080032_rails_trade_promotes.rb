@@ -7,8 +7,8 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :short_name
       t.string :code
       t.string :description
-      t.datetime :start_at
-      t.datetime :finish_at
+      t.datetime :effect_at
+      t.datetime :expire_at
       t.string :scope
       t.string :metering
       t.integer :sequence

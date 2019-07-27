@@ -31,8 +31,8 @@ module RailsTrade::Good
     PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.unavailable.pluck(:promote_id))
   end
   
-  def default_promote_good_ids
-    PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).pluck(:id)
+  def default_promote_goods
+    PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id])
   end
 
   def generate_order!(user: nil, buyer: nil, **params)
