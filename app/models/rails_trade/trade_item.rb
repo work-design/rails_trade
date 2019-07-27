@@ -43,7 +43,7 @@ module RailsTrade::TradeItem
     }
 
     before_validation :sync_amount
-    before_validation :sync_changed_amount, if: -> { amount_changed? }
+    before_validation :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -74,8 +74,10 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
+    self.amount = original_price + additional_price + reduced_price
+    
     changed_amount = amount - amount_was
-    trade.amount += changed_amount
+    trade.item_amount += changed_amount
   end
 
   def valid_promote_buyers(buyer)
