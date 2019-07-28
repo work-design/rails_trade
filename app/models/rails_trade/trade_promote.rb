@@ -15,7 +15,7 @@ module RailsTrade::TradePromote
     belongs_to :promote_good
     belongs_to :promote_buyer, counter_cache: true, optional: true
     
-    validates :promote_id, uniqueness: { scope: [:trade_item_id] }
+    validates :promote_id, uniqueness: { scope: [:trade_type, :trade_id, :trade_item_id] }
     validates :amount, presence: true
     
     enum scope: {
@@ -32,8 +32,8 @@ module RailsTrade::TradePromote
         self.sequence = self.promote.sequence
         self.scope = self.promote.scope
       end
+      compute_amount
     end
-    before_validation :compute_amount
     before_validation :sync_changed_amount, if: -> { amount_changed? }
     after_create_commit :check_promote_buyer
   end
