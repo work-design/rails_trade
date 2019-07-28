@@ -52,16 +52,17 @@ module RailsTrade::TradePromote
     end
 
     self.computed_amount = self.promote_charge.final_price(based_amount)
-    self.amount ||= computed_amount
+    self.amount = computed_amount if amount.zero?
+    self
   end
   
   def sync_changed_amount
     changed_amount = amount - amount_was.to_i
     if amount >= 0
-      trade_item.additional_price += changed_amount if single?
+      trade_item.additional_amount += changed_amount if single?
       trade.overall_additional_amount += changed_amount if overall?
     else
-      trade_item.reduced_price += changed_amount
+      trade_item.reduced_amount += changed_amount if single?
       trade.overall_reduced_amount += changed_amount if overall?
     end
   end

@@ -12,9 +12,9 @@
       <th><%= TradeItem.human_attribute_name(:good_id) %></th>
       <th><%= TradeItem.human_attribute_name(:number) %></th>
       <th></th>
-      <th><%= TradeItem.human_attribute_name(:original_price) %></th>
-      <th><%= TradeItem.human_attribute_name(:additional_price) %></th>
-      <th><%= TradeItem.human_attribute_name(:reduced_price) %></th>
+      <th><%= TradeItem.human_attribute_name(:original_amount) %></th>
+      <th><%= TradeItem.human_attribute_name(:additional_amount) %></th>
+      <th><%= TradeItem.human_attribute_name(:reduced_amount) %></th>
       <th></th>
     </tr>
   </thead>
@@ -46,7 +46,11 @@
       <td><%= trade_promote.promote.name %></td>
       <td colspan="5"></td>
       <td><%= trade_promote.amount %></td>
-      <td></td>
+      <td>
+        <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'ui mini circular icon button' do %>
+          <i class="fas fa-pencil-alt"></i>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   <tr class="active">

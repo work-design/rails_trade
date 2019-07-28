@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resources :order_payments
     end
     resources :trade_items
+    resources :trade_promotes
     resources :payments do
       resources :payment_orders do
         patch :cancel, on: :member

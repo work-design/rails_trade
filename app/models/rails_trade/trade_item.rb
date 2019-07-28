@@ -63,7 +63,6 @@ module RailsTrade::TradeItem
   end
   
   def compute_amount
-  
     self.additional_amount = trade_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
     self.reduced_amount = trade_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
 
@@ -71,6 +70,7 @@ module RailsTrade::TradeItem
     self.wholesale_price = original_amount + additional_amount
     
     self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
+    self
   end
   
   def sync_amount
@@ -93,13 +93,23 @@ module RailsTrade::TradeItem
     good.valid_promote_goods.map do |promote_good|
       value = metering_attributes.fetch(promote_good.promote.metering)
       promote_charge = promote_good.promote.compute_charge(value, **extra)
-      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id) if promote_charge
+      next unless promote_charge
+      if promote_good.promote.single?
+        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
+      else
+        trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
+      end
     end
     
     trade.buyer.promote_buyers.each do |promote_buyer|
       value = metering_attributes.fetch(promote_buyer.promote.metering)
       promote_charge = promote_buyer.promote.compute_charge(value, **extra)
-      self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id) if promote_charge
+      next unless promote_charge
+      if promote_good.promote.single?
+        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+      else
+        trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+      end
     end
   end
   
