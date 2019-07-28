@@ -22,10 +22,7 @@
         <p><%= Promote.human_attribute_name(:start_at) %></p>
         <p><%= Promote.human_attribute_name(:finish_at) %></p>
       </th>
-      <th>
-        <p><%= Promote.human_attribute_name(:verified) %></p>
-        <p><%= Promote.human_attribute_name(:editable) %></p>
-      </th>
+      <th><%= Promote.human_attribute_name(:editable) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
       <th><%= Promote.human_attribute_name(:deal) %></th>
       <th>
@@ -50,9 +47,6 @@
         <p><time><%= promote.finish_at.to_s(:rfc822) if promote.finish_at %></time></p>
       </td>
       <td>
-        <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[verified]', nil, promote.verified, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
-        </div>
         <div class="ui toggle checkbox">
           <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
         </div>

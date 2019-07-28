@@ -12,7 +12,6 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.string :scope
       t.string :metering
       t.integer :sequence
-      t.boolean :verified
       t.booleam :editable
       t.timestamps
     end

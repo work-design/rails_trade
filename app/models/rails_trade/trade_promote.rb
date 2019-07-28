@@ -56,7 +56,7 @@ module RailsTrade::TradePromote
   end
   
   def sync_changed_amount
-    changed_amount = amount - amount_was
+    changed_amount = amount - amount_was.to_i
     if amount >= 0
       trade_item.additional_price += changed_amount if single?
       trade.overall_additional_amount += changed_amount if overall?

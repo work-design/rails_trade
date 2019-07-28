@@ -77,7 +77,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :metering,
       :effect_at,
       :expire_at,
-      :verified,
       :editable,
       extra: []
     )

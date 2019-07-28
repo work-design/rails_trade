@@ -51,6 +51,10 @@ module RailsTrade::Order
     after_create_commit :confirm_ordered!
   end
   
+  def sync_changed_amount
+    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+  end
+  
   def subject
     trade_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
   end

@@ -5,7 +5,7 @@ module RailsTrade::Buyer
     attribute :name, :string
 
     has_many :carts, as: :buyer, dependent: :destroy
-    has_many :orders, as: :buyer, inverse_of: :buyer
+    has_many :orders, as: :buyer, inverse_of: :buyer, dependent: :nullify
 
     has_many :promote_buyers, -> { valid }, as: :buyer, dependent: :destroy
     has_many :promotes, through: :promote_buyers

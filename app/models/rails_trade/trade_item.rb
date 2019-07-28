@@ -7,7 +7,8 @@ module RailsTrade::TradeItem
     
     attribute :good_type, :string
     attribute :good_id, :integer
-
+    attribute :good_name, :string
+    
     attribute :number, :integer, default: 1
     attribute :quantity, :decimal, default: 0  # 重量
     attribute :unit, :string  # 单位
@@ -23,7 +24,7 @@ module RailsTrade::TradeItem
     
     attribute :amount, :decimal, default: 0
     attribute :note, :string
-    attribute :advance_payment, :decimal, default: 0
+    attribute :advance_amount, :decimal, default: 0
     attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
@@ -73,13 +74,13 @@ module RailsTrade::TradeItem
   end
   
   def sync_amount
-    self.advance_payment = self.good.advance_payment if self.advance_payment.zero?
+    self.advance_amount = self.good.advance_price if self.advance_amount.zero?
   end
 
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
     
-    changed_amount = amount - amount_was
+    changed_amount = amount - amount_was.to_i
     trade.item_amount += changed_amount
   end
 

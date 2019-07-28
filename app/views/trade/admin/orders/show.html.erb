@@ -27,9 +27,9 @@
       </td>
       <td><%= trade_item.number %></td>
       <td><%= link_to '订单流程', admin_trade_item_path(trade_item) %></td>
-      <td><%= trade_item.original_price %></td>
-      <td><%= trade_item.additional_price %></td>
-      <td><%= trade_item.reduced_price %></td>
+      <td><%= trade_item.original_amount %></td>
+      <td><%= trade_item.additional_amount %></td>
+      <td><%= trade_item.reduced_amount %></td>
       <td><%= trade_item.amount %></td>
     </tr>
     <% trade_item.trade_promotes.each do |trade_promote| %>

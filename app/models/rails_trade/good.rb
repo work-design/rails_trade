@@ -4,7 +4,6 @@ module RailsTrade::Good
   included do
     attribute :name, :string
     attribute :sku, :string, default: -> { SecureRandom.hex }
-    attribute :currency, :string
     attribute :price, :decimal, default: 0
     attribute :advance_price, :decimal, default: 0
     attribute :extra, :json, default: {}
@@ -59,7 +58,7 @@ module RailsTrade::Good
     o.maintain_id = maintain_id if o.respond_to?(:maintain_id)
     
     ti = o.trade_items.build(good: self)
-    ti.assign_attribute params.slice(:number)
+    ti.assign_attributes params.slice(:number)
     ti.compute_promote
     ti.compute_amount
 
