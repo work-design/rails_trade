@@ -19,6 +19,8 @@ zh:
         additional_amount: 附加费
         reduced_amount: 优惠金额
         amount: 总价
+      trade_promote:
+        amount: 总额
       payment:
         total_amount: 总金额
         income_amount: 净收入

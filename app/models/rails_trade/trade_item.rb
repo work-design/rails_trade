@@ -49,7 +49,7 @@ module RailsTrade::TradeItem
       self.original_amount = single_price * number
     end
     before_validation :sync_amount
-    before_validation :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
+    before_update :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -80,7 +80,7 @@ module RailsTrade::TradeItem
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
     
-    changed_amount = amount - amount_was.to_i
+    changed_amount = amount - amount_was
     trade.item_amount += changed_amount
   end
 
