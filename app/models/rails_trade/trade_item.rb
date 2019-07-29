@@ -49,6 +49,8 @@ module RailsTrade::TradeItem
       self.original_amount = single_price * number
       self.advance_amount = good.advance_price
       self.amount = original_amount
+      trade.item_amount += amount
+      trade.amount += amount
     end
     before_update :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
