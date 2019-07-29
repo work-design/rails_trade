@@ -18,6 +18,7 @@ zh:
         original_amount: 原价
         additional_amount: 附加费
         reduced_amount: 优惠金额
+        amount: 总价
       payment:
         total_amount: 总金额
         income_amount: 净收入

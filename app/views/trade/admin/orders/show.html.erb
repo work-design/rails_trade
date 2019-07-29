@@ -11,10 +11,10 @@
     <tr>
       <th><%= TradeItem.human_attribute_name(:good_id) %></th>
       <th><%= TradeItem.human_attribute_name(:number) %></th>
-      <th></th>
       <th><%= TradeItem.human_attribute_name(:original_amount) %></th>
       <th><%= TradeItem.human_attribute_name(:additional_amount) %></th>
       <th><%= TradeItem.human_attribute_name(:reduced_amount) %></th>
+      <th><%= TradeItem.human_attribute_name(:amount) %></th>
       <th></th>
     </tr>
   </thead>
@@ -26,25 +26,25 @@
         <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
       </td>
       <td><%= trade_item.number %></td>
-      <td><%= link_to '订单流程', admin_trade_item_path(trade_item) %></td>
       <td><%= trade_item.original_amount %></td>
       <td><%= trade_item.additional_amount %></td>
       <td><%= trade_item.reduced_amount %></td>
       <td><%= trade_item.amount %></td>
+      <td><%= link_to '订单流程', admin_trade_item_path(trade_item) %></td>
     </tr>
     <% trade_item.trade_promotes.each do |trade_promote| %>
       <tr class="warning">
         <td><%= trade_promote.promote.name %></td>
-        <td colspan="3"></td>
+        <td colspan="4"></td>
         <td><%= trade_promote.amount %></td>
-        <td colspan="3"></td>
+        <td></td>
       </tr>
     <% end %>
   <% end %>
   <% @order.trade_promotes.each do |trade_promote| %>
     <tr>
       <td><%= trade_promote.promote.name %></td>
-      <td colspan="5"></td>
+      <td colspan="4"></td>
       <td><%= trade_promote.amount %></td>
       <td>
         <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'ui mini circular icon button' do %>
@@ -55,12 +55,13 @@
   <% end %>
   <tr class="active">
     <td>总价</td>
-    <td colspan="5"></td>
+    <td colspan="4"></td>
     <td>
       <%= @order.amount %>
       <%= link_to new_admin_order_order_payment_path(@order.id), remote: true, class: 'ui icon green button' do %>
         <i class="payment icon"></i>
       <% end %>
     </td>
+    <td></td>
   </tr>
 </table>
