@@ -47,8 +47,8 @@ module RailsTrade::TradeItem
       self.good_name = good.name
       self.single_price = good.price
       self.original_amount = single_price * number
+      self.advance_amount = good.advance_price if self.advance_amount.zero?
     end
-    before_validation :sync_amount
     before_update :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
@@ -63,8 +63,8 @@ module RailsTrade::TradeItem
   end
   
   def compute_amount
-    self.additional_amount = trade_promotes.select(&->(ep){ ep.single? && ep.amount >= 0 }).sum(&:amount)
-    self.reduced_amount = trade_promotes.select(&->(ep){ ep.single? && ep.amount < 0 }).sum(&:amount)  # 促销价格
+    self.additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+    self.reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
 
     self.retail_price = single_price + additional_amount
     self.wholesale_price = original_amount + additional_amount
@@ -72,16 +72,13 @@ module RailsTrade::TradeItem
     self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
     self
   end
-  
-  def sync_amount
-    self.advance_amount = self.good.advance_price if self.advance_amount.zero?
-  end
 
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
     
-    changed_amount = amount - amount_was
+    changed_amount = amount - amount_was.to_i
     trade.item_amount += changed_amount
+    trade.save
   end
 
   def valid_promote_buyers(buyer)

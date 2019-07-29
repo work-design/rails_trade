@@ -8,7 +8,7 @@ module RailsTrade::TradePromote
     attribute :amount, :decimal, default: 0  # 默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化
     attribute :note, :string  # 备注
     
-    belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes, autosave: true
+    belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true
     belongs_to :promote
     belongs_to :promote_charge
@@ -57,29 +57,32 @@ module RailsTrade::TradePromote
   end
   
   def sync_changed_amount
-    if amount >= 0 && amount_was >= 0
-      trade_item.additional_amount += (amount - amount_was) if single?
-      trade.overall_additional_amount += (amount - amount_was) if overall?
-    elsif amount >= 0 && amount_was < 0
+    _amount_was = amount_was.to_i
+    if amount >= 0 && _amount_was >= 0
+      trade_item.additional_amount += (amount - _amount_was) if single?
+      trade.overall_additional_amount += (amount - _amount_was) if overall?
+    elsif amount >= 0 && _amount_was < 0
       if single?
         trade_item.additional_amount += amount
-        trade_item.reduced_amount -= amount_was
+        trade_item.reduced_amount -= _amount_was
       elsif overall?
         trade.overall_additional_amount += amount
-        trade.overall_reduced_amount -= amount_was
+        trade.overall_reduced_amount -= _amount_was
       end
-    elsif amount < 0 && amount_was >= 0
+    elsif amount < 0 && _amount_was >= 0
       if single?
         trade_item.reduced_amount += amount
-        trade_item.additional_amount -= amount_was
+        trade_item.additional_amount -= _amount_was
       elsif overall?
         trade.overall_reduced_amount += amount
-        trade.overall_additional_amount -= amount_was
+        trade.overall_additional_amount -= _amount_was
       end
-    elsif amount < 0 && amount_was < 0
-      trade_item.reduced_amount += (amount - amount_was) if single?
-      trade.overall_reduced_amount += (amount - amount_was) if overall?
+    elsif amount < 0 && _amount_was < 0
+      trade_item.reduced_amount += (amount - _amount_was) if single?
+      trade.overall_reduced_amount += (amount - _amount_was) if overall?
     end
+    trade.save if overall?
+    trade_item.save if single?
   end
 
   def check_promote_buyer
