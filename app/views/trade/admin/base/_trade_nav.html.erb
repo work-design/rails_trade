@@ -6,8 +6,8 @@
     <i class="dropdown icon"></i>
   </a>
   <div class="<%= active_helper(modules: 'trade/admin', active_class: 'active content menu', item_class: 'content menu') %>">
-    <%= link_to '订单列表', admin_orders_path, class: active_helper(controllers: 'orders') %>
-    <%= link_to '支付流水', admin_payments_path, class: active_helper(controllers: 'payments') %>
+    <%= link_to t('trade.admin.orders.index.title'), admin_orders_path, class: active_helper(controllers: 'orders') %>
+    <%= link_to t('trade.admin.payments.index.title'), admin_payments_path, class: active_helper(controllers: 'payments') %>
     <%= link_to t('trade.admin.payment_methods.index.title'), admin_payment_methods_path, class: active_helper(controllers: 'payment_methods') %>
     <%= link_to t('trade.admin.promotes.index.title'), admin_promotes_path, class: active_helper(controllers: 'promotes') %>
     <%= link_to t('trade.admin.promote_buyers.index.title'), admin_promote_buyers_path, class: active_helper(controllers: 'promote_buyers') %>
