@@ -19,8 +19,8 @@
       </th>
       <th><%= Promote.human_attribute_name(:metering) %></th>
       <th>
-        <p><%= Promote.human_attribute_name(:start_at) %></p>
-        <p><%= Promote.human_attribute_name(:finish_at) %></p>
+        <p><%= Promote.human_attribute_name(:effect_at) %></p>
+        <p><%= Promote.human_attribute_name(:expire_at) %></p>
       </th>
       <th><%= Promote.human_attribute_name(:editable) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
@@ -43,8 +43,8 @@
       <td><%= promote.scope_i18n %></td>
       <td><%= promote.metering_i18n %></td>
       <td>
-        <p><time><%= promote.start_at.to_s(:rfc822) if promote.start_at %></time></p>
-        <p><time><%= promote.finish_at.to_s(:rfc822) if promote.finish_at %></time></p>
+        <p><time><%= promote.effect_at.to_s(:rfc822) if promote.effect_at %></time></p>
+        <p><time><%= promote.expire_at.to_s(:rfc822) if promote.expire_at %></time></p>
       </td>
       <td>
         <div class="ui toggle checkbox">

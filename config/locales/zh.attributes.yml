@@ -48,10 +48,14 @@ zh:
         state: 核销状态
         check_amount: 核销金额
       promote:
+        short_name: 简称
+        code: 编码
         scope: 应用范围
-        verified: 是否生效
         editable: 是否可改价
+        effect_at: 生效时间
+        expire_at: 过期时间
         metering: 单位
+        sequence: 序列
       promote_good:
         good_type: 商品类型
         good_id: 商品

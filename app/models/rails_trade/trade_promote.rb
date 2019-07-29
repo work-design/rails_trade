@@ -32,7 +32,6 @@ module RailsTrade::TradePromote
         self.sequence = self.promote.sequence
         self.scope = self.promote.scope
       end
-      compute_amount
     end
     before_update :sync_changed_amount, if: -> { amount_changed? }
     after_create_commit :check_promote_buyer

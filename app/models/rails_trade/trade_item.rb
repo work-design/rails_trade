@@ -47,7 +47,8 @@ module RailsTrade::TradeItem
       self.good_name = good.name
       self.single_price = good.price
       self.original_amount = single_price * number
-      self.advance_amount = good.advance_price if self.advance_amount.zero?
+      self.advance_amount = good.advance_price
+      self.amount = original_amount
     end
     before_update :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
@@ -60,6 +61,32 @@ module RailsTrade::TradeItem
   # 批发价和零售价之间的差价，即批发折扣
   def discount_price
     wholesale_price - (retail_price * number)
+  end
+
+  def compute_promote
+    good.valid_promote_goods.map do |promote_good|
+      value = metering_attributes.fetch(promote_good.promote.metering)
+      promote_charge = promote_good.promote.compute_charge(value, **extra)
+      next unless promote_charge
+      if promote_good.promote.single?
+        tp = self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
+      else
+        tp = trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
+      end
+      tp.compute_amount
+    end
+  
+    trade.buyer.promote_buyers.each do |promote_buyer|
+      value = metering_attributes.fetch(promote_buyer.promote.metering)
+      promote_charge = promote_buyer.promote.compute_charge(value, **extra)
+      next unless promote_charge
+      if promote_good.promote.single?
+        tp = self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+      else
+        tp = trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+      end
+      tp.compute_amount
+    end
   end
   
   def compute_amount
@@ -84,30 +111,6 @@ module RailsTrade::TradeItem
   def valid_promote_buyers(buyer)
     ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.pluck(:promote_id)
     Promote.where(id: ids)
-  end
-  
-  def compute_promote
-    good.valid_promote_goods.map do |promote_good|
-      value = metering_attributes.fetch(promote_good.promote.metering)
-      promote_charge = promote_good.promote.compute_charge(value, **extra)
-      next unless promote_charge
-      if promote_good.promote.single?
-        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
-      else
-        trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_good_id: promote_good.id)
-      end
-    end
-    
-    trade.buyer.promote_buyers.each do |promote_buyer|
-      value = metering_attributes.fetch(promote_buyer.promote.metering)
-      promote_charge = promote_buyer.promote.compute_charge(value, **extra)
-      next unless promote_charge
-      if promote_good.promote.single?
-        self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
-      else
-        trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
-      end
-    end
   end
   
   def metering_attributes
