@@ -24,7 +24,6 @@
       </th>
       <th><%= Promote.human_attribute_name(:editable) %></th>
       <th><%= Promote.human_attribute_name(:sequence) %></th>
-      <th><%= Promote.human_attribute_name(:deal) %></th>
       <th>
         <%= link_to new_admin_promote_path, remote: true, class: 'ui mini primary button' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
@@ -38,7 +37,12 @@
     <tr>
       <td>
         <p><%= promote.name %></p>
-        <p><%= promote.short_name %>(<%= promote.code %>)</p>
+        <p>
+          <span><%= promote.short_name %></span>
+          <% if promote.code.present? %>
+            <span>(<%= promote.code %>)</span>
+          <% end %>
+        </p>
       </td>
       <td><%= promote.scope_i18n %></td>
       <td><%= promote.metering_i18n %></td>
@@ -52,9 +56,6 @@
         </div>
       </td>
       <td><%= promote.sequence %></td>
-      <td>
-        <%= promote.deal_type %>: <%= promote.deal_id %>
-      </td>
       <td>
         <%= link_to admin_promote_goods_path(promote_id: promote.id), data: { tooltip: '适用商品' }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-cogs"></i>
