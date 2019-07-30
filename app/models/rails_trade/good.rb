@@ -16,10 +16,6 @@ module RailsTrade::Good
 
     has_many :promote_goods, as: :good
   end
-
-  def name_detail
-    "#{name}-#{id}"
-  end
   
   def final_price
     compute_order_amount

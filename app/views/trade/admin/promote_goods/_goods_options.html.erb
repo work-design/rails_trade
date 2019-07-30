@@ -1,1 +1,1 @@
-<%= f.select :good_id, options_from_collection_for_select(@goods, 'id', 'name_detail'), include_blank: '不限商品' %>
+<%= f.select :good_id, options_from_collection_for_select(@goods, :id, :name), include_blank: '不限商品' %>

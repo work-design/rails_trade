@@ -12,10 +12,10 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
 
   def goods
     # todo support search
-    @goods = params[:good_type].constantize.order(id: :desc)
+    @goods = params[:good_type].constantize.default_where(default_params).order(id: :desc)
     @promote_good = PromoteGood.new
     respond_to do |format|
-      format.json { render json: { results: @goods } }
+      format.json
       format.js
     end
   end
