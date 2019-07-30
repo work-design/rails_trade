@@ -1,6 +1,6 @@
 <%= form_with model: [:admin, @trade_promote] do |f| %>
   <%= render 'shared/error_messages', target: @trade_promote %>
-  <%= f.text_field :amount %>
+  <%= f.text_field :amount, placeholder: "-#{@trade_promote.amount}" %>
   <%= f.text_area :note %>
   <%= f.submit %>
 <% end %>
