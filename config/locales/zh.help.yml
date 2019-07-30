@@ -1,0 +1,7 @@
+zh:
+  activerecord:
+    help:
+      promote:
+        scope: 是否可以对多个商品进行统一计算
+      trade_promote:
+        amount: 负数表示减少金额，正数表示增加金额
