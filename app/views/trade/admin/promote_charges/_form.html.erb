@@ -4,7 +4,6 @@
 <%= f.number_field :max, step: PromoteCharge.max_step %>
 <%= f.check_box :contain_max %>
 <%= f.number_field :parameter, step: '0.01' %>
-<%= f.number_field :base_price, step: '0.01' %>
 <% PromoteCharge.extra_columns.each do |ex| %>
   <%= f.text_field ex %>
 <% end %>

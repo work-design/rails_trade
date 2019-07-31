@@ -59,6 +59,9 @@ Rails.application.routes.draw do
       get :search, on: :collection
       resources :promote_charges, as: 'charges'
     end
+    resources :promote_charges, only: [] do
+      get :options, on: :collection
+    end
     resources :promote_buyers
     resources :promote_goods do
       get :goods, on: :collection

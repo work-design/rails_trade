@@ -2,10 +2,10 @@
 module RailsTrade::PromoteCharge::CashPromoteCharge
 
   def final_price(amount)
-    if amount <= parameter.abs 
-      0
+    if parameter.abs >= amount
+      - amount
     else
-      (amount - parameter.abs).round(2)
+      - parameter.abs
     end
   end
 

@@ -39,11 +39,11 @@ zh:
           single: 单个商品
       promote_charge:
         type:
-          DiscountPromoteCharge: 折扣策略
-          FinalPromoteCharge: 一口价策略(总金额)
-          MinusPromoteCharge: 满减策略
-          CashPromoteCharge: 现金抵扣
-          PlusPromoteCharge: 附加金额
+          DiscountPromoteCharge: 折扣
+          FinalPromoteCharge: 一口价
+          MinusPromoteCharge: 满减
+          CashPromoteCharge: 抵扣券
+          PlusPromoteCharge: 附加费用
       promote_good:
         status:
           default: 默认生效
