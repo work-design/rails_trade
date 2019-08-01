@@ -52,7 +52,7 @@ module RailsTrade::TradeItem
       trade.item_amount += amount
       trade.amount += amount
     end
-    before_update :sync_changed_amount, if: -> { (changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
+    after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
