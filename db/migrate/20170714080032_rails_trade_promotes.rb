@@ -2,6 +2,7 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
   def change
 
     create_table :promotes do |t|
+      t.references :organ  # For SaaS
       t.references :deal, polymorphic: true
       t.string :name
       t.string :short_name

@@ -37,7 +37,13 @@
         <td><%= trade_promote.promote.name %></td>
         <td colspan="4"></td>
         <td><%= trade_promote.amount %></td>
-        <td></td>
+        <td>
+          <% if trade_promote.promote.editable %>
+            <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'ui mini circular icon button' do %>
+              <i class="fas fa-pencil-alt"></i>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   <% end %>
