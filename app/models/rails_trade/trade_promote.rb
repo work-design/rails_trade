@@ -33,7 +33,7 @@ module RailsTrade::TradePromote
         self.scope = self.promote.scope
       end
     end
-    before_update :sync_changed_amount, if: -> { amount_changed? }
+    after_save :sync_changed_amount, if: -> { saved_change_to_amount? }
     after_create_commit :check_promote_buyer
   end
 
@@ -56,32 +56,31 @@ module RailsTrade::TradePromote
   end
   
   def sync_changed_amount
-    _amount_was = amount_was.to_i
-    if amount >= 0 && _amount_was >= 0
-      trade_item.additional_amount += (amount - _amount_was) if single?
-      trade.overall_additional_amount += (amount - _amount_was) if overall?
-    elsif amount >= 0 && _amount_was < 0
-      if single?
-        trade_item.additional_amount += amount
-        trade_item.reduced_amount -= _amount_was
-      elsif overall?
-        trade.overall_additional_amount += amount
-        trade.overall_reduced_amount -= _amount_was
-      end
-    elsif amount < 0 && _amount_was >= 0
-      if single?
-        trade_item.reduced_amount += amount
-        trade_item.additional_amount -= _amount_was
-      elsif overall?
-        trade.overall_reduced_amount += amount
-        trade.overall_additional_amount -= _amount_was
-      end
-    elsif amount < 0 && _amount_was < 0
-      trade_item.reduced_amount += (amount - _amount_was) if single?
-      trade.overall_reduced_amount += (amount - _amount_was) if overall?
+    if amount >= 0 && amount_before_last_save >= 0
+      _additional_amount = amount - amount_before_last_save
+      _reduced_amount = 0
+    elsif amount >= 0 && amount_before_last_save < 0
+      _additional_amount = amount
+      _reduced_amount = -amount_before_last_save
+    elsif amount < 0 && amount_before_last_save >= 0
+      _additional_amount = -amount_before_last_save
+      _reduced_amount = amount
+    else  # amount < 0 && amount_before_last_save < 0
+      _additional_amount = 0
+      _reduced_amount = amount - amount_before_last_save
     end
-    trade.save if overall?
-    trade_item.save if single?
+    
+    if overall?
+      trade.overall_additional_amount += _additional_amount
+      trade.overall_reduced_amount += _reduced_amount
+      trade.amount += (_additional_amount + _reduced_amount)
+      trade.save!
+    elsif single?
+      trade_item.additional_amount += _additional_amount
+      trade_item.reduced_amount += _reduced_amount
+      trade_item.amount += (_additional_amount + _reduced_amount)
+      trade_item.save!
+    end
   end
 
   def check_promote_buyer

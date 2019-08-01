@@ -108,16 +108,29 @@ module RailsTrade::TradeItem
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
     
-    changed_amount = amount - amount_was.to_i
+    changed_amount = amount - amount_before_last_save
     trade.item_amount += changed_amount
     trade.amount += changed_amount
-    if trade.amount == compute_saved_amount
+    if trade.amount == trade.compute_saved_amount
       trade.save!
     else
       trade.errors.add :amount, 'not equal'
       logger.error "#{self.class.name}/Trade: #{trade.error_text}"
       raise ActiveRecord::RecordInvalid.new(trade)
     end
+  end
+
+  def reset_amount
+    self.additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
+    self.reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+    self.amount = original_amount + additional_amount + reduced_amount
+    self.valid?
+    self.changes
+  end
+
+  def reset_amount!
+    self.reset_amount
+    self.update_columns changes.transform_values(&->(o){ o[1] })
   end
 
   def valid_promote_buyers(buyer)
@@ -141,6 +154,5 @@ module RailsTrade::TradeItem
 
   def confirm_refund!
   end
-
-
+  
 end

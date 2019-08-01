@@ -47,7 +47,7 @@
       </tr>
     <% end %>
   <% end %>
-  <% @order.trade_promotes.each do |trade_promote| %>
+  <% @order.trade_promotes.overall.each do |trade_promote| %>
     <tr>
       <td><%= trade_promote.promote.name %></td>
       <td colspan="4"></td>

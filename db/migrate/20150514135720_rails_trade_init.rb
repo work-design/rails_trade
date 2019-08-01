@@ -32,6 +32,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
       t.boolean :myself
       t.string :note, limit: 4096
       t.datetime :expire_at
+      t.integer :lock_version
       t.timestamps
     end
 
