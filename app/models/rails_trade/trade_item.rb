@@ -46,11 +46,6 @@ module RailsTrade::TradeItem
     after_initialize if: :new_record? do
       self.good_name = good.name
       self.single_price = good.price
-      self.original_amount = single_price * number
-      self.advance_amount = good.advance_price
-      self.amount = original_amount
-      trade.item_amount += amount
-      trade.amount += amount
     end
     after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
@@ -63,6 +58,14 @@ module RailsTrade::TradeItem
   # 批发价和零售价之间的差价，即批发折扣
   def discount_price
     wholesale_price - (retail_price * number)
+  end
+  
+  def init_amount
+    self.original_amount = single_price * number
+    self.advance_amount = good.advance_price
+    self.amount = original_amount
+    trade.item_amount += amount
+    trade.amount += amount
   end
 
   def compute_promote
@@ -90,14 +93,14 @@ module RailsTrade::TradeItem
       tp.compute_amount
     end
   end
-  
-  def compute_amount
+
+  def sum_amount
     self.additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
     self.reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
 
     self.retail_price = single_price + additional_amount
     self.wholesale_price = original_amount + additional_amount
-    
+  
     self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
     self
   end
@@ -107,7 +110,14 @@ module RailsTrade::TradeItem
     
     changed_amount = amount - amount_was.to_i
     trade.item_amount += changed_amount
-    trade.save
+    trade.amount += changed_amount
+    if trade.amount == compute_saved_amount
+      trade.save!
+    else
+      trade.errors.add :amount, 'not equal'
+      logger.error "#{self.class.name}/Trade: #{trade.error_text}"
+      raise ActiveRecord::RecordInvalid.new(trade)
+    end
   end
 
   def valid_promote_buyers(buyer)

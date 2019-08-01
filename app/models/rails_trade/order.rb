@@ -8,10 +8,7 @@ module RailsTrade::Order
     
     attribute :payment_status, :string, default: 'unpaid'
     
-    attribute :item_amount, :decimal, default: 0
-    attribute :overall_additional_amount, :decimal, default: 0
-    attribute :overall_reduced_amount, :decimal, default: 0
-    attribute :amount, :decimal, default: 0
+    
     
     attribute :received_amount, :decimal, default: 0
 
@@ -47,12 +44,7 @@ module RailsTrade::Order
     }
     
     before_validation :sync_from_cart
-    before_validation :sync_changed_amount, if: -> { (changes.keys & ['item_sum', 'overall_additional_amount', 'overall_reduced_amount']).present? }
     after_create_commit :confirm_ordered!
-  end
-  
-  def sync_changed_amount
-    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
   
   def subject
@@ -65,14 +57,6 @@ module RailsTrade::Order
 
   def amount_money
     amount.to_money(self.currency)
-  end
-
-  def compute_amount
-    self.item_amount = trade_items.sum(&:amount)
-    self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
-    self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
-    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
-    self
   end
   
   def compute_promote
