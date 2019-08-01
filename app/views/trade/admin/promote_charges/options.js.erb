@@ -1,0 +1,4 @@
+<% f = form_object(as: 'promote_charge') %>
+
+$('#promote_charge_parameter_wrapper').after('<%= j(render partial: 'base_price_form', locals: { f: f }) %>')
+$('#promote_charge_max').val('222')

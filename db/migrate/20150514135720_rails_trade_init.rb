@@ -14,6 +14,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
     end
 
     create_table :orders do |t|
+      t.references :organ  # For SaaS
       t.references :user
       t.references :cart
       t.references :buyer, polymorphic: true

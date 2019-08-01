@@ -1,1 +1,1 @@
-<%= f.number_field :base_price, step: '0.01' %>
+<%= f.select :type, options_for_select(PromoteCharge.options_i18n(:type)) %>
