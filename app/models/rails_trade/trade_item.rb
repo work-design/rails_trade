@@ -47,7 +47,7 @@ module RailsTrade::TradeItem
       self.good_name = good.name
       self.single_price = good.price
     end
-    after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
+    after_update :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -102,13 +102,15 @@ module RailsTrade::TradeItem
     self.wholesale_price = original_amount + additional_amount
   
     self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
+    
+    trade.item_amount = amount
     self
   end
 
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
     
-    changed_amount = amount - amount_before_last_save.to_i
+    changed_amount = amount - amount_before_last_save
     trade.item_amount += changed_amount
     trade.amount += changed_amount
     if trade.amount == trade.compute_saved_amount

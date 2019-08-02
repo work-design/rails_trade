@@ -11,17 +11,11 @@ module RailsTrade::Amount
     
     accepts_nested_attributes_for :trade_items
     accepts_nested_attributes_for :trade_promotes
-
-    after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
   end
 
   def sync_changed_amount!
     sync_changed_amount
     self.save
-  end
-
-  def sync_changed_amount
-    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
 
   def compute_amount

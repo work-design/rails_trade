@@ -33,7 +33,7 @@ module RailsTrade::TradePromote
         self.scope = self.promote.scope
       end
     end
-    after_save :sync_changed_amount, if: -> { saved_change_to_amount? }
+    after_update :sync_changed_amount, if: -> { saved_change_to_amount? }
     after_create_commit :check_promote_buyer
   end
 
