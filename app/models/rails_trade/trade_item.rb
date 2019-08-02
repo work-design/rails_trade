@@ -108,7 +108,7 @@ module RailsTrade::TradeItem
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
     
-    changed_amount = amount - amount_before_last_save
+    changed_amount = amount - amount_before_last_save.to_i
     trade.item_amount += changed_amount
     trade.amount += changed_amount
     if trade.amount == trade.compute_saved_amount
