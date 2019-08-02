@@ -102,8 +102,6 @@ module RailsTrade::TradeItem
     self.wholesale_price = original_amount + additional_amount
   
     self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
-    
-    trade.item_amount = amount
     self
   end
 
