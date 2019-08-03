@@ -51,7 +51,10 @@ module RailsTrade::Good
     end
 
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
-    o.maintain_id = maintain_id if o.respond_to?(:maintain_id)
+    if o.respond_to?(:maintain_id)
+      o.maintain_id = maintain_id
+      o.organ_id ||= o.maintain.organ_id
+    end
     
     ti = o.trade_items.build(good: self)
     ti.assign_attributes params.slice(:number)
