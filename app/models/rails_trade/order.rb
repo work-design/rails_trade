@@ -7,9 +7,6 @@ module RailsTrade::Order
     delegate :url_helpers, to: 'Rails.application.routes'
     
     attribute :payment_status, :string, default: 'unpaid'
-    
-    
-    
     attribute :received_amount, :decimal, default: 0
 
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
@@ -37,6 +34,9 @@ module RailsTrade::Order
       denied: 'denied'
     }
     
+    after_initialize if: :new_record? do
+      self.user_id ||= buyer.user_id if buyer.respond_to?(:user_id)
+    end
     before_validation :sync_from_cart
     after_create_commit :confirm_ordered!
   end
