@@ -3,8 +3,8 @@ class Trade::My::CartItemsController < Trade::My::BaseController
   #before_action :set_additions
   
   def index
-    @cart_items = @cart.cart_items.page(params[:page])
-    @checked_ids = @cart.cart_items.checked.pluck(:id)
+    @cart_items = @cart.trade_items.page(params[:page])
+    @checked_ids = @cart.trade_items.checked.pluck(:id)
   end
   
   def create
