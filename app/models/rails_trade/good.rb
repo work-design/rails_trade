@@ -37,18 +37,8 @@ module RailsTrade::Good
     o
   end
 
-  def generate_order(user: nil, buyer: nil, maintain_id: nil, **params)
-    if buyer
-      o = buyer.orders.build
-    elsif user
-      o = user.orders.build
-      cart = user.carts.default
-      if cart
-        o.buyer = cart.buyer
-      end
-    else
-      o = Order.new
-    end
+  def generate_order(buyer:, maintain_id: nil, **params)
+    o = buyer.orders.build
 
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
     if o.respond_to?(:maintain_id)
