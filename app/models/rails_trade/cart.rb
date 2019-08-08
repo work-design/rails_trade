@@ -14,7 +14,7 @@ module RailsTrade::Cart
     attribute :default, :boolean, default: false
 
     belongs_to :user, optional: true
-    belongs_to :buyer, polymorphic: true, optional: true
+    belongs_to :buyer, polymorphic: true
     belongs_to :payment_strategy, optional: true
     
     has_many :trade_items, as: :trade, dependent: :destroy
