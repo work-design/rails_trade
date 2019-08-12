@@ -80,6 +80,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :editable,
       extra: []
     )
-    p.merge! default_params
+    p.merge! default_form_params
   end
 end

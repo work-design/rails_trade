@@ -104,7 +104,7 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
       trade_items_attributes: [:deliver_on, :advance_price, :comment],
       trade_promotes_attributes: [:promote_id]
     )
-    p.merge! default_params
+    p.merge! default_form_params
   end
 
 end

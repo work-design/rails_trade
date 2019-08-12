@@ -90,7 +90,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
       :buyer_identifier,
       :buyer_bank
     )
-    p.merge! default_params
+    p.merge! default_form_params
     p
   end
 
