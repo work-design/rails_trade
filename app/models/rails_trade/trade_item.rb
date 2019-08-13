@@ -30,7 +30,7 @@ module RailsTrade::TradeItem
     belongs_to :good, polymorphic: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items
     has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
-    has_many :providers, dependent: :delete_all  # 用于对接供应商
+    #has_many :organs, dependent: :delete_all  # 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
     scope :starred, -> { where(status: 'init', starred: true) }
@@ -82,7 +82,8 @@ module RailsTrade::TradeItem
       end
       tp.compute_amount
     end
-  
+    
+    return unless trade.buyer
     trade.buyer.promote_buyers.each do |promote_buyer|
       value = metering_attributes.fetch(promote_buyer.promote.metering)
       promote_charge = promote_buyer.promote.compute_charge(value, **extra)

@@ -1,5 +1,5 @@
 class Trade::My::TradeItemsController < Trade::My::BaseController
-  #before_action :set_additions
+  before_action :set_trade_item, only: [:show, :update, :destroy]
   
   def index
   
@@ -13,7 +13,10 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
     else
       trade_item = current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
     end
-    
+
+    trade_item.init_amount
+    trade_item.compute_promote
+    trade_item.sum_amount
     trade_item.save
 
     @trade_items = current_cart.trade_items.page(params[:page])
@@ -41,16 +44,16 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   end
 
   def update
-    @cart_item.update(number: params[:number])
+    @trade_item.update(number: params[:number])
   end
 
   def destroy
-    @cart_item.update(status: :deleted, checked: false)
+    @trade_item.destroy
   end
 
   private
-  def set_cart
-    @cart = current_user.carts.find(params[:cart_id])
+  def set_trade_item
+    @trade_item = current_cart.trade_items.find(params[:id])
   end
 
   def set_additions
