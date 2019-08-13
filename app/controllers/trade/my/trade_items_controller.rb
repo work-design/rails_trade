@@ -1,15 +1,12 @@
-class Trade::My::CartItemsController < Trade::My::BaseController
-  before_action :set_cart, except: [:create]
+class Trade::My::TradeItemsController < Trade::My::BaseController
   #before_action :set_additions
   
   def index
-    @cart_items = @cart.trade_items.page(params[:page])
-    @checked_ids = @cart.trade_items.checked.pluck(:id)
+  
   end
   
   def create
-    @cart = current_cart
-    
+   
     cart_item = @cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1
     if cart_item.present?

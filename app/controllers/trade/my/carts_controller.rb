@@ -1,18 +1,19 @@
 class Trade::My::CartsController < Trade::My::BaseController
-
-  def index
-    @carts = current_user.carts
+  
+  def show
+    @trade_items = current_cart.trade_items.page(params[:page])
+    @checked_ids = current_cart.trade_items.checked.pluck(:id)
   end
-
+  
   def create
-    cart_item = current_cart.cart_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
+    trade_item = current_cart.trade_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1
-    if cart_item.present?
-      cart_item.number = cart_item.number + params[:number].to_i
-      cart_item.save
+    if trade_item.present?
+      trade_item.number = trade_item.number + params[:number].to_i
+      trade_item.save
     else
-      cart_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
-      cart_item.save
+      trade_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
+      trade_item.save
     end
 
     @checked_ids = current_cart.checked_items.pluck(:id)
@@ -31,28 +32,23 @@ class Trade::My::CartsController < Trade::My::BaseController
 
     respond_to do |format|
       format.js
-      format.json { render 'cart_item' }
+      format.json { render 'trade_item' }
     end
   end
   
-  def show
-  end
+  
 
   def update
-    @cart_item.update(number: params[:number])
+    @trade_item.update(number: params[:number])
   end
 
   def destroy
-    @cart_item.update(status: :deleted, checked: false)
+    @trade_item.update(status: :deleted, checked: false)
   end
 
   private
-  def set_cart
-    @cart = current_user.carts.find(params[:id])
-  end
-
-  def cart_item_params
-    params.require(:cart_item).permit(
+  def trade_item_params
+    params.require(:trade_item).permit(
       id: [],
       single_price: [],
       amount: [],

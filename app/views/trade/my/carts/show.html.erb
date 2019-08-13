@@ -1,7 +1,69 @@
-<div class="ui segment breadcrumb">
-  <%= link_to 'Back', my_carts_path, class: 'section' %>
-  <i class="fas fa-angle-right divider"></i>
-  <div class="active section">Show</div>
+<div class="ui top attached segment">
 </div>
 
-<%= render 'show_table' %>
+<table class="ui bottom attached selectable table">
+  <thead>
+    <tr>
+      <th><%= check_box_tag :all %></th>
+      <th><%= TradeItem.human_attribute_name(:good_name) %></th>
+      <th><%= TradeItem.human_attribute_name(:price) %></th>
+      <th><%= TradeItem.human_attribute_name(:number) %></th>
+      <th><%= TradeItem.human_attribute_name(:amount) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @trade_items.each do |trade_item| %>
+    <tr class="<%= 'active' if trade_item.checked %>" id="trade_item_<%= trade_item.id %>">
+      <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked) %></td>
+      <td>
+        <%= trade_item.good&.name %>
+        <p style="color: grey;"><%= trade_item.good_type %></p>
+      </td>
+      <td>
+        <p><%= trade_item.retail_price %></p>
+        <p><%= trade_item.quantity %><%= trade_item.unit %></p>
+      </td>
+      <td>
+        <div class="ui left right action input">
+          <div class="ui button" onclick="decrease_quantity(<%= trade_item.id %>)"><i class="minus icon"></i></div>
+          <%= text_field_tag :quantity, trade_item.quantity, id: "quantity_#{trade_item.id}", onkeyup: "update_quantity(#{trade_item.id})" %>
+          <div class="ui button" onclick="increase_quantity(<%= trade_item.id %>)"><i class="fas fa-plus"></i></div>
+        </div>
+      </td>
+      <td>
+        <p id="retail_price_<%= trade_item.id %>">
+          <%= trade_item.bulk_price %>
+        </p>
+        <p id="discount_price_<%= trade_item.id %>">
+          <%= render partial: 'single_price', locals: { trade_item: trade_item } %>
+        </p>
+      </td>
+      <td>
+        <%= link_to 'delete', my_cart_trade_item_path(current_cart, trade_item), method: :delete, remote: true %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tbody id="additions_body">
+  <%# render 'additions' %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="4"></th>
+      <th id="total_price">
+        <%# render 'total_price' %>
+      </th>
+      <th></th>
+    </tr>
+    <tr>
+      <th colspan="5">
+        <div class="">
+          <%= link_to '去结算', new_my_order_path, class: 'ui red right floated button', id: 'new_order' %>
+        </div>
+      </th>
+      <th></th>
+    </tr>
+  </tfoot>
+</table>
+

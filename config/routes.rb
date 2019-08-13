@@ -73,12 +73,10 @@ Rails.application.routes.draw do
   end
 
   scope :my, module: 'trade/my', as: 'my' do
-    resources :buyers
-    resources :carts do
+    resource :cart do
       get :total, on: :member
-      resources :cart_items, except: [:create]
     end
-    resources :cart_items, only: [:create]
+    resources :trade_items
     resources :good_providers
     resources :orders do
       collection do

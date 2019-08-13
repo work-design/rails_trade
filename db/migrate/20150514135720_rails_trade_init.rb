@@ -4,6 +4,7 @@ class RailsTradeInit < ActiveRecord::Migration[5.2]
     create_table :carts do |t|
       t.references :user
       t.references :buyer, polymorphic: true
+      t.references :organ  # For SaaS
       t.references :payment_strategy
       t.string :session_id, limit: 128
       t.decimal :amount, precision: 10, scale: 2

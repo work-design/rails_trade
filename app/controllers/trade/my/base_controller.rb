@@ -1,12 +1,11 @@
 class Trade::My::BaseController < RailsTrade.config.my_controller.constantize
-  skip_before_action :verify_authenticity_token#, if: -> { request.content_type == 'application/json' }
   helper_method :current_cart
 
   def current_cart
     if current_user
-      @current_cart = current_user.carts.default
+      @current_cart = current_user.carts.default_where(default_params).find_or_create_by(default: true)
     else
-      @current_cart = Cart.find_or_create_by(session_id: session.id)
+      @current_cart = Cart.find_or_create_by(default_params.merge(session_id: session.id))
     end
   end
 
