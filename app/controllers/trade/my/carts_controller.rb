@@ -6,18 +6,7 @@ class Trade::My::CartsController < Trade::My::BaseController
   end
   
   def create
-    trade_item = current_cart.trade_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
-    params[:number] ||= 1
-    if trade_item.present?
-      trade_item.number = trade_item.number + params[:number].to_i
-      trade_item.save
-    else
-      trade_item = current_cart.build(good_id: params[:good_id], good_type: params[:good_type])
-      trade_item.save
-    end
-
-    @checked_ids = current_cart.checked_items.pluck(:id)
-
+    
     render 'index'
   end
 
