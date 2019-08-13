@@ -44,8 +44,10 @@ module RailsTrade::TradeItem
     }
     
     after_initialize if: :new_record? do
-      self.good_name = good.name
-      self.single_price = good.price
+      if good
+        self.good_name = good.name
+        self.single_price = good.price
+      end
     end
     after_update :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]

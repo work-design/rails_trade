@@ -14,11 +14,8 @@ module RailsTrade::Cart
     attribute :default, :boolean, default: false
 
     belongs_to :user, optional: true
-    belongs_to :buyer, polymorphic: true
+    belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :payment_strategy, optional: true
-    
-    has_many :trade_items, as: :trade, dependent: :destroy
-    has_many :trade_promotes, -> { includes(:promote) }, as: :trade, dependent: :destroy
     has_many :orders, dependent: :nullify
     
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true

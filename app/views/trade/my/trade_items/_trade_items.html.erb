@@ -11,8 +11,8 @@
   </thead>
   <tbody>
   <% @trade_items.each do |trade_item| %>
-    <tr class="<%= 'active' if trade_item.checked %>" id="trade_item_<%= trade_item.id %>">
-      <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked) %></td>
+    <tr class="<%= 'active' if trade_item.checked? %>" id="trade_item_<%= trade_item.id %>">
+      <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked?) %></td>
       <td>
         <%= trade_item.good&.name %>
         <p style="color: grey;"><%= trade_item.good_type %></p>
@@ -30,14 +30,14 @@
       </td>
       <td>
         <p id="retail_price_<%= trade_item.id %>">
-          <%= trade_item.bulk_price %>
+          <%= trade_item.wholesale_price %>
         </p>
         <p id="discount_price_<%= trade_item.id %>">
-          <%= render partial: 'single_price', locals: { trade_item: trade_item } %>
+          <%= render partial: 'trade/my/trade_items/single_price', locals: { trade_item: trade_item } %>
         </p>
       </td>
       <td>
-        <%= link_to 'delete', my_cart_trade_item_path(current_cart, trade_item), method: :delete, remote: true %>
+        <%= link_to 'delete', my_trade_item_path(trade_item), method: :delete, remote: true %>
       </td>
     </tr>
   <% end %>

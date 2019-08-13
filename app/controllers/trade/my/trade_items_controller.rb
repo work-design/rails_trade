@@ -10,14 +10,14 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
     params[:number] ||= 1
     if trade_item.present?
       trade_item.number = trade_item.number + params[:number].to_i
-      trade_item.save
     else
       trade_item = current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
-      trade_item.save
     end
+    
+    trade_item.save
 
     @trade_items = current_cart.trade_items.page(params[:page])
-    @checked_ids = current_cart.checked_items.pluck(:id)
+    @checked_ids = current_cart.trade_items.checked.pluck(:id)
   
     redirect_to my_cart_url
   end
