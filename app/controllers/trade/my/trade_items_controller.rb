@@ -49,6 +49,8 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
 
   def destroy
     @trade_item.destroy
+    
+    redirect_to my_cart_url
   end
 
   private
