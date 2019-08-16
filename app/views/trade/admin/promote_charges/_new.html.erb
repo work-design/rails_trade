@@ -6,7 +6,7 @@
 
   <div class="content">
     <%= form_with model: @promote_charge, scope: :promote_charge, url: admin_promote_charges_path(@promote) do |f| %>
-      <%= render partial: 'form', locals: { f: f } %>
+      <%= render partial: 'trade/admin/promote_charges/form', locals: { f: f } %>
     <% end %>
   </div>
 

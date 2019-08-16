@@ -17,6 +17,13 @@ class RailsTradePromotes < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
+    create_table :promote_extras do |t|
+      t.references :promote
+      t.string :extra_name
+      t.string :column_name
+      t.timestamps
+    end
+
     create_table :promote_charges do |t|
       t.references :promote
       t.decimal :min, precision: 10, scale: 2, default: 0

@@ -24,7 +24,9 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
     respond_to do |format|
       if @promote_charge.save
         format.html { redirect_to admin_promote_charges_url(@promote) }
-        format.js { redirect_to admin_promote_charges_url(@promote) }
+        format.js { 
+          
+        }
       else
         format.html { render :new }
         format.js

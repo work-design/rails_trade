@@ -1,0 +1,10 @@
+<div class="content" id="content">
+  <%= form_with model: @promote_charge, scope: :promote_charge, url: admin_promote_charges_path(@promote) do |f| %>
+    <%= render partial: 'trade/admin/promote_charges/form', locals: { f: f } %>
+  <% end %>
+  
+  <%= link_to new_admin_promote_good_path(promote_id: @promote.id), remote: true, class: 'ui teal button' do %>
+    <i class="fas fa-plus"></i><%= t('.new') %>
+  <% end %>
+</div>
+

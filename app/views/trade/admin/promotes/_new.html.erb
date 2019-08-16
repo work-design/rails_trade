@@ -4,7 +4,7 @@
     <%= t('.new') %>
   </div>
 
-  <div class="content">
+  <div class="content" id="content">
     <%= form_with model: @promote, scope: :promote, url: admin_promotes_path do |f| %>
       <%= render partial: 'form', locals: { f: f } %>
     <% end %>

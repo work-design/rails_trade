@@ -24,6 +24,9 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
     respond_to do |format|
       if @promote.save
         format.html { redirect_to admin_promotes_url }
+        format.js {
+          @promote_charge = @promote.promote_charges.build
+        }
         format.json { render action: 'show', status: :created, location: @promote }
       else
         format.html { render action: 'new' }
