@@ -30,16 +30,22 @@ module RailsTrade::Good
     PromoteGood.default.where(good_type: self.class.base_class.name, good_id: [nil, self.id])
   end
 
-  def generate_order!(user: nil, buyer: nil, **params)
-    o = generate_order(user: user, buyer: buyer, **params)
+  def generate_order!(buyer: nil, cart: nil, maintain_id: nil, **params)
+    o = generate_order(buyer: buyer, cart: cart, maintain_id: maintain_id, **params)
     o.check_state
     o.save!
     o
   end
 
-  def generate_order(buyer:, maintain_id: nil, **params)
-    o = buyer.orders.build
-
+  def generate_order(buyer: nil, cart: nil, maintain_id: nil, **params)
+    if buyer
+      o = buyer.orders.build
+    elsif cart
+      o = cart.orders.build
+    else
+      raise 'please assign buyer or cart'
+    end
+    
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
     if o.respond_to?(:maintain_id)
       o.maintain_id = maintain_id
