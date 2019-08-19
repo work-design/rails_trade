@@ -5,6 +5,8 @@ module RailsTrade::MyCart
   end
   
   def current_cart
+    return @current_cart if defined? @current_cart
+    
     if current_user
       @current_cart = current_user.carts.default_where(default_params).find_or_create_by(default: true)
     else

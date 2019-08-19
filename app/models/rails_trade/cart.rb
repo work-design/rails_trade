@@ -8,7 +8,14 @@ module RailsTrade::Cart
   extend ActiveSupport::Concern
   
   included do
-    attribute :retail_price, :decimal
+    attribute :retail_price, :decimal, default: 0  # 商品汇总的原价
+    attribute :discount_price, :decimal, default: 0
+    attribute :bulk_price, :decimal, default: 0
+    
+    attribute :reduced_amount, :decimal, default: 0  # 汇总的减少价格
+    attribute :additional_amount, :decimal, default: 0
+    attribute :total_quantity, :decimal, default: 0
+    
     attribute :deposit_ratio, :integer, default: 100  # 最小预付比例
     attribute :payment_strategy_id, :integer
     attribute :default, :boolean, default: false
@@ -27,11 +34,16 @@ module RailsTrade::Cart
   end
 
   def compute_price
-    self.reduced_price = trade_items.checked.sum(&:reduced_price)
-    self.discount_price = trade_items.checked.sum(&:discount_price)
     self.retail_price = trade_items.checked.sum(&:retail_price)
-    self.final_price = trade_items.checked.sum(&:final_price)
-    self.total_quantity = trade_items.checked.sum(&:total_quantity)
+    self.discount_price = trade_items.checked.sum(&:discount_price)
+    self.bulk_price = self.retail_price - self.discount_price
+
+    self.reduced_amount = trade_items.checked.sum(&:reduced_amount)
+    self.additional_amount = trade_items.checked.sum(&:additional_amount)
+    
+    self.amount = trade_items.checked.sum(&:amount)
+    
+    self.total_quantity = trade_items.checked.sum(&:original_quantity)
   end
  
   def migrate_to_order(myself: true)

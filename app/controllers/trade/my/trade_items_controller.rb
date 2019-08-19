@@ -30,6 +30,8 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   def update
     @trade_item.assign_attributes(trade_item_params)
     @trade_item.save
+    
+    redirect_to my_cart_url
   end
 
   def destroy

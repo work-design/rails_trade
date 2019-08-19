@@ -3,6 +3,8 @@ class Trade::My::CartsController < Trade::My::BaseController
   def show
     @trade_items = current_cart.trade_items.page(params[:page])
     @checked_ids = current_cart.trade_items.checked.pluck(:id)
+
+    current_cart.compute_price
   end
   
   def total
