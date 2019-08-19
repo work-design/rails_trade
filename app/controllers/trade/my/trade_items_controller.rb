@@ -43,14 +43,6 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
     @trade_item = current_cart.trade_items.find(params[:id])
   end
 
-  def set_additions
-    if current_buyer
-      @additions = CartService.new(buyer_type: current_buyer.class.name, buyer_id: current_buyer.id, myself: true)
-    else
-      @additions = CartService.new(session_id: session.id, myself: true)
-    end
-  end
-
   def trade_item_params
     params.fetch(:trade_item, {}).permit(
       :number,

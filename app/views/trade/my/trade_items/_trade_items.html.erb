@@ -1,4 +1,4 @@
-<table class="ui bottom attached selectable table">
+<table class="ui table">
   <thead>
     <tr>
       <th><%= check_box_tag :all %></th>
@@ -24,10 +24,10 @@
         <p><%= trade_item.quantity %><%= trade_item.unit %></p>
       </td>
       <td>
-        <div class="ui left right action input">
-          <div class="ui button" onclick="decrease_quantity(<%= trade_item.id %>)"><i class="minus icon"></i></div>
-          <%= text_field_tag :quantity, trade_item.quantity, id: "quantity_#{trade_item.id}", onkeyup: "update_quantity(#{trade_item.id})" %>
-          <div class="ui button" onclick="increase_quantity(<%= trade_item.id %>)"><i class="fas fa-plus"></i></div>
+        <div class="ui left right action input" data-controller="cart">
+          <div class="ui button" data-action="click->cart#decrease"><i class="minus icon"></i></div>
+          <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'keyup->cart#update', traget: 'cart.number' } %>
+          <div class="ui button" data-action="click->cart#increase"><i class="fas fa-plus"></i></div>
         </div>
       </td>
       <td>
