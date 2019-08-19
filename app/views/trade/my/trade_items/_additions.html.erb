@@ -1,20 +1,10 @@
-<% @additions.promote_charges.each do |charge| %>
+<% current_cart.trade_promotes.each do |trade_promote| %>
   <tr class="error">
     <td></td>
-    <td><%= charge.item.name %></td>
+    <td><%= trade_promote.promote.name %></td>
     <td></td>
     <td></td>
-    <td><%= charge.subtotal %></td>
-    <td></td>
-  </tr>
-<% end %>
-<% @additions.serve_charges.each do |charge| %>
-  <tr class="warning">
-    <td></td>
-    <td><%= charge.item.name %></td>
-    <td></td>
-    <td></td>
-    <td><%= charge.subtotal %></td>
+    <td><%= trade_promote.amount %></td>
     <td></td>
   </tr>
 <% end %>
