@@ -1,8 +1,0 @@
-
-<% if params[:add_id].present? %>
-  $("#cart_item_<%= params[:add_id] %>").addClass('active');
-<% end %>
-
-<% if params[:remove_id].present? %>
-  $("#cart_item_<%= params[:remove_id] %>").removeClass('active');
-<% end %>

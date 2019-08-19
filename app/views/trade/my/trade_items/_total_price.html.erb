@@ -1,8 +1,8 @@
-<p>原价：<%= @additions.retail_price %></p>
-<p style="color: red;">批发折扣：<%= @additions.discount_price %></p>
-<p>折后价格： <%= @additions.bulk_price %></p>
-<p style="color: red;">优惠价格： <%= @additions.promote_price %></p>
-<p>附加服务： <%= @additions.serve_price %></p>
-<p>最终价格： <%= @additions.total_price %></p>
+<p>原价：<%= current_cart.retail_price %></p>
+<p style="color: red;">批发折扣：<%= current_cart.discount_price %></p>
+<p>折后价格： <%= current_cart.bulk_price %></p>
+<p style="color: red;">优惠价格： <%= current_cart.promote_price %></p>
+<p>附加服务： <%= current_cart.serve_price %></p>
+<p>最终价格： <%= current_cart.total_price %></p>
 
 

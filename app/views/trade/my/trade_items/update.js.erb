@@ -1,3 +1,8 @@
-$("#retail_price_<%= @cart_item.id %>").html('<%= @cart_item.retail_price %>');
-$("#discount_price_<%= @cart_item.id %>").html('<%= j(render partial: 'single_price', locals: { cart_item: @cart_item }) %>');
+$("#retail_price_<%= @trade_item.id %>").html('<%= @trade_item.retail_price %>');
+$("#discount_price_<%= @trade_item.id %>").html('<%= j(render partial: 'single_price', locals: { trade_item: @trade_item }) %>');
 
+<% if @trade_item.checked? %>
+  $("#trade_item_<%= @trade_item.id %>").addClass('active');
+<% else %>
+  $("#trade_item_<%= @trade_item.id %>").removeClass('active');
+<% end %>

@@ -2,7 +2,6 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   before_action :set_trade_item, only: [:show, :update, :destroy]
   
   def index
-  
   end
   
   def create
@@ -24,27 +23,13 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   
     redirect_to my_cart_url
   end
-
-  def check
-    if params[:add_id].present?
-      @add = @cart.find_by(id: params[:add_id])
-      @add.update(checked: true)
-    elsif params[:remove_id].present?
-      @remove = @cart.find_by(id: params[:remove_id])
-      @remove.update(checked: false)
-    end
-
-    respond_to do |format|
-      format.js
-      format.json { render 'cart_item' }
-    end
-  end
   
   def show
   end
 
   def update
-    @trade_item.update(number: params[:number])
+    @trade_item.assign_attributes(trade_item_params)
+    @trade_item.save
   end
 
   def destroy
@@ -66,15 +51,11 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
     end
   end
 
-  def cart_item_params
-    params.require(:cart_item).permit(
-      id: [],
-      single_price: [],
-      amount: [],
-      total_price: []
+  def trade_item_params
+    params.fetch(:trade_item, {}).permit(
+      :number,
+      :status
     )
   end
-
   
-
 end

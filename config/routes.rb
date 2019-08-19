@@ -73,7 +73,7 @@ Rails.application.routes.draw do
   end
 
   scope :my, module: 'trade/my', as: 'my' do
-    resource :cart do
+    resource :cart, only: [:show, :edit, :update] do
       get :total, on: :member
     end
     resources :trade_items

@@ -5,46 +5,24 @@ class Trade::My::CartsController < Trade::My::BaseController
     @checked_ids = current_cart.trade_items.checked.pluck(:id)
   end
   
-  def create
-    
-    render 'index'
-  end
-
-  def check
-    if params[:add_id].present?
-      @add = current_cart.find_by(id: params[:add_id])
-      @add.update(checked: true)
-    elsif params[:remove_id].present?
-      @remove = current_cart.find_by(id: params[:remove_id])
-      @remove.update(checked: false)
-    end
-
-    respond_to do |format|
-      format.js
-      format.json { render 'trade_item' }
-    end
+  def total
+  
   end
   
+  def edit
   
-
+  end
+  
   def update
-    @trade_item.update(number: params[:number])
+  
   end
-
-  def destroy
-    @trade_item.update(status: :deleted, checked: false)
-  end
-
+  
   private
-  def trade_item_params
-    params.require(:trade_item).permit(
-      id: [],
-      single_price: [],
-      amount: [],
-      total_price: []
+  def cart_params
+    params.fetch(:cart, {}).permit(
+      :buyer_type,
+      :buyer_id
     )
   end
-
   
-
 end
