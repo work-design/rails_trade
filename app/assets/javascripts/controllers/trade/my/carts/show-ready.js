@@ -1,5 +1,5 @@
 class CartController extends Stimulus.Controller {
-  static targets = [ 'number' ]
+  //static targets = [ 'number' ];
 
   connect() {
     console.log(this.numberTarget.value)
@@ -12,12 +12,12 @@ class CartController extends Stimulus.Controller {
   }
 
   increase() {
-    this.numberTarget.value = this.numberTarget.valueAsNumber + 1
+    this.numberTarget.value = this.numberTarget.valueAsNumber + 1;
     this.update()
   }
 
   decrease() {
-    this.numberTarget.value = this.numberTarget.valueAsNumber - 1
+    this.numberTarget.value = this.numberTarget.valueAsNumber - 1;
     this.update()
   }
 }

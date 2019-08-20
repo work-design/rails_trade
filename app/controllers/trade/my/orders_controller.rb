@@ -25,8 +25,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
   end
 
   def new
-    @cart = current_user.carts.find params[:cart_id]
-    @order = @cart.migrate_to_order
+    @order = current_cart.migrate_to_order
 
     respond_to do |format|
       format.html
