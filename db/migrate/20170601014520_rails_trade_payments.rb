@@ -5,7 +5,7 @@ class RailsTradePayments < ActiveRecord::Migration[5.1]
       t.references :user
       t.references :payment_method
       t.references :creator
-      t.references :organ # for SaaS
+      t.references :organ  # for SaaS
       t.string :type
       t.string :payment_uuid
       t.decimal :total_amount, precision: 10, scale: 2

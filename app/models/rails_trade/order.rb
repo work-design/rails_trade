@@ -15,8 +15,8 @@ module RailsTrade::Order
     attribute :uuid, :string
     
     belongs_to :buyer, polymorphic: true, optional: true
-    belongs_to :cart
-    belongs_to :user
+    belongs_to :cart, optional: true
+    belongs_to :user, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders
@@ -35,7 +35,7 @@ module RailsTrade::Order
     }
     
     after_initialize if: :new_record? do
-      self.user_id ||= cart.user_id
+      self.user_id ||= cart&.user_id
     end
     before_validation :sync_from_cart
     after_create_commit :confirm_ordered!

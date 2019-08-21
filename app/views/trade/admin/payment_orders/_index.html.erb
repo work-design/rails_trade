@@ -12,7 +12,7 @@
       <%= payment_order.check_amount %>
     <% else %>
       <div class="ui input">
-        <%= text_field_tag 'payment_order[check_amount]', payment_order.check_amount, placeholder: 'Result:', class: 'three wide field', form: "edit_payment_order_#{payment_order.id}" %>
+        <%= text_field_tag 'payment_order[check_amount]', payment_order.check_amount, class: 'three wide field', form: "edit_payment_order_#{payment_order.id}" %>
       </div>
     <% end %>
   </td>

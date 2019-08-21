@@ -9,10 +9,13 @@ module RailsTrade::Payment
     attribute :total_amount, :decimal, default: 0
     attribute :order_amount, :decimal, default: 0
     attribute :fee_amount, :decimal, default: 0
+    attribute :checked_amount, :decimal, default: 0
     attribute :notify_type, :string, limit: 255
     attribute :notified_at, :datetime
     attribute :seller_identifier, :string
     attribute :buyer_identifier, :string
+    attribute :organ_id, :integer
+    attribute :creator_id, :integer
     
     belongs_to :payment_method, optional: true
     has_many :payment_orders, inverse_of: :payment, dependent: :destroy
@@ -20,8 +23,6 @@ module RailsTrade::Payment
   
     default_scope -> { order(created_at: :desc) }
   
-    # validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.income_amount + o.fee_amount.to_d } }
-    #validates :checked_amount, numericality: { greater_than_or_equal_to: 0, equal_to: ->(o) { o.total_amount + o.adjust_amount } }
     validates :payment_uuid, presence: true, uniqueness: { scope: :type }
   
     before_validation do
@@ -97,11 +98,11 @@ module RailsTrade::Payment
   end
 
   def check_state
-    if self.checked_amount.to_d == self.total_amount
+    if self.checked_amount == self.total_amount
       self.state = 'all_checked'
-    elsif self.checked_amount.to_d == 0
+    elsif self.checked_amount == 0
       self.state = 'init'
-    elsif self.checked_amount.to_d < self.total_amount
+    elsif self.checked_amount < self.total_amount
       self.state = 'part_checked'
     elsif self.checked_amount > self.total_amount
       self.state = 'adjust_checked'
