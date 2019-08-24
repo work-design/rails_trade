@@ -1,2 +1,2 @@
-//= require ./new
+import './new'
 
