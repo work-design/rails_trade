@@ -1,5 +1,7 @@
-class CartController extends Stimulus.Controller {
-  //static targets = [ 'number' ];
+import { Controller } from 'stimulus'
+
+class CartController extends Controller {
+  static targets = [ 'number' ];
 
   connect() {
     console.log(this.numberTarget.value)
