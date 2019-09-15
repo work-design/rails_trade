@@ -18,18 +18,16 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
   def create
     @refund = Refund.new(refund_params)
 
-    if @refund.save
-      redirect_to @refund
-    else
-      render :new
+    unless @refund.save
+      render :new, locals: { model: @refund }, status: :unprocessable_entity
     end
   end
 
   def update
-    if @refund.update(refund_params)
-      redirect_to @refund
-    else
-      render :edit
+    @refund.assign_attributes(refund_params)
+
+    unless @refund.save
+      render :new, locals: { model: @refund }, status: :unprocessable_entity
     end
   end
 
@@ -45,7 +43,6 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
 
   def destroy
     @refund.destroy
-    redirect_to admin_refunds_url
   end
 
   private

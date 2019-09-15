@@ -21,17 +21,10 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   def create
     @promote = Promote.new(promote_params)
     
-    respond_to do |format|
-      if @promote.save
-        format.html { redirect_to admin_promotes_url }
-        format.js {
-          @promote_charge = @promote.promote_charges.build
-        }
-        format.json { render action: 'show', status: :created, location: @promote }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @promote.errors, status: :unprocessable_entity }
-      end
+    if @promote.save
+      @promote_charge = @promote.promote_charges.build
+    else
+      render :new, locals: { model: @promote }, status: :unprocessable_entity
     end
   end
 
@@ -44,25 +37,13 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
   def update
     @promote.assign_attributes promote_params
 
-    respond_to do |format|
-      if @promote.save
-        format.html { redirect_to admin_promotes_url }
-        format.json { head :no_content }
-        format.js { redirect_to admin_promotes_url }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @promote.errors, status: :unprocessable_entity }
-        format.js
-      end
+    unless @promote.save
+      render :edit, locals: { model: @promote }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @promote.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_promotes_url }
-      format.json { head :no_content }
-    end
   end
 
   private

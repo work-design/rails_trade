@@ -21,16 +21,8 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   def create
     @promote_charge = @promote.promote_charges.build(promote_charge_params)
     
-    respond_to do |format|
-      if @promote_charge.save
-        format.html { redirect_to admin_promote_charges_url(@promote) }
-        format.js { 
-          
-        }
-      else
-        format.html { render :new }
-        format.js
-      end
+    if @promote_charge.save
+      render :new, locals: { model: @promote_charge }, status: :unprocessable_entity
     end
   end
 
@@ -39,21 +31,15 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   end
 
   def update
-    respond_to do |format|
-      if @promote_charge.update(promote_charge_params)
-        format.html { redirect_to admin_promote_charges_url(@promote) }
-        format.js { redirect_to admin_promote_charges_url(@promote) }
-      else
-        format.html { render :edit }
-        format.js
-      end
+    @promote_charge.assign_attributes(promote_charge_params)
+
+    if @promote_charge.save
+      render :edit, locals: { model: @promote_charge }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @promote_charge.destroy
-      redirect_to admin_promote_charges_url(@promote)
-    end
+    @promote_charge.destroy
   end
 
   private
