@@ -10,7 +10,7 @@
           <%= image_tag trade_item.good.product.logo, class: 'weui-media-box__thumb' %>
         </div>
         <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title"><%= custom.product.name %></h4>
+          <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
           <p class="weui-media-box__desc">
             <% trade_item.good.parts.each do |part| %>
               <span><%= part.name %></span>
@@ -18,17 +18,17 @@
           </p>
           <ul class="weui-media-box__info">
             <li class="weui-media-box__info__meta">
-              <span><%= trade_item.custom.price %></span>
+              <span><%= trade_item.good.price %></span>
             </li>
             <li class="weui-media-box__info__meta">
-              <%= link_to edit_my_custom_path(custom), data: { tooltip: t('.edit') } do %>
+              <%= link_to edit_my_trade_item_path(trade_item), data: { tooltip: t('.edit') } do %>
                 <i class="fas fa-pencil-alt weui-icon"></i>
               <% end %>
             </li>
           </ul>
         </div>
         <div class="weui-media-box__ft" data-target="swipe.open">
-          <%= link_to '删除', my_custom_path(custom), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_warn' %>
+          <%= link_to '删除', my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_warn' %>
         </div>
       </div>
     <% end %>

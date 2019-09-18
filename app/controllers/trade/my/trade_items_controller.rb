@@ -5,13 +5,9 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   end
   
   def create
-    trade_item = current_cart.trade_items.find_by(good_id: params[:good_id], good_type: params[:good_type])
+    trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1
-    if trade_item.present?
-      trade_item.number = trade_item.number + params[:number].to_i
-    else
-      trade_item = current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
-    end
+    trade_item.number = trade_item.number + params[:number].to_i
 
     trade_item.init_amount
     trade_item.compute_promote
