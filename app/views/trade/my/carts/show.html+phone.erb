@@ -1,0 +1,40 @@
+<%= form_with url: cart_my_customs_path, id: 'add_cart' do |f| %>
+<% end %>
+
+<div class="weui-panel weui-panel_access">
+  <div class="weui-panel__hd">列表</div>
+  <div class="weui-panel__bd">
+    <% @trade_items.each do |trade_item| %>
+      <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left touchstart->swipe#start">
+        <div class="weui-media-box__hd">
+          <%= image_tag trade_item.good.product.logo, class: 'weui-media-box__thumb' %>
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title"><%= custom.product.name %></h4>
+          <p class="weui-media-box__desc">
+            <% trade_item.good.parts.each do |part| %>
+              <span><%= part.name %></span>
+            <% end %>
+          </p>
+          <ul class="weui-media-box__info">
+            <li class="weui-media-box__info__meta">
+              <span><%= trade_item.custom.price %></span>
+            </li>
+            <li class="weui-media-box__info__meta">
+              <%= link_to edit_my_custom_path(custom), data: { tooltip: t('.edit') } do %>
+                <i class="fas fa-pencil-alt weui-icon"></i>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+        <div class="weui-media-box__ft" data-target="swipe.open">
+          <%= link_to '删除', my_custom_path(custom), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_warn' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="weui-btn-area">
+  <%= submit_tag t('helpers.submit.next'), form: 'add_cart', class: 'weui-btn weui-btn_primary' %>
+</div>
