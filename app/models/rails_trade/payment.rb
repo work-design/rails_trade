@@ -78,7 +78,7 @@ module RailsTrade::Payment
       buyer_ids = self.payment_method.payment_references.pluck(:buyer_id)
       Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: buyer_ids, payment_status: ['unpaid', 'part_paid'], state: 'active')
     else
-      []
+      Order.none
     end
   end
 
