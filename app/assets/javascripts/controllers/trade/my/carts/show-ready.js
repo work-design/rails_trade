@@ -5,6 +5,7 @@ class CartController extends Controller {
 
   connect() {
     console.log(this.numberTarget.value)
+    console.log('CartController connected!')
   }
 
   update() {

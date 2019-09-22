@@ -25,7 +25,7 @@
       </td>
       <td>
         <div class="ui left right action input" data-controller="cart">
-          <div class="ui button" data-action="click->cart#decrease"><i class="minus icon"></i></div>
+          <div class="ui button" data-action="click->cart#decrease"><i class="fas fa-minus"></i></div>
           <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', target: 'cart.number', url: my_trade_item_path(trade_item) } %>
           <div class="ui button" data-action="click->cart#increase"><i class="fas fa-plus"></i></div>
         </div>

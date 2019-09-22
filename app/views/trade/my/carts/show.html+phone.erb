@@ -20,15 +20,16 @@
             <li class="weui-media-box__info__meta">
               <span><%= trade_item.good.price %></span>
             </li>
-            <li class="weui-media-box__info__meta">
-              <%= link_to edit_my_trade_item_path(trade_item), data: { tooltip: t('.edit') } do %>
-                <i class="fas fa-pencil-alt weui-icon"></i>
-              <% end %>
-            </li>
           </ul>
         </div>
-        <div class="weui-media-box__ft" data-target="swipe.open">
-          <%= link_to '删除', my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_warn' %>
+        <div class="weui-media-box__ft" data-target="swipe.open" data-controller="cart">
+          <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+            <i class="fas fa-plus"></i>
+          <% end %>
+          <div class="weui-btn weui-btn_mini weui-btn_warn" data-target="cart.number"><%= trade_item.number %></div>
+          <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+            <i class="fas fa-minus"></i>
+          <% end %>
         </div>
       </div>
     <% end %>
