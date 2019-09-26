@@ -7,7 +7,6 @@ module RailsTrade::Payment
     attribute :currency, :string, default: RailsTrade.config.default_currency
     attribute :adjust_amount, :decimal, default: 0
     attribute :total_amount, :decimal, default: 0
-    attribute :order_amount, :decimal, default: 0
     attribute :fee_amount, :decimal, default: 0
     attribute :checked_amount, :decimal, default: 0
     attribute :notify_type, :string, limit: 255
