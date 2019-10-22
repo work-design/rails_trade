@@ -14,11 +14,11 @@ module RailsTrade::Refund
       self.state = :init
     end
   
-    enum state: [
-      :init,
-      :completed,
-      :failed
-    ]
+    enum state: {
+      init: 'init',
+      completed: 'completed',
+      failed: 'failed'
+    }
   end
   #validate :valid_total_amount
 
