@@ -21,11 +21,11 @@ module ApplePay
       url = URL
     end
 
-    options = {
-      body: { 'receipt-data' => receipt_data }.to_json
+    body = {
+      'receipt-data': receipt_data
     }
 
-    r = HTTParty.post(url, options)
+    r = HTTPX.post(url, form: body)
     JSON.parse(r.body)
   end
 
