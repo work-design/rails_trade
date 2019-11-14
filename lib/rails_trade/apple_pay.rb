@@ -1,4 +1,4 @@
-require 'httparty'
+require 'httpx'
 module ApplePay
   URL = 'https://buy.itunes.apple.com/verifyReceipt'
   SANDBOX_URL = 'https://sandbox.itunes.apple.com/verifyReceipt'
