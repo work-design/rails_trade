@@ -163,7 +163,7 @@ GEM
       railties (>= 3.0)
     multi_xml (0.6.0)
     nio4r (2.3.1)
-    nokogiri (1.10.3)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     pdf-core (0.7.0)
     prawn (2.2.2)
