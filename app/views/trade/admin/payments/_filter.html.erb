@@ -1,6 +1,6 @@
-<%= search_form_with model: Payment.new(params.permit(:payment_uuid)) do |f| %>
+<%= form_with theme: 'search', model: Payment.new(params.permit(:payment_uuid)) do |f| %>
   <div class="fields">
-    <%= f.text_field :payment_uuid, css: { wrapper_input: 'three wide field' } %>
+    <%= f.text_field :payment_uuid, css: { wrap_input: 'three wide field' } %>
     <%= f.text_field 'buyer_name-like' %>
     <%= f.text_field :buyer_identifier %>
     <%= f.text_field :buyer_bank %>

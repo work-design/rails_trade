@@ -1,4 +1,4 @@
-<%= default_form_with model: [:admin, @good], class: 'ui form' do |f| %>
+<%= form_with model: [:admin, @good], class: 'ui form' do |f| %>
   <%= render 'shared/error_messages', target: @good %>
   <%= f.text_field :sku, css: { wrapper_input: 'disabled field' } %>
   <%= f.text_field :unit %>

@@ -1,4 +1,4 @@
-<%= default_form_with model: @payment_reference, as: :payment_reference, url: admin_payment_method_references_path(@payment_method) do |f| %>
+<%= form_with model: @payment_reference, as: :payment_reference, url: admin_payment_method_references_path(@payment_method) do |f| %>
   <%= f.select :buyer_id, options_for_select([]), { label: 'Buyer', include_blank: true }, { class: 'ui search fluid dropdown' } %>
   <%= f.submit %>
 <% end %>

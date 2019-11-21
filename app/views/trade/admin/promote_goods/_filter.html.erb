@@ -1,4 +1,4 @@
-<%= search_form_with model: PromoteGood.new do |f| %>
+<%= form_with theme: 'search', model: PromoteGood.new do |f| %>
   <div class="fields">
     <%= f.text_field :good_type %>
     <%= f.text_field :good_id %>

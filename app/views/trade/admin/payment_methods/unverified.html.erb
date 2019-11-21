@@ -25,7 +25,7 @@
           <%= form_with model: payment_method, scope: 'payment_method', url: admin_payment_method_path(payment_method), method: :patch do |f| %>
             <div class="ui toggle checkbox">
               <label></label>
-              <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, on: { wrapper_all: false, wrapper_checkbox: false, offset: false } %>
+              <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, on: { wrap_all: false, wrap_checkbox: false, offset: false } %>
             </div>
           <% end %>
         </td>
