@@ -1,4 +1,4 @@
-<%= search_form_with do |f| %>
+<%= form_with theme: 'search' do |f| %>
   <div class="fields">
     <%= f.text_field :'name-like' %>
     <%= f.collection_select :payment_strategy_id, PaymentStrategy.all, :id, :name, { prompt: 'Credit Terms' }, { class: 'ui dropdown' } %>

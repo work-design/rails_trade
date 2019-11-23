@@ -1,6 +1,6 @@
 <%= form_with theme: 'search', model: Order.new(params.permit(:uuid)) do |f| %>
   <div class="fields">
-    <%= f.text_field :uuid, css: { wrapper_input: 'three wide field' } %>
+    <%= f.text_field :uuid, css: { wrap_input: 'three wide field' } %>
     <%= f.submit %>
     <%= link_to t('.clear'), filter_params(only: []), class: 'ui button' %>
   </div>
