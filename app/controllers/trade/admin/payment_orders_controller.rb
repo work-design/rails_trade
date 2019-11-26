@@ -2,7 +2,7 @@ class Trade::Admin::PaymentOrdersController < Trade::Admin::BaseController
   before_action :set_payment
   before_action :set_payment_order, only: [:update, :cancel]
   after_action only: [:create] do
-    mark_audits(Payment: [:payment_orders])
+    mark_audits(instance: :@payment, include: [:payment_orders])
   end
 
   def new

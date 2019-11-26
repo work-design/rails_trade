@@ -2,7 +2,7 @@ class Trade::Admin::OrderPaymentsController < Trade::Admin::BaseController
   before_action :set_order
   before_action :set_payment_order, only: [:destroy]
   after_action only: [:create] do
-    mark_audits(Order: [:payment_orders])
+    mark_audits(instance: :@order, include: [:payment_orders])
   end
 
   def index
