@@ -6,7 +6,7 @@ module RailsTrade::TradeItem
     attribute :starred, :boolean, default: false, comment: '收藏'
     attribute :good_name, :string
     attribute :number, :integer, default: 1
-    attribute :quantity, :decimal, default: 0, comment: '重量'
+    attribute :weight, :decimal, default: 0, comment: '重量'
     attribute :unit, :string, comment: '单位'
     attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
     attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
