@@ -1,10 +1,11 @@
 module RailsTrade::PaymentStrategy
   extend ActiveSupport::Concern
   included do
-    attribute :name, :string # 名称
-    attribute :period, :integer #可延期时间，单位天
+    attribute :name, :string
+    attribute :period, :integer, default: 0, comment: '可延期时间，单位天'
+    attribute :strategy, :string
     
-    enum xx: {
+    enum strategy: {
       # 预付全款
       # 预付定金
       # 后付

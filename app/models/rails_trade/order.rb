@@ -4,16 +4,25 @@ module RailsTrade::Order
   include RailsTrade::Ordering::Refund
 
   included do
-    delegate :url_helpers, to: 'Rails.application.routes'
-    
-    attribute :payment_status, :string, default: 'unpaid'
+    attribute :uuid, :string
+    attribute :state, :string
+    attribute :item_amount, :decimal, precision: 10, scale: 2
+    attribute :overall_additional_amount, :decimal, precision: 10, scale: 2
+    attribute :overall_reduced_amount, :decimal, precision: 10, scale: 2
+    attribute :amount, :decimal, precision: 10, scale: 2
+    attribute :received_amount, :decimal, precision: 10, scale: 2
+    attribute :payment_id, :integer, comment: 'for paypal'
+    attribute :myself, :boolean, default: true
+    attribute :note, :string, limit: 4096
+    attribute :expire_at, :datetime
+    attribute :payment_status, :string, default: 'unpaid', index: true
     attribute :received_amount, :decimal, default: 0
-
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :uuid, :string
-    
+    attribute :lock_version, :integer
+
+    belongs_to :organ, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :cart, optional: true
     belongs_to :user, optional: true
@@ -39,6 +48,8 @@ module RailsTrade::Order
     end
     before_validation :sync_from_cart
     after_create_commit :confirm_ordered!
+
+    delegate :url_helpers, to: 'Rails.application.routes'
   end
   
   def subject
@@ -50,7 +61,7 @@ module RailsTrade::Order
   end
 
   def amount_money
-    amount.to_money(self.currency)
+    amounto_money(self.currency)
   end
   
   def compute_promote
@@ -63,7 +74,7 @@ module RailsTrade::Order
   def sync_from_cart
     self.uuid ||= UidHelper.nsec_uuid('OD')
     if cart
-      self.payment_strategy_id ||= cart.payment_strategy_id
+      self.payment_strategy_id ||= carpayment_strategy_id
     end
   end
 

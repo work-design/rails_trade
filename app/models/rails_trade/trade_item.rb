@@ -2,26 +2,18 @@ module RailsTrade::TradeItem
   extend ActiveSupport::Concern
   included do
     attribute :status, :string, default: 'init'
-    attribute :myself, :boolean, default: true  # 是否后台协助添加
-    attribute :starred, :boolean, default: false  # 收藏
-    
-    attribute :good_type, :string
-    attribute :good_id, :integer
+    attribute :myself, :boolean, default: true, comment: '是否后台协助添加'
+    attribute :starred, :boolean, default: false, comment: '收藏'
     attribute :good_name, :string
-    
     attribute :number, :integer, default: 1
-    attribute :quantity, :decimal, default: 0  # 重量
-    attribute :unit, :string  # 单位
-
-    attribute :single_price, :decimal, default: 0  # 一份产品的价格
-    attribute :original_amount, :decimal, default: 0  # 合计份数之后的价格，商品原价
-
-    attribute :additional_amount, :decimal, default: 0  # 附加服务价格汇总
-    attribute :reduced_amount, :decimal, default: 0  # 已优惠的价格
-    
-    attribute :retail_price, :decimal, default: 0  # 单个商品零售价(商品原价 + 服务价)
-    attribute :wholesale_price, :decimal, default: 0  # 多个商品批发价
-    
+    attribute :quantity, :decimal, default: 0, comment: '重量'
+    attribute :unit, :string, comment: '单位'
+    attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
+    attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
+    attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
+    attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
+    attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
+    attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
     attribute :amount, :decimal, default: 0
     attribute :note, :string
     attribute :advance_amount, :decimal, default: 0
@@ -30,7 +22,7 @@ module RailsTrade::TradeItem
     belongs_to :good, polymorphic: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items
     has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
-    #has_many :organs, dependent: :delete_all  # 用于对接供应商
+    #has_many :organs, dependent: :delete_all 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
     scope :starred, -> { where(status: 'init', starred: true) }
