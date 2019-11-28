@@ -2,21 +2,29 @@ module RailsTrade::Payment
   extend ActiveSupport::Concern
   included do
     attribute :type, :string, default: 'HandPayment'
-    attribute :state, :string, default: 'init'
     attribute :payment_uuid, :string
+    attribute :state, :string, default: 'init', index: true
+    attribute :pay_status, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :adjust_amount, :decimal, default: 0
-    attribute :total_amount, :decimal, default: 0
-    attribute :fee_amount, :decimal, default: 0
-    attribute :checked_amount, :decimal, default: 0
+    attribute :adjust_amount, :decimal, precision: 10, scale: 2, default: 0
+    attribute :total_amount, :decimal, precision: 10, scale: 2, default: 0
+    attribute :fee_amount, :decimal, precision: 10, scale: 2, default: 0
+    attribute :checked_amount, :decimal, precision: 10, scale: 2, default: 0
+    attribute :income_amount, precision: 10, scale: 2
     attribute :notify_type, :string, limit: 255
     attribute :notified_at, :datetime
     attribute :seller_identifier, :string
     attribute :buyer_identifier, :string
-    attribute :organ_id, :integer
-    attribute :creator_id, :integer
+    attribute :buyer_name, :string
+    attribute :buyer_bank, :string
+    attribute :comment, :string
+    attribute :verified, :boolean, default: true
+    attribute :lock_version, :integer
     
+    belongs_to :organ, optional: true
+    belongs_to :user
     belongs_to :payment_method, optional: true
+    belongs_to :creator, optional: true
     has_many :payment_orders, inverse_of: :payment, dependent: :destroy
     has_many :orders, through: :payment_orders, inverse_of: :payments
   

@@ -5,6 +5,7 @@ module RailsTrade::PromoteBuyer
     attribute :status, :string, default: 'available'
     attribute :effect_at, :datetime
     attribute :expire_at, :datetime
+    attribute :trade_promotes_count, :integer, default: 0
     
     belongs_to :promote
     belongs_to :promote_good, optional: true

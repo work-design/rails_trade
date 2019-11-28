@@ -1,8 +1,16 @@
 module RailsTrade::Refund
   extend ActiveSupport::Concern
   included do
+    attribute :type, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
-  
+    attribute :total_amount, precision: 10, scale: 2
+    attribute :buyer_identifier, :string
+    attribute :comment, :string, limit: 512
+    attribute :state, :string, default: 0
+    attribute :refunded_at, :datetime
+    attribute :reason, :string, limit: 512
+    attribute :refund_uuid, :string
+    
     belongs_to :operator, polymorphic: true, optional: true
     belongs_to :order, inverse_of: :refunds, optional: true
     belongs_to :payment

@@ -1,8 +1,15 @@
 module RailsTrade::PaymentMethod
   extend ActiveSupport::Concern
   included do
+    attribute :type, :string
+    attribute :account_name, :string
+    attribute :account_num, :string
+    attribute :bank, :string
+    attribute :verified, :boolean, default: false
+    attribute :myself, :boolean, default: true
     attribute :extra, :json, default: {}
-  
+    
+    belongs_to :creator, optional: true
     has_many :payments, dependent: :nullify
     has_many :payment_references, dependent: :destroy, autosave: true, inverse_of: :payment_method
     has_many :buyers, through: :payment_references

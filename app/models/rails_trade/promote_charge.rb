@@ -20,14 +20,15 @@ module RailsTrade::PromoteCharge
   
   included do
     attribute :type, :string
-    attribute :min, :decimal, default: 0
-    attribute :max, :decimal, default: 99999999.99
-    attribute :filter_min, :decimal, default: 0
-    attribute :filter_max, :decimal, default: 99999999.99
+    attribute :unit, :string
+    attribute :min, :decimal, precision: 10, scale: 2, default: 0
+    attribute :max, :decimal, precision: 10, scale: 2, default: 99999999.99
+    attribute :filter_min, :decimal, precision: 10, scale: 2, default: 0
+    attribute :filter_max, :decimal, precision: 10, scale: 2, default: 99999999.99
     attribute :contain_min, :boolean, default: true
     attribute :contain_max, :boolean, default: false
-    attribute :parameter, :decimal, default: 0
-    attribute :base_price, :decimal, default: 0
+    attribute :parameter, :decimal, precision: 10, scale: 2, default: 0
+    attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
     
     belongs_to :promote
     

@@ -3,10 +3,10 @@ module RailsTrade::TradePromote
   included do
     attribute :sequence, :integer
     attribute :scope, :string
-    attribute :based_amount, :decimal, default: 0  # 基于此价格计算，默认为 trade_item 的 amount，与sequence有关
-    attribute :computed_amount, :decimal, default: 0  # 计算出的价格
-    attribute :amount, :decimal, default: 0  # 默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化
-    attribute :note, :string  # 备注
+    attribute :based_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '基于此价格计算，默认为 trade_item 的 amount，与sequence有关'
+    attribute :computed_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '计算出的价格'
+    attribute :amount, :decimal, precision: 10, scale: 2, default: 0, comment: '默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化'
+    attribute :note, :string, comment: '备注'
     
     belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true

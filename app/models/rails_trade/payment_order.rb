@@ -1,7 +1,7 @@
 module RailsTrade::PaymentOrder
   extend ActiveSupport::Concern
   included do
-    attribute :check_amount, :decimal, default: 0
+    attribute :check_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :state, :string, default: 'init'
   
     belongs_to :order, inverse_of: :payment_orders

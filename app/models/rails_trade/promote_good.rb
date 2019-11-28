@@ -2,9 +2,6 @@ module RailsTrade::PromoteGood
   extend ActiveSupport::Concern
   
   included do
-    attribute :promote_id, :integer
-    attribute :good_id, :integer
-    attribute :good_type, :string
     attribute :status, :string, default: 'available'
 
     belongs_to :promote

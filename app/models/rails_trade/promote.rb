@@ -1,11 +1,18 @@
 module RailsTrade::Promote
   extend ActiveSupport::Concern
   included do
+    attribute :name, :string
+    attribute :short_name, :string
+    attribute :code, :string
+    attribute :description, :string
+    attribute :scope, :string
+    attribute :metering, :string
     attribute :effect_at, :datetime
     attribute :expire_at, :datetime
     attribute :sequence, :integer, default: 1
-    attribute :editable, :boolean, default: false  # 是否可更改价格
+    attribute :editable, :boolean, default: false, comment: '是否可更改价格'
     
+    belongs_to :promote, optional: true
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all
     has_many :promote_extras, dependent: :delete_all

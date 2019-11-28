@@ -1,6 +1,8 @@
 module RailsTrade::PaymentReference
   extend ActiveSupport::Concern
   included do
+    attribute :state, :string
+    
     belongs_to :payment_method, inverse_of: :payment_references
     belongs_to :buyer, polymorphic: true
   
