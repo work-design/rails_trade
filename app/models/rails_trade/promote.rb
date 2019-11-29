@@ -12,7 +12,7 @@ module RailsTrade::Promote
     attribute :sequence, :integer, default: 1
     attribute :editable, :boolean, default: false, comment: '是否可更改价格'
     
-    belongs_to :promote, optional: true
+    belongs_to :organ, optional: true
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all
     has_many :promote_extras, dependent: :delete_all
