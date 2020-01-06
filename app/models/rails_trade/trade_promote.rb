@@ -3,6 +3,7 @@ module RailsTrade::TradePromote
   included do
     attribute :sequence, :integer
     attribute :scope, :string
+    attribute :original_amount, :decimal, comment: '初始价格'
     attribute :based_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '基于此价格计算，默认为 trade_item 的 amount，与sequence有关'
     attribute :computed_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '计算出的价格'
     attribute :amount, :decimal, precision: 10, scale: 2, default: 0, comment: '默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化'

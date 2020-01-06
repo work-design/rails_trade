@@ -11,6 +11,8 @@ module RailsTrade::Promote
     attribute :expire_at, :datetime
     attribute :sequence, :integer, default: 1
     attribute :editable, :boolean, default: false, comment: '是否可更改价格'
+    attribute :verified, :boolean, default: false
+    attribute :extra, :json
     
     belongs_to :organ, optional: true
     belongs_to :deal, polymorphic: true, optional: true
