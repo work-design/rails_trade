@@ -22,8 +22,5 @@ module RailsTrade
       g.templates.unshift File.expand_path('lib/templates', RailsCom::Engine.root)
     end
 
-    initializer 'rails_trade.assets.precompile' do |app|
-      app.config.assets.precompile += ['rails_trade_manifest.js']
-    end
   end
 end
