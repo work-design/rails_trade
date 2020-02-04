@@ -1,9 +1,9 @@
 class Trade::My::TradeItemsController < Trade::My::BaseController
   before_action :set_trade_item, only: [:show, :update, :destroy]
-  
+
   def index
   end
-  
+
   def create
     trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
     params[:number] ||= 1
@@ -16,24 +16,20 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
 
     @trade_items = current_cart.trade_items.page(params[:page])
     @checked_ids = current_cart.trade_items.checked.pluck(:id)
-  
+
     redirect_to my_cart_url
   end
-  
+
   def show
   end
 
   def update
     @trade_item.assign_attributes(trade_item_params)
     @trade_item.save
-    
-    redirect_to my_cart_url
   end
 
   def destroy
     @trade_item.destroy
-    
-    redirect_to my_cart_url
   end
 
   private
@@ -47,5 +43,5 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
       :status
     )
   end
-  
+
 end

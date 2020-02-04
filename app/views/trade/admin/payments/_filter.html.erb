@@ -16,7 +16,7 @@
   <dd>
     <%= link_to t('.all'), filter_params(except: [:type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
     <% Payment.options_i18n(:type).each do |text, type| %>
-      <%= link_to text, filter_params(type: type), class: active_params(type:type, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to text, filter_params(type: type), class: active_params(type: type, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
     <% end %>
   </dd>
 </dl>

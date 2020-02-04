@@ -2,7 +2,7 @@
 <% end %>
 
 <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">列表</div>
+  <div class="weui-panel__hd"><%= t('.title') %></div>
   <div class="weui-panel__bd">
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left touchstart->swipe#start">
@@ -23,12 +23,18 @@
           </ul>
         </div>
         <div class="weui-media-box__ft" data-target="swipe.open" data-controller="cart">
-          <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+          <%= link_to my_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
             <i class="fas fa-plus"></i>
           <% end %>
           <div class="weui-btn weui-btn_mini weui-btn_warn" data-target="cart.number"><%= trade_item.number %></div>
-          <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
-            <i class="fas fa-minus"></i>
+          <% if trade_item.number <= 1 %>
+            <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          <% else %>
+            <%= link_to my_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number - 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+              <i class="fas fa-minus"></i>
+            <% end %>
           <% end %>
         </div>
       </div>

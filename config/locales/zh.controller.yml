@@ -43,7 +43,7 @@ zh:
         index:
           title: 退款列表
     my:
-      cart:
+      carts:
         show:
           title: 我的购物车
       orders:
