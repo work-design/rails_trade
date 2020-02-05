@@ -20,26 +20,26 @@ module RailsTrade::Payment
     attribute :comment, :string
     attribute :verified, :boolean, default: true
     attribute :lock_version, :integer
-    
+
     belongs_to :organ, optional: true
-    belongs_to :user
+    belongs_to :user, optional: true
     belongs_to :payment_method, optional: true
     belongs_to :creator, optional: true
     has_many :payment_orders, inverse_of: :payment, dependent: :destroy
     has_many :orders, through: :payment_orders, inverse_of: :payments
-  
+
     default_scope -> { order(created_at: :desc) }
-  
+
     validates :payment_uuid, presence: true, uniqueness: { scope: :type }
-  
+
     before_validation do
       self.payment_uuid = UidHelper.nsec_uuid('PAY') if payment_uuid.blank?
     end
     before_save :compute_amount
     after_create :analyze_payment_method
-  
+
     has_one_attached :proof
-  
+
     enum state: {
       init: 'init',
       part_checked: 'part_checked',
@@ -122,13 +122,13 @@ module RailsTrade::Payment
     self.check_state
     self.save!
   end
-  
+
   class_methods do
-    
+
     def total_amount_step
       0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
     end
-    
+
   end
 
 end

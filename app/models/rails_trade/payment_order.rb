@@ -3,14 +3,14 @@ module RailsTrade::PaymentOrder
   included do
     attribute :check_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :state, :string, default: 'init'
-  
+
     belongs_to :order, inverse_of: :payment_orders
     belongs_to :payment, inverse_of: :payment_orders
     has_one :refund, ->(o){ where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
-  
+
     #validate :valid_check_amount
     validates :order_id, uniqueness: { scope: :payment_id }
-  
+
     enum state: {
       init: 'init',
       confirmed: 'confirmed'
@@ -18,7 +18,7 @@ module RailsTrade::PaymentOrder
     after_save :checked_payment, if: -> { confirmed? && (saved_change_to_state? || saved_change_to_check_amount?) }
     after_save :unchecked_payment, if: -> { init? && (saved_change_to_state? || saved_change_to_check_amount?) }
   end
-  
+
   def valid_check_amount
     if the_payment_amount > payment.total_amount + payment.adjust_amount
       self.errors.add(:check_amount, 'Total checked amount greater than payment\'s amount')
@@ -35,7 +35,7 @@ module RailsTrade::PaymentOrder
   end
 
   def checked_to_payment
-    self.payment && payment.reload
+    self.payment
 
     payment.checked_amount += self.check_amount
     if payment.checked_amount == payment.compute_checked_amount

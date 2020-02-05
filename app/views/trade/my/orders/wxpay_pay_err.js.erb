@@ -1,5 +1,5 @@
-<% if @wxpay_order[:result_code] == 'FAIL' %>
-  alert('<%= @wxpay_order[:err_code_des] %>');
+<% if @wxpay_order['result_code'] == 'FAIL' %>
+  alert('<%= @wxpay_order['err_code_des'] %>')
 <% else %>
-  alert('出现错误');
+  alert('出现错误')
 <% end %>
