@@ -20,13 +20,13 @@ module RailsTrade::TradeItem
     attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
-    belongs_to :trade, polymorphic: true, inverse_of: :trade_items
+    belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
     has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
     #has_many :organs, dependent: :delete_all 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
     scope :starred, -> { where(status: 'init', starred: true) }
-    
+
     enum status: {
       init: 'init',
       checked: 'checked',
@@ -34,7 +34,7 @@ module RailsTrade::TradeItem
       done: 'done',
       canceled: 'canceled'
     }
-    
+
     after_initialize if: :new_record? do
       if good
         self.good_name = good.name
@@ -53,7 +53,7 @@ module RailsTrade::TradeItem
   def discount_price
     wholesale_price - (retail_price * number)
   end
-  
+
   def init_amount
     self.original_amount = single_price * number
     self.advance_amount = good.advance_price
@@ -74,7 +74,7 @@ module RailsTrade::TradeItem
       end
       tp.compute_amount
     end
-    
+
     return unless trade.buyer
     trade.buyer.promote_buyers.each do |promote_buyer|
       value = metering_attributes.fetch(promote_buyer.promote.metering)
@@ -95,14 +95,14 @@ module RailsTrade::TradeItem
 
     self.retail_price = single_price + additional_amount
     self.wholesale_price = original_amount + additional_amount
-  
+
     self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
     self
   end
 
   def sync_changed_amount
     self.amount = original_amount + additional_amount + reduced_amount
-    
+
     changed_amount = amount - amount_before_last_save
     trade.item_amount += changed_amount
     trade.amount += changed_amount
@@ -132,7 +132,7 @@ module RailsTrade::TradeItem
     ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.pluck(:promote_id)
     Promote.where(id: ids)
   end
-  
+
   def metering_attributes
     attributes.slice 'quantity', 'amount', 'number'
   end
@@ -149,5 +149,5 @@ module RailsTrade::TradeItem
 
   def confirm_refund!
   end
-  
+
 end

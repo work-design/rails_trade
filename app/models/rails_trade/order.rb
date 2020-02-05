@@ -30,10 +30,10 @@ module RailsTrade::Order
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :refunds, dependent: :nullify, inverse_of: :order
-  
+
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
-  
+
     enum payment_status: {
       unpaid: 'unpaid',
       part_paid: 'part_paid',
@@ -42,20 +42,26 @@ module RailsTrade::Order
       refunded: 'refunded',
       denied: 'denied'
     }
-    
+
     after_initialize if: :new_record? do
-      self.user_id ||= cart&.user_id
+      if cart
+        self.user_id = cart.user_id
+        self.payment_strategy_id = cart.payment_strategy_id
+      end
     end
-    before_validation :sync_from_cart
+    before_validation do
+      self.uuid ||= UidHelper.nsec_uuid('OD')
+    end
+    after_save :sync_from_cart, if: -> { saved_change_to_cart_id? && cart }
     after_create_commit :confirm_ordered!
 
     delegate :url_helpers, to: 'Rails.application.routes'
   end
-  
+
   def subject
     trade_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
   end
-  
+
   def user_name
     user&.name.presence || "#{user&.id}"
   end
@@ -63,19 +69,20 @@ module RailsTrade::Order
   def amount_money
     amounto_money(self.currency)
   end
-  
+
   def compute_promote
   end
 
   def metering_attributes
     attributes.slice 'quantity', 'amount'
   end
-  
+
   def sync_from_cart
-    self.uuid ||= UidHelper.nsec_uuid('OD')
-    if cart
-      self.payment_strategy_id ||= carpayment_strategy_id
-    end
+    cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id)
+    cart.trade_promotes.update_all(trade_type: self.class.name, trade_id: self.id)
+
+    self.compute_amount
+    self.save
   end
 
   def confirm_ordered!
