@@ -1,6 +1,5 @@
 class Trade::My::OrdersController < Trade::My::BaseController
   include ControllerOrderTypes
-  #include Wechat::Responder
   before_action :set_order, only: [
     :show,
     :edit,
@@ -81,11 +80,6 @@ class Trade::My::OrdersController < Trade::My::BaseController
 
   def refund
     @order.apply_for_refund
-
-    respond_to do |format|
-      format.html { redirect_to my_orders_url }
-      format.json { render json: @order.as_json(include: [:refunds]) }
-    end
   end
 
   def destroy
