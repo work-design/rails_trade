@@ -3,7 +3,7 @@ module RailsTrade::Refund
   included do
     attribute :type, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :total_amount, precision: 10, scale: 2
+    attribute :total_amount, :decimal, precision: 10, scale: 2
     attribute :buyer_identifier, :string
     attribute :comment, :string, limit: 512
     attribute :state, :string, default: 'init'
