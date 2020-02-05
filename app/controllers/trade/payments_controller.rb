@@ -43,7 +43,7 @@ class Trade::PaymentsController < ApplicationController
     wechat_app = WechatApp.find_by(appid: notify_params['appid'])
     result = nil
 
-    if WxPay::Sign.verify?(notify_params, key: wechat_app.key)
+    if @order && WxPay::Sign.verify?(notify_params, key: wechat_app.key)
       result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'WxpayPayment'
     end
 
