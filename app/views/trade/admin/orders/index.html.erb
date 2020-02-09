@@ -38,7 +38,7 @@
         <% end %>
       </td>
       <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
-      <td><%= link_to order.user_name, admin_orders_path(user_id: order.buyer_id) %></td>
+      <td><%= link_to order.user_name, admin_orders_path(user_id: order.user_id) %></td>
       <td><%= simple_format(order.extra_i18n) %></td>
       <td>
         <%= link_to edit_admin_order_path(order), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>

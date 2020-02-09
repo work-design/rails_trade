@@ -10,6 +10,7 @@ module RailsTrade::Refund
     attribute :refunded_at, :datetime
     attribute :reason, :string, limit: 512
     attribute :refund_uuid, :string
+    attribute :response, :json
 
     belongs_to :operator, polymorphic: true, optional: true
     belongs_to :order, inverse_of: :refunds, optional: true

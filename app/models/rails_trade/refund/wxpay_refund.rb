@@ -20,18 +20,22 @@ module RailsTrade::Refund::WxpayRefund
       result = WxPay::Service.invoke_refund(_params)
       if result['result_code'] == 'SUCCESS'
         self.state = 'completed'
+        order.payment_status = 'refunded'
+        self.refunded_at = Time.now
       else
         self.state = 'failed'
         self.comment = result['result_code']
       end
     rescue StandardError => e
-      result = e.message
       self.state = 'failed'
-      self.comment = result.truncate(225)
+      self.comment = e.message.truncate(225)
     ensure
-      self.save
+      self.class.transaction do
+        self.save!
+        order.save!
+      end
     end
-    result
+    self
   end
 
   def refund_query

@@ -110,7 +110,7 @@ module RailsTrade::TradeItem
       trade.save!
     else
       trade.errors.add :amount, 'not equal'
-      logger.error "#{self.class.name}/Trade: #{trade.error_text}"
+      logger.error "#{self.class.name}/#{trade.class.name}: #{trade.error_text}"
       raise ActiveRecord::RecordInvalid.new(trade)
     end
   end
