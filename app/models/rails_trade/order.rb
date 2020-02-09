@@ -23,7 +23,6 @@ module RailsTrade::Order
     attribute :lock_version, :integer
 
     belongs_to :organ, optional: true
-    belongs_to :buyer, polymorphic: true, optional: true
     belongs_to :cart, optional: true
     belongs_to :user, optional: true
     belongs_to :payment_strategy, optional: true
