@@ -1,5 +1,6 @@
+# 支付宝批次号只能当天有效
 module RailsTrade::Refund::AlipayRefund
-  
+
   def do_refund(params = {})
     return unless can_refund?
 

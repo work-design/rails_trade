@@ -31,9 +31,6 @@ module RailsTrade::Refund
   end
   #validate :valid_total_amount
 
-  # 微信是同一个批次号未退款成功可重复申请
-  # 支付宝批次号只能当天有效
-
   def valid_total_amount
     if self.new_record? && total_amount > payment.total_amount
       self.errors.add :total_amount, 'more then order received amount!'

@@ -1,3 +1,4 @@
+# 微信是同一个批次号未退款成功可重复申请
 module RailsTrade::Refund::WxpayRefund
 
   def transaction_id

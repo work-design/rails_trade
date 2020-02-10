@@ -6,11 +6,11 @@ wx.ready(function() {
     signType: '<%= @wxpay_order[:signType] %>',
     paySign: '<%= @wxpay_order[:paySign] %>',
     success: function(res) {
-      console.log(res);
-      window.location.href = '<%= wait_my_order_url(@order) %>';
+      console.log(res)
+      window.location.href = '<%= wait_my_order_url(@order) %>'
     },
     error: function(e) {
       alert(e)
     }
-  });
-});
+  })
+})
