@@ -14,6 +14,8 @@ zh:
           HandPayment: 后台支付
           BankPayment: 银行支付
           PaypalPayment: Paypal
+          WxpayPayment: 微信支付
+          AlipayPayment: 支付宝
         state:
           init: 未核销
           part_checked: 部分核销

@@ -1,6 +1,6 @@
 <% content_for :breadcrumb do %>
 <div class="ui basic segment breadcrumb">
-  <%= link_to t('trade.admin.orders.index.title'), admin_orders_path(buyer_type: @order.buyer_type, buyer_id: @order.buyer_id), class: 'section' %>
+  <%= link_to t('trade.admin.orders.index.title'), admin_orders_path(cart_id: @order.cart_id), class: 'section' %>
   <i class="right chevron icon divider"></i>
   <span class="active section"><%= @order.uuid %></span>
 </div>

@@ -8,8 +8,8 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
   def index
     q_params = {}
     q_params.merge! default_params
-    q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, :'buyer_name-like', :'payment_orders.state', :'orders.uuid')
-    @payments = Payment.default_where(q_params).permit_with(rails_role_user).order(id: :desc).page(params[:page])
+    q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, 'buyer_name-like', 'payment_orders.state', 'orders.uuid')
+    @payments = Payment.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
   def show
@@ -52,11 +52,6 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
   def analyze
     @payment.analyze_payment_method
-
-    respond_to do |format|
-      format.js
-      format.json
-    end
   end
 
   def adjust
@@ -69,7 +64,6 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
   def destroy
     @payment.destroy
-    redirect_to admin_payments_url
   end
 
   private
