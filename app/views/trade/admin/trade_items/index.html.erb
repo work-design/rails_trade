@@ -37,14 +37,11 @@
   </thead>
   <tbody>
   <% @trade_items.each do |trade_item| %>
-    <tr class="<%= active_asserts join: false, active: trade_item.checked, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
-      <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked) %></td>
+    <tr class="<%= active_asserts join: false, active: trade_item.checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
+      <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked?) %></td>
       <td>
         <i class="child icon<%= active_assert(trade_item.myself, expected: ' green', unexpected: '') %>"></i>
         <%= trade_item.good&.name %>
-        <%= link_to only_admin_trade_items_path(good_type: trade_item.good_type, good_id: trade_item.good_id) do %>
-          <i class="legal icon"></i>
-        <% end %>
       </td>
       <td>
         <%= render partial: 'good_price', locals: { trade_item: trade_item } %>
@@ -52,7 +49,7 @@
       <td>
         <div class="ui left right action input">
           <div class="ui button" onclick="decrease_quantity(<%= trade_item.id %>)"><i class="minus icon"></i></div>
-          <%= text_field_tag :quantity, trade_item.quantity, id: "quantity_#{trade_item.id}", onkeyup: "update_quantity(#{trade_item.id})", disabled: true %>
+          <%= text_field_tag :number, trade_item.number, id: "quantity_#{trade_item.id}", onkeyup: "update_quantity(#{trade_item.id})", disabled: true %>
           <div class="ui button" onclick="increase_quantity(<%= trade_item.id %>)"><i class="fas fa-plus"></i></div>
         </div>
       </td>
@@ -63,7 +60,7 @@
         <%= render partial: 'single_price', locals: { trade_item: trade_item } %>
       </td>
       <td id="order_price_<%= trade_item.id %>">
-        <%= render partial: 'order_price', locals: { trade_item: trade_item } %>
+        <%# render partial: 'order_price', locals: { trade_item: trade_item } %>
       </td>
       <td>
         <%= link_to 'delete', admin_trade_item_path(trade_item), method: :delete, remote: true, class: 'ui mini label' %>

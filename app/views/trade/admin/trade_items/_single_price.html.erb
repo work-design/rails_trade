@@ -1,28 +1,28 @@
 <div>
   <span style="color: grey;">Good price: </span>
-  <%= cart_item.pure_price %>
+  <%= trade_item.single_price %>
 </div>
 <div>
   <span style="color: grey;">Serve Price: </span>
-  <%= cart_item.serve_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <%= trade_item.additional_amount %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% cart_item.serve_charges.each do |charge| %>
-      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% trade_item.trade_promotes.each do |trade_promote| %>
+      <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
-  <%= link_to 'edit', single_admin_cart_item_cart_item_serves_path(cart_item), remote: true, class: 'ui mini label' %>
+  <%= link_to 'edit', admin_trade_promotes_path(trade_item_id: trade_item.id), remote: true, class: 'ui mini label' %>
 </div>
 <div>
   <span style="color: grey;">Promote Price: </span>
-  <span style="color: red;"><%= cart_item.reduced_price %></span>
+  <span style="color: red;"><%= trade_item.reduced_amount %></span>
   <i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% cart_item.promote.charges.each do |charge| %>
-      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% trade_item.trade_promotes.each do |trade_promote| %>
+      <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
 </div>
 <div>
   <span style="color: grey;">Final Price: </span>
-  <span><%= cart_item.final_price %></span>
+  <span><%= trade_item.amount %></span>
 </div>

@@ -18,7 +18,7 @@ module RailsTrade::Good
   end
 
   def final_price
-    compute_order_amount
+    compute_amount
     #self.retail_price + self.promote_price
   end
 

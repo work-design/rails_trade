@@ -1,9 +1,9 @@
 <div>
-  <%= trade_item.good.final_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <%= trade_item.good.price %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
     <p>Export price: <%= trade_item.good.price %></p>
-    <% trade_item.good.serve.charges.each do |charge| %>
-      <p><%= charge.item.name %>: <%= charge.subtotal %></p>
+    <% trade_item.trade_promotes.each do |trade_promote| %>
+      <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
 </div>
