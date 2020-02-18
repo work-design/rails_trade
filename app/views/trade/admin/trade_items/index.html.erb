@@ -19,7 +19,7 @@
 <div class="ui segment top attached">
   <% if @user %>
     <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_top' %>
-    <%= link_to '生成文档', doc_admin_cart_items_path(user_id: @user.id), class: 'ui orange button', id: 'cart_items_doc' %>
+    <%= link_to '生成文档', doc_admin_trade_items_path(user_id: @user.id), class: 'ui orange button', id: 'trade_items_doc' %>
   <% end %>
 </div>
 <table class="ui bottom attached selectable table">
@@ -27,29 +27,27 @@
   <tr class="">
     <th><%= check_box_tag :all %></th>
     <th><%= TradeItem.human_attribute_name('good/name') %></th>
-    <th><%= TradeItem.human_attribute_name() %></th>
-    <th>数量</th>
-    <th>原价</th>
-    <th>最终价格</th>
-    <th>预成单报价</th>
-    <th>Actions</th>
+    <th><%= TradeItem.human_attribute_name(:amount) %></th>
+    <th><%= TradeItem.human_attribute_name(:number) %></th>
+    <th><%= TradeItem.human_attribute_name(:original_amount) %></th>
+    <th><%= TradeItem.human_attribute_name(:retail_price) %></th>
+    <th><%= TradeItem.human_attribute_name(:wholesale_price) %></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
-  <% @cart_items.each do |trade_item| %>
-    <tr class="<%= active_asserts join: false, active: trade_item.checked, positive: trade_item.good_id.to_s == params[:good_id] %>" id="cart_item_<%= trade_item.id %>">
-      <td><%= check_box_tag(:cart_item_id, trade_item.id, trade_item.checked) %></td>
+  <% @trade_items.each do |trade_item| %>
+    <tr class="<%= active_asserts join: false, active: trade_item.checked, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
+      <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked) %></td>
       <td>
         <i class="child icon<%= active_assert(trade_item.myself, expected: ' green', unexpected: '') %>"></i>
         <%= trade_item.good&.name %>
-        <%= link_to only_admin_cart_items_path(good_type: trade_item.good_type, good_id: trade_item.good_id) do %>
+        <%= link_to only_admin_trade_items_path(good_type: trade_item.good_type, good_id: trade_item.good_id) do %>
           <i class="legal icon"></i>
         <% end %>
       </td>
       <td>
-        <% cache [trade_item, 'good_price'] do %>
-          <%= render partial: 'good_price', locals: { trade_item: trade_item } %>
-        <% end %>
+        <%= render partial: 'good_price', locals: { trade_item: trade_item } %>
       </td>
       <td>
         <div class="ui left right action input">
@@ -59,34 +57,28 @@
         </div>
       </td>
       <td id="retail_price_<%= trade_item.id %>">
-        <% cache [trade_item, 'retail_price'] do %>
-          <%= render partial: 'retail_price', locals: { trade_item: trade_item } %>
-        <% end %>
+        <%= render partial: 'retail_price', locals: { trade_item: trade_item } %>
       </td>
       <td id="single_price_<%= trade_item.id %>">
-        <% cache [trade_item, 'single_price'] do %>
-          <%= render partial: 'single_price', locals: { trade_item: trade_item } %>
-        <% end %>
+        <%= render partial: 'single_price', locals: { trade_item: trade_item } %>
       </td>
       <td id="order_price_<%= trade_item.id %>">
-        <% cache [trade_item, 'order_price'] do %>
-          <%= render partial: 'order_price', locals: { trade_item: trade_item } %>
-        <% end %>
+        <%= render partial: 'order_price', locals: { trade_item: trade_item } %>
       </td>
       <td>
-        <%= link_to 'delete', admin_cart_item_path(trade_item), method: :delete, remote: true, class: 'ui mini label' %>
+        <%= link_to 'delete', admin_trade_item_path(trade_item), method: :delete, remote: true, class: 'ui mini label' %>
       </td>
     </tr>
   <% end %>
   </tbody>
   <tbody id="additions_body">
-  <%= render 'additions' %>
+  <%# render 'additions' %>
   </tbody>
   <tfoot>
     <tr>
       <th colspan="5"></th>
       <th id="total_price">
-        <%= render 'total_price' %>
+        <%# render 'total_price' %>
       </th>
       <th colspan="3"></th>
     </tr>
@@ -101,4 +93,4 @@
   </tfoot>
 </table>
 
-<%= paginate @cart_items %>
+<%= paginate @trade_items %>

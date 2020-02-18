@@ -1,5 +1,5 @@
-class Trade::Admin::CartServesController < Trade::Admin::BaseController
-  before_action :set_cart_item
+class Trade::Admin::CartsController < Trade::Admin::BaseController
+  before_action :set_cart
 
   def index
   end
@@ -52,8 +52,8 @@ class Trade::Admin::CartServesController < Trade::Admin::BaseController
   end
 
   private
-  def set_cart_item
-    @cart_item = CartItem.find params[:cart_item_id]
+  def set_cart
+    @cart = Cart.find params[:id]
   end
 
   def cart_item_serve_params

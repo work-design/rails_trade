@@ -5,9 +5,10 @@ class Trade::Admin::TradeItemsController < Trade::Admin::BaseController
 
   def index
     q_params = {}
+    q_params.merge! params.permit(:trade_type, :trade_id, :good_type, :good_id)
 
     #@checked_ids = @cart_items.checked.pluck(:id)
-    TradeItem.default_where(q_params).page(params[:page]).per(params[:per])
+    @trade_items = TradeItem.default_where(q_params).page(params[:page]).per(params[:per])
   end
 
   def only
