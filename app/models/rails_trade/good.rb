@@ -1,6 +1,6 @@
 module RailsTrade::Good
   extend ActiveSupport::Concern
-  
+
   included do
     attribute :name, :string
     attribute :sku, :string, default: -> { SecureRandom.hex }
@@ -10,13 +10,13 @@ module RailsTrade::Good
     attribute :unit, :string
     attribute :quantity, :decimal, default: 0
     attribute :unified_quantity, :decimal, default: 0
-    
-    has_many :trade_items, as: :trade, autosave: true, dependent: :destroy
+
+    has_many :trade_items, as: :good, autosave: true, dependent: :destroy
     has_many :orders, through: :trade_items, source: :trade
 
     has_many :promote_goods, as: :good
   end
-  
+
   def final_price
     compute_order_amount
     #self.retail_price + self.promote_price
@@ -45,13 +45,13 @@ module RailsTrade::Good
     else
       raise 'please assign buyer or cart'
     end
-    
+
     o.organ_id = self.organ_id if self.respond_to?(:organ_id)
     if o.respond_to?(:maintain_id)
       o.maintain_id = maintain_id
       o.organ_id ||= o.maintain&.organ_id
     end
-    
+
     ti = o.trade_items.build(good: self)
     ti.assign_attributes params.slice(:number)
     ti.init_amount

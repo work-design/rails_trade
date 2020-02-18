@@ -1,12 +1,13 @@
 class Trade::Admin::TradeItemsController < Trade::Admin::BaseController
-  before_action :set_cart_items, only: [:index, :create, :only, :total]
+  #before_action :set_cart_items, only: [:index, :create, :only, :total]
   before_action :set_cart_item, only: [:update, :destroy]
-  before_action :set_additions
   skip_before_action :verify_authenticity_token, only: [:total]
 
   def index
-    @cart_items = @cart_items.page(params[:page])
-    @checked_ids = @cart_items.checked.pluck(:id)
+    q_params = {}
+
+    #@checked_ids = @cart_items.checked.pluck(:id)
+    TradeItem.default_where(q_params).page(params[:page]).per(params[:per])
   end
 
   def only
