@@ -1,8 +1,15 @@
-<%= form_with url: my_orders_path, id: 'add_cart' do %><% end %>
+<% content_for :title do %><%= t('.title') %><% end %>
 
 <div class="weui-panel weui-panel_access">
   <div class="weui-panel__hd"><%= t('.title') %></div>
   <div class="weui-panel__bd">
+    <div class="weui-cell weui-cell_access">
+      <div class="weui-cell__bd">
+        <p>信息</p>
+        <p>fff</p>
+      </div>
+      <%= link_to '', my_addresses_path, class: 'weui-cell__ft' %>
+    </div>
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left touchstart->swipe#start">
         <div class="weui-media-box__hd">
@@ -42,5 +49,6 @@
 </div>
 
 <div class="weui-btn-area">
+  <%= form_with theme: nil, url: my_orders_path, id: 'add_cart' do %><% end %>
   <%= submit_tag t('helpers.submit.next'), form: 'add_cart', class: 'weui-btn weui-btn_primary' %>
 </div>
