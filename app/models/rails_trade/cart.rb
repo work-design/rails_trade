@@ -23,8 +23,9 @@ module RailsTrade::Cart
 
     belongs_to :organ, optional: true
     belongs_to :user, optional: true
-    belongs_to :buyer, polymorphic: true, optional: true
+    belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
+    belongs_to :buyer, polymorphic: true, optional: true
     has_many :orders, dependent: :nullify
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true

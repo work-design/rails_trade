@@ -26,6 +26,7 @@ module RailsTrade::Order
     belongs_to :organ, optional: true
     belongs_to :cart, optional: true
     belongs_to :user, optional: true
+    belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders

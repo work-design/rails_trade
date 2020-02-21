@@ -4,6 +4,9 @@ class Trade::My::CartsController < Trade::My::BaseController
   end
 
   def show
+    if params[:address_id].present?
+      current_cart.update address_id: params[:address_id]
+    end
     @trade_items = current_cart.trade_items.page(params[:page])
     @checked_ids = current_cart.trade_items.checked.pluck(:id)
 
@@ -14,11 +17,9 @@ class Trade::My::CartsController < Trade::My::BaseController
   end
 
   def edit
-
   end
 
   def update
-
   end
 
   private

@@ -1,14 +1,21 @@
 <% content_for :title do %><%= t('.title') %><% end %>
+<%= content_for(:wechat_js) do %>
+  <%= wechat_config_js debug: false, apis: ['openAddress'] -%>
+<% end %>
 
 <div class="weui-panel weui-panel_access">
   <div class="weui-panel__hd"><%= t('.title') %></div>
   <div class="weui-panel__bd">
     <div class="weui-cell weui-cell_access">
       <div class="weui-cell__bd">
-        <p>信息</p>
-        <p>fff</p>
+        <% if current_cart.address %>
+          <p><%= current_cart.address.contact %></p>
+          <p><%= current_cart.address.detail %></p>
+        <% else %>
+          <p>选择地址</p>
+        <% end %>
       </div>
-      <%= link_to '', my_addresses_path, class: 'weui-cell__ft' %>
+      <%= link_to '', fork_my_addresses_path(return_to: my_cart_url), remote: true, class: 'weui-cell__ft' %>
     </div>
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left touchstart->swipe#start">
