@@ -13,6 +13,7 @@ module RailsTrade::Good
 
     has_many :trade_items, as: :good, autosave: true, dependent: :destroy
     has_many :orders, through: :trade_items, source: :trade
+    has_many :addresses, -> { distinct }, through: :trade_items
 
     has_many :promote_goods, as: :good
   end

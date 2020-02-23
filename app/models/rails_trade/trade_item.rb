@@ -20,6 +20,7 @@ module RailsTrade::TradeItem
     attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
+    belongs_to :address, optional: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
     has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
     #has_many :organs, dependent: :delete_all 用于对接供应商

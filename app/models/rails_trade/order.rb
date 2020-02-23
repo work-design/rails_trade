@@ -47,6 +47,7 @@ module RailsTrade::Order
     after_initialize if: :new_record? do
       if cart
         self.user_id = cart.user_id
+        self.address_id = cart.address_id
         self.payment_strategy_id = cart.payment_strategy_id
       end
     end
@@ -79,7 +80,7 @@ module RailsTrade::Order
   end
 
   def sync_from_cart
-    cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id)
+    cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id, address_id: self.address_id)
     cart.trade_promotes.update_all(trade_type: self.class.name, trade_id: self.id)
 
     self.compute_amount
