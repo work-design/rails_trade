@@ -24,16 +24,16 @@
 </div>
 <table class="ui bottom attached selectable table">
   <thead>
-  <tr class="">
-    <th><%= check_box_tag :all %></th>
-    <th><%= TradeItem.human_attribute_name('good/name') %></th>
-    <th><%= TradeItem.human_attribute_name(:amount) %></th>
-    <th><%= TradeItem.human_attribute_name(:number) %></th>
-    <th><%= TradeItem.human_attribute_name(:original_amount) %></th>
-    <th><%= TradeItem.human_attribute_name(:retail_price) %></th>
-    <th><%= TradeItem.human_attribute_name(:wholesale_price) %></th>
-    <th></th>
-  </tr>
+    <tr>
+      <th><%= check_box_tag :all %></th>
+      <th><%= TradeItem.human_attribute_name('good/name') %></th>
+      <th><%= TradeItem.human_attribute_name(:amount) %></th>
+      <th><%= TradeItem.human_attribute_name(:number) %></th>
+      <th><%= TradeItem.human_attribute_name(:original_amount) %></th>
+      <th><%= TradeItem.human_attribute_name(:retail_price) %></th>
+      <th><%= TradeItem.human_attribute_name(:wholesale_price) %></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
   <% @trade_items.each do |trade_item| %>

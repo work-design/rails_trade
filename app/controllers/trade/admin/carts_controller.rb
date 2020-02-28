@@ -56,7 +56,7 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
     @cart = Cart.find params[:id]
   end
 
-  def cart_item_serve_params
+  def cart_params
     params.fetch(:cart_item_serve, {}).permit(
       :serve_id,
       :price
