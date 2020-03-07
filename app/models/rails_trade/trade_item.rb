@@ -22,6 +22,7 @@ module RailsTrade::TradeItem
     belongs_to :good, polymorphic: true
     belongs_to :address, optional: true
     belongs_to :product_plan, optional: true  # 产品对应批次号
+    belongs_to :user, optional: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
     has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
     #has_many :organs, dependent: :delete_all 用于对接供应商
@@ -33,16 +34,17 @@ module RailsTrade::TradeItem
       init: 'init',
       checked: 'checked',
       ordered: 'ordered',
+      paid: 'paid',
+      packaged: 'packaged',
       done: 'done',
       canceled: 'canceled'
     }
 
-    after_initialize if: :new_record? do
-      if good
-        self.good_name = good.name
-        self.single_price = good.price
-        self.product_plan_id = good.product_plan_id if good.respond_to? :product_plan_id
-      end
+    before_validation do
+      self.good_name = good.name
+      self.single_price = good.price
+      self.product_plan_id = good.product_plan_id if good.respond_to? :product_plan_id
+      self.user_id = trade.user_id
     end
     after_update :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
@@ -145,6 +147,7 @@ module RailsTrade::TradeItem
   end
 
   def confirm_paid!
+    self.update status: 'paid'
   end
 
   def confirm_part_paid!
