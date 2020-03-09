@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 7496bf3a495fc2f1dd30caa61675a0306a080eed
+  revision: 2cceb52a6d47ec2bfa87475fc81244f3dd1cba92
   specs:
     rails_com (1.2.9)
       default_where (~> 2.2)
@@ -278,11 +278,11 @@ DEPENDENCIES
   jbuilder
   kaminari
   pry-rails
-  rails (= 6.0.0)
+  rails
   rails_com!
   rails_trade!
   sdoc
   sqlite3
 
 BUNDLED WITH
-   1.17.2
+   2.1.2

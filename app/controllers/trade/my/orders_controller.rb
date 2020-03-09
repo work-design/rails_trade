@@ -1,13 +1,7 @@
 class Trade::My::OrdersController < Trade::My::BaseController
-  include ControllerOrderTypes
   before_action :set_order, only: [
-    :show,
-    :edit,
-    :update,
-    :refund,
-    :edit_payment_type,
-    :wait,
-    :destroy,
+    :show, :edit, :update, :refund, :edit_payment_type, :wait, :destroy,
+    :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay
   ]
 
   def index
@@ -76,6 +70,55 @@ class Trade::My::OrdersController < Trade::My::BaseController
   end
 
   def edit_payment_type
+  end
+
+  def stripe_pay
+    if @order.payment_status != 'all_paid'
+      @order.stripe_charge(params)
+    end
+
+    if @order.errors.blank?
+      render 'create', locals: { return_to: @order.approve_url }
+    else
+      render 'create', locals: { return_to: my_orders_url }
+    end
+  end
+
+  def alipay_pay
+    if @order.payment_status != 'all_paid'
+      render 'create', locals: { return_to: @order.alipay_prepay_url }
+    else
+      render 'create', locals: { return_to: my_orders_url }
+    end
+  end
+
+  def paypal_pay
+    if @order.payment_status != 'all_paid'
+      result = @order.paypal_prepay
+      render 'create', locals: { return_to: result }
+    else
+      render 'create', locals: { return_to: my_orders_url }
+    end
+  end
+
+  def paypal_execute
+    if @order.paypal_execute(params)
+      flase.now[:notice] = "Order[#{@order.uuid}] placed successfully"
+      render 'create', locals: { return_to: my_order_url(@order) }
+    else
+      flase.now[:notice] =  @order.error.inspect
+      render 'create', locals: { return_to: my_orders_url }
+    end
+  end
+
+  def wxpay_pay
+    @wxpay_order = @order.wxpay_order(spbill_create_ip: request.remote_ip)
+
+    if @wxpay_order['result_code'] == 'FAIL' || @wxpay_order.blank?
+      render 'wxpay_pay_err'
+    else
+      render 'wxpay_pay'
+    end
   end
 
   def refund
