@@ -87,6 +87,7 @@ Rails.application.routes.draw do
         get :paypal_pay
         get :alipay_pay
         get :wxpay_pay
+        get :wxpay_pc_pay
         patch :stripe_pay
         get :paypal_execute
         get :pay

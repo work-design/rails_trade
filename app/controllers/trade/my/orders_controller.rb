@@ -1,7 +1,7 @@
 class Trade::My::OrdersController < Trade::My::BaseController
   before_action :set_order, only: [
     :show, :edit, :update, :refund, :edit_payment_type, :wait, :destroy,
-    :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay
+    :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
   ]
 
   def index
@@ -108,6 +108,23 @@ class Trade::My::OrdersController < Trade::My::BaseController
     else
       flase.now[:notice] =  @order.error.inspect
       render 'create', locals: { return_to: my_orders_url }
+    end
+  end
+
+  def wxpay_pc_pay
+    @wxpay_order = @order.wxpay_prepay(trade_type: 'NATIVE')
+
+    if @wxpay_order['result_code'] == 'FAIL' || @wxpay_order.blank?
+      render 'wxpay_pay_err'
+    else
+      file = QrcodeHelper.code_file @wxpay_order['code_url']
+      blob = ActiveStorage::Blob.build_after_upload io: file, filename: "#{@order.id}"
+      if blob.save
+        @image_url = blob.service_url
+        render 'wxpay_pc_pay'
+      else
+        render 'wxpay_pay_err'
+      end
     end
   end
 
