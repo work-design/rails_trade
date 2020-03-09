@@ -10,7 +10,7 @@ module RailsTrade::Order
     attribute :overall_additional_amount, :decimal, precision: 10, scale: 2
     attribute :overall_reduced_amount, :decimal, precision: 10, scale: 2
     attribute :amount, :decimal, precision: 10, scale: 2
-    attribute :received_amount, :decimal, precision: 10, scale: 2
+    attribute :received_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :payment_id, :integer, comment: 'for paypal'
     attribute :myself, :boolean, default: true
     attribute :note, :string, limit: 4096
@@ -62,7 +62,8 @@ module RailsTrade::Order
   end
 
   def subject
-    trade_items.map { |oi| oi.good&.name || 'Goods' }.join(', ')
+    r = trade_items.map { |oi| oi.good.name.presence }.join(', ')
+    r.presence || 'goods'
   end
 
   def user_name

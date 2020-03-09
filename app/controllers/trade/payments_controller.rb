@@ -8,7 +8,7 @@ class Trade::PaymentsController < ApplicationController
     @order = Order.find_by(uuid: params[:out_trade_no])
     result = nil
 
-    if Alipay::Notify.verify?(notify_params)
+    if Alipay2::Notify.verify?(notify_params)
       result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['trade_no'], type: 'AlipayPayment'
     end
 

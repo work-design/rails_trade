@@ -6,7 +6,7 @@
 
   <div class="content">
     <% ['alipay', 'wxpay'].each do |payment_type| %>
-      <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", remote: payment_type == 'wxpay' %>
+      <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", remote: true %>
     <% end %>
   </div>
 </div>
