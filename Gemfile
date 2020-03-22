@@ -14,6 +14,6 @@ gem 'pry-rails'
 gem 'capybara'
 gem 'awesome_print'
 gem 'kaminari'
-gem 'factory_bot_rails', github: 'thoughtbot/factory_bot_rails'
+gem 'factory_bot_rails', require: false
 gem 'default_form', github: 'qinmingyuan/default_form'
 gem 'rails_com', github: 'work-design/rails_com'
