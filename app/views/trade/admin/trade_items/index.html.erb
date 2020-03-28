@@ -22,7 +22,7 @@
     <%= link_to '生成文档', doc_admin_trade_items_path(user_id: @user.id), class: 'ui orange button', id: 'trade_items_doc' %>
   <% end %>
 </div>
-<table class="ui bottom attached selectable table">
+<table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
       <th><%= check_box_tag :all %></th>

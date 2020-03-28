@@ -1,6 +1,7 @@
 zh:
   trade:
     admin:
+      title: 订单管理
       orders:
         index:
           title: 订单
