@@ -28,10 +28,10 @@
       <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini circular icon button', target: '_blank' %>
     <% end %>
     <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'ui mini circular icon button', remote: true %>
-    <%= link_to audits_path('Payment', payment.id), data: { tooltip: t('.log') }, remote: true, class: 'ui mini circular icon button' do %>
+    <%= link_to audits_path('Payment', payment.id), aria: { label: t('.log') }, remote: true, class: 'ui mini circular icon button' do %>
       <i class="comments icon"></i>
     <% end %>
-    <%= link_to edit_admin_payment_path(payment), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
+    <%= link_to edit_admin_payment_path(payment), aria: { label: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
   </td>

@@ -39,7 +39,7 @@
       <td><%= promote_buyer.promote.name %></td>
       <td><%= promote_buyer.state_i18n %></td>
       <td>
-        <%= link_to admin_promote_buyer_path(promote_buyer), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_buyer_path(promote_buyer), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </td>

@@ -57,19 +57,19 @@
       </td>
       <td><%= promote.sequence %></td>
       <td>
-        <%= link_to admin_promote_goods_path(promote_id: promote.id), data: { tooltip: '适用商品' }, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_goods_path(promote_id: promote.id), aria: { label: '适用商品' }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-cogs"></i>
         <% end %>
-        <%= link_to admin_promote_buyers_path(promote_id: promote.id), data: { tooltip: '派发' }, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_buyers_path(promote_id: promote.id), aria: { label: '派发' }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-gift"></i>
         <% end %>
-        <%= link_to admin_promote_charges_path(promote), data: { tooltip: t('trade.admin.promote_charges.index.title') }, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_charges_path(promote), aria: { label: t('trade.admin.promote_charges.index.title') }, class: 'ui mini circular icon button' do %>
           <i class="fas fa-server"></i>
         <% end %>
-        <%= link_to edit_admin_promote_path(promote), data: { tooltip: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
+        <%= link_to edit_admin_promote_path(promote), aria: { label: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
-        <%= link_to admin_promote_path(promote), method: :delete, data: { tooltip: t('.destroy'), confirm: t('.confirm') }, remote: true, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_path(promote), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'ui mini circular icon button' do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </td>

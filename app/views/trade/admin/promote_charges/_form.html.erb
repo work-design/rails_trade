@@ -3,7 +3,7 @@
 <%= f.check_box :contain_min %>
 <%= f.number_field :max, step: PromoteCharge.max_step %>
 <%= f.check_box :contain_max %>
-<%= f.number_field :parameter, step: '0.01', on: { wrap_all_id: true } %>
+<%= f.number_field :parameter, step: '0.01', can: { wrap_all_id: true } %>
 <% PromoteCharge.extra_columns.each do |ex| %>
   <%= f.text_field ex %>
 <% end %>
