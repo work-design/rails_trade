@@ -1,12 +1,12 @@
 <% content_for :breadcrumb do %>
-<div class="ui basic segment breadcrumb">
-  <div class="active section"><%= t('.title') %></div>
+<div class="breadcrumb">
+  <ul>
+    <li class="is-active"><%= t('.title') %></li>
+  </ul>
 </div>
 <% end %>
 
-<div class="ui top attached segment">
-  <%= render 'filter' %>
-</div>
+<%= render 'filter' %>
 
 <table class="table is-hoverable is-fullwidth">
   <thead>

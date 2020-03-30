@@ -1,16 +1,16 @@
 <%= form_with theme: 'search', model: Payment.new(params.permit(:payment_uuid)) do |f| %>
-  <div class="fields">
-    <%= f.text_field :payment_uuid, css: { wrap_input: 'three wide field' } %>
+  <div class="field-body">
+    <%= f.text_field :payment_uuid %>
     <%= f.text_field 'buyer_name-like' %>
     <%= f.text_field :buyer_identifier %>
     <%= f.text_field :buyer_bank %>
     <%= f.text_field 'orders.uuid' %>
-    <%= f.submit %>
-    <%= link_to t('.clear'), filter_params(except: [:payment_uuid, 'orders.uuid']), class: 'ui button' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(except: [:payment_uuid, 'orders.uuid']), class: 'button is-light' %>
+    </div>
   </div>
 <% end %>
-
-<div class="ui divider"></div>
 <dl>
   <dt><%= Payment.human_attribute_name(:type) %></dt>
   <dd>

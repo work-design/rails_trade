@@ -1,20 +1,17 @@
 <% content_for :breadcrumb do %>
-<div class="ui basic segment breadcrumb">
-  <%= link_to t('trade.admin.promotes.index.title'), admin_promotes_path, class: 'section' %>
-  <% if params[:promote_good_id] %>
-    <i class="fas fa-angle-right divider"></i>
-    <div class="section"><%= @promote_good.promote.name %></div>
-    <i class="fas fa-angle-right divider"></i>
-    <div class="section"><%= @promote_good.good_type_i18n %></div>
-  <% end %>
-  <i class="fas fa-angle-right divider"></i>
-  <div class="active section">派发用户</div>
+<div class="breadcrumb">
+  <ul>
+    <li><%= link_to t('trade.admin.promotes.index.title'), admin_promotes_path %></li>
+    <% if params[:promote_good_id] %>
+      <li><%= @promote_good.promote.name %></li>
+      <li><%= @promote_good.good_type_i18n %></li>
+    <% end %>
+    <li class="is-active">派发用户</li>
+  </ul>
 </div>
 <% end %>
 
-<div class="ui attached segment">
-  <%= render 'filter' %>
-</div>
+<%= render 'filter' %>
 
 <table class="table is-hoverable is-fullwidth">
   <thead>

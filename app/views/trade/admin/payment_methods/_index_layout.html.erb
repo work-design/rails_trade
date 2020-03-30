@@ -3,9 +3,7 @@
   <%= link_to 'Unverified', unverified_admin_payment_methods_path, class: active_helper(action: 'unverified') %>
 </div>
 
-<div class="ui attached segment">
-  <%= render 'filter' %>
-</div>
+<%= render 'filter' %>
 
 <%= yield %>
 

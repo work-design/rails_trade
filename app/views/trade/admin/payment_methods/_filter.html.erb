@@ -1,11 +1,13 @@
 <%= form_with theme: 'search', model: PaymentMethod.new do |f| %>
-  <div class="fields">
-    <%= f.text_field :account_name, placeholder: PaymentMethod.human_attribute_name(:account_name) %>
-    <%= f.text_field :account_num, placeholder: PaymentMethod.human_attribute_name(:account_num) %>
-    <%= f.text_field :bank, placeholder: PaymentMethod.human_attribute_name(:bank) %>
-    <%= f.text_field :'buyers.name-like', placeholder: 'name' %>
-    <%= f.submit %>
-    <%= link_to t('.clear'), filter_params(only: []), class: 'ui white button' %>
+  <div class="field-body">
+    <%= f.text_field :account_name %>
+    <%= f.text_field :account_num %>
+    <%= f.text_field :bank %>
+    <%= f.text_field :'buyers.name-like' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(only: []), class: 'button is-light' %>
+    </div>
   </div>
 <% end %>
 
