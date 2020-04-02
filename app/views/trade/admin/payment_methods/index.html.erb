@@ -10,7 +10,7 @@
       <th><%= PaymentMethod.human_attribute_name(:payment_references) %></th>
       <th><%= PaymentMethod.human_attribute_name(:verified) %></th>
       <th>
-        <%= link_to new_admin_payment_method_path, class: 'ui teal button' do %>
+        <%= link_to new_admin_payment_method_path, remote: true, class: 'button is-primary is-small' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
         <% end %>
       </th>

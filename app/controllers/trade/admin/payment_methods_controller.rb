@@ -18,24 +18,13 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
 
   def new
     @payment_method = PaymentMethod.new
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def create
     @payment_method = PaymentMethod.new(payment_method_params.merge(verified: true, creator_id: the_audit_user.id))
 
-    respond_to do |format|
-      if @payment_method.save
-        format.html { redirect_to admin_payment_methods_url }
-        format.js
-      else
-        format.html { render :new }
-        format.js
-      end
+    unless @payment_method.save
+      render :new, locals: { model: @payment_method }, status: :unprocessable_entity
     end
   end
 
@@ -43,17 +32,13 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
   end
 
   def edit
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   def update
-    if @payment_method.update(payment_method_params)
-      redirect_to admin_payment_methods_url
-    else
-      render :edit
+    @payment_method.assign_attributes(payment_method_params)
+
+    unless @payment_method.save
+      render :edit, locals: { model: @payment_method }, status: :unprocessable_entity
     end
   end
 
@@ -79,7 +64,6 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
 
   def destroy
     @payment_method.destroy
-    redirect_to admin_payment_methods_url
   end
 
   private
