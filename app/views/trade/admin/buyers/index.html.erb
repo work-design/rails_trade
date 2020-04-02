@@ -9,7 +9,7 @@
   <div class="ui segment top attached">
     <p>
       <span>State:</span>
-      <%= link_to 'All', filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+      <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active_class: 'button is-info', item_class: 'button is-light') %>
     </p>
   </div>
 
@@ -34,7 +34,7 @@
         <td><%# buyer.charger&.name %></td>
         <td><%# buyer.sum_amount %></td>
         <td>
-          <%= link_to 'Orders', orders_admin_buyer_path(buyer.id), class: 'ui mini blue button' %>
+          <%= link_to 'Orders', orders_admin_buyer_path(buyer.id), class: 'button is-link is-small' %>
           <%= link_to 'Promotes', admin_promote_buyers_path(buyer_id: buyer.id), class: 'ui mini green button' %>
         </td>
       </tr>

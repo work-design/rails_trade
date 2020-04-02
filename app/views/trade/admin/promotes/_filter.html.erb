@@ -1,9 +1,9 @@
 <dl>
   <dt><%= Promote.human_attribute_name(:scope) %></dt>
   <dd>
-    <%= link_to t('.all'), filter_params(except: [:scope]), class: active_params(scope: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <%= link_to t('.all'), filter_params(except: [:scope]), class: active_params(scope: '', active_class: 'button is-info', item_class: 'button is-light') %>
     <% Promote.options_i18n(:scope).each do |text, value| %>
-    <%= link_to text, filter_params(scope: value), class: active_params(scope: value, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <%= link_to text, filter_params(scope: value), class: active_params(scope: value, active_class: 'button is-info', item_class: 'button is-light') %>
     <% end %>
   </dd>
 </dl>

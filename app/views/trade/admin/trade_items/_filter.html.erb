@@ -1,15 +1,15 @@
 <p>
   <span>Good Type:</span>
-  <%= link_to 'All', filter_params(except: [:good_type]), class: active_params(type: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to t('.all'), filter_params(except: [:good_type]), class: active_params(type: '', active_class: 'button is-info', item_class: 'button is-light') %>
   <% CartItem.good_types.each do |good_type| %>
-    <%= link_to good_type, filter_params(good_type: good_type), class: active_params(type: good_type, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+    <%= link_to good_type, filter_params(good_type: good_type), class: active_params(type: good_type, active_class: 'button is-info', item_class: 'button is-light') %>
   <% end %>
 </p>
 <p>
   <span>Assistant:</span>
-  <%= link_to 'All', filter_params(except: [:myself]), class: active_params(myself: '', active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  <%= link_to 'Assistant', filter_params(myself: 0), class: active_params(myself: 0, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
-  <%= link_to 'Self', filter_params(myself: 1), class: active_params(myself: 1, active_class: 'ui basic blue button', item_class: 'ui basic white button') %>
+  <%= link_to t('.all'), filter_params(except: [:myself]), class: active_params(myself: '', active_class: 'button is-info', item_class: 'button is-light') %>
+  <%= link_to 'Assistant', filter_params(myself: 0), class: active_params(myself: 0, active_class: 'button is-info', item_class: 'button is-light') %>
+  <%= link_to 'Self', filter_params(myself: 1), class: active_params(myself: 1, active_class: 'button is-info', item_class: 'button is-light') %>
 </p>
 
 

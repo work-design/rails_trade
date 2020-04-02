@@ -25,7 +25,7 @@
       <th><%= PromoteCharge.human_attribute_name(:parameter) %></th>
       <th><%= PromoteCharge.human_attribute_name(:type) %></th>
       <th>
-        <%= link_to new_admin_promote_charge_path(@promote), remote: true, class: 'ui mini primary button' do %>
+        <%= link_to new_admin_promote_charge_path(@promote), remote: true, class: 'button is-link is-small' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
         <% end %>
       </th>
@@ -50,10 +50,10 @@
       <td><%= promote_charge.parameter %></td>
       <td><%= promote_charge.type_i18n %></td>
       <td>
-        <%= link_to edit_admin_promote_charge_path(@promote, promote_charge), aria: { label: t('.edit') }, remote: true, class: 'ui mini circular icon button' do %>
+        <%= link_to edit_admin_promote_charge_path(@promote, promote_charge), aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
-        <%= link_to admin_promote_charge_path(@promote, promote_charge), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'ui mini circular icon button' do %>
+        <%= link_to admin_promote_charge_path(@promote, promote_charge), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'button is-small is-rounded is-light' do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
       </td>

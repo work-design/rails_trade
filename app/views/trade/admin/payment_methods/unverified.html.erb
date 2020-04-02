@@ -30,7 +30,7 @@
           <% end %>
         </td>
         <td>
-          <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'ui mini blue button' %>
+          <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'button is-link is-small' %>
           <%= link_to t('.destroy'), admin_payment_method_path(payment_method), class: 'ui mini red button', method: :delete, data: { confirm: t('.confirm') } %>
         </td>
       </tr>

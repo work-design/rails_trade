@@ -39,7 +39,7 @@
         <td><%= trade_promote.amount %></td>
         <td>
           <% if trade_promote.promote.editable %>
-            <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'ui mini circular icon button' do %>
+            <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'button is-small is-rounded is-light' do %>
               <i class="fas fa-pencil-alt"></i>
             <% end %>
           <% end %>
@@ -54,7 +54,7 @@
       <td><%= trade_promote.amount %></td>
       <td>
         <% if trade_promote.promote.editable %>
-          <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'ui mini circular icon button' do %>
+          <%= link_to edit_admin_trade_promote_path(trade_promote), remote: true, class: 'button is-small is-rounded is-light' do %>
             <i class="fas fa-pencil-alt"></i>
           <% end %>
         <% end %>
