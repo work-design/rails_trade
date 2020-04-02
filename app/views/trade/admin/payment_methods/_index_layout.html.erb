@@ -1,6 +1,12 @@
-<div class="ui top attached tabular menu">
-  <%= link_to 'Verified', admin_payment_methods_path, class: active_helper(action: 'index') %>
-  <%= link_to 'Unverified', unverified_admin_payment_methods_path, class: active_helper(action: 'unverified') %>
+<div class="tabs">
+  <ul>
+    <li class="<%= active_helper(action: 'index', active_class: 'is-active', item_class: nil) %>">
+      <%= link_to 'Verified', admin_payment_methods_path %>
+    </li>
+    <li class="<%= active_helper(action: 'unverified', active_class: 'is-active', item_class: nil) %>">
+      <%= link_to 'Unverified', unverified_admin_payment_methods_path %>
+    </li>
+  </ul>
 </div>
 
 <%= render 'filter' %>
