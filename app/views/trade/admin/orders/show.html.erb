@@ -1,12 +1,13 @@
 <% content_for :breadcrumb do %>
-<div class="ui basic segment breadcrumb">
-  <%= link_to t('trade.admin.orders.index.title'), admin_orders_path(cart_id: @order.cart_id), class: 'section' %>
-  <i class="fas fa-angle-right divider"></i>
-  <span class="active section"><%= @order.uuid %></span>
+<div class="breadcrumb">
+  <ul>
+    <li><%= link_to t('trade.admin.orders.index.title'), admin_orders_path(cart_id: @order.cart_id) %></li>
+    <li class="is-active"><%= @order.uuid %></li>
+  </ul>
 </div>
 <% end %>
 
-<table class="ui table">
+<table class="table">
   <thead>
     <tr>
       <th><%= TradeItem.human_attribute_name(:good_id) %></th>
