@@ -1,10 +1,5 @@
-<div class="item">
-  <span class="header">订单</span>
-  <div class="menu">
-    <%= link_to t('trade.my.carts.show.title'), my_cart_path, class: active_helper(controllers: ['carts']) %>
-    <%= link_to t('trade.my.orders.index.title'), my_orders_path, class: active_helper(controllers: ['orders']) %>
-  </div>
+<span class="menu-label">订单</span>
+<div class="menu-list">
+  <%= link_to t('trade.my.carts.show.title'), my_cart_path, class: active_helper(controllers: ['carts']) %>
+  <%= link_to t('trade.my.orders.index.title'), my_orders_path, class: active_helper(controllers: ['orders']) %>
 </div>
-
-
-
