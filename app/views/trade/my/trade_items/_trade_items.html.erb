@@ -1,4 +1,4 @@
-<table class="ui table">
+<table class="table is-fullwidth">
   <thead>
     <tr>
       <th><%= check_box_tag :all %></th>
@@ -21,13 +21,19 @@
       </td>
       <td>
         <p><%= trade_item.retail_price %></p>
-        <p><%= trade_item.quantity %><%= trade_item.unit %></p>
+        <p><%= trade_item.number %><%= trade_item.unit %></p>
       </td>
       <td>
-        <div class="ui left right action input" data-controller="cart">
-          <div class="ui button" data-action="click->cart#decrease"><i class="fas fa-minus"></i></div>
-          <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', target: 'cart.number', url: my_trade_item_path(trade_item) } %>
-          <div class="ui button" data-action="click->cart#increase"><i class="fas fa-plus"></i></div>
+        <div class="field has-addons" data-controller="cart">
+          <div class="control">
+            <div class="button" data-action="click->cart#decrease"><i class="fas fa-minus"></i></div>
+          </div>
+          <div class="control">
+            <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', target: 'cart.number', url: my_trade_item_path(trade_item) }, class: 'input' %>
+          </div>
+          <div class="control">
+            <div class="button is-link" data-action="click->cart#increase"><i class="fas fa-plus"></i></div>
+          </div>
         </div>
       </td>
       <td>

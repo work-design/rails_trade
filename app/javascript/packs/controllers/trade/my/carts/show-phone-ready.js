@@ -1,1 +1,1 @@
-import './show-ready'
+import '../trade_items/index-ready'

@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus'
 
 class CartController extends Controller {
-  static targets = [ 'number' ];
+  static targets = [ 'number' ]
 
   connect() {
     console.log(this.numberTarget.value)
@@ -9,20 +9,20 @@ class CartController extends Controller {
   }
 
   update() {
-    var data = new FormData();
-    data.set(this.numberTarget.name, this.numberTarget.value);
+    var data = new FormData()
+    data.set(this.numberTarget.name, this.numberTarget.value)
     Rails.ajax({ url: this.numberTarget.dataset.url, type: 'PATCH', dataType: 'script', data: data })
   }
 
   increase() {
-    this.numberTarget.value = this.numberTarget.valueAsNumber + 1;
+    this.numberTarget.value = this.numberTarget.valueAsNumber + 1
     this.update()
   }
 
   decrease() {
-    this.numberTarget.value = this.numberTarget.valueAsNumber - 1;
+    this.numberTarget.value = this.numberTarget.valueAsNumber - 1
     this.update()
   }
 }
 
-application.register('cart', CartController);
+application.register('cart', CartController)

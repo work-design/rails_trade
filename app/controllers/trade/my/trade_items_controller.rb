@@ -2,6 +2,7 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   before_action :set_trade_item, only: [:show, :update, :destroy]
 
   def index
+    @trade_items = current_cart.trade_items.page(params[:page])
   end
 
   def create
