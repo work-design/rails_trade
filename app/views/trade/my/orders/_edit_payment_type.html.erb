@@ -1,12 +1,14 @@
-<div class="ui modal" id="modal">
-  <i class="fas fa-times close"></i>
-  <div class="ui header">
-    <%= t('.title') %>
-  </div>
-
-  <div class="content">
-    <% ['alipay', 'wxpay_pc'].each do |payment_type| %>
-      <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", remote: payment_type == 'alipay' %>
-    <% end %>
+<div class="modal is-active" data-controller="modal">
+  <div class="modal-background" data-action="event->modal#close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title"><%= t('.title') %></p>
+      <button class="delete" data-action="modal#close"></button>
+    </header>
+    <section class="modal-card-body">
+      <% ['alipay', 'wxpay_pc'].each do |payment_type| %>
+        <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", remote: payment_type == 'alipay' %>
+      <% end %>
+    </section>
   </div>
 </div>
