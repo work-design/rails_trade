@@ -53,6 +53,7 @@ module RailsTrade::TradeItem
     end
     before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
     after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? }
+    after_destroy_commit :sync_changed_amount
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -110,7 +111,11 @@ module RailsTrade::TradeItem
 
   def sync_changed_amount
     #trade.reload
-    changed_amount = amount - amount_before_last_save.to_d
+    if destroyed?
+      changed_amount = - amount
+    else
+      changed_amount = amount - amount_before_last_save.to_d
+    end
     trade.item_amount += changed_amount
     trade.amount += changed_amount
     if trade.amount == trade.compute_amount
