@@ -4,7 +4,7 @@ module RailsTrade::Good
   included do
     attribute :name, :string
     attribute :sku, :string, default: -> { SecureRandom.hex }
-    attribute :price, :decimal, default: 0
+    attribute :price, :decimal, precision: 10, scale: 2, default: 0
     attribute :advance_price, :decimal, default: 0
     attribute :extra, :json, default: {}
     attribute :unit, :string

@@ -40,10 +40,12 @@ module RailsTrade::TradeItem
       canceled: 'canceled'
     }
 
-    before_validation do
-      self.good_name = good.name
-      self.single_price = good.price
-      self.produce_plan_id = good.product_plan&.produce_plan_id if good.respond_to? :product_plan_id
+    after_initialize if: :new_record? do
+      if good
+        self.good_name = good.name
+        self.single_price = good.price
+        self.produce_plan_id = good.product_plan&.produce_plan_id if good.respond_to? :product_plan_id
+      end
       self.user_id = trade.user_id
     end
     after_update :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
