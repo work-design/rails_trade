@@ -10,7 +10,6 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
     params[:number] ||= 1
     trade_item.number = trade_item.number + params[:number].to_i
 
-    trade_item.init_amount
     trade_item.compute_promote
     trade_item.sum_amount
     trade_item.save

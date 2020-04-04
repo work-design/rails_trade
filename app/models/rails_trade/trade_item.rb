@@ -44,11 +44,15 @@ module RailsTrade::TradeItem
       if good
         self.good_name = good.name
         self.single_price = good.price
+        self.advance_amount = good.advance_price
         self.produce_plan_id = good.product_plan&.produce_plan_id if good.respond_to? :product_plan_id
       end
       self.user_id = trade.user_id
+      self.original_amount = single_price * number
+      self.amount = original_amount
     end
-    after_update :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'additional_amount', 'reduced_amount']).present? }
+    before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
+    after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? }
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -61,12 +65,8 @@ module RailsTrade::TradeItem
     wholesale_price - (retail_price * number)
   end
 
-  def init_amount
+  def recompute_amount
     self.original_amount = single_price * number
-    self.advance_amount = good.advance_price
-    self.amount = original_amount
-    trade.item_amount += amount
-    trade.amount += amount
   end
 
   def compute_promote
@@ -130,9 +130,9 @@ module RailsTrade::TradeItem
     self.changes
   end
 
-  def reset_amount!
+  def reset_amount!(*args)
     self.reset_amount
-    self.update_columns changes.transform_values(&->(o){ o[1] })
+    self.save(*args)
   end
 
   def valid_promote_buyers(buyer)
