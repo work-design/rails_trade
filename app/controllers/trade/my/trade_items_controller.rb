@@ -30,7 +30,8 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
 
   private
   def set_trade_item
-    @trade_item = current_cart.trade_items.find(params[:id])
+    TradeItem.find params[:id]
+    #@trade_item = current_cart.trade_items.find(params[:id])
   end
 
   def trade_item_params

@@ -54,7 +54,7 @@
     </tr>
   <% end %>
   </tbody>
-  <tbody id="additions_body">
+  <tbody>
   <%= render 'trade/my/trade_items/additions' %>
   </tbody>
   <tfoot>
@@ -67,11 +67,10 @@
     </tr>
     <tr>
       <th colspan="5">
-        <div class="">
-          <%= link_to '去结算', new_my_order_path, class: 'ui red right floated button', id: 'new_order' %>
-        </div>
       </th>
-      <th></th>
+      <th>
+        <%= link_to '去结算', new_my_order_path, class: 'button is-primary', id: 'new_order' %>
+      </th>
     </tr>
   </tfoot>
 </table>

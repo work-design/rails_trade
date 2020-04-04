@@ -5,8 +5,9 @@ class Trade::My::OrdersController < Trade::My::BaseController
   ]
 
   def index
-    query_params = params.permit(:id, :payment_type, :payment_status)
-    @orders = current_cart.orders.default_where(query_params).order(id: :desc).page(params[:page])
+    q_params = {}
+    q_params.merge! params.permit(:id, :payment_type, :payment_status)
+    @orders = current_cart.orders.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
   def new
@@ -160,8 +161,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
       :payment_type,
       :address_id,
       :invoice_address_id,
-      :note,
-      trade_items_attributes: {}
+      :note
     )
   end
 

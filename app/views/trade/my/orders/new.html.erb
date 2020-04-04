@@ -1,40 +1,29 @@
-<div class="ui segment top attached">
-</div>
-
-
-<table class="ui table">
+<table class="table is-fullwidth">
   <thead>
   <tr>
     <th>
-      <%= form_with model: @order, url: my_orders_path, id: 'new_order' do |f| %>
-        <% @order_form = f %>
-      <% end %>
+      <%= form_with model: @order, url: my_orders_path, id: 'new_order' do %><% end %>
     </th>
     <th>Name</th>
     <th></th>
     <th></th>
   </tr>
   </thead>
-  <% @order.order_items.each do |order_item| %>
-    <%= @order_form.fields_for :order_items, order_item do |oi| %>
-      <tr>
-        <td>
-          <%= order_item.good&.name %>
-          <%= oi.hidden_field :cart_item_id, form: 'new_order' %>
-        </td>
-        <td></td>
-        <td><%= order_item.quantity %></td>
-        <td></td>
-      </tr>
-    <% end %>
+  <% current_cart.trade_items.checked.each do |trade_item| %>
+    <tr>
+      <td>
+        <%= trade_item.good_name %>
+      </td>
+      <td></td>
+      <td><%= trade_item.number %></td>
+      <td></td>
+    </tr>
   <% end %>
 
   <tfoot>
   <tr>
     <th colspan="5">
-      <div class="">
-        <%= submit_tag '确认订单', class: 'ui red right floated button', form: 'new_order' %>
-      </div>
+      <%= submit_tag '确认订单', class: 'button is-primary', form: 'new_order' %>
     </th>
   </tr>
   </tfoot>

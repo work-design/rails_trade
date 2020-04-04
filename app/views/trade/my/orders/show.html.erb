@@ -1,103 +1,67 @@
-<div class="ui grid">
-  <div class="sixteen wide column">
-    <div class="ui breadcrumb">
-      <%= link_to '全部订单', my_orders_path, class: 'section' %>
-      <i class="right chevron icon divider"></i>
-      <%= link_to '编辑', edit_my_order_path(@order), class: 'section' %>
-    </div>
+<% content_for :breadcrumb do %>
+  <ul>
+    <li><%= link_to '全部订单', my_orders_path %></li>
+    <li><%= link_to '编辑', edit_my_order_path(@order) %></li>
+  </ul>
+<% end %>
 
-    <table class="ui table">
-      <thead>
-      <tr>
-        <th>商品</th>
-        <th></th>
-        <th>Pure Price</th>
-        <th>Serve Sum</th>
-        <th>Promote Sum</th>
-        <th></th>
-        <th>数量</th>
-      </tr>
-      </thead>
-      <% @order.trade_items.each do |trade_item| %>
-      <tr>
-        <td>
-          <%= trade_item.good.name %>
-          <span><%= trade_item.good&.price %></span>
-          <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
-        </td>
-        <td><%= link_to '订单流程', my_trade_item_path(trade_item) %></td>
-        <td><%= trade_item.original_amount %></td>
-        <td><%= trade_item.additional_amount %></td>
-        <td><%= trade_item.reduced_amount %></td>
-        <td><%= trade_item.amount %></td>
-        <td><%= trade_item.number %></td>
-      </tr>
-        <% trade_item.order_serves.each do |order_serve| %>
-          <tr class="warning">
-            <td><%= order_serve.serve.name %></td>
-            <td></td>
-            <td></td>
-            <td><%= order_serve.amount %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <% end %>
-        <% trade_item.order_promotes.each do |order_promote| %>
-          <tr class="warning">
-            <td><%= order_promote.promote.name %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><span style="color: red;"><%= order_promote.amount %></span></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <% end %>
-      <% end %>
-      <% @order.pure_order_serves.each do |order_serve| %>
-        <tr>
-          <td><%= order_serve.serve.name %></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><%= order_serve.amount %></td>
-          <td></td>
-          <td></td>
-        </tr>
-      <% end %>
-      <% @order.pure_order_promotes.each do |order_promote| %>
-        <tr>
-          <td><%= order_promote.promote.name %></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><%= order_promote.amount %></td>
-          <td></td>
-          <td></td>
-        </tr>
-      <% end %>
-      <tr>
-        <td>总价</td>
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th></th>
+      <th>Pure Price</th>
+      <th>Serve Sum</th>
+      <th>Promote Sum</th>
+      <th></th>
+      <th>数量</th>
+    </tr>
+  </thead>
+  <% @order.trade_items.each do |trade_item| %>
+  <tr>
+    <td>
+      <%= trade_item.good_name %>
+      <span><%= trade_item.single_price %></span>
+      <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
+    </td>
+    <td><%= link_to '订单流程', my_trade_item_path(trade_item) %></td>
+    <td><%= trade_item.original_amount %></td>
+    <td><%= trade_item.additional_amount %></td>
+    <td><%= trade_item.reduced_amount %></td>
+    <td><%= trade_item.amount %></td>
+    <td><%= trade_item.number %></td>
+  </tr>
+    <% trade_item.trade_promotes.each do |trade_promote| %>
+      <tr class="warning">
+        <td><%= trade_promote.promote.name %></td>
         <td></td>
         <td></td>
+        <td><%= trade_promote.amount %></td>
         <td></td>
-        <td></td>
-        <td><%= @order.subtotal %>(<%= @order.amount %>)</td>
         <td></td>
         <td></td>
       </tr>
-    </table>
-  </div>
-
-</div>
-
-
-
-
-
-
-
+    <% end %>
+  <% end %>
+  <% @order.trade_promotes.each do |trade_promote| %>
+    <tr>
+      <td><%= trade_promote.promote.name %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= trade_promote.amount %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>总价</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= @order.item_amount %>(<%= @order.amount %>)</td>
+    <td></td>
+  </tr>
+</table>

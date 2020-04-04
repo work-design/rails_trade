@@ -11,7 +11,9 @@
 
   <% @orders.each do |order| %>
     <tr>
-      <td><%= order.uuid %></td>
+      <td>
+        <%= link_to order.uuid, my_order_path(order) %>
+      </td>
       <td>
         <%= order.amount %>
       </td>
