@@ -17,7 +17,7 @@ module RailsTrade::PromoteCharge
     'updated_at'
   ].freeze
   extend ActiveSupport::Concern
-  
+
   included do
     attribute :type, :string
     attribute :unit, :string
@@ -29,9 +29,9 @@ module RailsTrade::PromoteCharge
     attribute :contain_max, :boolean, default: false
     attribute :parameter, :decimal, precision: 10, scale: 2, default: 0
     attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
-    
+
     belongs_to :promote
-    
+
     scope :filter_with, ->(amount){ default_where('filter_min-lte': amount, 'filter_max-gte': amount) }
 
     validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
@@ -39,13 +39,13 @@ module RailsTrade::PromoteCharge
     #validates :min, uniqueness: { scope: [:contain_min, :contain_max] }  # todo
     before_validation :compute_filter_value
   end
-  
+
   # amount: 商品价格
   # return 计算后的价格
   def final_price(amount = 1)
     raise 'Should Implement in Subclass'
   end
-  
+
   def compute_filter_value
     if contain_min
       self.filter_min = min
@@ -65,11 +65,11 @@ module RailsTrade::PromoteCharge
 
   class_methods do
     def min_step
-      0.1.to_d.power(self.columns_hash['min'].scale)
+      0.1.to_d.power(self.columns_hash['min'].scale || columns_hash['min'].limit)
     end
 
     def max_step
-      0.1.to_d.power(self.columns_hash['max'].scale)
+      0.1.to_d.power(self.columns_hash['max'].scale || columns_hash['max'].limit)
     end
 
     def extra_columns
@@ -80,5 +80,5 @@ module RailsTrade::PromoteCharge
       extra_columns.map { |extra_column| [self.human_attribute_name(extra_column), extra_column] }.to_h
     end
   end
-  
+
 end

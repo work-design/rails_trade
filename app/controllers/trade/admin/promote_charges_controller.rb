@@ -6,12 +6,12 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
     q_params = {}
     q_params.merge! params.permit(PromoteCharge.extra_columns)
     q_params.merge! 'filter_min-lte': params[:value], 'filter_max-gte': params[:value]
-    
+
     @promote_charges = @promote.promote_charges.default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
   end
-  
+
   def options
-  
+
   end
 
   def new
@@ -20,8 +20,8 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
 
   def create
     @promote_charge = @promote.promote_charges.build(promote_charge_params)
-    
-    if @promote_charge.save
+
+    unless @promote_charge.save
       render :new, locals: { model: @promote_charge }, status: :unprocessable_entity
     end
   end
@@ -33,7 +33,7 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   def update
     @promote_charge.assign_attributes(promote_charge_params)
 
-    if @promote_charge.save
+    unless @promote_charge.save
       render :edit, locals: { model: @promote_charge }, status: :unprocessable_entity
     end
   end

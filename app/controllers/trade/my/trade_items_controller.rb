@@ -7,9 +7,7 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
 
   def create
     trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
-    params[:number] ||= 1
-    trade_item.number = trade_item.number + params[:number].to_i
-
+    trade_item.assign_attributes trade_item_params
     trade_item.compute_promote
     trade_item.sum_amount
     trade_item.save

@@ -1,11 +1,13 @@
 <%= form_with theme: 'search', model: PromoteCharge.new do |f| %>
-  <div class="fields">
+  <div class="field-body">
     <%= f.text_field :value %>
     <% PromoteCharge.extra_columns.each do |extra| %>
       <%= f.text_field extra, placeholder: extra %>
     <% end %>
-    <%= f.submit %>
-    <%= link_to t('.clear'), filter_params(except: [:value]), class: 'ui button' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(except: [:value]), class: 'button is-light' %>
+    </div>
   </div>
 <% end %>
 
