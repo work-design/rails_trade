@@ -1,6 +1,5 @@
 module RailsTrade::Amount
   extend ActiveSupport::Concern
-
   included do
     attribute :item_amount, :decimal, default: 0
     attribute :overall_additional_amount, :decimal, default: 0
@@ -15,10 +14,11 @@ module RailsTrade::Amount
   end
 
   def compute_amount
-    self.item_amount = trade_items.sum(:amount)
-    self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
-    self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+    self.item_amount = trade_items.sum(&:amount)
+    self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+    self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+    self
   end
 
   def reset_amount

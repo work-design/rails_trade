@@ -67,7 +67,6 @@ module RailsTrade::TradeItem
 
   def recompute_amount
     self.original_amount = single_price * number
-    self.amount = original_amount + additional_amount + reduced_amount
   end
 
   def compute_promote
@@ -109,7 +108,8 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
-    #trade.reload
+    self.amount = original_amount + additional_amount + reduced_amount
+
     changed_amount = amount - amount_before_last_save
     trade.item_amount += changed_amount
     trade.amount += changed_amount
