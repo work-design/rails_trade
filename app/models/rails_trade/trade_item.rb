@@ -113,7 +113,7 @@ module RailsTrade::TradeItem
     changed_amount = amount - amount_before_last_save
     trade.item_amount += changed_amount
     trade.amount += changed_amount
-    if trade.amount == trade.compute_saved_amount
+    if trade.amount == trade.compute_amount
       trade.save!
     else
       trade.errors.add :amount, 'not equal'
