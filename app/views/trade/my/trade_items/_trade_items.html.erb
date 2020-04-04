@@ -3,7 +3,7 @@
     <tr>
       <th><%= check_box_tag :all %></th>
       <th><%= TradeItem.human_attribute_name(:good_name) %></th>
-      <th><%= TradeItem.human_attribute_name(:price) %></th>
+      <th><%= TradeItem.human_attribute_name(:single_price) %></th>
       <th><%= TradeItem.human_attribute_name(:number) %></th>
       <th><%= TradeItem.human_attribute_name(:amount) %></th>
       <th></th>
@@ -21,7 +21,7 @@
       </td>
       <td>
         <p><%= trade_item.retail_price %></p>
-        <p><%= trade_item.number %><%= trade_item.unit %></p>
+        <p><%= trade_item.weight %><%= trade_item.unit %></p>
       </td>
       <td>
         <div class="field has-addons" data-controller="cart">
@@ -37,15 +37,19 @@
         </div>
       </td>
       <td>
-        <p id="retail_price_<%= trade_item.id %>">
-          <%= trade_item.wholesale_price %>
+        <p>
+          <span class="has-text-grey"><%= trade_item.wholesale_price %></span>
+          <% if trade_item.discount_price < 0 %>
+            <span class="has-text-danger"><%= trade_item.discount_price %></span>
+            <i class="fas fa-info"></i>
+          <% end %>
         </p>
-        <p id="discount_price_<%= trade_item.id %>">
-          <%= render partial: 'trade/my/trade_items/single_price', locals: { trade_item: trade_item } %>
+        <p>
+          <strong><%= trade_item.amount %></strong>
         </p>
       </td>
       <td>
-        <%= link_to 'delete', my_trade_item_path(trade_item), method: :delete, remote: true %>
+        <%= link_to t('.destroy'), my_trade_item_path(trade_item), method: :delete, remote: true %>
       </td>
     </tr>
   <% end %>

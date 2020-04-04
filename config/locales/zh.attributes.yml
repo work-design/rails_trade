@@ -14,6 +14,8 @@ zh:
         extra: 附加信息
       trade_item:
         good_id: 商品
+        good_name: 商品名称
+        single_price: 单价
         number: 数量
         original_amount: 原价
         additional_amount: 附加费
