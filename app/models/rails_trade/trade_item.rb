@@ -47,7 +47,9 @@ module RailsTrade::TradeItem
         self.advance_amount = good.advance_price
         self.produce_plan_id = good.product_plan&.produce_plan_id if good.respond_to? :product_plan_id
       end
-      self.user_id = trade.user_id
+      if trade
+        self.user_id = trade.user_id
+      end
       self.original_amount = single_price * number
       self.amount = original_amount
     end

@@ -11,7 +11,7 @@
       <th><%= Cart.human_attribute_name(:buyer_id) %></th>
       <th><%= Cart.human_attribute_name(:default) %></th>
       <th>
-        <%= link_to new_my_cart_path, remote: true, class: 'ui mini green button' do %>
+        <%= link_to new_my_cart_path, remote: true, class: 'button is-link is-small' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>
         <% end %>
       </th>
