@@ -1,4 +1,3 @@
-<% content_for :breadcrumb do %>
 <div class="tabs">
   <ul>
     <li class="<%= active_helper(action: 'index', active_class: 'is-active', item_class: nil) %>">
@@ -9,9 +8,9 @@
     </li>
   </ul>
 </div>
-<% end %>
 
-<%= render 'filter' %>
+<%= render 'filter_form' %>
+<%= render 'filter_table' %>
 
 <%= yield %>
 

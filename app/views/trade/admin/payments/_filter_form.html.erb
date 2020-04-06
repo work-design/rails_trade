@@ -1,0 +1,13 @@
+<%= form_with theme: 'search', model: Payment.new(params.permit(:payment_uuid)) do |f| %>
+  <div class="field-body">
+    <%= f.text_field :payment_uuid %>
+    <%= f.text_field 'buyer_name-like' %>
+    <%= f.text_field :buyer_identifier %>
+    <%= f.text_field :buyer_bank %>
+    <%= f.text_field 'orders.uuid' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(except: [:payment_uuid, 'orders.uuid']), class: 'button is-light' %>
+    </div>
+  </div>
+<% end %>
