@@ -1,6 +1,11 @@
-<div class="ui top attached segment">
-  <%= render 'filter' %>
-</div>
+<% content_for :breadcrumb do %>
+  <ul>
+    <li><%= link_to t('trade.admin.orders.index.title'), admin_orders_path(id: params[:order_id]) %></li>
+    <li class="is-active"><%= t('.title') %></li>
+  </ul>
+<% end %>
+
+<%= render 'filter' %>
 
 <table class="table is-hoverable is-fullwidth">
   <thead>
@@ -12,7 +17,7 @@
       <th><%= Refund.human_attribute_name(:created_at) %></th>
       <th><%= Refund.human_attribute_name(:state) %></th>
       <th><%= Refund.human_attribute_name(:comment) %></th>
-      <th><%= Refund.human_attribute_name(:refunded_at) %>/th>
+      <th><%= Refund.human_attribute_name(:refunded_at) %></th>
       <th>Operator</th>
     </tr>
   </thead>
@@ -33,7 +38,7 @@
         <% if refund.refunded_at %>
           <time><%= refund.refunded_at.to_s(:rfc822) %></time>
         <% else %>
-          <div class="ui buttons">
+          <div class="buttons">
             <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'ui positive button' %>
             <div class="or"></div>
             <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'ui negative button' %>

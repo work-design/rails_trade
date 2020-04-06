@@ -1,11 +1,13 @@
-<%= form_with theme: 'search' do |f| %>
-  <div class="fields">
+<%= form_with theme: 'search', model: Refund.new do |f| %>
+  <div class="field-body">
     <%= hidden_field_tag :payment_status, params[:payment_status] %>
-    <%= f.text_field :'company.name', placeholder: 'Company Name' %>
-    <%= f.text_field :uuid, placeholder: 'PO No.' %>
+    <%= f.text_field :'company.name' %>
+    <%= f.text_field :uuid %>
     <%= f.select :payment_method, options_for_select(Order.options_i18n(:payment_method)), { include_blank: true, prompt: 'Select one' }, { } %>
-    <%= f.date_field :'created_at.gte', placeholder: 'Transaction Start Date' %>
-    <%= f.date_field :'created_at.lte', placeholder: 'Transaction End Date' %>
-    <%= f.submit %>
+    <%= f.date_field 'created_at-gte' %>
+    <%= f.date_field 'created_at-lte' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>
