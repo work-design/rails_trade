@@ -1,13 +1,11 @@
 <% content_for :breadcrumb do %>
-<div class="breadcrumb">
   <ul>
     <li><%= link_to t('trade.admin.orders.index.title'), admin_orders_path(cart_id: @order.cart_id) %></li>
     <li class="is-active"><%= @order.uuid %></li>
   </ul>
-</div>
 <% end %>
 
-<table class="table">
+<table class="table is-fullwidth">
   <thead>
     <tr>
       <th><%= TradeItem.human_attribute_name(:good_id) %></th>
@@ -34,7 +32,7 @@
       <td><%= link_to '订单流程', admin_trade_item_path(trade_item) %></td>
     </tr>
     <% trade_item.trade_promotes.each do |trade_promote| %>
-      <tr class="warning">
+      <tr class="has-background-warning">
         <td><%= trade_promote.promote.name %></td>
         <td colspan="4"></td>
         <td><%= trade_promote.amount %></td>

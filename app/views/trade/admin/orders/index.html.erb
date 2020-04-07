@@ -29,7 +29,7 @@
       <td>
         <%= order.payment_status_i18n %>
         <% if ['part_paid', 'all_paid'].include?(order.payment_status) %>
-          <%= link_to t('.refund'), refund_admin_order_path(order.id), method: :patch, class: 'ui mini gray button' %>
+          <%= link_to t('.refund'), refund_admin_order_path(order.id), method: :patch, class: 'button is-light is-small' %>
         <% elsif ['refunding', 'refunded', 'denied'].include?(order.payment_status) %>
           <%= link_to t('.refund_list'), admin_refunds_path(order_id: order.id), class: 'button is-link is-small' %>
         <% elsif ['unpaid'].include?(order.payment_status) %>
