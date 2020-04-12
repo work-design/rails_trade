@@ -126,7 +126,7 @@ module RailsTrade::Payment
   class_methods do
 
     def total_amount_step
-      0.1.to_d.power(Payment.columns_hash['total_amount'].scale)
+      0.1.to_d.power(self.columns_hash['total_amount'].scale || self.columns_hash['total_amount'].limit)
     end
 
   end
