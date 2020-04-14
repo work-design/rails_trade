@@ -19,7 +19,7 @@
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left touchstart->swipe#start">
         <div class="weui-media-box__hd">
-          <%= image_tag trade_item.good.product.logo, class: 'weui-media-box__thumb' %>
+          <%= image_tag trade_item.good.product.logo, class: 'weui-media-box__thumb' if trade_item.good.product.logo.attached? %>
         </div>
         <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>

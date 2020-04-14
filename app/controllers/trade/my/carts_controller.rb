@@ -7,8 +7,8 @@ class Trade::My::CartsController < Trade::My::BaseController
     if params[:address_id].present?
       current_cart.update address_id: params[:address_id]
     end
-    @trade_items = current_cart.trade_items.page(params[:page])
-    @checked_ids = current_cart.trade_items.checked.pluck(:id)
+    @trade_items = current_cart.trade_items.where(good_type: 'Custom').page(params[:page])
+    @checked_ids = current_cart.trade_items.where(good_type: 'Custom').checked.pluck(:id)
 
     current_cart.compute_price
   end
