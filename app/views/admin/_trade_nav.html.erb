@@ -1,10 +1,10 @@
 <div class="<%= active_helper(modules: 'trade/admin', active_class: 'menu ex-accordion is-active', item_class: 'menu ex-accordion') %>" data-controller="menu">
-  <%= content_tag :div, class: 'menu-list' do -%>
+  <%= content_tag :div, class: 'menu-list' do %>
     <%= link_to t('trade.admin.orders.index.title'), admin_orders_path, class: active_helper(controllers: 'orders') %>
     <%= link_to t('trade.admin.payments.index.title'), admin_payments_path, class: active_helper(controllers: 'payments') %>
     <%= link_to t('trade.admin.payment_methods.index.title'), admin_payment_methods_path, class: active_helper(controllers: 'payment_methods') %>
     <%= link_to t('trade.admin.promotes.index.title'), admin_promotes_path, class: active_helper(controllers: 'promotes') %>
-    <%= link_to t('trade.admin.promote_buyers.index.title'), admin_promote_buyers_path, class: active_helper(controllers: 'promote_buyers') %>
+    <%= link_to t('trade.admin.promote_buyers.index.title'), admin_promote_buyers_path, class: active_helper(controllers: 'promote_buyers') -%>
   <% end %>
   <a class="menu-label" data-action="menu#toggle">
     <i class="fas fa-shopping-cart fa-fw"></i>
