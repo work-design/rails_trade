@@ -2,27 +2,27 @@
   <tr>
     <th><%= Payment.human_attribute_name(:type) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:type]), class: active_params(type: '', active_class: 'button is-info', item_class: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:type]), class: active_params(type: '', active: 'button is-info', item: 'button is-light') %>
       <% Payment.options_i18n(:type).each do |text, type| %>
-        <%= link_to text, filter_params(type: type), class: active_params(type: type, active_class: 'button is-info', item_class: 'button is-light') %>
+        <%= link_to text, filter_params(type: type), class: active_params(type: type, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
   <tr>
     <th><%= Payment.human_attribute_name(:state) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:state]), class: active_params(state: '', active_class: 'button is-info', item_class: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:state]), class: active_params(state: '', active: 'button is-info', item: 'button is-light') %>
       <% Payment.options_i18n(:state).each do |text, state| %>
-        <%= link_to text, filter_params(state: state), class: active_params(state: state, active_class: 'button is-info', item_class: 'button is-light') %>
+        <%= link_to text, filter_params(state: state), class: active_params(state: state, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
   <tr>
     <th><%= PaymentOrder.human_attribute_name(:state) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active_class: 'button is-info', item_class: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:'payment_orders.state']), class: active_params('payment_orders.state': '', active: 'button is-info', item: 'button is-light') %>
       <% PaymentOrder.options_i18n(:state).each do |text, state| %>
-        <%= link_to text, filter_params('payment_orders.state': state), class: active_params('payment_orders.state': state, active_class: 'button is-info', item_class: 'button is-light') %>
+        <%= link_to text, filter_params('payment_orders.state': state), class: active_params('payment_orders.state': state, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>

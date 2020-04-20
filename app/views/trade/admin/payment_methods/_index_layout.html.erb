@@ -1,9 +1,9 @@
 <div class="tabs">
   <ul>
-    <li class="<%= active_helper(action: 'index', active_class: 'is-active', item_class: nil) %>">
+    <li class="<%= active_helper(action: 'index', active: 'is-active', item: nil) %>">
       <%= link_to 'Verified', admin_payment_methods_path %>
     </li>
-    <li class="<%= active_helper(action: 'unverified', active_class: 'is-active', item_class: nil) %>">
+    <li class="<%= active_helper(action: 'unverified', active: 'is-active', item: nil) %>">
       <%= link_to 'Unverified', unverified_admin_payment_methods_path %>
     </li>
   </ul>

@@ -74,7 +74,7 @@
             <p><%= order_item.chemical.cas %></p>
           <% end %>
         </td>
-        <td class="<%= active_assert(order.overdue_date && order.overdue_date < Date.today, expected: 'error', unexpected: '') %>">
+        <td class="<%= order.overdue_date && order.overdue_date < Date.today ? 'error' : '' %>">
           <%= order.overdue_date %>
         </td>
         <td><%= order.amount %> / <%= order.unreceived_amount %></td>

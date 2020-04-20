@@ -25,7 +25,7 @@
       <td><%= cart.buyer_type %></td>
       <td><%= cart.buyer_id %></td>
       <td>
-        <div class="ui toggle checkbox inverted <%= active_assert(cart.default, expected: 'disabled green label', unexpected: 'label') %>">
+        <div class="ui toggle checkbox inverted <%= cart.default ? 'disabled green label' : 'label' %>">
           <%= check_box_tag '[cart]default', nil, cart.default, data: { method: :patch, remote: true, url: my_cart_path(cart), submit: true }, id: nil %>
           <label><%= t('.default') %></label>
         </div>

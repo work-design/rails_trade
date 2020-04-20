@@ -40,7 +40,7 @@
     <tr class="<%= active_asserts join: false, active: trade_item.checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
       <td><%= check_box_tag(:trade_item_id, trade_item.id, trade_item.checked?) %></td>
       <td>
-        <i class="child icon<%= active_assert(trade_item.myself, expected: ' green', unexpected: '') %>"></i>
+        <i class="child icon<%= trade_item.myself ? ' green' : '' %>"></i>
         <%= trade_item.good&.name %>
       </td>
       <td>

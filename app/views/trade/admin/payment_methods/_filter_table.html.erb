@@ -2,8 +2,8 @@
   <tr>
     <th>Admin</th>
     <td>
-      <%= link_to 'Admin', filter_params(myself: 0), class: active_params(myself: 0, active_class: 'button is-info', item_class: 'button is-light') %>
-      <%= link_to 'User', filter_params(myself: 1), class: active_params(myself: 1, active_class: 'button is-info', item_class: 'button is-light') %>
+      <%= link_to 'Admin', filter_params(myself: 0), class: active_params(myself: 0, active: 'button is-info', item: 'button is-light') %>
+      <%= link_to 'User', filter_params(myself: 1), class: active_params(myself: 1, active: 'button is-info', item: 'button is-light') %>
     </td>
   </tr>
 </table>
