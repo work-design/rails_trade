@@ -31,8 +31,8 @@ module RailsTrade::TradeItem
     scope :starred, -> { where(status: 'init', starred: true) }
 
     enum status: {
-      init: 'init',
-      checked: 'checked',
+      init: 'init',  # Cart
+      checked: 'checked',  # Cart
       ordered: 'ordered',
       paid: 'paid',
       packaged: 'packaged',

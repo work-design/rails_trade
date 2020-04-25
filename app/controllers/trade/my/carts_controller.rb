@@ -10,7 +10,7 @@ class Trade::My::CartsController < Trade::My::BaseController
     @trade_items = current_cart.trade_items.where(good_type: 'Custom').page(params[:page])
     @checked_ids = current_cart.trade_items.where(good_type: 'Custom').checked.pluck(:id)
 
-    current_cart.compute_price
+    current_cart.compute_amount
   end
 
   def total
