@@ -9,10 +9,10 @@ module RailsTrade::TradeItem
     attribute :weight, :decimal, default: 0, comment: '重量'
     attribute :unit, :string, comment: '单位'
     attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
+    attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
     attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
     attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
     attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
-    attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
     attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
     attribute :amount, :decimal, default: 0
     attribute :note, :string

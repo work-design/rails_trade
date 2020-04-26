@@ -20,8 +20,6 @@ module RailsTrade::Order
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :trade_items_count, :integer, default: 0
-    attribute :lock_version, :integer
 
     belongs_to :organ, optional: true
     belongs_to :cart, optional: true
@@ -74,7 +72,8 @@ module RailsTrade::Order
     amounto_money(self.currency)
   end
 
-  def compute_promote
+  def compute_amount
+    self.item_amount = trade_items.sum(&:amount)
   end
 
   def metering_attributes
