@@ -1,0 +1,9 @@
+<%= form_with theme: 'search', model: PromoteCart.new do |f| %>
+  <div class="field-body">
+    <%= f.text_field 'cart.buyer_type' %>
+    <%= f.text_field 'cart.buyer_id' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>

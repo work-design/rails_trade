@@ -24,7 +24,7 @@ module RailsTrade::TradeItem
     belongs_to :produce_plan, optional: true  # 产品对应批次号
     belongs_to :user, optional: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
-    has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, dependent: :destroy
+    has_many :trade_promotes, ->(o){ includes(:promote).where(trade_type: o.trade_type, trade_id: o.trade_id) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
     #has_many :organs, dependent: :delete_all 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -83,9 +83,9 @@ module RailsTrade::TradeItem
       promote_charge = promote_good.promote.compute_charge(value, **extra)
       next unless promote_charge
       if promote_good.promote.single?
-        tp = self.trade_promotes.find_or_initialize_by(promote_good_id: promote_good.id)
+        tp = self.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || trade_promotes.build(promote_good_id: promote_good.id)
       else
-        tp = trade.trade_promotes.find_or_initialize_by(promote_good_id: promote_good.id)
+        tp = trade.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || trade.trade_promotes.build(promote_good_id: promote_good.id)
       end
       tp.promote_charge_id = promote_charge.id
       tp.compute_amount
@@ -103,6 +103,8 @@ module RailsTrade::TradeItem
       tp.promote_charge_id = promote_charge.id
       tp.compute_amount
     end
+
+    sum_amount
   end
 
   def sum_amount
