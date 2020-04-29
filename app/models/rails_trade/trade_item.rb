@@ -24,7 +24,7 @@ module RailsTrade::TradeItem
     belongs_to :produce_plan, optional: true  # 产品对应批次号
     belongs_to :user, optional: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
-    has_many :trade_promotes, -> { includes(:promote).single }, inverse_of: :trade_item, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, dependent: :destroy
     #has_many :organs, dependent: :delete_all 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -54,7 +54,11 @@ module RailsTrade::TradeItem
       self.amount = original_amount
     end
     before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
-    after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? }
+    before_save :compute_promote
+    after_save :sync_changed_amount, if: -> {
+      (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? ||
+        (saved_change_to_status? && status == 'checked')
+    }
     after_destroy_commit :sync_changed_amount
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
@@ -114,7 +118,7 @@ module RailsTrade::TradeItem
   def sync_changed_amount
     #trade.reload
     if destroyed?
-      changed_amount = - amount
+      changed_amount = -amount
     else
       changed_amount = amount - amount_before_last_save.to_d
     end

@@ -73,7 +73,10 @@ module RailsTrade::Order
   end
 
   def compute_amount
-    self.item_amount = trade_items.sum(&:amount)
+    self.item_amount = trade_items.sum(:amount)
+    self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
+    self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
 
   def metering_attributes

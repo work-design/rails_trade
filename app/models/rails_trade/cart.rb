@@ -34,15 +34,15 @@ module RailsTrade::Cart
   end
 
   def compute_amount
-    self.retail_price = trade_items.checked.sum(&:retail_price)
-    self.discount_price = trade_items.checked.sum(&:discount_price)
-    self.bulk_price = self.retail_price - self.discount_price
+    #self.retail_price = trade_items.checked.sum(:retail_price)
+    #self.discount_price = trade_items.checked.sum(:discount_price)
+    #self.bulk_price = self.retail_price - self.discount_price
+    #self.total_quantity = trade_items.checked.sum(:original_quantity)
 
-    self.item_amount = trade_items.checked.sum(&:amount)
-
-
-    self.total_quantity = trade_items.checked.sum(&:original_quantity)
-    self
+    self.item_amount = trade_items.checked.sum(:amount)
+    self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
+    self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+    self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
 
   def set_default
