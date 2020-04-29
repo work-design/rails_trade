@@ -12,18 +12,8 @@ class Trade::Admin::TradePromotesController < Trade::Admin::BaseController
   def create
     @trade_promote = TradePromote.new(trade_promote_params)
 
-    respond_to do |format|
-      if @trade_promote.save
-        format.html.phone
-        format.html { redirect_to admin_trade_promotes_url }
-        format.js { redirect_back fallback_location: admin_trade_promotes_url }
-        format.json { render :show }
-      else
-        format.html.phone { render :new }
-        format.html { render :new }
-        format.js { redirect_back fallback_location: admin_trade_promotes_url }
-        format.json { render :show }
-      end
+    unless @trade_promote.save
+      render :new, locals: { model: @trade_promote }, status: :unprocessable_entity
     end
   end
 
@@ -36,24 +26,13 @@ class Trade::Admin::TradePromotesController < Trade::Admin::BaseController
   def update
     @trade_promote.assign_attributes(trade_promote_params)
 
-    respond_to do |format|
-      if @trade_promote.save
-        format.html.phone
-        format.html { redirect_to admin_trade_promotes_url }
-        format.js { redirect_back fallback_location: admin_trade_promotes_url }
-        format.json { render :show }
-      else
-        format.html.phone { render :edit }
-        format.html { render :edit }
-        format.js { redirect_back fallback_location: admin_trade_promotes_url }
-        format.json { render :show }
-      end
+    unless @trade_promote.save
+      render :edit, locals: { model: @trade_promote }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @trade_promote.destroy
-    redirect_to admin_trade_promotes_url
   end
 
   private
@@ -62,10 +41,11 @@ class Trade::Admin::TradePromotesController < Trade::Admin::BaseController
   end
 
   def trade_promote_params
-    params.fetch(:trade_promote, {}).permit(
+    p = params.fetch(:trade_promote, {}).permit(
       :amount,
       :note
     )
+    p.merge! edited: true
   end
 
 end

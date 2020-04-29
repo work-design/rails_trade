@@ -8,7 +8,7 @@ module RailsTrade::TradePromote
     attribute :computed_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '计算出的价格'
     attribute :amount, :decimal, precision: 10, scale: 2, default: 0, comment: '默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化'
     attribute :note, :string, comment: '备注'
-    attribute :edited, :boolean, default: false
+    attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
 
     belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true
