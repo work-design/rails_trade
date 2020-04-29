@@ -55,11 +55,8 @@ module RailsTrade::Good
 
     ti = o.trade_items.build(good: self)
     ti.assign_attributes params.slice(:number)
-    ti.init_amount
-    ti.sum_amount
 
     o.assign_attributes params.slice(:extra, :currency)
-    o.compute_amount
     o
   end
 
