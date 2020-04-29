@@ -1,5 +1,6 @@
 module RailsTrade::TradePromote
   extend ActiveSupport::Concern
+
   included do
     attribute :sequence, :integer
     attribute :original_amount, :decimal, comment: '初始价格'
@@ -13,7 +14,7 @@ module RailsTrade::TradePromote
     belongs_to :promote
     belongs_to :promote_charge
     belongs_to :promote_good
-    belongs_to :promote_buyer, counter_cache: true, optional: true
+    belongs_to :promote_cart, counter_cache: true, optional: true
 
     validates :promote_id, uniqueness: { scope: [:trade_type, :trade_id, :trade_item_id] }
     validates :amount, presence: true
@@ -28,7 +29,7 @@ module RailsTrade::TradePromote
       end
     end
     after_update :sync_changed_amount, if: -> { saved_change_to_amount? }
-    after_create_commit :check_promote_buyer
+    after_create_commit :check_promote_cart
   end
 
   def compute_amount
@@ -77,9 +78,9 @@ module RailsTrade::TradePromote
     end
   end
 
-  def check_promote_buyer
-    return unless promote_buyer
-    self.promote_buyer.update state: 'used'
+  def check_promote_cart
+    return unless promote_cart
+    self.promote_cart.update state: 'used'
   end
 
 end

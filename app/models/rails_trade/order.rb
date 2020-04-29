@@ -21,8 +21,8 @@ module RailsTrade::Order
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
 
+    belongs_to :cart
     belongs_to :organ, optional: true
-    belongs_to :cart, optional: true
     belongs_to :user, optional: true
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 统一批次号

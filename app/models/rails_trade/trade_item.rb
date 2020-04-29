@@ -54,7 +54,7 @@ module RailsTrade::TradeItem
       self.amount = original_amount
     end
     before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
-    before_save :compute_promote
+    before_save :compute_promote, if: -> { amount_changed? }
     after_save :sync_changed_amount, if: -> {
       (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? ||
         (saved_change_to_status? && status == 'checked')
@@ -90,15 +90,14 @@ module RailsTrade::TradeItem
       tp.compute_amount
     end
 
-    return unless trade.buyer
-    trade.buyer.promote_buyers.each do |promote_buyer|
-      value = metering_attributes.fetch(promote_buyer.promote.metering)
-      promote_charge = promote_buyer.promote.compute_charge(value, **extra)
+    trade.promote_carts.each do |promote_cart|
+      value = metering_attributes.fetch(promote_cart.promote.metering)
+      promote_charge = promote_cart.promote.compute_charge(value, **extra)
       next unless promote_charge
       if promote_good.promote.single?
-        tp = self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+        tp = self.trade_promotes.build(promote_charge_id: promote_charge.id, promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
       else
-        tp = trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_buyer_id: promote_buyer.id, promote_good_id: promote_buyer.promote_good_id)
+        tp = trade.trade_promotes.build(promote_charge_id: promote_charge.id, promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
       end
       tp.compute_amount
     end
