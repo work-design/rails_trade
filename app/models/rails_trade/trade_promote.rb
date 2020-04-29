@@ -8,6 +8,7 @@ module RailsTrade::TradePromote
     attribute :computed_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '计算出的价格'
     attribute :amount, :decimal, precision: 10, scale: 2, default: 0, comment: '默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化'
     attribute :note, :string, comment: '备注'
+    attribute :edited, :boolean, default: false
 
     belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true
@@ -28,7 +29,6 @@ module RailsTrade::TradePromote
         self.sequence = self.promote.sequence
       end
     end
-    after_update :sync_changed_amount, if: -> { saved_change_to_amount? }
     after_create_commit :check_promote_cart
   end
 
@@ -46,36 +46,8 @@ module RailsTrade::TradePromote
     end
 
     self.computed_amount = self.promote_charge.final_price(based_amount)
-    self.amount = computed_amount if amount.zero?
+    self.amount = computed_amount unless edited?
     self
-  end
-
-  def sync_changed_amount
-    if amount >= 0 && amount_before_last_save >= 0
-      _additional_amount = amount - amount_before_last_save
-      _reduced_amount = 0
-    elsif amount >= 0 && amount_before_last_save < 0
-      _additional_amount = amount
-      _reduced_amount = -amount_before_last_save
-    elsif amount < 0 && amount_before_last_save >= 0
-      _additional_amount = -amount_before_last_save
-      _reduced_amount = amount
-    else  # amount < 0 && amount_before_last_save < 0
-      _additional_amount = 0
-      _reduced_amount = amount - amount_before_last_save
-    end
-
-    if trade_item
-      trade_item.additional_amount += _additional_amount
-      trade_item.reduced_amount += _reduced_amount
-      trade_item.amount += (_additional_amount + _reduced_amount)
-      trade_item.save!
-    else
-      trade.overall_additional_amount += _additional_amount
-      trade.overall_reduced_amount += _reduced_amount
-      trade.amount += (_additional_amount + _reduced_amount)
-      trade.save!
-    end
   end
 
   def check_promote_cart

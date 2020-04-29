@@ -17,8 +17,6 @@ module RailsTrade::Amount
     accepts_nested_attributes_for :trade_promotes
   end
 
-
-
   def reset_amount
     self.compute_amount
     self.valid?

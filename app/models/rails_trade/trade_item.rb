@@ -127,10 +127,11 @@ module RailsTrade::TradeItem
     end
     trade.item_amount += changed_amount
     trade.amount += changed_amount
-    if trade.amount == trade.compute_amount
+    computed_amount = trade.compute_amount
+    if trade.amount == computed_amount
       trade.save!
     else
-      trade.errors.add :amount, 'not equal'
+      trade.errors.add :amount, "#{trade.amount} not equal #{computed_amount}"
       logger.error "#{self.class.name}/#{trade.class.name}: #{trade.error_text}"
       raise ActiveRecord::RecordInvalid.new(trade)
     end
