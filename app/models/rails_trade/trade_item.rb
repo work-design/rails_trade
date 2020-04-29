@@ -119,7 +119,6 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
-    #trade.reload
     if destroyed?
       changed_amount = -amount
     else
