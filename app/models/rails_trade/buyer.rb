@@ -6,9 +6,6 @@ module RailsTrade::Buyer
 
     has_many :carts, as: :buyer, dependent: :destroy
 
-    has_many :promote_buyers, -> { valid }, as: :buyer, dependent: :destroy
-    has_many :promotes, through: :promote_buyers
-
     has_many :payment_references, as: :buyer, dependent: :destroy, autosave: true
     has_many :payment_methods, through: :payment_references, autosave: true
 

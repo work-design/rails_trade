@@ -30,6 +30,8 @@ module RailsTrade::Order
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :refunds, dependent: :nullify, inverse_of: :order
+    has_many :promote_carts, -> { valid }, foreign_key: :cart_id, primary_key: :cart_id, dependent: :destroy
+    has_many :promotes, through: :promote_carts
 
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }

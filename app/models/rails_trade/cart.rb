@@ -24,6 +24,8 @@ module RailsTrade::Cart
     belongs_to :payment_strategy, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
     has_many :orders, dependent: :nullify
+    has_many :promote_carts, -> { valid }, dependent: :destroy
+    has_many :promotes, through: :promote_carts
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
