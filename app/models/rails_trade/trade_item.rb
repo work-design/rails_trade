@@ -156,7 +156,7 @@ module RailsTrade::TradeItem
   end
 
   def metering_attributes
-    attributes.slice 'quantity', 'amount', 'number'
+    attributes.slice 'quantity', 'original_amount', 'number'
   end
 
   def confirm_ordered!

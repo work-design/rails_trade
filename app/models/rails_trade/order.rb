@@ -6,17 +6,12 @@ module RailsTrade::Order
   included do
     attribute :uuid, :string
     attribute :state, :string
-    attribute :item_amount, :decimal, precision: 10, scale: 2
-    attribute :overall_additional_amount, :decimal, precision: 10, scale: 2
-    attribute :overall_reduced_amount, :decimal, precision: 10, scale: 2
-    attribute :amount, :decimal, precision: 10, scale: 2
     attribute :received_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :payment_id, :integer, comment: 'for paypal'
     attribute :myself, :boolean, default: true
     attribute :note, :string, limit: 4096
     attribute :expire_at, :datetime
     attribute :payment_status, :string, default: 'unpaid', index: true
-    attribute :received_amount, :decimal, default: 0
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
     attribute :extra, :json, default: {}
     attribute :currency, :string, default: RailsTrade.config.default_currency
@@ -79,10 +74,6 @@ module RailsTrade::Order
     self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
     self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
-  end
-
-  def metering_attributes
-    attributes.slice 'quantity', 'amount'
   end
 
   def sync_from_cart

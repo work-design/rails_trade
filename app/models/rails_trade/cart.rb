@@ -9,7 +9,6 @@ module RailsTrade::Cart
 
   included do
     attribute :session_id, :string, limit: 128
-    attribute :amount, :decimal, precision: 10, scale: 2
     attribute :retail_price, :decimal, default: 0, comment: '汇总：原价'
     attribute :discount_price, :decimal, default: 0, comment: '汇总：优惠'
     attribute :bulk_price, :decimal, default: 0, comment: ''
