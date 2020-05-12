@@ -8,17 +8,15 @@ module RailsTrade::Cart
   extend ActiveSupport::Concern
 
   included do
-    attribute :session_id, :string, limit: 128
     attribute :retail_price, :decimal, default: 0, comment: '汇总：原价'
     attribute :discount_price, :decimal, default: 0, comment: '汇总：优惠'
     attribute :bulk_price, :decimal, default: 0, comment: ''
     attribute :total_quantity, :decimal, default: 0
     attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
     attribute :payment_strategy_id, :integer
-    attribute :default, :boolean, default: false
 
     belongs_to :organ, optional: true
-    belongs_to :user, optional: true
+    belongs_to :user
     belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
     belongs_to :buyer, polymorphic: true, optional: true
@@ -27,9 +25,6 @@ module RailsTrade::Cart
     has_many :promotes, through: :promote_carts
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-
-    validates :user_id, presence: true, if: -> { session_id.blank? }
-    validates :session_id, presence: true, if: -> { user_id.blank? }
 
     after_update :set_default, if: -> { self.default? && saved_change_to_default? }
   end
