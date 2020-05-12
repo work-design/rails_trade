@@ -73,7 +73,7 @@ Rails.application.routes.draw do
   end
 
   scope :my, module: 'trade/board', as: :my do
-    resource :cart, only: [:show, :edit, :update] do
+    resources :carts do
       get :total, on: :member
     end
     resources :trade_items
@@ -98,7 +98,6 @@ Rails.application.routes.draw do
         get :wait
       end
     end
-    resources :order_items
     resources :payment_methods
   end
 

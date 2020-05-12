@@ -25,8 +25,6 @@ module RailsTrade::Cart
     has_many :promotes, through: :promote_carts
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-
-    after_update :set_default, if: -> { self.default? && saved_change_to_default? }
   end
 
   def compute_amount
@@ -39,10 +37,6 @@ module RailsTrade::Cart
     self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
     self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
-  end
-
-  def set_default
-    self.class.where.not(id: self.id).where(user_id: self.user_id).update_all(default: false)
   end
 
   class_methods do

@@ -21,11 +21,6 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
     else
       @order.migrate_from_cart_items
     end
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @order }
-    end
   end
 
   def refresh
@@ -38,12 +33,6 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
       @order.migrate_from_cart_item(params[:cart_item_id])
     else
       @order.migrate_from_cart_items
-    end
-
-    respond_to do |format|
-      format.js
-      format.html
-      format.json { render json: @order }
     end
   end
 

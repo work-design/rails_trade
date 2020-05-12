@@ -1,6 +1,10 @@
 class Trade::Board::CartsController < Trade::Board::BaseController
 
   def index
+    q_params = {}
+    q_params.merge! default_params
+
+    @carts = current_user.carts.default_where(q_params).page(params[:page])
   end
 
   def show

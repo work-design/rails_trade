@@ -1,17 +1,16 @@
 class Trade::Board::TradeItemsController < Trade::Board::BaseController
   before_action :set_trade_item, only: [:show, :update, :destroy]
 
-  def index
-    @trade_items = current_cart.trade_items.page(params[:page])
-  end
 
   def create
-    trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
+    @cart = current_user.carts.find_or_create_by(organ_id: params[:organ_id])
+
+    trade_item = @cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
     trade_item.assign_attributes trade_item_params
     trade_item.save
 
-    @trade_items = current_cart.trade_items.page(params[:page])
-    @checked_ids = current_cart.trade_items.checked.pluck(:id)
+    @trade_items = @cart.trade_items.page(params[:page])
+    @checked_ids = @cart.trade_items.checked.pluck(:id)
   end
 
   def show

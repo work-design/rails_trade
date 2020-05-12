@@ -18,7 +18,7 @@ module RailsTrade::Order
 
     belongs_to :cart
     belongs_to :organ, optional: true
-    belongs_to :user, optional: true
+    belongs_to :user
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 统一批次号
     belongs_to :payment_strategy, optional: true

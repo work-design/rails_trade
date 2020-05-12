@@ -43,9 +43,9 @@ zh:
       refunds:
         index:
           title: 退款列表
-    my:
+    board:
       carts:
-        show:
+        index:
           title: 我的购物车
       orders:
         index:

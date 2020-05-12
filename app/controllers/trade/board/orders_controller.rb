@@ -6,8 +6,9 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
 
   def index
     q_params = {}
+    q_params.merge! default_params
     q_params.merge! params.permit(:id, :payment_type, :payment_status)
-    @orders = current_cart.orders.default_where(q_params).order(id: :desc).page(params[:page])
+    @orders = current_user.orders.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
   def new
