@@ -1,4 +1,4 @@
-class Trade::My::OrdersController < Trade::My::BaseController
+class Trade::Board::OrdersController < Trade::Board::BaseController
   before_action :set_order, only: [
     :show, :edit, :update, :refund, :edit_payment_type, :wait, :destroy,
     :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay

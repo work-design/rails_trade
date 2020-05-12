@@ -1,4 +1,4 @@
-class Trade::My::CartsController < Trade::My::BaseController
+class Trade::Board::CartsController < Trade::Board::BaseController
 
   def index
   end

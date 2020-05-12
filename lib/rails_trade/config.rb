@@ -5,7 +5,7 @@ module RailsTrade
 
   configure do |config|
     config.admin_controller = 'AdminController'
-    config.my_controller = 'MineController'
+    config.board_controller = 'BoardController'
     config.default_currency = 'CNY'
     config.disabled_models = []
 

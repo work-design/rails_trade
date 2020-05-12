@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :admin, module: 'trade/admin', as: 'admin' do
+  scope :admin, module: 'trade/admin', as: :admin do
     get 'trade' => 'trade#index'
 
     resources :buyers do
@@ -72,7 +72,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :my, module: 'trade/my', as: 'my' do
+  scope :my, module: 'trade/board', as: :my do
     resource :cart, only: [:show, :edit, :update] do
       get :total, on: :member
     end

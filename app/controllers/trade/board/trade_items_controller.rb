@@ -1,4 +1,4 @@
-class Trade::My::TradeItemsController < Trade::My::BaseController
+class Trade::Board::TradeItemsController < Trade::Board::BaseController
   before_action :set_trade_item, only: [:show, :update, :destroy]
 
   def index
