@@ -17,9 +17,9 @@ module RailsTrade::Cart
 
     belongs_to :organ, optional: true
     belongs_to :user
+    belongs_to :member, optional: true
     belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
-    belongs_to :buyer, polymorphic: true, optional: true
     has_many :orders, dependent: :nullify
     has_many :promote_carts, -> { valid }, dependent: :destroy
     has_many :promotes, through: :promote_carts

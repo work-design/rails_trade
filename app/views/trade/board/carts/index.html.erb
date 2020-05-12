@@ -1,38 +1,31 @@
-<%= render 'filter_form' %>
-
-<table class="table is-hoverable is-fullwidth">
+<table class="table is-fullwidth">
   <thead>
     <tr>
-      <th><%= Cart.human_attribute_name(:payment_strategy_id) %></th>
-      <th><%= Cart.human_attribute_name(:deposit_ratio) %></th>
-      <th><%= Cart.human_attribute_name(:buyer_type) %></th>
-      <th><%= Cart.human_attribute_name(:buyer_id) %></th>
-      <th>
-        <%= link_to new_my_cart_path, remote: true, class: 'button is-link is-small' do %>
-          <i class="fas fa-plus"></i><%= t('.new') %>
-        <% end %>
-      </th>
+      <th><%= check_box_tag :all %></th>
+      <th><%= TradeItem.human_attribute_name(:good_name) %></th>
+      <th><%= TradeItem.human_attribute_name(:single_price) %></th>
+      <th><%= TradeItem.human_attribute_name(:number) %></th>
+      <th><%= TradeItem.human_attribute_name(:amount) %></th>
+      <th></th>
     </tr>
   </thead>
-  <tbody>
   <% @carts.each do |cart| %>
-    <tr>
-      <td><%= cart.payment_strategy_id %></td>
-      <td><%= cart.deposit_ratio %></td>
-      <td><%= cart.buyer_type %></td>
-      <td><%= cart.buyer_id %></td>
-      <td>
-        <%= link_to my_cart_path(cart), aria: { label: t('.show') }, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-eye"></i>
-        <% end %>
-        <%= link_to edit_my_cart_path(cart), aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-pencil-alt"></i>
-        <% end %>
-        <%= link_to my_cart_path(cart), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-trash-alt"></i>
-        <% end %>
-      </td>
-    </tr>
+    <%= render partial: 'trade_items', locals: { cart: cart } %>
   <% end %>
-  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="4"></th>
+      <th id="total_price">
+        <%# render 'total_price' %>
+      </th>
+      <th></th>
+    </tr>
+    <tr>
+      <th colspan="5">
+      </th>
+      <th>
+        <%= link_to '去结算', new_my_order_path, class: 'button is-primary', id: 'new_order' %>
+      </th>
+    </tr>
+  </tfoot>
 </table>
