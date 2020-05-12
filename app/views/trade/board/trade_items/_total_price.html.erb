@@ -1,6 +1,6 @@
 <p>原价：<%= current_cart.retail_price %></p>
 <p style="color: red;">批发折扣：<%= current_cart.discount_price %></p>
 <p>折后价格： <%= current_cart.bulk_price %></p>
-<p style="color: red;">优惠价格： <%= current_cart.reduced_amount %></p>
-<p>附加服务： <%= current_cart.additional_amount %></p>
+<p style="color: red;">优惠价格： <%= current_cart.overall_reduced_amount %></p>
+<p>附加服务： <%= current_cart.overall_additional_amount %></p>
 <p>最终价格： <%= current_cart.amount %></p>
