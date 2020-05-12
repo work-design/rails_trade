@@ -4,7 +4,7 @@ class Trade::Board::CartsController < Trade::Board::BaseController
     q_params = {}
     q_params.merge! default_params
 
-    @carts = current_user.carts.default_where(q_params).page(params[:page])
+    @carts = current_user.carts.includes(:trade_items).default_where(q_params).page(params[:page])
   end
 
   def show
