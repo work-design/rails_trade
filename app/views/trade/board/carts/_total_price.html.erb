@@ -1,6 +1,24 @@
-<p>原价：<%= cart.retail_price %></p>
-<p style="color: red;">批发折扣：<%= cart.discount_price %></p>
-<p>折后价格： <%= cart.bulk_price %></p>
-<p style="color: red;">优惠价格： <%= cart.overall_reduced_amount %></p>
-<p>附加服务： <%= cart.overall_additional_amount %></p>
-<p>最终价格： <%= cart.amount %></p>
+<tr>
+  <td><%= @cart.class.human_attribute_name(:retail_price) %></td>
+  <td><%= @cart.retail_price %></td>
+</tr>
+<tr class="has-text-danger">
+  <td><%= @cart.class.human_attribute_name(:discount_price) %></td>
+  <td><%= @cart.discount_price %></td>
+</tr>
+<tr>
+  <td><%= @cart.class.human_attribute_name(:bulk_price) %></td>
+  <td><%= @cart.bulk_price %></td>
+</tr>
+<tr class="has-text-danger">
+  <td><%= @cart.class.human_attribute_name(:overall_reduced_amount) %></td>
+  <td><%= @cart.overall_reduced_amount %></td>
+</tr>
+<tr>
+  <td><%= @cart.class.human_attribute_name(:overall_additional_amount) %></td>
+  <td><%= @cart.overall_additional_amount %></td>
+</tr>
+<tr>
+  <td><%= @cart.class.human_attribute_name(:amount) %></td>
+  <td><%= @cart.amount %></td>
+</tr>

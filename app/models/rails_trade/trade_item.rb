@@ -22,6 +22,7 @@ module RailsTrade::TradeItem
 
     belongs_to :good, polymorphic: true
     belongs_to :user
+    belongs_to :total_cart, foreign_key: :user_id, primary_key: :user_id
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 产品对应批次号
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
@@ -129,9 +130,14 @@ module RailsTrade::TradeItem
     end
     trade.item_amount += changed_amount
     trade.amount += changed_amount
+    if checked?
+      total_cart.amount += changed_amount
+      total_cart.item_amount += changed_amount
+    end
     computed_amount = trade.compute_amount
     if trade.amount == computed_amount
       trade.save!
+      total_cart.save! if checked?
     else
       trade.errors.add :amount, "#{trade.amount} not equal #{computed_amount}"
       logger.error "#{self.class.name}/#{trade.class.name}: #{trade.error_text}"
