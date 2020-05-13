@@ -17,10 +17,6 @@ class Trade::Board::CartsController < Trade::Board::BaseController
   end
 
   private
-  def set_cart
-    @cart = current_user.total_cart || current_user.create_total_cart
-  end
-
   def cart_params
     params.fetch(:cart, {}).permit(
       :buyer_type,
