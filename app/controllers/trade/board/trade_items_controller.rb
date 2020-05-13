@@ -4,7 +4,6 @@ class Trade::Board::TradeItemsController < Trade::Board::BaseController
 
   def create
     @cart = current_user.carts.find_or_create_by(organ_id: params[:organ_id])
-
     trade_item = @cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
     trade_item.assign_attributes trade_item_params
     trade_item.save

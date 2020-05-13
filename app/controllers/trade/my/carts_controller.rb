@@ -1,11 +1,4 @@
-class Trade::Board::CartsController < Trade::Board::BaseController
-
-  def index
-    q_params = {}
-    q_params.merge! default_params
-
-    @carts = current_user.carts.includes(:trade_items).default_where(q_params).page(params[:page])
-  end
+class Trade::My::CartsController < Trade::My::BaseController
 
   def show
     if params[:address_id].present?
@@ -25,13 +18,8 @@ class Trade::Board::CartsController < Trade::Board::BaseController
   end
 
   private
-
-
-  def cart_params
-    params.fetch(:cart, {}).permit(
-      :buyer_type,
-      :buyer_id
-    )
+  def set_cart
+    @cart = current_user.total_cart || current_user.create_total_cart
   end
 
 end

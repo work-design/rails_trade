@@ -1,5 +1,6 @@
 module RailsTrade::TradeItem
   extend ActiveSupport::Concern
+
   included do
     attribute :status, :string, default: 'checked'
     attribute :myself, :boolean, default: true, comment: '是否后台协助添加'
@@ -20,12 +21,12 @@ module RailsTrade::TradeItem
     attribute :extra, :json, default: {}
 
     belongs_to :good, polymorphic: true
+    belongs_to :user
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 产品对应批次号
-    belongs_to :user, optional: true
     belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
     has_many :trade_promotes, ->(o){ includes(:promote).where(trade_type: o.trade_type, trade_id: o.trade_id) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
-    #has_many :organs, dependent: :delete_all 用于对接供应商
+    #has_many :organs 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
     scope :starred, -> { where(status: 'init', starred: true) }
@@ -49,6 +50,7 @@ module RailsTrade::TradeItem
       end
       if trade
         self.user_id = trade.user_id
+        self.member_id = trade.member_id if trade.respond_to? :member_id
       end
       self.original_amount = single_price * number
       self.amount = original_amount

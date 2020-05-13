@@ -13,11 +13,11 @@ module RailsTrade::Cart
     attribute :bulk_price, :decimal, default: 0, comment: ''
     attribute :total_quantity, :decimal, default: 0
     attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
-    attribute :payment_strategy_id, :integer
 
-    belongs_to :organ, optional: true
-    belongs_to :user
+    belongs_to :organ
     belongs_to :member, optional: true
+    belongs_to :user
+    belongs_to :total_cart
     belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
     has_many :orders, dependent: :nullify
