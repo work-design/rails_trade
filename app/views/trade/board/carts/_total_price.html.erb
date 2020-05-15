@@ -1,24 +1,24 @@
 <tr>
-  <td><%= @cart.class.human_attribute_name(:retail_price) %></td>
-  <td><%= @cart.retail_price %></td>
+  <td><%= current_cart.class.human_attribute_name(:retail_price) %></td>
+  <td><%= current_cart.retail_price %></td>
 </tr>
 <tr class="has-text-danger">
-  <td><%= @cart.class.human_attribute_name(:discount_price) %></td>
-  <td><%= @cart.discount_price %></td>
+  <td><%= current_cart.class.human_attribute_name(:discount_price) %></td>
+  <td><%= current_cart.discount_price %></td>
 </tr>
 <tr>
-  <td><%= @cart.class.human_attribute_name(:bulk_price) %></td>
-  <td><%= @cart.bulk_price %></td>
+  <td><%= current_cart.class.human_attribute_name(:bulk_price) %></td>
+  <td><%= current_cart.bulk_price %></td>
 </tr>
 <tr class="has-text-danger">
-  <td><%= @cart.class.human_attribute_name(:overall_reduced_amount) %></td>
-  <td><%= @cart.overall_reduced_amount %></td>
+  <td><%= current_cart.class.human_attribute_name(:overall_reduced_amount) %></td>
+  <td><%= current_cart.overall_reduced_amount %></td>
 </tr>
 <tr>
-  <td><%= @cart.class.human_attribute_name(:overall_additional_amount) %></td>
-  <td><%= @cart.overall_additional_amount %></td>
+  <td><%= current_cart.class.human_attribute_name(:overall_additional_amount) %></td>
+  <td><%= current_cart.overall_additional_amount %></td>
 </tr>
 <tr>
-  <td><%= @cart.class.human_attribute_name(:amount) %></td>
-  <td><%= @cart.amount %></td>
+  <td><%= current_cart.class.human_attribute_name(:amount) %></td>
+  <td><%= current_cart.amount %></td>
 </tr>
