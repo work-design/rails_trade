@@ -10,7 +10,7 @@ module RailsTrade::Payment
     attribute :total_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :fee_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :checked_amount, :decimal, precision: 10, scale: 2, default: 0
-    attribute :income_amount, precision: 10, scale: 2
+    attribute :income_amount, :decimal, precision: 10, scale: 2
     attribute :notify_type, :string, limit: 255
     attribute :notified_at, :datetime
     attribute :seller_identifier, :string
