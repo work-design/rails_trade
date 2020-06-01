@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 48adc26b3f733e38d671c082dbc8c3a6275c9f72
+  revision: 2ebe98d94e02f814a9ec8387a3d39dc7cc47c503
   specs:
     rails_com (1.2.9)
       default_where (~> 2.2)
@@ -92,7 +92,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
-    coderay (1.1.2)
+    coderay (1.1.3)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     default_where (2.2.0)
@@ -114,18 +114,18 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
-    kaminari (1.2.0)
+    kaminari (1.2.1)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.0)
-      kaminari-activerecord (= 1.2.0)
-      kaminari-core (= 1.2.0)
-    kaminari-actionview (1.2.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
       actionview
-      kaminari-core (= 1.2.0)
-    kaminari-activerecord (1.2.0)
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
       activerecord
-      kaminari-core (= 1.2.0)
-    kaminari-core (1.2.0)
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     loofah (2.5.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
