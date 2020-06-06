@@ -14,10 +14,10 @@
 <table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
-      <th><%= PromoteBuyer.human_attribute_name(:buyer_type) %></th>
-      <th><%= PromoteBuyer.human_attribute_name(:buyer_id) %></th>
-      <th><%= PromoteBuyer.human_attribute_name(:promote) %></th>
-      <th><%= PromoteBuyer.human_attribute_name(:state) %></th>
+      <th><%= PromoteCart.human_attribute_name(:buyer_type) %></th>
+      <th><%= PromoteCart.human_attribute_name(:buyer_id) %></th>
+      <th><%= PromoteCart.human_attribute_name(:promote) %></th>
+      <th><%= PromoteCart.human_attribute_name(:state) %></th>
       <th>
         <%= link_to new_admin_promote_buyer_path(request.GET), remote: true, class: 'button is-link is-small' do %>
           <i class="fas fa-plus"></i><%= t('.new') %>

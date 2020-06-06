@@ -45,8 +45,9 @@
         <p><time><%= promote.expire_at.to_s(:rfc822) if promote.expire_at %></time></p>
       </td>
       <td>
-        <div class="ui toggle checkbox">
-          <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), submit: true }, id: nil %>
+        <div data-controller="input">
+          <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
+          <label></label>
         </div>
       </td>
       <td><%= promote.sequence %></td>
