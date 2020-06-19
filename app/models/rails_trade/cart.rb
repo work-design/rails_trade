@@ -25,6 +25,11 @@ module RailsTrade::Cart
     has_many :promotes, through: :promote_carts
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
+    after_initialize if: :new_record? do
+      if user
+        self.total_cart = user.total_cart || user.create_total_cart
+      end
+    end
   end
 
   def compute_amount
