@@ -10,12 +10,6 @@ module RailsTrade::Amount
     attribute :amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :trade_items_count, :integer, default: 0
     attribute :lock_version, :integer
-
-    has_many :trade_items, as: :trade, inverse_of: :trade, dependent: :destroy
-    has_many :trade_promotes, -> { where(trade_item_id: nil) }, as: :trade, inverse_of: :trade, dependent: :destroy  # overall can be blank
-
-    accepts_nested_attributes_for :trade_items
-    accepts_nested_attributes_for :trade_promotes
   end
 
   def reset_amount

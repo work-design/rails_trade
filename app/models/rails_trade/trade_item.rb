@@ -23,9 +23,10 @@ module RailsTrade::TradeItem
     belongs_to :good, polymorphic: true
     belongs_to :user
     belongs_to :total_cart, foreign_key: :user_id, primary_key: :user_id
+    belongs_to :cart, counter_cache: true
+    belongs_to :order, inverse_of: :trade_items, counter_cache: true
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 产品对应批次号
-    belongs_to :trade, polymorphic: true, inverse_of: :trade_items, counter_cache: true
     has_many :trade_promotes, ->(o){ includes(:promote).where(trade_type: o.trade_type, trade_id: o.trade_id) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
     #has_many :organs 用于对接供应商
 
@@ -49,9 +50,9 @@ module RailsTrade::TradeItem
         self.advance_amount = good.advance_price
         self.produce_plan_id = good.product_plan&.produce_plan_id if good.respond_to? :product_plan_id
       end
-      if trade
-        self.user_id = trade.user_id
-        self.member_id = trade.member_id if trade.respond_to? :member_id
+      if cart
+        self.user_id = cart.user_id
+        self.member_id = cart.member_id if cart.respond_to? :member_id
       end
       self.original_amount = single_price * number
       self.amount = original_amount

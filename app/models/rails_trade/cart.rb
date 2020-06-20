@@ -23,6 +23,10 @@ module RailsTrade::Cart
     has_many :orders, dependent: :nullify
     has_many :promote_carts, -> { valid }, dependent: :destroy
     has_many :promotes, through: :promote_carts
+    has_many :trade_items, dependent: :destroy
+    has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy  # overall can be blank
+    accepts_nested_attributes_for :trade_items
+    accepts_nested_attributes_for :trade_promotes
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
     after_initialize if: :new_record? do

@@ -27,10 +27,17 @@ module RailsTrade::Order
     has_many :refunds, dependent: :nullify, inverse_of: :order
     has_many :promote_carts, -> { valid }, foreign_key: :cart_id, primary_key: :cart_id, dependent: :destroy
     has_many :promotes, through: :promote_carts
+    has_many :trade_items, dependent: :destroy
+    has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy  # overall can be blank
+    accepts_nested_attributes_for :trade_items
+    accepts_nested_attributes_for :trade_promotes
 
     scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
+    enum state: {
+      init: 'init'
+    }
     enum payment_status: {
       unpaid: 'unpaid',
       part_paid: 'part_paid',

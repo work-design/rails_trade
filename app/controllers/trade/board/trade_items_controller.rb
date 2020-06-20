@@ -1,15 +1,21 @@
 class Trade::Board::TradeItemsController < Trade::Board::BaseController
   before_action :set_trade_item, only: [:show, :update, :destroy]
 
-
   def create
-    @cart = current_user.carts.find_or_create_by(organ_id: params[:organ_id])
-    trade_item = @cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
+    trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
     trade_item.assign_attributes trade_item_params
+    if trade_item.persisted?
+      params[:number] ||= 1
+      trade_item.number += params[:number].to_i
+    end
+    trade_item.compute_promote
+    trade_item.sum_amount
     trade_item.save
 
     @trade_items = @cart.trade_items.page(params[:page])
     @checked_ids = @cart.trade_items.checked.pluck(:id)
+
+    redirect_to my_cart_url
   end
 
   def show

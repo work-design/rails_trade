@@ -10,7 +10,8 @@ module RailsTrade::TradePromote
     attribute :note, :string, comment: '备注'
     attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
 
-    belongs_to :trade, polymorphic: true, inverse_of: :trade_promotes
+    belongs_to :cart
+    belongs_to :order, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true
     belongs_to :promote
     belongs_to :promote_charge
@@ -22,7 +23,8 @@ module RailsTrade::TradePromote
 
     after_initialize if: :new_record? do
       if trade_item
-        self.trade = trade_item.trade
+        self.cart = trade_item.cart
+        self.order = trade_item.order
       end
       if self.promote_good
         self.promote_id = self.promote_good.promote_id
