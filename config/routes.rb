@@ -81,8 +81,7 @@ Rails.application.routes.draw do
     end
     resources :trade_items do
       member do
-        patch :check
-        patch :uncheck
+        patch :toggle
       end
     end
     resources :good_providers

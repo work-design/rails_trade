@@ -32,10 +32,11 @@ module RailsTrade::TradeItem
 
     scope :valid, -> { where(status: 'init', myself: true) }
     scope :starred, -> { where(status: 'init', starred: true) }
+    default_scope -> { order(id: :asc) }
 
     enum status: {
-      init: 'init',  # Cart
-      checked: 'checked',  # Cart
+      init: 'init',
+      checked: 'checked',
       ordered: 'ordered',
       paid: 'paid',
       packaged: 'packaged',
@@ -63,7 +64,7 @@ module RailsTrade::TradeItem
       (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? ||
         (saved_change_to_status? && status == 'checked')
     }
-    #after_destroy_commit :sync_changed_amount
+    after_destroy_commit :sync_changed_amount
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
@@ -83,6 +84,16 @@ module RailsTrade::TradeItem
 
   def check
     self.order = cart.checked_order
+    self.status = 'checked'
+    self.save
+    self
+  end
+
+  def uncheck
+    self.order = nil
+    self.status = 'init'
+    self.save
+    self
   end
 
   def compute_promote
@@ -127,26 +138,26 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
-    trade.reload
+    order.reload
     if destroyed?
       changed_amount = -amount
     else
       changed_amount = amount - amount_before_last_save.to_d
     end
-    trade.item_amount += changed_amount
-    trade.amount += changed_amount
+    order.item_amount += changed_amount
+    order.amount += changed_amount
     if checked?
       total_cart.amount += changed_amount
       total_cart.item_amount += changed_amount
     end
-    computed_amount = trade.compute_amount
-    if trade.amount == computed_amount
-      trade.save!
+    computed_amount = order.compute_amount
+    if order.amount == computed_amount
+      order.save!
       total_cart.save! if checked?
     else
-      trade.errors.add :amount, "#{trade.amount} not equal #{computed_amount}"
-      logger.error "#{self.class.name}/#{trade.class.name}: #{trade.error_text}"
-      raise ActiveRecord::RecordInvalid.new(trade)
+      order.errors.add :amount, "#{order.amount} not equal #{computed_amount}"
+      logger.error "#{self.class.name}/#{order.class.name}: #{order.error_text}"
+      raise ActiveRecord::RecordInvalid.new(order)
     end
   end
 

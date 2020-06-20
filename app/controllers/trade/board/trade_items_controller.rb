@@ -1,5 +1,5 @@
 class Trade::Board::TradeItemsController < Trade::Board::BaseController
-  before_action :set_trade_item, only: [:show, :update, :destroy]
+  before_action :set_trade_item, only: [:show, :update, :toggle, :destroy]
 
   def create
     trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
@@ -26,12 +26,13 @@ class Trade::Board::TradeItemsController < Trade::Board::BaseController
     @trade_item.save
   end
 
-  def check
-    @trade_item.check
-  end
-
-  def uncheck
-    @trade_item.uncheck
+  def toggle
+    if @trade_item.init?
+      @trade_item.check
+    elsif @trade_item.checked?
+      @trade_item.uncheck
+    end
+    head :ok
   end
 
   def destroy
