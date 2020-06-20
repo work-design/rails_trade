@@ -1,4 +1,4 @@
-<table class="ui very basic large table">
+<table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
       <th class="six wide">
@@ -9,11 +9,11 @@
   </thead>
   <tbody>
     <tr>
-      <td class="right aligned"><%= TradePromote.human_attribute_name(:amount) %></td>
+      <td class="has-text-right"><%= TradePromote.human_attribute_name(:amount) %></td>
       <td><%= @trade_promote.amount %></td>
     </tr>
     <tr>
-      <td class="right aligned"><%= TradePromote.human_attribute_name(:note) %></td>
+      <td class="has-text-right"><%= TradePromote.human_attribute_name(:note) %></td>
       <td><%= @trade_promote.note %></td>
     </tr>
   </tbody>
