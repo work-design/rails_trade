@@ -27,7 +27,7 @@ module RailsTrade::TradeItem
     belongs_to :order, inverse_of: :trade_items, counter_cache: true
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 产品对应批次号
-    has_many :trade_promotes, ->(o){ includes(:promote).where(trade_type: o.trade_type, trade_id: o.trade_id) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
+    has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
     #has_many :organs 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
@@ -63,12 +63,8 @@ module RailsTrade::TradeItem
       (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? ||
         (saved_change_to_status? && status == 'checked')
     }
-    after_destroy_commit :sync_changed_amount
+    #after_destroy_commit :sync_changed_amount
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
-  end
-
-  def checked_order
-    checked_order || create_checked_order
   end
 
   def original_quantity
@@ -85,6 +81,10 @@ module RailsTrade::TradeItem
     self.amount = original_amount + additional_amount + reduced_amount
   end
 
+  def check
+    self.order = cart.checked_order
+  end
+
   def compute_promote
     good.valid_promote_goods.map do |promote_good|
       value = metering_attributes.fetch(promote_good.promote.metering)
@@ -93,13 +93,13 @@ module RailsTrade::TradeItem
       if promote_good.promote.single?
         tp = self.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || trade_promotes.build(promote_good_id: promote_good.id)
       else
-        tp = trade.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || trade.trade_promotes.build(promote_good_id: promote_good.id)
+        tp = order.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || order.trade_promotes.build(promote_good_id: promote_good.id)
       end
       tp.promote_charge_id = promote_charge.id
       tp.compute_amount
     end
 
-    trade.promote_carts.each do |promote_cart|
+    order.promote_carts.each do |promote_cart|
       value = metering_attributes.fetch(promote_cart.promote.metering)
       promote_charge = promote_cart.promote.compute_charge(value, **extra)
       next unless promote_charge
