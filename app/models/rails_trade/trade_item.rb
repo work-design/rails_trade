@@ -24,7 +24,7 @@ module RailsTrade::TradeItem
     belongs_to :user
     belongs_to :total_cart, foreign_key: :user_id, primary_key: :user_id
     belongs_to :cart, counter_cache: true
-    belongs_to :order, inverse_of: :trade_items, counter_cache: true
+    belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 产品对应批次号
     has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
