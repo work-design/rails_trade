@@ -14,17 +14,10 @@
     <%= render partial: 'trade_item', locals: { trade_item: trade_item } %>
   <% end %>
   </tbody>
+  <%= render 'total_price' %>
   <tfoot>
     <tr>
-      <th colspan="4"></th>
-      <th id="total_price">
-        <%= render 'total_price' %>
-      </th>
-      <th></th>
-    </tr>
-    <tr>
-      <th colspan="5">
-      </th>
+      <th colspan="5"></th>
       <th>
         <%= link_to '去结算', new_my_order_path, class: 'button is-primary', id: 'new_order' %>
       </th>
