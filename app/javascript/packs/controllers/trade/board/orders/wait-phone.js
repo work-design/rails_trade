@@ -5,4 +5,4 @@ ApplicationCable.subscriptions.create('PaidChannel', {
   connected: function() {
     console.log('PaidChannel connected success')
   }
-});
+})
