@@ -20,6 +20,8 @@ module RailsTrade::Cart
     belongs_to :total_cart
     belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
+
+    has_one :checked_order, -> { where(state: 'checked') }, class_name: 'Order'
     has_many :orders, dependent: :nullify
     has_many :promote_carts, -> { valid }, dependent: :destroy
     has_many :promotes, through: :promote_carts
@@ -34,6 +36,10 @@ module RailsTrade::Cart
         self.total_cart = user.total_cart || user.create_total_cart
       end
     end
+  end
+
+  def checked_order
+    super || create_checked_order
   end
 
   def compute_amount

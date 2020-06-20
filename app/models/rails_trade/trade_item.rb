@@ -67,6 +67,10 @@ module RailsTrade::TradeItem
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
+  def checked_order
+    checked_order || create_checked_order
+  end
+
   def original_quantity
     good.unified_quantity * self.number
   end

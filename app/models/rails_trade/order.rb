@@ -36,7 +36,8 @@ module RailsTrade::Order
     scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
     enum state: {
-      init: 'init'
+      init: 'init',
+      checked: 'checked'
     }
     enum payment_status: {
       unpaid: 'unpaid',
@@ -57,7 +58,6 @@ module RailsTrade::Order
     before_validation do
       self.uuid ||= UidHelper.nsec_uuid('OD')
     end
-    after_save :sync_from_cart, if: -> { saved_change_to_cart_id? && cart }
     after_create_commit :confirm_ordered!
 
     delegate :url_helpers, to: 'Rails.application.routes'
@@ -83,6 +83,7 @@ module RailsTrade::Order
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
 
+  # todo remove
   def sync_from_cart
     cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id, address_id: self.address_id)
     cart.trade_promotes.update_all(trade_type: self.class.name, trade_id: self.id)

@@ -21,18 +21,17 @@ Rails.application.routes.draw do
       put :remind, on: :collection
     end
     resources :carts, except: [:new] do
-      get :total, on: :collection
-      get :doc, on: :collection
-      get :only, on: :collection
-      resources :cart_serves do
-        get :single, on: :collection
-        get :total, on: :collection
-        post :add, on: :collection
+      collection do
+        get :total
+        get :doc
+        get :only
       end
     end
     resources :orders do
-      get :payments, on: :collection
-      get :refresh, on: :collection
+      collection do
+        get :payments
+        get :refresh
+      end
       patch :refund, on: :member
       resources :order_payments
     end
@@ -49,10 +48,14 @@ Rails.application.routes.draw do
     resources :payment_strategies
     resources :payment_methods do
       resources :payment_references, as: :references
-      get :unverified, on: :collection
-      get :mine, on: :collection
-      patch :verify, on: :member
-      patch :merge_from, on: :member
+      collection do
+        get :unverified
+        get :mine
+      end
+      member do
+        patch :verify
+        patch :merge_from
+      end
     end
     resources :produces
     resources :promotes do
@@ -73,8 +76,15 @@ Rails.application.routes.draw do
   end
 
   scope :my, module: 'trade/board', as: :my do
-    resource :cart
-    resources :trade_items
+    resource :cart do
+      get :add
+    end
+    resources :trade_items do
+      member do
+        patch :check
+        patch :uncheck
+      end
+    end
     resources :good_providers
     resources :orders do
       collection do

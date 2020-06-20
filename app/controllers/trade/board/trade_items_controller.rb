@@ -26,6 +26,14 @@ class Trade::Board::TradeItemsController < Trade::Board::BaseController
     @trade_item.save
   end
 
+  def check
+    @trade_item.check
+  end
+
+  def uncheck
+    @trade_item.uncheck
+  end
+
   def destroy
     @trade_item.destroy
   end
@@ -38,8 +46,7 @@ class Trade::Board::TradeItemsController < Trade::Board::BaseController
 
   def trade_item_params
     params.fetch(:trade_item, {}).permit(
-      :number,
-      :status
+      :number
     )
   end
 
