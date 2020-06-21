@@ -22,6 +22,7 @@ module RailsTrade::Order
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 统一批次号
     belongs_to :payment_strategy, optional: true
+
     has_many :payment_orders, dependent: :destroy
     has_many :payments, through: :payment_orders, inverse_of: :orders
     has_many :refunds, dependent: :nullify, inverse_of: :order
@@ -81,15 +82,6 @@ module RailsTrade::Order
     self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
     self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
-  end
-
-  # todo remove
-  def sync_from_cart
-    cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id, address_id: self.address_id)
-    cart.trade_promotes.update_all(trade_type: self.class.name, trade_id: self.id)
-
-    self.compute_amount
-    self.save
   end
 
   def confirm_ordered!
