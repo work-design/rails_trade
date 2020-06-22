@@ -10,10 +10,17 @@ module RailsTrade::TotalCart
 
     belongs_to :user
 
-    has_one :checked_order, -> { where(state: 'checked') }, class_name: 'Order'
     has_many :carts, foreign_key: :user_id, primary_key: :user_id
     has_many :trade_items, foreign_key: :user_id, primary_key: :user_id
   end
 
+  def valid_item_amount
+    summed_amount == trade_items.checked.sum(:amount)
+
+    unless self.item_amount == summed_amount
+      errors.add :item_amount, "Item Amount: #{item_amount} not equal #{summed_amount}"
+      logger.error "#{self.class.name}: #{order.error_text}"
+    end
+  end
 
 end

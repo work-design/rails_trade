@@ -84,6 +84,15 @@ module RailsTrade::Order
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
   end
 
+  def valid_item_amount
+    summed_amount = trade_items.sum(:amount)
+
+    unless item_amount == summed_amount
+      errors.add :item_amount, "Item Amount #{amount} not equal #{summed_amount}"
+      logger.error "#{self.class.name}: #{order.error_text}"
+    end
+  end
+
   def confirm_ordered!
     self.trade_items.each(&:confirm_ordered!)
   end

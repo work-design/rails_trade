@@ -61,8 +61,7 @@ module RailsTrade::TradeItem
     before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
     before_save :compute_promote, if: -> { original_amount_changed? }
     after_save :sync_changed_amount, if: -> {
-      (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount']).present? ||
-        (saved_change_to_status? && status == 'checked')
+      (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount', 'status']).present? && ['init', 'checked'].include?(status)
     }
     after_destroy_commit :sync_changed_amount
     after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
@@ -83,17 +82,24 @@ module RailsTrade::TradeItem
   end
 
   def check
-    self.order = cart.checked_order
     self.status = 'checked'
     self.save
     self
   end
 
   def uncheck
-    self.order = nil
     self.status = 'init'
     self.save
     self
+  end
+
+  # todo remove
+  def sync_from_cart
+    cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id, address_id: self.address_id)
+    cart.trade_promotes.update_all(trade_type: self.class.name, trade_id: self.id)
+
+    self.compute_amount
+    self.save
   end
 
   def compute_promote
@@ -138,26 +144,29 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
-    order.reload
     if destroyed?
       changed_amount = -amount
     else
       changed_amount = amount - amount_before_last_save.to_d
     end
-    order.item_amount += changed_amount
-    order.amount += changed_amount
-    if checked?
-      total_cart.amount += changed_amount
+
+    if ['init', 'checked'].include?(status)
+      cart.reload
+      cart.item_amount += changed_amount
+      cart.valid_item_amount
+
       total_cart.item_amount += changed_amount
-    end
-    computed_amount = order.compute_amount
-    if order.amount == computed_amount
-      order.save!
-      total_cart.save! if checked?
+      total.valid_item_amount
+
+      self.class.transcation do
+        cart.save!
+        total_cart.save!
+      end
     else
-      order.errors.add :amount, "#{order.amount} not equal #{computed_amount}"
-      logger.error "#{self.class.name}/#{order.class.name}: #{order.error_text}"
-      raise ActiveRecord::RecordInvalid.new(order)
+      order.reload
+      order.item_amount += changed_amount
+      order.valid_item_amount
+      order.save!
     end
   end
 

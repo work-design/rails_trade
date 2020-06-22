@@ -1,5 +1,6 @@
 module RailsTrade::Amount
   extend ActiveSupport::Concern
+
   included do
     attribute :item_amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :overall_additional_amount, :decimal, precision: 10, scale: 2, default: 0
@@ -10,6 +11,10 @@ module RailsTrade::Amount
     attribute :amount, :decimal, precision: 10, scale: 2, default: 0
     attribute :trade_items_count, :integer, default: 0
     attribute :lock_version, :integer
+  end
+
+  def xx
+    trade.amount += changed_amount
   end
 
   def reset_amount

@@ -21,7 +21,6 @@ module RailsTrade::Cart
     belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
 
-    has_one :checked_order, -> { where(state: 'checked') }, class_name: 'Order'
     has_many :orders, dependent: :nullify
     has_many :promote_carts, -> { valid }, dependent: :destroy
     has_many :promotes, through: :promote_carts
@@ -38,10 +37,6 @@ module RailsTrade::Cart
     end
   end
 
-  def checked_order
-    super || create_checked_order
-  end
-
   def compute_amount
     #self.retail_price = trade_items.checked.sum(:retail_price)
     #self.discount_price = trade_items.checked.sum(:discount_price)
@@ -52,6 +47,15 @@ module RailsTrade::Cart
     self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
     self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+  end
+
+  def valid_item_amount
+    summed_amount == trade_items.checked.sum(:amount)
+
+    unless self.item_amount == summed_amount
+      errors.add :item_amount, "Item Amount: #{item_amount} not equal #{summed_amount}"
+      logger.error "#{self.class.name}: #{order.error_text}"
+    end
   end
 
   class_methods do
