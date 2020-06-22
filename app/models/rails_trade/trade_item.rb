@@ -144,7 +144,7 @@ module RailsTrade::TradeItem
   end
 
   def sync_changed_amount
-    if destroyed?
+    if destroyed? || (init? && status_before_last_save == 'checked')
       changed_amount = -amount
     else
       changed_amount = amount - amount_before_last_save.to_d
@@ -155,10 +155,11 @@ module RailsTrade::TradeItem
       cart.item_amount += changed_amount
       cart.valid_item_amount
 
+      total_cart.reload
       total_cart.item_amount += changed_amount
-      total.valid_item_amount
+      total_cart.valid_item_amount
 
-      self.class.transcation do
+      self.class.transaction do
         cart.save!
         total_cart.save!
       end

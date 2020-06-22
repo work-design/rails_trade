@@ -88,8 +88,9 @@ module RailsTrade::Order
     summed_amount = trade_items.sum(:amount)
 
     unless item_amount == summed_amount
-      errors.add :item_amount, "Item Amount #{amount} not equal #{summed_amount}"
-      logger.error "#{self.class.name}: #{order.error_text}"
+      errors.add :item_amount, "Item Amount #{item_amount} not equal #{summed_amount}"
+      logger.error "#{self.class.name}: #{error_text}"
+      raise ActiveRecord::RecordInvalid.new(self)
     end
   end
 

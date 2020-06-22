@@ -50,11 +50,12 @@ module RailsTrade::Cart
   end
 
   def valid_item_amount
-    summed_amount == trade_items.checked.sum(:amount)
+    summed_amount = trade_items.checked.sum(:amount)
 
     unless self.item_amount == summed_amount
       errors.add :item_amount, "Item Amount: #{item_amount} not equal #{summed_amount}"
-      logger.error "#{self.class.name}: #{order.error_text}"
+      logger.error "#{self.class.name}: #{error_text}"
+      raise ActiveRecord::RecordInvalid.new(self)
     end
   end
 

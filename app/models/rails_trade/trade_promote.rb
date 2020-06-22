@@ -11,7 +11,7 @@ module RailsTrade::TradePromote
     attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
 
     belongs_to :cart
-    belongs_to :total_cart
+    belongs_to :total_cart, foreign_key: :user_id, primary_key: :user_id
     belongs_to :order, inverse_of: :trade_promotes
     belongs_to :trade_item, optional: true
     belongs_to :promote
