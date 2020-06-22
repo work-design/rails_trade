@@ -146,6 +146,8 @@ module RailsTrade::TradeItem
   def sync_changed_amount
     if destroyed? || (init? && status_before_last_save == 'checked')
       changed_amount = -amount
+    elsif checked? && status_before_last_save == 'init'
+      changed_amount = amount
     else
       changed_amount = amount - amount_before_last_save.to_d
     end
