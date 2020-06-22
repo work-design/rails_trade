@@ -32,7 +32,6 @@ class Trade::Board::TradeItemsController < Trade::Board::BaseController
     elsif @trade_item.checked?
       @trade_item.uncheck
     end
-    head :ok
   end
 
   def destroy
