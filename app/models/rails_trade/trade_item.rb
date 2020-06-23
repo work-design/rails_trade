@@ -53,7 +53,7 @@ module RailsTrade::TradeItem
       end
       if cart
         self.user_id = cart.user_id
-        self.member_id = cart.member_id if cart.respond_to? :member_id
+        self.member_id = cart.member_id if cart.respond_to?(:member_id) && respond_to?(:member_id)
       end
       self.original_amount = single_price * number
       self.amount = original_amount

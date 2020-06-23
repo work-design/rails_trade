@@ -38,16 +38,21 @@ Rails.application.routes.draw do
     resources :trade_items
     resources :trade_promotes
     resources :payments do
-      resources :payment_orders do
-        patch :cancel, on: :member
+      collection do
+        get :dashboard
       end
-      get :dashboard, on: :collection
-      patch :analyze, on: :member
-      patch :adjust, on: :member
+      member do
+        patch :analyze
+        patch :adjust
+      end
+      resources :payment_orders do
+        member do
+          patch :cancel
+        end
+      end
     end
     resources :payment_strategies
     resources :payment_methods do
-      resources :payment_references, as: :references
       collection do
         get :unverified
         get :mine
@@ -56,6 +61,7 @@ Rails.application.routes.draw do
         patch :verify
         patch :merge_from
       end
+      resources :payment_references, as: :references
     end
     resources :produces
     resources :promotes do
@@ -67,17 +73,21 @@ Rails.application.routes.draw do
     end
     resources :promote_buyers
     resources :promote_goods do
-      get :goods, on: :collection
+      collection do
+        get :goods
+      end
     end
     resources :refunds do
-      patch :confirm, on: :member
-      patch :deny, on: :member
+      member do
+        patch :confirm
+        patch :deny
+      end
     end
   end
 
   scope :my, module: 'trade/board', as: :my do
     resource :cart do
-      get :add
+      match :add, via: [:get, :post]
     end
     resources :trade_items do
       member do
