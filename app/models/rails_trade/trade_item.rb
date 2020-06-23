@@ -116,7 +116,7 @@ module RailsTrade::TradeItem
       tp.compute_amount
     end
 
-    order.promote_carts.each do |promote_cart|
+    cart.promote_carts.each do |promote_cart|
       value = metering_attributes.fetch(promote_cart.promote.metering)
       promote_charge = promote_cart.promote.compute_charge(value, **extra)
       next unless promote_charge
