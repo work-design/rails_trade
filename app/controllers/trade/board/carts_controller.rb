@@ -19,8 +19,6 @@ class Trade::Board::CartsController < Trade::Board::BaseController
 
     @trade_items = current_cart.trade_items.page(params[:page])
     @checked_ids = current_cart.trade_items.checked.pluck(:id)
-
-    render :show
   end
 
   def edit

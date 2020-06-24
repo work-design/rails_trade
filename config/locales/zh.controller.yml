@@ -45,7 +45,7 @@ zh:
           title: 退款列表
     board:
       carts:
-        index:
+        show:
           title: 我的购物车
       orders:
         index:
