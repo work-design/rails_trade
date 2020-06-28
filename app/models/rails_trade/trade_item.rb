@@ -2,7 +2,7 @@ module RailsTrade::TradeItem
   extend ActiveSupport::Concern
 
   included do
-    attribute :status, :string, default: 'checked'
+    attribute :status, :string, default: 'init'
     attribute :myself, :boolean, default: true, comment: '是否后台协助添加'
     attribute :starred, :boolean, default: false, comment: '收藏'
     attribute :good_name, :string

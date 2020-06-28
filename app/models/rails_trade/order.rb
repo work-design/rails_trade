@@ -52,6 +52,7 @@ module RailsTrade::Order
     after_initialize if: :new_record? do
       if cart
         self.user_id = cart.user_id
+        self.organ_id = cart.organ_id if cart.respond_to?(:organ_id) && self.respond_to?(:organ_id)
         self.address_id = cart.address_id
         self.payment_strategy_id = cart.payment_strategy_id
       end
@@ -59,6 +60,7 @@ module RailsTrade::Order
     before_validation do
       self.uuid ||= UidHelper.nsec_uuid('OD')
     end
+    after_create :sync_from_cart
     after_create_commit :confirm_ordered!
 
     delegate :url_helpers, to: 'Rails.application.routes'
@@ -67,6 +69,14 @@ module RailsTrade::Order
   def subject
     r = trade_items.map { |oi| oi.good.name.presence }.join(', ')
     r.presence || 'goods'
+  end
+
+  def sync_from_cart
+    cart.trade_items.checked.default_where(myself: myself).update_all(order_id: self.id, address_id: self.address_id, status: 'ordered')
+    cart.trade_promotes.update_all(order_id: self.id, status: 'ordered')
+
+    self.compute_amount
+    self.save
   end
 
   def user_name

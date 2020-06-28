@@ -3,6 +3,7 @@ module RailsTrade::TradePromote
 
   included do
     attribute :sequence, :integer
+    attribute :status, :string, default: 'init'
     attribute :original_amount, :decimal, comment: '初始价格'
     attribute :based_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '基于此价格计算，默认为 trade_item 的 amount，与sequence有关'
     attribute :computed_amount, :decimal, precision: 10, scale: 2, default: 0, comment: '计算出的价格'
@@ -19,18 +20,25 @@ module RailsTrade::TradePromote
     belongs_to :promote_good
     belongs_to :promote_cart, counter_cache: true, optional: true
 
+    enum status: {
+      init: 'init',
+      checked: 'checked',
+      ordered: 'ordered'
+    }
+
     validates :promote_id, uniqueness: { scope: [:trade_type, :trade_id, :trade_item_id] }
     validates :amount, presence: true
 
     after_initialize if: :new_record? do
       if trade_item
         self.cart = trade_item.cart
+        self.user_id = cart.user_id
         self.order = trade_item.order
       end
       if self.promote_good
         self.promote_id = self.promote_good.promote_id
-        self.sequence = self.promote.sequence
       end
+      self.sequence = self.promote.sequence
     end
     after_create_commit :check_promote_cart
   end
