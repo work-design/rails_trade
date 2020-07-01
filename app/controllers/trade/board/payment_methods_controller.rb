@@ -3,13 +3,6 @@ class Trade::Board::PaymentMethodsController < Trade::Board::BaseController
 
   def index
     @payment_methods = current_buyer.payment_methods
-
-    respond_to do |format|
-      format.html {
-
-      }
-      format.json { render json: @payment_methods.as_json(methods: 'kind') }
-    end
   end
 
   def new
@@ -19,16 +12,8 @@ class Trade::Board::PaymentMethodsController < Trade::Board::BaseController
   def create
     @payment_method = current_buyer.payment_methods.build(payment_method_params)
 
-    respond_to do |format|
-      if @payment_method.detective_save
-        format.html
-        format.json { render json: @payment_method.as_json(methods: 'kind') }
-        format.js
-      else
-        format.html { render :new }
-        format.json
-        format.js
-      end
+    unless @payment_method.detective_save
+
     end
   end
 
@@ -40,6 +25,7 @@ class Trade::Board::PaymentMethodsController < Trade::Board::BaseController
 
   def update
     @payment_method.assign_attributes(payment_method_params)
+
     if @payment_method.detective_save
       render 'update'
     else
@@ -49,11 +35,6 @@ class Trade::Board::PaymentMethodsController < Trade::Board::BaseController
 
   def destroy
     @payment_method.destroy
-
-    respond_to do |format|
-      format.html { head :no_cont }
-      format.js
-    end
   end
 
   private

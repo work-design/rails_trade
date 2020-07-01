@@ -17,7 +17,7 @@
       <%= link_to '', fork_my_addresses_path(return_to: my_cart_url), remote: true, class: 'weui-cell__ft' %>
     </div>
     <% @trade_items.each do |trade_item| %>
-      <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left touchstart->swipe#start">
+      <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left:passive touchstart->swipe#start:passive">
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
         </div>
@@ -36,11 +36,11 @@
             </li>
           </ul>
         </div>
-        <div class="weui-media-box__ft" data-target="swipe.open" data-controller="cart">
+        <div class="weui-media-box__ft" data-swipe-target="open" data-controller="cart">
           <%= link_to my_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
             <i class="fas fa-plus"></i>
           <% end %>
-          <div class="weui-btn weui-btn_mini weui-btn_warn" data-target="cart.number"><%= trade_item.number %></div>
+          <input type="button" class="weui-btn weui-btn_mini weui-btn_warn" data-cart-target="number" data-url="<%= my_trade_item_path(trade_item) %>" value="<%= trade_item.number %>">
           <% if trade_item.number <= 1 %>
             <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
               <i class="fas fa-trash"></i>
