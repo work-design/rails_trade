@@ -1,5 +1,3 @@
-class Trade::Admin::BaseController < RailsTrade.config.admin_controller.constantize
+class Trade::Admin::BaseController < AdminController
 
-
-
-end
+end unless defined? Trade::Admin::BaseController

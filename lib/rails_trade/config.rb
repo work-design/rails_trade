@@ -4,9 +4,6 @@ module RailsTrade
   include ActiveSupport::Configurable
 
   configure do |config|
-    config.admin_controller = 'AdminController'
-    config.board_controller = 'BoardController'
-    config.my_controller = 'MyController'
     config.default_currency = 'CNY'
     config.disabled_models = []
 

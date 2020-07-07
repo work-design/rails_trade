@@ -1,3 +1,3 @@
-class Trade::Board::BaseController < RailsTrade.config.board_controller.constantize
+class Trade::Board::BaseController < BoardController
 
-end
+end unless defined? Trade::Board::BaseController

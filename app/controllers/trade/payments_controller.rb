@@ -1,4 +1,4 @@
-class Trade::PaymentsController < ApplicationController
+class Trade::PaymentsController < Trade::BaseController
   skip_before_action :verify_authenticity_token
   before_action :set_order, only: [:wxpay_result, :result]
 
