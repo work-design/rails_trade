@@ -85,6 +85,12 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :my, module: 'trade/mine', subdomain: /.+\.t/, as: :my do
+    resource :cart do
+      match :add, via: [:get, :post]
+    end
+  end
+
   scope :my, module: 'trade/board', as: :my do
     resource :cart do
       match :add, via: [:get, :post]
