@@ -10,7 +10,6 @@ module RailsTrade::Promote
     attribute :metering, :string
     attribute :effect_at, :datetime
     attribute :expire_at, :datetime
-    attribute :sequence, :integer, default: 1
     attribute :editable, :boolean, default: false, comment: '是否可更改价格'
     attribute :verified, :boolean, default: false
     attribute :extra, :json
@@ -28,9 +27,6 @@ module RailsTrade::Promote
     scope :valid, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
 
     validates :code, uniqueness: true, allow_blank: true
-
-    after_commit :delete_cache, on: [:create, :destroy]
-    after_update_commit :delete_cache, if: -> { saved_change_to_sequence? }
 
     enum scope: {
       single: 'single',  # 适用于单独计算商品
@@ -59,21 +55,6 @@ module RailsTrade::Promote
     }
 
     promote_charges.default_where(q_params).take
-  end
-
-  private
-  def delete_cache
-    ['promotes/sequence'].each do |c|
-      Rails.cache.delete(c)
-    end
-  end
-
-  class_methods do
-    def sequence
-      Rails.cache.fetch('promotes/sequence') do
-        self.select(:sequence).distinct.pluck(:sequence).sort
-      end
-    end
   end
 
 end
