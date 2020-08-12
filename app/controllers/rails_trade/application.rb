@@ -7,8 +7,8 @@ module RailsTrade::Application
   def current_cart
     return @current_cart if defined? @current_cart
 
-    if current_session_organ && current_user
-      @current_cart = current_user.carts.find_or_create_by(organ_id: current_session_organ.id)
+    if current_organ && current_user
+      @current_cart = current_user.carts.find_or_create_by(organ_id: current_organ.id)
     elsif current_user
       @current_cart = current_user.total_cart || current_user.create_total_cart
     end
