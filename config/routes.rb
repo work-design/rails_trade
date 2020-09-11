@@ -91,7 +91,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :my, module: 'trade/board', as: :my do
+  scope :board, module: 'trade/board', as: :board do
     resource :cart do
       match :add, via: [:get, :post]
     end

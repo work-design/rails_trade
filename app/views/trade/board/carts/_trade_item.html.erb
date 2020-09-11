@@ -1,6 +1,6 @@
 <tr class="<%= 'active' if trade_item.checked? %>" id="trade_item_<%= trade_item.id %>">
   <td data-controller="input">
-    <%= check_box_tag '[trade_item]status', trade_item.checked? ? 'checked' : 'init', trade_item.checked?, data: { method: :patch, remote: true, url: toggle_my_trade_item_path(trade_item), action: 'input#submit' }, id: nil %>
+    <%= check_box_tag '[trade_item]status', trade_item.checked? ? 'checked' : 'init', trade_item.checked?, data: { method: :patch, remote: true, url: toggle_board_trade_item_path(trade_item), action: 'input#submit' }, id: nil %>
   </td>
   <td>
     <%= trade_item.good&.name %>
@@ -16,7 +16,7 @@
         <div class="button" data-action="click->cart#decrease"><i class="fas fa-minus"></i></div>
       </div>
       <div class="control">
-        <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', target: 'cart.number', url: my_trade_item_path(trade_item) }, class: 'input' %>
+        <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', target: 'cart.number', url: board_trade_item_path(trade_item) }, class: 'input' %>
       </div>
       <div class="control">
         <div class="button is-link" data-action="click->cart#increase"><i class="fas fa-plus"></i></div>
@@ -36,6 +36,6 @@
     </p>
   </td>
   <td>
-    <%= link_to t('.destroy'), my_trade_item_path(trade_item), method: :delete, remote: true %>
+    <%= link_to t('.destroy'), board_trade_item_path(trade_item), method: :delete, remote: true %>
   </td>
 </tr>

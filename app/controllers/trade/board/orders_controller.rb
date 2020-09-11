@@ -24,7 +24,7 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
     @order = current_cart.orders.build(order_params)
 
     if @order.save
-      render 'create', locals: { return_to: my_order_url(@order) }
+      render 'create', locals: { return_to: board_order_url(@order) }
     else
       render :new, locals: { model: @order }, status: :unprocessable_entity
     end
@@ -35,11 +35,11 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to my_orders_url(id: @order.id) }
+        format.html { redirect_to board_orders_url(id: @order.id) }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html {
-          redirect_back fallback_location: my_root_url
+          redirect_back fallback_location: board_root_url
         }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -65,7 +65,7 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
     @order.assign_attributes(order_params)
 
     if @order.save
-      render 'update', locals: { return_to: my_order_url(@order) }
+      render 'update', locals: { return_to: board_order_url(@order) }
     else
       render :edit, locals: { model: @order }, status: :unprocessable_entity
     end
@@ -82,7 +82,7 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
     if @order.errors.blank?
       render 'create', locals: { return_to: @order.approve_url }
     else
-      render 'create', locals: { return_to: my_orders_url }
+      render 'create', locals: { return_to: board_orders_url }
     end
   end
 
@@ -90,7 +90,7 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
     if @order.payment_status != 'all_paid'
       render 'create', locals: { return_to: @order.alipay_prepay_url }
     else
-      render 'create', locals: { return_to: my_orders_url }
+      render 'create', locals: { return_to: board_orders_url }
     end
   end
 
@@ -99,17 +99,17 @@ class Trade::Board::OrdersController < Trade::Board::BaseController
       result = @order.paypal_prepay
       render 'create', locals: { return_to: result }
     else
-      render 'create', locals: { return_to: my_orders_url }
+      render 'create', locals: { return_to: board_orders_url }
     end
   end
 
   def paypal_execute
     if @order.paypal_execute(params)
       flase.now[:notice] = "Order[#{@order.uuid}] placed successfully"
-      render 'create', locals: { return_to: my_order_url(@order) }
+      render 'create', locals: { return_to: board_order_url(@order) }
     else
       flase.now[:notice] =  @order.error.inspect
-      render 'create', locals: { return_to: my_orders_url }
+      render 'create', locals: { return_to: board_orders_url }
     end
   end
 

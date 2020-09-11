@@ -14,7 +14,7 @@
           <p>选择地址</p>
         <% end %>
       </div>
-      <%= link_to '', fork_my_addresses_path(return_to: my_cart_url), remote: true, class: 'weui-cell__ft' %>
+      <%= link_to '', fork_board_addresses_path(return_to: board_cart_url), remote: true, class: 'weui-cell__ft' %>
     </div>
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left:passive touchstart->swipe#start:passive">
@@ -37,16 +37,16 @@
           </ul>
         </div>
         <div class="weui-media-box__ft" data-swipe-target="open" data-controller="cart">
-          <%= link_to my_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+          <%= link_to board_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
             <i class="fas fa-plus"></i>
           <% end %>
-          <input type="button" class="weui-btn weui-btn_mini weui-btn_warn" data-cart-target="number" data-url="<%= my_trade_item_path(trade_item) %>" value="<%= trade_item.number %>">
+          <input type="button" class="weui-btn weui-btn_mini weui-btn_warn" data-cart-target="number" data-url="<%= board_trade_item_path(trade_item) %>" value="<%= trade_item.number %>">
           <% if trade_item.number <= 1 %>
-            <%= link_to my_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+            <%= link_to board_trade_item_path(trade_item), method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
               <i class="fas fa-trash"></i>
             <% end %>
           <% else %>
-            <%= link_to my_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number - 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
+            <%= link_to board_trade_item_path(trade_item), method: :patch, data: { params: "[trade_item]number=#{trade_item.number - 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default' do %>
               <i class="fas fa-minus"></i>
             <% end %>
           <% end %>
@@ -57,6 +57,6 @@
 </div>
 
 <div class="weui-btn-area">
-  <%= form_with theme: nil, url: my_orders_path, id: 'add_cart' do %><% end %>
+  <%= form_with theme: nil, url: board_orders_path, id: 'add_cart' do %><% end %>
   <%= submit_tag t('helpers.submit.next'), form: 'add_cart', class: 'weui-btn weui-btn_primary' %>
 </div>
