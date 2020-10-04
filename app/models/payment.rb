@@ -1,4 +1,4 @@
 class Payment < ApplicationRecord
   include RailsTrade::Payment
-  include RailsAudit::Audited
+  include RailsAuditExt::Audited
 end unless defined? Payment
