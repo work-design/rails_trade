@@ -1,4 +1,4 @@
 class Promote < ApplicationRecord
   include RailsTrade::Promote
-  include RailsTaxon::Sequence
+  include RailsComExt::Sequence
 end unless defined? Promote
