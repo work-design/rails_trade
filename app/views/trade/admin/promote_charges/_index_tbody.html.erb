@@ -1,0 +1,25 @@
+<tr>
+  <td>
+    <p><%= promote_charge.min %></p>
+    <p><%= promote_charge.max %></p>
+  </td>
+  <td>
+    <div class="ui toggle checkbox">
+      <%= check_box_tag 'promote_charge[contain_min]', nil, promote_charge.contain_min, data: { method: :patch, remote: true, url: admin_promote_charge_path(@promote, promote_charge), submit: true }, id: nil %>
+    </div>
+    <div class="ui toggle checkbox">
+      <%= check_box_tag 'promote_charge[contain_max]', nil, promote_charge.contain_max, data: { method: :patch, remote: true, url: admin_promote_charge_path(@promote, promote_charge), submit: true }, id: nil %>
+    </div>
+  </td>
+  <td><%= simple_format(promote_charge.extra) %></td>
+  <td><%= promote_charge.parameter %></td>
+  <td><%= promote_charge.type_i18n %></td>
+  <td>
+    <%= link_to edit_admin_promote_charge_path(@promote, promote_charge), aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' do %>
+      <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= link_to admin_promote_charge_path(@promote, promote_charge), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'button is-small is-rounded is-light' do %>
+      <i class="fas fa-trash-alt"></i>
+    <% end %>
+  </td>
+</tr>

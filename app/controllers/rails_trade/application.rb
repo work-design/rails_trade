@@ -1,5 +1,6 @@
 module RailsTrade::Application
   extend ActiveSupport::Concern
+
   included do
     helper_method :current_cart, :current_cart_count
   end
