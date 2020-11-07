@@ -2,13 +2,13 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
   before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
 
   def dashboard
-
   end
 
   def index
     q_params = {}
     q_params.merge! default_params
     q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, 'buyer_name-like', 'payment_orders.state', 'orders.uuid')
+
     @payments = Payment.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
@@ -33,9 +33,9 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
     end
 
     if @payment.save
-      redirect_to admin_payments_url
+      render 'create'
     else
-      render :new
+      render :new, locals: { model: @payment }, status: :unprocessable_entity
     end
   end
 
@@ -43,8 +43,10 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
   end
 
   def update
-    if @payment.update(payment_params)
-      redirect_to admin_payments_url
+    @payment.assign_attributes payment_params
+
+    if @payment.save
+      render 'update'
     else
       render :edit
     end
@@ -56,10 +58,6 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
   def adjust
     @payment.analyze_adjust_amount
-    respond_to do |format|
-      format.js
-      format.html { redirect_to admin_payments_url }
-    end
   end
 
   def destroy
@@ -85,7 +83,6 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
       :buyer_bank
     )
     p.merge! default_form_params
-    p
   end
 
 end
