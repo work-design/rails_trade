@@ -1,6 +1,6 @@
 <%= form_with theme: 'search' do |f| %>
   <div class="fields">
-    <%= f.text_field :'name-like' %>
+    <%= f.text_field 'name-like' %>
     <%= f.collection_select :payment_strategy_id, PaymentStrategy.all, :id, :name, { prompt: 'Credit Terms' }, { class: 'ui dropdown' } %>
     <%= f.collection_select :'crm_permits.manager_id', @managers, :id, :name, { prompt: 'AR' }, { class: 'ui dropdown' } %>
     <%= f.date_field :'overdue_date-lte' %>

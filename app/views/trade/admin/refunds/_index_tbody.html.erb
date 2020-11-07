@@ -1,0 +1,27 @@
+<tr>
+  <td><%= refund.refund_uuid %></td>
+  <td>
+    <p><%= link_to refund.order.uuid, admin_order_path(refund.order_id) %></p>
+    <p><%= link_to refund.payment.payment_uuid, admin_payments_path(id: refund.payment_id) %></p>
+  </td>
+  <td><%= refund.total_amount.to_money(refund.currency).format %></td>
+  <td><%= refund.type %></td>
+  <td><time><%= refund.created_at.to_s(:rfc822) %></time></td>
+  <td><%= refund.state %></td>
+  <td><%= refund.comment %></td>
+  <td>
+    <% if refund.refunded_at %>
+      <time><%= refund.refunded_at.to_s(:rfc822) %></time>
+    <% else %>
+      <div class="buttons are-small">
+        <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'button is-primary' %>
+        <div class="or"></div>
+        <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'button is-danger' %>
+      </div>
+    <% end %>
+    <% if refund.reason %>
+      <p><%= refund.reason.truncate(27) %></p>
+    <% end %>
+  </td>
+  <td><%= refund.operator&.name %></td>
+</tr>
