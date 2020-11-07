@@ -1,0 +1,12 @@
+<tr>
+  <td><%= payment_strategy.name %></td>
+  <td><%= payment_strategy.period %></td>
+  <td>
+    <%= link_to({ action: 'edit', id: payment_strategy.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-link is-small') do %>
+      <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= link_to({ action: 'destroy', id: payment_strategy.id }, remote: true, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small') do %>
+      <i class="fas fa-trash"></i>
+    <% end %>
+  </td>
+</tr>

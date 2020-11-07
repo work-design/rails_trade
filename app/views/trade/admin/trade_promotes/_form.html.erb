@@ -1,6 +1,3 @@
-<%= form_with model: [:admin, @trade_promote] do |f| %>
-  <%= render 'shared/error_messages', target: @trade_promote %>
-  <%= f.number_field :amount %>
-  <%= f.text_area :note %>
-  <%= f.submit %>
-<% end %>
+<%= render 'shared/error_messages', target: @trade_promote %>
+<%= f.number_field :amount %>
+<%= f.text_area :note %>

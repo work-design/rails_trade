@@ -1,39 +1,5 @@
-<% content_for :breadcrumb do %>
-  <ul>
-    <li class="is-active"><%= t('.title') %></li>
-  </ul>
+<%= render layout: 'index_table', locals: { cache_key: Payment.column_names.hash } do %>
+  <%= render partial: 'index_tbody', collection: @payments, as: :payment %>
 <% end %>
-
-<%= render 'filter_form' %>
-<%= render 'filter_table' %>
-
-<table class="table is-hoverable is-fullwidth">
-  <thead>
-    <tr>
-      <th class="three wide"><%= Payment.human_attribute_name(:payment_uuid) %></th>
-      <th class="two wide"><%= Payment.human_attribute_name(:checked_amount) %></th>
-      <th class="one wide"><%= Payment.human_attribute_name(:total_amount) %></th>
-      <th class="one wide">
-        <p><%= Payment.human_attribute_name(:income_amount) %></p>
-        <p><%= Payment.human_attribute_name(:fee_amount) %></p>
-      </th>
-      <th class="one wide"><%= Payment.human_attribute_name(:adjust_amount) %></th>
-      <th class="three wide">
-        <p><%= Payment.human_attribute_name(:buyer_name) %></p>
-        <p><%= Payment.human_attribute_name(:buyer_identifier) %></p>
-        <p><%= Payment.human_attribute_name(:buyer_bank) %></p>
-      </th>
-      <th class="two wide"><%= Payment.human_attribute_name(:notified_at) %></th>
-      <th class="three wide">
-        <%= link_to t('.new'), new_admin_payment_path, remote: true, class: 'button is-link is-small' %>
-        <%= link_to t('.import'), import_data_list_table_lists_path('PaymentImport'), remote: true, class: 'button is-link is-small' %>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= render partial: 'item', collection: @payments, as: :payment %>
-  </tbody>
-</table>
 
 <%= paginate @payments %>

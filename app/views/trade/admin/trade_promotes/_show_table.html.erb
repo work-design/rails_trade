@@ -1,20 +1,8 @@
-<table class="table is-hoverable is-fullwidth">
-  <thead>
-    <tr>
-      <th class="six wide">
-        <%= link_to t('.edit'), edit_admin_trade_promote_path(@trade_promote), class: 'ui mini blue right floated button', remote: true %>
-      </th>
-      <th class="ten wide"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="has-text-right"><%= TradePromote.human_attribute_name(:amount) %></td>
-      <td><%= @trade_promote.amount %></td>
-    </tr>
-    <tr>
-      <td class="has-text-right"><%= TradePromote.human_attribute_name(:note) %></td>
-      <td><%= @trade_promote.note %></td>
-    </tr>
-  </tbody>
-</table>
+<tr>
+  <td class="has-text-right"><%= TradePromote.human_attribute_name(:amount) %></td>
+  <td><%= @trade_promote.amount %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= TradePromote.human_attribute_name(:note) %></td>
+  <td><%= @trade_promote.note %></td>
+</tr>

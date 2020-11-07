@@ -1,0 +1,15 @@
+<th><%= Payment.human_attribute_name(:payment_uuid) %></th>
+<th><%= Payment.human_attribute_name(:checked_amount) %></th>
+<th><%= Payment.human_attribute_name(:total_amount) %></th>
+<th>
+  <p><%= Payment.human_attribute_name(:income_amount) %></p>
+  <p><%= Payment.human_attribute_name(:fee_amount) %></p>
+</th>
+<th><%= Payment.human_attribute_name(:adjust_amount) %></th>
+<th>
+  <p><%= Payment.human_attribute_name(:buyer_name) %></p>
+  <p><%= Payment.human_attribute_name(:buyer_identifier) %></p>
+  <p><%= Payment.human_attribute_name(:buyer_bank) %></p>
+</th>
+<th><%= Payment.human_attribute_name(:notified_at) %></th>
+<th></th>

@@ -1,37 +1,5 @@
-<div>
+<%= render layout: 'index_table', locals: { cache_key: PaymentStrategy.column_names.hash } do %>
+  <%= render partial: 'index_tbody', collection: @payment_strategies, as: :payment_strategy %>
+<% end %>
 
-  <div class="ui top attached menu borderless">
-  </div>
-
-  <div class="ui segment top attached">
-    <%= link_to t('.new'), new_admin_payment_strategy_path, class: 'ui teal button' %>
-  </div>
-
-  <table class="table is-hoverable is-fullwidth">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th><%= PaymentStrategy.human_attribute_name(:name) %></th>
-      <th><%= PaymentStrategy.human_attribute_name(:period) %></th>
-      <th>操作</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @payment_strategies.each do |payment_strategy| %>
-      <tr>
-        <td><%= payment_strategy.id %></td>
-        <td><%= payment_strategy.name %></td>
-        <td><%= payment_strategy.period %></td>
-        <td>
-          <%= link_to t('.destroy'), admin_payment_strategy_path(payment_strategy), remote: true, method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini red button' %>
-          <%= link_to t('.edit'), edit_admin_payment_strategy_path(payment_strategy), class: 'button is-link is-small' %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-
-  </table>
-</div>
-
-
+<%= paginate @payment_strategies %>

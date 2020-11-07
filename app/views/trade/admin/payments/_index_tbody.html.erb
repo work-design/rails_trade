@@ -1,9 +1,9 @@
 <tr id="payment_<%= payment.id %>">
   <td>
     <p><%= payment.payment_uuid %></p>
-    <div class="ui tiny orange label"><%= payment.type_i18n %></div>
+    <div class="tag"><%= payment.type_i18n %></div>
   </td>
-  <td id="checked_amount_<%= payment.id %>" class="warning">
+  <td id="checked_amount_<%= payment.id %>">
     <%= render partial: 'checked_amount', locals: { payment: payment } %>
   </td>
   <td>
@@ -29,11 +29,10 @@
     <% end %>
     <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'button is-small is-rounded is-light', remote: true %>
     <%= link_to audits_path('Payment', payment.id), aria: { label: t('.log') }, remote: true, class: 'button is-small is-rounded is-light' do %>
-      <i class="comments icon"></i>
+      <i class="fas fa-comments"></i>
     <% end %>
     <%= link_to edit_admin_payment_path(payment), aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
   </td>
 </tr>
-
