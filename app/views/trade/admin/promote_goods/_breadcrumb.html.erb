@@ -1,0 +1,9 @@
+<div class="breadcrumb has-succeeds-separator">
+  <ul>
+    <li><%= link_to t('trade.admin.promotes.index.title'), { controller: 'promotes' } %></li>
+    <% if params[:promote_id] %>
+      <li><%= @promote.name %></li>
+    <% end %>
+    <li class="is-active">设置商品</li>
+  </ul>
+</div>

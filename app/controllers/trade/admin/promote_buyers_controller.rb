@@ -25,15 +25,14 @@ class Trade::Admin::PromoteBuyersController < Trade::Admin::BaseController
     @promote_buyer = PromoteBuyer.new(promote_buyer_params)
 
     if @promote_buyer.save
-      redirect_to admin_promote_buyers_url(buyer_id: @promote_buyer.buyer_id)
+      render 'create'
     else
-      render :new
+      render :new, locals: { model: @promote_buyer }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @promote_buyer.destroy
-    redirect_to admin_promote_buyers_url(buyer_id: @promote_buyer.buyer_id)
   end
 
   private

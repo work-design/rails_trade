@@ -1,57 +1,5 @@
-<% content_for :breadcrumb do %>
-<ul>
-  <li><%= link_to t('trade.admin.promotes.index.title'), admin_promotes_path %></li>
-  <% if params[:promote_id] %>
-    <li><%= @promote.name %></li>
-  <% end %>
-  <li class="is-active">设置商品</li>
-</ul>
+<%= render layout: 'index_table', locals: { cache_key: PromoteGood.column_names.hash } do %>
+  <%= render partial: 'index_tbody', collection: @promote_goods, as: :promote_good %>
 <% end %>
-
-<%= render 'filter' %>
-
-<table class="table is-hoverable is-fullwidth">
-  <thead>
-    <tr>
-      <th><%= PromoteGood.human_attribute_name(:good_type) %></th>
-      <th><%= PromoteGood.human_attribute_name(:good_id) %></th>
-      <th><%= PromoteGood.human_attribute_name(:promote_id) %></th>
-      <th><%= PromoteGood.human_attribute_name(:status) %></th>
-      <th>
-        <%= link_to new_admin_promote_good_path(promote_id: params[:promote_id]), remote: true, class: 'button is-link is-small' do %>
-          <i class="fas fa-plus"></i><%= t('.new') %>
-        <% end %>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-  <% @promote_goods.each do |promote_good| %>
-    <tr>
-      <td><%= promote_good.good_type_i18n %></td>
-      <td>
-        <% if promote_good.good_id %>
-          <%= promote_good.good.name %>
-        <% else %>
-          不限商品
-        <% end %>
-      </td>
-      <td><%= promote_good.promote.name %></td>
-      <td><%= promote_good.status_i18n %></td>
-      <td>
-        <%= link_to admin_promote_buyers_path(promote_good_id: promote_good.id), aria: { label: '派发' }, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-gift"></i>
-        <% end %>
-        <%= link_to edit_admin_promote_good_path(promote_good), aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-pencil-alt"></i>
-        <% end %>
-        <%= link_to admin_promote_good_path(promote_good), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-trash-alt"></i>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
 
 <%= paginate @promote_goods %>
