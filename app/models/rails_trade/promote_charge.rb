@@ -65,11 +65,11 @@ module RailsTrade::PromoteCharge
 
   class_methods do
     def min_step
-      0.1.to_d.power(self.columns_hash['min'].scale || columns_hash['min'].limit)
+      0.1.to_d.power(self.columns_hash['min'].scale || columns_hash['min'].limit || 2)
     end
 
     def max_step
-      0.1.to_d.power(self.columns_hash['max'].scale || columns_hash['max'].limit)
+      0.1.to_d.power(self.columns_hash['max'].scale || columns_hash['max'].limit || 2)
     end
 
     def extra_columns
