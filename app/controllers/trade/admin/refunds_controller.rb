@@ -33,12 +33,10 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
 
   def confirm
     @refund.do_refund(operator_id: current_user.id, operator_type: current_user.class.name)
-    redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 
   def deny
     @refund.deny_refund(operator_id: current_user.id, operator_type: current_user.class.name)
-    redirect_to admin_refunds_url(order_id: @refund.order_id)
   end
 
   def destroy
