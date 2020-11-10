@@ -1,5 +1,6 @@
 module RailsTrade::Refund
   extend ActiveSupport::Concern
+
   included do
     attribute :type, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
