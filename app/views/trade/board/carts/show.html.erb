@@ -10,9 +10,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @trade_items.each do |trade_item| %>
-    <%= render partial: 'trade_item', locals: { trade_item: trade_item } %>
-  <% end %>
+  <%= render partial: 'trade_item', collection: @trade_items, as: :trade_item %>
   </tbody>
   <%= render 'total_price' %>
   <tfoot>
