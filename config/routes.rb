@@ -2,13 +2,12 @@ Rails.application.routes.draw do
 
   scope module: 'trade' do
     resources :payments, only: [:index] do
-      get :result, on: :collection
-      match :notify, on: :collection, via: [:get, :post]
-      match :alipay_notify, on: :collection, via: [:get, :post]
-      match :wxpay_notify, on: :collection, via: [:get, :post]
-    end
-    resources :buyers, only: [] do
-      get :search, on: :collection
+      collection do
+        get :result
+        match :notify, via: [:get, :post]
+        match :alipay_notify, via: [:get, :post]
+        match :wxpay_notify, via: [:get, :post]
+      end
     end
   end
 
@@ -32,7 +31,9 @@ Rails.application.routes.draw do
         get :payments
         get :refresh
       end
-      patch :refund, on: :member
+      member do
+        patch :refund
+      end
       resources :order_payments
     end
     resources :trade_items
