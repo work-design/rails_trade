@@ -1,8 +1,8 @@
-<ul class="breadcrumb">
+<ul class="breadcrumb has-succeeds-separator">
   <% @taxon.ancestors.each do |taxon| %>
     <li><%= link_to taxon.name, taxon_products_path(:taxon_id => taxon) %></li>
   <% end %>
-  <li class="active"><%= @taxon.name %></li>
+  <li class="is-active"><%= @taxon.name %></li>
 </ul>
 
 
