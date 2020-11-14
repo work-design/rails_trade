@@ -26,8 +26,8 @@
   <td>
     <p>
       <del class="has-text-grey"><%= trade_item.wholesale_price %></del>
-      <% if trade_item.discount_price < 0 %>
-        <span class="has-text-danger"><%= trade_item.discount_price %></span>
+      <% if trade_item.reduced_amount < 0 %>
+        <span class="has-text-danger"><%= trade_item.reduced_amount %></span>
         <i class="fas fa-info"></i>
       <% end %>
     </p>
