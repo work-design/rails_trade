@@ -97,6 +97,7 @@ Rails.application.routes.draw do
     resources :trade_items do
       member do
         patch :toggle
+        get :promote
       end
     end
     resources :good_providers

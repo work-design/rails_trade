@@ -1,5 +1,5 @@
 class Trade::My::TradeItemsController < Trade::My::BaseController
-  before_action :set_trade_item, only: [:show, :update, :toggle, :destroy]
+  before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
 
   def create
     trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
@@ -17,6 +17,11 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
   end
 
   def show
+  end
+
+  def promote
+
+    render layout: false
   end
 
   def update
