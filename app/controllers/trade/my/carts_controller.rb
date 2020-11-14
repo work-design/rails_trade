@@ -2,7 +2,7 @@ class Trade::My::CartsController < Trade::My::BaseController
 
   def show
     q_params = {
-
+      status: 'init'
     }
     if params[:address_id].present?
       current_cart.update address_id: params[:address_id]

@@ -39,7 +39,8 @@ module RailsTrade::Order
     enum state: {
       init: 'init',
       checked: 'checked'
-    }
+    }, _default: 'init'
+
     enum payment_status: {
       unpaid: 'unpaid',
       part_paid: 'part_paid',
@@ -47,7 +48,7 @@ module RailsTrade::Order
       refunding: 'refunding',
       refunded: 'refunded',
       denied: 'denied'
-    }
+    }, _default: 'unpaid'
 
     after_initialize if: :new_record? do
       if cart
@@ -76,6 +77,9 @@ module RailsTrade::Order
     cart.trade_promotes.update_all(order_id: self.id, status: 'ordered')
 
     self.compute_amount
+    cart.compute_amount
+
+    cart.save
     self.save
   end
 
