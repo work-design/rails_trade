@@ -29,10 +29,7 @@ class Trade::Board::CartsController < Trade::Board::BaseController
 
   private
   def cart_params
-    params.fetch(:cart, {}).permit(
-      :buyer_type,
-      :buyer_id
-    )
+    params.fetch(:cart, {}).permit()
   end
 
 end

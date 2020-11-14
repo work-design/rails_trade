@@ -1,17 +1,18 @@
 module RailsTrade::Payment
   extend ActiveSupport::Concern
+
   included do
     attribute :type, :string, default: 'HandPayment'
     attribute :payment_uuid, :string
     attribute :state, :string, default: 'init', index: true
     attribute :pay_status, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :adjust_amount, :decimal, precision: 10, scale: 2, default: 0
-    attribute :total_amount, :decimal, precision: 10, scale: 2, default: 0
-    attribute :fee_amount, :decimal, precision: 10, scale: 2, default: 0
-    attribute :checked_amount, :decimal, precision: 10, scale: 2, default: 0
-    attribute :income_amount, :decimal, precision: 10, scale: 2
-    attribute :notify_type, :string, limit: 255
+    attribute :adjust_amount, :decimal, default: 0
+    attribute :total_amount, :decimal, default: 0
+    attribute :fee_amount, :decimal, default: 0
+    attribute :checked_amount, :decimal, default: 0
+    attribute :income_amount, :decimal
+    attribute :notify_type, :string
     attribute :notified_at, :datetime
     attribute :seller_identifier, :string
     attribute :buyer_identifier, :string

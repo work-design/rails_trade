@@ -9,4 +9,3 @@ module RailsTrade::User
   end
 
 end
-

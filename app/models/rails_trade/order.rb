@@ -6,10 +6,10 @@ module RailsTrade::Order
   included do
     attribute :uuid, :string
     attribute :state, :string
-    attribute :received_amount, :decimal, precision: 10, scale: 2, default: 0
+    attribute :received_amount, :decimal, default: 0
     attribute :payment_id, :integer, comment: 'for paypal'
     attribute :myself, :boolean, default: true
-    attribute :note, :string, limit: 4096
+    attribute :note, :string
     attribute :expire_at, :datetime
     attribute :payment_status, :string, default: 'unpaid', index: true
     attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }

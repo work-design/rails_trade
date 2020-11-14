@@ -2,7 +2,7 @@ module RailsTrade::Buyer
   extend ActiveSupport::Concern
 
   included do
-    has_many :payment_references, as: :buyer, dependent: :destroy, autosave: true
+    has_many :payment_references, dependent: :destroy, autosave: true
     has_many :payment_methods, through: :payment_references, autosave: true
 
     scope :credited, -> { where(payment_strategy_id: self.credit_ids) }

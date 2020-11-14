@@ -14,10 +14,14 @@ Rails.application.routes.draw do
   scope :admin, module: 'trade/admin', as: :admin do
     get 'trade' => 'trade#index'
 
-    resources :buyers do
-      get :overdue, on: :collection
-      get :orders, on: :member
-      put :remind, on: :collection
+    resources :users do
+      collection do
+        get :overdue
+        put :remind
+      end
+      member do
+        get :orders
+      end
     end
     resources :carts, except: [:new] do
       collection do
@@ -86,7 +90,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :my, module: 'trade/mine', subdomain: /.+\.t/, as: :my do
+  scope :my, module: 'trade/my', as: :my do
     resource :cart do
       match :add, via: [:get, :post]
     end

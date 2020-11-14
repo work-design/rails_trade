@@ -14,7 +14,7 @@ module RailsTrade::Cart
     attribute :total_quantity, :decimal, default: 0
     attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
 
-    belongs_to :organ
+    belongs_to :organ, optional: true
     belongs_to :member, optional: true
     belongs_to :user
     belongs_to :total_cart
@@ -57,14 +57,6 @@ module RailsTrade::Cart
       logger.error "#{self.class.name}: #{error_text}"
       raise ActiveRecord::RecordInvalid.new(self)
     end
-  end
-
-  class_methods do
-
-    def default
-      find_by(default: true)
-    end
-
   end
 
 end
