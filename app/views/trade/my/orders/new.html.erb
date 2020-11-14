@@ -2,7 +2,7 @@
   <thead>
   <tr>
     <th>
-      <%= form_with model: @order, url: my_orders_path, id: 'new_order' do %><% end %>
+      <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
     </th>
     <th>Name</th>
     <th></th>

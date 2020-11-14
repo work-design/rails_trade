@@ -24,7 +24,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
     @order = current_cart.orders.build(order_params)
 
     if @order.save
-      render 'create', locals: { return_to: board_order_url(@order) }
+      render 'create', locals: { return_to: my_order_url(@order) }
     else
       render :new, locals: { model: @order }, status: :unprocessable_entity
     end
