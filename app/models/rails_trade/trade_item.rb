@@ -22,7 +22,6 @@ module RailsTrade::TradeItem
 
     belongs_to :good, polymorphic: true
     belongs_to :user
-    belongs_to :total_cart, foreign_key: :user_id, primary_key: :user_id
     belongs_to :cart, counter_cache: true
     belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
     belongs_to :address, optional: true
@@ -64,7 +63,7 @@ module RailsTrade::TradeItem
       (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount', 'status']).present? && ['init', 'checked'].include?(status)
     }
     after_destroy_commit :sync_changed_amount
-    after_commit :sync_cart_charges, :total_cart_charges, if: -> { number_changed? }, on: [:create, :update]
+    after_commit :sync_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
   def original_quantity
@@ -156,15 +155,7 @@ module RailsTrade::TradeItem
       cart.reload
       cart.item_amount += changed_amount
       cart.valid_item_amount
-
-      total_cart.reload
-      total_cart.item_amount += changed_amount
-      total_cart.valid_item_amount
-
-      self.class.transaction do
-        cart.save!
-        total_cart.save!
-      end
+      cart.save!
     else
       order.reload
       order.item_amount += changed_amount

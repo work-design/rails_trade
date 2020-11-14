@@ -6,13 +6,16 @@ module RailsTrade::Application
   end
 
   def current_cart
-    return @current_cart if defined? @current_cart
-
-    if current_organ && current_user
-      @current_cart = current_user.carts.find_or_create_by(organ_id: current_organ.id)
-    elsif current_user
-      @current_cart = current_user.total_cart || current_user.create_total_cart
+    if defined? @current_cart
+      logger.debug " ==========> current cart: #{@current_cart.id}"
+      return @current_cart
     end
+
+    if current_user
+      @current_cart = current_user.carts.find_or_create_by(default_form_params)
+    end
+    logger.debug " ==========> current cart: #{@current_cart.id}"
+    @current_cart
   end
 
   def current_cart_count

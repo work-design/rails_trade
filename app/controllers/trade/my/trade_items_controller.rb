@@ -14,8 +14,6 @@ class Trade::My::TradeItemsController < Trade::My::BaseController
 
     @trade_items = @cart.trade_items.page(params[:page])
     @checked_ids = @cart.trade_items.checked.pluck(:id)
-
-    redirect_to my_cart_url
   end
 
   def show
