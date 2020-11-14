@@ -17,7 +17,6 @@ module RailsTrade::Cart
     belongs_to :organ, optional: true
     belongs_to :member, optional: true
     belongs_to :user
-    belongs_to :total_cart
     belongs_to :address, optional: true
     belongs_to :payment_strategy, optional: true
 
