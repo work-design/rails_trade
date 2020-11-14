@@ -29,11 +29,6 @@ module RailsTrade::Cart
     accepts_nested_attributes_for :trade_promotes
 
     validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-    after_initialize if: :new_record? do
-      if user
-        self.total_cart = user.total_cart || user.create_total_cart
-      end
-    end
   end
 
   def compute_amount
@@ -43,6 +38,8 @@ module RailsTrade::Cart
     #self.total_quantity = trade_items.checked.sum(:original_quantity)
 
     self.item_amount = trade_items.checked.sum(:amount)
+    self.total_additional_amount = trade_items.checked.sum(:additional_amount)
+    self.total_reduced_amount = trade_items.checked.sum(:reduced_amount)
     self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
     self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
