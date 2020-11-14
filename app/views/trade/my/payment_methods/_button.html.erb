@@ -1,0 +1,3 @@
+<%= link_to 'My Expenses', my_expense_members_path, class: active_helper(controllers: 'finance_my/expense_members') %>
+<%= link_to 'My Payment Methods', my_payment_methods_path, class: active_helper(controllers: 'payment_methods') %>
+<%= link_to 'Add New', new_my_payment_method_path, remote: true, class: 'ui teal button' %>
