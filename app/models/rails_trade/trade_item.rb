@@ -148,7 +148,7 @@ module RailsTrade::TradeItem
     elsif checked? && ['init', nil].include?(status_before_last_save)
       changed_amount = amount
     else
-      changed_amount = amount - amount_before_last_save.to_d
+      return
     end
 
     if ['init', 'checked'].include?(status)
