@@ -1,4 +1,4 @@
-class Trade::Board::TradeItemsController < Trade::Board::BaseController
+class Trade::My::TradeItemsController < Trade::My::BaseController
   before_action :set_trade_item, only: [:show, :update, :toggle, :destroy]
 
   def create

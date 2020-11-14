@@ -1,4 +1,4 @@
-class Trade::Board::PaymentMethodsController < Trade::Board::BaseController
+class Trade::My::PaymentMethodsController < Trade::My::BaseController
   before_action :set_payment_method, only: [:show, :edit, :update, :destroy]
 
   def index

@@ -94,12 +94,6 @@ Rails.application.routes.draw do
     resource :cart do
       match :add, via: [:get, :post]
     end
-  end
-
-  scope :board, module: 'trade/board', as: :board do
-    resource :cart do
-      match :add, via: [:get, :post]
-    end
     resources :trade_items do
       member do
         patch :toggle
