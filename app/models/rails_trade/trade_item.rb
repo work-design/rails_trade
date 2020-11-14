@@ -26,7 +26,7 @@ module RailsTrade::TradeItem
     belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
     belongs_to :address, optional: true
     belongs_to :produce_plan, optional: true  # 产品对应批次号
-    has_many :trade_promotes, -> { includes(:promote) }, inverse_of: :trade_item, autosave: true, dependent: :destroy
+    has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy
     #has_many :organs 用于对接供应商
 
     scope :valid, -> { where(status: 'init', myself: true) }
