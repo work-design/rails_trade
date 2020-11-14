@@ -2,7 +2,7 @@ module RailsTrade::TradeItem
   extend ActiveSupport::Concern
 
   included do
-    attribute :status, :string, default: 'init'
+    attribute :status, :string
     attribute :myself, :boolean, default: true, comment: '是否后台协助添加'
     attribute :starred, :boolean, default: false, comment: '收藏'
     attribute :good_name, :string
@@ -41,7 +41,7 @@ module RailsTrade::TradeItem
       packaged: 'packaged',
       done: 'done',
       canceled: 'canceled'
-    }
+    }, _default: 'init'
 
     after_initialize if: :new_record? do
       if good
@@ -145,7 +145,7 @@ module RailsTrade::TradeItem
   def sync_changed_amount
     if destroyed? || (init? && status_before_last_save == 'checked')
       changed_amount = -amount
-    elsif checked? && status_before_last_save == 'init'
+    elsif checked? && ['init', nil].include?(status_before_last_save)
       changed_amount = amount
     else
       changed_amount = amount - amount_before_last_save.to_d
