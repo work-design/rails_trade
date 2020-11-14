@@ -38,8 +38,6 @@ module RailsTrade::Cart
     #self.total_quantity = trade_items.checked.sum(:original_quantity)
 
     self.item_amount = trade_items.checked.sum(:amount)
-    self.total_additional_amount = trade_items.checked.sum(:additional_amount)
-    self.total_reduced_amount = trade_items.checked.sum(:reduced_amount)
     self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
     self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
     self.amount = item_amount + overall_additional_amount + overall_reduced_amount
@@ -49,7 +47,7 @@ module RailsTrade::Cart
     summed_amount = trade_items.checked.sum(:amount)
 
     unless self.item_amount == summed_amount
-      errors.add :item_amount, "Item Amount: #{item_amount} not equal #{summed_amount}"
+      errors.add :item_amount, "  Item Amount: #{item_amount} not equal #{summed_amount}"
       logger.error "#{self.class.name}: #{error_text}"
       raise ActiveRecord::RecordInvalid.new(self)
     end
