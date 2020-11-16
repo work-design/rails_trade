@@ -4,11 +4,11 @@
   </td>
   <td>
     <%= trade_item.good&.name %>
-    <p style="color: grey;"><%= trade_item.good_type %></p>
+    <p style="color: grey;"><%= trade_item.good_type_i18n %></p>
   </td>
   <td>
     <p><%= trade_item.retail_price %></p>
-    <p><%= trade_item.weight %><%= trade_item.unit %></p>
+    <p><%= trade_item.weight_str %></p>
   </td>
   <td>
     <div class="field has-addons" data-controller="cart">

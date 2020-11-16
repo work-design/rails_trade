@@ -66,6 +66,12 @@ module RailsTrade::TradeItem
     after_commit :sync_cart_charges, if: -> { number_changed? }, on: [:create, :update]
   end
 
+  def weight_str
+    if weight > 0
+      "#{weight} #{unit}"
+    end
+  end
+
   def original_quantity
     good.unified_quantity * self.number
   end

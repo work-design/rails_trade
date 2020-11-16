@@ -35,6 +35,9 @@ zh:
           original_amount: 总金额
           weight: 总重量
           volume: 体积
+      trade_item:
+        good_type:
+          Facilitate: 标准化服务
       trade_promote:
         scope:
           overall: 全体商品
