@@ -21,6 +21,8 @@ class Trade::My::CartsController < Trade::My::BaseController
 
     @trade_items = current_cart.trade_items.where(status: ['init', 'checked']).page(params[:page])
     @checked_ids = current_cart.trade_items.checked.pluck(:id)
+
+    redirect_to({ action: 'show' })
   end
 
   def edit
