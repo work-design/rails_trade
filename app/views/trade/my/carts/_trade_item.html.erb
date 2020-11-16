@@ -24,6 +24,7 @@
     </div>
   </td>
   <td>
+    <% if trade_item.amount != trade_item.wholesale_price %>
     <div>
       <del class="has-text-grey"><%= trade_item.wholesale_price %></del>
       <% if trade_item.reduced_amount < 0 %>
@@ -32,6 +33,7 @@
         </span>
       <% end %>
     </div>
+    <% end %>
     <p>
       <strong><%= trade_item.amount %></strong>
     </p>
