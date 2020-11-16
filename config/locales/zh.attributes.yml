@@ -3,6 +3,13 @@ zh:
     models:
       role: ''
     attributes:
+      cart:
+        retail_price: 原价
+        discount_price: 优惠价格
+        bulk_price: 批发价
+        overall_additional_amount: 附加费用
+        overall_reduced_amount: 优惠费用
+        amount: 总金额
       order:
         uuid: 订单号
         payment_status: 付款状态

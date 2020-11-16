@@ -10,7 +10,7 @@ module RailsTrade::Cart
   included do
     attribute :retail_price, :decimal, default: 0, comment: '汇总：原价'
     attribute :discount_price, :decimal, default: 0, comment: '汇总：优惠'
-    attribute :bulk_price, :decimal, default: 0, comment: ''
+    attribute :bulk_price, :decimal, default: 0
     attribute :total_quantity, :decimal, default: 0
     attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
 
