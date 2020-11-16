@@ -1,3 +1,12 @@
-<div class="card as-tooltip" data-hover-target="card">
- dddd
+<div class="is-relative" data-hover-target="card">
+  <div class="as-tooltip">
+    <div class="card">
+      <div class="card-content">
+        <% @trade_item.trade_promotes.each do |trade_promote| %>
+          <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="as-tooltip-arrow"></div>
+  </div>
 </div>

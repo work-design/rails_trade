@@ -27,10 +27,9 @@
     <div>
       <del class="has-text-grey"><%= trade_item.wholesale_price %></del>
       <% if trade_item.reduced_amount < 0 %>
-        <span class="has-text-danger"><%= trade_item.reduced_amount %></span>
-        <div class="nav-angle-right" data-controller="hover" data-hover-url-value="<%= promote_my_trade_item_url(trade_item) %>" data-action="mouseenter->hover#show mouseleave->hover#hide">
-          <i class="fas fa-info"></i>
-        </div>
+        <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= promote_my_trade_item_url(trade_item) %>">
+          <span class="has-text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= trade_item.reduced_amount %></span>
+        </span>
       <% end %>
     </div>
     <p>
