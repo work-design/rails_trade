@@ -7,14 +7,14 @@ module RailsTrade::Application
 
   def current_cart
     if defined? @current_cart
-      logger.debug " ==========> current cart: #{@current_cart&.id}"
+      logger.debug " ==========> Current cart: #{@current_cart&.id}"
       return @current_cart
     end
 
     if current_user
       @current_cart = current_user.carts.find_or_create_by(default_form_params)
     end
-    logger.debug " ==========> current cart: #{@current_cart&.id}"
+    logger.debug " ==========> Current cart: #{@current_cart&.id}"
     @current_cart
   end
 

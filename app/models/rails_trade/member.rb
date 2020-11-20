@@ -1,4 +1,4 @@
-module RailsTrade::Buyer
+module RailsTrade::Member
   extend ActiveSupport::Concern
 
   included do
