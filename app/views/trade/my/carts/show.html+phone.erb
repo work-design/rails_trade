@@ -30,25 +30,32 @@
             <% end %>
             <% end %>
           </p>
-          <ul class="weui-media-box__info">
-            <li class="weui-media-box__info__meta">
-              <span><%= trade_item.good.price %></span>
-            </li>
-          </ul>
+          <div class="weui-media-box__info is-flex is-justify-content-space-between">
+            <div class="is-flex is-align-items-center">
+              <div class="weui-media-box__info__meta">
+                <span><%= trade_item.good.price %></span>
+              </div>
+            </div>
+            <div class="is-flex is-align-items-center">
+              <%= link_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
+                <i class="fas fa-plus"></i>
+              <% end %>
+              <input type="button" class="weui-btn weui-btn_mini weui-btn_warn" data-cart-target="number" data-url="<%= my_trade_item_path(trade_item) %>" value="<%= trade_item.number %>">
+              <% if trade_item.number <= 1 %>
+                <%= link_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
+                  <i class="fas fa-trash"></i>
+                <% end %>
+              <% else %>
+                <%= link_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { params: "[trade_item]number=#{trade_item.number - 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
+                  <i class="fas fa-minus"></i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <div class="weui-media-box__ft" data-swipe-target="open" data-controller="cart">
-          <%= link_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
-            <i class="fas fa-plus"></i>
-          <% end %>
-          <input type="button" class="weui-btn weui-btn_mini weui-btn_warn" data-cart-target="number" data-url="<%= my_trade_item_path(trade_item) %>" value="<%= trade_item.number %>">
-          <% if trade_item.number <= 1 %>
-            <%= link_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
-              <i class="fas fa-trash"></i>
-            <% end %>
-          <% else %>
-            <%= link_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { params: "[trade_item]number=#{trade_item.number - 1}" }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
-              <i class="fas fa-minus"></i>
-            <% end %>
+        <div class="weui-media-box__ft" data-swipe-target="open" data-controller="cart" style="display: none">
+          <%= link_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
+            <i class="fas fa-trash"></i>
           <% end %>
         </div>
       </div>
