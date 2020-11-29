@@ -18,6 +18,9 @@
     </div>
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left:passive touchstart->swipe#start:passive">
+        <div>
+          <%= check_box_tag 'x', class: 'weui-check' %>
+        </div>
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
         </div>
