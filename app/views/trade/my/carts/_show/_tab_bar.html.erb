@@ -4,6 +4,8 @@
     <div class="weui-tabbar__label">产品</div>
   <% end %>
   <div class="weui-tabbar__item">
-  
+    <%= form_with theme: nil, url: { controller: 'orders' } do |f| %>
+      <%= f.submit t('helpers.submit.next'), class: 'weui-btn weui-btn_primary' %>
+    <% end %>
   </div>
 </div>
