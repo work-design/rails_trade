@@ -130,7 +130,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
   def wxpay_pay
     @wxpay_order = @order.wxpay_order(spbill_create_ip: request.remote_ip)
 
-    if @wxpay_order['result_code'] == 'FAIL' || @wxpay_order.blank?
+    if @wxpay_order['return_code'] == 'FAIL' || @wxpay_order.blank?
       render 'wxpay_pay_err'
     else
       render 'wxpay_pay'
