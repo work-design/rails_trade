@@ -25,7 +25,7 @@
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
         </div>
-        <div class="weui-media-box__bd">
+        <div class="weui-media-box__bd" data-controller="cart">
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
           <p class="weui-media-box__desc">
             <% if trade_item.good.respond_to?(:parts) %>
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="weui-media-box__ft" data-swipe-target="open" data-controller="cart" style="display: none">
+        <div class="weui-media-box__ft" data-swipe-target="open" style="display: none">
           <%= link_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, remote: true, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
             <i class="fas fa-trash"></i>
           <% end %>
