@@ -4,6 +4,11 @@
     
     </div>
     <div class="weui-tabbar__item">
+      <div class="weui-tabbar__content">
+        <%= Cart.human_attribute_name(:amount) %>:<%= current_cart.amount %>
+      </div>
+    </div>
+    <div class="weui-tabbar__item">
       <%= form_with theme: nil, url: { controller: 'orders' } do |f| %>
         <%= f.submit '结算', class: 'weui-btn weui-btn_primary' %>
       <% end %>
