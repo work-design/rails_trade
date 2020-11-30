@@ -18,8 +18,8 @@
     </div>
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left:passive touchstart->swipe#start:passive">
-        <div>
-          <%= check_box_tag 'x', class: 'weui-check' %>
+        <div data-controller="input">
+          <%= check_box_tag '[trade_item]status', trade_item.checked? ? 'checked' : 'init', trade_item.checked?, data: { method: :patch, remote: true, url: toggle_my_trade_item_path(trade_item), action: 'input#submit' }, id: nil %>
         </div>
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
