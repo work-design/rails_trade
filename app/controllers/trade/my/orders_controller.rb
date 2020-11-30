@@ -33,16 +33,11 @@ class Trade::My::OrdersController < Trade::My::BaseController
   def direct
     @order = current_buyer.orders.build(order_params)
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to board_orders_url(id: @order.id) }
-        format.json { render json: @order, status: :created, location: @order }
-      else
-        format.html {
-          redirect_back fallback_location: board_root_url
-        }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+
+    if @order.save
+
+    else
+
     end
   end
 
