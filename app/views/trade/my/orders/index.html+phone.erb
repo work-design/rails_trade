@@ -22,7 +22,7 @@
         <li class="weui-media-box__info__meta"><%= order.amount %></li>
         <li class="weui-media-box__info__meta"></li>
         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-          <%= link_to '微信支付', wxpay_pay_my_order_path(order.id), remote: true %>
+          <%= link_to '微信支付', wxpay_pay_my_order_path(order.id, x: SecureRandom.hex), remote: true %>
         </li>
       </ul>
     </div>

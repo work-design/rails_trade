@@ -9,16 +9,24 @@ module RailsTrade::Refund::WxpayRefund
     self.origin&.payment_entity_no
   end
 
-  def do_refund(params = {})
+  def do_refund(app:, **params)
     _params = {
       out_refund_no: self.refund_uuid,
       total_fee: (payment.total_amount * 100).to_i,
       refund_fee: (total_amount * 100).to_i,
       transaction_id: self.payment.payment_uuid
     }
+    options = {
+      appid: app.appid,
+      mch_id: app.mch_id,
+      key: app.key
+    }
+    result = WxPay::Service.invoke_refund(_params, options)
+    binding.pry
 
     begin
-      result = WxPay::Service.invoke_refund(_params)
+      result = WxPay::Service.invoke_refund(_params, options)
+      binding.pry
       if result['result_code'] == 'SUCCESS'
         self.state = 'completed'
         order.payment_status = 'refunded'
@@ -39,11 +47,17 @@ module RailsTrade::Refund::WxpayRefund
     self
   end
 
-  def refund_query
+  def refund_query(app:)
     params = {
       out_refund_no: self.refund_uuid
     }
-    WxPay::Service.refund_query(params)
+    options = {
+      appid: app.appid,
+      mch_id: app.mch_id,
+      key: app.key
+    }
+
+    WxPay::Service.refund_query(params, options)
   end
 
 end

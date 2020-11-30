@@ -43,6 +43,7 @@ module RailsTrade::Order
 
     enum payment_status: {
       unpaid: 'unpaid',
+      to_check: 'to_check',
       part_paid: 'part_paid',
       all_paid: 'all_paid',
       refunding: 'refunding',
