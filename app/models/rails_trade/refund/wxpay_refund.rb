@@ -19,32 +19,39 @@ module RailsTrade::Refund::WxpayRefund
     options = {
       appid: app.appid,
       mch_id: app.mch_id,
-      key: app.key
+      key: app.key,
+      apiclient_cert: OpenSSL::X509::Certificate.new(app.apiclient_cert),
+      apiclient_key: OpenSSL::PKey::RSA.new(app.apiclient_key)
     }
-    result = WxPay::Service.invoke_refund(_params, options)
-    binding.pry
 
     begin
       result = WxPay::Service.invoke_refund(_params, options)
-      binding.pry
-      if result['result_code'] == 'SUCCESS'
-        self.state = 'completed'
-        order.payment_status = 'refunded'
-        self.refunded_at = Time.now
-      else
-        self.state = 'failed'
-        self.comment = result['result_code']
-      end
     rescue StandardError => e
-      self.state = 'failed'
-      self.comment = e.message.truncate(225)
+      result = {}
+      result['return_code'] = e.message.truncate(225)
     ensure
-      self.class.transaction do
-        self.save!
-        order.save!
-      end
+      store_refund_result(result)
     end
+
     self
+  end
+
+  def store_refund_result(result = {})
+    return if state == 'completed'
+
+    if result['return_code'] == 'SUCCESS'
+      self.state = 'completed'
+      order.payment_status = 'refunded'
+      self.refunded_at = Time.current
+    else
+      self.state = 'failed'
+      self.comment = result['return_code']
+    end
+
+    self.class.transaction do
+      self.save!
+      order.save!
+    end
   end
 
   def refund_query(app:)
@@ -57,7 +64,9 @@ module RailsTrade::Refund::WxpayRefund
       key: app.key
     }
 
-    WxPay::Service.refund_query(params, options)
+    result = WxPay::Service.refund_query(params, options)
+
+    store_refund_result(result)
   end
 
 end
