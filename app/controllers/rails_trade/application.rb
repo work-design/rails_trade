@@ -20,7 +20,7 @@ module RailsTrade::Application
 
   def current_cart_count
     if current_cart
-      current_cart.trade_items.count
+      current_cart.trade_items.where(status: ['init', 'checked']).count
     else
       0
     end
