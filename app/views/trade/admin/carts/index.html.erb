@@ -1,0 +1,5 @@
+<%= render layout: 'index_table', locals: { cache_key: Cart.column_names.hash } do %>
+  <%= render partial: 'index_tbody', collection: @carts, as: :cart %>
+<% end %>
+
+<%= paginate @carts %>

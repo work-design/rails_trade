@@ -2,6 +2,10 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
   before_action :set_cart
 
   def index
+    q_params = {}
+    q_params.merge! default_params
+
+    @carts = Cart.default_where(q_params).page(params[:page])
   end
 
   def single
