@@ -11,8 +11,9 @@
   <td><%= promote.scope_i18n %></td>
   <td><%= promote.metering_i18n %></td>
   <td>
-    <p><time><%= promote.effect_at.to_s(:rfc822) if promote.effect_at %></time></p>
-    <p><time><%= promote.expire_at.to_s(:rfc822) if promote.expire_at %></time></p>
+    <p><%= promote.valid_years %></p>
+    <p><%= promote.valid_months %></p>
+    <p><%= promote.valid_days %></p>
   </td>
   <td>
     <div data-controller="input">
