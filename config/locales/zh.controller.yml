@@ -2,6 +2,9 @@ zh:
   trade:
     admin:
       title: 订单管理
+      carts:
+        index:
+          title: 购物用户
       orders:
         index:
           title: 订单
@@ -37,7 +40,7 @@ zh:
       promote_charges:
         index:
           title: 服务计算细则
-      promote_buyers:
+      promote_carts:
         index:
           title: 优惠券发放
       refunds:

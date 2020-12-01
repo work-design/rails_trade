@@ -1,5 +1,5 @@
 class Trade::Admin::CartsController < Trade::Admin::BaseController
-  before_action :set_cart
+  before_action :set_cart, only: [:show]
 
   def index
     q_params = {}
@@ -12,9 +12,6 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
   end
 
   def total
-  end
-
-  def show
   end
 
   def new
@@ -49,6 +46,9 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
     @cart_item_serve.save
   end
 
+  def show
+  end
+
   def destroy
     @cart_item_serve = CartItemServe.find(params[:id])
     @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
@@ -61,7 +61,7 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
   end
 
   def cart_params
-    params.fetch(:cart_item_serve, {}).permit(
+    params.fetch(:cart, {}).permit(
       :serve_id,
       :price
     )
