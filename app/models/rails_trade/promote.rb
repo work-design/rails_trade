@@ -8,23 +8,23 @@ module RailsTrade::Promote
     attribute :description, :string
     attribute :scope, :string
     attribute :metering, :string
-    attribute :effect_at, :datetime
-    attribute :expire_at, :datetime
     attribute :editable, :boolean, default: false, comment: '是否可更改价格'
     attribute :verified, :boolean, default: false
     attribute :extra, :json
+    attribute :valid_years, :integer, default: 0
+    attribute :valid_months, :integer, default: 0
+    attribute :valid_days, :integer, default: 0
 
     belongs_to :organ, optional: true
     belongs_to :deal, polymorphic: true, optional: true
     has_many :promote_charges, dependent: :delete_all
     has_many :promote_extras, dependent: :delete_all
     has_many :promote_goods, dependent: :destroy
-    has_many :promote_buyers, dependent: :destroy
+    has_many :promote_carts, dependent: :destroy
 
     scope :verified, -> { where(verified: true) }
     scope :default, -> { verified.where(default: true) }
     scope :for_sale, -> { verified.where(default: false) }
-    scope :valid, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
 
     validates :code, uniqueness: true, allow_blank: true
 

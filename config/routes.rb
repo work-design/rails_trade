@@ -70,13 +70,17 @@ Rails.application.routes.draw do
     end
     resources :produces
     resources :promotes do
-      get :search, on: :collection
+      collection do
+        get :search
+      end
       resources :promote_charges, as: 'charges'
     end
     resources :promote_charges, only: [] do
-      get :options, on: :collection
+      collection do
+        get :options
+      end
     end
-    resources :promote_buyers
+    resources :promote_carts
     resources :promote_goods do
       collection do
         get :goods
