@@ -61,18 +61,23 @@ zh:
         code: 编码
         scope: 应用范围
         editable: 是否可改价
-        effect_at: 生效时间
-        expire_at: 过期时间
         metering: 单位
         sequence: 序列
+        valid_years: 有效年
+        valid_months: 有效月
+        valid_days: 有效日
       promote_good:
         good_type: 商品类型
         good_id: 商品
         promote_id: 优惠券
         status: 状态
-      promote_buyer:
-        buyer_type: 用户类型
+        effect_at: 生效时间
+        expire_at: 过期时间
+      promote_cart:
+        cart_id: 用户类型
         status: 状态
+        effect_at: 生效时间
+        expire_at: 过期时间
       promote_charge:
         value: 值
         min: 起始值
