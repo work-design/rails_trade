@@ -1,47 +1,5 @@
-<% content_for :breadcrumb do %>
-  <ul>
-    <li><%= link_to t('trade.admin.promotes.index.title'), admin_promotes_path %></li>
-    <% if params[:promote_good_id] %>
-      <li><%= @promote_good.promote.name %></li>
-      <li><%= @promote_good.good_type_i18n %></li>
-    <% end %>
-    <li class="is-active">派发用户</li>
-  </ul>
+<%= render layout: 'index_table', locals: { cache_key: PromoteCart.column_names.hash } do %>
+  <%= render partial: 'index_tbody', collection: @promote_carts, as: :promote_cart %>
 <% end %>
 
-<%= render 'filter' %>
-
-<table class="table is-hoverable is-fullwidth">
-  <thead>
-    <tr>
-      <th><%= PromoteCart.human_attribute_name(:buyer_type) %></th>
-      <th><%= PromoteCart.human_attribute_name(:buyer_id) %></th>
-      <th><%= PromoteCart.human_attribute_name(:promote) %></th>
-      <th><%= PromoteCart.human_attribute_name(:state) %></th>
-      <th>
-        <%= link_to new_admin_promote_buyer_path(request.GET), remote: true, class: 'button is-link is-small' do %>
-          <i class="fas fa-plus"></i><%= t('.new') %>
-        <% end %>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-  <% @promote_buyers.each do |promote_buyer| %>
-    <tr>
-      <td><%= promote_buyer.buyer_type_i18n %></td>
-      <td><%= promote_buyer.buyer_id %></td>
-      <td><%= promote_buyer.promote.name %></td>
-      <td><%= promote_buyer.state_i18n %></td>
-      <td>
-        <%= link_to admin_promote_buyer_path(promote_buyer), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light' do %>
-          <i class="fas fa-trash-alt"></i>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<%= paginate @promote_buyers %>
-
+<%= paginate @promote_carts %>
