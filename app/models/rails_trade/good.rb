@@ -58,4 +58,7 @@ module RailsTrade::Good
     puts 'Should realize in good entity'
   end
 
+  def order_paid
+  end
+
 end

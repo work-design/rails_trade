@@ -200,6 +200,7 @@ module RailsTrade::TradeItem
 
   def confirm_paid!
     self.update status: 'paid'
+    self.good.order_paid
   end
 
   def confirm_part_paid!

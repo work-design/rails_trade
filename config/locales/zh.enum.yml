@@ -54,7 +54,7 @@ zh:
           available: 适用
           unavailable: 不适用
           specific: 特定的
-      promote_buyer:
+      promote_cart:
         state:
           unused: 未使用
           used: 已使用
