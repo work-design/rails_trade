@@ -5,7 +5,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
     q_params = {}
     q_params.merge! default_params
     q_params.merge! params.permit(:scope)
-    
+
     @promotes = Promote.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
@@ -20,7 +20,7 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
 
   def create
     @promote = Promote.new(promote_params)
-    
+
     if @promote.save
       @promote_charge = @promote.promote_charges.build
     else
@@ -59,8 +59,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
       :description,
       :scope,
       :metering,
-      :effect_at,
-      :expire_at,
       :editable,
       extra: []
     )

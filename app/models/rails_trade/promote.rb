@@ -11,9 +11,6 @@ module RailsTrade::Promote
     attribute :editable, :boolean, default: false, comment: '是否可更改价格'
     attribute :verified, :boolean, default: false
     attribute :extra, :json
-    attribute :valid_years, :integer, default: 0
-    attribute :valid_months, :integer, default: 0
-    attribute :valid_days, :integer, default: 0
 
     belongs_to :organ, optional: true
     belongs_to :deal, polymorphic: true, optional: true
@@ -30,7 +27,7 @@ module RailsTrade::Promote
 
     enum scope: {
       single: 'single',  # 适用于单独计算商品
-      overall: 'overall' # 适用于多个商品一起计算
+      overall: 'overall'  # 适用于多个商品一起计算
     }
     enum metering: {
       number: 'number',  # 商品购买件数

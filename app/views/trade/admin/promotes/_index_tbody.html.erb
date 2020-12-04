@@ -11,11 +11,6 @@
   <td><%= promote.scope_i18n %></td>
   <td><%= promote.metering_i18n %></td>
   <td>
-    <p><%= promote.valid_years %></p>
-    <p><%= promote.valid_months %></p>
-    <p><%= promote.valid_days %></p>
-  </td>
-  <td>
     <div data-controller="input">
       <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
       <label></label>
