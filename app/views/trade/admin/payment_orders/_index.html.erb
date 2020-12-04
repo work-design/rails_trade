@@ -11,17 +11,15 @@
     <% if payment_order.confirmed? %>
       <%= payment_order.check_amount %>
     <% else %>
-      <div class="ui input">
-        <%= text_field_tag 'payment_order[check_amount]', payment_order.check_amount, class: 'three wide field', form: "edit_payment_order_#{payment_order.id}" %>
-      </div>
+      <%= number_field_tag 'payment_order[check_amount]', payment_order.check_amount, class: 'input', step: 0.01, form: "edit_payment_order_#{payment_order.id}" %>
     <% end %>
   </td>
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
   <td>
-    <% if payment_order.confirmed? && rails_role_user.has_role?('admin/payment_orders', 'destroy') %>
-      <%= link_to '撤销', cancel_admin_payment_payment_order_path(@payment, payment_order), method: :patch, remote: true %>
+    <% if payment_order.confirmed? %>
+      <%= link_to '撤销', { action: 'cancel', payment_id: @payment, id: payment_order.id }, method: :patch, remote: true %>
     <% else %>
-      <%= submit_tag '核销', form: "edit_payment_order_#{payment_order.id}", class: 'ui mini button' %>
+      <%= submit_tag '核销', form: "edit_payment_order_#{payment_order.id}", class: 'button is-small' %>
     <% end %>
   </td>
 </tr>

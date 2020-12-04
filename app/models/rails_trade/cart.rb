@@ -23,6 +23,8 @@ module RailsTrade::Cart
     has_many :orders, dependent: :nullify
     has_many :promote_carts, -> { valid }, dependent: :destroy
     has_many :promotes, through: :promote_carts
+    has_many :payment_references, dependent: :destroy
+    has_many :payment_methods, through: :payment_references
     has_many :trade_items, dependent: :destroy
     has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy  # overall can be blank
     accepts_nested_attributes_for :trade_items

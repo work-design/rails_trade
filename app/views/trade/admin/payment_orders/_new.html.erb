@@ -1,6 +1,6 @@
 <tr id="add_payment_order">
   <td colspan="11">
-    <table class="ui very basic table">
+    <table class="table is-fullwidth is-borderless">
       <thead>
         <tr>
           <th></th>
@@ -11,13 +11,10 @@
           <th></th>
         </tr>
       </thead>
-
       <% unless @payment.all_checked? %>
         <%= render partial: 'orders', collection: @orders, as: :order %>
       <% end %>
-
       <%= render partial: 'index', collection: @payment.payment_orders, as: :payment_order %>
     </table>
   </td>
 </tr>
-

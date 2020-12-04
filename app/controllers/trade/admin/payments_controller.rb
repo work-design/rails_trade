@@ -27,9 +27,9 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
   def create
     if params[:order_id].present?
       @order = Order.find params[:order_id]
-      @payment = @order.payments.build(payment_params.merge(creator_id: rails_role_user.id))
+      @payment = @order.payments.build(payment_params)
     else
-      @payment = Payment.new(payment_params.merge(creator_id: rails_role_user.id))
+      @payment = Payment.new(payment_params)
     end
 
     if @payment.save

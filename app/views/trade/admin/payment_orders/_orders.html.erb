@@ -9,9 +9,7 @@
   <td><%= order.amount %></td>
   <td>
     <%= hidden_field_tag 'payment_order[order_id]', order.id, form: "new_payment_#{order.id}" %>
-    <div class="ui input">
-      <%= number_field_tag 'payment_order[check_amount]', order.unreceived_amount, class: 'three wide field', step: '0.01', form: "new_payment_#{order.id}" %>
-    </div>
+    <%= number_field_tag 'payment_order[check_amount]', order.unreceived_amount, class: 'input', step: 0.01, form: "new_payment_#{order.id}" %>
   </td>
   <td></td>
   <td>
