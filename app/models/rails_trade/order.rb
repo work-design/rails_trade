@@ -85,7 +85,7 @@ module RailsTrade::Order
   end
 
   def user_name
-    user&.name.presence || "#{user&.id}"
+    user.name.presence || "#{user_id}"
   end
 
   def amount_money

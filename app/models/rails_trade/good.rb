@@ -54,11 +54,11 @@ module RailsTrade::Good
     o
   end
 
-  def order_done
+  def order_done(trade_item = nil)
     puts 'Should realize in good entity'
   end
 
-  def order_paid
+  def order_paid(trade_item = nil)
   end
 
 end

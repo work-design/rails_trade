@@ -1,13 +1,13 @@
 <table class="table is-fullwidth">
   <thead>
-  <tr>
-    <th>
-      <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
-    </th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-  </tr>
+    <tr>
+      <th>
+        <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
+      </th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <% current_cart.trade_items.checked.each do |trade_item| %>
     <tr>
@@ -21,10 +21,10 @@
   <% end %>
 
   <tfoot>
-  <tr>
-    <th colspan="5">
-      <%= submit_tag '确认订单', class: 'button is-primary', form: 'new_order' %>
-    </th>
-  </tr>
+    <tr>
+      <th colspan="5">
+        <%= submit_tag '确认订单', class: 'button is-primary', form: 'new_order' %>
+      </th>
+    </tr>
   </tfoot>
 </table>

@@ -1,6 +1,6 @@
 class Trade::My::OrdersController < Trade::My::BaseController
   before_action :set_order, only: [
-    :show, :edit, :update, :refund, :edit_payment_type, :wait, :destroy,
+    :show, :edit, :update, :refund, :payment_types, :edit_payment_type, :wait, :destroy,
     :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
   ]
 
@@ -8,6 +8,7 @@ class Trade::My::OrdersController < Trade::My::BaseController
     q_params = {}
     q_params.merge! default_params
     q_params.merge! params.permit(:id, :payment_type, :payment_status)
+
     @orders = current_user.orders.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
@@ -32,7 +33,6 @@ class Trade::My::OrdersController < Trade::My::BaseController
 
   def direct
     @order = current_buyer.orders.build(order_params)
-
 
     if @order.save
 
@@ -60,10 +60,14 @@ class Trade::My::OrdersController < Trade::My::BaseController
     @order.assign_attributes(order_params)
 
     if @order.save
-      render 'update', locals: { return_to: board_order_url(@order) }
+      render 'update'
     else
       render :edit, locals: { model: @order }, status: :unprocessable_entity
     end
+  end
+
+  def payment_types
+
   end
 
   def edit_payment_type

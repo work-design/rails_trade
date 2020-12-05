@@ -22,13 +22,13 @@
         <li class="weui-media-box__info__meta"><%= order.amount %></li>
         <li class="weui-media-box__info__meta"></li>
         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-          <%= link_to '微信支付', wxpay_pay_my_order_path(order.id, x: SecureRandom.hex), remote: true %>
+          <%= link_to '支付', { action: 'payment_types', id: order.id } %>
         </li>
       </ul>
     </div>
   </div>
   <div class="weui-panel__ft">
-    <%= link_to my_order_path(order), class: 'weui-cell weui-cell_access weui-cell_link' do %>
+    <%= link_to({ action: 'show', id: order }, class: 'weui-cell weui-cell_access weui-cell_link') do %>
       <div class="weui-cell__bd">更多</div>
       <span class="weui-cell__ft"></span>
     <% end %>

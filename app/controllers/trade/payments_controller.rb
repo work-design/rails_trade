@@ -1,6 +1,6 @@
 class Trade::PaymentsController < Trade::BaseController
   skip_before_action :verify_authenticity_token
-  before_action :set_order, only: [:wxpay_result, :result]
+  before_action :set_order, only: [:result]
 
   def alipay_notify
     notify_params = params.permit!.except(*request.path_parameters.keys).to_h

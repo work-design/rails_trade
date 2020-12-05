@@ -118,6 +118,7 @@ Rails.application.routes.draw do
         patch :stripe_pay
         get :paypal_execute
         get :pay
+        get :payment_types
         get 'payment_type' => :edit_payment_type
         get 'cancel' => :edit_cancel
         put 'cancel' => :update_cancel
