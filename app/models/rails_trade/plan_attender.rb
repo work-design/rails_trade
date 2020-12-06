@@ -1,7 +1,7 @@
 # see RailsBooking::PlanAttender
-module RailsVip::PlanAttender
+module RailsTrade::PlanAttender
   extend ActiveSupport::Concern
-  
+
   included do
     has_one :card_expense, as: :consumable
     has_many :card_expenses, as: :consumable
@@ -14,7 +14,7 @@ module RailsVip::PlanAttender
   def sync_card_expense
     return unless self.attender.cards.present?
     card_id = self.attender.card_ids.first
-  
+
     log = self.card_expenses.build(card_id: card_id)
     log.amount = plan_item.planned.price
     log.save
@@ -28,5 +28,5 @@ module RailsVip::PlanAttender
       log
     end
   end
-  
+
 end

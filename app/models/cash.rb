@@ -1,4 +1,4 @@
 class Cash < ApplicationRecord
-  include RailsVip::Cash
-  include RailsVip::Amount
+  include RailsTrade::Cash
+  include RailsTrade::Amount
 end unless defined? Cash

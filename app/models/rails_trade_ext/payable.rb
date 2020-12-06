@@ -1,4 +1,4 @@
-module RailsVipExt::Payable
+module RailsTradeExt::Payable
   extend ActiveSupport::Concern
 
   included do

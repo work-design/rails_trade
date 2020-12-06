@@ -1,4 +1,4 @@
-module RailsVip::CardPayment
+module RailsTrade::CardPayment
   extend ActiveSupport::Concern
 
   included do

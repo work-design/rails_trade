@@ -1,4 +1,4 @@
-class Vip::CardTemplatesController < Vip::BaseController
+class Trade::CardTemplatesController < Trade::BaseController
   before_action :set_card_template, only: [:show, :edit, :update, :destroy]
 
   def index

@@ -1,4 +1,4 @@
-class Vip::Admin::AdvancesController < Vip::Admin::BaseController
+class Trade::Admin::AdvancesController < Trade::Admin::BaseController
   before_action :set_card_template
   before_action :set_advance, only: [:show, :edit, :update, :destroy]
 
@@ -40,7 +40,7 @@ class Vip::Admin::AdvancesController < Vip::Admin::BaseController
   def set_card_template
     @card_template = CardTemplate.find params[:card_template_id]
   end
-  
+
   def set_advance
     @advance = Advance.find(params[:id])
   end

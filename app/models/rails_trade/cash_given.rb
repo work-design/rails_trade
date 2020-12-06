@@ -1,4 +1,4 @@
-module RailsVip::CashGiven
+module RailsTrade::CashGiven
   extend ActiveSupport::Concern
 
   included do

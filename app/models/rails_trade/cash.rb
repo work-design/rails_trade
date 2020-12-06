@@ -1,4 +1,4 @@
-module RailsVip::Cash
+module RailsTrade::Cash
   extend ActiveSupport::Concern
 
   included do
@@ -14,11 +14,11 @@ module RailsVip::Cash
     has_many :cash_logs
     has_many :payouts
     has_many :cash_givens, as: :money
-  
+
     validates :user, presence: true, uniqueness: true
     validates :amount, numericality: { greater_than_or_equal_to: 0 }
   end
-  
+
   def compute_expense_amount
     self.payouts.sum(:requested_amount)
   end

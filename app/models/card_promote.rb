@@ -1,3 +1,3 @@
 class CardPromote < ApplicationRecord
-  include RailsVip::CardPromote
+  include RailsTrade::CardPromote
 end unless defined? CardPromote

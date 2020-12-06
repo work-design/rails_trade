@@ -1,4 +1,4 @@
-module RailsVip::Payout::WxpayPayout
+module RailsTrade::Payout::WxpayPayout
   extend ActiveSupport::Concern
 
   included do

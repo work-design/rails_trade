@@ -1,4 +1,4 @@
-module RailsVip::CardPromote
+module RailsTrade::CardPromote
   extend ActiveSupport::Concern
 
   included do

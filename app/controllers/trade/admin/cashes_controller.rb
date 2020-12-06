@@ -1,4 +1,4 @@
-class Vip::Admin::CashesController < Vip::Admin::BaseController
+class Trade::Admin::CashesController < Trade::Admin::BaseController
   before_action :set_cash, only: [:show, :edit, :update, :destroy]
 
   def index

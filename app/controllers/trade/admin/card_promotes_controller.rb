@@ -1,4 +1,4 @@
-class Vip::Admin::CardPromotesController < Vip::Admin::BaseController
+class Trade::Admin::CardPromotesController < Trade::Admin::BaseController
   before_action :set_card_template
   before_action :set_card_promote, only: [:show, :edit, :update, :destroy]
   before_action :prepare_form, only: [:new, :edit]

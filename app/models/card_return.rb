@@ -1,3 +1,3 @@
 class CardReturn < ApplicationRecord
-  include RailsVip::CardReturn
+  include RailsTrade::CardReturn
 end unless defined? CardReturn

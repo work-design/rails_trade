@@ -1,4 +1,4 @@
-class Vip::My::AdvancesController < Vip::My::BaseController
+class Trade::My::AdvancesController < Trade::My::BaseController
   skip_before_action :require_login, only: [:index]
 
   def index

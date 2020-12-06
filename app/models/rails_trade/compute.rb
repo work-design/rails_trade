@@ -1,4 +1,4 @@
-module RailsVip::Amount
+module RailsTrade::Amount
   extend ActiveSupport::Concern
 
   included do

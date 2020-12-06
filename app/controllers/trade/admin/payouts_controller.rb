@@ -1,4 +1,4 @@
-class Vip::Admin::PayoutsController < Vip::Admin::BaseController
+class Trade::Admin::PayoutsController < Trade::Admin::BaseController
   before_action :set_payout, only: [:show, :edit, :update, :do_pay, :destroy]
 
   def index

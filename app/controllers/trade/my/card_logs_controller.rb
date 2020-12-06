@@ -1,4 +1,4 @@
-class Vip::My::CardLogsController < Vip::My::BaseController
+class Trade::My::CardLogsController < Trade::My::BaseController
 
   def index
     @card_logs = @card.card_logs.page(params[:page])

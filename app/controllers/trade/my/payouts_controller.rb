@@ -1,4 +1,4 @@
-class Vip::My::PayoutsController < Vip::My::BaseController
+class Trade::My::PayoutsController < Trade::My::BaseController
 
   def index
     @cash = current_user.cash
@@ -7,7 +7,7 @@ class Vip::My::PayoutsController < Vip::My::BaseController
 
   def list
     @cash = current_user.cash
-    @payout_lists = RailsVip.config.payout_list.map { |i| { requested_amount: i } }
+    @payout_lists = RailsTrade.config.payout_list.map { |i| { requested_amount: i } }
   end
 
   def create

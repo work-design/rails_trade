@@ -1,4 +1,4 @@
-module RailsVip::Advance
+module RailsTrade::Advance
   extend ActiveSupport::Concern
 
   included do

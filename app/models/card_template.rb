@@ -1,3 +1,3 @@
 class CardTemplate < ApplicationRecord
-  include RailsVip::CardTemplate
+  include RailsTrade::CardTemplate
 end unless defined? CardTemplate

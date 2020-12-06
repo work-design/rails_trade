@@ -1,3 +1,3 @@
 class CardAdvance < ApplicationRecord
-  include RailsVip::CardAdvance
+  include RailsTrade::CardAdvance
 end unless defined? CardAdvance

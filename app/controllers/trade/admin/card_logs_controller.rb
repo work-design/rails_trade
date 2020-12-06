@@ -1,4 +1,4 @@
-class Vip::Admin::CardLogsController < Vip::Admin::BaseController
+class Trade::Admin::CardLogsController < Trade::Admin::BaseController
   before_action :set_card
   before_action :set_card_log, only: [:show, :edit, :update]
 

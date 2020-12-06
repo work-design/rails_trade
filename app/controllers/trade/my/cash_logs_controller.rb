@@ -1,4 +1,4 @@
-class Vip::My::CashLogsController < Vip::My::BaseController
+class Trade::My::CashLogsController < Trade::My::BaseController
 
   def index
     @cash = current_user.cash

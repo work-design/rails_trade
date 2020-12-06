@@ -1,4 +1,4 @@
 class Card < ApplicationRecord
-  include RailsVip::Card
-  include RailsVip::Amount
+  include RailsTrade::Card
+  include RailsTrade::Amount
 end unless defined? Card

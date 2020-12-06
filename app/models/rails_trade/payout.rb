@@ -1,4 +1,4 @@
-module RailsVip::Payout
+module RailsTrade::Payout
   extend ActiveSupport::Concern
 
   included do
@@ -12,21 +12,21 @@ module RailsVip::Payout
     attribute :account_bank, :string
     attribute :account_name, :string
     attribute :account_num, :string
-  
+
     belongs_to :cash
     belongs_to :operator, class_name: 'User', optional: true
     belongs_to :payable, polymorphic: true, optional: true
-    
+
     has_one :cash_log, ->(o) { where(cash_id: o.cash_id) }, as: :source
 
     has_one_attached :proof
-  
+
     enum state: {
       pending: 'pending',
       done: 'done',
       failed: 'failed'
     }
-  
+
     before_validation do
       self.payout_uuid ||= UidHelper.nsec_uuid('POT')
     end
@@ -34,7 +34,7 @@ module RailsVip::Payout
     after_save :sync_to_cash, if: -> { saved_change_to_requested_amount? }
     after_create_commit :sync_cash_log
   end
-  
+
   def sync_state
     if requested_amount == actual_amount
       self.state = 'done'

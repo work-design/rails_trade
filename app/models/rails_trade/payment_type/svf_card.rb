@@ -1,4 +1,4 @@
-module RailsVip::PaymentType::SvfCard
+module RailsTrade::PaymentType::SvfCard
 
   def card_pay
     if payment_status == 'all_paid'

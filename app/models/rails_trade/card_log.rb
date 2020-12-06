@@ -1,4 +1,4 @@
-module RailsVip::CardLog
+module RailsTrade::CardLog
   extend ActiveSupport::Concern
 
   included do

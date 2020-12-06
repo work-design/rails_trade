@@ -1,3 +1,3 @@
 class CardPayment < Payment
-  include RailsVip::Payment::CardPayment
+  include RailsTrade::Payment::CardPayment
 end unless defined? CardPayment

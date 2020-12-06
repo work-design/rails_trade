@@ -1,3 +1,3 @@
 class WxpayPayout < Payout
-  include RailsVip::Payout::WxpayPayout
+  include RailsTrade::Payout::WxpayPayout
 end unless defined? WxpayPayout

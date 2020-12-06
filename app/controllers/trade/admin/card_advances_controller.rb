@@ -1,4 +1,4 @@
-class Vip::Admin::CardAdvancesController < Vip::Admin::BaseController
+class Trade::Admin::CardAdvancesController < Trade::Admin::BaseController
   before_action :set_card_advance, only: [:show, :edit, :update, :destroy]
 
   def index

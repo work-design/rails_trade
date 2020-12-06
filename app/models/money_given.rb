@@ -1,3 +1,3 @@
 class MoneyGiven < ApplicationRecord
-  include RailsVip::MoneyGiven
+  include RailsTrade::MoneyGiven
 end unless defined? MoneyGiven

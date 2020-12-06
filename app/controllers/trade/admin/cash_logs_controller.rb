@@ -1,4 +1,4 @@
-class Vip::Admin::CashLogsController < Vip::Admin::BaseController
+class Trade::Admin::CashLogsController < Trade::Admin::BaseController
   before_action :set_cash_log, only: [:show, :edit, :update, :destroy]
 
   def index

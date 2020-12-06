@@ -1,4 +1,4 @@
-module RailsVip::Profile
+module RailsTrade::Profile
   extend ActiveSupport::Concern
 
   included do

@@ -1,3 +1,3 @@
 class CardLog < ApplicationRecord
-  include RailsVip::CardLog
+  include RailsTrade::CardLog
 end unless defined? CardLog

@@ -1,3 +1,3 @@
 class Payout < ApplicationRecord
-  include RailsVip::Payout
+  include RailsTrade::Payout
 end unless defined? Payout

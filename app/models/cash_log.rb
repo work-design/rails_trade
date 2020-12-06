@@ -1,3 +1,3 @@
 class CashLog < ApplicationRecord
-  include RailsVip::CashLog
+  include RailsTrade::CashLog
 end unless defined? CashLog

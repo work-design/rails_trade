@@ -1,4 +1,4 @@
 class Advance < ApplicationRecord
   include RailsTrade::Good
-  include RailsVip::Advance
+  include RailsTrade::Advance
 end unless defined? Advance

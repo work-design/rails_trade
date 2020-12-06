@@ -1,4 +1,4 @@
-class Vip::AdvancesController < Vip::BaseController
+class Trade::AdvancesController < Trade::BaseController
   before_action :set_card_template
   before_action :set_advance, only: [:show, :edit, :update, :destroy]
 

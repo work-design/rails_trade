@@ -1,3 +1,3 @@
 class CardExpense < ApplicationRecord
-  include RailsVip::CardExpense
+  include RailsTrade::CardExpense
 end unless defined? CardExpense

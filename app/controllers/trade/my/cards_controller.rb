@@ -1,4 +1,4 @@
-class Vip::My::CardsController < Vip::My::BaseController
+class Trade::My::CardsController < Trade::My::BaseController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
   def index
