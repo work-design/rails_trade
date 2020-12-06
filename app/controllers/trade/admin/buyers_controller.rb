@@ -1,5 +1,4 @@
 class Trade::Admin::BuyersController < Trade::Admin::BaseController
-  before_action :set_buyer, only: [:orders]
 
   def index
     @managers = Manager.where(id: current_manager.allow_ids)
@@ -17,16 +16,8 @@ class Trade::Admin::BuyersController < Trade::Admin::BaseController
     @buyers = Buyer.unscoped.includes(:orders, :payment_strategy, :crm_permits).default_where(q_params).permit_with(rails_role_user).page(params[:page])
   end
 
-  def orders
-    @orders = @buyer.orders.includes(crm_performs: :manager).to_pay.order(overdue_date: :asc).page(params[:page])
-    payment_method_ids = @buyer.payment_references.pluck(:payment_method_id)
-    @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
-  end
-
   def remind
     Order.remind params[:order_ids].split(',')
-
-    redirect_back fallback_location: admin_buyers_url
   end
 
   private

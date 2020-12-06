@@ -26,15 +26,10 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
     @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
     @serve_charge.subtotal = @cart_item_serve.price
 
-    respond_to do |format|
-      if @cart_item_serve.save
-        @cart_item.cart_item_serves.reload
-        format.js
-        format.html { redirect_to @cart_item_serve }
-      else
-        format.js
-        format.html { render :new }
-      end
+    if @cart_item_serve.save
+
+    else
+      render :new
     end
   end
 
@@ -49,8 +44,15 @@ class Trade::Admin::CartsController < Trade::Admin::BaseController
   def show
   end
 
+  def orders
+    @orders = @buyer.orders.includes(crm_performs: :manager).to_pay.order(overdue_date: :asc).page(params[:page])
+    payment_method_ids = @buyer.payment_references.pluck(:payment_method_id)
+    @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
+  end
+
+
   def destroy
-    @cart_item_serve = CartItemServe.find(params[:id])
+    @cart_item_serve = CartItem.find(params[:id])
     @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
     @cart_item_serve.destroy
   end
