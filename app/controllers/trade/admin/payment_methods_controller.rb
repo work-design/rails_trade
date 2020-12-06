@@ -2,6 +2,11 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
   before_action :set_payment_method, only: [:show, :edit, :update, :verify, :merge_from, :destroy]
 
   def index
+    query_params = {
+      myself: false
+    }
+    query_params.merge! params.permit(:id, :myself, :account_name, :account_num, :bank, 'buyers.name-like')
+
     @payment_methods = PaymentMethod.includes(:payment_references).default_where(query_params).page(params[:page])
   end
 
@@ -67,12 +72,6 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
   end
 
   private
-  def query_params
-    query_params = { myself: false }.with_indifferent_access
-    query_params.merge! params.fetch(:q, {}).permit(:account_name, :account_num, :bank, 'buyers.name-like')
-    query_params.merge! params.permit(:id, :myself)
-  end
-
   def set_payment_method
     @payment_method = PaymentMethod.unscoped.find(params[:id])
   end

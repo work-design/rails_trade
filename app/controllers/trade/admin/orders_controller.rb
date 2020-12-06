@@ -5,17 +5,21 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   def index
     q_params = {}
     q_params.merge! default_params
-    q_params.merge! params.permit(:id, :uuid, :user_id, :buyer_type, :buyer_id, :payment_status, :payment_type)
+    q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :payment_type)
 
     @orders = Order.includes(:user).default_where(q_params).order(id: :desc).page(params[:page])
   end
 
   def payments
-    @orders = Order.default_where(params.permit(:id, :payment_status)).default_where(params.fetch(:q, {}).permit(:uuid)).page(params[:page])
+    q_params = {}
+    q_params.merge! params.permit(:id, :payment_status, :uuid)
+
+    @orders = Order.default_where(q_params).page(params[:page])
   end
 
   def new
-    @order = Order.new(buyer_id: params[:buyer_id])
+    @order = Order.new
+
     if params[:cart_item_id]
       @order.migrate_from_cart_item(params[:cart_item_id])
     else
@@ -39,40 +43,35 @@ class Trade::Admin::OrdersController < Trade::Admin::BaseController
   def create
     @order = Order.new(order_params)
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to admin_order_url(@order) }
-        format.json { render json: @order, status: :created, location: @order }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.save
+      render 'create'
+    else
+      render 'new', locals: { model: @order }, status: :unprocessable_entity
     end
   end
 
   def show
   end
 
+  def edit
+  end
+
   def update
-    if @order.update(order_params)
-      redirect_to @order
+    @order.assign_attributes order_params
+
+    if @order.save
+      render 'update'
     else
-      render :edit
+      render :edit, locals: { model: @order }, status: :unprocessable_entity
     end
   end
 
   def refund
     @order.apply_for_refund
-
-    respond_to do |format|
-      format.html { redirect_to admin_orders_url(id: @order.id) }
-      format.json { render json: @order.as_json(include: [:refunds]) }
-    end
   end
 
   def destroy
     @order.destroy
-    redirect_to admin_orders_url(buyer_id: @order.buyer_id)
   end
 
   private

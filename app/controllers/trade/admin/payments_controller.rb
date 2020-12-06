@@ -17,6 +17,7 @@ class Trade::Admin::PaymentsController < Trade::Admin::BaseController
 
   def new
     @payment = Payment.new
+
     if params[:order_id]
       @order = Order.find params[:order_id]
       @payment.total_amount = @order.amount
