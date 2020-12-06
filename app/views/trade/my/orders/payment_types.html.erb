@@ -4,23 +4,23 @@
   </div>
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
-      <div class="weui-cells weui-cells_radio">
+      <div class="weui-cells weui-cells_checkbox">
         <% current_user.cards.each do |card| %>
         <label class="weui-cell weui-cell_active">
-          <div class="weui-cell__bd"><%= card.card_template.name %></div>
+          <div class="weui-cell__bd"><%= card.card_template.name %>(可用： <%= card.amount %>)</div>
           <div class="weui-cell__ft">
-            <%= radio_button_tag 'test', 'd', true, class: 'weui-check' %>
+            <%= check_box_tag 'test', 'd', false, class: 'weui-check' %>
             <span class="weui-icon-checked"></span>
           </div>
         </label>
         <% end %>
-        <label class="weui-cell weui-cell_active weui-check__label">
-          <div class="weui-cell__bd">微信支付</div>
-          <div class="weui-cell__ft">
-            <%= radio_button_tag 'test', 'd', true, class: 'weui-check' %>
-            <span class="weui-icon-checked"></span>
-          </div>
-        </label>
+      </div>
+      <div class="weui-cells">
+        <%= link_to({ action: 'wxpay_pay' }, remote: true, class: 'weui-cell weui-cell_active weui-cell_access') do %>
+          <div class="weui-cell__hd"></div>
+          <div class="weui-cell__bd weui-cell_primary">微信支付</div>
+          <div class="weui-cell__ft"></div>
+        <% end %>
       </div>
     </div>
   </div>
