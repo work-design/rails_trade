@@ -19,23 +19,24 @@ class Trade::Admin::PaymentStrategiesController < Trade::Admin::BaseController
     @payment_strategy = PaymentStrategy.new(payment_strategy_params)
 
     if @payment_strategy.save
-      redirect_to admin_payment_strategies_url
+      render 'create'
     else
-      render :new
+      render :new, locals: { model: @payment_strategy }, status: :unprocessable_entity
     end
   end
 
   def update
-    if @payment_strategy.update(payment_strategy_params)
-      redirect_to admin_payment_strategies_url
+    @payment_strategy.assign_attributes payment_strategy_params
+
+    if @payment_strategy.save
+      render 'update'
     else
-      render :edit
+      render :edit, locals: { model: @payment_strategy }, status: :unprocessable_entity
     end
   end
 
   def destroy
     @payment_strategy.destroy
-    redirect_to admin_payment_strategies_url
   end
 
   private

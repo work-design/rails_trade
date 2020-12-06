@@ -22,6 +22,7 @@ class Trade::Admin::PaymentOrdersController < Trade::Admin::BaseController
 
   def update
     @payment_order.assign_attributes payment_order_params
+
     if @payment_order.confirm!
       render 'update'
     else

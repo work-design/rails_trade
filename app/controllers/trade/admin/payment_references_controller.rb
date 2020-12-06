@@ -3,7 +3,7 @@ class Trade::Admin::PaymentReferencesController < Trade::Admin::BaseController
   before_action :set_payment_reference, only: [:show, :edit, :update, :destroy]
 
   def index
-    @payment_references = PaymentReference.all
+    @payment_references = PaymentReference.page(params[:page])
   end
 
   def show
@@ -20,17 +20,19 @@ class Trade::Admin::PaymentReferencesController < Trade::Admin::BaseController
     @payment_reference = @payment_method.payment_references.build(payment_reference_params)
 
     if @payment_reference.save
-      redirect_to admin_payment_methods_url
+      render 'create'
     else
-      render :new
+      render :new, locals: { model: @payment_reference }, status: :unprocessable_entity
     end
   end
 
   def update
-    if @payment_reference.update(payment_reference_params)
-      redirect_to @payment_reference
+    @payment_reference.assign_attributes payment_reference_params
+
+    if @payment_reference.save
+      render 'update'
     else
-      render :edit
+      render :edit, locals: { model: @payment_reference }, status: :unprocessable_entity
     end
   end
 
@@ -48,7 +50,9 @@ class Trade::Admin::PaymentReferencesController < Trade::Admin::BaseController
   end
 
   def payment_reference_params
-    params.fetch(:payment_reference, {}).permit(:buyer_id)
+    params.fetch(:payment_reference, {}).permit(
+      :buyer_id
+    )
   end
 
 end
