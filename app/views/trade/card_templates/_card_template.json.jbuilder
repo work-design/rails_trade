@@ -1,0 +1,9 @@
+json.extract!(
+  card_template,
+  :id,
+  :name,
+  :valid_days,
+  :amount,
+  :price,
+  :created_at
+)

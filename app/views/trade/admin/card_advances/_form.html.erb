@@ -1,6 +1,3 @@
-<%= form_with model: [:admin, @user_advance] do |f| %>
-  <%= render 'shared/error_messages', target: @user_advance %>
-  <%= f.hidden_field :wallet_id %>
-  <%= f.text_field :amount %>
-  <%= f.submit %>
-<% end %>
+<%= render 'shared/error_messages', target: @user_advance %>
+<%= f.hidden_field :card_id %>
+<%= f.text_field :amount %>

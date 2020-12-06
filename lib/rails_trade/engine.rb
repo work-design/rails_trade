@@ -8,7 +8,8 @@ module RailsTrade
       "#{config.root}/app/models/payment_method",
       "#{config.root}/app/models/promote",
       "#{config.root}/app/models/promote_charge",
-      "#{config.root}/app/models/refund"
+      "#{config.root}/app/models/refund",
+      "#{config.root}/app/models/payout"
     ]
 
     config.generators do |g|

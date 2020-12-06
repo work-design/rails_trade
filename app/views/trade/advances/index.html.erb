@@ -1,0 +1,14 @@
+<div class="cards">
+  <% @advances.each do |advance| %>
+    <div class="card">
+      <div class="card-content">
+        <div class="header"><%= advance.amount %></div>
+        <div class="description">价格：￥<%= advance.price %></div>
+      </div>
+      <div class="card-footer">
+        <%= link_to advance.price, add_my_cart_path(good_id: advance.id, good_type: advance.class_name), method: 'post', class: 'card-footer-item' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
