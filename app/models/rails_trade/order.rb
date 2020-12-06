@@ -68,6 +68,10 @@ module RailsTrade::Order
     delegate :url_helpers, to: 'Rails.application.routes'
   end
 
+  def remaining_amount
+    amount - received_amount
+  end
+
   def subject
     r = trade_items.map { |oi| oi.good.name.presence }.join(', ')
     r.presence || 'goods'

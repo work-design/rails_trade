@@ -1,11 +1,27 @@
-<div class="weui-media-box weui-media-box_small-appmsg">
-  <div class="weui-cells weui-cells_radio">
-    <label class="weui-cell weui-cell_active weui-check__label">
-      <span class="weui-cell__bd">微信支付</span>
-      <span class="weui-cell__ft">
-        <%= radio_button_tag 'test', 'd', true, class: 'weui-check' %>
-        <span class="weui-icon-checked"></span>
-      </span>
-    </label>
+<div class="weui-panel">
+  <div class="weui-panel__hd">
+    <%= @order.remaining_amount %>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_small-appmsg">
+      <div class="weui-cells weui-cells_radio">
+        <% current_user.cards.each do |card| %>
+        <label class="weui-cell weui-cell_active">
+          <div class="weui-cell__bd"><%= card.card_template.name %></div>
+          <div class="weui-cell__ft">
+            <%= radio_button_tag 'test', 'd', true, class: 'weui-check' %>
+            <span class="weui-icon-checked"></span>
+          </div>
+        </label>
+        <% end %>
+        <label class="weui-cell weui-cell_active weui-check__label">
+          <div class="weui-cell__bd">微信支付</div>
+          <div class="weui-cell__ft">
+            <%= radio_button_tag 'test', 'd', true, class: 'weui-check' %>
+            <span class="weui-icon-checked"></span>
+          </div>
+        </label>
+      </div>
+    </div>
   </div>
 </div>
