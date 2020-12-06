@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope module: 'trade' do
+  scope module: 'trade', defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
         get :result
@@ -9,9 +9,12 @@ Rails.application.routes.draw do
         match :wxpay_notify, via: [:get, :post]
       end
     end
+    resources :card_templates do
+      resources :advances
+    end
   end
 
-  scope :admin, module: 'trade/admin', as: :admin do
+  scope :admin, module: 'trade/admin', as: :admin, defaults: { namespace: 'admin', business: 'trade' } do
     get 'trade' => 'trade#index'
 
     resources :users do
@@ -92,9 +95,30 @@ Rails.application.routes.draw do
         patch :deny
       end
     end
+    resources :card_templates do
+      collection do
+        get :advance_options
+        get :add_item
+        get :remove_item
+      end
+      resources :advances
+      resources :card_promotes
+    end
+    resources :cards do
+      resources :card_logs
+    end
+    resources :card_advances
+    resources :cashes
+    resources :cash_givens
+    resources :payouts do
+      member do
+        put :do_pay
+      end
+    end
+    resources :cash_logs
   end
 
-  scope :my, module: 'trade/my', as: :my do
+  scope :my, module: 'trade/my', as: :my, defaults: { namespace: 'my', business: 'trade' } do
     resource :cart do
       match :add, via: [:get, :post]
     end
@@ -127,6 +151,19 @@ Rails.application.routes.draw do
       end
     end
     resources :payment_methods
+    resources :advances do
+      member do
+        get :order
+      end
+    end
+    resources :carts
+    resources :card_logs, only: [:index]
+    resources :cash_logs, only: [:index]
+    resources :payouts, only: [:index, :create] do
+      collection do
+        get :list
+      end
+    end
   end
 
 end

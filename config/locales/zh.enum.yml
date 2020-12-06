@@ -59,4 +59,16 @@ zh:
           unused: 未使用
           used: 已使用
           expired: 已过期
-
+      card:
+        type:
+          CounterCard: 次卡
+          VipCard: 会员
+          SvfCard: 储值卡
+      card_log:
+        source_type:
+          CardAdvance: 充值
+      payout:
+        state:
+          pending: 待处理
+          done: 提现成功
+          failed: 提现失败，核查中

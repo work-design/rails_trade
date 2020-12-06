@@ -46,6 +46,27 @@ zh:
       refunds:
         index:
           title: 退款列表
+      card_templates:
+        index:
+          title: 会员卡设置
+      card_promotes:
+        index:
+          title: 促销设置
+      cards:
+        index:
+          title: 会员卡记录
+      card_logs:
+        index:
+          title: 用卡日志
+      advances:
+        index:
+          title: 充值设置
+      cashes:
+        index:
+          title: 现金
+      payouts:
+        index:
+          title: 提现
     my:
       carts:
         show:

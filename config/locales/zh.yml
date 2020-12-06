@@ -1,0 +1,24 @@
+zh:
+  activerecord:
+    attributes:
+      wallet/type:
+        IosWallet: ios钱包
+        NormalWallet: 普通钱包
+  card_log:
+    income:
+      card_advance:
+        title: 用户充值
+        tag_str: 充值
+      card_given:
+        title: 系统赠送
+        tag_str: 赠送
+    expense:
+      svf_card_payment:
+        title: 储值卡支付
+        tag_str: 支付
+  cash_log:
+    income:
+      cash_given:
+        title: 系统赠予
+        tag_str: 收入
+

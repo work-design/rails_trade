@@ -1,47 +1,31 @@
 en:
-  trade:
-    admin:
-      payments:
-        index:
-          add_new: add
-          import: Import
-          init: 预核销
-          confirmed: 未预核销
-        item:
-          edit: Edit
-          destroy: Destroy
-          show: 支付方式
-          checking: 核销
-          analyze: 分析支付方式
-          adjust: 平账
-      payment_methods:
-        index_layout:
-          remove: Remove
-          edit: Edit
-          destroy: Delete
-          new: Add
-          relate: Refer Buyer
   activerecord:
-    models:
-      role: ''
     attributes:
-      buyer:
-        name: 公司名称
-      payment:
-        total_amount: 总金额
-        income_amount: 净收入
-        fee_amount: 手续费
-        adjust_amount: 四舍五入
-        buyer_name: 账号名称
-        buyer_identifier: 账号
-        buyer_bank: 银行
-        notified_at: 通知时间
-        uuid: 流水号
-        type: 类别
-        comment: 备注
-      payment_method:
-        account_name: Account Name
-        account_num: Account
-        bank: Bank
-        verified: Verified
-        payment_references: Associated Account
+      wallet/type:
+        IosWallet: Ios Wallet
+        NormalWallet: Normal Wallet
+  wallet_log:
+    income:
+      user_advance:
+        title: 用户充值
+        tag_str: 充值
+      coin_wallet:
+        title: 金币兑换氧育币
+        tag_str: 兑换收入
+    expense:
+      wallet_payment:
+        tag_str: 氧育币支出
+  cash_log:
+    income:
+      cash_given:
+        title: 系统赠予
+        tag_str: 收入
+  coin_log:
+    income:
+      wallet_coin:
+        title: 虚拟币兑换金币
+        tag_str: 兑换收入
+    expense:
+      coin_wallet:
+        title: 金币兑换氧育币
+        tag_str: 兑换支出

@@ -1,0 +1,35 @@
+en:
+  activerecord:
+    attributes:
+      cash:
+        user: 所属用户
+        amount: 数额
+        income_amount: 收入
+        expense_amount: 提现数额
+      cash_log:
+        title: 摘要
+        amount: 数额
+        tag_str: 交易类别
+      coin_exchange/state:
+        pending: Pending
+        handling: Handling
+        rejected: Rejected
+        done: Done
+      payment:
+        total_amount: 总金额
+        income_amount: 净收入
+        fee_amount: 手续费
+        adjust_amount: 四舍五入
+        buyer_name: 账号名称
+        buyer_identifier: 账号
+        buyer_bank: 银行
+        notified_at: 通知时间
+        uuid: 流水号
+        type: 类别
+        comment: 备注
+      payment_method:
+        account_name: Account Name
+        account_num: Account
+        bank: Bank
+        verified: Verified
+        payment_references: Associated Account
