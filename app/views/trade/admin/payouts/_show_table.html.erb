@@ -1,0 +1,32 @@
+<tr>
+  <td class="has-text-right"><%= Expense.human_attribute_name(:subject) %></td>
+  <td>
+    <% if @payout.payable %>
+      <%= link_to @payout.payable.expense_subject, finance_expense_url(@payout.payable.id), target: '_blank' %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Payout.human_attribute_name(:id) %></td>
+  <td><%= @payout.id %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Payout.human_attribute_name(:payout_uuid) %></td>
+  <td><%= @payout.payout_uuid %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Payout.human_attribute_name(:to_bank) %></td>
+  <td><%= @payout.to_bank %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Payout.human_attribute_name(:to_name) %></td>
+  <td><%= @payout.to_name %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Payout.human_attribute_name(:to_identifier) %></td>
+  <td><%= @payout.to_identifier %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Payout.human_attribute_name(:requested_amount) %></td>
+  <td><%= @payout.requested_amount %></td>
+</tr>

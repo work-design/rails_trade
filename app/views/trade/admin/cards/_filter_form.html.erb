@@ -1,0 +1,10 @@
+<%= form_with theme: 'search', model: Card.new do |f| %>
+  <div class="field-body">
+    <%= f.text_field :card_uuid %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(except: [:card_uuid]), class: 'button is-light' %>
+    </div>
+  </div>
+<% end %>
+

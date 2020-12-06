@@ -1,0 +1,25 @@
+<tr>
+  <td><%= cash_log.id %></td>
+  <td><%= cash_log.title %></td>
+  <td><%= cash_log.tag_str %></td>
+  <td><%= cash_log.amount %></td>
+  <td>
+    <%= link_to cash_log.user.name, admin_user_path(cash_log.user_id) %>
+  </td>
+  <td>
+    <p><%= cash_log.source_type %></p>
+    <p><%= cash_log.source_id %></p>
+  </td>
+  <td><time><%= cash_log.created_at.to_s(:rfc822) %></time></td>
+  <td>
+    <%= link_to({ action: 'show', id: cash_log.id }, aria: { label: t('.show') }, class: 'button') do %>
+      <i class="location arrow icon"></i>
+    <% end %>
+    <%= link_to({ action: 'edit', id: cash_log.id }, aria: { label: t('.edit') }, class: 'button') do %>
+      <i class="pencil alternate icon"></i>
+    <% end %>
+    <%= link_to({ action: 'destroy', id: cash_log.id }, method: :delete, aria: { label: t('.destroy') }, data: { confrim: t('.confirm') }, remote: true, class: 'button') do %>
+      <i class="times icon"></i>
+    <% end %>
+  </td>
+</tr>

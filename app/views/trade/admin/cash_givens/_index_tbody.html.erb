@@ -1,0 +1,17 @@
+<tr>
+  <td><%= cash_given.id %></td>
+  <td><%= link_to cash_given.user.name, admin_user_path(cash_given.user_id) if cash_given.user %></td>
+  <td><%= cash_given.amount %></td>
+  <td><%= cash_given.note %></td>
+  <td>
+    <%= link_to admin_cash_given_path(cash_given), aria: { label: t('.show') }, class: 'ui blue mini icon button' do %>
+      <i class="location arrow icon"></i>
+    <% end %>
+    <%= link_to edit_admin_cash_given_path(cash_given), aria: { label: t('.edit') }, class: 'ui pink mini icon button' do %>
+      <i class="pencil alternate icon"></i>
+    <% end %>
+    <%= link_to admin_cash_given_path(cash_given), method: :delete, aria: { label: t('.destroy') }, data: { confrim: t('.confirm') }, class: 'ui red mini icon button' do %>
+      <i class="fas fa-trash"></i>
+    <% end %>
+  </td>
+</tr>

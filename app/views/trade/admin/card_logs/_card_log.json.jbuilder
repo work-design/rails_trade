@@ -1,0 +1,11 @@
+json.extract!(
+  card_log,
+  :id,
+  :title,
+  :tag_str,
+  :source_type,
+  :source_id,
+  :amount,
+  :created_at,
+  :updated_at
+)

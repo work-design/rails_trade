@@ -1,0 +1,5 @@
+<%= render layout: 'index_table', locals: { cache_key: CardAdvance.column_names.hash } do %>
+  <%= render partial: 'index_tbody', collection: @card_advances, as: :card_advance %>
+<% end %>
+
+<%= paginate @card_advances %>

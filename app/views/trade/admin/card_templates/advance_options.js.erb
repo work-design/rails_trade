@@ -1,0 +1,3 @@
+<% f = form_object %>
+$('#_advance_id_wrapper').replaceWith('<%= j(render partial: 'advance_options', locals: { f: f }) %>');
+$('#advance_id').dropdown();

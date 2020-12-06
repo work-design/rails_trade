@@ -1,0 +1,10 @@
+<%= render 'shared/error_messages', target: f.object %>
+<%= f.text_field :name, required: true %>
+<%= f.text_area :description %>
+<%= f.number_field :valid_years, step: 1, min: 0 %>
+<%= f.number_field :valid_months, step: 1, min: 0, max: 12 %>
+<%= f.number_field :valid_days, step: 1, min: 0, max: 31 %>
+<%= f.file_field :cover %>
+<%= f.fields :advances, wrap: { all: nil, input: 'field' }, on: { label: false } do |ef| %>
+  <%= render partial: 'item_form', locals: { ef: ef } %>
+<% end %>

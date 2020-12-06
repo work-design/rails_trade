@@ -1,0 +1,10 @@
+json.extract! card,
+              :id,
+              :type,
+              :card_uuid,
+              :effect_at,
+              :expire_at,
+              :amount,
+              :created_at,
+              :created_at,
+              :updated_at

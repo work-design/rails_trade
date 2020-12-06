@@ -2,7 +2,7 @@ module RailsTrade::Application
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_cart, :current_cart_count
+    helper_method :current_cart, :current_cart_count, :current_card
   end
 
   def current_cart
@@ -16,6 +16,13 @@ module RailsTrade::Application
     end
     logger.debug " ==========> Current cart: #{@current_cart&.id}"
     @current_cart
+  end
+
+  def current_card
+    platform = request.headers['OS'].to_s.downcase
+    if defined?(current_user) && current_user
+      current_user.init_wallet(platform)
+    end
   end
 
   def current_cart_count

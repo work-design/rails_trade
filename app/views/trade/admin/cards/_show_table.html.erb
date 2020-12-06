@@ -1,0 +1,20 @@
+<tr>
+  <td class="has-text-right"><%= Card.human_attribute_name(:card_uuid) %></td>
+  <td><%= @card.card_uuid %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Card.human_attribute_name(:effect_at) %></td>
+  <td><time><%= @card.effect_at.to_s(:rfc822) %></time></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Card.human_attribute_name(:expire_at) %></td>
+  <td><time><%= @card.expire_at.to_s(:rfc822) %></time></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Card.human_attribute_name(:amount) %></td>
+  <td><%= @card.amount %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Card.human_attribute_name(:created_at) %></td>
+  <td><time><%= @card.created_at.to_s(:rfc822) %></time></td>
+</tr>
