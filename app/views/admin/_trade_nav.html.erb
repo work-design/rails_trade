@@ -4,7 +4,10 @@
     <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
     <%= link_to t('trade.admin.payment_methods.index.title'), { controller: 'trade/admin/payment_methods' }, class: active_helper(controllers: 'payment_methods', active: 'is-active') %>
     <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, class: active_helper(controllers: 'promotes', active: 'is-active') %>
-    <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, class: active_helper(controllers: 'carts', active: 'is-active') -%>
+    <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
+    <%= link_to t('trade.admin.card_templates.index.title'), admin_card_templates_path, class: active_helper(controllers: ['card_templates', 'advances', 'card_promotes'], active: 'is-active') %>
+    <%= link_to t('trade.admin.cashes.index.title'), admin_cashes_path, class: active_helper(controllers: 'cashes', active: 'is-active') %>
+    <%= link_to t('trade.admin.payouts.index.title'), admin_payouts_path, class: active_helper(controllers: 'payouts', active: 'is-active') -%>
   <% end %>
   <a class="menu-label" data-action="menu#toggle">
     <i class="fas fa-shopping-cart fa-fw"></i>

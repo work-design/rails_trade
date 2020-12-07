@@ -1,5 +1,0 @@
-<span class="menu-label"><%= t('notice.my.title') %></span>
-<div class="menu-list">
-  <%= link_to t('rails_notice.unread'), my_notifications_path(receiver: params[:receiver]), class: active_params(scope: '', active: 'si-active') %>
-  <%= link_to t('rails_notice.readed'), my_notifications_path(receiver: params[:receiver], scope: 'readed'), class: active_params(scope: 'readed', active: 'is-active') %>
-</div>
