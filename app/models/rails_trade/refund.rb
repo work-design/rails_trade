@@ -4,33 +4,32 @@ module RailsTrade::Refund
   included do
     attribute :type, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :total_amount, :decimal, precision: 10, scale: 2
+    attribute :total_amount, :decimal
     attribute :buyer_identifier, :string
-    attribute :comment, :string, limit: 512
-    attribute :state, :string, default: 'init'
+    attribute :comment, :string
     attribute :refunded_at, :datetime
-    attribute :reason, :string, limit: 512
+    attribute :reason, :string
     attribute :refund_uuid, :string
     attribute :response, :json
-
-    belongs_to :operator, polymorphic: true, optional: true
-    belongs_to :order, inverse_of: :refunds, optional: true
-    belongs_to :payment
-
-    validates :payment_id, uniqueness: { scope: :order_id }
-
-    after_initialize if: -> { new_record? } do
-      self.refund_uuid ||= UidHelper.nsec_uuid('RD')
-      self.state = :init
-    end
 
     enum state: {
       init: 'init',
       completed: 'completed',
       failed: 'failed'
-    }
+    }, _default: 'init'
+
+    belongs_to :operator, class_name: 'Member', optional: true
+    belongs_to :order, inverse_of: :refunds, optional: true
+    belongs_to :payment
+
+    validates :payment_id, uniqueness: { scope: :order_id }
+    #validate :valid_total_amount
+
+    after_initialize if: -> { new_record? } do
+      self.refund_uuid ||= UidHelper.nsec_uuid('RD')
+      self.state = :init
+    end
   end
-  #validate :valid_total_amount
 
   def valid_total_amount
     if self.new_record? && total_amount > payment.total_amount

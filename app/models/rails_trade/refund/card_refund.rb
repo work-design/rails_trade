@@ -1,27 +1,23 @@
-module RailsTrade::CardReturn
+module RailsTrade::Refund::CardRefund
   extend ActiveSupport::Concern
 
   included do
-    attribute :amount, :decimal
-
     belongs_to :card
-    belongs_to :card_expense
-    belongs_to :consumable, polymorphic: true
     has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
-    before_validation :sync_card
-    after_save :sync_amount, if: -> { saved_change_to_amount? }
+    before_validation :sync_card, if: -> { payment_id_changed? }
+    after_save :sync_amount, if: -> {  saved_change_to_total_amount? }
     after_create_commit :sync_card_log
   end
 
   def sync_card
-    self.card = card_expense.card
-    self.amount = card_expense.amount
+    self.card = payment.card
+    self.total_amount = payment.total_amount
   end
 
   def sync_amount
     card.reload
-    card.income_amount += self.amount
+    card.income_amount += self.total_amount
     if card.income_amount == card.compute_income_amount
       card.save!
     else
@@ -35,7 +31,7 @@ module RailsTrade::CardReturn
     cl = self.card_log || self.build_card_log
     cl.title = card.card_uuid
     cl.tag_str = '虚拟币退款'
-    cl.amount = self.amount
+    cl.amount = self.total_amount
     cl.save
   end
 
