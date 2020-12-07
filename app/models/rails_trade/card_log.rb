@@ -4,7 +4,7 @@ module RailsTrade::CardLog
   included do
     attribute :title, :string
     attribute :tag_str, :string
-    attribute :amount, :decimal, precision: 10, scale: 2, default: 1
+    attribute :amount, :decimal
 
     belongs_to :card
     belongs_to :source, polymorphic: true, optional: true

@@ -18,6 +18,7 @@ module RailsTrade::PaymentOrder
 
     after_save :checked_payment, if: -> { confirmed? && (saved_change_to_state? || saved_change_to_check_amount?) }
     after_save :unchecked_payment, if: -> { init? && (state_before_last_save == 'confirmed' || saved_change_to_check_amount?) }
+    after_destroy_commit :unchecked_to_order
   end
 
   def valid_check_amount
