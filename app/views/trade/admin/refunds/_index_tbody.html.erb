@@ -14,9 +14,9 @@
       <time><%= refund.refunded_at.to_s(:rfc822) %></time>
     <% else %>
       <div class="buttons are-small">
-        <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: 'Confirm Do Refund!' }, class: 'button is-primary' %>
+        <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, remote: true, data: { confirm: t('.confirm') }, class: 'button is-primary' %>
         <div class="or"></div>
-        <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'button is-danger' %>
+        <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, remote: true, data: { confirm: 'Deny Refund!' }, class: 'button is-danger' %>
       </div>
     <% end %>
     <% if refund.reason %>

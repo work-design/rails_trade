@@ -20,7 +20,7 @@ module RailsTrade::Card
     belongs_to :agency, optional: true
 
     has_many :card_advances, dependent: :nullify  # income
-    has_many :card_returns, dependent: :nullify  # income
+    has_many :card_refunds, dependent: :nullify  # income
     has_many :card_payments, dependent: :nullify  # expense
     has_many :card_logs, dependent: :destroy
     has_many :card_promotes, ->(o){ default_where('income_min-lte': o.income_amount, 'income_max-gt': o.income_amount) }, foreign_key: :card_template_id, primary_key: :card_template_id
@@ -46,7 +46,7 @@ module RailsTrade::Card
 
   def compute_income_amount
     advances = card_advances.sum(:amount)
-    refunds = card_refunds.sum(:amount)
+    refunds = card_refunds.sum(:total_amount)
 
     advances + refunds
   end
