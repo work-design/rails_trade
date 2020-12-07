@@ -8,14 +8,8 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
     @refunds = Refund.includes(:order, :payment).default_where(q_params).page(params[:page])
   end
 
-  def show
-  end
-
   def new
     @refund = @payment.refunds.build
-  end
-
-  def edit
   end
 
   def create
@@ -24,6 +18,12 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
     unless @refund.save
       render :new, locals: { model: @refund }, status: :unprocessable_entity
     end
+  end
+
+  def show
+  end
+
+  def edit
   end
 
   def update

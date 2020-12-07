@@ -45,6 +45,7 @@ module RailsTrade::Refund
     order.payment_status = 'refunded'
 
     self.state = 'completed'
+    self.operator_id = params[:operator_id]
     self.refunded_at = Time.current
 
     self.class.transaction do
