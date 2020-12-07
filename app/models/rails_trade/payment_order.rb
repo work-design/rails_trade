@@ -3,7 +3,11 @@ module RailsTrade::PaymentOrder
 
   included do
     attribute :check_amount, :decimal, default: 0
-    attribute :state, :string, default: 'init'
+
+    enum state: {
+      init: 'init',
+      confirmed: 'confirmed'
+    }, _default: 'init'
 
     belongs_to :order, inverse_of: :payment_orders
     belongs_to :payment, inverse_of: :payment_orders
@@ -12,12 +16,8 @@ module RailsTrade::PaymentOrder
     #validate :valid_check_amount
     validates :order_id, uniqueness: { scope: :payment_id }
 
-    enum state: {
-      init: 'init',
-      confirmed: 'confirmed'
-    }
     after_save :checked_payment, if: -> { confirmed? && (saved_change_to_state? || saved_change_to_check_amount?) }
-    after_save :unchecked_payment, if: -> { init? && (saved_change_to_state? || saved_change_to_check_amount?) }
+    after_save :unchecked_payment, if: -> { init? && (state_before_last_save == 'confirmed' || saved_change_to_check_amount?) }
   end
 
   def valid_check_amount

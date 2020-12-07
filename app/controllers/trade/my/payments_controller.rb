@@ -47,7 +47,7 @@ class Trade::My::PaymentsController < Trade::My::BaseController
       :type,
       :card_id,
       :total_amount,
-      payment_orders_attributes: [:order_id, :check_amount]
+      payment_orders_attributes: [:order_id, :check_amount, :state]
     )
   end
 

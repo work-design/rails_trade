@@ -14,6 +14,7 @@
               <%= f.hidden_field :card_id, value: card.id %>
               <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
                 <%= ef.hidden_field :order_id, value: @order.id %>
+                <%= ef.hidden_field :state, value: 'confirmed' %>
                 <%= ef.hidden_field :check_amount, value: @order.amount < card.amount ? @order.amount : card.amount %>
               <% end %>
             <% end %>
