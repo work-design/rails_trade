@@ -6,12 +6,12 @@ module RailsTrade::Refund::CardRefund
     has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
     before_validation :sync_card, if: -> { payment_id_changed? }
-    after_save :sync_amount, if: -> { saved_change_to_total_amount? }
+    after_save :sync_amount, if: -> { completed? && (state_before_last_save == 'init' || saved_change_to_total_amount?) }
     after_create_commit :sync_card_log
   end
 
   def do_refund(params = {})
-    sync_amount
+    self.state = 'completed'
   end
 
   def sync_card

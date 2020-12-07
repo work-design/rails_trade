@@ -1,0 +1,33 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Total Amount</th>
+      <th>Order Amount</th>
+      <th>Type</th>
+      <th>Created At</th>
+      <th>State</th>
+      <th>Comment</th>
+      <th>Refunded At</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @refunds.each do |refund| %>
+      <tr>
+        <td><%= refund.total_amount.to_money(refund.currency).format %></td>
+        <td><%= refund.order_amount.to_money.format %></td>
+        <td><%= refund.type_i18n %></td>
+        <td><time><%= refund.created_at.to_s(:rfc822) %></time></td>
+        <td><%= refund.state %></td>
+        <td><%= refund.comment %></td>
+        <td>
+          <% if refund.refunded_at %>
+            <time><%= refund.refunded_at.to_s(:rfc822) %></time>
+          <% else %>
+            <%= refund.reason.to_s.truncate(27) %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
