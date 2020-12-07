@@ -35,11 +35,18 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
   end
 
   def confirm
-    @refund.do_refund(operator_id: current_member.id)
+    @refund.do_refund
+    @refund.operator = current_member
+    @refund.refunded_at = Time.current
+
+    @refund.save
   end
 
   def deny
-    @refund.deny_refund(operator_id: current_member.id)
+    @refund.state = 'denied'
+    @refund.operator = current_member
+
+    @refund.save
   end
 
   def destroy

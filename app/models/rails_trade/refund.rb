@@ -15,7 +15,8 @@ module RailsTrade::Refund
     enum state: {
       init: 'init',
       completed: 'completed',
-      failed: 'failed'
+      failed: 'failed',
+      denied: 'denied'
     }, _default: 'init'
 
     belongs_to :operator, class_name: 'Member', optional: true
@@ -29,6 +30,8 @@ module RailsTrade::Refund
       self.refund_uuid ||= UidHelper.nsec_uuid('RD')
       self.state = :init
     end
+    after_save :sync_refund, if: -> { completed? && state_before_last_save == 'init' }
+    after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
   end
 
   def valid_total_amount
@@ -41,29 +44,14 @@ module RailsTrade::Refund
     Money::Currency.new(self.currency).symbol
   end
 
-  def do_refund(params = {})
+  def sync_refund
     order.payment_status = 'refunded'
-
-    self.state = 'completed'
-    self.operator_id = params[:operator_id]
-    self.refunded_at = Time.current
-
-    self.class.transaction do
-      order.save!
-      self.save!
-    end
+    order.save
   end
 
-  def deny_refund(params = {})
+  def deny_refund
     order.payment_status = 'denied'
-
-    self.state = 'failed'
-    self.operator_id = params[:operator_id]
-
-    self.class.transaction do
-      order.save!
-      self.save!
-    end
+    order.save
   end
 
   def can_refund?

@@ -13,9 +13,10 @@ module RailsTrade::Refund::PaypalRefund
     result = sale.refund(params)
 
     if result.success?
-      super
+      self.state = 'completed'
     elsif result.error
-      self.update reason: result.error['message']
+      self.reason = result.error['message']
+      self.state = 'failed'
     end
 
     result

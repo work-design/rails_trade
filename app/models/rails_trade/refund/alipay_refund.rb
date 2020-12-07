@@ -15,9 +15,10 @@ module RailsTrade::Refund::AlipayRefund
 
     if refund['code'] == '10000' || refund['msg'] == 'Success'
       self.refund_uuid = refund['trade_no']
-      super
+      self.state = 'completed'
     else
-      self.update reason: "code: #{refund['code']}, msg: #{refund['msg']}"
+      self.reason = "code: #{refund['code']}, msg: #{refund['msg']}"
+      self.state = 'failed'
     end
 
     refund

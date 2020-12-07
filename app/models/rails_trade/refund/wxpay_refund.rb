@@ -37,18 +37,17 @@ module RailsTrade::Refund::WxpayRefund
   end
 
   def store_refund_result(result = {})
-    return if state == 'completed'
-
     if result['return_code'] == 'SUCCESS'
-      super
+      self.state = 'completed'
     else
       self.state = 'failed'
       self.comment = result['return_code']
-      self.save
     end
   end
 
   def refund_query(app:)
+    return if state == 'completed'
+
     params = {
       out_refund_no: self.refund_uuid
     }

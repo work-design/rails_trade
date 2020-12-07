@@ -7,9 +7,9 @@ module RailsTrade::Refund::StripeRefund
     self.refund_uuid = refund.id
 
     if refund.status == 'succeeded'
-      super
+      self.state = 'completed'
     else
-      self.update reason: 'failed'
+      self.state = 'failed'
     end
 
     refund
