@@ -48,7 +48,7 @@ zh:
           title: 退款列表
       card_templates:
         index:
-          title: 会员卡设置
+          title: 会员卡
       card_promotes:
         index:
           title: 促销设置

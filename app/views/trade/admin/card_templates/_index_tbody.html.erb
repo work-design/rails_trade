@@ -7,13 +7,13 @@
     <p><%= card_template.valid_days %>天</p>
   </td>
   <td>
-    <%= link_to({ controller: 'advances', card_template_id: card_template.id }, aria: { label: t('vip.admin.advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'advances', card_template_id: card_template.id }, aria: { label: t('trade.admin.advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-donate"></i>
     <% end %>
-    <%= link_to({ controller: 'card_promotes', card_template_id: card_template.id }, aria: { label: t('vip.admin.card_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'card_promotes', card_template_id: card_template.id }, aria: { label: t('trade.admin.card_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-gift"></i>
     <% end %>
-    <%= link_to({ controller: 'cards', card_template_id: card_template.id }, aria: { label: t('vip.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'cards', card_template_id: card_template.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-bars"></i>
     <% end %>
     <%= link_to({ action: 'edit', id: card_template.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light') do %>

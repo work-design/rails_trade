@@ -5,8 +5,13 @@ module RailsTrade::Payment::CardPayment
     belongs_to :card
     has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
+    before_validation :init_amount, if: -> { checked_amount_changed? }
     after_save :sync_amount, if: -> { saved_change_to_total_amount? }
-    after_create_commit :sync_card_log
+    after_create_commit :sync_card_log, if: -> { saved_change_to_total_amount? }
+  end
+
+  def init_amount
+    self.total_amount = checked_amount if total_amount.zero?
   end
 
   def assign_detail(params)
