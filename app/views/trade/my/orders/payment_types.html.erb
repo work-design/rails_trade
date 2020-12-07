@@ -17,7 +17,7 @@
                 <%= ef.hidden_field :check_amount, value: @order.amount < card.amount ? @order.amount : card.amount %>
               <% end %>
             <% end %>
-            <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
+            <%= check_box_tag 'xx', 'x', @order.payments.pluck(:card_id).include?(card.id), class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
             <span class="weui-icon-checked"></span>
           </div>
         </label>
