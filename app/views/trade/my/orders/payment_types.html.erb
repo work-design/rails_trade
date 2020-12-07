@@ -17,7 +17,11 @@
                 <%= ef.hidden_field :check_amount, value: @order.amount < card.amount ? @order.amount : card.amount %>
               <% end %>
             <% end %>
-            <%= check_box_tag 'xx', 'x', @order.payments.pluck(:card_id).include?(card.id), class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
+            <% if @order.payments.pluck(:card_id).include?(card.id) %>
+              <%= check_box_tag 'xx', 'x', true, class: 'weui-check', data: { url: my_payment_url(@order.payment_ids.first), method: :delete, remote: true } %>
+            <% else %>
+              <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
+            <% end %>
             <span class="weui-icon-checked"></span>
           </div>
         </label>

@@ -12,7 +12,9 @@ class Trade::My::PaymentsController < Trade::My::BaseController
   def create
     @payment = Payment.new(payment_params)
 
-    unless @payment.save
+    if params[:xx] == 'x' && @payment.save
+      render 'create'
+    else
       render :new, locals: { model: @payment }, status: :unprocessable_entity
     end
   end
