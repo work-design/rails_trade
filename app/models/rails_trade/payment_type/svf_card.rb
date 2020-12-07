@@ -7,7 +7,7 @@ module RailsTrade::PaymentType::SvfCard
 
     self.class.transaction do
       params = {
-        total_amount: self.amount,
+        total_amount: self.remaining_amount,
         adjust_amount: self.amount,
         user_id: self.user_id
       }

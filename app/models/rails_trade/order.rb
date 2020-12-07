@@ -93,7 +93,7 @@ module RailsTrade::Order
   end
 
   def amount_money
-    amounto_money(self.currency)
+    amount_to_money(self.currency)
   end
 
   def compute_amount

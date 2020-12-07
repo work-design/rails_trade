@@ -9,7 +9,7 @@ module RailsTrade::PaymentType::Wxpay
     params = {
       body: "订单编号: #{self.uuid}",
       out_trade_no: self.uuid,
-      total_fee: (self.amount * 100).to_i,
+      total_fee: (self.remaining_amount * 100).to_i,
       spbill_create_ip: spbill_create_ip,
       notify_url: notify_url,
       trade_type: trade_type,
