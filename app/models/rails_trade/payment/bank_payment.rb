@@ -3,7 +3,7 @@ module RailsTrade::Payment::BankPayment
   #validates :buyer_identifier, presence: true
 
   def assign_detail(params)
-    self.notified_at = Time.now
+    self.notified_at = Time.current
     self.total_amount = params[:total_amount]
     self.order_uuid = order.uuid
     self.buyer_email = order.contact&.email

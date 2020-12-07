@@ -1,4 +1,4 @@
-module RailsTrade::CardPayment
+module RailsTrade::Payment::CardPayment
   extend ActiveSupport::Concern
 
   included do
@@ -7,6 +7,11 @@ module RailsTrade::CardPayment
 
     after_save :sync_amount, if: -> { saved_change_to_total_amount? }
     after_create_commit :sync_card_log
+  end
+
+  def assign_detail(params)
+    self.notified_at = Time.current
+    self.total_amount = params[:total_amount]
   end
 
   def sync_amount

@@ -22,12 +22,20 @@ module RailsTrade::Payment
     attribute :verified, :boolean, default: true
     attribute :lock_version, :integer
 
+    enum state: {
+      init: 'init',
+      part_checked: 'part_checked',
+      all_checked: 'all_checked',
+      adjust_checked: 'adjust_checked',
+      abusive_checked: 'abusive_checked'
+    }, _default: 'init'
+
     belongs_to :organ, optional: true
     belongs_to :user, optional: true
     belongs_to :payment_method, optional: true
-    belongs_to :creator, optional: true
     has_many :payment_orders, inverse_of: :payment, dependent: :destroy
     has_many :orders, through: :payment_orders, inverse_of: :payments
+    accepts_nested_attributes_for :payment_orders
 
     default_scope -> { order(created_at: :desc) }
 
@@ -40,14 +48,6 @@ module RailsTrade::Payment
     after_create :analyze_payment_method
 
     has_one_attached :proof
-
-    enum state: {
-      init: 'init',
-      part_checked: 'part_checked',
-      all_checked: 'all_checked',
-      adjust_checked: 'adjust_checked',
-      abusive_checked: 'abusive_checked'
-    }
   end
 
   def analyze_payment_method

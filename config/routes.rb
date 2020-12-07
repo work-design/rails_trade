@@ -128,7 +128,6 @@ Rails.application.routes.draw do
         get :promote
       end
     end
-    resources :good_providers
     resources :orders do
       collection do
         post :direct
@@ -150,6 +149,7 @@ Rails.application.routes.draw do
         get :wait
       end
     end
+    resources :payments
     resources :payment_methods
     resources :advances do
       member do

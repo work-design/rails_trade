@@ -8,8 +8,13 @@
         <% current_user.cards.each do |card| %>
         <label class="weui-cell weui-cell_active">
           <div class="weui-cell__bd"><%= card.card_template.name %>(可用： <%= card.amount %>)</div>
-          <div class="weui-cell__ft">
-            <%= check_box_tag 'test', 'd', false, class: 'weui-check' %>
+          <div class="weui-cell__ft" data-controller="input">
+            <%= form_with theme: nil, model: Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, id: "card_#{card.id}" do |f| %>
+              <%= f.fields model: f.object.payment_orders.build do |ef| %>
+                <%= ef.hidden_field :order_id, value: @order.id %>
+              <% end %>
+            <% end %>
+            <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}" %>
             <span class="weui-icon-checked"></span>
           </div>
         </label>
