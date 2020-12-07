@@ -3,8 +3,7 @@ module RailsTrade::PlanAttender
   extend ActiveSupport::Concern
 
   included do
-    has_one :card_expense, as: :consumable
-    has_many :card_expenses, as: :consumable
+    has_many :card_payments
     has_many :card_returns, as: :consumable
 
     after_save_commit :sync_card_expense, if: -> { saved_change_to_attended? && attended? }
