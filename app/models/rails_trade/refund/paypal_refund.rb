@@ -10,22 +10,14 @@ module RailsTrade::Refund::PaypalRefund
         currency: self.currency.upcase
       }
     })
-
     result = sale.refund(params)
 
-    order.payment_status = 'refunded'
-    self.operator_id = params[:operator_id]
-
     if result.success?
-      self.state = 'completed'
-      self.refunded_at = Time.now
-      self.class.transaction do
-        order.save!
-        self.save!
-      end
+      super
     elsif result.error
       self.update reason: result.error['message']
     end
+
     result
   end
 

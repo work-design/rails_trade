@@ -12,22 +12,17 @@ module RailsTrade::Refund::AlipayRefund
 
     refund_res = Alipay::Service.trade_refund(refund_params)
 
-    order.payment_status = 'refunded'
     self.operator_id = params[:operator_id]
 
     refund = JSON.parse(refund_res).fetch('alipay_trade_refund_response', {})
 
     if refund['code'] == '10000' || refund['msg'] == 'Success'
       self.refund_uuid = refund['trade_no']
-      self.state = 'completed'
-      self.refunded_at = Time.now
-      self.class.transaction do
-        order.save!
-        self.save!
-      end
+      super
     else
       self.update reason: "code: #{refund['code']}, msg: #{refund['msg']}"
     end
+
     refund
   end
 

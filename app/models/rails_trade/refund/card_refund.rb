@@ -10,6 +10,10 @@ module RailsTrade::Refund::CardRefund
     after_create_commit :sync_card_log
   end
 
+  def do_refund(params = {})
+
+  end
+
   def sync_card
     self.card = payment.card
     self.total_amount = payment.total_amount

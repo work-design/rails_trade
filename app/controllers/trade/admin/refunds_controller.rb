@@ -2,7 +2,10 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
   before_action :set_refund, only: [:show, :edit, :update, :confirm, :deny, :destroy]
 
   def index
-    @refunds = Refund.includes(:order, :payment).default_where(params.permit(:order_id, :payment_id)).page(params[:page])
+    q_params = {}
+    q_params.merge! params.permit(:order_id, :payment_id)
+
+    @refunds = Refund.includes(:order, :payment).default_where(q_params).page(params[:page])
   end
 
   def show
@@ -32,11 +35,11 @@ class Trade::Admin::RefundsController < Trade::Admin::BaseController
   end
 
   def confirm
-    @refund.do_refund(operator_id: current_user.id, operator_type: current_user.class.name)
+    @refund.do_refund(operator_id: current_member.id)
   end
 
   def deny
-    @refund.deny_refund(operator_id: current_user.id, operator_type: current_user.class.name)
+    @refund.deny_refund(operator_id: current_member.id)
   end
 
   def destroy

@@ -45,7 +45,7 @@ module RailsTrade::Refund
     order.payment_status = 'refunded'
 
     self.state = 'completed'
-    self.refunded_at = Time.now
+    self.refunded_at = Time.current
 
     self.class.transaction do
       order.save!
@@ -57,6 +57,7 @@ module RailsTrade::Refund
     order.payment_status = 'denied'
 
     self.state = 'failed'
+    self.operator_id = params[:operator_id]
 
     self.class.transaction do
       order.save!
