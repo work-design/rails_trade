@@ -2,8 +2,9 @@ class Trade::Admin::PromoteGoodsController < Trade::Admin::BaseController
   before_action :set_promote_good, only: [:show, :edit, :update, :destroy]
 
   def index
-    q_params = {}.with_indifferent_access
+    q_params = {}
     q_params.merge! params.permit(:promote_id, :good_type, :good_id)
+
     @promote_goods = PromoteGood.default_where(q_params).page(params[:page])
     if params[:promote_id]
       @promote = Promote.find params[:promote_id]

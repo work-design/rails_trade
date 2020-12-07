@@ -4,6 +4,7 @@ class Trade::Admin::PayoutsController < Trade::Admin::BaseController
   def index
     q_params = {}
     q_params.merge! params.permit(:id, :cash_id, :payout_uuid)
+
     @payouts = Payout.default_where(q_params).page(params[:page])
   end
 
@@ -37,7 +38,6 @@ class Trade::Admin::PayoutsController < Trade::Admin::BaseController
 
   def do_pay
     @payout.do_pay
-    redirect_to admin_payouts_url(id: @payout.id), notice: 'Payout was successfully payed.'
   end
 
   def destroy

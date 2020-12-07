@@ -3,7 +3,8 @@ class Trade::Admin::PromoteCartsController < Trade::Admin::BaseController
 
   def index
     q_params = {}
-    q_params.merge! params.permit(:promote_id, :buyer_type, :buyer_id)
+    q_params.merge! params.permit(:promote_id, :user_id, :member_id)
+
     @promote_carts = PromoteCart.includes(:buyer, :promote).default_where(q_params).page(params[:page])
     if params[:promote_good_id]
       @promote_good = PromoteGood.find params[:promote_good_id]

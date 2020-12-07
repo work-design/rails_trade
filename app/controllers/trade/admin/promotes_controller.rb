@@ -9,11 +9,6 @@ class Trade::Admin::PromotesController < Trade::Admin::BaseController
     @promotes = Promote.default_where(q_params).order(id: :desc).page(params[:page])
   end
 
-  def search
-    @promotes = Promote.default_where('name-like': params[:q])
-    render json: { results: @promotes.as_json(only: [:id, :name]) }
-  end
-
   def new
     @promote = Promote.new
   end
