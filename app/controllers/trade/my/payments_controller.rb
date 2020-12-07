@@ -43,8 +43,9 @@ class Trade::My::PaymentsController < Trade::My::BaseController
   def payment_params
     params.fetch(:payment, {}).permit(
       :type,
+      :card_id,
       :total_amount,
-      payment_orders_attributes: [:check_amount]
+      payment_orders_attributes: [:order_id, :check_amount]
     )
   end
 

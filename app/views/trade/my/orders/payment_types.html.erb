@@ -10,11 +10,14 @@
           <div class="weui-cell__bd"><%= card.card_template.name %>(可用： <%= card.amount %>)</div>
           <div class="weui-cell__ft" data-controller="input">
             <%= form_with theme: nil, model: Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, id: "card_#{card.id}" do |f| %>
-              <%= f.fields model: f.object.payment_orders.build do |ef| %>
+              <%= f.hidden_field :type, value: 'CardPayment' %>
+              <%= f.hidden_field :card_id, value: card.id %>
+              <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
                 <%= ef.hidden_field :order_id, value: @order.id %>
+                <%= ef.hidden_field :check_amount, value: @order.amount < card.amount ? @order.amount : card.amount %>
               <% end %>
             <% end %>
-            <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}" %>
+            <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
             <span class="weui-icon-checked"></span>
           </div>
         </label>
