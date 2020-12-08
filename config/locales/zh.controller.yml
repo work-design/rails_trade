@@ -5,6 +5,9 @@ zh:
       card_advances:
         index:
           title: 充值明细
+      card_payments:
+        index:
+          title: 支付
       carts:
         index:
           title: 购物用户

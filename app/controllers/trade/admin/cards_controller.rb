@@ -5,7 +5,7 @@ class Trade::Admin::CardsController < Trade::Admin::BaseController
   def index
     q_params = {}
     q_params.merge! default_params
-    q_params.merge! params.permit(:card_uuid, :card_template_id)
+    q_params.merge! params.permit(:id, :card_uuid, :card_template_id)
 
     @cards = Card.includes(:card_template).default_where(q_params).order(id: :desc).page(params[:page])
   end
