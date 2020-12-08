@@ -22,11 +22,12 @@ module RailsTrade::Payment::CardPayment
   def sync_amount
     card.reload
     card.expense_amount += self.total_amount
-    if card.expense_amount == card.compute_expense_amount
+    computed = card.compute_expense_amount
+    if card.expense_amount == computed
       card.save!
     else
-      card.errors.add :expense_amount, 'not equal'
-      logger.error "#{self.class.name}/Card: #{card.errors.full_messages.join(', ')}"
+      card.errors.add :expense_amount, "#{card.expense_amount} Not Equal Computed #{computed}"
+      logger.error "#{self.class.name}/Card: #{card.error_text}"
       raise ActiveRecord::RecordInvalid.new(card)
     end
   end

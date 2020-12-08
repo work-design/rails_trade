@@ -45,10 +45,7 @@ module RailsTrade::Card
   end
 
   def compute_income_amount
-    advances = card_advances.sum(:amount)
-    refunds = card_refunds.sum(:total_amount)
-
-    advances + refunds
+    card_advances.sum(:amount)
   end
 
   def compute_expense_amount

@@ -68,7 +68,7 @@ module RailsTrade::Payment
   end
 
   def compute_amount
-    self.income_amount = self.total_amount - self.fee_amount - refuned_amount
+    self.income_amount = self.total_amount - self.fee_amount - refunded_amount
     self.check_state
   end
 
