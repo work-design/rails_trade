@@ -16,7 +16,7 @@ module RailsTrade::Card
     belongs_to :trade_item, optional: true
     belongs_to :user, optional: true
     belongs_to :member, optional: true
-    belongs_to :client, polymorphic: true, optional: true
+    belongs_to :client, optional: true
     belongs_to :agency, optional: true
 
     has_many :card_advances, dependent: :nullify  # income

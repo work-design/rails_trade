@@ -5,5 +5,4 @@ module RailsTrade::Agency
     has_many :cards, dependent: :nullify
   end
 
-
 end
