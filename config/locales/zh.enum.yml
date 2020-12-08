@@ -1,6 +1,14 @@
 zh:
   activerecord:
     enum:
+      card:
+        type:
+          CounterCard: 次卡
+          VipCard: 会员
+          SvfCard: 储值卡
+      card_log:
+        source_type:
+          CardAdvance: 充值
       order:
         payment_status:
           unpaid: 未支付
@@ -59,16 +67,16 @@ zh:
           unused: 未使用
           used: 已使用
           expired: 已过期
-      card:
-        type:
-          CounterCard: 次卡
-          VipCard: 会员
-          SvfCard: 储值卡
-      card_log:
-        source_type:
-          CardAdvance: 充值
       payout:
         state:
           pending: 待处理
           done: 提现成功
           failed: 提现失败，核查中
+      refund:
+        state:
+          init: 待退款
+          completed: 已完成
+          failed: 退款失败
+          denied: 拒绝退款
+        type:
+          CardRefund: 会员卡

@@ -1,4 +1,4 @@
 class Cash < ApplicationRecord
   include RailsTrade::Cash
-  include RailsTrade::Amount
+  include RailsTrade::Compute
 end unless defined? Cash

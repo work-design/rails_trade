@@ -1,4 +1,4 @@
 class Card < ApplicationRecord
   include RailsTrade::Card
-  include RailsTrade::Amount
+  include RailsTrade::Compute
 end unless defined? Card

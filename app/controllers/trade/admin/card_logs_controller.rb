@@ -3,7 +3,7 @@ class Trade::Admin::CardLogsController < Trade::Admin::BaseController
   before_action :set_card_log, only: [:show, :edit, :update]
 
   def index
-    @card_logs = @card.card_logs.page(params[:page])
+    @card_logs = @card.card_logs.order(id: :desc).page(params[:page])
   end
 
   def show

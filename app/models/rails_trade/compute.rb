@@ -1,4 +1,4 @@
-module RailsTrade::Amount
+module RailsTrade::Compute
   extend ActiveSupport::Concern
 
   included do
@@ -9,7 +9,7 @@ module RailsTrade::Amount
     validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
     validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
-    before_validation :compute_amount, if: -> { income_amount_changed? || expense_amount_changed? }
+    before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
   end
 
   def compute_amount

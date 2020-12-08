@@ -45,8 +45,13 @@ module RailsTrade::Refund
   end
 
   def sync_refund
-    order.payment_status = 'refunded'
-    order.save
+    payment.refunded_amount = total_amount
+    payment.save
+
+    if order
+      order.payment_status = 'refunded'
+      order.save
+    end
   end
 
   def deny_refund

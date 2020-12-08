@@ -7,11 +7,12 @@ module RailsTrade::Payment
     attribute :state, :string, default: 'init', index: true
     attribute :pay_status, :string
     attribute :currency, :string, default: RailsTrade.config.default_currency
-    attribute :adjust_amount, :decimal, default: 0
     attribute :total_amount, :decimal, default: 0
-    attribute :fee_amount, :decimal, default: 0
     attribute :checked_amount, :decimal, default: 0
-    attribute :income_amount, :decimal
+    attribute :adjust_amount, :decimal, default: 0
+    attribute :fee_amount, :decimal, default: 0
+    attribute :refunded_amount, :decimal, default: 0
+    attribute :income_amount, :decimal, comment: '实际到账'
     attribute :notify_type, :string
     attribute :notified_at, :datetime
     attribute :seller_identifier, :string
@@ -27,7 +28,8 @@ module RailsTrade::Payment
       part_checked: 'part_checked',
       all_checked: 'all_checked',
       adjust_checked: 'adjust_checked',
-      abusive_checked: 'abusive_checked'
+      abusive_checked: 'abusive_checked',
+      refunded: 'refunded'
     }, _default: 'init'
 
     belongs_to :organ, optional: true
@@ -44,7 +46,7 @@ module RailsTrade::Payment
     before_validation do
       self.payment_uuid = UidHelper.nsec_uuid('PAY') if payment_uuid.blank?
     end
-    before_save :compute_amount
+    before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
     after_create :analyze_payment_method
 
     has_one_attached :proof
@@ -66,14 +68,7 @@ module RailsTrade::Payment
   end
 
   def compute_amount
-    if income_amount.blank? && fee_amount.present?
-      self.income_amount = self.total_amount - self.fee_amount
-    end
-
-    if fee_amount.blank? && income_amount.present?
-      self.fee_amount = self.total_amount - self.income_amount
-    end
-
+    self.income_amount = self.total_amount - self.fee_amount - refuned_amount
     self.check_state
   end
 
@@ -83,15 +78,15 @@ module RailsTrade::Payment
 
   def pending_orders
     if self.payment_method
-      buyer_ids = self.payment_method.payment_references.pluck(:buyer_id)
-      Order.where.not(id: self.payment_orders.pluck(:order_id)).where(buyer_id: buyer_ids, payment_status: ['unpaid', 'part_paid'], state: 'active')
+      user_ids = self.payment_method.payment_references.pluck(:user_id)
+      Order.where.not(id: self.payment_orders.pluck(:order_id)).where(user_id: user_ids, payment_status: ['unpaid', 'part_paid'], state: 'active')
     else
       Order.none
     end
   end
 
   def analyze_adjust_amount
-    self.adjust_amount = self.checked_amount.to_d - self.total_amount.to_d
+    self.adjust_amount = self.checked_amount - self.total_amount
     self.state = 'all_checked'
     self.save
   end
