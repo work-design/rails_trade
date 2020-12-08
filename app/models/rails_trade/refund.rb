@@ -45,6 +45,7 @@ module RailsTrade::Refund
   end
 
   def sync_refund
+    payment.total_amount -= total_amount
     payment.refunded_amount = total_amount
     payment.save
 

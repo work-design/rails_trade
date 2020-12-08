@@ -46,7 +46,7 @@ module RailsTrade::Payment
     before_validation do
       self.payment_uuid = UidHelper.nsec_uuid('PAY') if payment_uuid.blank?
     end
-    before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
+    before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
     after_create :analyze_payment_method
 
     has_one_attached :proof
@@ -68,7 +68,7 @@ module RailsTrade::Payment
   end
 
   def compute_amount
-    self.income_amount = self.total_amount - self.fee_amount - refunded_amount
+    self.income_amount = self.total_amount - self.fee_amount
     self.check_state
   end
 

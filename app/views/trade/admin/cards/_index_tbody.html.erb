@@ -20,6 +20,9 @@
   </td>
   <td><time><%= card.created_at.to_s(:rfc822) %></time></td>
   <td>
+    <%= link_to({ controller: 'card_advances', card_id: card.id }, aria: { label: t('trade.admin.card_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fas fa-gem"></i>
+    <% end %>
     <%= link_to({ action: 'show', id: card.id }, aria: { label: t('.show') }, remote: true, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-info"></i>
     <% end %>

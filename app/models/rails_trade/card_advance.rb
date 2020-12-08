@@ -5,6 +5,7 @@ module RailsTrade::CardAdvance
     attribute :price, :decimal
     attribute :amount, :decimal
     attribute :state, :string
+    attribute :note, :string
 
     enum xx: {
       given: 'given'  # 系统赠送

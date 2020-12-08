@@ -19,6 +19,10 @@ module RailsTrade::Payment::CardPayment
     self.total_amount = params[:total_amount]
   end
 
+  def compute_amount
+    self.income_amount = 0
+  end
+
   def sync_amount
     card.reload
     card.expense_amount += self.total_amount

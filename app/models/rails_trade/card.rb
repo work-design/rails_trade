@@ -49,7 +49,7 @@ module RailsTrade::Card
   end
 
   def compute_expense_amount
-    card_payments.sum(:income_amount)
+    card_payments.sum(:total_amount)
   end
 
 end

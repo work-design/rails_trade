@@ -106,8 +106,8 @@ Rails.application.routes.draw do
     end
     resources :cards do
       resources :card_logs
+      resources :card_advances
     end
-    resources :card_advances
     resources :cashes
     resources :cash_givens
     resources :payouts do

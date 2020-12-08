@@ -2,6 +2,9 @@ zh:
   trade:
     admin:
       title: 交易管理
+      card_advances:
+        index:
+          title: 充值明细
       carts:
         index:
           title: 购物用户
