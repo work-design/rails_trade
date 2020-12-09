@@ -5,9 +5,9 @@
   <td>
     <%= order.payment_status_i18n %>
     <% if ['part_paid', 'all_paid'].include?(order.payment_status) %>
-      <%= link_to t('.refund'), { action: 'refund', id: order.id }, method: :patch, class: 'button is-light is-small' %>
+      <%= link_to t('.refund'), { action: 'refund', id: order.id }, method: :patch, remote: true, class: 'button is-light is-small' %>
     <% elsif ['refunding', 'refunded', 'denied'].include?(order.payment_status) %>
-      <%= link_to t('.refund_list'), { controller: 'refunds', order_id: order.id }, class: 'button is-link is-small' %>
+      <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: order.id }, class: 'button is-link is-small' %>
     <% elsif ['unpaid'].include?(order.payment_status) %>
       <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: order.id }, remote: true, class: 'button is-link is-small' %>
     <% end %>
