@@ -1,0 +1,6 @@
+<div class="breadcrumb has-succeeds-separator">
+  <ul>
+    <li><%= link_to t('trade.admin.orders.index.title'), { controller: 'orders', cart_id: @order.cart_id } %></li>
+    <li class="is-active"><%= @order.uuid %></li>
+  </ul>
+</div>

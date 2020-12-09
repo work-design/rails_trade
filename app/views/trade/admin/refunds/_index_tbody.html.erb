@@ -1,8 +1,8 @@
 <tr>
   <td><%= refund.refund_uuid %></td>
   <td>
-    <p><%= link_to refund.order.uuid, admin_order_path(refund.order_id) %></p>
-    <p><%= link_to refund.payment.payment_uuid, admin_payments_path(id: refund.payment_id) %></p>
+    <p><%= link_to refund.order.uuid, { controller: 'orders', action: 'show', id: refund.order_id }, remote: true %></p>
+    <p><%= link_to refund.payment.payment_uuid, { controller: 'payments', action: 'show', id: refund.payment_id }, remote: true %></p>
   </td>
   <td><%= refund.total_amount.to_money(refund.currency).format %></td>
   <td><%= refund.type_i18n %></td>

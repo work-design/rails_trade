@@ -114,6 +114,11 @@ zh:
         extra: 额外参数
         parameter: 参数
         base_price: 基础价格
+      refund:
+        refunded_at: 退款时间
+        total_amount: 金额
+        order_id: 订单
+        payment_id: 支付
       cash:
         user: 所属用户
         amount: 数额
