@@ -5,7 +5,7 @@ module RailsTrade::Refund::CardRefund
     belongs_to :card
     has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
-    before_validation :sync_card, if: -> { payment_id_changed? }
+    before_validation :sync_card, if: -> { payment.card_id != card_id }
     after_save :sync_amount, if: -> { completed? && (state_before_last_save == 'init' || saved_change_to_total_amount?) }
     after_create_commit :sync_card_log
   end
@@ -21,12 +21,13 @@ module RailsTrade::Refund::CardRefund
 
   def sync_amount
     card.reload
-    card.income_amount += self.total_amount
-    if card.income_amount == card.compute_income_amount
+    card.expense_amount -= self.total_amount
+    computed = card.compute_expense_amount
+    if card.expense_amount == computed
       card.save!
     else
-      card.errors.add :income_amount, 'not equal'
-      logger.error "#{self.class.name}/Card: #{card.errors.full_messages.join(', ')}"
+      card.errors.add :amount, "  #{card.expense_amount} Not Equal Computed #{computed}"
+      logger.error "#{self.class.name}/Card: #{card.error_text}"
       raise ActiveRecord::RecordInvalid.new(card)
     end
   end
