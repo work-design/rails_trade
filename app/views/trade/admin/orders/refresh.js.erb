@@ -1,7 +1,0 @@
-$('#order_amount').val('<%= @order.amount %>')
-$('#order_amount_show').html('<%= @order.amount %>')
-
-
-<% @order.order_serves.each do |order_serve| %>
-  $('#order_order_serves_attributes_<%= order_serve.serve_id %>_amount').val('<%= order_serve.amount %>')
-<% end %>

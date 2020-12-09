@@ -6,7 +6,7 @@ module RailsTrade::Payment::CardPayment
     has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
     before_validation :init_amount, if: -> { checked_amount_changed? }
-    after_save :sync_amount, if: -> { saved_change_to_total_amount? }
+    after_update :sync_amount, if: -> { saved_change_to_total_amount? }
     after_create_commit :sync_card_log, if: -> { saved_change_to_total_amount? }
   end
 

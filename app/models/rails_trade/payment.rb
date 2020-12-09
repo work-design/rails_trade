@@ -47,7 +47,7 @@ module RailsTrade::Payment
       self.payment_uuid = UidHelper.nsec_uuid('PAY') if payment_uuid.blank?
     end
     before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
-    after_create :analyze_payment_method
+    before_create :analyze_payment_method
 
     has_one_attached :proof
   end
@@ -59,7 +59,6 @@ module RailsTrade::Payment
       self.payment_method = pm
 
       pm.save
-      self.save
     end
   end
 
