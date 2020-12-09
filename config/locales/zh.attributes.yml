@@ -3,6 +3,32 @@ zh:
     models:
       role: ''
     attributes:
+      advance:
+        amount: 额度
+        price: 价格
+        apple_product_id: iOS内购配置
+      card:
+        user_id: 购买人
+        card_uuid: 卡号
+        effect_at: 生效时间
+        expire_at: 失效时间
+        amount: 剩余额度
+        income_amount: 初始额度
+        expense_amount: 已用额度
+        client_id: 持卡人
+      card/card_template:
+        name: 卡类型
+      card_advance:
+        amount: 金额
+      card_log:
+        tag_str: 标签
+        source_type: 来源类型
+        source_id: 来源
+        amount: 额度
+      card_promote:
+        income_min: 充值大于
+        income_max: 充值少于
+        promote_id: 优惠内容
       cart:
         retail_price: 原价
         discount_price: 优惠价格
@@ -104,27 +130,4 @@ zh:
         valid_years: 有效年
         valid_months: 有效月
         valid_days: 有效天数
-      advance:
-        amount: 额度
-        price: 价格
-        apple_product_id: iOS内购配置
-      card:
-        user_id: 购买人
-        card_uuid: 卡号
-        effect_at: 生效时间
-        expire_at: 失效时间
-        amount: 剩余额度
-        income_amount: 初始额度
-        expense_amount: 已用额度
-        client_id: 持卡人
-      card/card_template:
-        name: 卡类型
-      card_log:
-        tag_str: 标签
-        source_type: 来源类型
-        source_id: 来源
-        amount: 额度
-      card_promote:
-        income_min: 充值大于
-        income_max: 充值少于
-        promote_id: 优惠内容
+
