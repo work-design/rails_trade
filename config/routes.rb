@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope module: 'trade', defaults: { business: 'trade' } do
+  scope module: 'trade', defaults: { namespace: 'application', business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
         get :result
