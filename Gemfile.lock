@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 2de290bb9fe0373dc8139db04d3621866cafe61f
+  revision: ed3ebd714cfa09224903c5032fdefeda85daaf38
   specs:
     rails_com (1.2.9)
       acme-client
@@ -90,7 +90,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    acts_as_list (1.0.2)
+    acts_as_list (1.0.3)
       activerecord (>= 4.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
@@ -118,7 +118,7 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
-    faraday (1.1.0)
+    faraday (1.2.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     globalid (0.4.2)
