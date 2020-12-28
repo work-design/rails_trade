@@ -1,4 +1,4 @@
-<tr>
+<tr id="tr_<%= promote.id %>">
   <td>
     <p><%= promote.name %></p>
     <p>
@@ -30,7 +30,7 @@
     <%= link_to({ action: 'edit', id: promote.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
-    <%= link_to({ action: 'destroy', id: promote.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'button is-small is-rounded is-light') do %>
+    <%= button_to({ action: 'destroy', id: promote.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-trash-alt"></i>
     <% end %>
   </td>
