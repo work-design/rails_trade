@@ -1,4 +1,4 @@
-<%= form_with model: @promote, scope: :promote, url: { action: 'create' } do |f| %>
+<%= form_with model: @promote, url: { action: 'create' }, data: { turbo_frame: '_top' } do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
   <%= f.submit %>
 <% end %>
