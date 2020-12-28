@@ -4,9 +4,8 @@ module RailsTrade::Payout
   included do
     attribute :type, :string
     attribute :payout_uuid, :string
-    attribute :requested_amount, :decimal, precision: 10, scale: 2
-    attribute :actual_amount, :decimal, precision: 10, scale: 2
-    attribute :state, :string, default: 'pending'
+    attribute :requested_amount, :decimal
+    attribute :actual_amount, :decimal
     attribute :paid_at, :datetime
     attribute :advance, :boolean, default: false
     attribute :account_bank, :string
@@ -25,7 +24,7 @@ module RailsTrade::Payout
       pending: 'pending',
       done: 'done',
       failed: 'failed'
-    }
+    }, _default: 'pending'
 
     before_validation do
       self.payout_uuid ||= UidHelper.nsec_uuid('POT')
