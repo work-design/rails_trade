@@ -1,7 +1,4 @@
-<%= form_with model: @payout, url: finance_payout_path(@payout), method: :patch do |f| %>
-  <%= render 'shared/error_messages', target: @payout %>
-  <%= f.number_field :actual_amount, required: true %>
-  <%= f.text_field :payout_uuid %>
-  <%= f.file_field :proof %>
-  <%= f.submit %>
-<% end %>
+<%= render 'shared/error_messages', target: f.object %>
+<%= f.number_field :actual_amount, required: true %>
+<%= f.text_field :payout_uuid %>
+<%= f.file_field :proof %>
