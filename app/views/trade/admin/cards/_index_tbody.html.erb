@@ -1,41 +1,25 @@
-<tr>
-  <td><%= card.card_template.name %></td>
-  <td>
-    <p><%= card.user.name %></p>
-  </td>
-  <td><%= card.card_uuid %></td>
-  <td>
-    <p><time data-controller="time"><%= card.effect_at.to_s(:rfc822) %></time></p>
-    <p><time data-controller="time"><%= card.expire_at.to_s(:rfc822) %></time></p>
-  </td>
-  <td><%= card.amount %></td>
-  <td>
-    <p>
-      <%= card.income_amount %>
-      <%= link_to({ controller: 'card_advances', card_id: card.id }, aria: { label: t('trade.admin.card_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-gem"></i>
-      <% end %>
-    </p>
-    <p>
-      <%= card.expense_amount %>
-      <%= link_to({ controller: 'card_payments', card_id: card.id }, aria: { label: t('trade.admin.card_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-credit-card"></i>
-      <% end %>
-    </p>
-  </td>
-  <td><time data-controller="time"><%= card.created_at.to_s(:rfc822) %></time></td>
-  <td>
-    <%= link_to({ controller: 'card_logs', card_id: card.id }, aria: { label: t('.log') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-clock"></i>
+<td><%= model.card_template.name %></td>
+<td>
+  <p><%= model.user.name %></p>
+</td>
+<td><%= model.card_uuid %></td>
+<td>
+  <p><time data-controller="time"><%= model.effect_at.to_s(:rfc822) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time></p>
+</td>
+<td><%= model.amount %></td>
+<td>
+  <p>
+    <%= model.income_amount %>
+    <%= link_to({ controller: 'card_advances', card_id: model.id }, aria: { label: t('trade.admin.card_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fas fa-gem"></i>
     <% end %>
-    <%= link_to({ action: 'show', id: card.id }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-info"></i>
+  </p>
+  <p>
+    <%= model.expense_amount %>
+    <%= link_to({ controller: 'card_payments', card_id: model.id }, aria: { label: t('trade.admin.card_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fas fa-credit-model"></i>
     <% end %>
-    <%= link_to({ action: 'edit', id: card.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= link_to({ action: 'destroy', id: card.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-trash-alt"></i>
-    <% end %>
-  </td>
-</tr>
+  </p>
+</td>
+<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>

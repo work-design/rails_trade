@@ -1,15 +1,8 @@
-<tr>
-  <td><%= card_log.title %></td>
-  <td><%= card_log.tag_str %></td>
-  <td>
-    <p><%= card_log.source_type_i18n %></p>
-    <p><%= card_log.source_id %></p>
-  </td>
-  <td><%= card_log.amount %></td>
-  <td><time data-controller="time"><%= card_log.created_at.to_s(:rfc822) %></time></td>
-  <td>
-    <%= link_to({ action: 'edit', card_id: @card.id, id: card_log.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-  </td>
-</tr>
+<td><%= model.title %></td>
+<td><%= model.tag_str %></td>
+<td>
+  <p><%= model.source_type_i18n %></p>
+  <p><%= model.source_id %></p>
+</td>
+<td><%= model.amount %></td>
+<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
