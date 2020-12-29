@@ -1,5 +1,5 @@
 <%= render layout: 'index_table', locals: { cache_key: PromoteCharge.column_names.hash } do %>
-  <%= render partial: 'index_tbody', collection: @promote_charges, as: :promote_charge %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @promote_charges, as: :promote_charge %>
 <% end %>
 
 <%= paginate @promote_charges %>

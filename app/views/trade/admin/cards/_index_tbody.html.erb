@@ -5,8 +5,8 @@
   </td>
   <td><%= card.card_uuid %></td>
   <td>
-    <p><time><%= card.effect_at.to_s(:rfc822) %></time></p>
-    <p><time><%= card.expire_at.to_s(:rfc822) %></time></p>
+    <p><time data-controller="time"><%= card.effect_at.to_s(:rfc822) %></time></p>
+    <p><time data-controller="time"><%= card.expire_at.to_s(:rfc822) %></time></p>
   </td>
   <td><%= card.amount %></td>
   <td>
@@ -23,18 +23,18 @@
       <% end %>
     </p>
   </td>
-  <td><time><%= card.created_at.to_s(:rfc822) %></time></td>
+  <td><time data-controller="time"><%= card.created_at.to_s(:rfc822) %></time></td>
   <td>
     <%= link_to({ controller: 'card_logs', card_id: card.id }, aria: { label: t('.log') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-clock"></i>
     <% end %>
-    <%= link_to({ action: 'show', id: card.id }, aria: { label: t('.show') }, remote: true, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ action: 'show', id: card.id }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-info"></i>
     <% end %>
-    <%= link_to({ action: 'edit', id: card.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ action: 'edit', id: card.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
-    <%= link_to({ action: 'destroy', id: card.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ action: 'destroy', id: card.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-trash-alt"></i>
     <% end %>
   </td>

@@ -8,13 +8,13 @@
     <%= ef.number_field :amount, label: nil, placeholder: Advance.human_attribute_name(:amount) %>
     <%= ef.number_field :price, label: nil, placeholder: Advance.human_attribute_name(:price) %>
     <div class="field has-addons has-addons-middle">
-      <%= link_to add_item_admin_card_templates_path(index: ef.index), data: { title: 'add_item' }, remote: true do %>
+      <%= link_to add_item_admin_card_templates_path(index: ef.index), data: { title: 'add_item' } do %>
         <i class="fas fa-plus-circle"></i>
       <% end %>
       <% if ef.object.id %>
         <%= ef.check_box :_destroy, { checked: false, label: '移除', origin: { offset: nil }, wrap: { checkbox: 'checkbox' } } %>
       <% else %>
-        <%= link_to remove_item_admin_card_templates_path(index: ef.index), remote: true do %>
+        <%= link_to remove_item_admin_card_templates_path(index: ef.index) do %>
           <i class="fas fa-minus-circle"></i>
         <% end %>
       <% end %>

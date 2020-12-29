@@ -6,9 +6,9 @@
     <p><%= card_log.source_id %></p>
   </td>
   <td><%= card_log.amount %></td>
-  <td><time><%= card_log.created_at.to_s(:rfc822) %></time></td>
+  <td><time data-controller="time"><%= card_log.created_at.to_s(:rfc822) %></time></td>
   <td>
-    <%= link_to({ action: 'edit', card_id: @card.id, id: card_log.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ action: 'edit', card_id: @card.id, id: card_log.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
   </td>

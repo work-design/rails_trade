@@ -1,22 +1,22 @@
 <tr>
   <td><%= refund.refund_uuid %></td>
   <td>
-    <p><%= link_to refund.order.uuid, { controller: 'orders', action: 'show', id: refund.order_id }, remote: true %></p>
-    <p><%= link_to refund.payment.payment_uuid, { controller: 'payments', action: 'show', id: refund.payment_id }, remote: true %></p>
+    <p><%= link_to refund.order.uuid, { controller: 'orders', action: 'show', id: refund.order_id } %></p>
+    <p><%= link_to refund.payment.payment_uuid, { controller: 'payments', action: 'show', id: refund.payment_id } %></p>
   </td>
   <td><%= refund.total_amount.to_money(refund.currency).format %></td>
   <td><%= refund.type_i18n %></td>
-  <td><time><%= refund.created_at.to_s(:rfc822) %></time></td>
+  <td><time data-controller="time"><%= refund.created_at.to_s(:rfc822) %></time></td>
   <td><%= refund.state_i18n %></td>
   <td><%= refund.comment %></td>
   <td>
     <% if refund.refunded_at %>
-      <time><%= refund.refunded_at.to_s(:rfc822) %></time>
+      <time data-controller="time"><%= refund.refunded_at.to_s(:rfc822) %></time>
     <% else %>
       <div class="buttons are-small">
-        <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, remote: true, data: { confirm: t('.confirm') }, class: 'button is-primary' %>
+        <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: t('.confirm') }, class: 'button is-primary' %>
         <div class="or"></div>
-        <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, remote: true, data: { confirm: 'Deny Refund!' }, class: 'button is-danger' %>
+        <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'button is-danger' %>
       </div>
     <% end %>
     <% if refund.reason %>

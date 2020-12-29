@@ -10,7 +10,7 @@
       <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
-  <%= link_to 'edit', admin_trade_promotes_path(trade_item_id: trade_item.id), remote: true, class: 'ui mini label' %>
+  <%= link_to 'edit', admin_trade_promotes_path(trade_item_id: trade_item.id), class: 'ui mini label' %>
 </div>
 <div>
   <span style="color: grey;">Promote Price: </span>

@@ -3,15 +3,15 @@
     <p><%= card_promote.income_min %></p>
     <p><%= card_promote.income_max %></p>
   </td>
-  <td><%= link_to card_promote.promote.name, { controller: 'trade/admin/promotes', action: 'show', id: card_promote.promote_id }, remote: true, text: true %></td>
+  <td><%= link_to card_promote.promote.name, { controller: 'trade/admin/promotes', action: 'show', id: card_promote.promote_id }, text: true %></td>
   <td>
-    <%= link_to({ action: 'show', id: card_promote.id }, { aria: { label: t('.show') }, remote: true, class: 'button is-small is-rounded is-light' }) do %>
+    <%= link_to({ action: 'show', id: card_promote.id }, { aria: { label: t('.show') }, class: 'button is-small is-rounded is-light' }) do %>
       <i class="fas fa-eye"></i>
     <% end %>
-    <%= link_to({ action: 'edit', id: card_promote.id }, { aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' }) do %>
+    <%= link_to({ action: 'edit', id: card_promote.id }, { aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light' }) do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
-    <%= link_to({ action: 'destroy', id: card_promote.id }, { method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, remote: true, class: 'button is-small is-rounded is-light' }) do %>
+    <%= link_to({ action: 'destroy', id: card_promote.id }, { method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light' }) do %>
       <i class="fas fa-trash-alt"></i>
     <% end %>
   </td>

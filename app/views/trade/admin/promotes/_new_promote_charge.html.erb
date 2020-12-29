@@ -3,7 +3,7 @@
     <%= render partial: 'trade/admin/promote_charges/form', locals: { f: f } %>
   <% end %>
   
-  <%= link_to new_admin_promote_good_path(promote_id: @promote.id), remote: true, class: 'ui teal button' do %>
+  <%= link_to new_admin_promote_good_path(promote_id: @promote.id), class: 'ui teal button' do %>
     <i class="fas fa-plus"></i><%= t('.new') %>
   <% end %>
 </div>

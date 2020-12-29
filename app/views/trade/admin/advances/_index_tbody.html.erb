@@ -3,7 +3,7 @@
   <td><%= advance.price %></td>
   <td><%= advance.apple_product_id %></td>
   <td>
-    <%= link_to edit_admin_card_template_advance_path(@card_template, advance), aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light' do %>
+    <%= link_to edit_admin_card_template_advance_path(@card_template, advance), aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light' do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
     <%= link_to admin_card_template_advance_path(@card_template, advance), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light' do %>

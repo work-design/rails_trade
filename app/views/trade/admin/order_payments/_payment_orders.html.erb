@@ -8,10 +8,10 @@
     <%= payment_order.check_amount.to_money(payment_order.payment.currency).format %>
     <span style="color: #999;"><%= payment_order.state_i18n %></span>
   </td>
-  <td class="center aligned"><time><%= payment_order.created_at.to_s(:rfc822) %></time></td>
+  <td class="center aligned"><time data-controller="time"><%= payment_order.created_at.to_s(:rfc822) %></time></td>
   <td>
     <% if payment_order.init? %>
-      <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete, remote: true %>
+      <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete %>
     <% end %>
   </td>
 </tr>

@@ -20,14 +20,14 @@
       <td><%= order.payment_status_i18n %></td>
       <td>
         <% if order.can_pay? %>
-          <%= link_to '支付', { action: 'edit_payment_type', id: order.id }, remote: true, class: 'button' %>
+          <%= link_to '支付', { action: 'edit_payment_type', id: order.id }, class: 'button' %>
         <% end %>
       </td>
       <td>
         <%= link_to({ action: 'show', id: order.id }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
           <i class="fas fa-eye"></i>
         <% end %>
-        <%= link_to({ action: 'edit', id: order.id }, remote: true, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
+        <%= link_to({ action: 'edit', id: order.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
           <i class="fas fa-pencil-alt"></i>
         <% end %>
       </td>

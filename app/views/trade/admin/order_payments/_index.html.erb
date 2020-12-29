@@ -24,7 +24,7 @@
           <td><%= payment_order.check_amount.to_money(payment_order.payment.currency).format %></td>
           <td><%= payment_order.created_at.to_s %></td>
           <td>
-            <%= link_to '退款', new_admin_payment_refund_path(payment_order.payment_id, order_id: payment_order.order_id), remote: true %>
+            <%= link_to '退款', new_admin_payment_refund_path(payment_order.payment_id, order_id: payment_order.order_id) %>
           </td>
         </tr>
         <% end %>

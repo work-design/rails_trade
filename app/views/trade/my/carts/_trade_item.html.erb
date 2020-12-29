@@ -1,6 +1,6 @@
 <tr class="<%= 'active' if trade_item.checked? %>" id="trade_item_<%= trade_item.id %>">
   <td data-controller="input">
-    <%= check_box_tag '[trade_item]status', trade_item.checked? ? 'checked' : 'init', trade_item.checked?, data: { method: :patch, remote: true, url: toggle_my_trade_item_path(trade_item), action: 'input#submit' }, id: nil %>
+    <%= check_box_tag '[trade_item]status', trade_item.checked? ? 'checked' : 'init', trade_item.checked?, data: { method: :patch, url: toggle_my_trade_item_path(trade_item), action: 'input#submit' }, id: nil %>
   </td>
   <td>
     <%= trade_item.good&.name %>
@@ -39,6 +39,6 @@
     </p>
   </td>
   <td>
-    <%= link_to t('.destroy'), { controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, remote: true %>
+    <%= link_to t('.destroy'), { controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete %>
   </td>
 </tr>

@@ -1,23 +1,16 @@
-<tr id="order_<%= order.id %>">
-  <td><%= link_to order.uuid, { action: 'show', id: order.id }, text: true %></td>
-  <td><%= order.amount %></td>
-  <td><%= order.received_amount %></td>
-  <td>
-    <%= order.payment_status_i18n %>
-    <% if ['part_paid', 'all_paid'].include?(order.payment_status) %>
-      <%= link_to t('.refund'), { action: 'refund', id: order.id }, method: :patch, remote: true, class: 'button is-light is-small' %>
-    <% elsif ['refunding', 'refunded', 'denied'].include?(order.payment_status) %>
-      <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: order.id }, class: 'button is-link is-small' %>
-    <% elsif ['unpaid'].include?(order.payment_status) %>
-      <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: order.id }, remote: true, class: 'button is-link is-small' %>
-    <% end %>
-  </td>
-  <td><time><%= order.created_at.to_s(:rfc822) %></time></td>
-  <td><%= link_to order.user_name, admin_orders_path(user_id: order.user_id) %></td>
-  <td><%= simple_format(order.extra_i18n) %></td>
-  <td>
-    <%= link_to({ action: 'edit', id: order.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-  </td>
-</tr>
+<td><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></td>
+<td><%= model.amount %></td>
+<td><%= model.received_amount %></td>
+<td>
+  <%= model.payment_status_i18n %>
+  <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
+    <%= link_to t('.refund'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-light is-small' %>
+  <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+    <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: model.id }, class: 'button is-link is-small' %>
+  <% elsif ['unpaid'].include?(model.payment_status) %>
+    <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, class: 'button is-link is-small' %>
+  <% end %>
+</td>
+<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
+<td><%= link_to model.user_name, admin_orders_path(user_id: model.user_id) %></td>
+<td><%= simple_format(model.extra_i18n) %></td>

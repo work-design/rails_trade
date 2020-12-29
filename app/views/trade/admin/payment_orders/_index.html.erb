@@ -1,6 +1,6 @@
 <tr id="checked_<%= payment_order.order_id %>">
   <td>
-    <%= form_with url: admin_payment_payment_order_path(@payment, payment_order), id: "edit_payment_order_#{payment_order.id}", method: :patch, remote: true do |f| %>
+    <%= form_with url: admin_payment_payment_order_path(@payment, payment_order), id: "edit_payment_order_#{payment_order.id}", method: :patch do |f| %>
     <% end %>
   </td>
   <td>
@@ -17,7 +17,7 @@
   <td><%= PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
   <td>
     <% if payment_order.confirmed? %>
-      <%= link_to '撤销', { action: 'cancel', payment_id: @payment, id: payment_order.id }, method: :patch, remote: true %>
+      <%= link_to '撤销', { action: 'cancel', payment_id: @payment, id: payment_order.id }, method: :patch %>
     <% else %>
       <%= submit_tag '核销', form: "edit_payment_order_#{payment_order.id}", class: 'button is-small' %>
     <% end %>

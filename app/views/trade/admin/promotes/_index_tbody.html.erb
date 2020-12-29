@@ -12,7 +12,7 @@
   <td><%= promote.metering_i18n %></td>
   <td>
     <div data-controller="input">
-      <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, remote: true, url: admin_promote_path(promote.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
+      <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, url: admin_promote_path(promote.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
       <label></label>
     </div>
   </td>
@@ -27,7 +27,7 @@
     <%= link_to({ controller: 'promote_charges', promote_id: promote.id }, aria: { label: t('trade.admin.promote_charges.index.title') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-server"></i>
     <% end %>
-    <%= link_to({ action: 'edit', id: promote.id }, aria: { label: t('.edit') }, remote: true, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ action: 'edit', id: promote.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fas fa-pencil-alt"></i>
     <% end %>
     <%= button_to({ action: 'destroy', id: promote.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>

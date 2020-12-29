@@ -81,11 +81,11 @@
         <td><%= order.remind_counter %></td>
         <td>
           <% if order.exists_payments && !order.cancel? %>
-            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon green button' do %>
+            <%= link_to new_admin_order_order_payment_path(order.id), class: 'ui icon green button' do %>
               <i class="payment icon"></i>
             <% end %>
           <% elsif !order.cancel? %>
-            <%= link_to new_admin_order_order_payment_path(order.id), remote: true, class: 'ui icon grey button' do %>
+            <%= link_to new_admin_order_order_payment_path(order.id), class: 'ui icon grey button' do %>
               <i class="payment icon"></i>
             <% end %>
           <% end %>

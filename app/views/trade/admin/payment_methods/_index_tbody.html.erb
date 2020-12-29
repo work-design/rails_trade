@@ -7,7 +7,7 @@
     <% payment_method.payment_references.each do |reference| %>
       <p id="reference_<%= reference.id %>">
         <%= reference.buyer.name %>
-        <%= link_to t('.remove'), admin_payment_method_reference_path(payment_method, reference.id), method: :delete, remote: true %>
+        <%= link_to t('.remove'), admin_payment_method_reference_path(payment_method, reference.id), method: :delete %>
       </p>
     <% end %>
   </td>
@@ -17,8 +17,8 @@
     <% end %>
   </td>
   <td>
-    <%= link_to t('.relate'), new_admin_payment_method_reference_path(payment_method), class: 'button is-link is-small', remote: true %>
-    <%= link_to t('.destroy'), admin_payment_method_path(payment_method), remote: true, method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini red button' %>
+    <%= link_to t('.relate'), new_admin_payment_method_reference_path(payment_method), class: 'button is-link is-small' %>
+    <%= link_to t('.destroy'), admin_payment_method_path(payment_method), method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini red button' %>
     <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'button is-link is-small' %>
   </td>
 </tr>

@@ -19,7 +19,7 @@
               <% end %>
             <% end %>
             <% if @order.payments.pluck(:card_id).include?(card.id) %>
-              <%= check_box_tag 'xx', 'x', true, class: 'weui-check', data: { url: my_payment_url(@order.payment_ids.first), method: :delete, remote: true } %>
+              <%= check_box_tag 'xx', 'x', true, class: 'weui-check', data: { url: my_payment_url(@order.payment_ids.first), method: :delete } %>
             <% else %>
               <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
             <% end %>
@@ -29,7 +29,7 @@
         <% end %>
       </div>
       <div class="weui-cells">
-        <%= link_to({ action: 'wxpay_pay' }, remote: true, class: 'weui-cell weui-cell_active weui-cell_access') do %>
+        <%= link_to({ action: 'wxpay_pay' }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
           <div class="weui-cell__hd"></div>
           <div class="weui-cell__bd weui-cell_primary">微信支付</div>
           <div class="weui-cell__ft"></div>
