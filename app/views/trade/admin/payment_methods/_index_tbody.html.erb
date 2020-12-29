@@ -1,24 +1,17 @@
-<tr>
-  <td><%= payment_method.type_i18n %></td>
-  <td><%= payment_method.account_name %></td>
-  <td><%= payment_method.account_num %></td>
-  <td><%= payment_method.bank %></td>
-  <td>
-    <% payment_method.payment_references.each do |reference| %>
-      <p id="reference_<%= reference.id %>">
-        <%= reference.buyer.name %>
-        <%= link_to t('.remove'), admin_payment_method_reference_path(payment_method, reference.id), method: :delete %>
-      </p>
-    <% end %>
-  </td>
-  <td>
-    <%= form_with model: payment_method, scope: 'payment_method', url: admin_payment_method_path(payment_method), method: :patch do |f| %>
-      <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, can: { wrap_all: false, offset: false } %>
-    <% end %>
-  </td>
-  <td>
-    <%= link_to t('.relate'), new_admin_payment_method_reference_path(payment_method), class: 'button is-link is-small' %>
-    <%= link_to t('.destroy'), admin_payment_method_path(payment_method), method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini red button' %>
-    <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'button is-link is-small' %>
-  </td>
-</tr>
+<td><%= model.type_i18n %></td>
+<td><%= model.account_name %></td>
+<td><%= model.account_num %></td>
+<td><%= model.bank %></td>
+<td>
+  <% model.payment_references.each do |reference| %>
+    <p id="reference_<%= reference.id %>">
+      <%= reference.buyer.name %>
+      <%= link_to t('.remove'), admin_payment_method_reference_path(model, reference.id), method: :delete %>
+    </p>
+  <% end %>
+</td>
+<td>
+  <%= form_with model: model, scope: 'model', url: admin_payment_method_path(model), method: :patch do |f| %>
+    <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, can: { wrap_all: false, offset: false } %>
+  <% end %>
+</td>

@@ -1,38 +1,24 @@
-<tr id="payment_<%= payment.id %>">
-  <td>
-    <p><%= payment.payment_uuid %></p>
-    <div class="tag"><%= payment.type_i18n %></div>
-  </td>
-  <td id="checked_amount_<%= payment.id %>">
-    <%= render partial: 'checked_amount', locals: { payment: payment } %>
-  </td>
-  <td>
-    <%= payment.total_amount %>
-  </td>
-  <td>
-    <p><%= payment.income_amount.to_d %></p>
-    <p><%= payment.fee_amount.to_d %></p>
-  </td>
-  <td><%= payment.adjust_amount %></td>
-  <td>
-    <p><%= payment.buyer_name %></p>
-    <p><%= payment.buyer_identifier %></p>
-    <p><%= payment.buyer_bank %></p>
-    <% if payment.payment_method %>
-      <%= link_to 'Payment Method', admin_payment_methods_path(id: payment.payment_method_id), class: 'ui mini label', targe: '_blank' %>
-    <% end %>
-  </td>
-  <td><time data-controller="time"><%= payment.notified_at.to_s(:rfc822) if payment.notified_at %></time></td>
-  <td>
-    <% if payment.payment_method.present? %>
-      <%= link_to t('.show'), admin_payment_methods_path(id: payment.payment_method_id), class: 'button is-small is-rounded is-light', target: '_blank' %>
-    <% end %>
-    <%= link_to t('.checking'), new_admin_payment_payment_order_path(payment), class: 'button is-small is-rounded is-light' %>
-    <%= link_to audits_path('Payment', payment.id), aria: { label: t('.log') }, class: 'button is-small is-rounded is-light' do %>
-      <i class="fas fa-comments"></i>
-    <% end %>
-    <%= link_to edit_admin_payment_path(payment), aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light' do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-  </td>
-</tr>
+<td>
+  <p><%= model.payment_uuid %></p>
+  <div class="tag"><%= model.type_i18n %></div>
+</td>
+<td id="checked_amount_<%= model.id %>">
+  <%= render partial: 'checked_amount', locals: { payment: model } %>
+</td>
+<td>
+  <%= model.total_amount %>
+</td>
+<td>
+  <p><%= model.income_amount.to_d %></p>
+  <p><%= model.fee_amount.to_d %></p>
+</td>
+<td><%= model.adjust_amount %></td>
+<td>
+  <p><%= model.buyer_name %></p>
+  <p><%= model.buyer_identifier %></p>
+  <p><%= model.buyer_bank %></p>
+  <% if model.payment_method %>
+    <%= link_to 'Payment Method', admin_payment_methods_path(id: model.payment_method_id), class: 'tag', targe: '_blank' %>
+  <% end %>
+</td>
+<td><time data-controller="time"><%= model.notified_at.to_s(:rfc822) if model.notified_at %></time></td>

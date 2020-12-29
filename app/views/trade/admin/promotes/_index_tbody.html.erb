@@ -1,37 +1,18 @@
-<tr id="tr_<%= promote.id %>">
-  <td>
-    <p><%= promote.name %></p>
-    <p>
-      <span><%= promote.short_name %></span>
-      <% if promote.code.present? %>
-        <span>(<%= promote.code %>)</span>
-      <% end %>
-    </p>
-  </td>
-  <td><%= promote.scope_i18n %></td>
-  <td><%= promote.metering_i18n %></td>
-  <td>
-    <div data-controller="input">
-      <%= check_box_tag 'promote[editable]', nil, promote.editable, data: { method: :patch, url: admin_promote_path(promote.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
-      <label></label>
-    </div>
-  </td>
-  <td><%= promote.sequence %></td>
-  <td>
-    <%= link_to({ controller: 'promote_goods', promote_id: promote.id }, aria: { label: '适用商品' }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-cogs"></i>
+<td>
+  <p><%= model.name %></p>
+  <p>
+    <span><%= model.short_name %></span>
+    <% if model.code.present? %>
+      <span>(<%= model.code %>)</span>
     <% end %>
-    <%= link_to({ controller: 'promote_carts', promote_id: promote.id }, aria: { label: '派发' }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-gift"></i>
-    <% end %>
-    <%= link_to({ controller: 'promote_charges', promote_id: promote.id }, aria: { label: t('trade.admin.promote_charges.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-server"></i>
-    <% end %>
-    <%= link_to({ action: 'edit', id: promote.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= button_to({ action: 'destroy', id: promote.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-trash-alt"></i>
-    <% end %>
-  </td>
-</tr>
+  </p>
+</td>
+<td><%= model.scope_i18n %></td>
+<td><%= model.metering_i18n %></td>
+<td>
+  <div data-controller="input">
+    <%= check_box_tag 'model[editable]', nil, model.editable, data: { method: :patch, url: admin_promote_path(model.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
+    <label></label>
+  </div>
+</td>
+<td><%= model.sequence %></td>

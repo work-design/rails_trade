@@ -1,0 +1,17 @@
+<tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
+  <%= yield %>
+  <td>
+    <turbo-frame data-show-target="item" style="visibility: hidden">
+      <% if model.payment_method.present? %>
+        <%= link_to t('.show'), admin_payment_methods_path(id: model.payment_method_id), class: 'button is-small is-rounded is-light', target: '_blank' %>
+      <% end %>
+      <%= link_to t('.checking'), new_admin_payment_payment_order_path(model), class: 'button is-small is-rounded is-light' %>
+      <%= link_to audits_path('Payment', model.id), aria: { label: t('.log') }, class: 'button is-small is-rounded is-light' do %>
+        <i class="fas fa-comments"></i>
+      <% end %>
+      <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fas fa-pencil-alt"></i>
+      <% end %>
+    </turbo-frame>
+  </td>
+</tr>

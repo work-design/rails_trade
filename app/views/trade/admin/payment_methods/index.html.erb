@@ -1,5 +1,5 @@
 <%= render layout: 'index_table', locals: { cache_key: PaymentMethod.column_names.hash } do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @payment_methods, as: :payment_method %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @payment_methods, as: :model %>
 <% end %>
 
 <%= paginate @payment_methods %>
