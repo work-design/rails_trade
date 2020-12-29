@@ -11,7 +11,9 @@ class Trade::Admin::PaymentMethodsController < Trade::Admin::BaseController
   end
 
   def unverified
-    @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).default_where(query_params).page(params[:page]).references(:payment_references)
+    q_params = {}
+    
+    @payment_methods = PaymentMethod.includes(:payment_references).unscoped.where(verified: [false, nil]).default_where(q_params).page(params[:page]).references(:payment_references)
   end
 
   def mine

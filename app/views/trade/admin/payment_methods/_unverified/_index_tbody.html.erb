@@ -1,0 +1,37 @@
+<td><%= model.account_name %></td>
+<td><%= model.account_num %></td>
+<td><%= model.bank %></td>
+<td>
+  <% model.payment_references.each do |reference| %>
+    <p><%= reference.buyer.name %></p>
+  <% end %>
+</td>
+<td>
+  <%= form_with model: model, scope: 'model', url: admin_payment_method_path(model), method: :patch do |f| %>
+    <label></label>
+    <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, can: { wrap_all: false, wrap_checkbox: false, offset: false } %>
+  <% end %>
+</td>
+<td>
+  <%= link_to t('.edit'), edit_admin_payment_method_path(model), class: 'button is-link is-small' %>
+  <%= link_to t('.destroy'), admin_payment_method_path(model), class: 'ui mini red button', method: :delete, data: { confirm: t('.confirm') } %>
+</td>
+</tr>
+<% model.repeat_results.each do |result| %>
+<tr class="warning">
+  <td><%= result.id %></td>
+  <td><%= result.account_name %></td>
+  <td><%= result.account_num %></td>
+  <td><%= result.bank %></td>
+  <td>
+    <% result.payment_references.each do |reference| %>
+      <p><%= reference.buyer.name %></p>
+    <% end %>
+  </td>
+  <td></td>
+  <td>
+    <%= link_to '并入此账户', merge_from_admin_payment_method_path(result, other_id: model.id), method: :patch %>
+  </td>
+</tr>
+<% end %>
+
