@@ -7,7 +7,7 @@ module RailsTrade::CardAdvance
     attribute :state, :string
     attribute :note, :string
 
-    enum xx: {
+    enum kind: {
       given: 'given'  # 系统赠送
     }
 
