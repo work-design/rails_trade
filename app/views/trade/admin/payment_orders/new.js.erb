@@ -1,6 +1,0 @@
-let new_payment = document.getElementById('add_payment_order')
-if (new_payment) {
-  new_payment.remove()
-}
-
-document.getElementById('payment_<%= @payment.id %>').insertAdjacentHTML('afterend', '<%= j(render 'new') %>')
