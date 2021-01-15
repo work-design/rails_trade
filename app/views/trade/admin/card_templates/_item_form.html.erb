@@ -5,8 +5,8 @@
     <label class="field-label"></label>
   <% end %>
   <div class="field-body">
-    <%= ef.number_field :amount, label: nil, placeholder: Advance.human_attribute_name(:amount) %>
-    <%= ef.number_field :price, label: nil, placeholder: Advance.human_attribute_name(:price) %>
+    <%= ef.number_field :amount, label: nil, placeholder: Trade::Advance.human_attribute_name(:amount) %>
+    <%= ef.number_field :price, label: nil, placeholder: Trade::Advance.human_attribute_name(:price) %>
     <div class="field has-addons has-addons-middle">
       <%= link_to add_item_admin_card_templates_path(index: ef.index), data: { title: 'add_item' } do %>
         <i class="fas fa-plus-circle"></i>
