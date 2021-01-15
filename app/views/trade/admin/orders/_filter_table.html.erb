@@ -1,6 +1,6 @@
 <table class="as-search">
   <tr>
-    <th><%= Order.human_attribute_name(:payment_status) %></th>
+    <th><%= Trade::Order.human_attribute_name(:payment_status) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active: 'button is-info', item: 'button is-light') %>
     <% Order.options_i18n(:payment_status).each do |text, value| %>
@@ -9,7 +9,7 @@
     </td>
   </tr>
   <tr>
-    <th><%= Order.human_attribute_name(:payment_type) %></th>
+    <th><%= Trade::Order.human_attribute_name(:payment_type) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:payment_type]), class: active_params(payment_type: '', active: 'button is-info', item: 'button is-light') %>
     <% Order.options_i18n(:payment_type).each do |text, value| %>

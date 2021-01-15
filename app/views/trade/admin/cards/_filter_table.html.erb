@@ -1,6 +1,6 @@
 <table class="as-search">
   <tr>
-    <th><%= Card.human_attribute_name(:card_template_id) %></th>
+    <th><%= Trade::Card.human_attribute_name(:card_template_id) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:card_template_id]), class: active_params(card_template_id: '', active: 'button is-info', item: 'button is-light') %>
       <% @card_templates.each do |card_template| %>

@@ -1,14 +1,14 @@
-<th><%= Card.human_attribute_name('card_template.name') %></th>
-<th><%= Card.human_attribute_name(:user_id) %></th>
-<th><%= Card.human_attribute_name(:card_uuid) %></th>
+<th><%= Trade::Card.human_attribute_name('card_template.name') %></th>
+<th><%= Trade::Card.human_attribute_name(:user_id) %></th>
+<th><%= Trade::Card.human_attribute_name(:card_uuid) %></th>
 <th>
   <p><%= Card.human_attribute_name(:effect_at) %></p>
   <p><%= Card.human_attribute_name(:expire_at) %></p>
 </th>
-<th><%= Card.human_attribute_name(:amount) %></th>
+<th><%= Trade::Card.human_attribute_name(:amount) %></th>
 <th>
   <p><%= Card.human_attribute_name(:income_amount) %></p>
   <p><%= Card.human_attribute_name(:expense_amount) %></p>
 </th>
-<th><%= Card.human_attribute_name(:created_at) %></th>
+<th><%= Trade::Card.human_attribute_name(:created_at) %></th>
 <th></th>

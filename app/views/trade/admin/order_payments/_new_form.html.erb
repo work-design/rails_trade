@@ -3,10 +3,10 @@
     <thead>
       <tr>
         <th>Payment ID</th>
-        <th><%= Payment.human_attribute_name(:type) %></th>
-        <th><%= Payment.human_attribute_name(:total_amount) %></th>
+        <th><%= Trade::Payment.human_attribute_name(:type) %></th>
+        <th><%= Trade::Payment.human_attribute_name(:total_amount) %></th>
         <th>可核销</th>
-        <th><%= Payment.human_attribute_name(:created_at) %></th>
+        <th><%= Trade::Payment.human_attribute_name(:created_at) %></th>
         <th>预核销</th>
         <th>核销时间</th>
         <th>操作</th>
