@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :type, :string, default: 'HandPayment'
+      attribute :type, :string, default: 'Trade::HandPayment'
       attribute :payment_uuid, :string
       attribute :state, :string, default: 'init', index: true
       attribute :pay_status, :string
