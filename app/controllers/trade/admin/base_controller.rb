@@ -1,3 +1,4 @@
-class Trade::Admin::BaseController < AdminController
-
-end unless defined? Trade::Admin::BaseController
+module Trade
+  class Admin::BaseController < AdminController
+  end
+end
