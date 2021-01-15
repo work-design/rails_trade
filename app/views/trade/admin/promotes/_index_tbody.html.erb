@@ -10,9 +10,9 @@
 <td><%= model.scope_i18n %></td>
 <td><%= model.metering_i18n %></td>
 <td>
-  <div data-controller="input">
-    <%= check_box_tag 'model[editable]', nil, model.editable, data: { method: :patch, url: admin_promote_path(model.id), action: 'input#submit' }, id: nil, class: 'switch is-rounded' %>
-    <label></label>
-  </div>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :editable, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
 </td>
 <td><%= model.sequence %></td>
