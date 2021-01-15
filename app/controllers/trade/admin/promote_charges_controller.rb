@@ -61,7 +61,7 @@ class Trade::Admin::PromoteChargesController < Trade::Admin::BaseController
   end
 
   def set_charge
-    @promote_charge = PromoteCharge.find params[:id]
+    @promote_charge = @promote.promote_charges.find params[:id]
   end
 
 end
