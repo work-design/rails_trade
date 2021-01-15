@@ -1,9 +1,11 @@
-module RailsTrade::Payment::StripePayment
+module Trade
+  module Model::Payment::StripePayment
 
-  def assign_detail(charge)
-    self.payment_uuid = charge.id
-    self.total_amount = Money.new(charge.amount, self.currency).to_d
-    self.currency = charge.currency.upcase
+    def assign_detail(charge)
+      self.payment_uuid = charge.id
+      self.total_amount = Money.new(charge.amount, self.currency).to_d
+      self.currency = charge.currency.upcase
+    end
+
   end
-
 end

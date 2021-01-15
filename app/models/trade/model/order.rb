@@ -1,8 +1,6 @@
 module Trade
   module Model::Order
     extend ActiveSupport::Concern
-    include RailsTrade::Ordering::Payment
-    include RailsTrade::Ordering::Refund
 
     included do
       attribute :uuid, :string

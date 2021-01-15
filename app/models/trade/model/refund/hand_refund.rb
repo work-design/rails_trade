@@ -1,8 +1,9 @@
-module RailsTrade::Refund::HandRefund
+module Trade
+  module Model::Refund::HandRefund
 
+    def do_refund(params = {})
 
-  def do_refund(params = {})
-    
+    end
+
   end
-
 end
