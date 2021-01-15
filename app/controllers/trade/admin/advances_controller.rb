@@ -1,56 +1,58 @@
-class Trade::Admin::AdvancesController < Trade::Admin::BaseController
-  before_action :set_card_template
-  before_action :set_advance, only: [:show, :edit, :update, :destroy]
+module Trade
+  class Admin::AdvancesController < Admin::BaseController
+    before_action :set_card_template
+    before_action :set_advance, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @advances = @card_template.advances.order(id: :desc).page(params[:page])
-  end
-
-  def show
-  end
-
-  def new
-    @advance = @card_template.advances.build
-  end
-
-  def edit
-  end
-
-  def create
-    @advance = @card_template.advances.build(advance_params)
-
-    unless @advance.save
-      render :new, locals: { model: @advance }, status: :unprocessable_entity
+    def index
+      @advances = @card_template.advances.order(id: :desc).page(params[:page])
     end
-  end
 
-  def update
-    @advance.assign_attributes(advance_params)
-
-    unless @advance.save
-      render :edit, locals: { model: @advance }, status: :unprocessable_entity
+    def show
     end
-  end
 
-  def destroy
-    @advance.destroy
-  end
+    def new
+      @advance = @card_template.advances.build
+    end
 
-  private
-  def set_card_template
-    @card_template = CardTemplate.find params[:card_template_id]
-  end
+    def edit
+    end
 
-  def set_advance
-    @advance = Advance.find(params[:id])
-  end
+    def create
+      @advance = @card_template.advances.build(advance_params)
 
-  def advance_params
-    params.require(:advance).permit(
-      :price,
-      :amount,
-      :state,
-      :apple_product_id
-    )
+      unless @advance.save
+        render :new, locals: { model: @advance }, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      @advance.assign_attributes(advance_params)
+
+      unless @advance.save
+        render :edit, locals: { model: @advance }, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      @advance.destroy
+    end
+
+    private
+    def set_card_template
+      @card_template = CardTemplate.find params[:card_template_id]
+    end
+
+    def set_advance
+      @advance = Advance.find(params[:id])
+    end
+
+    def advance_params
+      params.require(:advance).permit(
+        :price,
+        :amount,
+        :state,
+        :apple_product_id
+      )
+    end
   end
 end
