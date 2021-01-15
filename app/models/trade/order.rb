@@ -1,6 +1,6 @@
 module Trade
   class Order < ApplicationRecord
-    include RailsTrade::Order
-    include RailsTrade::Amount
+    include Model::Order
+    include Model::Amount
   end
 end

@@ -1,3 +1,5 @@
-class PromoteGood < ApplicationRecord
-  include RailsTrade::PromoteGood
-end unless defined? PromoteGood
+module Trade
+  class PromoteGood < ApplicationRecord
+    include Model::PromoteGood
+  end
+end

@@ -1,5 +1,5 @@
 module Trade
   class CardAdvance < ApplicationRecord
-    include RailsTrade::CardAdvance
+    include Model::CardAdvance
   end
 end

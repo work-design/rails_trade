@@ -1,6 +1,6 @@
 module Trade
   class Advance < ApplicationRecord
-    include RailsTrade::Good
-    include RailsTrade::Advance
+    include Model::Good
+    include Model::Advance
   end
 end

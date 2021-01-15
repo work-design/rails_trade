@@ -1,5 +1,5 @@
 module Trade
   class CardLog < ApplicationRecord
-    include RailsTrade::CardLog
+    include Model::CardLog
   end
 end

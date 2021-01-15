@@ -1,6 +1,6 @@
 module Trade
   class Cash < ApplicationRecord
-    include RailsTrade::Cash
-    include RailsTrade::Compute
+    include Model::Cash
+    include Model::Compute
   end
 end

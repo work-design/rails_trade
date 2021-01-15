@@ -1,3 +1,5 @@
-class PromoteCart < ApplicationRecord
-  include RailsTrade::PromoteCart
-end unless defined? PromoteCart
+module Trade
+  class PromoteCart < ApplicationRecord
+    include Model::PromoteCart
+  end
+end

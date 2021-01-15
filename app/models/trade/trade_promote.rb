@@ -1,3 +1,5 @@
-class TradePromote < ApplicationRecord
-  include RailsTrade::TradePromote
-end unless defined? TradePromote
+module Trade
+  class TradePromote < ApplicationRecord
+    include Model::TradePromote
+  end
+end

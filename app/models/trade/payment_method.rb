@@ -1,5 +1,5 @@
 module Trade
   class PaymentMethod < ApplicationRecord
-    include RailsTrade::PaymentMethod
+    include Model::PaymentMethod
   end
 end

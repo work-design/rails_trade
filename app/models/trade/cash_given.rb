@@ -1,5 +1,5 @@
 module Trade
   class CashGiven < ApplicationRecord
-    include RailsTrade::CashGiven
+    include Model::CashGiven
   end
 end

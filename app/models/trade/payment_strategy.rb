@@ -1,5 +1,5 @@
 module Trade
   class PaymentStrategy < ApplicationRecord
-    include RailsTrade::PaymentStrategy
+    include Model::PaymentStrategy
   end
 end

@@ -1,5 +1,5 @@
 module Trade
   class CardPromote < ApplicationRecord
-    include RailsTrade::CardPromote
+    include Model::CardPromote
   end
 end

@@ -1,6 +1,6 @@
 module Trade
   class Cart < ApplicationRecord
-    include RailsTrade::Cart
-    include RailsTrade::Amount
+    include Model::Cart
+    include Model::Amount
   end
 end

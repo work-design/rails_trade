@@ -1,5 +1,5 @@
 module Trade
   class CardTemplate < ApplicationRecord
-    include RailsTrade::CardTemplate
+    include Model::CardTemplate
   end
 end

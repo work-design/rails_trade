@@ -1,6 +1,6 @@
 module Trade
   class Card < ApplicationRecord
-    include RailsTrade::Card
-    include RailsTrade::Compute
+    include Model::Card
+    include Model::Compute
   end
 end

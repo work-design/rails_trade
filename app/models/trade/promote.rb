@@ -1,6 +1,6 @@
 module Trade
   class Promote < ApplicationRecord
-    include RailsTrade::Promote
-    include RailsComExt::Sequence
+    include Model::Promote
+    include Com::Ext::Sequence
   end
 end

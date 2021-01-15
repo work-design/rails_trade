@@ -1,3 +1,5 @@
-class Refund < ApplicationRecord
-  include RailsTrade::Refund
-end unless defined? Refund
+module Trade
+  class Refund < ApplicationRecord
+    include Model::Refund
+  end
+end

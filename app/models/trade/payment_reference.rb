@@ -1,5 +1,5 @@
 module Trade
   class PaymentReference < ApplicationRecord
-    include RailsTrade::PaymentReference
+    include Model::PaymentReference
   end
 end

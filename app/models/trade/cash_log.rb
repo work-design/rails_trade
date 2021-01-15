@@ -1,5 +1,5 @@
 module Trade
   class CashLog < ApplicationRecord
-    include RailsTrade::CashLog
+    include Model::CashLog
   end
 end

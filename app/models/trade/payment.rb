@@ -1,6 +1,6 @@
 module Trade
   class Payment < ApplicationRecord
-    include RailsTrade::Payment
+    include Model::Payment
     include RailsAuditExt::Audited
   end
 end
