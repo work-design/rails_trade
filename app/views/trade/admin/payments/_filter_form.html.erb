@@ -1,4 +1,4 @@
-<%= form_with theme: 'search', model: Payment.new(params.permit(:payment_uuid)) do |f| %>
+<%= form_with theme: 'search', model: Trade::Payment.new(params.permit(:payment_uuid)) do |f| %>
   <div class="field-body">
     <%= f.text_field :payment_uuid %>
     <%= f.text_field 'buyer_name-like' %>

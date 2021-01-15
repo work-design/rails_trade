@@ -1,4 +1,4 @@
-<%= form_with theme: 'search', model: Refund.new do |f| %>
+<%= form_with theme: 'search', model: Trade::Refund.new do |f| %>
   <div class="field-body">
     <%= hidden_field_tag :payment_status, params[:payment_status] %>
     <%= f.text_field 'company.name' %>

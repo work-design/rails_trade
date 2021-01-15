@@ -1,4 +1,4 @@
-<%= form_with theme: 'search', model: PaymentMethod.new do |f| %>
+<%= form_with theme: 'search', model: Trade::PaymentMethod.new do |f| %>
   <div class="field-body">
     <%= f.text_field :account_name %>
     <%= f.text_field :account_num %>
