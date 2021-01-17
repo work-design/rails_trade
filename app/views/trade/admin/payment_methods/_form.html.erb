@@ -1,4 +1,4 @@
-<%= f.select :type, options_for_select(PaymentMethod.options_i18n(:type), @payment_method.type) %>
+<%= f.select :type, options_for_select(Trade::PaymentMethod.options_i18n(:type), @payment_method.type) %>
 <%= f.text_field :account_name %>
 <%= f.text_field :account_num %>
 <%= f.text_field :bank %>
