@@ -1,31 +1,18 @@
-<tr>
-  <td>
-    <p><%= cash.account_bank %></p>
-    <p><%= cash.account_name %></p>
-    <p><%= cash.account_num %></p>
-  </td>
-  <td><%= cash.amount %></td>
-  <td>
-    <%= link_to cash.income_amount, admin_cash_givens_path(cash_id: cash.id) %>
-  </td>
-  <td>
-    <%= link_to cash.expense_amount, admin_payouts_path(cash_id: cash.id) %>
-  </td>
-  <td>
-    <%= link_to cash.user.name, admin_user_path(cash.user_id) if cash.user_id %>
-  </td>
-  <td>
-    <p><%= link_to 'incomes', admin_user_advances_path(cash_id: cash.id) %></p>
-  </td>
-  <td>
-    <%= link_to admin_cash_logs_path(cash_id: cash.id), aria: { label: t('.show') }, class: 'ui blue mini icon button' do %>
-      <i class="fas fa-info"></i>
-    <% end %>
-    <%= link_to edit_admin_cash_path(cash), aria: { label: t('.edit') }, class: 'ui pink mini icon button' do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= link_to admin_cash_path(cash), method: :delete, aria: { label: t('.destroy') }, data: { confrim: t('.confirm') }, class: 'ui red mini icon button' do %>
-      <i class="fas fa-trash"></i>
-    <% end %>
-  </td>
-</tr>
+<td>
+  <p><%= model.account_bank %></p>
+  <p><%= model.account_name %></p>
+  <p><%= model.account_num %></p>
+</td>
+<td><%= model.amount %></td>
+<td>
+  <%= link_to model.income_amount, admin_cash_givens_path(cash_id: model.id) %>
+</td>
+<td>
+  <%= link_to model.expense_amount, admin_payouts_path(cash_id: model.id) %>
+</td>
+<td>
+  <%= link_to model.user.name, admin_user_path(model.user_id) if model.user_id %>
+</td>
+<td>
+  <p><%= link_to 'incomes', admin_user_advances_path(cash_id: model.id) %></p>
+</td>

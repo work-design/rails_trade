@@ -1,22 +1,12 @@
-<tr>
-  <td><%= payout.payout_uuid %></td>
-  <td>
-    <p><%= payout.account_bank %></p>
-    <p><%= payout.account_name %></p>
-    <p><%= payout.account_num %></p>
-  </td>
-  <td><%= payout.requested_amount %></td>
-  <td><%= payout.actual_amount %></td>
-  <td>
-    <span class="tag"><%= payout.state_i18n %></span>
-  </td>
-  <td><time data-controller="time"><%= payout.created_at.to_s(:rfc822) %></time></td>
-  <td>
-    <%= link_to admin_payout_path(payout), class: 'ui blue mini icon button' do %>
-      <i class="location arrow icon"></i>
-    <% end %>
-    <%= link_to do_pay_admin_payout_path(payout), method: :put, data: { confirm: t('.confirm') }, class: 'ui green mini icon button' do %>
-      <i class="handshake icon"></i>
-    <% end %>
-  </td>
-</tr>
+<td><%= payout.payout_uuid %></td>
+<td>
+  <p><%= payout.account_bank %></p>
+  <p><%= payout.account_name %></p>
+  <p><%= payout.account_num %></p>
+</td>
+<td><%= payout.requested_amount %></td>
+<td><%= payout.actual_amount %></td>
+<td>
+  <span class="tag"><%= payout.state_i18n %></span>
+</td>
+<td><time data-controller="time"><%= payout.created_at.to_s(:rfc822) %></time></td>

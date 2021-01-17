@@ -1,5 +1,5 @@
 <%= render layout: 'index_table', locals: { cache_key: Trade::Cash.column_names.hash } do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @cashes, as: :cash %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @cashes, as: :model %>
 <% end %>
 
 <%= paginate @cashes %>
