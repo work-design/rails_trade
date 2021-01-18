@@ -1,5 +1,5 @@
 module Trade
-  class Admin::BuyersController < Admin::BaseController
+  class Admin::UsersController < Admin::BaseController
 
     def index
       @managers = Manager.where(id: current_manager.allow_ids)
