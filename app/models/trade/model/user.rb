@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      has_many :carts, dependent: :destroy
+      has_many :carts, class_name: 'Trade::Cart', dependent: :destroy
       has_many :orders, dependent: :destroy
       has_many :trade_items, dependent: :destroy
       has_many :cards
