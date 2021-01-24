@@ -8,14 +8,14 @@ module Trade
 
     def current_cart
       if defined? @current_cart
-        logger.debug " ==========> Current cart: #{@current_cart&.id}"
+        logger.debug " \e[35m===== Current cart: #{@current_cart&.id} =====\e[0m"
         return @current_cart
       end
 
       if current_user
         @current_cart = current_user.carts.find_or_create_by(default_form_params)
       end
-      logger.debug " ==========> Current cart: #{@current_cart&.id}"
+      logger.debug " \e[35m===== Current cart: #{@current_cart&.id} =====\e[0m"
       @current_cart
     end
 
