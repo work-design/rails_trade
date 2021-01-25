@@ -4,7 +4,7 @@ module Trade
 
     included do
       has_many :carts, class_name: 'Trade::Cart', dependent: :destroy
-      has_many :orders, dependent: :destroy
+      has_many :orders, class_name: 'Trade::Order', dependent: :destroy
       has_many :trade_items, dependent: :destroy
       has_many :cards
       has_many :cashes

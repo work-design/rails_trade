@@ -9,7 +9,7 @@ zh:
       card_log:
         source_type:
           CardAdvance: 充值
-      order:
+      trade/order:
         payment_status:
           unpaid: 未支付
           part_paid: 部分支付

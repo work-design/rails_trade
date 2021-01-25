@@ -1,6 +1,9 @@
 <tr class="<%= 'active' if trade_item.checked? %>" id="trade_item_<%= trade_item.id %>">
-  <td data-controller="input">
-    <%= check_box_tag '[trade_item]status', trade_item.checked? ? 'checked' : 'init', trade_item.checked?, data: { method: :patch, url: toggle_my_trade_item_path(trade_item), action: 'input#submit' }, id: nil %>
+  <td>
+    <%= form_with theme: nil, model: trade_item, url: { controller: 'trade_items', action: 'toggle', id: trade_item.id }, data: { controller: 'input' } do |f| %>
+      <%= f.check_box :status, value: trade_item.checked? ? 'checked' : 'init', checked: trade_item.checked?, data: { input_target: 'checkbox' }, id: nil %>
+      <label data-action="click->input#check"></label>
+    <% end %>
   </td>
   <td>
     <%= trade_item.good&.name %>
