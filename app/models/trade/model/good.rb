@@ -16,7 +16,7 @@ module Trade
       has_many :orders, through: :trade_items, source: :trade
       has_many :addresses, -> { distinct }, through: :trade_items
 
-      has_many :promote_goods, as: :good
+      has_many :promote_goods, class_name: 'Trade::PromoteGood', as: :good
     end
 
     def final_price
