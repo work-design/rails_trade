@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      include RailsTrade::Good
+      include Model::Good
 
       belongs_to :buyer, optional: true
 
