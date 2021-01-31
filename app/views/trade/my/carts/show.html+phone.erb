@@ -27,7 +27,7 @@
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
         </div>
-        <div class="weui-media-box__bd" data-controller="cart">
+        <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
           <p class="weui-media-box__desc">
             <% if trade_item.good.respond_to?(:parts) %>
@@ -43,17 +43,21 @@
               </div>
             </div>
             <div class="is-flex is-align-items-center">
-              <%= link_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { params: "[trade_item]number=#{trade_item.number + 1}" }, class: 'weui-btn weui-btn_mini weui-btn_default is-radiusless') do %>
-                <i class="fas fa-plus"></i>
+              <%= form_with(scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, class: 'weui-btn weui-btn_mini weui-btn_default is-radiusless') do |f| %>
+                <%= f.hidden_field :number, value: trade_item.number + 1 %>
+                <button type="submit"><i class="fas fa-plus"></i></button>
               <% end %>
-              <input type="button" class="weui-btn weui-btn_mini weui-btn_warn is-radiusless" data-cart-target="number" data-url="<%= my_trade_item_path(trade_item) %>" value="<%= trade_item.number %>">
+              <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, class: 'weui-btn weui-btn_mini weui-btn_warn is-radiusless') do |f| %>
+                <%= f.number_field :number, value: trade_item.number, style: 'width: 20px' %>
+              <% end %>
               <% if trade_item.number <= 1 %>
-                <%= link_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, class: 'weui-btn weui-btn_mini weui-btn_default is-radiusless') do %>
+                <%= button_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, form: { class: 'weui-btn weui-btn_mini weui-btn_default is-radiusless' }) do %>
                   <i class="fas fa-trash"></i>
                 <% end %>
               <% else %>
-                <%= link_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { params: "[trade_item]number=#{trade_item.number - 1}" }, class: 'weui-btn weui-btn_mini weui-btn_default is-radiusless') do %>
-                  <i class="fas fa-minus"></i>
+                <%= form_with(scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch) do |f| %>
+                  <%= f.hidden_field :number, value: trade_item.number - 1 %>
+                  <button type="submit" class="weui-btn weui-btn_mini weui-btn_default is-radiusless"><i class="fas fa-minus"></i></button>
                 <% end %>
               <% end %>
             </div>
