@@ -47,8 +47,8 @@
                 <%= f.hidden_field :number, value: trade_item.number + 1 %>
                 <button type="submit"><i class="fas fa-plus"></i></button>
               <% end %>
-              <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, class: 'weui-btn weui-btn_mini weui-btn_warn is-radiusless') do |f| %>
-                <%= f.number_field :number, value: trade_item.number, style: 'width: 20px' %>
+              <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { controller: 'input' }) do |f| %>
+                <%= f.number_field :number, value: trade_item.number, data: { action: 'change->input#form' }, class: 'has-text-centered', style: 'width: 20px' %>
               <% end %>
               <% if trade_item.number <= 1 %>
                 <%= button_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, form: { class: 'weui-btn weui-btn_mini weui-btn_default is-radiusless' }) do %>
