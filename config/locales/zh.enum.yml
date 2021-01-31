@@ -1,12 +1,12 @@
 zh:
   activerecord:
     enum:
-      card:
+      trade/card:
         type:
           CounterCard: 次卡
           VipCard: 会员
           SvfCard: 储值卡
-      card_log:
+      trade/card_log:
         source_type:
           CardAdvance: 充值
       trade/order:
@@ -17,7 +17,7 @@ zh:
           refunding: 退款中
           refunded: 已退款
           denied: 退款失败
-      payment:
+      trade/payment:
         type:
           HandPayment: 后台支付
           BankPayment: 银行支付
@@ -30,11 +30,11 @@ zh:
           all_checked: 全部核销
           adjust_checked: 调整核销
           abusive_checked: 问题核销
-      payment_order:
+      trade/payment_order:
         state:
           init: 待确认
           confirmed: 已确认
-      promote:
+      trade/promote:
         scope:
           overall: 全体商品
           single: 单个商品
@@ -43,36 +43,36 @@ zh:
           original_amount: 总金额
           weight: 总重量
           volume: 体积
-      trade_item:
+      trade/trade_item:
         good_type:
           Facilitate: 标准化服务
-      trade_promote:
+      trade/trade_promote:
         scope:
           overall: 全体商品
           single: 单个商品
-      promote_charge:
+      trade/promote_charge:
         type:
           DiscountPromoteCharge: 折扣
           FinalPromoteCharge: 一口价
           MinusPromoteCharge: 满减/抵扣券
           PlusPromoteCharge: 附加费用
-      promote_good:
+      trade/promote_good:
         status:
           default: 默认生效
           available: 适用
           unavailable: 不适用
           specific: 特定的
-      promote_cart:
+      trade/promote_cart:
         state:
           unused: 未使用
           used: 已使用
           expired: 已过期
-      payout:
+      trade/payout:
         state:
           pending: 待处理
           done: 提现成功
           failed: 提现失败，核查中
-      refund:
+      trade/refund:
         state:
           init: 待退款
           completed: 已完成
