@@ -17,8 +17,8 @@ module Trade
 
       belongs_to :organ, optional: true
       belongs_to :member, optional: true
-      belongs_to :user
-      belongs_to :address, optional: true
+      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :payment_strategy, optional: true
 
       has_many :orders, dependent: :nullify
