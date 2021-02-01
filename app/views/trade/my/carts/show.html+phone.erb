@@ -14,7 +14,7 @@
           <p>选择地址</p>
         <% end %>
       </div>
-      <%= link_to '', fork_my_addresses_path(return_to: my_cart_url), class: 'weui-cell__ft' %>
+      <%= link_to '', { controller: 'profiled/my/addresses', return_to: my_cart_url }, class: 'weui-cell__ft' %>
     </div>
     <% @trade_items.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left:passive touchstart->swipe#start:passive">
