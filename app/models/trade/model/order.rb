@@ -15,7 +15,6 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
 
-
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :address, class_name: 'Profiled::Address', optional: true

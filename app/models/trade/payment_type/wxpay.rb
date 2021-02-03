@@ -1,46 +1,45 @@
 module Trade
   module PaymentType::Wxpay
 
-    def wxpay_prepay(trade_type: 'JSAPI', spbill_create_ip: '127.0.0.0', notify_url: url_helpers.wxpay_notify_payments_url, app:)
+    def wxpay_prepay(app:, notify_url: url_helpers.wxpay_notify_payments_url)
       options = {
-        appid: app.appid,
         mch_id: app.mch_id,
-        key: app.key
+        serial_no: app.serial_no,
+        key: app.apiclient_key
       }
       params = {
-        body: "订单编号: #{self.uuid}",
+        appid: app.appid,
+        mchid: app.mch_id,
+        description: "订单编号: #{self.uuid}",
         out_trade_no: self.uuid,
-        total_fee: (self.remaining_amount * 100).to_i,
-        spbill_create_ip: spbill_create_ip,
         notify_url: notify_url,
-        trade_type: trade_type,
-        openid: user.oauth_users.find_by(app_id: app.appid)&.uid
+        amount: {
+          total: (self.remaining_amount * 100).to_i,
+          currency: 'CNY'
+        },
+        payer: {
+          openid: user.oauth_users.find_by(app_id: app.appid)&.uid
+        }
       }
       logger.debug "  \e[35m=====> wxpay params: #{params} <=====\e[0m"
 
-      ::WxPay::Service.invoke_unifiedorder params, options
+      ::WxPay::Api.invoke_unifiedorder params, options
     end
 
-    def wxpay_order(trade_type: 'JSAPI', app:, **opts)
-      prepay = wxpay_prepay(trade_type: trade_type, app: app, **opts)
+    def wxpay_order(app:, **opts)
+      prepay = wxpay_prepay(app: app, **opts)
       options = {
         appid: app.appid,
-        mch_id: app.mch_id,
-        key: app.key
+        mch_id: app.mch_id
       }
 
-      if prepay.success?
+      if prepay['prepay_id']
         params = {
-          noncestr: prepay['nonce_str'],
           prepayid: prepay['prepay_id']
         }
-        if trade_type == 'JSAPI'
-          ::WxPay::Service.generate_js_pay_req params, options
-        else
-          ::WxPay::Service.generate_app_pay_req params, options
-        end
+        WxPay::Api.generate_js_pay_req params, options
       else
-        prepay.except(:raw)
+        {}
       end
     end
 
@@ -64,7 +63,8 @@ module Trade
       if result['trade_state'] == 'SUCCESS'
         self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
       else
-        self.errors.add :base, result['err_code_des']
+        logger.debug "  \e[35m=====> wxpay result: #{result} <=====\e[0m"
+        self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
     end
 
