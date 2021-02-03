@@ -4,6 +4,9 @@
      data-wxpay-package="<%= @wxpay_order[:package] %>"
      data-wxpay-sign-type="<%= @wxpay_order[:signType] %>"
      data-wxpay-pay-sign="<%= @wxpay_order[:paySign] %>"
+     class="weui-loadmore"
+     style="display: none"
 >
-
+  <i class="weui-loading"></i>
+  <span class="weui-loadmore__tips">等待支付结果确认</span>
 </div>
