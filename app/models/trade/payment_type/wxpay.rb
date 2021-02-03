@@ -16,6 +16,7 @@ module Trade
         trade_type: trade_type,
         openid: user.oauth_users.find_by(app_id: app.appid)&.uid
       }
+      logger.debug "  \e[35m=====> wxpay params: #{params} <=====\e[0m"
 
       ::WxPay::Service.invoke_unifiedorder params, options
     end

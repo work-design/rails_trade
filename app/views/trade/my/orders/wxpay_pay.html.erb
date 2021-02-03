@@ -1,3 +1,8 @@
+<%= content_for(:wechat_js) do %>
+  <%= wechat_config_js debug: true, apis: ['chooseWXPay'] -%>
+  <meta name="turbo-visit-control" content="reload">
+<% end %>
+
 <div data-controller="wxpay"
      data-wxpay-timestamp="<%= @wxpay_order[:timeStamp] %>"
      data-wxpay-nonce-str="<%= @wxpay_order[:nonceStr] %>"

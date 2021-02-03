@@ -45,7 +45,7 @@ module Trade
       result = nil
 
       if @order && WxPay::Sign.verify?(notify_params, key: wechat_app.key)
-        result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'WxpayPayment'
+        result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'Trade::WxpayPayment'
       end
 
       if result
