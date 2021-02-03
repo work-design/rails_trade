@@ -5,7 +5,7 @@
 <div class="weui-panel weui-panel_access">
   <div class="weui-panel__hd"><%= t('.title') %></div>
   <div class="weui-panel__bd">
-    <div class="weui-cell weui-cell_access">
+    <%= link_to({ controller: 'profiled/my/addresses', return_to: my_cart_url }, class: 'weui-cell weui-cell_access') do %>
       <div class="weui-cell__bd">
         <% if current_cart.address %>
           <p><%= current_cart.address.contact %></p>
@@ -14,10 +14,10 @@
           <p>选择地址</p>
         <% end %>
       </div>
-      <%= link_to '', { controller: 'profiled/my/addresses', return_to: my_cart_url }, class: 'weui-cell__ft' %>
-    </div>
+      <div class="weui-cell__ft"></div>
+    <% end %>
     <% @trade_items.each do |trade_item| %>
-      <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#left:passive touchstart->swipe#start:passive">
+      <div class="weui-media-box weui-media-box_appmsg" data-controller="swipe" data-action="touchmove->swipe#move:passive touchstart->swipe#start:passive touchend->swipe#end:passive">
         <%= form_with theme: nil, model: trade_item, url: { controller: 'trade_items', action: 'toggle', id: trade_item.id }, data: { controller: 'input' } do |f| %>
           <label class="weui-cells_checkbox">
             <%= f.check_box :status, value: trade_item.checked? ? 'checked' : 'init', checked: trade_item.checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil %>
@@ -59,8 +59,8 @@
             </div>
           </div>
         </div>
-        <div class="weui-media-box__ft" data-swipe-target="open" style="display: none">
-          <%= link_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
+        <div class="weui-media-box__ft" data-swipe-target="open" style="width: 0">
+          <%= button_to({ controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete, data: { confirm: t('.confirm') }, form: { class: 'weui-btn weui-btn_mini weui-btn_default' }) do %>
             <i class="fas fa-trash"></i>
           <% end %>
         </div>

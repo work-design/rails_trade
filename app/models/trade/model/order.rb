@@ -15,11 +15,13 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
 
+
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
+
       belongs_to :cart
-      belongs_to :organ, optional: true
-      belongs_to :user
-      belongs_to :address, optional: true
-      belongs_to :produce_plan, optional: true  # 统一批次号
       belongs_to :payment_strategy, optional: true
 
       has_many :payment_orders, dependent: :destroy

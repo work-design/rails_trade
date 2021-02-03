@@ -5,10 +5,10 @@ module Trade
     included do
       has_many :carts, class_name: 'Trade::Cart', dependent: :destroy
       has_many :orders, class_name: 'Trade::Order', dependent: :destroy
-      has_many :trade_items, dependent: :destroy
-      has_many :cards
-      has_many :cashes
-      has_many :cash_givens
+      has_many :trade_items, class_name: 'Trade::TradeItem', dependent: :destroy
+      has_many :cards, class_name: 'Trade::Card'
+      has_many :cashes, class_name: 'Trade::Cash'
+      has_many :cash_givens, class_name: 'Trade::CashGiven'
     end
 
     def cash
