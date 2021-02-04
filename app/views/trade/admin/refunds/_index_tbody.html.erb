@@ -1,27 +1,25 @@
-<tr>
-  <td><%= refund.refund_uuid %></td>
-  <td>
-    <p><%= link_to refund.order.uuid, { controller: 'orders', action: 'show', id: refund.order_id } %></p>
-    <p><%= link_to refund.payment.payment_uuid, { controller: 'payments', action: 'show', id: refund.payment_id } %></p>
-  </td>
-  <td><%= refund.total_amount.to_money(refund.currency).format %></td>
-  <td><%= refund.type_i18n %></td>
-  <td><time data-controller="time"><%= refund.created_at.to_s(:rfc822) %></time></td>
-  <td><%= refund.state_i18n %></td>
-  <td><%= refund.comment %></td>
-  <td>
-    <% if refund.refunded_at %>
-      <time data-controller="time"><%= refund.refunded_at.to_s(:rfc822) %></time>
-    <% else %>
-      <div class="buttons are-small">
-        <%= link_to 'Approve', confirm_admin_refund_path(refund), method: :patch, data: { confirm: t('.confirm') }, class: 'button is-primary' %>
-        <div class="or"></div>
-        <%= link_to 'Deny', deny_admin_refund_path(refund), method: :patch, data: { confirm: 'Deny Refund!' }, class: 'button is-danger' %>
-      </div>
-    <% end %>
-    <% if refund.reason %>
-      <p><%= refund.reason.truncate(27) %></p>
-    <% end %>
-  </td>
-  <td><%= refund.operator&.name %></td>
-</tr>
+<td><%= model.refund_uuid %></td>
+<td>
+  <p><%= link_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id } %></p>
+  <p><%= link_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id } %></p>
+</td>
+<td><%= model.total_amount.to_money(model.currency).format %></td>
+<td><%= model.type_i18n %></td>
+<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
+<td><%= model.state_i18n %></td>
+<td><%= model.comment %></td>
+<td>
+  <% if model.refunded_at %>
+    <time data-controller="time"><%= model.refunded_at.to_s(:rfc822) %></time>
+  <% else %>
+    <div class="buttons are-small">
+      <%= button_to 'Approve', { action: 'confirm', id: model.id }, method: :patch, data: { confirm: t('.confirm') }, class: 'button is-primary' %>
+      <div class="or"></div>
+      <%= button_to 'Deny', { action: 'deny', id: model.id }, method: :patch, data: { confirm: 'Deny model!' }, class: 'button is-danger' %>
+    </div>
+  <% end %>
+  <% if model.reason %>
+    <p><%= model.reason.truncate(27) %></p>
+  <% end %>
+</td>
+<td><%= model.operator&.name %></td>
