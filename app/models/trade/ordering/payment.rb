@@ -38,6 +38,7 @@ module Trade
 
     def change_to_paid!(type:, payment_uuid:, params: {})
       payment = self.payments.find_by(type: type, payment_uuid: payment_uuid)
+      payment.organ_id = organ_id
 
       if payment
         self.check_state!

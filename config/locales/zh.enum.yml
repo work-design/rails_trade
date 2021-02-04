@@ -3,9 +3,9 @@ zh:
     enum:
       trade/card:
         type:
-          CounterCard: 次卡
-          VipCard: 会员
-          SvfCard: 储值卡
+          Trade::CounterCard: 次卡
+          Trade::VipCard: 会员
+          Trade::SvfCard: 储值卡
       trade/card_log:
         source_type:
           CardAdvance: 充值
@@ -19,11 +19,11 @@ zh:
           denied: 退款失败
       trade/payment:
         type:
-          HandPayment: 后台支付
-          BankPayment: 银行支付
-          PaypalPayment: Paypal
-          WxpayPayment: 微信支付
-          AlipayPayment: 支付宝
+          Trade::HandPayment: 后台支付
+          Trade::BankPayment: 银行支付
+          Trade::PaypalPayment: Paypal
+          Trade::WxpayPayment: 微信支付
+          Trade::AlipayPayment: 支付宝
         state:
           init: 未核销
           part_checked: 部分核销
@@ -79,4 +79,4 @@ zh:
           failed: 退款失败
           denied: 拒绝退款
         type:
-          CardRefund: 会员卡
+          Trade::CardRefund: 会员卡
