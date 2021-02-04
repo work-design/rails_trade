@@ -43,6 +43,7 @@ module Trade
     def store_refund_result(result = {})
       if ['PROCESSING', 'SUCCESS'].include? result['status']
         self.state = 'completed'
+        self.refunded_at = result['success_time']
       else
         self.state = 'failed'
         self.comment = result['return_code']
@@ -62,6 +63,11 @@ module Trade
 
       result = WxPay::Api.refund_query(params, options)
       store_refund_result(result)
+    end
+
+    def refund_query!
+      refund_query
+      save
     end
 
   end

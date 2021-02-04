@@ -20,7 +20,7 @@ module Trade
         denied: 'denied'
       }, _default: 'init'
 
-      belongs_to :operator, class_name: 'Member', optional: true
+      belongs_to :operator, class_name: 'Org::Member', optional: true
       belongs_to :order, inverse_of: :refunds, optional: true
       belongs_to :payment
 
