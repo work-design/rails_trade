@@ -56,7 +56,6 @@ module Trade
 
       begin
         result = WxPay::Api.order_query params, options
-        binding.pry
       rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end
