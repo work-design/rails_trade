@@ -4,6 +4,7 @@ module Trade
 
     def index
       q_params = {}
+      q_params.merge! default_params
       q_params.merge! params.permit(:order_id, :payment_id)
 
       @refunds = Refund.includes(:order, :payment).default_where(q_params).page(params[:page])
