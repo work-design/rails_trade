@@ -3,7 +3,7 @@ module Trade
 
     def wxpay_prepay(app:, notify_url: url_helpers.wxpay_notify_payments_url)
       options = {
-        mch_id: app.mch_id,
+        mchid: app.mch_id,
         serial_no: app.serial_no,
         key: app.apiclient_key
       }
@@ -30,7 +30,7 @@ module Trade
       prepay = wxpay_prepay(app: app, **opts)
       options = {
         appid: app.appid,
-        mch_id: app.mch_id
+        mchid: app.mch_id
       }
 
       if prepay['prepay_id']
@@ -44,26 +44,27 @@ module Trade
     end
 
     def wxpay_result(app:)
-      return self if self.payment_status == 'all_paid'
+      #return self if self.payment_status == 'all_paid'
       options = {
-        appid: app.appid,
-        mch_id: app.mch_id,
-        key: app.key
+        mchid: app.mch_id,
+        serial_no: app.serial_no
       }
       params = {
+        mchid: app.mch_id,
         out_trade_no: self.uuid,
       }
 
       begin
-        result = WxPay::Service.order_query params, options
-      rescue
+        result = WxPay::Api.order_query params, options
+        binding.pry
+      rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end
+      logger.debug "  \e[35m=====> wxpay result: #{result} <=====\e[0m"
 
       if result['trade_state'] == 'SUCCESS'
         self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
       else
-        logger.debug "  \e[35m=====> wxpay result: #{result} <=====\e[0m"
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
     end

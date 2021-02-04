@@ -49,9 +49,9 @@ module Trade
       end
 
       if result
-        render xml: { return_code: 'SUCCESS' }.to_xml(root: 'xml', dasherize: false)
+        render json: { code: 'SUCCESS', message: '处理成功' }
       else
-        render xml: { return_code: 'FAIL', return_msg: '签名失败' }.to_xml(root: 'xml', dasherize: false), status: :bad_request
+        render json: { code: 'FAIL', message: '签名失败' }, status: :bad_request
       end
     end
 
