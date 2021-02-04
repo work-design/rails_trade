@@ -38,13 +38,13 @@ module Trade
     end
 
     def wxpay_notify
-      notify_params = Hash.from_xml(request.body.read)['xml']
+      encrypted_params = JSON.parse(request.body.read)
+      notify_params = WxPay::Cipher.decrypt_notice encrypted_params['resource'], key: current_wechat_app.key_v3
 
       @order = Order.find_by(uuid: notify_params['out_trade_no'])
-      wechat_app = WechatApp.find_by(appid: notify_params['appid'])
       result = nil
 
-      if @order && WxPay::Sign.verify?(notify_params, key: wechat_app.key)
+      if @order #&& WxPay::Sign.verify?(notify_params, key: wechat_app.key)
         result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'Trade::WxpayPayment'
       end
 
