@@ -1,4 +1,6 @@
-ApplicationCable.subscriptions.create('PaidChannel', {
+import consumer from 'rails_ui/cable'
+
+consumer.subscriptions.create('PaidChannel', {
   received: function(data) {
     location.href = data.link
   },
