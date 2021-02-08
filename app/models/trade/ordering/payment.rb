@@ -28,7 +28,7 @@ module Trade
     def confirm_paid!
       self.expire_at = nil
       self.trade_items.each(&:confirm_paid!)
-      sent_notice
+      send_notice
     end
 
     def confirm_part_paid!
@@ -65,10 +65,10 @@ module Trade
       end
     end
 
-    def sent_notice
+    def send_notice
       return unless self.user
       PaidChannel.broadcast_to(
-        self.user_id,
+        user_id,
         link: url_helpers.my_order_url(id),
         )
     end
