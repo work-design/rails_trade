@@ -1,13 +1,13 @@
 GIT
   remote: https://github.com/qinmingyuan/default_form.git
-  revision: 8368c576e145bfb5d6175e8fc7b64a6557883d09
+  revision: e4162f595651bcd2e8ad733ad79ea78999137b2f
   specs:
     default_form (1.5.1)
       rails_com (~> 1.2)
 
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: eb1e06f2469cc0576919246e25e71023bf94ae9d
+  revision: aa29d60b934ff67fb2fb9c79f656ad8b03484f7c
   specs:
     rails_com (1.2.9)
       acme-client
@@ -127,7 +127,7 @@ GEM
       activesupport (>= 4.2.0)
     http-2-next (0.3.0)
     http-form_data (2.3.0)
-    httpx (0.11.1)
+    httpx (0.11.3)
       http-2-next (>= 0.1.2)
       timers
     i18n (1.8.5)
@@ -221,7 +221,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
     thor (1.0.1)
-    timers (4.3.2)
+    timers (4.3.3)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     websocket-driver (0.7.3)
