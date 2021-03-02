@@ -15,13 +15,17 @@
   <td>
     <div class="field has-addons">
       <div class="control">
-        <div class="button" data-action="click->cart#decrease"><i class="fas fa-minus"></i></div>
+        <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number - 1 }, class: 'button') do %>
+          <i class="fas fa-minus"></i>
+        <% end %>
       </div>
       <div class="control">
-        <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', 'cart-target': 'number', url: my_trade_item_path(trade_item) }, class: 'input' %>
+        <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', url: my_trade_item_path(trade_item) }, class: 'input' %>
       </div>
       <div class="control">
-        <div class="button is-link" data-action="click->cart#increase"><i class="fas fa-plus"></i></div>
+        <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number + 1 }, class: 'button is-link') do %>
+          <i class="fas fa-plus"></i>
+        <% end %>
       </div>
     </div>
   </td>
