@@ -7,7 +7,46 @@ module Trade
         serial_no: app.serial_no,
         key: app.apiclient_key
       }
-      params = {
+      params = {}
+      params.merge! wxpay_common_params(app: app, notify_url: notify_url)
+      params.merge! payer: { openid: user.oauth_users.find_by(app_id: app.appid)&.uid }
+      logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
+
+      ::WxPay::Api.invoke_unifiedorder params, options
+    end
+
+    def h5_order(app:, notify_url: url_helpers.wxpay_notify_payments_url, payer_client_ip: '127.0.0.1')
+      options = {
+        mchid: app.mch_id,
+        serial_no: app.serial_no,
+        key: app.apiclient_key
+      }
+      params = {}
+      params.merge! wxpay_common_params(app: app, notify_url: notify_url)
+      params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
+
+      logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
+
+      ::WxPay::Api.h5_order params, options
+    end
+
+    def native_order(app:, notify_url: url_helpers.wxpay_notify_payments_url, payer_client_ip: '127.0.0.1')
+      options = {
+        mchid: app.mch_id,
+        serial_no: app.serial_no,
+        key: app.apiclient_key
+      }
+      params = {}
+      params.merge! wxpay_common_params(app: app, notify_url: notify_url)
+      params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
+
+      logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
+
+      ::WxPay::Api.native_order params, options
+    end
+
+    def wxpay_common_params(app:, notify_url:)
+      {
         appid: app.appid,
         mchid: app.mch_id,
         description: "订单编号: #{self.uuid}",
@@ -16,14 +55,8 @@ module Trade
         amount: {
           total: (self.remaining_amount * 100).to_i,
           currency: 'CNY'
-        },
-        payer: {
-          openid: user.oauth_users.find_by(app_id: app.appid)&.uid
         }
       }
-      logger.debug "  \e[35m=====> wxpay params: #{params} <=====\e[0m"
-
-      ::WxPay::Api.invoke_unifiedorder params, options
     end
 
     def wxpay_order(app:, **opts)
