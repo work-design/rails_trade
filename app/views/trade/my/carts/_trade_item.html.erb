@@ -20,7 +20,9 @@
         <% end %>
       </div>
       <div class="control">
-        <%= number_field_tag '[trade_item]number', trade_item.number, id: "quantity_#{trade_item.id}", step: 1, data: { action: 'change->cart#update', url: my_trade_item_path(trade_item) }, class: 'input' %>
+        <%= form_with theme: nil, model: trade_item, url: { controller: 'trade_items', action: 'update', id: trade_item.id }, data: { controller: 'input' } do |f| %>
+          <%= f.number_field :number, step: 1, data: { action: 'input#form' }, class: 'input', id: nil %>
+        <% end %>
       </div>
       <div class="control">
         <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number + 1 }, class: 'button is-link') do %>
@@ -45,6 +47,6 @@
     </p>
   </td>
   <td>
-    <%= link_to t('.destroy'), { controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete %>
+    <%= button_to t('.destroy'), { controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete %>
   </td>
 </tr>
