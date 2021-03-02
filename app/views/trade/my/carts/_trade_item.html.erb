@@ -1,8 +1,7 @@
 <tr class="<%= 'active' if trade_item.checked? %>" id="trade_item_<%= trade_item.id %>">
   <td>
     <%= form_with theme: nil, model: trade_item, url: { controller: 'trade_items', action: 'toggle', id: trade_item.id }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :status, value: trade_item.checked? ? 'checked' : 'init', checked: trade_item.checked?, data: { input_target: 'checkbox' }, id: nil %>
-      <label data-action="click->input#check"></label>
+      <%= f.check_box :status, value: trade_item.checked? ? 'checked' : 'init', checked: trade_item.checked?, data: { action: 'click->input#form' }, id: nil %>
     <% end %>
   </td>
   <td>
