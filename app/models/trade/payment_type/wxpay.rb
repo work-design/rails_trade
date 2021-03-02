@@ -30,7 +30,7 @@ module Trade
       ::WxPay::Api.h5_order params, options
     end
 
-    def native_order(app:, notify_url: url_helpers.wxpay_notify_payments_url, payer_client_ip: '127.0.0.1')
+    def native_order(app:, notify_url: url_helpers.wxpay_notify_payments_url)
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -38,7 +38,6 @@ module Trade
       }
       params = {}
       params.merge! wxpay_common_params(app: app, notify_url: notify_url)
-      params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
       logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
 

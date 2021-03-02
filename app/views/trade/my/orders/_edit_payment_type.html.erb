@@ -7,7 +7,7 @@
     </header>
     <section class="modal-card-body">
       <% ['alipay', 'wxpay_pc'].each do |payment_type| %>
-        <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", remote: payment_type == 'alipay' %>
+        <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", data: { turbo_frame: '_top' } %>
       <% end %>
     </section>
   </div>

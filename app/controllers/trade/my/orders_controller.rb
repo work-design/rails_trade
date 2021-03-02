@@ -116,7 +116,7 @@ module Trade
     # https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5
     # 二维码有效期为2小时
     def wxpay_pc_pay
-      @wxpay_order = @order.wxpay_prepay(app: current_wechat_app)
+      @wxpay_order = @order.native_order(app: current_wechat_app)
 
       if @wxpay_order['result_code'] == 'FAIL' || @wxpay_order.blank?
         render 'wxpay_pay_err'
