@@ -32,7 +32,6 @@ module Trade
       after_initialize if: :new_record? do
         if trade_item
           self.cart = trade_item.cart
-          self.user_id = cart.user_id
           self.order = trade_item.order
         end
         if self.promote_good

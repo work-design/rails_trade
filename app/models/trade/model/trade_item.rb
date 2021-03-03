@@ -146,7 +146,7 @@ module Trade
       self.wholesale_price = original_amount + additional_amount
 
       self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
-      self
+      self.changes
     end
 
     def sync_changed_amount
