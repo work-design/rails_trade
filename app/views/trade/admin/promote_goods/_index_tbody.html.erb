@@ -1,15 +1,10 @@
-<tr>
-  <td><%= promote_good.good_type_i18n %></td>
-  <td>
-    <% if promote_good.good_id %>
-      <%= promote_good.good.name %>
-    <% else %>
-      不限商品
-    <% end %>
-  </td>
-  <td><%= promote_good.promote.name %></td>
-  <td><%= promote_good.status_i18n %></td>
-  <td>
-  
-  </td>
-</tr>
+<td><%= model.good_type_i18n %></td>
+<td>
+  <% if model.good_id %>
+    <%= model.good.name %>
+  <% else %>
+    不限商品
+  <% end %>
+</td>
+<td><%= model.promote.name %></td>
+<td><%= model.status_i18n %></td>
