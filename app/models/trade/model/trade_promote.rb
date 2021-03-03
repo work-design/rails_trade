@@ -13,7 +13,7 @@ module Trade
       attribute :promote_name, :string
 
       belongs_to :cart
-      belongs_to :order, inverse_of: :trade_promotes
+      belongs_to :order, inverse_of: :trade_promotes, optional: true
       belongs_to :trade_item, optional: true
       belongs_to :promote
       belongs_to :promote_charge
