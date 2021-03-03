@@ -118,7 +118,7 @@ module Trade
     def wxpay_pc_pay
       @wxpay_order = @order.native_order(app: current_wechat_app)
 
-      if @wxpay_order['result_code'] == 'FAIL' || @wxpay_order.blank?
+      if @wxpay_order['code'].present? || @wxpay_order.blank?
         render 'wxpay_pay_err'
       else
         file = QrcodeHelper.code_file @wxpay_order['code_url']

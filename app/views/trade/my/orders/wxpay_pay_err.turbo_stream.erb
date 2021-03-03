@@ -1,5 +1,0 @@
-<% if @wxpay_order['return_code'] == 'FAIL' %>
-  alert('<%= @wxpay_order['return_msg'] %>')
-<% else %>
-  alert('出现错误')
-<% end %>
