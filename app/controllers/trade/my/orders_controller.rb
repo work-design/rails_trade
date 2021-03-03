@@ -135,7 +135,7 @@ module Trade
     def wxpay_pay
       @wxpay_order = @order.wxpay_order(app: current_wechat_app)
 
-      if @wxpay_order['return_code'] == 'FAIL' || @wxpay_order.blank?
+      if @wxpay_order['code'].present? || @wxpay_order.blank?
         render 'wxpay_pay_err'
       else
         render 'wxpay_pay'

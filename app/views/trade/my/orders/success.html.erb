@@ -1,9 +1,1 @@
-<div class="ui container content">
-  <div class="settlement">
-    <%# image_tag "face2.jpg"%>
-    <p class="title">Your payment is successful!</p>
-    <p>We will ship out your order and update you with dispatch detail</p>
-    <%= link_to 'My Order list', { action: 'show' }, class: 'ui green button mr_w_15 settlement_btn2' %>
-    <%= link_to 'Back Home', root_path, class: 'ui yellow button mr_w_15' %>
-  </div>
-</div>
+<%= render 'success' %>

@@ -66,11 +66,7 @@ module Trade
     end
 
     def send_notice
-      return unless self.user
-      PaidChannel.broadcast_to(
-        user_id,
-        link: url_helpers.my_order_url(id),
-        )
+      broadcast_action_to self, action: :update, target: 'order_result', partial: 'trade/my/orders/success'
     end
 
     def payment_result(payment_kind: payment_type)

@@ -1,1 +1,4 @@
-<%= image_tag @image_url %>
+<%= turbo_stream_from @order %>
+<div id="order_result">
+  <%= image_tag @image_url %>
+</div>
