@@ -17,7 +17,8 @@ module Trade
       enum status: {
         default: 'default',  # 默认直接添加的服务，不可取消
         available: 'available',  # 可选
-        unavailable: 'unavailable'  # 不可选
+        unavailable: 'unavailable',  # 不可选
+        specific: 'specific'  # 特定的？
       }
 
       validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
