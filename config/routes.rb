@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope module: 'trade', defaults: { namespace: 'application', business: 'trade' } do
+  scope module: 'trade', defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
         get :result
@@ -14,9 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :admin, module: 'trade/admin', as: :admin, defaults: { namespace: 'admin', business: 'trade' } do
+  scope :admin, module: 'trade/admin', as: :admin, defaults: { business: 'trade', namespace: 'admin' } do
     get 'trade' => 'trade#index'
-
     resources :users do
       collection do
         get :overdue
@@ -98,8 +97,8 @@ Rails.application.routes.draw do
     resources :card_templates do
       collection do
         get :advance_options
-        get :add_item
-        get :remove_item
+        post :add_item
+        post :remove_item
       end
       resources :advances
       resources :card_promotes
@@ -119,7 +118,7 @@ Rails.application.routes.draw do
     resources :cash_logs
   end
 
-  scope :my, module: 'trade/my', as: :my, defaults: { namespace: 'my', business: 'trade' } do
+  scope :my, module: 'trade/my', as: :my, defaults: { business: 'trade', namespace: 'my' } do
     resource :cart do
       match :add, via: [:get, :post]
     end
