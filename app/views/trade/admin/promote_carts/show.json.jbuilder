@@ -1,1 +1,1 @@
-json.partial! "promote_buyers/promote_buyer", promote_buyer: @promote_buyer
+json.partial! 'promote_cart', promote_buyer: @promote_buyer
