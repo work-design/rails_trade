@@ -10,14 +10,6 @@
   <td><%= promote_good.promote.name %></td>
   <td><%= promote_good.status_i18n %></td>
   <td>
-    <%= link_to admin_promote_buyers_path(promote_good_id: promote_good.id), aria: { label: '派发' }, class: 'button is-small is-rounded is-light' do %>
-      <i class="fas fa-gift"></i>
-    <% end %>
-    <%= link_to edit_admin_promote_good_path(promote_good), aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light' do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= link_to admin_promote_good_path(promote_good), method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light' do %>
-      <i class="fas fa-trash-alt"></i>
-    <% end %>
+  
   </td>
 </tr>

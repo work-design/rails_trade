@@ -1,7 +1,7 @@
-<%= render '/shared/error_messages', target: @promote_good  %>
+<%= render 'shared/error_messages', target: @promote_good  %>
 <%= f.hidden_field :promote_id %>
-<%= f.select :good_type, options_for_select(PromoteGood.options_i18n(:good_type), @promote_good.good_type), include_blank: true %>
+<%= f.select :good_type, options_for_select(Trade::PromoteGood.options_i18n(:good_type), @promote_good.good_type), include_blank: true %>
 <%= f.select :good_id, options_for_select([]) %>
-<%= f.select :status, options_for_select(PromoteGood.options_i18n(:status), @promote_good.status) %>
+<%= f.select :status, options_for_select(Trade::PromoteGood.options_i18n(:status), @promote_good.status) %>
 <%= f.datetime_field :effect_at, value: Time.current %>
 <%= f.datetime_field :expire_at %>
