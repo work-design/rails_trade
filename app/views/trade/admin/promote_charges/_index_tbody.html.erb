@@ -3,12 +3,14 @@
   <p><%= model.max %></p>
 </td>
 <td>
-  <div class="ui toggle checkbox">
-    <%= check_box_tag 'model[contain_min]', nil, model.contain_min, data: { method: :patch, url: admin_promote_charge_path(@promote, model), submit: true }, id: nil %>
-  </div>
-  <div class="ui toggle checkbox">
-    <%= check_box_tag 'model[contain_max]', nil, model.contain_max, data: { method: :patch, url: admin_promote_charge_path(@promote, model), submit: true }, id: nil %>
-  </div>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :contain_min, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :contain_max, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
 </td>
 <td><%= simple_format(model.extra) %></td>
 <td><%= model.parameter %></td>

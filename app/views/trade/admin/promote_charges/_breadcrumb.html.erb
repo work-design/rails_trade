@@ -1,6 +1,7 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
     <li><%= link_to t('trade.admin.promotes.index.title'), { controller: 'promotes' } %></li>
+    <li><%= link_to @promote.name, { controller: 'promotes', id: @promote.id } %></li>
     <li class="is-active"><%= t('.title') %></li>
   </ul>
 </div>

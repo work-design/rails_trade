@@ -1,7 +1,7 @@
 <%= form_with theme: 'search', model: Trade::PromoteCharge.new do |f| %>
   <div class="field-body">
     <%= f.text_field :value %>
-    <% PromoteCharge.extra_columns.each do |extra| %>
+    <% Trade::PromoteCharge.extra_columns.each do |extra| %>
       <%= f.text_field extra, placeholder: extra %>
     <% end %>
     <div class="field is-narrow">

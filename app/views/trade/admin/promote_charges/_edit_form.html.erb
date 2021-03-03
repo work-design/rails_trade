@@ -1,4 +1,4 @@
-<%= form_with model: @promote_charge, scope: :promote_charge, url: admin_promote_charge_path(@promote, @promote_charge), method: :patch do |f| %>
+<%= form_with model: @promote_charge, scope: :promote_charge, url: { action: 'update' } do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
   <%= f.submit %>
 <% end %>
