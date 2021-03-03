@@ -122,9 +122,9 @@ module Trade
         render 'wxpay_pay_err'
       else
         file = QrcodeHelper.code_file @wxpay_order['code_url']
-        blob = ActiveStorage::Blob.build_after_upload io: file, filename: "#{@order.id}"
-        if blob.save
-          @image_url = blob.url
+        @blob = ActiveStorage::Blob.build_after_upload io: file, filename: "#{@order.id}"
+        if @blob.save
+          @image_url = @blob.url
           render 'wxpay_pc_pay'
         else
           render 'wxpay_pay_err'
