@@ -17,7 +17,7 @@
       <span><%= trade_item.single_price %></span>
       <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
     </td>
-    <td><%= link_to '订单流程', { controller: 'trade_items' } %></td>
+    <td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
     <td><%= trade_item.original_amount %></td>
     <td><%= trade_item.additional_amount %></td>
     <td><%= trade_item.reduced_amount %></td>
