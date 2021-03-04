@@ -3,14 +3,16 @@
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 
+<%= turbo_stream_from @order %>
 <div data-controller="wxpay"
      data-wxpay-timestamp="<%= @wxpay_order[:timeStamp] %>"
      data-wxpay-nonce-str="<%= @wxpay_order[:nonceStr] %>"
      data-wxpay-package="<%= @wxpay_order[:package] %>"
      data-wxpay-sign-type="<%= @wxpay_order[:signType] %>"
      data-wxpay-pay-sign="<%= @wxpay_order[:paySign] %>"
-     class="weui-loadmore"
+     class="weui-loadmore hero"
      style="display: none"
+     id="order_result"
 >
   <i class="weui-loading"></i>
   <span class="weui-loadmore__tips">等待支付结果确认</span>
