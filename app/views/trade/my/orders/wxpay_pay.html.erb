@@ -1,5 +1,5 @@
 <%= content_for(:wechat_js) do %>
-  <%= wechat_config_js debug: true, apis: ['chooseWXPay'] -%>
+  <%= wechat_config_js debug: false, apis: ['chooseWXPay'] -%>
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 
@@ -17,5 +17,5 @@
 </div>
 
 <% if @wxpay_order %>
-<div><%= @wxpay_order %></div>
+<div><%# @wxpay_order %></div>
 <% end %>
