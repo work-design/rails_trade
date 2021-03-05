@@ -97,8 +97,6 @@ Rails.application.routes.draw do
     resources :card_templates do
       collection do
         get :advance_options
-        post :add_item
-        post :remove_item
       end
       resources :advances
       resources :card_promotes

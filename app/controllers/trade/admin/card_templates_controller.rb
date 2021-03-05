@@ -41,14 +41,6 @@ module Trade
       end
     end
 
-    def add_item
-      @card_template = CardTemplate.new
-      @card_template.advances.build
-    end
-
-    def remove_item
-    end
-
     def destroy
       @card_template.destroy
     end
