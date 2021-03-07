@@ -81,6 +81,8 @@ zh:
       orders:
         index:
           title: 我的订单
+        new:
+          title: 确认订单
         wxpay_pc_pay:
           title: 微信支付
           tip: 订单提交成功，请尽快完成付款。

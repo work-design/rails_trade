@@ -9,9 +9,7 @@
       </div>
     </div>
     <div class="weui-tabbar__item">
-      <%= form_with theme: nil, url: { controller: 'orders' } do |f| %>
-        <%= f.submit '结算', class: 'weui-btn weui-btn_primary' %>
-      <% end %>
+      <%= link_to '结算', { controller: 'orders', action: 'new' }, class: 'weui-btn weui-btn_primary' %>
     </div>
   </div>
   <div class="weui-tabbar">
