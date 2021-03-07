@@ -12,7 +12,11 @@
     <tr>
       <th colspan="5"></th>
       <th>
-        <%= link_to '去结算', { controller: 'orders', action: 'new' }, class: 'button is-primary', id: 'new_order' %>
+      <% if @checked_ids.present? %>
+        <%= link_to '结算', { controller: 'orders', action: 'new' }, class: 'button is-primary', id: 'new_order' %>
+      <% else %>
+        <button class="button is-primary" disabled>结算</button>
+      <% end %>
       </th>
     </tr>
   </tfoot>
