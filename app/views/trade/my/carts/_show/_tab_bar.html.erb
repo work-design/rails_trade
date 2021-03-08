@@ -12,7 +12,7 @@
     <% if @checked_ids.present? %>
       <%= link_to '结算', { controller: 'orders', action: 'new' }, class: 'weui-btn weui-btn_primary' %>
     <% else %>
-      <button class="weui-btn weui-btn_primary" disabled>结算</button>
+      <button class="weui-btn weui-btn_primary weui-btn_disabled">结算</button>
     <% end %>
     </div>
   </div>
