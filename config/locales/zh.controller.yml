@@ -86,3 +86,6 @@ zh:
         wxpay_pc_pay:
           title: 微信支付
           tip: 订单提交成功，请尽快完成付款。
+        success:
+          title: 你的订单已支付成功！
+          tip: 我们会尽快处理您的订单。

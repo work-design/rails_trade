@@ -21,3 +21,8 @@ en:
           destroy: Delete
           new: Add
           relate: Refer Buyer
+    my:
+      orders:
+        success:
+          title: Your payment is successful!
+          tip: We will ship out your order and update you with dispatch detail!

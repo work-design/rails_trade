@@ -1,8 +1,8 @@
 <div class="hero-body container">
   <div class="tile is-parent">
     <div>
-      <p class="title">Your payment is successful!</p>
-      <p>We will ship out your order and update you with dispatch detail</p>
+      <p class="title"><%= t('.title') %></p>
+      <p><%= t('.tip') %></p>
       <%= link_to t('trade.my.orders.index.title'), { controller: 'trade/my/orders', action: 'index' } %>
     </div>
   </div>
