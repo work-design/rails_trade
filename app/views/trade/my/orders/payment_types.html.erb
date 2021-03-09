@@ -1,6 +1,6 @@
 <div class="weui-panel">
   <div class="weui-panel__hd">
-    <%= @order.remaining_amount %>
+    待支付：<%= @order.remaining_amount %>
   </div>
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
@@ -36,8 +36,13 @@
           <div class="weui-cell__hd"></div>
           <div class="weui-cell__bd weui-cell_primary">微信支付</div>
           <div class="weui-cell__ft"></div>
-        <% end %>
+        <% end unless @order.all_paid? %>
       </div>
     </div>
+  </div>
+</div>
+<div class="hero">
+  <div class="hero-body">
+    <%= link_to '订单列表', { action: 'index' } %>
   </div>
 </div>
