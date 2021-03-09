@@ -21,11 +21,12 @@
             <% if @order.payments.pluck(:card_id).include?(card.id) %>
               <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(card_id: card.id).id }, method: :delete do |f| %>
                 <%= f.check_box 'xx', checked: true, class: 'weui-check' %>
+                <span class="weui-icon-checked"></span>
               <% end %>
             <% else %>
               <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
+              <span class="weui-icon-checked"></span>
             <% end %>
-            <span class="weui-icon-checked"></span>
           </span>
         </label>
         <% end %>
