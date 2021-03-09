@@ -6,6 +6,7 @@ zh:
         price: 价格
         apple_product_id: iOS内购配置
       trade/card:
+        card_template_id: 会员卡类型
         user_id: 购买人
         card_uuid: 卡号
         effect_at: 生效时间
