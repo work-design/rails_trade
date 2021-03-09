@@ -10,6 +10,7 @@ module Trade
       after_update :sync_amount, if: -> { saved_change_to_total_amount? }
       after_create_commit :sync_card_log, if: -> { saved_change_to_total_amount? }
       after_destroy :sync_amount_after_destroy
+      after_destroy_commit :sync_destroy_card_log
     end
 
     def init_amount
@@ -56,6 +57,14 @@ module Trade
       cl.title = card.card_uuid
       cl.tag_str = '支出'
       cl.amount = -self.total_amount
+      cl.save
+    end
+
+    def sync_destroy_card_log
+      cl = self.card_log || self.build_card_log
+      cl.title = card.card_uuid
+      cl.tag_str = '退款'
+      cl.amount = self.total_amount
       cl.save
     end
 
