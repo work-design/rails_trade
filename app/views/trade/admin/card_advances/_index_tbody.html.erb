@@ -1,17 +1,4 @@
-<tr>
-  <td><%= card_advance.amount %></td>
-  <td><%= card_advance.advance&.name %></td>
-  <td><%= card_advance.state_i18n %></td>
-  <td><time data-controller="time"><%= card_advance.created_at.to_s(:rfc822) %></time></td>
-  <td>
-    <%= link_to({ action: 'show', id: card_advance.id }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-info"></i>
-    <% end %>
-    <%= link_to({ action: 'edit', id: card_advance.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= link_to({ action: 'destroy', id: card_advance.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-trash-alt"></i>
-    <% end %>
-  </td>
-</tr>
+<td><%= model.amount %></td>
+<td><%= model.advance&.name %></td>
+<td><%= model.state_i18n %></td>
+<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
