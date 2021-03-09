@@ -9,7 +9,7 @@ module Trade
       before_validation :init_amount, if: -> { checked_amount_changed? }
       after_update :sync_amount, if: -> { saved_change_to_total_amount? }
       after_create_commit :sync_card_log, if: -> { saved_change_to_total_amount? }
-      after_destroy :sync_amount
+      after_destroy :sync_amount_after_destroy
     end
 
     def init_amount
@@ -28,6 +28,19 @@ module Trade
     def sync_amount
       card.reload
       card.expense_amount += self.total_amount
+      computed = card.compute_expense_amount
+      if card.expense_amount == computed
+        card.save!
+      else
+        card.errors.add :expense_amount, "#{card.expense_amount} Not Equal Computed #{computed}"
+        logger.error "#{self.class.name}/Card: #{card.error_text}"
+        raise ActiveRecord::RecordInvalid.new(card)
+      end
+    end
+
+    def sync_amount_after_destroy
+      card.reload
+      card.expense_amount -= self.total_amount
       computed = card.compute_expense_amount
       if card.expense_amount == computed
         card.save!
