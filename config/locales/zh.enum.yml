@@ -8,7 +8,8 @@ zh:
           Trade::SvfCard: 储值卡
       trade/card_log:
         source_type:
-          CardAdvance: 充值
+          Trade::CardAdvance: 充值
+          Trade::CardPayment: 支付
       trade/order:
         payment_status:
           unpaid: 未支付
