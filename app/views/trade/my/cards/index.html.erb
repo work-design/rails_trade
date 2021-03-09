@@ -1,0 +1,38 @@
+<div class="box">
+  <% @cards.each do |card| %>
+    <div class="card is-radiusless" style="background-image: url(<%= card.card_template.cover.url %>); background-size: cover; background-repeat: no-repeat">
+      <div class="card-header">
+        <p class="card-header-title"><%= card.card_template.name %></p>
+      </div>
+      <div class="card-content">
+        <p><%= card.card_uuid %></p>
+      </div>
+      <div class="card-content">
+        <div class="header"></div>
+        <div class="description">
+          <div class="level is-flex">
+            <div class="level-left">
+              <div class="level-item"><time data-controller="time"><%= card.effect_at.to_s(:rfc822) %></time></div>
+            </div>
+            <div class="level-right mt-0">
+              <div class="level-item"><time data-controller="time"><%= card.expire_at.to_s(:rfc822) %></time></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+      </div>
+    </div>
+    <div class="panel is-radiusless">
+      <div class="panel-block">
+        <p><%= Trade::Card.human_attribute_name(:amount) %>：<%= card.amount %></p>
+      </div>
+      <div class="panel-block">
+        <%= link_to '记录', { controller: 'card_logs', card_id: card.id }, class: 'card-footer-item' %>
+      </div>
+      <div class="panel-block">
+        <%= link_to '充值', { controller: '/trade/advances', card_template_id: card.card_template_id }, class: 'card-footer-item' %>
+      </div>
+    </div>
+  <% end %>
+</div>
