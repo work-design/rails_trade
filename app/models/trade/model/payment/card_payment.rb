@@ -4,7 +4,7 @@ module Trade
 
     included do
       belongs_to :card
-      has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
+      has_many :card_logs, ->(o){ where(card_id: o.card_id) }, as: :source
 
       before_validation :init_amount, if: -> { checked_amount_changed? }
       after_update :sync_amount, if: -> { saved_change_to_total_amount? }
@@ -53,7 +53,7 @@ module Trade
     end
 
     def sync_card_log
-      cl = self.card_log || self.build_card_log
+      cl = self.card_logs.build
       cl.title = card.card_uuid
       cl.tag_str = '支出'
       cl.amount = -self.total_amount
@@ -61,7 +61,7 @@ module Trade
     end
 
     def sync_destroy_card_log
-      cl = self.card_log || self.build_card_log
+      cl = self.card_logs.build
       cl.title = card.card_uuid
       cl.tag_str = '退款'
       cl.amount = self.total_amount
