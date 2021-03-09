@@ -2,4 +2,4 @@
   <p><%= model.income_min %></p>
   <p><%= model.income_max %></p>
 </td>
-<td><%= link_to model.promote.name, { controller: 'trade/admin/promotes', action: 'show', id: model.promote_id }, text: true %></td>
+<td><%= link_to model.promote.name, { controller: 'promotes', action: 'show', id: model.promote_id }, data: { turbo_frame: 'modal' }, text: true %></td>
