@@ -9,7 +9,7 @@
         <div class="description">有效期：<%= card_template.valid_days %>天</div>
       </div>
       <div class="card-footer">
-        <%= link_to '充值', { controller: 'advances', card_template_id: card_template.id }, class: 'card-footer-item' %>
+        <%= link_to '充值', { controller: '/trade/advances', card_template_id: card_template.id }, class: 'card-footer-item' %>
       </div>
     </div>
   <% end %>
