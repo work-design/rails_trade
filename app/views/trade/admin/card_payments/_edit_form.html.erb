@@ -1,4 +1,4 @@
-<%= form_with model: @card_payment, url: { action: 'update', id: @card_payment.id } do |f| %>
+<%= form_with model: @card_payment, url: { action: 'update' } do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
   <%= f.submit %>
 <% end %>

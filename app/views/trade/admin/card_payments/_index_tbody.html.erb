@@ -1,16 +1,3 @@
-<tr>
-  <td><%= card_payment.total_amount %></td>
-  <td><%= card_payment.refunded_amount %></td>
-  <td><time data-controller="time"><%= card_payment.created_at.to_s(:rfc822) %></time></td>
-  <td>
-    <%= link_to({ action: 'show', id: card_payment.id }, { aria: { label: t('.show') }, class: 'button is-small is-rounded is-light' }) do %>
-      <i class="fas fa-eye"></i>
-    <% end %>
-    <%= link_to({ action: 'edit', id: card_payment.id }, { aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light' }) do %>
-      <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= link_to({ action: 'destroy', id: card_payment.id }, { method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light' }) do %>
-      <i class="fas fa-trash-alt"></i>
-    <% end %>
-  </td>
-</tr>
+<td><%= model.total_amount %></td>
+<td><%= model.refunded_amount %></td>
+<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>

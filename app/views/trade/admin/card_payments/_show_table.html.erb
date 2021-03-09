@@ -1,12 +1,12 @@
 <tr>
-  <td class="has-text-right"><%= CardPayment.human_attribute_name(:total_amount) %></td>
+  <td class="has-text-right"><%= Trade::CardPayment.human_attribute_name(:total_amount) %></td>
   <td><%= @card_payment.total_amount %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= CardPayment.human_attribute_name(:refunded_amount) %></td>
+  <td class="has-text-right"><%= Trade::CardPayment.human_attribute_name(:refunded_amount) %></td>
   <td><%= @card_payment.refunded_amount %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= CardPayment.human_attribute_name(:created_at) %></td>
-  <td><%= @card_payment.created_at %></td>
+  <td class="has-text-right"><%= Trade::CardPayment.human_attribute_name(:created_at) %></td>
+  <td><time data-controller="time"><%= @card_payment.created_at.to_s(:rfc822) %></time></td>
 </tr>
