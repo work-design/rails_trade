@@ -21,8 +21,8 @@ module Trade
       attribute :advance_amount, :decimal, default: 0
       attribute :extra, :json, default: {}
 
+      belongs_to :user, class_name: 'Auth::User'
       belongs_to :good, polymorphic: true
-      belongs_to :user
       belongs_to :cart, counter_cache: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
