@@ -54,7 +54,7 @@ module Trade
 
     def sync_card_log
       cl = self.card_logs.build
-      cl.title = card.card_uuid
+      cl.title = payment_uuid
       cl.tag_str = '支出'
       cl.amount = -self.total_amount
       cl.save
@@ -62,7 +62,7 @@ module Trade
 
     def sync_destroy_card_log
       cl = self.card_logs.build
-      cl.title = card.card_uuid
+      cl.title = payment_uuid
       cl.tag_str = '退款'
       cl.amount = self.total_amount
       cl.save
