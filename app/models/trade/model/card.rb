@@ -12,10 +12,11 @@ module Trade
       attribute :lock_version, :integer
       attribute :currency, :string
 
-      belongs_to :organ, optional: true
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :user, class_name: 'Auth::User', optional: true
+
       belongs_to :card_template
       belongs_to :trade_item, optional: true
-      belongs_to :user, optional: true
       belongs_to :member, optional: true
       belongs_to :client, optional: true
       belongs_to :agency, optional: true
