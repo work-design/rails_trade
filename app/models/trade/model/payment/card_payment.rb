@@ -9,6 +9,7 @@ module Trade
       before_validation :init_amount, if: -> { checked_amount_changed? }
       after_update :sync_amount, if: -> { saved_change_to_total_amount? }
       after_create_commit :sync_card_log, if: -> { saved_change_to_total_amount? }
+      after_destroy :sync_amount
     end
 
     def init_amount
