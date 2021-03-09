@@ -21,5 +21,9 @@ module Trade
       has_one_attached :cover
     end
 
+    def duration
+      valid_years.years + valid_months.months + valid_days.days
+    end
+
   end
 end
