@@ -1,6 +1,6 @@
 <td><%= model.card_template.name %></td>
 <td>
-  <p><%= model.user.name %></p>
+  <p><%= model.user&.name %></p>
 </td>
 <td><%= model.card_uuid %></td>
 <td>
@@ -18,7 +18,7 @@
   <p>
     <%= model.expense_amount %>
     <%= link_to({ controller: 'card_payments', card_id: model.id }, aria: { label: t('trade.admin.card_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-credit-model"></i>
+      <i class="fas fa-credit-card"></i>
     <% end %>
   </p>
 </td>
