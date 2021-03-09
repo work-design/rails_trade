@@ -44,13 +44,13 @@
             </div>
             <div class="is-flex is-align-items-center">
               <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number - 1 }, class: 'mr-1') do %>
-                <i class="fas fa-minus"></i>
+                <i class="fas fa-minus fa-lg"></i>
               <% end if trade_item.number > 1 %>
               <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, data: { controller: 'input' }) do |f| %>
                 <%= f.number_field :number, value: trade_item.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
               <% end %>
               <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number + 1 }, class: 'ml-1') do %>
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-plus fa-lg"></i>
               <% end %>
             </div>
           </div>
