@@ -1,4 +1,5 @@
 <%= form_with model: @card, url: { action: 'create' } do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
+  <%= f.hidden_field :card_template_id %>
   <%= f.submit %>
 <% end %>
