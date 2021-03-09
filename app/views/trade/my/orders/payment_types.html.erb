@@ -19,7 +19,7 @@
               <% end %>
             <% end %>
             <% if @order.payments.pluck(:card_id).include?(card.id) %>
-              <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payment_ids.first }, method: :delete do |f| %>
+              <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(card_id: card.id).id }, method: :delete do |f| %>
                 <%= f.check_box 'xx', checked: true, class: 'weui-check' %>
               <% end %>
             <% else %>
