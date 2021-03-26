@@ -1,3 +1,6 @@
+<% if @cards.size == 0 %>
+  <div data-controller="visit" data-visit-url-value="<%= url_for(controller: '/trade/card_templates', action: 'index') %>"></div>
+<% end %>
 <div class="box">
   <% @cards.each do |card| %>
     <div class="card is-radiusless" style="background-image: url(<%= card.card_template.cover.url %>); background-size: cover; background-repeat: no-repeat">

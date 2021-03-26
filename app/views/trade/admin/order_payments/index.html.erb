@@ -1,0 +1,12 @@
+<% turbo_frame_tagged 'modal' do %>
+  <%= render partial: 'index_tbody', collection: @order.payment_orders %>
+  <tfoot>
+  <tr>
+    <th colspan="5"></th>
+    <th class="center aligned">
+      预核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
+    </th>
+    <th colspan="2"></th>
+  </tr>
+  </tfoot>
+<% end %>
