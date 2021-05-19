@@ -1,7 +1,7 @@
 <%= f.text_field :name, required: true %>
 <%= f.text_field :short_name %>
 <%= f.text_field :code %>
-<%= f.text_field :description %>
+<%= f.text_area :description %>
 <%= f.select :scope, options_for_select(Trade::Promote.options_i18n(:scope), @promote.scope) %>
 <%= f.number_field :sequence %>
 <%= f.select :metering, options_for_select(Trade::Promote.options_i18n(:metering), @promote.metering) %>
