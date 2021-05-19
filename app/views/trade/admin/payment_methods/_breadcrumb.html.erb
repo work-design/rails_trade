@@ -1,10 +1,10 @@
 <div class="tabs">
   <ul>
     <li class="<%= active_helper(action: 'index', active: 'is-active', item: nil) %>">
-      <%= link_to 'Verified', admin_payment_methods_path %>
+      <%= link_to 'Verified', { action: 'index' } %>
     </li>
     <li class="<%= active_helper(action: 'unverified', active: 'is-active', item: nil) %>">
-      <%= link_to 'Unverified', unverified_admin_payment_methods_path %>
+      <%= link_to 'Unverified', { action: 'unverified' } %>
     </li>
   </ul>
 </div>

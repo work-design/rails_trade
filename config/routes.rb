@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  scope module: 'trade', defaults: { business: 'trade' } do
+  namespace :trade, defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
         get :result
@@ -12,155 +12,155 @@ Rails.application.routes.draw do
     resources :card_templates do
       resources :advances
     end
-  end
 
-  scope :admin, module: 'trade/admin', as: :admin, defaults: { business: 'trade', namespace: 'admin' } do
-    get 'trade' => 'trade#index'
-    resources :users do
-      collection do
-        get :overdue
-        put :remind
-      end
-      member do
-        get :orders
-      end
-    end
-    resources :carts, except: [:new] do
-      collection do
-        get :total
-        get :doc
-        get :only
-      end
-    end
-    resources :orders do
-      collection do
-        get :payments
-        get :refresh
-      end
-      member do
-        patch :refund
-      end
-      resources :order_payments
-    end
-    resources :trade_items
-    resources :trade_promotes
-    resources :payments do
-      collection do
-        get :dashboard
-      end
-      member do
-        patch :analyze
-        patch :adjust
-      end
-      resources :payment_orders do
+    namespace :admin, defaults: { namespace: 'admin' } do
+      get 'trade' => 'trade#index'
+      resources :users do
+        collection do
+          get :overdue
+          put :remind
+        end
         member do
-          patch :cancel
+          get :orders
         end
       end
-    end
-    resources :payment_strategies
-    resources :payment_methods do
-      collection do
-        get :unverified
-        get :mine
+      resources :carts, except: [:new] do
+        collection do
+          get :total
+          get :doc
+          get :only
+        end
       end
-      member do
-        patch :verify
-        patch :merge_from
+      resources :orders do
+        collection do
+          get :payments
+          get :refresh
+        end
+        member do
+          patch :refund
+        end
+        resources :order_payments
       end
-      resources :payment_references, as: :references
-    end
-    resources :produces
-    resources :promotes do
-      collection do
-        get :search
+      resources :trade_items
+      resources :trade_promotes
+      resources :payments do
+        collection do
+          get :dashboard
+        end
+        member do
+          patch :analyze
+          patch :adjust
+        end
+        resources :payment_orders do
+          member do
+            patch :cancel
+          end
+        end
       end
-      resources :promote_charges, as: 'charges'
-    end
-    resources :promote_charges, only: [] do
-      collection do
-        get :options
+      resources :payment_strategies
+      resources :payment_methods do
+        collection do
+          get :unverified
+          get :mine
+        end
+        member do
+          patch :verify
+          patch :merge_from
+        end
+        resources :payment_references, as: :references
       end
-    end
-    resources :promote_carts
-    resources :promote_goods do
-      collection do
-        get :goods
+      resources :produces
+      resources :promotes do
+        collection do
+          get :search
+        end
+        resources :promote_charges, as: 'charges'
       end
-    end
-    resources :refunds do
-      member do
-        patch :confirm
-        patch :deny
+      resources :promote_charges, only: [] do
+        collection do
+          get :options
+        end
       end
-    end
-    resources :card_templates do
-      collection do
-        get :advance_options
+      resources :promote_carts
+      resources :promote_goods do
+        collection do
+          get :goods
+        end
       end
-      resources :advances
-      resources :card_promotes
-    end
-    resources :cards do
-      resources :card_logs
-      resources :card_advances
-      resources :card_payments
-    end
-    resources :cashes
-    resources :cash_givens
-    resources :payouts do
-      member do
-        put :do_pay
+      resources :refunds do
+        member do
+          patch :confirm
+          patch :deny
+        end
       end
+      resources :card_templates do
+        collection do
+          get :advance_options
+        end
+        resources :advances
+        resources :card_promotes
+      end
+      resources :cards do
+        resources :card_logs
+        resources :card_advances
+        resources :card_payments
+      end
+      resources :cashes
+      resources :cash_givens
+      resources :payouts do
+        member do
+          put :do_pay
+        end
+      end
+      resources :cash_logs
     end
-    resources :cash_logs
-  end
 
-  scope :my, module: 'trade/my', as: :my, defaults: { business: 'trade', namespace: 'my' } do
-    resource :cart do
-      match :add, via: [:get, :post]
-    end
-    resources :trade_items do
-      member do
-        patch :toggle
-        get :promote
+    namespace :my, defaults: { namespace: 'my' } do
+      resource :cart do
+        match :add, via: [:get, :post]
       end
-    end
-    resources :orders do
-      collection do
-        post :direct
-        get :refresh
+      resources :trade_items do
+        member do
+          patch :toggle
+          get :promote
+        end
       end
-      member do
-        get :paypal_pay
-        get :alipay_pay
-        get :wxpay_pay
-        get :wxpay_pc_pay
-        patch :stripe_pay
-        get :paypal_execute
-        get :pay
-        get :payment_types
-        get 'payment_type' => :edit_payment_type
-        get 'cancel' => :edit_cancel
-        put 'cancel' => :update_cancel
-        put :refund
-        get :success
+      resources :orders do
+        collection do
+          post :direct
+          get :refresh
+        end
+        member do
+          get :paypal_pay
+          get :alipay_pay
+          get :wxpay_pay
+          get :wxpay_pc_pay
+          patch :stripe_pay
+          get :paypal_execute
+          get :pay
+          get :payment_types
+          get 'payment_type' => :edit_payment_type
+          get 'cancel' => :edit_cancel
+          put 'cancel' => :update_cancel
+          put :refund
+          get :success
+        end
       end
-    end
-    resources :payments
-    resources :payment_methods
-    resources :advances do
-      member do
-        get :order
+      resources :payments
+      resources :payment_methods
+      resources :advances do
+        member do
+          get :order
+        end
       end
-    end
-    resources :carts
-    resources :cards
-    resources :card_logs, only: [:index]
-    resources :cash_logs, only: [:index]
-    resources :payouts, only: [:index, :create] do
-      collection do
-        get :list
+      resources :carts
+      resources :cards
+      resources :card_logs, only: [:index]
+      resources :cash_logs, only: [:index]
+      resources :payouts, only: [:index, :create] do
+        collection do
+          get :list
+        end
       end
     end
   end
