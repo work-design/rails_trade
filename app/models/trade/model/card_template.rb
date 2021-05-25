@@ -9,6 +9,7 @@ module Trade
       attribute :valid_months, :integer, default: 0
       attribute :valid_days, :integer, default: 0
       attribute :currency, :string
+      attribute :default, :boolean, default: false
 
       belongs_to :organ, optional: true
 
