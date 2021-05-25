@@ -9,6 +9,9 @@ zh:
       card_payments:
         index:
           title: 支付
+      card_prepayments:
+        index:
+          title: 充值码
       carts:
         index:
           title: 购物用户

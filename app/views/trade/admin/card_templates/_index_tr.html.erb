@@ -2,13 +2,16 @@
   <%= yield %>
   <td>
     <span data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'advances', card_template_id: model.id }, data: { turbo_frame: '_top' }, aria: { label: t('trade.admin.advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'advances', card_template_id: model.id }, aria: { label: t('trade.admin.advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fas fa-donate"></i>
       <% end %>
-      <%= link_to({ controller: 'card_promotes', card_template_id: model.id }, data: { turbo_frame: '_top' }, aria: { label: t('trade.admin.card_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'card_promotes', card_template_id: model.id }, aria: { label: t('trade.admin.card_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fas fa-gift"></i>
       <% end %>
-      <%= link_to({ controller: 'cards', card_template_id: model.id }, data: { turbo_frame: '_top' }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'card_prepayments', card_template_id: model.id }, aria: { label: t('trade.admin.card_prepayments.index.title') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fas fa-archive"></i>
+      <% end %>
+      <%= link_to({ controller: 'cards', card_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fas fa-bars"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
