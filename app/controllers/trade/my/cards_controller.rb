@@ -8,6 +8,7 @@ module Trade
       q_params.merge! params.permit(:card_uuid, :card_template_id)
 
       @cards = current_user.cards.includes(:card_template).default_where(q_params).order(id: :desc).page(params[:page])
+      @card_templates = CardTemplate.default_where(default_params).where.not(id: @cards.pluck(:card_template_id))
     end
 
     def new
