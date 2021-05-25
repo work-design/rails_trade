@@ -99,6 +99,7 @@ Rails.application.routes.draw do
         end
         resources :advances
         resources :card_promotes
+        resources :card_prepayments
       end
       resources :cards do
         resources :card_logs
