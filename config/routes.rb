@@ -155,7 +155,11 @@ Rails.application.routes.draw do
         end
       end
       resources :carts
-      resources :cards
+      resources :cards do
+        collection do
+          get :token
+        end
+      end
       resources :card_logs, only: [:index]
       resources :cash_logs, only: [:index]
       resources :payouts, only: [:index, :create] do

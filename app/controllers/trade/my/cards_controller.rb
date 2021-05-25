@@ -12,7 +12,12 @@ module Trade
     end
 
     def new
-      @card = Card.new
+      @card = current_user.cards.find_or_initialize_by(card_template_id: params[:card_template_id])
+    end
+
+    def new_token
+      card_prepayment = CardPrepayment.find_by token: params[:token]
+      @card = current_user.cards.find_or_initialize_by(card_template_id: card_prepayment.card_template_id)
     end
 
     def create

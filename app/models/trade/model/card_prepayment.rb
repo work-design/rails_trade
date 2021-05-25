@@ -17,6 +17,11 @@ module Trade
       self
     end
 
+    def qrcode_url
+      url = Rails.application.routes.url_for(controller: 'trade/my/cards', action: 'token', token: token)
+      QrcodeHelper.data_url(url)
+    end
+
     def generate_token
       UidHelper.nsec_uuid 'CP'
     end
