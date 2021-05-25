@@ -10,3 +10,7 @@
   <td class="has-text-right"><%= Trade::CardPrepayment.human_attribute_name(:expire_at) %></td>
   <td><%= @card_prepayment.expire_at %></td>
 </tr>
+<tr>
+  <td></td>
+  <td><%= image_tag QrcodeHelper.data_url(@card_prepayment.token) %></td>
+</tr>
