@@ -6,7 +6,9 @@
         <div class="description">价格：￥<%= advance.price %></div>
       </div>
       <div class="card-footer">
-        <%= link_to advance.price, add_my_cart_path(good_id: advance.id, good_type: advance.class_name), method: 'post', class: 'card-footer-item' %>
+        <%= button_to({ controller: 'trade/my/carts', action: 'add', good_id: advance.id, good_type: advance.class_name }, method: 'post', class: 'card-footer-item') do %>
+          <i class="fas fa-dollar"></i><span><%= advance.price %></span>
+        <% end %>
       </div>
     </div>
   <% end %>

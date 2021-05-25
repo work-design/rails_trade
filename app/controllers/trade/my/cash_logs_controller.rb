@@ -6,6 +6,5 @@ module Trade
       @cash_logs = @cash.cash_logs.order(id: :desc).page(params[:page]).per(params[:per])
     end
 
-
   end
 end
