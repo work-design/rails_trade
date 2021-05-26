@@ -1,6 +1,6 @@
 <div class="box">
 <% @cards.each do |card| %>
-  <div class="card is-radiusless" style="background-image: url(<%= card.card_template.cover.url %>); background-size: cover; background-repeat: no-repeat">
+  <div class="card is-radiusless" style="background-image: url(<%= rails_blob_url(card.card_template.cover) %>); background-size: cover; background-repeat: no-repeat">
     <div class="card-header">
       <p class="card-header-title"><%= card.card_template.name %></p>
     </div>
