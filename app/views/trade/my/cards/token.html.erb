@@ -1,11 +1,11 @@
 <div>
   <%= @card.card_template.name %>
-  
-  获得积分：<%= @card_prepayment.amount %>
 </div>
 
 <%= form_with theme: 'weui', model: @card, url: { action: 'create' } do |f| %>
-  
-  <%= f.text_field :note %>
+  <%= f.hidden_field :token, value: params[:token] %>
+  <%= f.fields :card_advances do |ef| %>
+    <%= ef.text_field :amount, readonly: true, label: '获得积分' %>
+  <% end %>
   <%= f.submit %>
 <% end %>

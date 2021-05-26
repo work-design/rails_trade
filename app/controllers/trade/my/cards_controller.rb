@@ -22,7 +22,13 @@ module Trade
     end
 
     def create
-      @card = Card.new(card_params)
+      if token_params[:token]
+        @card_prepayment = CardPrepayment.find_by token: token_params[:token]
+        @card = current_user.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
+      else
+        @card = Card.new(card_params)
+      end
+      @card.assign_attributes card_params
 
       unless @card.save
         render :new, locals: { model: @card }, status: :unprocessable_entity
@@ -50,6 +56,10 @@ module Trade
     private
     def set_card
       @card = Card.find(params[:id])
+    end
+
+    def token_params
+      params.fetch(:card, {}).permit(:token)
     end
 
     def card_params
