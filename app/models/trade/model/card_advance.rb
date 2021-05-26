@@ -15,6 +15,7 @@ module Trade
       belongs_to :card
       belongs_to :trade_item, optional: true
       belongs_to :advance, optional: true
+      belongs_to :card_prepayment, optional: true
 
       has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 

@@ -18,6 +18,7 @@ module Trade
     def token
       @card_prepayment = CardPrepayment.find_by token: params[:token]
       @card = current_user.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
+      @card.card_advances.build(amount: @card_prepayment.amount)
     end
 
     def create
@@ -58,7 +59,8 @@ module Trade
         :effect_at,
         :expire_at,
         :amount,
-        :income_amount
+        :income_amount,
+        card_advances_attributes: [:amount]
       )
     end
 

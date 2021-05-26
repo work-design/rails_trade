@@ -3,3 +3,9 @@
   
   获得积分：<%= @card_prepayment.amount %>
 </div>
+
+<%= form_with theme: 'weui', model: @card, url: { action: 'create' } do |f| %>
+  
+  <%= f.text_field :note %>
+  <%= f.submit %>
+<% end %>
