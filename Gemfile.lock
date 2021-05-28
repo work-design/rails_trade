@@ -23,7 +23,7 @@ PATH
   remote: .
   specs:
     rails_trade (0.0.2)
-      money-rails (~> 1.12)
+      money-rails (~> 1.14)
       rails_com (~> 1.2)
 
 GEM
