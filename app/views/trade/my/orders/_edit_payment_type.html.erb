@@ -1,14 +1,3 @@
-<div class="modal is-active" data-controller="modal">
-  <div class="modal-background" data-action="event->modal#close"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title"><%= t('.title') %></p>
-      <button class="delete" data-action="modal#close"></button>
-    </header>
-    <section class="modal-card-body">
-      <% ['alipay', 'wxpay_pc'].each do |payment_type| %>
-        <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", data: { turbo_frame: '_top' } %>
-      <% end %>
-    </section>
-  </div>
-</div>
+<% ['alipay', 'wxpay_pc'].each do |payment_type| %>
+  <%= link_to payment_type, "/my/orders/#{@order.id}/#{payment_type}_pay", data: { turbo_frame: '_top' } %>
+<% end %>
