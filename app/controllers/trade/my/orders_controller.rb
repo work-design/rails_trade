@@ -26,7 +26,7 @@ module Trade
       @order = current_cart.orders.build(order_params)
 
       if @order.save
-        render 'create', locals: { return_to: my_order_url(@order) }
+        render 'create'
       else
         render :new, locals: { model: @order }, status: :unprocessable_entity
       end
