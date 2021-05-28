@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       resources :advances
     end
 
+    namespace :panel, defaults: { namespace: 'panel' } do
+      resources :exchange_rates
+    end
+
     namespace :admin, defaults: { namespace: 'admin' } do
       get 'trade' => 'trade#index'
       resources :users do

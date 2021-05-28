@@ -1,0 +1,10 @@
+<div class="<%= active_helper(modules: ['trade/panel'], active: 'menu ex-accordion is-active', item: 'menu ex-accordion') %>" data-controller="menu">
+  <%= content_tag :div, class: 'menu-list' do %>
+    <%= link_to t('trade.panel.exchange_rates.index.title'), { controller: 'trade/panel/exchange_rates' }, class: active_helper(controllers: 'exchange_rates', active: 'is-active') -%>
+  <% end %>
+  <a class="menu-label" data-action="menu#toggle">
+    <i class="fas fa-shopping-cart fa-fw"></i>
+    <span><%= t('trade.panel.title') %></span>
+    <i class="fas dropdown"></i>
+  </a>
+</div>
