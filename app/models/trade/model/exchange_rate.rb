@@ -27,6 +27,17 @@ module Trade
           yield rate.from, rate.to, rate.rate
         end
       end
+
+      def currency_options
+        r = {}
+
+        Money::Currency.table.each do |_, value|
+          r.merge! value[:name] => value[:iso_code]
+        end
+
+        r
+      end
+
     end
 
   end
