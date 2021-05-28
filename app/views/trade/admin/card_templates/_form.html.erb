@@ -5,6 +5,7 @@
 <%= f.number_field :valid_months, step: 1, min: 0, max: 12 %>
 <%= f.number_field :valid_days, step: 1, min: 0, max: 31 %>
 <%= f.file_field :cover %>
+<%= f.select :currency, options_for_select(Trade::ExchangeRate.currency_options, f.object.currency) %>
 <%= f.fields :advances, wrap: { all: nil, input: 'field' }, on: { label: false } do |ef| %>
   <%= render partial: 'item_form', locals: { ef: ef } %>
 <% end %>

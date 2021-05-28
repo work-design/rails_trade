@@ -59,6 +59,7 @@ module Trade
         :valid_days,
         :cover,
         :default,
+        :currency,
         advances_attributes: {}
       )
       p.merge! default_form_params
