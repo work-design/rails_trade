@@ -21,6 +21,7 @@
         <% if order.can_pay? %>
           <%= link_to '支付', { action: 'edit_payment_type', id: order.id }, data: { turbo_frame: 'modal' }, class: 'button is-small' %>
         <% end %>
+        <%= link_to '支付2', { action: 'payment_types', id: order.id }, class: 'button is-small' %>
       </td>
       <td>
         <span><%= order.note %></span>
