@@ -27,6 +27,10 @@ module Trade
       redirect_to({ action: 'show' })
     end
 
+    def addresses
+      @addresses = current_user.addresses
+    end
+
     def edit
     end
 
@@ -35,7 +39,9 @@ module Trade
 
     private
     def cart_params
-      params.fetch(:cart, {}).permit()
+      params.fetch(:cart, {}).permit(
+        :address_id
+      )
     end
 
   end
