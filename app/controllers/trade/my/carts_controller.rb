@@ -28,7 +28,7 @@ module Trade
     end
 
     def addresses
-      @addresses = current_user.addresses
+      @addresses = current_user.addresses.order(id: :asc)
     end
 
     def edit
