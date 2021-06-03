@@ -5,17 +5,6 @@
 </div>
 
 <table class="table is-hoverable is-fullwidth">
-  <thead>
-    <tr>
-    <% if defined? cache_key %>
-      <% cache cache_key do %>
-        <%= render 'index_thead' %>
-      <% end %>
-    <% else %>
-      <%= render 'index_thead' %>
-    <% end %>
-    </tr>
-  </thead>
   <tbody id="tbody">
     <%= yield %>
   </tbody>
