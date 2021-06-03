@@ -1,15 +1,5 @@
 <td>
-  <% if current_cart.address_id == model.id %>
-    <%= form_with theme: nil, model: current_cart, url: { action: 'update' }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :address_id, value: nil, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
-      <label data-action="click->input#check"></label>
-    <% end %>
-  <% else %>
-    <%= form_with theme: nil, model: current_cart, url: { action: 'update' }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :address_id, { checked: false, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' }, 2 %>
-      <label data-action="click->input#check"></label>
-    <% end %>
-  <% end %>
+  <%= radio_button_tag 'cart[address_id]', model.id, form: 'cart_address' %>
 </td>
 <td><%= model.contact %></td>
 <td><%= model.tel %></td>

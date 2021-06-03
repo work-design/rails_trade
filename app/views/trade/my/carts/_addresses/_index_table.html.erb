@@ -4,6 +4,9 @@
   <% end %>
 </div>
 
+<%= form_with theme: nil, model: current_cart, url: { action: 'update' }, id: 'cart_address' do %>
+<% end %>
+
 <table class="table is-hoverable is-fullwidth">
   <tbody id="tbody">
     <%= yield %>

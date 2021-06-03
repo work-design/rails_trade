@@ -1,6 +1,7 @@
 en:
   trade:
     admin:
+      title: Order And Payment
       card_templates:
         index:
           title: Card Settings
