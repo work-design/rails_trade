@@ -22,7 +22,7 @@
       <td><%= trade_item.additional_amount %></td>
       <td><%= trade_item.reduced_amount %></td>
       <td><%= trade_item.amount %></td>
-      <td><%= link_to '订单流程', admin_trade_item_path(trade_item) %></td>
+      <td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
     </tr>
     <% trade_item.trade_promotes.each do |trade_promote| %>
       <tr class="has-background-warning">
@@ -31,7 +31,7 @@
         <td><%= trade_promote.amount %></td>
         <td>
           <% if trade_promote.promote.editable %>
-            <%= link_to edit_admin_trade_promote_path(trade_promote), class: 'button is-small is-rounded is-light' do %>
+            <%= link_to({ controller: 'trade_promotes', action: 'edit', id: trade_promote.id }, class: 'button is-small is-rounded is-light') do %>
               <i class="fas fa-pencil-alt"></i>
             <% end %>
           <% end %>
@@ -46,7 +46,7 @@
       <td><%= trade_promote.amount %></td>
       <td>
         <% if trade_promote.promote.editable %>
-          <%= link_to edit_admin_trade_promote_path(trade_promote), class: 'button is-small is-rounded is-light' do %>
+          <%= link_to({ controller: 'trade_promotes', action: 'edit', id: trade_promote.id }, class: 'button is-small is-rounded is-light') do %>
             <i class="fas fa-pencil-alt"></i>
           <% end %>
         <% end %>
@@ -58,7 +58,7 @@
     <td colspan="4"></td>
     <td>
       <%= @order.amount %>
-      <%= link_to new_admin_order_order_payment_path(@order.id), class: 'ui icon green button' do %>
+      <%= link_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fas fa-credit-card"></i>
       <% end %>
     </td>

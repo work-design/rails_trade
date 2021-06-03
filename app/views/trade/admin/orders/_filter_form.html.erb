@@ -3,7 +3,7 @@
     <%= f.text_field :uuid %>
     <div class="field is-narrow">
       <%= f.submit %>
-      <%= link_to t('.clear'), filter_params(only: []), class: 'button is-light' %>
+      <%= link_to t('.clear'), filter_params(except: [:uuid, :user_id]), class: 'button is-light' %>
     </div>
   </div>
 <% end %>
