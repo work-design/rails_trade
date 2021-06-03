@@ -1,6 +1,4 @@
-<td data-controller="input">
-  <%= radio_button_tag 'cart[address_id]', model.id, current_cart.address_id == model.id, form: 'cart_address', data: { action: 'input#form' } %>
-</td>
+<td><%= radio_button_tag 'cart[address_id]', model.id, current_cart.address_id == model.id, form: 'cart_address', data: { action: 'input#form', input_target: 'checkbox' } %></td>
 <td><%= model.contact %></td>
 <td><%= model.tel %></td>
 <td><%= model.area.full_name %></td>
