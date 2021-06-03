@@ -22,7 +22,12 @@ en:
           new: Add
           relate: Refer Buyer
     my:
+      carts:
+        show:
+          title: Cart
       orders:
+        index:
+          title: Order list
         success:
           title: Your payment is successful!
           tip: We will ship out your order and update you with dispatch detail!

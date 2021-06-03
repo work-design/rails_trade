@@ -6,7 +6,7 @@
     <% end %>
   <% else %>
     <%= form_with theme: nil, model: current_cart, url: { action: 'update' }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :address_id, value: model.id, checked: false, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+      <%= f.check_box :address_id, { checked: false, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' }, 2 %>
       <label data-action="click->input#check"></label>
     <% end %>
   <% end %>
