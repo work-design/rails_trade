@@ -3,6 +3,7 @@
     <div class="level-item">
       <% if current_cart.address %>
         <p><%= current_cart.address.contact %></p>
+        <p><%= current_cart.address.tel %></p>
         <p><%= current_cart.address.detail %></p>
       <% else %>
         <p>选择地址</p>
@@ -11,7 +12,7 @@
   </div>
   <div class="level-right">
     <%= link_to({ action: 'addresses' }, data: { turbo_frame: 'modal' }, class: 'level-item') do %>
-      <span>选择地址</span><i class="fas fa-angle-right"></i>
+      <i class="fas fa-angle-right"></i>
     <% end %>
   </div>
 </div>
