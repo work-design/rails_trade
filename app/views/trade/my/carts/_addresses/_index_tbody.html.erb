@@ -2,3 +2,9 @@
 <td><%= model.tel %></td>
 <td><%= model.area.full_name %></td>
 <td><%= model.detail %></td>
+<td>
+  <%= form_with theme: nil, model: current_cart, url: { action: 'update' }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :address_id, value: model.id, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
+</td>

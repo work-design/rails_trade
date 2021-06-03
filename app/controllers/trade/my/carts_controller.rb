@@ -35,6 +35,11 @@ module Trade
     end
 
     def update
+      current_cart.assign_attributes(cart_params)
+
+      unless current_cart.save
+        render :edit, locals: { model: current_cart }, status: :unprocessable_entity
+      end
     end
 
     private

@@ -161,7 +161,6 @@ Rails.application.routes.draw do
           get :order
         end
       end
-      resources :carts
       resources :cards do
         collection do
           get :token
