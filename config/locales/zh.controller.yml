@@ -78,6 +78,7 @@ zh:
         index:
           title: 提现
     my:
+      title: 订单
       carts:
         show:
           title: 我的购物车

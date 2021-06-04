@@ -56,6 +56,7 @@ en:
         index:
           title: Payouts
     my:
+      title: Orders
       carts:
         show:
           title: Cart
