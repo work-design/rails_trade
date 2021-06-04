@@ -1,5 +1,5 @@
-<td><%= radio_button_tag 'cart[address_id]', model.id, current_cart.address_id == model.id, form: 'cart_address', data: { action: 'input#form', input_target: 'checkbox' } %></td>
-<td><%= model.contact %></td>
-<td><%= model.tel %></td>
-<td><%= model.area.full_name %></td>
-<td><%= model.detail %></td>
+<td data-action="click->input#check"><%= radio_button_tag 'cart[address_id]', model.id, current_cart.address_id == model.id, form: 'cart_address', data: { action: 'input#form', input_target: 'checkbox' } %></td>
+<td data-action="click->input#check"><%= model.contact %></td>
+<td data-action="click->input#check"><%= model.tel %></td>
+<td data-action="click->input#check"><%= model.area.full_name %></td>
+<td data-action="click->input#check"><%= model.detail %></td>
