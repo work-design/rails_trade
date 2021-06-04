@@ -1,0 +1,37 @@
+<% current_user.cards.each do |card| %>
+<tr>
+  <td class="has-text-right"><%= card.card_template.name %></td>
+  <td>(可用： <%= card.amount %>)</td>
+  <td>
+    <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, id: "card_#{card.id}" do |f| %>
+      <%= f.hidden_field :type, value: 'Trade::CardPayment' %>
+      <%= f.hidden_field :card_id, value: card.id %>
+      <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
+        <%= ef.hidden_field :order_id, value: @order.id %>
+        <%= ef.hidden_field :state, value: 'confirmed' %>
+        <%= ef.hidden_field :check_amount, value: @order.amount < card.amount ? @order.amount : card.amount %>
+      <% end %>
+    <% end %>
+    <% if @order.payments.pluck(:card_id).include?(card.id) %>
+      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(card_id: card.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
+        <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
+        <span class="weui-icon-checked"></span>
+      <% end %>
+    <% else %>
+      <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
+      <span class="weui-icon-checked"></span>
+    <% end %>
+  </td>
+</tr>
+<% end %>
+<tr>
+  <td class="has-text-right">待支付</td>
+  <td><%= @order.remaining_amount.to_money %></td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td colspan="2">
+    <button class="button is-danger is-large">立即支付</button>
+  </td>
+</tr>

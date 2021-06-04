@@ -66,6 +66,8 @@ en:
         new:
           title: Confirm Order
           confirm: Confirm
+        payment_types:
+          title: Check
         success:
           title: Your payment is successful!
           tip: We will ship out your order and update you with dispatch detail!
