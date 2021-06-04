@@ -2,7 +2,7 @@
 <tr>
   <td class="has-text-right"><%= card.card_template.name %></td>
   <td>(可用： <%= card.amount %>)</td>
-  <td>
+  <td data-controller="input">
     <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, id: "card_#{card.id}" do |f| %>
       <%= f.hidden_field :type, value: 'Trade::CardPayment' %>
       <%= f.hidden_field :card_id, value: card.id %>
@@ -15,11 +15,9 @@
     <% if @order.payments.pluck(:card_id).include?(card.id) %>
       <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(card_id: card.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
         <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
-        <span class="weui-icon-checked"></span>
       <% end %>
     <% else %>
       <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
-      <span class="weui-icon-checked"></span>
     <% end %>
   </td>
 </tr>
