@@ -2,9 +2,21 @@ en:
   trade:
     admin:
       title: Order And Payment
+      advances:
+        index:
+          title: Advances
+      cards:
+        index:
+          title: Cards
       card_templates:
         index:
           title: Card Settings
+      card_prepayments:
+        index:
+          title: Card Prepayments
+      card_promotes:
+        index:
+          title: Card Promotes
       carts:
         index:
           title: Carts
