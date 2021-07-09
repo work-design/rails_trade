@@ -20,5 +20,4 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails_com', '~> 1.2'
   s.add_dependency 'money-rails', '~> 1.14'
-  s.add_dependency 'rails_profile'
 end
