@@ -78,6 +78,7 @@ zh:
         index:
           title: 提现
     my:
+      title: 订单
       carts:
         show:
           title: 我的购物车
@@ -86,6 +87,7 @@ zh:
           title: 我的订单
         new:
           title: 确认订单
+          confirm: 确认订单
         edit_payment_type:
           title: 支付方式
         wxpay_pc_pay:

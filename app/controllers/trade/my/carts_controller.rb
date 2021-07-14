@@ -27,15 +27,26 @@ module Trade
       redirect_to({ action: 'show' })
     end
 
+    def addresses
+      @addresses = current_user.addresses.order(id: :asc)
+    end
+
     def edit
     end
 
     def update
+      current_cart.assign_attributes(cart_params)
+
+      unless current_cart.save
+        render :edit, locals: { model: current_cart }, status: :unprocessable_entity
+      end
     end
 
     private
     def cart_params
-      params.fetch(:cart, {}).permit()
+      params.fetch(:cart, {}).permit(
+        :address_id
+      )
     end
 
   end

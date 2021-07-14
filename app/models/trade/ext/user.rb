@@ -1,5 +1,5 @@
 module Trade
-  module Model::User
+  module Ext::User
     extend ActiveSupport::Concern
 
     included do
@@ -8,7 +8,7 @@ module Trade
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :cards, class_name: 'Trade::Card'
       has_many :cashes, class_name: 'Trade::Cash'
-      has_many :cash_givens, class_name: 'Trade::CashGiven'
+      #has_many :cash_givens, class_name: 'Trade::CashGiven'
     end
 
     def cash

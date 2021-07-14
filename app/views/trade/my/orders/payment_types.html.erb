@@ -1,46 +1,5 @@
-<div class="weui-panel">
-  <div class="weui-panel__hd">
-    待支付：<%= @order.remaining_amount.to_money %>
-  </div>
-  <div class="weui-panel__bd">
-    <div class="weui-media-box weui-media-box_small-appmsg">
-      <div class="weui-cells weui-cells_checkbox">
-        <% current_user.cards.each do |card| %>
-        <label class="weui-cell weui-cell_active">
-          <span class="weui-cell__bd">
-            <%= card.card_template.name %>
-            (可用： <%= card.amount %>)
-          </span>
-          <span class="weui-cell__ft" data-controller="input">
-            <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, id: "card_#{card.id}" do |f| %>
-              <%= f.hidden_field :type, value: 'Trade::CardPayment' %>
-              <%= f.hidden_field :card_id, value: card.id %>
-              <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
-                <%= ef.hidden_field :order_id, value: @order.id %>
-                <%= ef.hidden_field :state, value: 'confirmed' %>
-                <%= ef.hidden_field :check_amount, value: @order.amount < card.amount ? @order.amount : card.amount %>
-              <% end %>
-            <% end %>
-            <% if @order.payments.pluck(:card_id).include?(card.id) %>
-              <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(card_id: card.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
-                <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
-                <span class="weui-icon-checked"></span>
-              <% end %>
-            <% else %>
-              <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "card_#{card.id}", data: { action: 'input#form' } %>
-              <span class="weui-icon-checked"></span>
-            <% end %>
-          </span>
-        </label>
-        <% end %>
-      </div>
-      <div class="weui-cells">
-        <%= link_to({ action: 'wxpay_pay' }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
-          <div class="weui-cell__hd"></div>
-          <div class="weui-cell__bd weui-cell_primary">微信支付</div>
-          <div class="weui-cell__ft"></div>
-        <% end unless @order.all_paid? %>
-      </div>
-    </div>
-  </div>
-</div>
+<table class="table is-fullwidth is-borderless as-show">
+  <tbody>
+    <%= render 'show_table' %>
+  </tbody>
+</table>

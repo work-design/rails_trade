@@ -7,7 +7,6 @@ gem 'pg'
 gem 'jbuilder'
 
 gem 'sdoc'
-
 gem 'pry-rails'
 
 # for test

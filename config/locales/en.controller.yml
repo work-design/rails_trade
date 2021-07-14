@@ -1,8 +1,34 @@
 en:
   trade:
     admin:
+      title: Order And Payment
+      advances:
+        index:
+          title: Advances
+      cards:
+        index:
+          title: Cards
+      card_templates:
+        index:
+          title: Card Settings
+      card_prepayments:
+        index:
+          title: Card Prepayments
+      card_promotes:
+        index:
+          title: Card Promotes
+      carts:
+        index:
+          title: Carts
+      cashes:
+        index:
+          title: Cashes
+      orders:
+        index:
+          title: Orders
       payments:
         index:
+          title: Payments
           add_new: add
           import: Import
           init: 预核销
@@ -15,14 +41,33 @@ en:
           analyze: 分析支付方式
           adjust: 平账
       payment_methods:
+        index:
+          title: Payment Methods
         index_layout:
           remove: Remove
           edit: Edit
           destroy: Delete
           new: Add
           relate: Refer Buyer
+      promotes:
+        index:
+          title: Promotes
+      payouts:
+        index:
+          title: Payouts
     my:
+      title: Orders
+      carts:
+        show:
+          title: Cart
       orders:
+        index:
+          title: Order list
+        new:
+          title: Confirm Order
+          confirm: Confirm
+        payment_types:
+          title: Check
         success:
           title: Your payment is successful!
           tip: We will ship out your order and update you with dispatch detail!

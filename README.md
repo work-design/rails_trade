@@ -70,6 +70,7 @@ cart/cart_item 中价格字段说明
   * admin/payments
 * [rails_role](https://github.com/work-design/rails_role)
   * admin/payments_controller
+* [rails_profile]
 
 ## License
 License 采用 [LGPL-3.0](https://opensource.org/licenses/LGPL-3.0).
