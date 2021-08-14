@@ -7,17 +7,17 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 0c374fc04fbc6636c312ec5c2827e696265ea679
+  revision: a2e0f725a5dc374cf06e4d113183953e0e703af2
   specs:
     rails_com (1.2.9)
       acme-client
       acts_as_list (>= 1.0)
-      closure_tree (>= 7.2)
+      closure_tree (>= 7.3)
       default_where (~> 2.2)
-      http-form_data (~> 2.2)
-      httpx (~> 0.8)
+      http-form_data (~> 2.3)
+      httpx (~> 0.16)
       kaminari
-      rails (~> 6.0)
+      rails (~> 6.1)
       turbo-rails
 
 PATH
@@ -119,7 +119,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faraday (1.6.0)
+    faraday (1.7.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -140,9 +140,9 @@ GEM
     faraday-rack (1.0.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
-    http-2-next (0.4.3)
+    http-2-next (0.5.0)
     http-form_data (2.3.0)
-    httpx (0.16.0)
+    httpx (0.16.1)
       http-2-next (>= 0.4.1)
       timers
     i18n (1.8.10)
@@ -237,7 +237,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.1.0)
     timers (4.3.3)
-    turbo-rails (0.6.0)
+    turbo-rails (0.7.0)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
