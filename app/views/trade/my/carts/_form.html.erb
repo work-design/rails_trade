@@ -1,5 +1,5 @@
 <%= form_with model: @cart do |f| %>
-  <%= render 'shared/error_messages', target: @cart %>
+  <%= render 'error_messages', target: @cart %>
   <%= f.text_field :payment_strategy_id %>
   <%= f.text_field :deposit_ratio %>
   <%= f.text_field :buyer_type %>
