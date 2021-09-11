@@ -6,13 +6,13 @@ gem 'rails'
 gem 'pg'
 gem 'jbuilder'
 
-gem 'sdoc'
-gem 'pry-rails'
-
-# for test
-gem 'capybara'
-gem 'awesome_print'
-gem 'kaminari'
-gem 'factory_bot_rails', require: false
-gem 'default_form', github: 'qinmingyuan/default_form'
+gem 'viter', github: 'qinmingyuan/viter'
+gem 'rails_extend', github: 'work-design/rails_extend'
 gem 'rails_com', github: 'work-design/rails_com'
+gem 'rails_design', github: 'work-design/rails_design'
+
+gem 'amazing_print'
+group :development, :test do
+  gem 'debug'
+  gem 'sdoc'
+end
