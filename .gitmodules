@@ -2,5 +2,5 @@
   path = test/dummy
   url = https://github.com/work-design/dummy.git
 [submodule "docker"]
-	path = docker
-	url = https://github.com/work-design/docker.git
+  path = docker
+  url = https://github.com/work-design/docker.git
