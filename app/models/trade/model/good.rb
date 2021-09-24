@@ -14,7 +14,7 @@ module Trade
 
       has_many :trade_items, class_name: 'Trade::TradeItem', as: :good, autosave: true, dependent: :destroy
       has_many :orders, through: :trade_items, source: :trade
-      has_many :addresses, -> { distinct }, through: :trade_items
+      has_many :addresses, -> { distinct }, class_name: 'Factory::Address', through: :trade_items
 
       has_many :promote_goods, class_name: 'Trade::PromoteGood', as: :good
     end
