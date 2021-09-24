@@ -12,7 +12,7 @@ module Trade
       attribute :quantity, :decimal, default: 0
       attribute :unified_quantity, :decimal, default: 0
 
-      has_many :trade_items, as: :good, autosave: true, dependent: :destroy
+      has_many :trade_items, class_name: 'Trade::TradeItem', as: :good, autosave: true, dependent: :destroy
       has_many :orders, through: :trade_items, source: :trade
       has_many :addresses, -> { distinct }, through: :trade_items
 
