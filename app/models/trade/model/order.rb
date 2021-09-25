@@ -64,8 +64,6 @@ module Trade
       end
       after_create :sync_from_cart
       after_create_commit :confirm_ordered!
-
-      delegate :url_helpers, to: 'Rails.application.routes'
     end
 
     def remaining_amount

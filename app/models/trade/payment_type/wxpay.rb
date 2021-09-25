@@ -1,7 +1,7 @@
 module Trade
   module PaymentType::Wxpay
 
-    def wxpay_prepay(app:, notify_url: url_helpers.wxpay_notify_payments_url)
+    def wxpay_prepay(app:, notify_url: Rails.application.routes.url_for(controller: 'trade/payments', action: 'wxpay_notify'))
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -10,12 +10,12 @@ module Trade
       params = {}
       params.merge! wxpay_common_params(app: app, notify_url: notify_url)
       params.merge! payer: { openid: user.oauth_users.find_by(app_id: app.appid)&.uid }
-      logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
+      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       ::WxPay::Api.invoke_unifiedorder params, options
     end
 
-    def h5_order(app:, notify_url: url_helpers.wxpay_notify_payments_url, payer_client_ip: '127.0.0.1')
+    def h5_order(app:, notify_url: Rails.application.routes.url_for(controller: 'trade/payments', action: 'wxpay_notify'), payer_client_ip: '127.0.0.1')
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -25,12 +25,12 @@ module Trade
       params.merge! wxpay_common_params(app: app, notify_url: notify_url)
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
-      logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
+      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       ::WxPay::Api.h5_order params, options
     end
 
-    def native_order(app:, notify_url: url_helpers.wxpay_notify_payments_url)
+    def native_order(app:, notify_url: Rails.application.routes.url_for(controller: 'trade/payments', action: 'wxpay_notify'))
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -39,7 +39,7 @@ module Trade
       params = {}
       params.merge! wxpay_common_params(app: app, notify_url: notify_url)
 
-      logger.debug "  \e[35m=====> wxpay params: #{params} \e[0m"
+      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       ::WxPay::Api.native_order params, options
     end
@@ -91,7 +91,7 @@ module Trade
       rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end
-      logger.debug "  \e[35m=====> wxpay result: #{result} <=====\e[0m"
+      logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
 
       if result['trade_state'] == 'SUCCESS'
         self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
