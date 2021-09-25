@@ -11,7 +11,7 @@ module Trade
     end
 
     def do_refund(**params)
-      app = Wechat::WechatApp.find_by(mch_id: payment.seller_identifier)
+      app = Wechat::App.find_by(mch_id: payment.seller_identifier)
       _params = {
         out_refund_no: self.refund_uuid,
         amount: {
@@ -23,9 +23,8 @@ module Trade
       }
       options = {
         mchid: app.mch_id,
-        serial_no: app.serial_no
-        #apiclient_cert: OpenSSL::X509::Certificate.new(app.apiclient_cert),
-        #apiclient_key: OpenSSL::PKey::RSA.new(app.apiclient_key)
+        serial_no: app.serial_no,
+        key: app.apiclient_key
       }
 
       begin
@@ -52,13 +51,14 @@ module Trade
 
     def refund_query
       return if state == 'completed'
-      app = Wechat::WechatApp.find_by(mch_id: payment.seller_identifier)
+      app = Wechat::App.find_by(mch_id: payment.seller_identifier)
       params = {
         out_refund_no: self.refund_uuid
       }
       options = {
         mchid: app.mch_id,
-        serial_no: app.serial_no
+        serial_no: app.serial_no,
+        key: app.apiclient_key
       }
 
       result = WxPay::Api.refund_query(params, options)
