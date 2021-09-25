@@ -1,8 +1,7 @@
 <div class="weui-panel">
-  <div class="weui-panel__hd"><%= model.payment_status_i18n %></div>
   <div class="weui-panel__bd">
     <% model.trade_items.each do |trade_item| %>
-      <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+      <%= link_to({ action: 'show', id: model.id }, class: 'weui-media-box weui-media-box_appmsg') do %>
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
         </div>
@@ -10,22 +9,28 @@
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
           <p class="weui-media-box__desc"><%= trade_item.amount %></p>
         </div>
-      </a>
+      <% end %>
     <% end %>
     <div class="weui-media-box weui-media-box_text">
       <ul class="weui-media-box__info">
+        <li class="weui-media-box__info__meta">总价：</li>
         <li class="weui-media-box__info__meta"><%= model.amount %></li>
-        <li class="weui-media-box__info__meta"></li>
-        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-          <%= link_to '支付', { action: 'payment_types', id: model.id } %>
-        </li>
+        <li class="weui-media-box__info__meta"><span class="weui-badge"><%= model.payment_status_i18n %></span></li>
+        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
       </ul>
     </div>
   </div>
   <div class="weui-panel__ft">
-    <%= link_to({ action: 'show', id: model.id }, class: 'weui-cell weui-cell_link') do %>
-      <div class="weui-cell__bd">更多</div>
-      <span class="weui-cell__ft">000</span>
-    <% end %>
+    <div class="weui-cell weui-cell_link">
+      <div class="weui-cell__bd"></div>
+      <span class="weui-cell__ft">
+        <%= link_to({ action: 'show', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea') do %>
+          <span>售后</span>
+        <% end if model.all_paid? %>
+        <%= link_to({ action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea') do %>
+          <span>去支付</span>
+        <% end if model.can_pay? %>
+      </span>
+    </div>
   </div>
 </div>
