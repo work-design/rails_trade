@@ -9,7 +9,7 @@ module Trade
       }
       params = {}
       params.merge! wxpay_common_params(app: app, notify_url: notify_url)
-      params.merge! payer: { openid: user.oauth_users.find_by(app_id: app.appid)&.uid }
+      params.merge! payer: { openid: user.oauth_users.find_by(appid: app.appid)&.uid }
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       ::WxPay::Api.invoke_unifiedorder params, options
