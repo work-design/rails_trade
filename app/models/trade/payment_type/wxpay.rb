@@ -62,7 +62,8 @@ module Trade
       prepay = wxpay_prepay(app: app, **opts)
       options = {
         appid: app.appid,
-        mchid: app.mch_id
+        mchid: app.mch_id,
+        key: app.apiclient_key
       }
 
       if prepay['prepay_id']
@@ -79,7 +80,8 @@ module Trade
       #return self if self.payment_status == 'all_paid'
       options = {
         mchid: app.mch_id,
-        serial_no: app.serial_no
+        serial_no: app.serial_no,
+        key: app.apiclient_key
       }
       params = {
         mchid: app.mch_id,
