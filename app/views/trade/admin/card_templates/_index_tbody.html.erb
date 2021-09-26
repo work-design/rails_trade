@@ -1,5 +1,7 @@
 <td><%= model.name %></td>
-<td><%= image_tag model.cover, class: 'image is-48x48' if model.cover.present? %></td>
+<td style="background-image: url(<%= rails_blob_url(model.cover) %>); background-size: cover; background-repeat: no-repeat">
+  <span style="color: <%= model.text_color %>">文字颜色</span>
+</td>
 <td>
   <p><%= model.valid_years %>年</p>
   <p><%= model.valid_months %>月</p>

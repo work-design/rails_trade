@@ -7,7 +7,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:name)
 
-      @card_templates = CardTemplate.default_where(q_params).page(params[:page])
+      @card_templates = CardTemplate.default_where(q_params).order(id: :asc).page(params[:page])
     end
 
     def new
@@ -15,34 +15,8 @@ module Trade
       @card_template.advances.build
     end
 
-    def create
-      @card_template = CardTemplate.new(card_template_params)
-
-      unless @card_template.save
-        render :new, locals: { model: @card_template }, status: :unprocessable_entity
-      end
-    end
-
-    def show
-    end
-
     def advance_options
       @advances = @card_template.advances
-    end
-
-    def edit
-    end
-
-    def update
-      @card_template.assign_attributes(card_template_params)
-
-      unless @card_template.save
-        render :edit, locals: { model: @card_template }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @card_template.destroy
     end
 
     private
@@ -59,6 +33,7 @@ module Trade
         :valid_days,
         :cover,
         :default,
+        :text_color,
         :currency,
         advances_attributes: {}
       )

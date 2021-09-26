@@ -10,6 +10,7 @@ module Trade
       attribute :valid_days, :integer, default: 0
       attribute :currency, :string
       attribute :default, :boolean, default: false
+      attribute :text_color, :string
 
       belongs_to :organ, optional: true
 
@@ -25,6 +26,10 @@ module Trade
 
     def duration
       valid_years.years + valid_months.months + valid_days.days
+    end
+
+    def xx
+
     end
 
   end

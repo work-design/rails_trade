@@ -6,8 +6,8 @@
         <div class="description">价格：￥<%= advance.price %></div>
       </div>
       <div class="card-footer">
-        <%= button_to({ controller: 'trade/my/carts', action: 'add', good_id: advance.id, good_type: advance.class_name }, method: 'post', class: 'button is-primary', form: { class: 'card-footer-item' }) do %>
-          <i class="fas fa-shopping-cart"></i><span><%= advance.price %></span>
+        <%= button_to({ controller: 'trade/my/carts', action: 'add', good_id: advance.id, good_type: advance.class_name }, method: 'post', class: 'button is-danger', form: { class: 'card-footer-item' }) do %>
+          <i class="fas fa-shopping-cart"></i><span>加入购物车</span>
         <% end %>
       </div>
     </div>

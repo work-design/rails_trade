@@ -1,0 +1,34 @@
+<div class="card is-radiusless" style="background-image: url(<%= rails_blob_url(model.card_template.cover) %>); background-size: cover; background-repeat: no-repeat">
+  <div class="card-header">
+    <p class="card-header-title" style="color: <%= model.card_template.text_color %>"><%= model.card_template.name %></p>
+  </div>
+  <div class="card-content" style="color: <%= model.card_template.text_color %>">
+    <p><%= model.card_uuid %></p>
+  </div>
+  <div class="card-content" style="color: <%= model.card_template.text_color %>">
+    <div class="header"></div>
+    <div class="description">
+      <div class="level is-flex">
+        <div class="level-left">
+          <div class="level-item"><time data-controller="time"><%= model.effect_at.to_s(:rfc822) %></time></div>
+        </div>
+        <div class="level-right mt-0">
+          <div class="level-item"><time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+  </div>
+</div>
+<div class="panel is-radiusless">
+  <div class="panel-block">
+    <p><%= Trade::Card.human_attribute_name(:amount) %>：<%= model.amount %></p>
+  </div>
+  <div class="panel-block">
+    <%= link_to '记录', { controller: 'card_logs', card_id: model.id }, class: 'card-footer-item' %>
+  </div>
+  <div class="panel-block">
+    <%= link_to '充值', { controller: '/trade/advances', card_template_id: model.card_template_id }, class: 'card-footer-item' %>
+  </div>
+</div>
