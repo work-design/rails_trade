@@ -24,8 +24,8 @@ module Trade
       @card_template = CardTemplate.find(params[:id])
     end
 
-    def card_template_permit_params
-      [
+    def card_template_params
+      p = params.fetch(:card_template, {}).permit(
         :name,
         :description,
         :valid_years,
@@ -36,8 +36,8 @@ module Trade
         :text_color,
         :currency,
         advances_attributes: {}
-      ]
-      #p.merge! default_form_params
+      )
+      p.merge! default_form_params
     end
 
   end
