@@ -8,7 +8,7 @@
   <div class="weui-media-box__hd">
   <% if model.good.respond_to?(:logo) && model.good.logo.attached? %>
     <%= image_tag model.good.logo, class: 'weui-media-box__thumb' %>
-  <% elsif model.good.respond_to?(:covor) && model.good.covor.attached? %>
+  <% elsif model.good.respond_to?(:cover) && model.good.cover.attached? %>
     <%= image_tag model.good.covor, class: 'weui-media-box__thumb' %>
   <% end %>
   </div>
