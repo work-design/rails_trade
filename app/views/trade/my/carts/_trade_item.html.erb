@@ -1,52 +1,52 @@
-<tr class="<%= 'active' if trade_item.checked? %>" id="trade_item_<%= trade_item.id %>">
+<tr class="<%= 'active' if model.checked? %>" id="trade_item_<%= model.id %>">
   <td>
-    <%= form_with theme: nil, model: trade_item, url: { controller: 'trade_items', action: 'toggle', id: trade_item.id }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :status, value: trade_item.checked? ? 'checked' : 'init', checked: trade_item.checked?, data: { action: 'click->input#form' }, id: nil %>
+    <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'toggle', id: model.id }, data: { controller: 'input' } do |f| %>
+      <%= f.check_box :status, value: model.checked? ? 'checked' : 'init', checked: model.checked?, data: { action: 'click->input#form' }, id: nil %>
     <% end %>
   </td>
   <td>
-    <%= trade_item.good&.name %>
-    <p style="color: grey;"><%= trade_item.good_type_i18n %></p>
+    <%= model.good&.name %>
+    <p style="color: grey;"><%= model.good_type_i18n %></p>
   </td>
   <td>
-    <p><%= trade_item.retail_price %></p>
-    <p><%= trade_item.weight_str %></p>
+    <p><%= model.retail_price %></p>
+    <p><%= model.weight_str %></p>
   </td>
   <td>
     <div class="field has-addons">
       <div class="control">
-        <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number - 1 }, class: 'button') do %>
+        <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number - 1 }, class: 'button') do %>
           <i class="fas fa-minus"></i>
         <% end %>
       </div>
       <div class="control">
-        <%= form_with theme: nil, model: trade_item, url: { controller: 'trade_items', action: 'update', id: trade_item.id }, data: { controller: 'input' } do |f| %>
+        <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
           <%= f.number_field :number, step: 1, data: { action: 'input#form' }, class: 'input', id: nil %>
         <% end %>
       </div>
       <div class="control">
-        <%= button_to({ controller: 'trade_items', action: 'update', id: trade_item.id }, method: :patch, params: { '[trade_item]number': trade_item.number + 1 }, class: 'button is-link') do %>
+        <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number + 1 }, class: 'button is-link') do %>
           <i class="fas fa-plus"></i>
         <% end %>
       </div>
     </div>
   </td>
   <td>
-    <% if trade_item.amount != trade_item.wholesale_price %>
+    <% if model.amount != model.wholesale_price %>
     <div>
-      <del class="has-text-grey"><%= trade_item.wholesale_price %></del>
-      <% if trade_item.reduced_amount < 0 %>
-        <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= promote_my_trade_item_url(trade_item) %>">
-          <span class="has-text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= trade_item.reduced_amount %></span>
+      <del class="has-text-grey"><%= model.wholesale_price %></del>
+      <% if model.reduced_amount < 0 %>
+        <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= url_for(controller: 'trade_items', action: 'promote', id: model.id) %>">
+          <span class="has-text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= model.reduced_amount %></span>
         </span>
       <% end %>
     </div>
     <% end %>
     <p>
-      <strong><%= trade_item.amount %></strong>
+      <strong><%= model.amount %></strong>
     </p>
   </td>
   <td>
-    <%= button_to t('.destroy'), { controller: 'trade_items', action: 'destroy', id: trade_item.id }, method: :delete %>
+    <%= button_to t('.destroy'), { controller: 'trade_items', action: 'destroy', id: model.id }, method: :delete %>
   </td>
 </tr>
