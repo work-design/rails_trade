@@ -151,6 +151,14 @@ module Trade
     end
 
     private
+    def current_wechat_app
+      if params[:appid]
+        Wechat::App.find_by appid: params[:appid]
+      else
+        super
+      end
+    end
+
     def set_order
       @order = Order.find(params[:id])
     end
