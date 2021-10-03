@@ -1,6 +1,6 @@
 module Trade
   class Admin::CartsController < Admin::BaseController
-    before_action :set_cart, only: [:show]
+    before_action :set_cart, only: [:show, :destroy]
 
     def index
       q_params = {}
@@ -42,20 +42,10 @@ module Trade
       @cart_item_serve.save
     end
 
-    def show
-    end
-
     def orders
       @orders = @buyer.orders.includes(crm_performs: :manager).to_pay.order(overdue_date: :asc).page(params[:page])
       payment_method_ids = @buyer.payment_references.pluck(:payment_method_id)
       @payments = Payment.where(payment_method_id: payment_method_ids, state: ['init', 'part_checked'])
-    end
-
-
-    def destroy
-      @cart_item_serve = CartItem.find(params[:id])
-      @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
-      @cart_item_serve.destroy
     end
 
     private
