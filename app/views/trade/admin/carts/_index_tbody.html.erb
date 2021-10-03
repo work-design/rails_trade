@@ -1,6 +1,17 @@
-<td><%= model.user.name %></td>
-<td><%= model.member&.name %></td>
 <td>
+  <span><%= model.user.name %></span>
+  <span class="has-text-grey">（<%= model.user_id %>）</span>
+</td>
+<td>
+  <% if model.member %>
+    <p>
+      <span><%= model.member.name %></span>
+      <span class="has-text-grey">（<%= model.member_id %>）</span>
+    </p>
+    <p class="has-text-grey"><%= model.member.organ.name %></p>
+  <% end %>
+</td>
+<td class="has-text-right">
   <p><%= model.item_amount %></p>
   <p><%= model.overall_additional_amount %></p>
   <p><%= model.overall_reduced_amount %></p>
