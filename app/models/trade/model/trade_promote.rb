@@ -49,8 +49,8 @@ module Trade
 
         self.based_amount = value + added_amount
       else
-        value = trade.metering_attributes.fetch(promote.metering, 0)
-        added_amount = trade.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
+        value = cart.metering_attributes.fetch(promote.metering, 0)
+        added_amount = cart.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
 
         self.based_amount = value + added_amount
       end
