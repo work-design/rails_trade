@@ -117,7 +117,7 @@ module Trade
         if promote_good.promote.single?
           tp = self.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || trade_promotes.build(promote_good_id: promote_good.id)
         else
-          tp = order.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || order.trade_promotes.build(promote_good_id: promote_good.id)
+          tp = cart.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || cart.trade_promotes.build(promote_good_id: promote_good.id)
         end
         tp.promote_charge_id = promote_charge.id
         tp.compute_amount
