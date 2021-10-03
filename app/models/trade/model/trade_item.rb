@@ -22,6 +22,7 @@ module Trade
       attribute :extra, :json, default: {}
 
       belongs_to :user, class_name: 'Auth::User'
+
       belongs_to :good, polymorphic: true
       belongs_to :cart, counter_cache: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
@@ -126,7 +127,7 @@ module Trade
         value = metering_attributes.fetch(promote_cart.promote.metering)
         promote_charge = promote_cart.promote.compute_charge(value, **extra)
         next unless promote_charge
-        if promote_good.promote.single?
+        if promote_cart.promote.single?
           tp = self.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
         else
           tp = trade.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
