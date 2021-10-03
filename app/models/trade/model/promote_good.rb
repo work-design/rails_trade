@@ -24,5 +24,9 @@ module Trade
       validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
     end
 
+    def promote_name
+      promote.name
+    end
+
   end
 end

@@ -3,7 +3,7 @@
 <% if params[:promote_good_id] %>
   <%= f.hidden_field :promote_good_id, value: params[:promote_good_id] %>
 <% else %>
-  <%= f.select :promote_good_id, options_for_select([[@promote_cart.promote&.name, @promote_cart.promote_id]], @promote_cart.promote_id) %>
+  <%= f.collection_select :promote_good_id, @promote_goods, :promote_id, :promote_name %>
 <% end %>
 <%= f.datetime_field :effect_at %>
 <%= f.datetime_field :expire_at %>
