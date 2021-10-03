@@ -3,5 +3,5 @@
 <%= f.select :good_type, options_for_select(Trade::PromoteGood.options_i18n(:good_type), @promote_good.good_type), include_blank: true %>
 <%= f.select :good_id, options_for_select([]), include_blank: true %>
 <%= f.select :status, options_for_select(Trade::PromoteGood.options_i18n(:status), @promote_good.status) %>
-<%= f.datetime_field :effect_at, value: Time.current %>
+<%= f.datetime_field :effect_at %>
 <%= f.datetime_field :expire_at %>
