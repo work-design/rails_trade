@@ -9,7 +9,7 @@ module Trade
 
       belongs_to :promote
       belongs_to :good, polymorphic: true, optional: true
-      has_many :promote_buyers, dependent: :delete_all
+      has_many :promote_carts, dependent: :delete_all
 
       scope :verified, -> { where(status: ['default', 'available']) }
       scope :valid, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }

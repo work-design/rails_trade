@@ -63,6 +63,8 @@ zh:
           available: 适用
           unavailable: 不适用
           specific: 特定的
+        good_type:
+          Trade::Advance: 会员充值
       trade/promote_cart:
         state:
           unused: 未使用

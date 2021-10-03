@@ -1,5 +1,5 @@
 <%= render 'error_messages', target: f.object %>
-<%= f.select :cart_id, options_for_select([], @promote_cart.cart_id), include_blank: true %>
+<%# f.select :cart_id, options_for_select([], @promote_cart.cart_id), include_blank: true %>
 <% if params[:promote_good_id] %>
   <%= f.hidden_field :promote_good_id, value: params[:promote_good_id] %>
 <% else %>

@@ -85,7 +85,11 @@ Rails.application.routes.draw do
           get :options
         end
       end
-      resources :promote_carts
+      resources :promote_carts do
+        collection do
+          post :search
+        end
+      end
       resources :promote_goods do
         collection do
           get :goods

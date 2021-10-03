@@ -1,4 +1,15 @@
-<%= form_with model: @promote_cart, url: { action: 'create' } do |f| %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <%= f.submit %>
-<% end %>
+<div class="panel" data-controller="typer">
+  <%= form_with theme: nil, scope: nil, url: { action: 'search' } do |f| %>
+    <div class="control has-icons-left">
+      <%= f.search_field 'name-like', class: 'input', placeholder: '搜索', data: { typer_target: 'input' } %>
+      <span class="icon is-left"><i class="fas fa-search"></i></span>
+    </div>
+    <div class="panel-block" id="user_content">
+    </div>
+  <% end %>
+  <%= form_with model: @promote_cart, url: { action: 'create' } do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= f.hidden_field :cart_id, data: { typer_target: 'value' } %>
+    <%= f.submit %>
+  <% end %>
+</div>

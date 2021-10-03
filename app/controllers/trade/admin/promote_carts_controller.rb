@@ -12,27 +12,12 @@ module Trade
       end
     end
 
-    def show
-    end
-
     def new
-      @promote_cart = PromoteCart.new(
-        promote_id: params[:promote_id],
-      )
+      @promote_cart = PromoteCart.new(**params.permit(:promote_id, :promote_good_id))
     end
 
-    def create
-      @promote_cart = PromoteCart.new(promote_cart_params)
-
-      if @promote_cart.save
-        render 'create'
-      else
-        render :new, locals: { model: @promote_cart }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @promote_cart.destroy
+    def search
+      @carts = Cart.default_where('user.name-like': params['name-like'])
     end
 
     private
