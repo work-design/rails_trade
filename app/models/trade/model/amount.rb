@@ -19,6 +19,7 @@ module Trade
     end
 
     def sync_amount
+      self.original_amount = item_amount + overall_additional_amount
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
