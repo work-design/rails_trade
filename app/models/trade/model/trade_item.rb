@@ -130,7 +130,7 @@ module Trade
         if promote_cart.promote.single?
           tp = self.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
         else
-          tp = trade.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
+          tp = cart.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
         end
         tp.promote_charge_id = promote_charge.id
         tp.compute_amount
