@@ -1,0 +1,11 @@
+<div class="level is-flex">
+  <div class="level-left">
+    <div class="level-item">
+      <span class="<%= ['unused'].include?(model.state) ? 'has-text-success' : 'has-text-danger' %> tag"><%= model.state_i18n %></span>
+      <span><%= model.promote.name %></span>
+    </div>
+  </div>
+  <div class="level-right mt-0">
+    <div class="level-item"><time data-controller="time"><%= model.expire_at.to_s(:rfc822) if model.expire_at.present? %></time></div>
+  </div>
+</div>

@@ -3,11 +3,7 @@ module Trade
     before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
     def index
-      @payments = Payment.page(params[:page])
-    end
-
-    def new
-      @payment = Payment.new
+      @payments = current_user.payments.page(params[:page])
     end
 
     def create
@@ -21,9 +17,6 @@ module Trade
     end
 
     def show
-    end
-
-    def edit
     end
 
     def update
@@ -40,7 +33,7 @@ module Trade
 
     private
     def set_payment
-      @payment = Payment.find(params[:id])
+      @payment = current_user.payments.find(params[:id])
     end
 
     def payment_params

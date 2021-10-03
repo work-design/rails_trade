@@ -16,7 +16,8 @@ module Trade
 
       enum state: {
         unused: 'unused',
-        used: 'used'
+        used: 'used',
+        expired: 'expired'
       }
 
       scope :valid, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }

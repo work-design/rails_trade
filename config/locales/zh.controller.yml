@@ -96,6 +96,9 @@ zh:
         success:
           title: 你的订单已支付成功！
           tip: 我们会尽快处理您的订单。
+      promote_carts:
+        index:
+          title: 优惠券
     panel:
       title: 电商设置
       exchange_rates:

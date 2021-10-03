@@ -1,15 +1,3 @@
 <div class="box">
-<% @card_logs.each do |card_log| %>
-  <div class="level is-flex">
-    <div class="level-left">
-      <div class="level-item">
-        <span class="<%= card_log.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>"><%= card_log.amount %></span>
-        <span class="tag"><%= card_log.tag_str %></span>
-      </div>
-    </div>
-    <div class="level-right mt-0">
-      <div class="level-item"><time data-controller="time"><%= card_log.created_at.to_s(:rfc822) %></time></div>
-    </div>
-  </div>
-<% end %>
+  <%= render partial: 'card_log', collection: @card_logs, as: :model %>
 </div>
