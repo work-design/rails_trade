@@ -4,7 +4,7 @@ module Trade
 
     included do
       attribute :status, :string, default: 'available'
-      attribute :effect_at, :datetime
+      attribute :effect_at, :datetime, default: -> { Time.current }
       attribute :expire_at, :datetime
 
       belongs_to :promote
