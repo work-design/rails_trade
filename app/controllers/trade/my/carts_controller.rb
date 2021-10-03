@@ -51,7 +51,8 @@ module Trade
     private
     def cart_params
       params.fetch(:cart, {}).permit(
-        :address_id
+        :address_id,
+        :current
       )
     end
 
