@@ -31,13 +31,19 @@ module Trade
       @addresses = current_user.addresses.order(id: :asc)
     end
 
+    def list
+      @members = current_user.members.group_by(&:organ)
+    end
+
     def edit
     end
 
     def update
       current_cart.assign_attributes(cart_params)
 
-      unless current_cart.save
+      if current_cart.save
+        render :update
+      else
         render :edit, locals: { model: current_cart }, status: :unprocessable_entity
       end
     end

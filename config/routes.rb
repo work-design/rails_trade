@@ -123,6 +123,9 @@ Rails.application.routes.draw do
     namespace :my, defaults: { namespace: 'my' } do
       resource :cart do
         match :add, via: [:get, :post]
+        collection do
+          get :list
+        end
         member do
           get :addresses
         end

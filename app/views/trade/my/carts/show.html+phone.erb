@@ -5,6 +5,13 @@
 <div class="weui-panel weui-panel_access">
   <div class="weui-panel__hd"><%= t('.title') %></div>
   <div class="weui-panel__bd">
+    <%= link_to({ action: 'list' }, class: 'weui-cell weui-cell_access') do %>
+      <div class="weui-cell__bd">
+        <span><%= current_cart.organ&.name %></span>
+        <span><%= current_cart.member&.name %></span>
+      </div>
+      <div class="weui-cell__ft"></div>
+    <% end %>
     <%= link_to({ controller: 'profiled/my/addresses', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
       <div class="weui-cell__bd">
         <% if current_cart.address %>

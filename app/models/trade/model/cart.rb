@@ -14,10 +14,11 @@ module Trade
       attribute :bulk_price, :decimal, default: 0
       attribute :total_quantity, :decimal, default: 0
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
+      attribute :current, :boolean, default: false
 
-      belongs_to :organ, optional: true
-      belongs_to :member, optional: true
       belongs_to :user, class_name: 'Auth::User'
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :payment_strategy, optional: true
 
@@ -32,6 +33,13 @@ module Trade
       accepts_nested_attributes_for :trade_promotes
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
+      validates :current, uniqueness: { scope: [:user_id, :organ_id] }
+
+      after_save :set_current, if: -> { current? && saved_change_to_current? }
+    end
+
+    def set_current
+      self.class.where.not(id: self.id).where(current: true).update_all(current: false)
     end
 
     def compute_amount
