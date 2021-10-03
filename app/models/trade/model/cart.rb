@@ -33,7 +33,8 @@ module Trade
       accepts_nested_attributes_for :trade_promotes
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-      validates :current, uniqueness: { scope: [:user_id, :organ_id] }
+
+      scope :current, -> { where(current: true) }
 
       after_save :set_current, if: -> { current? && saved_change_to_current? }
     end

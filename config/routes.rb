@@ -125,6 +125,7 @@ Rails.application.routes.draw do
         match :add, via: [:get, :post]
         collection do
           get :list
+          post :current
         end
         member do
           get :addresses

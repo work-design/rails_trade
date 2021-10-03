@@ -10,7 +10,7 @@ module Trade
       return @current_cart if @current_cart
 
       if current_user
-        @current_cart = current_user.carts.find_or_create_by(default_form_params)
+        @current_cart = current_user.carts.current.find_or_create_by(default_form_params)
       end
       logger.debug "\e[35m  Current Trade cart: #{@current_cart&.id}  \e[0m"
       @current_cart

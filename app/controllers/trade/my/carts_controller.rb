@@ -35,6 +35,16 @@ module Trade
       @members = current_user.members.group_by(&:organ)
     end
 
+    def current
+      p = {
+        member_id: cart_params[:member_id]
+      }.merge! default_form_params
+      @cart = current_user.carts.find_or_initialize_by(p)
+      @cart.current = true
+
+      @cart.save
+    end
+
     def edit
     end
 
@@ -52,6 +62,7 @@ module Trade
     def cart_params
       params.fetch(:cart, {}).permit(
         :address_id,
+        :member_id,
         :current
       )
     end
