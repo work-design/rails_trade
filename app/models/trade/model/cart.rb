@@ -28,7 +28,6 @@ module Trade
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
       has_many :trade_items, -> { where(status: ['init', 'checked']) }, inverse_of: :cart, dependent: :destroy_async
-      has_many :checked_trade_items, -> { checked }, class_name: 'TradeItem'
       has_many :all_trade_items, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
 
@@ -50,17 +49,17 @@ module Trade
     end
 
     def compute_amount
-      self.retail_price = checked_trade_items.sum(&:retail_price)
-      self.discount_price = checked_trade_items.sum(&:discount_price)
+      self.retail_price = trade_items.select(&:checked?).sum(&:retail_price)
+      self.discount_price = trade_items.select(&:checked?).sum(&:discount_price)
       self.bulk_price = self.retail_price - self.discount_price
-      self.total_quantity = checked_trade_items.sum(&:original_quantity)
+      self.total_quantity = trade_items.select(&:checked?).sum(&:original_quantity)
       sum_amount
     end
 
     def available_promotes
       overall_promotes = {}
 
-      checked_trade_items.each do |i|
+      trade_items.select(&:checked?).each do |i|
         overall_promotes.merge! i.available_promotes[1]
       end
 
@@ -86,7 +85,7 @@ module Trade
     def sum_amount
       self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
-      self.item_amount = checked_trade_items.sum(&:amount)
+      self.item_amount = trade_items.select(&:checked?).sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
     end
