@@ -28,7 +28,7 @@ module Trade
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
       belongs_to :produce_plan, optional: true  # 产品对应批次号
-      has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy
+      has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
       #has_many :organs 用于对接供应商
 
       scope :valid, -> { where(status: 'init', myself: true) }
@@ -110,16 +110,25 @@ module Trade
     end
 
     def available_promotes
-      r = {}
+      single_promotes = {}
+      total_promotes = {}
 
       good.valid_promote_goods.each do |promote_good|
-        r.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
+        if promote_good.promote.single?
+          single_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
+        else
+          total_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
+        end
       end
       cart.promote_carts.each do |promote_cart|
-        r.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
+        if promote_cart.promote.single?
+          single_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
+        else
+          total_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
+        end
       end
 
-      r
+      [single_promotes, total_promotes]
     end
 
     def compute_promote

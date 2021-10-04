@@ -8,3 +8,7 @@
 </td>
 <td><%= model.promote.name %></td>
 <td><%= model.status_i18n %></td>
+<td>
+  <p><time data-controller="time"><%= model.effect_at.to_s(:rfc822) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time></p>
+</td>

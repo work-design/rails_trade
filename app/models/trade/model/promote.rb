@@ -17,8 +17,8 @@ module Trade
       belongs_to :deal, polymorphic: true, optional: true
       has_many :promote_charges, dependent: :delete_all
       has_many :promote_extras, dependent: :delete_all
-      has_many :promote_goods, dependent: :destroy
-      has_many :promote_carts, dependent: :destroy
+      has_many :promote_goods, dependent: :destroy_async
+      has_many :promote_carts, dependent: :destroy_async
 
       scope :verified, -> { where(verified: true) }
       scope :default, -> { verified.where(default: true) }

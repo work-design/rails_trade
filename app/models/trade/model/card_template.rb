@@ -15,8 +15,8 @@ module Trade
       belongs_to :organ, optional: true
 
       has_many :cards, dependent: :nullify
-      has_many :advances, dependent: :destroy
-      has_many :card_promotes, dependent: :destroy
+      has_many :advances, dependent: :destroy_async
+      has_many :card_promotes, dependent: :destroy_async
       has_many :card_prepayments, dependent: :delete_all
 
       accepts_nested_attributes_for :advances

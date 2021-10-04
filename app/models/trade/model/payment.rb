@@ -36,7 +36,7 @@ module Trade
       belongs_to :organ, optional: true
       belongs_to :user, optional: true
       belongs_to :payment_method, optional: true
-      has_many :payment_orders, inverse_of: :payment, dependent: :destroy
+      has_many :payment_orders, inverse_of: :payment, dependent: :destroy_async
       has_many :orders, through: :payment_orders, inverse_of: :payments
       accepts_nested_attributes_for :payment_orders
 

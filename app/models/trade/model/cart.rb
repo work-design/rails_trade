@@ -23,12 +23,12 @@ module Trade
       belongs_to :payment_strategy, optional: true
 
       has_many :orders, dependent: :nullify
-      has_many :promote_carts, dependent: :destroy
+      has_many :promote_carts, dependent: :destroy_async
       has_many :promotes, through: :promote_carts
-      has_many :payment_references, dependent: :destroy
+      has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
-      has_many :trade_items, dependent: :destroy
-      has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy  # overall can be blank
+      has_many :trade_items, dependent: :destroy_async
+      has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
       accepts_nested_attributes_for :trade_items
       accepts_nested_attributes_for :trade_promotes
 
@@ -60,7 +60,7 @@ module Trade
 
       unless self.item_amount == summed_amount
         errors.add :item_amount, "Item Amount: #{item_amount} not equal Summed amount: #{summed_amount}"
-        logger.error "  \e[35m#{self.class.name}: #{error_text}\e[0m"
+        logger.error "\e[35m  #{self.class.name}: #{error_text}  \e[0m"
         raise ActiveRecord::RecordInvalid.new(self)
       end
     end
