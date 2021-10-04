@@ -65,7 +65,7 @@ module Trade
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
-      after_destroy_commit :sync_changed_amount
+      after_destroy_commit :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_commit :sync_cart_charges, if: -> { number_changed? }, on: [:create, :update]
     end
 
