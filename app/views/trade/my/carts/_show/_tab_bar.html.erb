@@ -11,7 +11,7 @@
           <span class="has-text-grey"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></span>
           <span>：￥</span>
           <span class="has-text-grey"><%= current_cart.overall_reduced_amount %></span>
-          <%= link_to '优惠明细', { action: 'promote' }, class: 'badge' %>
+          <span class="weui-badge" data-controller="weui-dialog" data-weui-dialog-id-value="dialog" data-action="click->weui-dialog#toggle">优惠明细</span>
         </p>
       </div>
     </div>
