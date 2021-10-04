@@ -87,18 +87,6 @@ module Trade
       self.original_amount = single_price * number
     end
 
-    def check
-      self.status = 'checked'
-      self.save
-      self
-    end
-
-    def uncheck
-      self.status = 'init'
-      self.save
-      self
-    end
-
     # todo remove
     def sync_from_cart
       cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id, address_id: self.address_id)
