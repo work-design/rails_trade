@@ -22,6 +22,7 @@ module Trade
       attribute :extra, :json, default: {}
 
       belongs_to :user, class_name: 'Auth::User'
+      belongs_to :member, class_name: 'Org::Member', optional: true
 
       belongs_to :good, polymorphic: true
       belongs_to :cart, counter_cache: true
@@ -54,7 +55,7 @@ module Trade
         end
         if cart
           self.user_id = cart.user_id
-          self.member_id = cart.member_id if cart.respond_to?(:member_id) && respond_to?(:member_id)
+          self.member_id = cart.member_id
         end
         self.original_amount = single_price * number
         self.amount = original_amount
@@ -85,7 +86,6 @@ module Trade
 
     def recompute_amount
       self.original_amount = single_price * number
-      self.amount = original_amount + additional_amount + reduced_amount
     end
 
     def check
