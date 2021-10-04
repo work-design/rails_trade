@@ -55,7 +55,7 @@ module Trade
         end
         if cart
           self.user_id = cart.user_id
-          self.member_id = cart.member_id
+          self.member_id = cart.member_id  # 数据冗余，方便订单搜索和筛选
         end
         self.original_amount = single_price * number
         self.amount = original_amount
@@ -66,7 +66,6 @@ module Trade
         (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
       after_destroy_commit :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
-      after_commit :sync_cart_charges, if: -> { number_changed? }, on: [:create, :update]
     end
 
     def weight_str

@@ -17,34 +17,23 @@ module Trade
       @checked_ids = @cart.trade_items.checked.pluck(:id)
     end
 
-    def show
-    end
-
     def promote
       render layout: false
     end
 
-    def update
-      @trade_item.assign_attributes(trade_item_params)
-      @trade_item.save
-    end
-
     def toggle
       if @trade_item.init?
-        @trade_item.check
+        @trade_item.status = 'checked'
       elsif @trade_item.checked?
-        @trade_item.uncheck
+        @trade_item.status = 'init'
       end
-    end
 
-    def destroy
-      @trade_item.destroy
+      @trade_item.save
     end
 
     private
     def set_trade_item
-      @trade_item = TradeItem.find params[:id]
-      #@trade_item = current_cart.trade_items.find(params[:id])
+      @trade_item = current_cart.trade_items.find(params[:id])
     end
 
     def trade_item_params
