@@ -24,13 +24,14 @@ module Trade
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
 
+      #has_many :organs 用于对接供应商
+
       belongs_to :good, polymorphic: true
       belongs_to :cart, counter_cache: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
       belongs_to :produce_plan, optional: true  # 产品对应批次号
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
-      #has_many :organs 用于对接供应商
 
       scope :valid, -> { where(status: 'init', myself: true) }
       scope :starred, -> { where(status: 'init', starred: true) }

@@ -54,7 +54,7 @@ module Trade
       after_initialize if: :new_record? do
         if cart
           self.user_id = cart.user_id
-          self.organ_id = cart.organ_id if cart.respond_to?(:organ_id) && self.respond_to?(:organ_id)
+          self.organ_id = cart.organ_id
           self.address_id = cart.address_id
           self.payment_strategy_id = cart.payment_strategy_id
         end

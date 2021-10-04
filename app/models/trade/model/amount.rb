@@ -10,17 +10,10 @@ module Trade
       attribute :amount, :decimal, default: 0
       attribute :trade_items_count, :integer, default: 0
       attribute :lock_version, :integer
-
-      before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
     end
 
     def xx
       trade.amount += changed_amount
-    end
-
-    def sync_amount
-      self.original_amount = item_amount + overall_additional_amount
-      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
     def reset_amount

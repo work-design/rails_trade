@@ -37,11 +37,17 @@ module Trade
 
       scope :current, -> { where(current: true) }
 
+      before_save :compute_promote, if: -> { original_amount_changed? }
+      before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_save :set_current, if: -> { current? && saved_change_to_current? }
     end
 
     def set_current
       self.class.where.not(id: self.id).where(current: true).update_all(current: false)
+    end
+
+    def sync_amount
+      self.original_amount = item_amount + overall_additional_amount
     end
 
     def compute_amount
