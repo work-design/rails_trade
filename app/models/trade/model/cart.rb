@@ -48,11 +48,41 @@ module Trade
       #self.discount_price = trade_items.checked.sum(:discount_price)
       #self.bulk_price = self.retail_price - self.discount_price
       #self.total_quantity = trade_items.checked.sum(:original_quantity)
+    end
 
-      self.item_amount = trade_items.checked.sum(:amount)
-      self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
-      self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+    def available_promotes
+      overall_promotes = {}
+
+      trade_items.checked.each do |i|
+        overall_promotes.merge! i.available_promotes[1]
+      end
+
+      overall_promotes
+    end
+
+    def compute_promote
+      overall_promotes = available_promotes
+
+      overall_promotes.each do |_, promote_hash|
+        value = metering_attributes.fetch(promote_hash[:promote].metering)
+        promote_charge = promote_hash[:promote].compute_charge(value, **extra)
+        next unless promote_charge
+
+        tp = trade_promotes.find(&->(i){ i.promote_good_id == promote_hash[:promote_good_id] && i.promote_cart_id == promote_hash[:promote_cart_id] }) || trade_promotes.build(promote_good_id: promote_hash[:promote_good_id], promote_cart_id: promote_hash[:promote_cart_id])
+        tp.promote_charge_id = promote_charge.id
+        tp.compute_amount
+      end
+
+      sum_amount
+    end
+
+    def sum_amount
+      self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+      self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
+
+      self.item_amount = trade_items.checked.sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+      self.changes
     end
 
     def valid_item_amount

@@ -131,29 +131,15 @@ module Trade
       [single_promotes, total_promotes]
     end
 
-    def compute_promote
-      good.valid_promote_goods.map do |promote_good|
-        value = metering_attributes.fetch(promote_good.promote.metering)
-        promote_charge = promote_good.promote.compute_charge(value, **extra)
-        next unless promote_charge
-        if promote_good.promote.single?
-          tp = self.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || trade_promotes.build(promote_good_id: promote_good.id)
-        else
-          tp = cart.trade_promotes.find(&->(i){ i.promote_good_id == promote_good.id }) || cart.trade_promotes.build(promote_good_id: promote_good.id)
-        end
-        tp.promote_charge_id = promote_charge.id
-        tp.compute_amount
-      end
+    def compute_promote(**extra)
+      single_promotes = available_promotes[0]
 
-      cart.promote_carts.each do |promote_cart|
-        value = metering_attributes.fetch(promote_cart.promote.metering)
-        promote_charge = promote_cart.promote.compute_charge(value, **extra)
+      single_promotes.each do |_, promote_hash|
+        value = metering_attributes.fetch(promote_hash[:promote].metering)
+        promote_charge = promote_hash[:promote].compute_charge(value, **extra)
         next unless promote_charge
-        if promote_cart.promote.single?
-          tp = self.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
-        else
-          tp = cart.trade_promotes.find_or_initialize_by(promote_cart_id: promote_cart.id, promote_good_id: promote_cart.promote_good_id)
-        end
+
+        tp = trade_promotes.find(&->(i){ i.promote_good_id == promote_hash[:promote_good_id] && i.promote_cart_id == promote_hash[:promote_cart_id] }) || trade_promotes.build(promote_good_id: promote_hash[:promote_good_id], promote_cart_id: promote_hash[:promote_cart_id])
         tp.promote_charge_id = promote_charge.id
         tp.compute_amount
       end
