@@ -35,6 +35,9 @@ module Trade
       @members = current_user.members.group_by(&:organ)
     end
 
+    def promote
+    end
+
     def current
       p = {
         member_id: cart_params[:member_id]
