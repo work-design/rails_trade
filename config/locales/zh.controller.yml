@@ -15,6 +15,7 @@ zh:
       carts:
         index:
           title: 购物用户
+          promote: 派发优惠券
       orders:
         index:
           title: 订单
