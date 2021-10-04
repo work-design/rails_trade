@@ -4,6 +4,6 @@
 <% elsif params.dig('cart', 'member_id') %>
   <div data-controller="visit" data-visit-url-value="<%= url_for(action: 'show') %>"></div>
 <% else %>
-  <div data-controller="visit"></div>
+  <div data-controller="visit" data-visit-url-value="<%= url_for(action: 'show') %>"></div>
 <% end %>
 <% end %>
