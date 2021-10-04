@@ -169,17 +169,10 @@ module Trade
         return
       end
 
-      if ['init', 'checked'].include?(status)
-        cart.reload
-        cart.item_amount += changed_amount
-        cart.valid_item_amount
-        cart.save!
-      else
-        order.reload
-        order.item_amount += changed_amount
-        order.valid_item_amount
-        order.save!
-      end
+      cart.reload
+      cart.item_amount += changed_amount
+      cart.valid_item_amount
+      cart.save!
     end
 
     def reset_amount
