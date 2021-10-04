@@ -28,6 +28,7 @@ module Trade
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
       has_many :trade_items, dependent: :destroy_async
+      has_many :checked_trade_items, -> { checked }, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
       accepts_nested_attributes_for :trade_items
       accepts_nested_attributes_for :trade_promotes
@@ -44,16 +45,16 @@ module Trade
     end
 
     def compute_amount
-      #self.retail_price = trade_items.checked.sum(:retail_price)
-      #self.discount_price = trade_items.checked.sum(:discount_price)
-      #self.bulk_price = self.retail_price - self.discount_price
-      #self.total_quantity = trade_items.checked.sum(:original_quantity)
+      self.retail_price = checked_trade_items.sum(&:retail_price)
+      self.discount_price = checked_trade_items.sum(&:discount_price)
+      self.bulk_price = self.retail_price - self.discount_price
+      self.total_quantity = checked_trade_items.sum(&:original_quantity)
     end
 
     def available_promotes
       overall_promotes = {}
 
-      trade_items.checked.each do |i|
+      checked_trade_items.each do |i|
         overall_promotes.merge! i.available_promotes[1]
       end
 
@@ -80,7 +81,7 @@ module Trade
       self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
 
-      self.item_amount = trade_items.checked.sum(&:amount)
+      self.item_amount = checked_trade_items.sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
     end
