@@ -22,6 +22,12 @@
             <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
             <span class="weui-form-preview__value"><%= current_cart.overall_reduced_amount %></span>
           </div>
+          <% current_cart.trade_promotes.each do |trade_promote| %>
+          <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label"><%= trade_promote.promote.name %></label>
+            <span class="weui-form-preview__value"><%= trade_promote.amount %></span>
+          </div>
+          <% end %>
           <div class="weui-form-preview__item">
             <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:amount) %></label>
             <span class="weui-form-preview__value"><%= current_cart.amount %></span>

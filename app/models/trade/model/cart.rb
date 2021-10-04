@@ -29,7 +29,7 @@ module Trade
       has_many :payment_methods, through: :payment_references
       has_many :trade_items, -> { where(status: ['init', 'checked']) }, inverse_of: :cart, dependent: :destroy_async
       has_many :all_trade_items, class_name: 'TradeItem'
-      has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
+      has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, dependent: :destroy_async  # overall can be blank
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
