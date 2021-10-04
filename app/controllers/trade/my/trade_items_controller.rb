@@ -33,7 +33,7 @@ module Trade
 
     private
     def set_trade_item
-      @trade_item = current_cart.trade_items.find(params[:id])
+      @trade_item = current_cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
     end
 
     def trade_item_params

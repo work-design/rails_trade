@@ -27,18 +27,17 @@ module Trade
       has_many :promotes, through: :promote_carts
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
-      has_many :trade_items, dependent: :destroy_async
+      has_many :trade_items, -> { where(status: ['init', 'checked']) }, inverse_of: :cart, dependent: :destroy_async
       has_many :checked_trade_items, -> { checked }, class_name: 'TradeItem'
+      has_many :all_trade_items, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
-      accepts_nested_attributes_for :trade_items
-      accepts_nested_attributes_for :trade_promotes
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
       scope :current, -> { where(current: true) }
 
-      before_save :compute_promote, if: -> { original_amount_changed? }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
+      before_save :compute_promote, if: -> { original_amount_changed? }
       after_save :set_current, if: -> { current? && saved_change_to_current? }
     end
 
@@ -55,6 +54,7 @@ module Trade
       self.discount_price = checked_trade_items.sum(&:discount_price)
       self.bulk_price = self.retail_price - self.discount_price
       self.total_quantity = checked_trade_items.sum(&:original_quantity)
+      sum_amount
     end
 
     def available_promotes
@@ -67,7 +67,7 @@ module Trade
       overall_promotes
     end
 
-    def compute_promote
+    def compute_promote(**extra)
       overall_promotes = available_promotes
 
       overall_promotes.each do |_, promote_hash|
@@ -86,14 +86,13 @@ module Trade
     def sum_amount
       self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
-
       self.item_amount = checked_trade_items.sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
     end
 
     def valid_item_amount
-      summed_amount = trade_items.checked.sum(:amount)
+      summed_amount = trade_items.select(&:checked?).sum(&:amount)
 
       unless self.item_amount == summed_amount
         errors.add :item_amount, "Item Amount: #{item_amount} not equal Summed amount: #{summed_amount}"

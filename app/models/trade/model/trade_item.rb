@@ -27,7 +27,7 @@ module Trade
       #has_many :organs 用于对接供应商
 
       belongs_to :good, polymorphic: true
-      belongs_to :cart, counter_cache: true
+      belongs_to :cart, inverse_of: :trade_items, counter_cache: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
       belongs_to :produce_plan, optional: true  # 产品对应批次号
@@ -63,10 +63,10 @@ module Trade
       end
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
-      after_save :sync_changed_amount, if: -> {
-        (saved_changes.keys & ['original_amount', 'additional_amount', 'reduced_amount', 'status']).present? && ['init', 'checked'].include?(status)
+      before_save :sync_changed_amount, if: -> {
+        (changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
-      after_destroy_commit :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
+      before_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
     end
 
     def weight_str
@@ -147,17 +147,16 @@ module Trade
     end
 
     def sync_changed_amount
-      if destroyed? || (init? && status_before_last_save == 'checked')
+      if destroyed? || (init? && status_was == 'checked')
         changed_amount = -amount
-      elsif checked? && ['init', nil].include?(status_before_last_save)
+      elsif checked? && ['init', nil].include?(status_was)
         changed_amount = amount
-      elsif checked? && saved_change_to_amount
-        changed_amount = amount - amount_before_last_save.to_d
+      elsif checked? && amount_was
+        changed_amount = amount - amount_was.to_d
       else
         return
       end
 
-      cart.reload
       cart.item_amount += changed_amount
       cart.valid_item_amount
       cart.save!

@@ -14,14 +14,14 @@ module Trade
     end
 
     def add
-      trade_item = current_cart.trade_items.where(status: ['init', 'checked']).find_by(good_id: params[:good_id], good_type: params[:good_type]) || current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
+      trade_item = current_cart.trade_items.find_by(good_id: params[:good_id], good_type: params[:good_type]) || current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
       if trade_item.persisted?
         params[:number] ||= 1
         trade_item.number += params[:number].to_i
       end
       trade_item.save
 
-      @trade_items = current_cart.trade_items.where(status: ['init', 'checked']).page(params[:page])
+      @trade_items = current_cart.trade_items.page(params[:page])
       @checked_ids = current_cart.trade_items.checked.pluck(:id)
 
       redirect_to({ action: 'show' })
