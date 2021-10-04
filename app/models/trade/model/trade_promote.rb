@@ -12,9 +12,9 @@ module Trade
       attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
       attribute :promote_name, :string
 
-      belongs_to :cart
+      belongs_to :cart, inverse_of: :trade_promotes
       belongs_to :order, inverse_of: :trade_promotes, optional: true
-      belongs_to :trade_item, optional: true
+      belongs_to :trade_item, inverse_of: :trade_promotes, optional: true
       belongs_to :promote
       belongs_to :promote_charge
       belongs_to :promote_good
