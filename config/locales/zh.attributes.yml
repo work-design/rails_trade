@@ -33,7 +33,7 @@ zh:
         discount_price: 优惠价格
         bulk_price: 批发价
         overall_additional_amount: 附加费用
-        overall_reduced_amount: 优惠费用
+        overall_reduced_amount: 已优惠
         amount: 总金额
       trade/order:
         uuid: 订单号

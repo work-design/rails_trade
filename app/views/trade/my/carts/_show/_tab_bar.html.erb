@@ -1,11 +1,17 @@
 <div class="weui-tabbar_fixed">
   <div class="weui-tabbar">
     <div class="weui-tabbar__item">
-    
-    </div>
-    <div class="weui-tabbar__item">
-      <div class="weui-tabbar__content">
-        <%= Trade::Cart.human_attribute_name(:amount) %>:<%= current_cart.amount if current_cart %>
+      <div class="weui-tabbar__content is-size-7 is-flex-direction-column">
+        <p>
+          <span class="has-text-grey"><%= Trade::Cart.human_attribute_name(:amount) %></span>
+          <span>：￥</span>
+          <span class="has-text-danger is-size-6"><%= current_cart.amount %></span>
+        </p>
+        <p>
+          <span class="has-text-grey"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></span>
+          <span>：￥</span>
+          <span class="has-text-grey"><%= current_cart.overall_reduced_amount %></span>
+        </p>
       </div>
     </div>
     <div class="weui-tabbar__item">
