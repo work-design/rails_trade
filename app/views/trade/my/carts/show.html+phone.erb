@@ -18,7 +18,7 @@
       </div>
       <div class="weui-cell__ft"></div>
     <% end %>
-    <%= link_to({ controller: 'profiled/my/addresses', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
+    <%= link_to({ controller: 'profiled/my/addresses', action: 'list', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
       <div class="weui-cell__bd">
         <% if current_cart.address %>
           <p><%= current_cart.address.contact %></p>
