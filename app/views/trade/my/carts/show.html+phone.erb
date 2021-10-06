@@ -11,9 +11,9 @@
         <span><%= current_cart.member.organ.name %></span>
         <span>-</span>
         <span><%= current_cart.member.name %></span>
-        <span class="has-text-grey">（企业采购）</span>
+        <span class="has-text-grey">（企业）</span>
       <% else %>
-        <span class="has-text-grey">个人采购</span>
+        <span class="has-text-grey">个人</span>
       <% end %>
       </div>
       <div class="weui-cell__ft"></div>
@@ -21,8 +21,14 @@
     <%= link_to({ controller: 'profiled/my/addresses', action: 'list', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
       <div class="weui-cell__bd">
         <% if current_cart.address %>
-          <p><%= current_cart.address.contact %></p>
-          <p><%= current_cart.address.detail %></p>
+          <p>
+            <span><%= current_cart.address.contact %></span>
+            <span><%= current_cart.address.tel %></span>
+          </p>
+          <p>
+            <span><%= current_cart.address.area.full_name %></span>
+            <span><%= current_cart.address.detail %></span>
+          </p>
         <% else %>
           <p>选择地址</p>
         <% end %>
