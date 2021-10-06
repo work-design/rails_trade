@@ -68,7 +68,6 @@ module Trade
     end
 
     def payment_types
-
     end
 
     def edit_payment_type
