@@ -86,8 +86,8 @@ module Trade
     end
 
     def sum_amount
-      self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
-      self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
+      self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 && (new_record? || persisted?) }).sum(&:amount)
+      self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 && (new_record? || persisted?) }).sum(&:amount)  # 促销价格
       self.item_amount = trade_items.select(&:checked?).sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
