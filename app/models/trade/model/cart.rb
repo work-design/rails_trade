@@ -78,6 +78,9 @@ module Trade
         tp.promote_charge_id = promote_charge.id
         tp.compute_amount
       end
+      trade_promotes.reject(&->(i){ overall_promotes.keys.include?(i.promote_id) }).each do |trade_promote|
+        trade_promote.destroy
+      end
 
       sum_amount
     end
