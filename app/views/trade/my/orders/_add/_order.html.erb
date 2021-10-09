@@ -1,0 +1,25 @@
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+    <% @order.trade_items.each do |trade_item| %>
+      <div class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
+          <p class="weui-media-box__desc"><%= trade_item.amount %></p>
+        </div>
+      </div>
+    <% end %>
+    <div class="weui-media-box weui-media-box_text pb-1 pt-2">
+      <ul class="weui-media-box__info m-0">
+        <li class="weui-media-box__info__meta">总价：</li>
+        <li class="weui-media-box__info__meta"><%= @order.amount %></li>
+        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
+      </ul>
+    </div>
+  </div>
+  <div class="weui-panel__ft p-4">
+    <%= submit_tag t('.confirm'), class: 'weui-btn weui-btn_primary', form: 'new_order' %>
+  </div>
+</div>

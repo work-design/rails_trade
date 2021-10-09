@@ -17,6 +17,13 @@ module Trade
       @order = current_cart.orders.build
     end
 
+    def add
+      @order = current_cart.orders.build
+      @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
+
+      render :new
+    end
+
     def refresh
       @order = current_cart.orders.build(myself: true)
       @order.assign_attributes order_params

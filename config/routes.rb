@@ -141,6 +141,7 @@ Rails.application.routes.draw do
       end
       resources :orders do
         collection do
+          match :add, via: [:get, :post]
           post :direct
           get :refresh
         end
