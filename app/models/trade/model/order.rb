@@ -62,6 +62,7 @@ module Trade
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
+      before_save :compute_amount, if: -> { cart.blank? }
       after_create :sync_from_cart, if: -> { cart }
       after_create_commit :confirm_ordered!
     end
@@ -95,9 +96,9 @@ module Trade
     end
 
     def compute_amount
-      self.item_amount = trade_items.sum(:amount)
-      self.overall_additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
-      self.overall_reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+      self.item_amount = trade_items.sum(&:amount)
+      self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+      self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
