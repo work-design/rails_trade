@@ -27,7 +27,7 @@ module Trade
       #has_many :organs 用于对接供应商
 
       belongs_to :good, polymorphic: true
-      belongs_to :cart, inverse_of: :trade_items, counter_cache: true
+      belongs_to :cart, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
       belongs_to :produce_plan, optional: true  # 产品对应批次号
@@ -114,7 +114,7 @@ module Trade
         else
           total_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
         end
-      end
+      end if cart
 
       [single_promotes, total_promotes]
     end

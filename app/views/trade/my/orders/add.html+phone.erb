@@ -1,4 +1,30 @@
-<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
-
-<%= render 'order' %>
-
+<%= form_with theme: nil, model: @order, url: { action: 'direct' } do |f| %>
+  <div class="weui-panel mt-0">
+    <div class="weui-panel__bd">
+      <%= f.fields :trade_items do |ef| %>
+        <%= ef.hidden_field :good_type %>
+        <%= ef.hidden_field :good_id %>
+        <%= ef.hidden_field :user_id, value: @order.user_id %>
+        <div class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <%= image_tag ef.object.good.logo, class: 'weui-media-box__thumb' if ef.object.good.logo.attached? %>
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title"><%= ef.object.good.name %></h4>
+            <p class="weui-media-box__desc"><%= ef.object.amount %></p>
+          </div>
+        </div>
+      <% end %>
+      <div class="weui-media-box weui-media-box_text pb-1 pt-2">
+        <ul class="weui-media-box__info m-0">
+          <li class="weui-media-box__info__meta">总价：</li>
+          <li class="weui-media-box__info__meta"><%= @order.amount %></li>
+          <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="weui-panel__ft p-4">
+      <%= f.submit t('.confirm'), class: 'weui-btn weui-btn_primary' %>
+    </div>
+  </div>
+<% end %>

@@ -28,7 +28,7 @@ module Trade
       has_many :refunds, dependent: :nullify, inverse_of: :order
       has_many :promote_carts, -> { valid }, foreign_key: :cart_id, primary_key: :cart_id, dependent: :destroy_async
       has_many :promotes, through: :promote_carts
-      has_many :trade_items, dependent: :destroy_async
+      has_many :trade_items, inverse_of: :order, dependent: :destroy_async
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
       accepts_nested_attributes_for :trade_items
       accepts_nested_attributes_for :trade_promotes
