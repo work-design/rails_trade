@@ -20,7 +20,7 @@ module Trade
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
-      belongs_to :cart
+      belongs_to :cart, optional: true
       belongs_to :payment_strategy, optional: true
 
       has_many :payment_orders, dependent: :destroy_async
@@ -62,7 +62,7 @@ module Trade
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
-      after_create :sync_from_cart
+      after_create :sync_from_cart, if: -> { cart }
       after_create_commit :confirm_ordered!
     end
 

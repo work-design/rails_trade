@@ -17,13 +17,6 @@ module Trade
       @order = current_cart.orders.build
     end
 
-    def add
-      @order = current_cart.orders.build
-      @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
-
-      render :new
-    end
-
     def refresh
       @order = current_cart.orders.build(myself: true)
       @order.assign_attributes order_params
@@ -39,13 +32,18 @@ module Trade
       end
     end
 
+    def add
+      @order = current_user.orders.build
+      @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
+    end
+
     def direct
-      @order = current_buyer.orders.build(order_params)
+      @order = current_user.orders.build(order_params)
 
       if @order.save
-
+        render :direct
       else
-
+        render :add, locals: { model: @order }, status: :unprocessable_entity
       end
     end
 
@@ -176,7 +174,8 @@ module Trade
         :payment_type,
         :address_id,
         :invoice_address_id,
-        :note
+        :note,
+        trade_items_attributes: {}
       )
     end
 
