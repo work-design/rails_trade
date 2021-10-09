@@ -1,3 +1,8 @@
+<%= content_for(:wechat_js) do %>
+  <%= wechat_config_js debug: false, apis: ['showMenuItems'] -%>
+  <meta name="turbo-visit-control" content="reload">
+<% end %>
+
 <div class="box">
   <span>订单编号：</span>
   <%= @order.uuid %>
