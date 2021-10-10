@@ -1,0 +1,6 @@
+<div class="column is-bordered">
+  <%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: advance.id, good_type: advance.class_name }, class: 'has-text-grey has-text-centered') do %>
+    <div class="header"><%= advance.amount %></div>
+    <div class="description">价格：￥<%= advance.price %></div>
+  <% end %>
+</div>

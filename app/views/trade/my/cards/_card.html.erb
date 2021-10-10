@@ -29,6 +29,6 @@
     <%= link_to '记录', { controller: 'card_logs', card_id: model.id }, class: 'card-footer-item' %>
   </div>
   <div class="panel-block">
-    <%= link_to '充值', { controller: '/trade/advances', card_template_id: model.card_template_id }, class: 'card-footer-item' %>
+    <%= render partial: 'advance', collection: model.card_template.advances.order(id: :asc) %>
   </div>
 </div>

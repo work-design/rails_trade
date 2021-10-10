@@ -1,17 +1,5 @@
 <div class="cards">
   <% @advances.each do |advance| %>
-    <div class="card">
-      <div class="card-content">
-        <div class="header"><%= advance.amount %></div>
-        <div class="description">价格：￥<%= advance.price %></div>
-      </div>
-      <div class="card-footer">
-        <div class="card-footer-item">
-          <%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: advance.id, good_type: advance.class_name }, class: 'button is-danger') do %>
-            <i class="fas fa-shopping-cart"></i><span>立即购买</span>
-          <% end %>
-        </div>
-      </div>
-    </div>
+  
   <% end %>
 </div>
