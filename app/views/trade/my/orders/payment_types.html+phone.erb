@@ -6,7 +6,7 @@
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells weui-cells_checkbox">
       <% unless @order.trade_items.map(&:good_type).include?('Trade::Advance') %>
-        <%= render partial: 'card', collection: current_user.cards, as: :card %>
+        <%= render partial: 'card', collection: current_user.cards.where(organ_id: @order.organ_id), as: :card %>
       <% end %>
       </div>
       <div class="weui-cells" data-controller="mini-program" data-mini-program-url-value="/pages/trade/my/orders/wxpay_pay?url=<%= url_for(action: 'wxpay_pay', only_path: false) %>&id=<%= @order.id %>">
