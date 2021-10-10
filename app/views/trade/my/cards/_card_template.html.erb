@@ -1,15 +1,11 @@
-<div class="card is-radiusless" style="background-image: url(<%= rails_blob_url(model.cover) %>); background-size: cover; background-repeat: no-repeat">
+<div class="card is-radiusless">
   <div class="card-header">
-    <p class="card-header-title" style="color: <%= model.text_color %>"><%= model.name %></p>
+    <p class="card-header-title"><%= model.name %></p>
   </div>
-  <div class="card-content" style="color: <%= model.text_color %>">
+  <div class="card-content" style="height: 200px; color: <%= model.text_color %>; background-image: url(<%= rails_blob_url(model.cover) %>); background-size: cover; background-repeat: no-repeat">
     <div class="description">有效期：<%= model.duration.inspect %></div>
   </div>
   <div class="card-footer">
-  </div>
-</div>
-<div class="panel is-radiusless">
-  <div class="panel-block">
     <%= render partial: 'advance', collection: model.advances.order(id: :asc) %>
   </div>
 </div>
