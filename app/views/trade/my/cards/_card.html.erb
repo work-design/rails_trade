@@ -3,8 +3,9 @@
     <div class="level-left">
       <p class="card-header-title"><%= model.card_template.name %></p>
     </div>
-    <div class="level-right mt-0">
-      <%= link_to '记录', { controller: 'card_logs', card_id: model.id }, class: 'card-footer-item' %>
+    <div class="level-right mt-0 pr-3">
+      <span><%= Trade::Card.human_attribute_name(:amount) %>：<%= model.amount %></span>
+      <%= link_to '记录', { controller: 'card_logs', card_id: model.id } %>
     </div>
   </div>
   <div class="card-content" style="height: 200px; color: <%= model.card_template.text_color %>; background-image: url(<%= rails_blob_url(model.card_template.cover) %>); background-size: cover; background-repeat: no-repeat">
@@ -20,7 +21,6 @@
           <div class="level-item"><time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time></div>
         </div>
       </div>
-      <p><%= Trade::Card.human_attribute_name(:amount) %>：<%= model.amount %></p>
     </div>
   </div>
   <div class="card-footer">
