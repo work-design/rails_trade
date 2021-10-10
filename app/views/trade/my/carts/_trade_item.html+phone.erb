@@ -29,13 +29,13 @@
       </div>
       <div class="is-flex is-align-items-center">
         <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number - 1 }, class: 'mr-1') do %>
-          <i class="fa-light fa-minus fa-lg"></i>
+          <i class="fa-regular fa-minus fa-xl"></i>
         <% end if model.number > 1 %>
         <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input' }) do |f| %>
           <%= f.number_field :number, value: model.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
         <% end %>
         <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number + 1 }, class: 'ml-1') do %>
-          <i class="fa-light fa-plus fa-lg"></i>
+          <i class="fa-regular fa-plus fa-xl"></i>
         <% end %>
       </div>
     </div>
