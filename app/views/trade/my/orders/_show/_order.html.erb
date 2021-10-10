@@ -20,10 +20,16 @@
           <%= link_to '支付', { action: 'payment_types', id: model.id } unless model.all_paid? %>
         </li>
       </ul>
+      <ul class="weui-media-box__info mt-2">
+        <li class="weui-media-box__info__meta">
+          <span>下单时间：</span>
+          <time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="weui-panel__ft">
-    <div class="weui-cells">
+    <div class="weui-cell weui-cell_link">
       <button class="weui-btn weui-btn_default" data-controller="wechat" data-action="wechat#close">联系客服</button>
     </div>
   </div>
