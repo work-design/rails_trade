@@ -1,6 +1,6 @@
 <%= hidden_field_tag :order_id, params[:order_id] %>
 <% if params[:order_id] %>
-  <%= f.hidden_field :type, value: 'HandPayment' %>
+  <%= f.hidden_field :type, value: 'Trade::HandPayment' %>
 <% else %>
   <%= f.select :type, options_for_select(Trade::Payment.options_i18n(:type), @payment.type) %>
 <% end %>

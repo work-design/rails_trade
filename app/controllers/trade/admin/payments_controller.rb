@@ -13,9 +13,6 @@ module Trade
       @payments = Payment.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
     def new
       @payment = Payment.new
 
@@ -41,29 +38,12 @@ module Trade
       end
     end
 
-    def edit
-    end
-
-    def update
-      @payment.assign_attributes payment_params
-
-      if @payment.save
-        render 'update'
-      else
-        render :edit
-      end
-    end
-
     def analyze
       @payment.analyze_payment_method
     end
 
     def adjust
       @payment.analyze_adjust_amount
-    end
-
-    def destroy
-      @payment.destroy
     end
 
     private

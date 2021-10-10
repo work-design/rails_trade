@@ -8,7 +8,7 @@
   <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
     <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: model.id }, class: 'button is-link is-small' %>
   <% elsif ['unpaid'].include?(model.payment_status) %>
-    <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, class: 'button is-link is-small' %>
+    <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
   <% end %>
 </td>
 <td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
