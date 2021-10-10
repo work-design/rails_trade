@@ -18,6 +18,12 @@
         <li class="weui-media-box__info__meta"><span class="weui-badge"><%= model.payment_status_i18n %></span></li>
         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
       </ul>
+      <ul class="weui-media-box__info mt-2">
+        <li class="weui-media-box__info__meta">
+          <span>下单时间：</span>
+          <time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="weui-panel__ft">

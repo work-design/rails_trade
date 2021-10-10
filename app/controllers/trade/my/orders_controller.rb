@@ -40,6 +40,7 @@ module Trade
 
     def direct
       @order = current_user.orders.build(order_params)
+      @order.organ = current_organ
 
       if @order.save
         render :direct
