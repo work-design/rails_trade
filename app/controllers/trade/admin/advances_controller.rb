@@ -7,14 +7,8 @@ module Trade
       @advances = @card_template.advances.order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
     def new
       @advance = @card_template.advances.build
-    end
-
-    def edit
     end
 
     def create
@@ -25,33 +19,22 @@ module Trade
       end
     end
 
-    def update
-      @advance.assign_attributes(advance_params)
-
-      unless @advance.save
-        render :edit, locals: { model: @advance }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @advance.destroy
-    end
-
     private
     def set_card_template
       @card_template = CardTemplate.find params[:card_template_id]
     end
 
     def set_advance
-      @advance = Advance.find(params[:id])
+      @advance = @card_template.advances.find(params[:id])
     end
 
     def advance_params
-      params.require(:advance).permit(
+      params.fetch(:advance, {}).permit(
         :price,
         :amount,
         :state,
-        :apple_product_id
+        :apple_product_id,
+        :logo
       )
     end
   end
