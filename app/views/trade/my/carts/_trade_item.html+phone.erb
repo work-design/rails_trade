@@ -29,20 +29,20 @@
       </div>
       <div class="is-flex is-align-items-center">
         <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number - 1 }, class: 'mr-1') do %>
-          <i class="fas fa-minus fa-lg"></i>
+          <i class="fa-light fa-minus fa-lg"></i>
         <% end if model.number > 1 %>
         <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input' }) do |f| %>
           <%= f.number_field :number, value: model.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
         <% end %>
         <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number + 1 }, class: 'ml-1') do %>
-          <i class="fas fa-plus fa-lg"></i>
+          <i class="fa-light fa-plus fa-lg"></i>
         <% end %>
       </div>
     </div>
   </div>
   <div class="weui-media-box__ft" data-swipe-target="open" style="width: 0">
     <%= button_to({ controller: 'trade_items', action: 'destroy', id: model.id }, method: :delete, data: { confirm: t('.confirm') }, form: { class: 'weui-btn weui-btn_mini weui-btn_default' }) do %>
-      <i class="fas fa-trash"></i>
+      <i class="fa-light fa-trash"></i>
     <% end %>
   </div>
 </div>

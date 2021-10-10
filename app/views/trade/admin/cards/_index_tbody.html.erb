@@ -12,13 +12,13 @@
   <p>
     <%= model.income_amount %>
     <%= link_to({ controller: 'card_advances', card_id: model.id }, aria: { label: t('trade.admin.card_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-gem"></i>
+      <i class="fa-light fa-gem"></i>
     <% end %>
   </p>
   <p>
     <%= model.expense_amount %>
     <%= link_to({ controller: 'card_payments', card_id: model.id }, aria: { label: t('trade.admin.card_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fas fa-credit-card"></i>
+      <i class="fa-light fa-credit-card"></i>
     <% end %>
   </p>
 </td>

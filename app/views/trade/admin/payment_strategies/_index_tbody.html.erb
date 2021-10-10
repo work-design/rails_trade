@@ -3,10 +3,10 @@
   <td><%= payment_strategy.period %></td>
   <td>
     <%= link_to({ action: 'edit', id: payment_strategy.id }, aria: { label: t('.edit') }, class: 'button is-link is-small') do %>
-      <i class="fas fa-pencil-alt"></i>
+      <i class="fa-light fa-pencil-alt"></i>
     <% end %>
     <%= link_to({ action: 'destroy', id: payment_strategy.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small') do %>
-      <i class="fas fa-trash"></i>
+      <i class="fa-light fa-trash"></i>
     <% end %>
   </td>
 </tr>

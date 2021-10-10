@@ -3,22 +3,22 @@
   <td>
     <span data-show-target="item" style="visibility: hidden">
       <%= link_to({ controller: 'advances', card_template_id: model.id }, aria: { label: t('trade.admin.advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-donate"></i>
+        <i class="fa-light fa-donate"></i>
       <% end %>
       <%= link_to({ controller: 'card_promotes', card_template_id: model.id }, aria: { label: t('trade.admin.card_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-gift"></i>
+        <i class="fa-light fa-gift"></i>
       <% end %>
       <%= link_to({ controller: 'card_prepayments', card_template_id: model.id }, aria: { label: t('trade.admin.card_prepayments.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-archive"></i>
+        <i class="fa-light fa-archive"></i>
       <% end %>
       <%= link_to({ controller: 'cards', card_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-bars"></i>
+        <i class="fa-light fa-bars"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-pencil-alt"></i>
+        <i class="fa-light fa-pencil-alt"></i>
       <% end %>
       <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy') }, data: { confirm: t('.confirm') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-trash-alt"></i>
+        <i class="fa-light fa-trash-alt"></i>
       <% end %>
     </span>
   </td>

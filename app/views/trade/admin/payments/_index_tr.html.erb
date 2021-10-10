@@ -7,10 +7,10 @@
       <% end %>
       <%= link_to t('.checking'), { controller: 'payment_orders', action: 'new', payment_id: model.id }, class: 'button is-small is-rounded is-light' %>
       <%= link_to({ controller: 'auditor/admin/audits', audited_type: 'Payment', audited_id: model.id }, aria: { label: t('.log') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-comments"></i>
+        <i class="fa-light fa-comments"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-pencil-alt"></i>
+        <i class="fa-light fa-pencil-alt"></i>
       <% end %>
     </span>
   </td>

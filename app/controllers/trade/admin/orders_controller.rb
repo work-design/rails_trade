@@ -51,28 +51,8 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @order.assign_attributes order_params
-
-      if @order.save
-        render 'update'
-      else
-        render :edit, locals: { model: @order }, status: :unprocessable_entity
-      end
-    end
-
     def refund
       @order.apply_for_refund
-    end
-
-    def destroy
-      @order.destroy
     end
 
     private
@@ -82,8 +62,6 @@ module Trade
 
     def order_params
       p = params.fetch(:order, {}).permit(
-        :buyer_type,
-        :buyer_id,
         :quantity,
         :payment_id,
         :payment_type,

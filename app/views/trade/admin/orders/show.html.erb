@@ -32,7 +32,7 @@
         <td>
           <% if trade_promote.promote.editable %>
             <%= link_to({ controller: 'trade_promotes', action: 'edit', id: trade_promote.id }, class: 'button is-small is-rounded is-light') do %>
-              <i class="fas fa-pencil-alt"></i>
+              <i class="fa-light fa-pencil-alt"></i>
             <% end %>
           <% end %>
         </td>
@@ -47,7 +47,7 @@
       <td>
         <% if trade_promote.promote.editable %>
           <%= link_to({ controller: 'trade_promotes', action: 'edit', id: trade_promote.id }, class: 'button is-small is-rounded is-light') do %>
-            <i class="fas fa-pencil-alt"></i>
+            <i class="fa-light fa-pencil-alt"></i>
           <% end %>
         <% end %>
       </td>
@@ -59,7 +59,7 @@
     <td>
       <%= @order.amount %>
       <%= link_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fas fa-credit-card"></i>
+        <i class="fa-light fa-credit-card"></i>
       <% end %>
     </td>
     <td></td>
