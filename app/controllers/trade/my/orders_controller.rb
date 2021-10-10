@@ -49,28 +49,12 @@ module Trade
       end
     end
 
-    def show
-    end
-
     # todo part paid case
     def wait
       if @order.all_paid?
         render 'show'
       else
         render 'wait'
-      end
-    end
-
-    def edit
-    end
-
-    def update
-      @order.assign_attributes(order_params)
-
-      if @order.save
-        render 'update'
-      else
-        render :edit, locals: { model: @order }, status: :unprocessable_entity
       end
     end
 
@@ -150,10 +134,6 @@ module Trade
 
     def refund
       @order.apply_for_refund
-    end
-
-    def destroy
-      @order.destroy
     end
 
     private
