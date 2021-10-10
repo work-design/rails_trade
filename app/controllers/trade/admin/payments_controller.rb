@@ -10,7 +10,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, 'buyer_name-like', 'payment_orders.state', 'orders.uuid')
 
-      @payments = Payment.default_where(q_params).order(id: :desc).page(params[:page])
+      @payments = Payment.includes(:payment_methods).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
