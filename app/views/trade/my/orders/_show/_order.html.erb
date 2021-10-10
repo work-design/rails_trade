@@ -30,7 +30,7 @@
   </div>
   <div class="weui-panel__ft">
     <div class="weui-cell weui-cell_link">
-      <button class="weui-btn weui-btn_default" data-controller="wechat" data-action="wechat#close">联系客服</button>
+      <button class="weui-btn weui-btn_default" data-controller="wechat" data-action="wechat#close" data-wechat-address-value="/pages/service/index?url=<%= url_for(action: 'show', only_path: false) %>">联系客服</button>
     </div>
   </div>
 </div>
