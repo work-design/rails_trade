@@ -3,7 +3,7 @@
   <td class="center aligned"><%= payment_order.payment.type %></td>
   <td><%= payment_order.payment.total_amount %></td>
   <td><%= payment_order.payment.unchecked_amount %></td>
-  <td class="center aligned"><%= payment_order.payment.created_at.to_s %></td>
+  <td class="center aligned"><time data-controller="time"><%= payment_order.payment.created_at.to_s(:rfc822) %></time></td>
   <td class="center aligned">
     <%= payment_order.check_amount.to_money(payment_order.payment.currency).format %>
     <span style="color: #999;"><%= payment_order.state_i18n %></span>
@@ -11,7 +11,7 @@
   <td class="center aligned"><time data-controller="time"><%= payment_order.created_at.to_s(:rfc822) %></time></td>
   <td>
     <% if payment_order.init? %>
-      <%= link_to '撤销', admin_order_order_payment_path(@order, payment_order), method: :delete %>
+      <%= button_to '撤销', { controller: 'order_payments', id: payment_order.id }, method: :delete %>
     <% end %>
   </td>
 </tr>

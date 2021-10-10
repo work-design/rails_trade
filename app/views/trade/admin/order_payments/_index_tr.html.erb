@@ -1,4 +1,4 @@
 <tr id="checked_<%= payment_order.id %>">
   <%= yield %>
-  <%= link_to '退款', new_admin_payment_refund_path(payment_order.payment_id, order_id: payment_order.order_id) %>
+  <%= link_to '退款', { controller: 'refunds', action: 'new', payment_id: payment_order.payment_id, order_id: payment_order.order_id } %>
 </tr>
