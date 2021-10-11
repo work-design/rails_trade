@@ -72,7 +72,7 @@ module Trade
         }
         WxPay::Api.generate_js_pay_req params, options
       else
-        {}
+        prepay
       end
     end
 
