@@ -117,7 +117,7 @@ module Trade
           @image_url = @blob.url
           render 'wxpay_pc_pay'
         else
-          render 'wxpay_pay_err'
+          render 'wxpay_pay_err', status: :unprocessable_entity
         end
       end
     end
@@ -126,7 +126,7 @@ module Trade
       @wxpay_order = @order.wxpay_order(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
-        render 'wxpay_pay_err'
+        render 'wxpay_pay_err', status: :unprocessable_entity
       else
         render 'wxpay_pay'
       end
