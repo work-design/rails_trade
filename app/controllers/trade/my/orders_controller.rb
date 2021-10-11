@@ -10,7 +10,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status)
 
-      @orders = current_user.orders.includes(:trade_item).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = current_user.orders.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
