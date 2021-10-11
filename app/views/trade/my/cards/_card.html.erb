@@ -8,18 +8,14 @@
       <%= link_to '记录', { controller: 'card_logs', card_id: model.id } %>
     </div>
   </div>
-  <div class="card-content" style="height: 200px; color: <%= model.card_template.text_color %>; background-image: url(<%= rails_blob_url(model.card_template.cover) %>); background-size: cover; background-repeat: no-repeat">
+  <div class="card-content is-cover is-flex is-flex-direction-column-reverse" style="height: 200px; color: <%= model.card_template.text_color %>; background-image: url(<%= rails_blob_url(model.card_template.cover) %>)">
     <div class="header">
       <%= model.card_uuid %>
     </div>
     <div class="description">
-      <div class="level is-flex">
-        <div class="level-left">
-          <div class="level-item"><time data-controller="time"><%= model.effect_at.to_s(:rfc822) %></time></div>
-        </div>
-        <div class="level-right mt-0">
-          <div class="level-item"><time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time></div>
-        </div>
+      <div>
+        <span>有效期：</span>
+        <time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time>
       </div>
     </div>
   </div>
