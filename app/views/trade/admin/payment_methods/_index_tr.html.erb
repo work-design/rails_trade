@@ -1,10 +1,16 @@
 <tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
   <%= yield %>
   <td>
-    <turbo-frame data-show-target="item" style="visibility: hidden">
-      <%= link_to t('.relate'), new_admin_payment_method_reference_path(payment_method), class: 'button is-link is-small' %>
-      <%= link_to t('.destroy'), admin_payment_method_path(payment_method), method: :delete, data: { confirm: t('.confirm') }, class: 'ui mini red button' %>
-      <%= link_to t('.edit'), edit_admin_payment_method_path(payment_method), class: 'button is-link is-small' %>
-    </turbo-frame>
+    <span data-show-target="item" style="visibility: hidden">
+      <%= link_to({ controller: 'payment_references', action: 'new', payment_method_id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.relate') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-light fa-images-user"></i>
+      <% end %>
+      <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-light fa-pencil-alt"></i>
+      <% end %>
+      <%= button_to({ action: 'destroy', id: model.id }, method: :delete, data: { confirm: t('.confirm') }, aria: { label: t('.destroy') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-light fa-trash-alt"></i>
+      <% end %>
+    </span>
   </td>
 </tr>
