@@ -53,17 +53,21 @@ module Trade
     end
 
     def compute_amount
-      self.retail_price = trade_items.select(&:checked?).sum(&:retail_price)
-      self.discount_price = trade_items.select(&:checked?).sum(&:discount_price)
+      self.retail_price = available_trade_items.sum(&:retail_price)
+      self.discount_price = available_trade_items.sum(&:discount_price)
       self.bulk_price = self.retail_price - self.discount_price
-      self.total_quantity = trade_items.select(&:checked?).sum(&:original_quantity)
+      self.total_quantity = available_trade_items.sum(&:original_quantity)
       sum_amount
+    end
+
+    def available_trade_items
+      trade_items.select(&->(i){ i.checked? && !i.destroyed? })
     end
 
     def available_promotes
       overall_promotes = {}
 
-      trade_items.select(&:checked?).each do |i|
+      available_trade_items.each do |i|
         overall_promotes.merge! i.available_promotes[1]
       end
 
@@ -92,13 +96,13 @@ module Trade
     def sum_amount
       self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
-      self.item_amount = trade_items.select(&:checked?).sum(&:amount)
+      self.item_amount = available_trade_items.sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
     end
 
     def valid_item_amount
-      summed_amount = trade_items.select(&:checked?).sum(&:amount)
+      summed_amount = available_trade_items.sum(&:amount)
 
       unless self.item_amount == summed_amount
         errors.add :item_amount, "Item Amount: #{item_amount} not equal Summed amount: #{summed_amount}"

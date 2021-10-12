@@ -103,7 +103,7 @@ module Trade
     end
 
     def valid_item_amount
-      summed_amount = trade_items.sum(:amount)
+      summed_amount = trade_items.sum(&:amount)
 
       unless item_amount == summed_amount
         errors.add :item_amount, "Item Amount #{item_amount} not equal #{summed_amount}"
