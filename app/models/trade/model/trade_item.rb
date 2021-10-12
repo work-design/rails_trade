@@ -147,7 +147,7 @@ module Trade
     end
 
     def sync_changed_amount
-      if destroyed? || (init? && status_was == 'checked')
+      if (destroyed? && status == 'checked') || (init? && status_was == 'checked')
         changed_amount = -amount
       elsif checked? && ['init', nil].include?(status_was)
         changed_amount = amount
