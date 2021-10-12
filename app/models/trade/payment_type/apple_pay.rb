@@ -10,7 +10,7 @@ module Trade
       result['amount'] = self.amount
 
       if result['trade_status'] == 'TRADE_SUCCESS'
-        self.change_to_paid! type: 'ApplePayment', payment_uuid: result['transaction_id'], params: result
+        self.change_to_paid! type: 'Trade::ApplePayment', payment_uuid: result['transaction_id'], params: result
       else
         errors.add :base, result['msg']
       end

@@ -29,7 +29,7 @@ module Trade
       trans = paypal_payment.transactions[0]
 
       if paypal_payment.state == 'approved'
-        self.change_to_paid! type: 'PaypalPayment', payment_uuid: trans.related_resources[0].sale.id, params: trans
+        self.change_to_paid! type: 'Trade::PaypalPayment', payment_uuid: trans.related_resources[0].sale.id, params: trans
       else
         errors.add :base, paypal_payment.error.inspect
       end

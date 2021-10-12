@@ -35,7 +35,7 @@ module Trade
         charge = Stripe::Charge.retrieve(self.payment_id)
 
         if charge.paid && !charge.refunded
-           self.change_to_paid! type: 'StripePayment', payment_uuid: charge.id, params: charge
+           self.change_to_paid! type: 'Trade::StripePayment', payment_uuid: charge.id, params: charge
         else
           errors.add :uuid, 'error'
         end

@@ -13,7 +13,7 @@ module Trade
           user_id: self.user_id
         }
 
-        payment = self.change_to_paid!(type: 'CardPayment', payment_uuid: UidHelper.nsec_uuid, params: params)
+        payment = self.change_to_paid!(type: 'Trade::CardPayment', payment_uuid: UidHelper.nsec_uuid, params: params)
         { success: true, payment: payment }
       end
     rescue ActiveRecord::RecordInvalid => e

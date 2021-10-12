@@ -24,7 +24,7 @@ module Trade
       result = result['alipay_trade_query_response']
 
       if result['trade_status'] == 'TRADE_SUCCESS'
-        self.change_to_paid! type: 'AlipayPayment', payment_uuid: result['trade_no'], params: result
+        self.change_to_paid! type: 'Trade::AlipayPayment', payment_uuid: result['trade_no'], params: result
       else
         errors.add :base, result['msg']
         logger.error "Alipay: #{self.errors.full_messages.join(', ')}"
