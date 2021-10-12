@@ -66,7 +66,7 @@ module Trade
       before_save :sync_changed_amount, if: -> {
         (changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
-      before_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
+      after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
     end
 
     def weight_str
