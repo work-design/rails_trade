@@ -40,6 +40,10 @@ module Trade
       after_save :set_current, if: -> { current? && saved_change_to_current? }
     end
 
+    def name
+      member&.name || user.name
+    end
+
     def set_current
       self.class.where.not(id: self.id).where(current: true).update_all(current: false)
     end
