@@ -1,5 +1,5 @@
 <td><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></td>
-<td>
+<td class="has-text-right">
   <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
   <p><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></p>
 </td>
