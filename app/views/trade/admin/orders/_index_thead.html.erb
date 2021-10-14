@@ -1,6 +1,8 @@
 <th><%= Trade::Order.human_attribute_name(:uuid) %></th>
-<th><%= Trade::Order.human_attribute_name(:amount) %></th>
-<th><%= Trade::Order.human_attribute_name(:received_amount) %></th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:amount) %></p>
+  <p><%= Trade::Order.human_attribute_name(:received_amount) %></p>
+</th>
 <th><%= Trade::Order.human_attribute_name(:payment_status) %></th>
 <th><%= Trade::Order.human_attribute_name(:created_at) %></th>
 <th><%= Trade::Order.human_attribute_name(:user_id) %></th>

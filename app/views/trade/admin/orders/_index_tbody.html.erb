@@ -1,6 +1,8 @@
 <td><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></td>
-<td><%= model.amount %></td>
-<td><%= model.received_amount %></td>
+<td>
+  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
 <td>
   <%= model.payment_status_i18n %>
   <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
