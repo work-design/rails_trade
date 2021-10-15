@@ -23,8 +23,6 @@ module Trade
 
       @trade_items = current_cart.trade_items.page(params[:page])
       @checked_ids = current_cart.trade_items.checked.pluck(:id)
-
-      redirect_to({ action: 'show' })
     end
 
     def addresses
