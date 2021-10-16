@@ -1,0 +1,14 @@
+<%= link_to({ controller: '/factory/products' }, class: 'weui-tabbar__item') do %>
+  <i class="fa-light fa-pot-food weui-tabbar__icon"></i>
+  <div class="weui-tabbar__label">点单</div>
+<% end %>
+<%= link_to({ controller: 'trade/my/carts', action: 'show' }, class: 'weui-tabbar__item') do %>
+  <i class="fa-cart-shopping weui-tabbar__icon <%= active_helper(controllers: 'carts', item: 'fa-light', active: 'fa-solid has-text-success') %>">
+    <span class="weui-badge" style="right: 1em"><%= current_cart_count %></span>
+  </i>
+  <div class="<%= active_helper(controllers: 'carts', item: 'weui-tabbar__label', active: 'weui-tabbar__label has-text-success') %>">购物车</div>
+<% end %>
+<%= link_to({ controller: '/my/home', action: 'index' }, class: 'weui-tabbar__item') do %>
+  <i class="fa-user weui-tabbar__icon <%= active_helper(controllers: 'home', item: 'fa-light', active: 'fa-solid has-text-success') %>"></i>
+  <div class="<%= active_helper(controllers: 'home', item: 'weui-tabbar__label', active: 'weui-tabbar__label has-text-success') %>"><%= t('my.home.index.title') %></div>
+<% end %>
