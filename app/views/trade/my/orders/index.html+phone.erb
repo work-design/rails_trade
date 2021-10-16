@@ -2,6 +2,8 @@
   <%= wechat_config_js debug: false, apis: ['chooseWXPay'] -%>
 <% end %>
 
+<%= render 'navbar' %>
+
 <% if @orders.blank? %>
   <p class="has-text-centered">暂无订单</p>
 <% end %>
