@@ -6,7 +6,9 @@ module Trade
     ]
 
     def index
-      q_params = {}
+      q_params = {
+        payment_status: 'unpaid'
+      }
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status)
 
