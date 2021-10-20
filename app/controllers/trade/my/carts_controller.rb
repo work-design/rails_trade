@@ -15,9 +15,14 @@ module Trade
 
     def add
       trade_item = current_cart.trade_items.find_by(good_id: params[:good_id], good_type: params[:good_type]) || current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
-      if trade_item.persisted?
+      if trade_item.persisted? && trade_item.checked?
         params[:number] ||= 1
         trade_item.number += params[:number].to_i
+      elsif trade_item.persisted? && trade_item.init?
+        trade_item.status = 'checked'
+        trade_item.number = 1
+      else
+        trade_item.status = 'checked'
       end
       trade_item.save
 

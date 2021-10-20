@@ -27,7 +27,9 @@ module Trade
       has_many :promotes, through: :promote_carts
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
-      has_many :trade_items, -> { where(status: ['init', 'checked']) }, inverse_of: :cart, dependent: :destroy_async
+      # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21
+      # 设置 autosave: false，当 trade_item 为 new_records 也不 save
+      has_many :trade_items, -> { where(status: ['init', 'checked']) }, inverse_of: :cart, autosave: false, dependent: :destroy_async
       has_many :all_trade_items, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true, dependent: :destroy_async  # overall can be blank
 
