@@ -1,5 +1,5 @@
 <div class="level-left">
-  <div class="weui-tabbar__content is-size-7 is-flex-direction-column is-justify-content-center is-align-items-start">
+  <div class="is-size-7 is-flex-direction-column is-justify-content-center is-align-items-start">
     <p>
       <span class="has-text-grey"><%= Trade::Cart.human_attribute_name(:amount) %></span>
       <span>：</span>
@@ -15,8 +15,14 @@
 </div>
 <div class="level-right mt-0 p-2">
   <% if @checked_ids.present? %>
-    <%= link_to '结算', { controller: 'orders', action: 'new' }, class: 'weui-btn weui-btn_mini weui-btn_primary' %>
+    <%= link_to({ controller: 'orders', action: 'new' }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
+      <span>结算</span>
+      <i class="fa-solid fa-angle-right"></i>
+    <% end %>
   <% else %>
-    <button class="weui-btn weui-btn_primary weui-btn_disabled">结算</button>
+    <button class="weui-btn weui-btn_mini weui-btn_disabled">
+      <span>结算</span>
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
   <% end %>
 </div>
