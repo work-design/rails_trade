@@ -2,10 +2,14 @@
   <%= wechat_config_js debug: false, apis: ['chooseWXPay'] -%>
 <% end %>
 
-<%= render 'navbar' %>
-
 <% if @orders.blank? %>
-  <p class="has-text-centered">暂无订单</p>
+  <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="height: 100%">
+    <%= image_vite_tag 'no_order.png' %>
+    <p>
+      <span>暂无订单，</span>
+      <%= link_to '去下单', { controller: '/factory/products' } %>
+    </p>
+  </div>
 <% end %>
 
 <%= render partial: 'order', collection: @orders, as: :model %>
