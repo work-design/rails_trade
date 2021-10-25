@@ -3,9 +3,11 @@
 <% end %>
 
 <div class="weui-panel weui-panel_access">
-  <div class="weui-panel__hd">
-    <i class="fa-regular fa-angle-left"></i>
-    <span class="has-text-centered" style="display: inline-block"><%= t('.title') %></span>
+  <div class="weui-panel__hd as-bar">
+    <%= link_to :back do %>
+      <i class="fa-regular fa-angle-left"></i>
+    <% end %>
+    <span class="weui-title has-text-centered" style="display: inline-block"><%= t('.title') %></span>
   </div>
   <div class="weui-panel__bd">
     <%= link_to({ action: 'list' }, class: 'weui-cell weui-cell_access') do %>
