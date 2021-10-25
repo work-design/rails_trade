@@ -83,4 +83,5 @@ zh:
           denied: 拒绝退款
         type:
           Trade::CardRefund: 会员卡
-          Trade::WxpayRefund: 微信支付
+          Trade::WxpayRefund: 微信退款
+          Trade::HandRefund: 后台退款
