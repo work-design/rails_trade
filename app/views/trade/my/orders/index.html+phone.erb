@@ -5,9 +5,9 @@
 <% if @orders.blank? %>
   <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="height: 100%">
     <%= image_vite_tag 'no_order.png' %>
-    <p>
-      <span>暂无订单，</span>
-      <%= link_to '去下单', { controller: '/factory/products' } %>
+    <p>客官，快上车~</p>
+    <p class="mt-4">
+      <%= link_to '去点单', { controller: '/factory/products' }, class: 'button is-warning' %>
     </p>
   </div>
 <% end %>
