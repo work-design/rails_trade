@@ -1,11 +1,5 @@
-<div class="level is-flex">
-  <div class="level-left">
-    <div class="level-item">
-      <span class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>"><%= model.amount %></span>
-      <span class="tag"><%= model.tag_str %></span>
-    </div>
-  </div>
-  <div class="level-right mt-0">
-    <div class="level-item"><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></div>
-  </div>
-</div>
+<tr>
+  <td class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>"><%= model.amount %></td>
+  <td><span class="tag"><%= model.tag_str %></span></td>
+  <td class="has-text-right"><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
+</tr>
