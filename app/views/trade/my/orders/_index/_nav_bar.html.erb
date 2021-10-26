@@ -1,5 +1,5 @@
 <div class="weui-navbar">
-<% [:unpaid, :all_paid].each do |status| %>
-  <%= link_to Trade::Order.enum_i18n(:payment_status, status), { payment_status: status }, class: active_helper(payment_status: status, item: 'weui-navbar__item', active: 'weui-navbar__item weui-bar__item_on') %>
+<% [:init, :done, :canceled].each do |status| %>
+  <%= link_to Trade::Order.enum_i18n(:state, status), { state: status }, class: active_helper(state: status, item: 'weui-navbar__item', active: 'weui-navbar__item weui-bar__item_on') %>
 <% end %>
 </div>

@@ -18,6 +18,10 @@ zh:
           refunding: 退款中
           refunded: 已退款
           denied: 退款失败
+        state:
+          init: 当前订单
+          done: 已完成
+          canceled: 已取消
       trade/payment:
         type:
           Trade::HandPayment: 后台支付

@@ -35,7 +35,8 @@ module Trade
 
       enum state: {
         init: 'init',
-        checked: 'checked'
+        done: 'done',
+        canceled: 'canceled'
       }, _default: 'init'
 
       enum payment_status: {
