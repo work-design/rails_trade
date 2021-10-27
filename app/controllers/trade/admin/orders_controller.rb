@@ -63,6 +63,7 @@ module Trade
     def order_params
       p = params.fetch(:order, {}).permit(
         :quantity,
+        :state,
         :payment_id,
         :payment_type,
         :address_id,

@@ -13,6 +13,7 @@
     <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
   <% end %>
 </td>
+<td><%= model.state_i18n %></td>
 <td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
 <td><%= link_to model.user_name, { user_id: model.user_id } %></td>
 <td><%= simple_format(model.extra_i18n) %></td>
