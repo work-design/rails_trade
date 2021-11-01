@@ -51,6 +51,14 @@ zh:
       trade/trade_item:
         good_type:
           Facilitate: 标准化服务
+        status:
+          init: 初始状态
+          checked: 已选中
+          ordered: 已订购
+          paid: 已支付
+          packaged: 已打包
+          done: 已完成
+          canceled: 已取消
       trade/trade_promote:
         scope:
           overall: 全体商品

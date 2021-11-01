@@ -3,6 +3,7 @@
   <i class="child icon<%= model.myself ? ' green' : '' %>"></i>
   <%= model.good&.name %>
 </td>
+<td><%= model.status_i18n %></td>
 <td>
   <%= render partial: 'good_price', locals: { model: model } %>
 </td>
