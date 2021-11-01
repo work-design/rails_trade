@@ -22,6 +22,9 @@ zh:
           add_payment: 添加支付流水
           refund: 申请退款
           refund_list: 退款详情
+      trade_items:
+        index:
+          title: 订单明细
       payments:
         index:
           title: 支付流水

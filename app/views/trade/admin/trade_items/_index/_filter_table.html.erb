@@ -1,0 +1,11 @@
+<table class="as-search">
+  <tr>
+    <th><%= Trade::TradeItem.human_attribute_name(:status) %></th>
+    <td>
+      <%= link_to t('.all'), filter_params(except: [:status]), class: active_params(status: '', active: 'button is-info', item: 'button is-light') %>
+      <% Trade::TradeItem.options_i18n(:status).each do |text, value| %>
+        <%= link_to text, filter_params(status: value, except: [:id]), class: active_params(status: value, active: 'button is-info', item: 'button is-light') %>
+      <% end %>
+    </td>
+  </tr>
+</table>
