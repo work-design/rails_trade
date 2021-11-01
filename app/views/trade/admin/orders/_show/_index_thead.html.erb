@@ -1,7 +1,9 @@
 <th><%= Trade::TradeItem.human_attribute_name(:good_id) %></th>
 <th><%= Trade::TradeItem.human_attribute_name(:number) %></th>
 <th><%= Trade::TradeItem.human_attribute_name(:original_amount) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></th>
+<th>
+  <p><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></p>
+  <p><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></p>
+</th>
 <th><%= Trade::TradeItem.human_attribute_name(:amount) %></th>
 <th></th>

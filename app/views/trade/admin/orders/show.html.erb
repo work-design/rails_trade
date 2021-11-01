@@ -4,7 +4,7 @@
   <% @order.trade_promotes.each do |trade_promote| %>
     <tr>
       <td><%= trade_promote.promote.name %></td>
-      <td colspan="4"></td>
+      <td colspan="3"></td>
       <td><%= trade_promote.amount %></td>
       <td>
         <% if trade_promote.promote.editable %>
@@ -17,7 +17,7 @@
   <% end %>
   <tr class="active">
     <td>总价</td>
-    <td colspan="4"></td>
+    <td colspan="3"></td>
     <td>
       <%= @order.amount %>
       <%= link_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
