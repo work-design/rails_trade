@@ -1,44 +1,6 @@
 <table class="table is-fullwidth">
-  <thead>
-    <tr>
-      <th><%= Trade::TradeItem.human_attribute_name(:good_id) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:number) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:original_amount) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:amount) %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <% @order.trade_items.each do |trade_item| %>
-    <tr>
-      <td>
-        <%= trade_item.good.name %>
-        <span><%= trade_item.good&.price %></span>
-        <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
-      </td>
-      <td><%= trade_item.number %></td>
-      <td><%= trade_item.original_amount %></td>
-      <td><%= trade_item.additional_amount %></td>
-      <td><%= trade_item.reduced_amount %></td>
-      <td><%= trade_item.amount %></td>
-      <td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
-    </tr>
-    <% trade_item.trade_promotes.each do |trade_promote| %>
-      <tr class="has-background-warning">
-        <td><%= trade_promote.promote.name %></td>
-        <td colspan="4"></td>
-        <td><%= trade_promote.amount %></td>
-        <td>
-          <% if trade_promote.promote.editable %>
-            <%= link_to({ controller: 'trade_promotes', action: 'edit', id: trade_promote.id }, class: 'button is-small is-rounded is-light') do %>
-              <i class="fa-light fa-pencil"></i>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  <% end %>
+  <%= render 'index_thead' %>
+  <%= render partial: 'index_tbody', collection: @order.trade_items, as: :trade_item %>
   <% @order.trade_promotes.each do |trade_promote| %>
     <tr>
       <td><%= trade_promote.promote.name %></td>
