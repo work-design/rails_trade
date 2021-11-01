@@ -1,0 +1,24 @@
+<td><%= check_box_tag(:trade_item_id, model.id, model.checked?) %></td>
+<td>
+  <i class="child icon<%= model.myself ? ' green' : '' %>"></i>
+  <%= model.good&.name %>
+</td>
+<td>
+  <%= render partial: 'good_price', locals: { model: model } %>
+</td>
+<td>
+  <div class="ui left right action input">
+    <div class="ui button" onclick="decrease_quantity(<%= model.id %>)"><i class="minus icon"></i></div>
+    <%= text_field_tag :number, model.number, id: "quantity_#{model.id}", onkeyup: "update_quantity(#{model.id})", disabled: true %>
+    <div class="ui button" onclick="increase_quantity(<%= model.id %>)"><i class="fa-light fa-plus"></i></div>
+  </div>
+</td>
+<td id="retail_price_<%= model.id %>">
+  <%= render partial: 'retail_price', locals: { model: model } %>
+</td>
+<td id="single_price_<%= model.id %>">
+  <%= render partial: 'single_price', locals: { model: model } %>
+</td>
+<td id="order_price_<%= model.id %>">
+  <%# render partial: 'order_price', locals: { model: model } %>
+</td>

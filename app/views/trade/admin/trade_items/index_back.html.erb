@@ -1,0 +1,60 @@
+<div class="ui segment top attached">
+  <% if @user %>
+    <p>
+      Name: <%= @user.name %>
+      <%= link_to 'carts', user_id: @user.id %>
+    </p>
+    <p>Email: <%= @user.email %></p>
+  <% end %>
+  <% if @buyer %>
+    <p>Company Name: <% @buyer.name %>(<%= @buyer.id %>)
+      <%= link_to 'carts', buyer_id: @buyer.id %>
+    </p>
+    <p>
+      <%= select_tag :user_id, options_from_collection_for_select(@buyer.users, :id, :name, @user&.id), include_blank: true, class: 'ui dropdown' %>
+    </p>
+  <% end %>
+</div>
+
+<div class="ui segment top attached">
+  <% if @user %>
+    <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_top' %>
+    <%= link_to '生成文档', doc_admin_trade_items_path(user_id: @user.id), class: 'ui orange button', id: 'trade_items_doc' %>
+  <% end %>
+</div>
+<table class="table is-hoverable is-fullwidth">
+  <thead>
+    <tr>
+    
+    </tr>
+  </thead>
+  <tbody>
+  <% @trade_items.each do |trade_item| %>
+    <tr class="<%= active_asserts join: false, active: trade_item.checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
+    
+    </tr>
+  <% end %>
+  </tbody>
+  <tbody id="additions_body">
+  <%# render 'additions' %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="5"></th>
+      <th id="total_price">
+        <%# render 'total_price' %>
+      </th>
+      <th colspan="3"></th>
+    </tr>
+    <tr>
+      <th colspan="5"></th>
+      <th colspan="4">
+        <% if @user %>
+          <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_bottom' %>
+        <% end %>
+      </th>
+    </tr>
+  </tfoot>
+</table>
+
+<%= paginate @trade_items %>

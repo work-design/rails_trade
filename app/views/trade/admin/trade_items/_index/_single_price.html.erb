@@ -1,28 +1,28 @@
 <div>
   <span style="color: grey;">Good price: </span>
-  <%= trade_item.single_price %>
+  <%= model.single_price %>
 </div>
 <div>
   <span style="color: grey;">Serve Price: </span>
-  <%= trade_item.additional_amount %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <%= model.additional_amount %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% trade_item.trade_promotes.each do |trade_promote| %>
+    <% model.trade_promotes.each do |trade_promote| %>
       <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
-  <%= link_to 'edit', admin_trade_promotes_path(trade_item_id: trade_item.id), class: 'ui mini label' %>
+  <%= link_to 'edit', { controller: 'trade_promotes', trade_item_id: model.id }, class: 'ui mini label' %>
 </div>
 <div>
   <span style="color: grey;">Promote Price: </span>
-  <span style="color: red;"><%= trade_item.reduced_amount %></span>
+  <span style="color: red;"><%= model.reduced_amount %></span>
   <i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% trade_item.trade_promotes.each do |trade_promote| %>
+    <% model.trade_promotes.each do |trade_promote| %>
       <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
 </div>
 <div>
   <span style="color: grey;">Final Price: </span>
-  <span><%= trade_item.amount %></span>
+  <span><%= model.amount %></span>
 </div>

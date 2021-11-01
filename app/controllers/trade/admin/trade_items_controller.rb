@@ -74,15 +74,8 @@ module Trade
     def doc
     end
 
-    def show
-    end
-
     def update
       @trade_item.update(quantity: params[:quantity])
-    end
-
-    def destroy
-      @trade_item.destroy
     end
 
     private
