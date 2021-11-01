@@ -20,17 +20,20 @@ module Trade
       attribute :note, :string
       attribute :advance_amount, :decimal, default: 0
       attribute :extra, :json, default: {}
+      attribute :produce_on, :date, comment: '对接生产管理'
 
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
 
       #has_many :organs 用于对接供应商
 
+      belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 产品对应批次号
+      belongs_to :production_plan, ->(o) { where(produce_on: o.produce_on) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, optional: true
+
       belongs_to :good, polymorphic: true
       belongs_to :cart, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
-      belongs_to :produce_plan, optional: true  # 产品对应批次号
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
       scope :valid, -> { where(status: 'init', myself: true) }
@@ -52,7 +55,10 @@ module Trade
           self.good_name = good.name
           self.single_price = good.price
           self.advance_amount = good.advance_price
-          self.produce_plan_id = good.product_plan&.produce_plan_id if good.respond_to? :product_plan_id
+          self.produce_on = good.produce_on if good.respond_to? :produce_on
+        end
+        if produce_plan
+          self.produce_on = produce_plan.produce_on
         end
         if cart
           self.user_id = cart.user_id
