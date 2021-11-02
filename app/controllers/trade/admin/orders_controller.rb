@@ -6,7 +6,7 @@ module Trade
     def index
       q_params = {}
       q_params.merge! default_params
-      q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :payment_type)
+      q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
       @orders = Order.includes(:user).default_where(q_params).order(id: :desc).page(params[:page])
     end
