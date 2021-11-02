@@ -1,11 +1,12 @@
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
 
-<div class="weui-panel mt-0">
-  <div class="weui-panel__hd as-bar">
+<div class="weui-panel mt-0 is-borderless">
+  <div class="weui-panel__hd as-bar pt-0">
     <%= link_to({ controller: 'carts', action: 'show' }, class: 'px-4') do %>
       <i class="fa-regular fa-angle-left"></i>
     <% end %>
     <div class="weui-title"><%= t('.title') %></div>
+    <i class="px-4" style="width: 48.75px"></i>
   </div>
   <div class="weui-panel__bd">
     <% current_cart.trade_items.checked.each do |trade_item| %>
