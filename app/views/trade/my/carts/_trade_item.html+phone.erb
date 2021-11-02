@@ -1,51 +1,53 @@
-<div class="weui-media-box weui-media-box_appmsg pl-2" data-controller="swipe" data-action="touchmove->swipe#move:passive touchstart->swipe#start:passive touchend->swipe#end:passive">
-  <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
-    <label class="weui-cells_checkbox">
-      <%= f.check_box :status, value: model.checked? ? 'checked' : 'init', checked: model.checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil %>
-      <i class="weui-icon-checked"></i>
-    </label>
-  <% end %>
-  <div class="weui-media-box__hd">
-  <% if model.good.respond_to?(:logo) && model.good.logo.attached? %>
-    <%= image_tag model.good.logo, class: 'weui-media-box__thumb' %>
-  <% elsif model.good.respond_to?(:cover) && model.good.cover.attached? %>
-    <%= image_tag model.good.cover, class: 'weui-media-box__thumb' %>
-  <% end %>
-  </div>
-  <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title"><%= model.good.name %></h4>
-    <p class="weui-media-box__desc">
-      <% if model.good.respond_to?(:parts) %>
-        <% model.good.parts.each do |part| %>
-          <span><%= part.name %></span>
+<div class="weui-panel">
+  <div class="weui-media-box weui-media-box_appmsg pl-2" data-controller="swipe" data-action="touchmove->swipe#move:passive touchstart->swipe#start:passive touchend->swipe#end:passive">
+    <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
+      <label class="weui-cells_checkbox">
+        <%= f.check_box :status, value: model.checked? ? 'checked' : 'init', checked: model.checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil %>
+        <i class="weui-icon-checked"></i>
+      </label>
+    <% end %>
+    <div class="weui-media-box__hd">
+    <% if model.good.respond_to?(:logo) && model.good.logo.attached? %>
+      <%= image_tag model.good.logo, class: 'weui-media-box__thumb' %>
+    <% elsif model.good.respond_to?(:cover) && model.good.cover.attached? %>
+      <%= image_tag model.good.cover, class: 'weui-media-box__thumb' %>
+    <% end %>
+    </div>
+    <div class="weui-media-box__bd">
+      <h4 class="weui-media-box__title"><%= model.good.name %></h4>
+      <p class="weui-media-box__desc">
+        <% if model.good.respond_to?(:parts) %>
+          <% model.good.parts.each do |part| %>
+            <span><%= part.name %></span>
+          <% end %>
         <% end %>
-      <% end %>
-    </p>
-    <div class="weui-media-box__info is-flex is-justify-content-space-between">
-      <div class="is-flex is-align-items-center">
-        <div class="weui-media-box__info__meta">
-          <span><%= model.good.price %></span>
+      </p>
+      <div class="weui-media-box__info is-flex is-justify-content-space-between">
+        <div class="is-flex is-align-items-center">
+          <div class="weui-media-box__info__meta">
+            <span><%= model.good.price %></span>
+          </div>
+        </div>
+        <div class="is-flex is-align-items-center">
+          <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number - 1 }, class: 'mr-1') do %>
+            <i class="fa-regular fa-minus fa-xl"></i>
+          <% end if model.number > 1 %>
+          <%= button_to({ controller: 'trade/my/trade_items', action: 'destroy', id: model.id }, method: :delete, class: 'mr-1') do %>
+            <i class="fa-regular fa-minus fa-xl"></i>
+          <% end if model && model.number <= 1 %>
+          <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input' }) do |f| %>
+            <%= f.number_field :number, value: model.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
+          <% end %>
+          <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number + 1 }, class: 'ml-1') do %>
+            <i class="fa-regular fa-plus fa-xl"></i>
+          <% end %>
         </div>
       </div>
-      <div class="is-flex is-align-items-center">
-        <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number - 1 }, class: 'mr-1') do %>
-          <i class="fa-regular fa-minus fa-xl"></i>
-        <% end if model.number > 1 %>
-        <%= button_to({ controller: 'trade/my/trade_items', action: 'destroy', id: model.id }, method: :delete, class: 'mr-1') do %>
-          <i class="fa-regular fa-minus fa-xl"></i>
-        <% end if model && model.number <= 1 %>
-        <%= form_with(theme: nil, scope: 'trade_item', url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input' }) do |f| %>
-          <%= f.number_field :number, value: model.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
-        <% end %>
-        <%= button_to({ controller: 'trade_items', action: 'update', id: model.id }, method: :patch, params: { '[trade_item]number': model.number + 1 }, class: 'ml-1') do %>
-          <i class="fa-regular fa-plus fa-xl"></i>
-        <% end %>
-      </div>
     </div>
-  </div>
-  <div class="weui-media-box__ft" data-swipe-target="open" style="width: 0">
-    <%= button_to({ controller: 'trade_items', action: 'destroy', id: model.id }, method: :delete, data: { confirm: t('.confirm') }, form: { class: 'weui-btn weui-btn_danger button_to' }) do %>
-      <i class="fa-light fa-trash has-text-white"></i>
-    <% end %>
+    <div class="weui-media-box__ft" data-swipe-target="open" style="width: 0">
+      <%= button_to({ controller: 'trade_items', action: 'destroy', id: model.id }, method: :delete, data: { confirm: t('.confirm') }, form: { class: 'weui-btn weui-btn_danger button_to' }) do %>
+        <i class="fa-light fa-trash has-text-white"></i>
+      <% end %>
+    </div>
   </div>
 </div>
