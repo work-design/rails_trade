@@ -1,7 +1,7 @@
 module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
-      :show, :edit, :update, :refund, :payment_types, :edit_payment_type, :wait, :destroy,
+      :show, :edit, :update, :refund, :payment_types, :edit_payment_type, :wait, :destroy, :cancel,
       :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
     ]
 
@@ -134,6 +134,11 @@ module Trade
 
     def refund
       @order.apply_for_refund
+    end
+
+    def cancel
+      @order.state = 'canceled'
+      @order.save
     end
 
     private

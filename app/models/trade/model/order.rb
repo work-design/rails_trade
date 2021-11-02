@@ -89,6 +89,10 @@ module Trade
       user.name.presence || "#{user_id}"
     end
 
+    def can_cancel?
+      init? && ['unpaid', 'to_check'].include?(self.payment_status)
+    end
+
     def amount_money
       amount_to_money(self.currency)
     end

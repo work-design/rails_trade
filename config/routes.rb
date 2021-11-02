@@ -159,6 +159,7 @@ Rails.application.routes.draw do
           get 'cancel' => :edit_cancel
           put 'cancel' => :update_cancel
           put :refund
+          patch :cancel
           get :success
         end
       end

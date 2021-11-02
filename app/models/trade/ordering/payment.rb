@@ -6,7 +6,7 @@ module Trade
   module Ordering::Payment
 
     def can_pay?
-      self.payment_status != 'all_paid'
+      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
     def unreceived_amount
