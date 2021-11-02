@@ -53,6 +53,7 @@ module Trade
 
       if order
         order.payment_status = 'refunded'
+        order.state = 'canceled'
         order.save
       end
     end
