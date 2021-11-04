@@ -11,12 +11,20 @@
         </div>
       <% end %>
     <% end %>
+  </div>
+  <div class="weui-panel__ft is-border-top">
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
       <ul class="weui-media-box__info m-0">
-        <li class="weui-media-box__info__meta">总价：</li>
-        <li class="weui-media-box__info__meta"><%= model.amount %></li>
+        <li class="weui-media-box__info__meta">
+          <span>总价：</span>
+          <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+        </li>
         <li class="weui-media-box__info__meta"><span class="weui-badge"><%= model.payment_status_i18n %></span></li>
-        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
+        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+          <span>共</span>
+          <span><%= model.trade_items_count %></span>
+          <span>件</span>
+        </li>
       </ul>
       <ul class="weui-media-box__info mt-2">
         <li class="weui-media-box__info__meta">
@@ -25,8 +33,6 @@
         </li>
       </ul>
     </div>
-  </div>
-  <div class="weui-panel__ft">
     <div class="weui-cell weui-cell_link">
       <div class="weui-cell__bd"></div>
       <div class="weui-cell__ft is-flex">
