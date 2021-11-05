@@ -9,6 +9,7 @@
           <span class="weui-cell__bd"></span>
           <span class="weui-cell__ft" data-controller="input">
             <%= form_with theme: nil, scope: 'cart', url: { action: 'current' } do |f| %>
+              <%= hidden_field_tag :return_to, params[:return_to] %>
               <%= f.check_box :current, value: true, checked: current_cart.member_id.nil?, class: 'weui-check', data: { action: 'input#form' } %>
               <span class="weui-icon-checked"></span>
             <% end %>
