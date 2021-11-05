@@ -25,7 +25,7 @@ module Trade
         card = card_template.cards.find_or_initialize_by(client_type: trade_item.maintain.client_type, client_id: trade_item.maintain.client_id)
         card.agency_id = trade_item.maintain.agency_id
       else
-        card = card_template.cards.find_or_initialize_by(user_id: trade_item.user_id)
+        card = card_template.cards.find_or_initialize_by(cart_id: trade_item.cart_id)
       end
       ca = card.card_advances.build
       ca.trade_item = trade_item

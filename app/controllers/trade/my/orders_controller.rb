@@ -33,13 +33,13 @@ module Trade
     end
 
     def add
-      @order = current_user.orders.build
+      @order = current_cart.orders.build
       @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
       @order.compute_amount
     end
 
     def direct
-      @order = current_user.orders.build(order_params)
+      @order = current_cart.orders.build(order_params)
       @order.organ = current_organ
 
       if @order.save

@@ -7,12 +7,12 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:card_uuid, :card_template_id)
 
-      @cards = current_user.cards.includes(:card_template).default_where(q_params).order(id: :desc).page(params[:page])
-      @card_templates = CardTemplate.default_where(default_params).where.not(id: @cards.pluck(:card_template_id))
+      @cards = current_cart.cards.includes(:card_template).default_where(q_params).order(id: :desc).page(params[:page])
+      set_card_templates
     end
 
     def new
-      @card = current_user.cards.find_or_initialize_by(card_template_id: params[:card_template_id])
+      @card = current_cart.cards.find_or_initialize_by(card_template_id: params[:card_template_id])
     end
 
     def token
@@ -24,9 +24,9 @@ module Trade
     def create
       if token_params[:token]
         @card_prepayment = CardPrepayment.find_by token: token_params[:token]
-        @card = current_user.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
+        @card = current_cart.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
       else
-        @card = Card.new(card_params)
+        @card = current_user.cards.build(card_params)
       end
       @card.assign_attributes card_params
 
@@ -35,25 +35,16 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @card.assign_attributes(card_params)
-
-      unless @card.save
-        render :edit, locals: { model: @card }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @card.destroy
-    end
-
     private
+    def set_card_templates
+      q_params = {
+        default: true
+      }
+      q_params.merge! default_params
+
+      @card_templates = CardTemplate.default_where(q_params).where.not(id: @cards.pluck(:card_template_id))
+    end
+
     def set_card
       @card = Card.find(params[:id])
     end
