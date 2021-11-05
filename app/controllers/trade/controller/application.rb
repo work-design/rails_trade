@@ -25,7 +25,7 @@ module Trade
 
     def current_cart_count
       if current_cart
-        current_cart.trade_items.checked.count
+        current_cart.trade_items.size # 不去数据库计算数量
       else
         0
       end
