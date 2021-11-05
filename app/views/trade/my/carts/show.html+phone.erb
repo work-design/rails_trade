@@ -7,23 +7,19 @@
     <%= link_to :back, class: 'px-4' do %>
       <i class="fa-regular fa-fw fa-angle-left"></i>
     <% end %>
-    <span class="weui-title"><%= t('.title') %></span>
+    <span class="weui-title">
+      <span class="mr-1"><%= t('.title') %></span>
+      <%= link_to(action: 'list') do %>
+        <% if current_cart.member %>
+          <span class="weui-badge weui-badge__primary"><%= current_cart.member.organ.name %></span>
+        <% else %>
+          <span class="weui-badge">个人版</span>
+        <% end %>
+      <% end %>
+    </span>
     <i class="px-4" style="width: 48.75px"></i>
   </div>
   <div class="weui-panel__bd">
-    <%= link_to({ action: 'list' }, class: 'weui-cell weui-cell_access') do %>
-      <div class="weui-cell__bd">
-      <% if current_cart.member %>
-        <span><%= current_cart.member.organ.name %></span>
-        <span>-</span>
-        <span><%= current_cart.member.name %></span>
-        <span class="has-text-grey">（企业）</span>
-      <% else %>
-        <span class="has-text-grey">个人</span>
-      <% end %>
-      </div>
-      <div class="weui-cell__ft">切换</div>
-    <% end %>
     <%= link_to({ controller: 'profiled/my/addresses', action: 'list', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
       <div class="weui-cell__bd">
         <% if current_cart.address %>
