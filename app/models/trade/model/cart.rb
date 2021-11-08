@@ -15,6 +15,7 @@ module Trade
       attribute :total_quantity, :decimal, default: 0
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :current, :boolean, default: false
+      attribute :auto, :boolean, default: false, comment: '自动下单'
 
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :organ, class_name: 'Org::Organ', optional: true

@@ -70,7 +70,8 @@ module Trade
       params.fetch(:cart, {}).permit(
         :address_id,
         :member_id,
-        :current
+        :current,
+        :auto
       )
     end
 
