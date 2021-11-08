@@ -11,7 +11,10 @@
       <span class="mr-1"><%= t('.title') %></span>
       <%= link_to(action: 'list') do %>
         <% if current_cart.member %>
-          <span class="weui-badge weui-badge__primary"><%= current_cart.member.organ.name %></span>
+          <span class="weui-badge weui-badge__primary">
+            <span>企业版</span>
+            <span><%= current_cart.member.organ.name %></span>
+          </span>
         <% else %>
           <span class="weui-badge">个人版</span>
         <% end %>
