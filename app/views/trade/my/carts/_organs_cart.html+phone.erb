@@ -1,34 +1,25 @@
 <div class="weui-panel">
-  <div class="weui-panel__hd">
-    <div class="is-several">
-      <%= image_tag model[0].logo.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if model[0].logo.attached? %>
-      <span><%= model[0].name %></span>
-      <span class="has-text-grey">（企业版）</span>
-    </div>
-  </div>
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells weui-cells_radio">
-      <% model[1].each do |member| %>
         <label class="weui-cell weui-cell_active weui-check__label">
           <span class="weui-cell__hd is-several">
-            <%= image_tag member.avatar.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if member.avatar.attached? %>
-            <span><%= member.name %></span>
+            <%= image_tag model.organ.logo.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if model.organ.logo.attached? %>
+            <span><%= model.organ.name %></span>
           </span>
           <span class="weui-cell__bd">
-            <span><%= member.departments.first&.full_name %></span>
-            <span class="is-size-7"><%= member.identity %></span>
+            <span class="is-size-7"><%= model.name %></span>
+            <span class="is-size-7"><%= model.identity %></span>
           </span>
           <span class="weui-cell__ft" data-controller="input">
             <%= form_with theme: nil, scope: 'cart', url: { action: 'current' } do |f| %>
               <%= hidden_field_tag :return_to, params[:return_to] %>
-              <%= f.hidden_field :member_id, value: member.id %>
-              <%= f.check_box :current, value: true, checked: current_cart.member_id == member.id, class: 'weui-check', data: { action: 'input#form' } %>
+              <%= f.hidden_field :member_id, value: model.id %>
+              <%= f.check_box :current, value: true, checked: current_cart.member_id == model.id, class: 'weui-check', data: { action: 'input#form' } %>
               <span class="weui-icon-checked"></span>
             <% end %>
           </span>
         </label>
-      <% end %>
       </div>
     </div>
   </div>

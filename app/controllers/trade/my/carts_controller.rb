@@ -36,7 +36,7 @@ module Trade
     end
 
     def list
-      @members = current_user.members.group_by(&:organ)
+      @members = current_user.members.includes(:organ)
     end
 
     def promote
