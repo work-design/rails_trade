@@ -60,12 +60,13 @@ module Trade
         end
         if produce_plan
           self.produce_on = produce_plan.produce_on
+          self.expire_at = produce_plan.book_finish_at
         end
         if cart
           self.user_id = cart.user_id
           self.member_id = cart.member_id  # 数据冗余，方便订单搜索和筛选
         end
-        self.original_amount = single_price * number
+        self.original_amount = single_price * self.number
         self.amount = original_amount
       end
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
