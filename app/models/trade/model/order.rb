@@ -11,6 +11,7 @@ module Trade
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
+      attribute :trade_items_count, :integer, default: 0
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'

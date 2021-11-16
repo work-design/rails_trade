@@ -32,7 +32,7 @@ module Trade
       belongs_to :production_plan, ->(o) { where(produce_on: o.produce_on) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, optional: true
 
       belongs_to :good, polymorphic: true
-      belongs_to :cart, inverse_of: :trade_items, counter_cache: true, optional: true
+      belongs_to :cart, inverse_of: :trade_items, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       belongs_to :address, optional: true
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
