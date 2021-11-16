@@ -42,8 +42,8 @@
     <% if model.produce_plan %>
       <div class="weui-badge">
         <span><%= model.produce_plan.scene.title %></span>
-        <span><%= model.produce_on %></span>
       </div>
+      <span><%= model.produce_on.to_s(:month_and_day) %></span>
       <span class="has-text-grey ml-2">
         <span><%= model.produce_plan.scene.deliver_start_at.to_s(:time) %></span>
         <span>~</span>

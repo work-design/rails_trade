@@ -21,6 +21,7 @@ module Trade
       attribute :advance_amount, :decimal, default: 0
       attribute :extra, :json, default: {}
       attribute :produce_on, :date, comment: '对接生产管理'
+      attribute :expire_at, :datetime
 
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
