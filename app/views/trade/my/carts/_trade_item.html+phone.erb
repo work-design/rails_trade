@@ -25,7 +25,7 @@
       <div class="weui-media-box__info is-flex is-justify-content-space-between">
         <div class="is-flex is-align-items-center">
           <div class="weui-media-box__info__meta">
-            <span><%= model.good.price %></span>
+            <span><%= model.good.price.to_money.format(html_wrap: true).html_safe %></span>
           </div>
         </div>
       </div>
@@ -43,8 +43,8 @@
       <div class="weui-badge">
         <span><%= model.produce_plan.scene.title %></span>
       </div>
-      <span><%= model.produce_on.to_s(:month_and_day) %></span>
       <span class="has-text-grey ml-2">
+        <span><%= model.produce_on.to_s(:month_and_day) %></span>
         <span><%= model.produce_plan.scene.deliver_start_at.to_s(:time) %></span>
         <span>~</span>
         <span><%= model.produce_plan.scene.deliver_finish_at.to_s(:time) %></span>
