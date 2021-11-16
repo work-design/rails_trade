@@ -75,6 +75,7 @@ module Trade
         (changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
+      after_create_commit :clean_when_expired, if: -> { expire_at.present? }
     end
 
     def weight_str
@@ -205,6 +206,10 @@ module Trade
     end
 
     def confirm_refund!
+    end
+
+    def clean_when_expired
+      TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
   end

@@ -41,7 +41,7 @@
     <div class="weui-cell__bd">
     <% if model.expire_at %>
       <div class="is-flex is-align-items-center has-background-danger-light" style="border-radius: 18px">
-        <div class="weui-badge">截止</div>
+        <div class="weui-badge">下单截止</div>
         <span class="has-text-grey ml-2">
           <time data-controller="time"><%= model.expire_at.to_s(:rfc822) %></time>
         </span>
