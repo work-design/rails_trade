@@ -90,7 +90,7 @@ module Trade
     end
 
     def user_name
-      user.name.presence || "#{user_id}"
+      user&.name.presence || "#{user_id}"
     end
 
     def can_cancel?
