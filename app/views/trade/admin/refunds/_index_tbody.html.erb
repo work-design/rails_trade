@@ -5,12 +5,12 @@
 </td>
 <td><%= model.total_amount.to_money(model.currency).format %></td>
 <td><%= model.type_i18n %></td>
-<td><time data-controller="time"><%= model.created_at.to_s(:rfc822) %></time></td>
+<td><time data-controller="time"><%= model.created_at.to_s(:iso8601) %></time></td>
 <td><%= model.state_i18n %></td>
 <td><%= model.comment %></td>
 <td>
   <% if model.refunded_at %>
-    <time data-controller="time"><%= model.refunded_at.to_s(:rfc822) %></time>
+    <time data-controller="time"><%= model.refunded_at.to_s(:iso8601) %></time>
   <% else %>
     <div class="buttons are-small">
       <%= button_to 'Approve', { action: 'confirm', id: model.id }, method: :patch, data: { confirm: t('.confirm') }, class: 'button is-primary' %>

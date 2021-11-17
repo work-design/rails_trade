@@ -16,7 +16,7 @@
       <div>
       <% if model.expire_at %>
         <span>有效期：</span>
-        <time data-controller="time" data-format="YYYY-MM-DD HH:mm:ss"><%= model.expire_at.to_s(:rfc822) %></time>
+        <time data-controller="time" data-format="YYYY-MM-DD HH:mm:ss"><%= model.expire_at.to_s(:iso8601) %></time>
       <% end %>
       </div>
     </div>

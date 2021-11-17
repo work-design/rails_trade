@@ -8,5 +8,5 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::CardPayment.human_attribute_name(:created_at) %></td>
-  <td><time data-controller="time"><%= @card_payment.created_at.to_s(:rfc822) %></time></td>
+  <td><time data-controller="time"><%= @card_payment.created_at.to_s(:iso8601) %></time></td>
 </tr>
