@@ -8,7 +8,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = Order.includes(:user, cart: { member: :organ}).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = Order.includes(:user, cart: [:member, :member_organ]).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def payments
