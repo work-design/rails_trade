@@ -200,7 +200,7 @@ module Trade
 
     def to_notice
       to_notification(
-        receiver: user,
+        user: user,
         title: '您的订单已准备好',
         body: '您的订单将按时到达配送点',
         link: Rails.application.routes.url_for(controller: 'trade/my/orders', action: 'show', id: order_id),
