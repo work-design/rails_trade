@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
     'README.md'
   ]
 
-  s.add_dependency 'rails_com', '~> 1.2'
+  s.add_dependency 'rails_extend'
+  s.add_dependency 'rails_notice'
   s.add_dependency 'money-rails', '~> 1.14'
 end

@@ -51,6 +51,11 @@ module Trade
         canceled: 'canceled'
       }, _default: 'init'
 
+      acts_as_notify(
+        :default,
+        only: [:good_name, :amount, :note]
+      )
+
       after_initialize if: :new_record? do
         if good
           self.good_name = good.name
@@ -191,6 +196,16 @@ module Trade
 
     def metering_attributes
       attributes.slice 'quantity', 'original_amount', 'number'
+    end
+
+    def to_notice
+      to_notification(
+        receiver: user,
+        title: '您的订单已准备好',
+        body: '您的订单将按时到达配送点',
+        link: Rails.application.routes.url_for(controller: 'trade/my/orders', action: 'show', id: order_id),
+        verbose: true
+      )
     end
 
     def confirm_ordered!
