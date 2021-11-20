@@ -53,7 +53,8 @@ module Trade
 
       acts_as_notify(
         :default,
-        only: [:good_name, :amount, :note]
+        only: [:good_name, :number, :amount, :note],
+        methods: [:order_uuid, :cart_organ]
       )
 
       after_initialize if: :new_record? do
@@ -81,6 +82,14 @@ module Trade
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
+    end
+
+    def order_uuid
+      order.uuid
+    end
+
+    def cart_organ
+      cart.organ.name
     end
 
     def weight_str
