@@ -1,4 +1,3 @@
-<%= render 'error_messages', target: f.object %>
 <%= f.select :from, options_for_select(Trade::ExchangeRate.currency_options, f.object.from) %>
 <%= f.select :to, options_for_select(Trade::ExchangeRate.currency_options, f.object.to) %>
 <%= f.number_field :rate, step: 0.01 %>
