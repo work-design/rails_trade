@@ -1,0 +1,11 @@
+<td><%= model.title %></td>
+<td><%= model.tag_str %></td>
+<td><%= model.amount %></td>
+<td>
+  <%= link_to model.user.name, admin_user_path(model.user_id) %>
+</td>
+<td>
+  <p><%= model.source_type %></p>
+  <p><%= model.source_id %></p>
+</td>
+<td><time data-controller="time"><%= model.created_at.to_s(:iso8601) %></time></td>

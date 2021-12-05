@@ -1,2 +1,0 @@
-document.getElementById('unchecked_<%= @payment_order.order_id %>').outerHTML = '<%= j(render partial: 'index', locals: { payment_order: @payment_order }) %>'
-document.getElementById('checked_amount_<%= @payment.id %>').innerHTML = '<%= @payment.checked_amount %>'
