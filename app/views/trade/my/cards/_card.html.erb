@@ -22,6 +22,6 @@
     </div>
   </div>
   <div class="card-footer">
-    <%= render partial: 'advance', collection: model.card_template.advances.order(id: :asc) %>
+    <%= render partial: 'advance', collection: model.card_template.unopened_advances %>
   </div>
 </div>

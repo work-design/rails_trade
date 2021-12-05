@@ -34,6 +34,7 @@ module Trade
         :amount,
         :state,
         :apple_product_id,
+        :open,
         :logo
       )
     end

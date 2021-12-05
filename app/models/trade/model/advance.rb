@@ -6,8 +6,11 @@ module Trade
       attribute :amount, :decimal
       attribute :price, :decimal
       attribute :apple_product_id, :string, comment: 'For 苹果应用内支付'
+      attribute :open, :boolean, default: false
 
       belongs_to :card_template
+
+      scope :open, -> { where(open: true) }
 
       validates :amount, uniqueness: { scope: :card_template_id }
       validates :price, uniqueness: { scope: :card_template_id }

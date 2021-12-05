@@ -1,0 +1,10 @@
+<td><%= image_tag model.logo, class: 'image is-48x48' if model.logo.attached? %></td>
+<td><%= model.amount %></td>
+<td><%= model.price %></td>
+<td><%= model.apple_product_id %></td>
+<td>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :open, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
+</td>
