@@ -25,6 +25,7 @@ module Trade
 
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
 
       #has_many :organs 用于对接供应商
 
@@ -75,6 +76,7 @@ module Trade
         self.original_amount = single_price * self.number
         self.amount = original_amount
       end
+      before_validation :sync_organ, if: -> { cart_id_changed? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
       before_save :sync_changed_amount, if: -> {
@@ -235,6 +237,10 @@ module Trade
 
     def clean_when_expired
       TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
+    end
+
+    def sync_organ
+      self.organ_id = cart&.organ_id
     end
 
   end
