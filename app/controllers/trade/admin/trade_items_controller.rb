@@ -5,6 +5,7 @@ module Trade
 
     def index
       q_params = {}
+      q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :address_id, :status)
 
       #@checked_ids = @trade_items.checked.pluck(:id)
