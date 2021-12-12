@@ -26,6 +26,7 @@ module Trade
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :organ, class_name: 'Org::Organ', optional: true
+      has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
       #has_many :organs 用于对接供应商
 
