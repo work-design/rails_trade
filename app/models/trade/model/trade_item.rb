@@ -30,7 +30,7 @@ module Trade
       #has_many :organs 用于对接供应商
 
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 产品对应批次号
-      belongs_to :production_plan, ->(o) { where(produce_on: o.produce_on) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, optional: true
+      belongs_to :production_plan, ->(o) { where(produce_on: o.produce_on) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: true, optional: true
 
       belongs_to :good, polymorphic: true
       belongs_to :cart, inverse_of: :trade_items, optional: true
