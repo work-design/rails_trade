@@ -26,6 +26,7 @@ module Trade
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :address, class_name: 'Profiled::Address', optional: true
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
       #has_many :organs 用于对接供应商
@@ -36,7 +37,6 @@ module Trade
       belongs_to :good, polymorphic: true
       belongs_to :cart, inverse_of: :trade_items, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
-      belongs_to :address, optional: true
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
       scope :valid, -> { where(status: 'init', myself: true) }
