@@ -35,20 +35,9 @@ module Trade
       log.save
     end
 
-    def compute_expire_at
-      card.expire_at = self.expire_at.since(purchase.duration).end_of_day
-    end
-
     def sync_to_card
-      card.reload
-      card.income_amount += self.amount
-      if card.income_amount == card.compute_income_amount
-        card.save!
-      else
-        card.errors.add :income_amount, 'not equal'
-        logger.error "#{self.class.name}/Card: #{card.error_text}"
-        raise ActiveRecord::RecordInvalid.new(card)
-      end
+      card.expire_at = card.expire_at.since(purchase.duration).end_of_day
+      card.save!
     end
 
   end

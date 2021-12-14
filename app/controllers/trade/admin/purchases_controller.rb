@@ -35,7 +35,8 @@ module Trade
         :days,
         :months,
         :years,
-        :note
+        :note,
+        :default
       )
     end
   end

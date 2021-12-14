@@ -1,5 +1,5 @@
 <%= f.text_field :title %>
-<%= f.number_field :years %>
+<%= f.number_field :years, min: 0 %>
 <%= f.number_field :months, min: 0, max: 12 %>
 <%= f.number_field :days, min: 0, max: 31 %>
 <%= f.number_field :price %>
