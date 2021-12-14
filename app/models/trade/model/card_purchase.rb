@@ -35,6 +35,10 @@ module Trade
       log.save
     end
 
+    def compute_expire_at
+      card.expire_at = self.expire_at.since(purchase.duration).end_of_day
+    end
+
     def sync_to_card
       card.reload
       card.income_amount += self.amount

@@ -44,12 +44,7 @@ module Trade
         self.organ_id ||= card_template.organ_id
         self.currency = card_template.currency
         self.effect_at ||= Time.current
-        self.expire_at ||= compute_expire_at
       end
-    end
-
-    def compute_expire_at
-      self.expire_at = self.effect_at.since(card_template.duration).end_of_day
     end
 
     def compute_income_amount
