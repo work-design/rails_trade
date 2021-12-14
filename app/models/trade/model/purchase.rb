@@ -9,12 +9,19 @@ module Trade
       attribute :years, :integer, default: 0
       attribute :months, :integer, default: 0
       attribute :days, :integer, default: 0
+      attribute :default, :boolean, default: false
 
       belongs_to :card_template
       has_many :card_purchases
 
       has_one_attached :logo
       delegate :cover, to: :card_template
+
+      after_update :set_default, if: -> { default? && saved_change_to_default? }
+    end
+
+    def duration
+      years.years + months.months + days.days
     end
 
     def name
@@ -40,6 +47,10 @@ module Trade
       end
 
       card
+    end
+
+    def set_default
+      self.class.where.not(id: self.id).where(card_template_id: self.card_template_id).update_all(default: false)
     end
 
   end
