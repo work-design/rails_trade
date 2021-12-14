@@ -1,0 +1,4 @@
+<%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: purchase.id, good_type: purchase.class_name }, class: 'card-footer-item is-flex-direction-column has-text-grey has-text-centered') do %>
+  <div class="header"><%= purchase.title %></div>
+  <div class="description">价格：￥<%= purchase.price %></div>
+<% end %>
