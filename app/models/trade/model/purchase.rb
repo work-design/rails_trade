@@ -37,7 +37,9 @@ module Trade
       end
       cp = card.card_purchases.build
       cp.trade_item = trade_item
-      cp.amount = amount
+      cp.years = years
+      cp.months = months
+      cp.days = days
       cp.purchase = self
 
       card.class.transaction do

@@ -18,7 +18,7 @@ module Trade
 
       if params[:order_id]
         @order = Order.find params[:order_id]
-        @payment.total_amount = @order.amount
+        @payment.total_amount = @order.unreceived_amount
       end
       @payment.payment_uuid = UidHelper.nsec_uuid('PAY')
     end

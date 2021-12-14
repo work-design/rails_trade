@@ -2,6 +2,7 @@
 <td class="has-text-right">
   <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
   <p><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p>
 </td>
 <td>
   <%= model.payment_status_i18n %>
@@ -9,7 +10,8 @@
     <%= button_to t('.refund'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
   <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
     <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: model.id }, class: 'button is-link is-small' %>
-  <% elsif ['unpaid'].include?(model.payment_status) %>
+  <% end %>
+  <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
     <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
   <% end %>
 </td>
