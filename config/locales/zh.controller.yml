@@ -15,6 +15,9 @@ zh:
       card_purchases:
         index:
           title: 会员购买
+      purchases:
+        index:
+          title: 购买/续费
       carts:
         index:
           title: 购物用户

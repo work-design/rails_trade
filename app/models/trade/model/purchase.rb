@@ -4,12 +4,14 @@ module Trade
 
     included do
       attribute :price, :decimal
+      attribute :title, :string
       attribute :note, :string
       attribute :years, :integer, default: 0
       attribute :months, :integer, default: 0
       attribute :days, :integer, default: 0
 
       belongs_to :card_template
+      has_many :card_purchases
 
       has_one_attached :logo
       delegate :cover, to: :card_template
@@ -26,13 +28,14 @@ module Trade
       else
         card = card_template.cards.find_or_initialize_by(cart_id: trade_item.cart_id)
       end
-      ca = card.card_advances.build
-      ca.trade_item = trade_item
-      ca.amount = amount
+      cp = card.card_purchases.build
+      cp.trade_item = trade_item
+      cp.amount = amount
+      cp.purchase = self
 
       card.class.transaction do
         card.save!
-        ca.save!
+        cp.save!
         trade_item.maintain.transfer! if trade_item.respond_to?(:maintain) && trade_item.maintain
       end
 

@@ -23,6 +23,7 @@ module Trade
       has_many :card_advances, dependent: :nullify  # income
       has_many :card_refunds, dependent: :nullify  # income
       has_many :card_payments, dependent: :nullify  # expense
+      has_many :card_purchases, dependent: :nullify
       has_many :card_logs, dependent: :destroy_async
       has_many :card_promotes, ->(o){ default_where('income_min-lte': o.income_amount, 'income_max-gt': o.income_amount) }, foreign_key: :card_template_id, primary_key: :card_template_id
       has_many :promotes, through: :card_promotes
