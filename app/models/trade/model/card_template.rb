@@ -8,6 +8,7 @@ module Trade
       attribute :currency, :string
       attribute :default, :boolean, default: false
       attribute :text_color, :string
+      attribute :cards_count, :integer, default: 0
 
       belongs_to :organ, optional: true
 

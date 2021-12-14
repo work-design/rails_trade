@@ -15,7 +15,7 @@ module Trade
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :cart
 
-      belongs_to :card_template
+      belongs_to :card_template, counter_cache: true
       belongs_to :trade_item, optional: true
       belongs_to :client, optional: true
       belongs_to :agency, optional: true
