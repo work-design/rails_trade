@@ -23,24 +23,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @card.assign_attributes(card_params)
-
-      unless @card.save
-        render :edit, locals: { model: @card }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @card.destroy
-    end
-
     private
     def set_card
       @card = Card.find(params[:id])

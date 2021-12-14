@@ -112,6 +112,7 @@ Rails.application.routes.draw do
       resources :cards do
         resources :card_logs
         resources :card_advances
+        resources :card_purchases
         resources :card_payments
       end
       resources :cashes

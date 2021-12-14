@@ -7,20 +7,6 @@ module Trade
       @card_logs = @card.card_logs.order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @card_log.assign_attributes(card_log_params)
-
-      unless @card_log.save
-        render :edit, locals: { model: @card_log }, status: :unprocessable_entity
-      end
-    end
-
     private
     def set_card
       @card = Card.find params[:card_id]

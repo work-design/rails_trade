@@ -22,20 +22,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @refund.assign_attributes(refund_params)
-
-      unless @refund.save
-        render :new, locals: { model: @refund }, status: :unprocessable_entity
-      end
-    end
-
     def confirm
       @refund.do_refund
       @refund.operator = current_member
@@ -49,10 +35,6 @@ module Trade
       @refund.operator = current_member
 
       @refund.save
-    end
-
-    def destroy
-      @refund.destroy
     end
 
     private

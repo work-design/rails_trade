@@ -18,14 +18,8 @@ module Trade
       @promote_good = PromoteGood.new
     end
 
-    def show
-    end
-
     def new
       @promote_good = PromoteGood.new(params.permit(:promote_id, :good_type, :good_id))
-    end
-
-    def edit
     end
 
     def create
@@ -34,18 +28,6 @@ module Trade
       unless @promote_good.save
         render :new, locals: { model: @promote_good }, status: :unprocessable_entity
       end
-    end
-
-    def update
-      @promote_good.assign_attributes(promote_good_params)
-
-      unless @promote_good.save
-        render :edit, locals: { model: @promote_good }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @promote_good.destroy
     end
 
     private

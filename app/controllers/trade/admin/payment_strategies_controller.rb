@@ -3,17 +3,13 @@ module Trade
     before_action :set_payment_strategy, only: [:show, :edit, :update, :destroy]
 
     def index
-      @payment_strategies = PaymentStrategy.all
-    end
+      q_params = {}
 
-    def show
+      @payment_strategies = PaymentStrategy.default_where(q_params)
     end
 
     def new
       @payment_strategy = PaymentStrategy.new
-    end
-
-    def edit
     end
 
     def create
@@ -24,20 +20,6 @@ module Trade
       else
         render :new, locals: { model: @payment_strategy }, status: :unprocessable_entity
       end
-    end
-
-    def update
-      @payment_strategy.assign_attributes payment_strategy_params
-
-      if @payment_strategy.save
-        render 'update'
-      else
-        render :edit, locals: { model: @payment_strategy }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @payment_strategy.destroy
     end
 
     private

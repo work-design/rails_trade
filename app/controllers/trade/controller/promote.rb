@@ -28,24 +28,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @promote.assign_attributes promote_params
-
-      unless @promote.save
-        render :edit, locals: { model: @promote }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @promote.destroy
-    end
-
     private
     def set_promote
       @promote = Promote.find(params[:id])

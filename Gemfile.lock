@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 6b38ef68dcf48d3bf2bfe4c76b15b2d9eedd8909
+  revision: 51b21bbcd3c3fdd27d991144b21794d2483b0410
   specs:
     rails_com (1.3.0)
       acme-client
@@ -21,14 +21,14 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 8f3fdd63833c5ae4a96133397ff6481515632461
+  revision: 3bc7fe8ca0fd6459a104340b14378c20978735f3
   specs:
     rails_design (0.0.1)
       rails
 
 GIT
   remote: https://github.com/work-design/rails_extend.git
-  revision: 8e233c0762bdde532d589ea683ddc22063db98e6
+  revision: 01f83dba45125e1fe26b985334652953e7eb0df9
   specs:
     rails_extend (1.0.1)
       rails (>= 5.0)
@@ -151,7 +151,7 @@ GEM
       activesupport (>= 5.0)
     http-2-next (0.5.0)
     http-form_data (2.3.0)
-    httpx (0.18.0)
+    httpx (0.18.2)
       http-2-next (>= 0.4.1)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)

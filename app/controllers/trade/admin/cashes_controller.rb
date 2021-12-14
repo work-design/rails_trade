@@ -6,24 +6,6 @@ module Trade
       @cashes = Cash.order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @cash.assign_attributes(cash_params)
-
-      unless @cash.save
-        render :edit, locals: { model: @cash }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @cash.destroy
-    end
-
     private
     def set_cash
       @cash = Cash.find(params[:id])

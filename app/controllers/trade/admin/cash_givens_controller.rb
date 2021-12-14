@@ -20,24 +20,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @cash_given.assign_attributes(cash_given_params)
-
-      unless @cash_given.save
-        render :edit, locals: { model: @cash_given }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @cash_given.destroy
-    end
-
     private
     def set_cash_given
       @cash_given = CashGiven.find(params[:id])

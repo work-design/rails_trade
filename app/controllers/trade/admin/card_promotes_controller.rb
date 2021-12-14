@@ -20,24 +20,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @card_promote.assign_attributes(card_promote_params)
-
-      unless @card_promote.save
-        render :edit, locals: { model: @card_promote }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @card_promote.destroy
-    end
-
     private
     def set_card_template
       @card_template = CardTemplate.find params[:card_template_id]

@@ -12,6 +12,9 @@ zh:
       card_prepayments:
         index:
           title: 充值码
+      card_purchases:
+        index:
+          title: 会员购买
       carts:
         index:
           title: 购物用户

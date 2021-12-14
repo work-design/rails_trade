@@ -19,24 +19,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @card_prepayment.assign_attributes(card_prepayment_params)
-
-      unless @card_prepayment.save
-        render :edit, locals: { model: @card_prepayment }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @card_prepayment.destroy
-    end
-
     private
     def set_card_template
       @card_template = CardTemplate.find params[:card_template_id]

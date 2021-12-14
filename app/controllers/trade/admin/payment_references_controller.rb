@@ -7,14 +7,8 @@ module Trade
       @payment_references = PaymentReference.page(params[:page])
     end
 
-    def show
-    end
-
     def new
       @payment_reference = @payment_method.payment_references.build
-    end
-
-    def edit
     end
 
     def create
@@ -25,20 +19,6 @@ module Trade
       else
         render :new, locals: { model: @payment_reference }, status: :unprocessable_entity
       end
-    end
-
-    def update
-      @payment_reference.assign_attributes payment_reference_params
-
-      if @payment_reference.save
-        render 'update'
-      else
-        render :edit, locals: { model: @payment_reference }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @payment_reference.destroy
     end
 
     private
