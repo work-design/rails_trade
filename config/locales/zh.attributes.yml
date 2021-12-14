@@ -16,8 +16,6 @@ zh:
         income_amount: 初始额度
         expense_amount: 已用额度
         client_id: 持卡人
-      trade/card/card_template:
-        name: 卡类型
       trade/card_advance:
         amount: 金额
       trade/card_log:
@@ -137,3 +135,5 @@ zh:
         valid_months: 有效月
         valid_days: 有效天数
         default: 默认显示
+        name: 卡类型
+        cards_count: 已办卡
