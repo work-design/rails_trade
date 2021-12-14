@@ -4,7 +4,9 @@ module Trade
 
     included do
       attribute :price, :decimal
-      attribute :amount, :decimal, default: 0
+      attribute :days, :integer, default: 0
+      attribute :months, :integer, default: 0
+      attribute :years, :integer, default: 0
       attribute :state, :string
       attribute :note, :string
 
@@ -35,8 +37,12 @@ module Trade
       log.save
     end
 
+    def duration
+      years.years + months.months + days.days
+    end
+
     def sync_to_card
-      card.expire_at = card.expire_at.since(purchase.duration).end_of_day
+      card.expire_at = card.expire_at.since(duration).end_of_day
       card.save!
     end
 

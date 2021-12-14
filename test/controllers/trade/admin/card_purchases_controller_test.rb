@@ -21,7 +21,7 @@ class Trade::Admin::CardPurchasesControllerTest < ActionDispatch::IntegrationTes
     assert_difference('CardPurchase.count') do
       post(
         url_for(controller: 'trade/admin/card_purchases', action: 'create'),
-        params: { card_purchase: { days: @trade_admin_card_purchase.days, months: @trade_admin_card_purchase.months, note: @trade_admin_card_purchase.note, price: @trade_admin_card_purchase.price, years: @trade_admin_card_purchase.years } },
+        params: { card_purchase: { created_at: @trade_admin_card_purchase.created_at, days: @trade_admin_card_purchase.days, months: @trade_admin_card_purchase.months, price: @trade_admin_card_purchase.price, years: @trade_admin_card_purchase.years } },
         as: :turbo_stream
       )
     end
@@ -44,7 +44,7 @@ class Trade::Admin::CardPurchasesControllerTest < ActionDispatch::IntegrationTes
   test 'update ok' do
     patch(
       url_for(controller: 'trade/admin/card_purchases', action: 'update', id: @card_purchase.id),
-      params: { card_purchase: { days: @trade_admin_card_purchase.days, months: @trade_admin_card_purchase.months, note: @trade_admin_card_purchase.note, price: @trade_admin_card_purchase.price, years: @trade_admin_card_purchase.years } },
+      params: { card_purchase: { created_at: @trade_admin_card_purchase.created_at, days: @trade_admin_card_purchase.days, months: @trade_admin_card_purchase.months, price: @trade_admin_card_purchase.price, years: @trade_admin_card_purchase.years } },
       as: :turbo_stream
     )
 

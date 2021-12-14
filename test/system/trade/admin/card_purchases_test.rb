@@ -14,9 +14,9 @@ class CardPurchasesTest < ApplicationSystemTestCase
     visit trade_admin_card_purchases_url
     click_on "New Card Purchase"
 
+    fill_in "Created at", with: @trade_admin_card_purchase.created_at
     fill_in "Days", with: @trade_admin_card_purchase.days
     fill_in "Months", with: @trade_admin_card_purchase.months
-    fill_in "Note", with: @trade_admin_card_purchase.note
     fill_in "Price", with: @trade_admin_card_purchase.price
     fill_in "Years", with: @trade_admin_card_purchase.years
     click_on "Create Card purchase"
@@ -29,9 +29,9 @@ class CardPurchasesTest < ApplicationSystemTestCase
     visit trade_admin_card_purchases_url
     click_on "Edit", match: :first
 
+    fill_in "Created at", with: @trade_admin_card_purchase.created_at
     fill_in "Days", with: @trade_admin_card_purchase.days
     fill_in "Months", with: @trade_admin_card_purchase.months
-    fill_in "Note", with: @trade_admin_card_purchase.note
     fill_in "Price", with: @trade_admin_card_purchase.price
     fill_in "Years", with: @trade_admin_card_purchase.years
     click_on "Update Card purchase"
