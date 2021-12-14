@@ -13,9 +13,8 @@ module RailsTrade
     ]
 
     config.generators do |g|
-      g.rails = {
-        helper: false
-      }
+      g.helper = false
+      g.resource_route = false
       g.test_unit = {
         fixture: true,
         fixture_replacement: :factory_girl
