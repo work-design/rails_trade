@@ -31,7 +31,7 @@ module Trade
 
     def sync_log
       log = self.card_log || self.build_card_log
-      log.title = self.duration.to_s
+      log.title = self.duration.inspect
       log.tag_str = I18n.t('card_log.purchase.tag_str')
       log.save
     end

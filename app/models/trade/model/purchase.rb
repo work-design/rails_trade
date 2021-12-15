@@ -41,6 +41,7 @@ module Trade
       cp.months = months
       cp.days = days
       cp.purchase = self
+      cp.price = price
 
       card.class.transaction do
         card.save!
