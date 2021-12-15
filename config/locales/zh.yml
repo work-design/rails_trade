@@ -16,6 +16,8 @@ zh:
       svf_card_payment:
         title: 储值卡支付
         tag_str: 支付
+    purchase:
+      title: 续费
   cash_log:
     income:
       cash_given:

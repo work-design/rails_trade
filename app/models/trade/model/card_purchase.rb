@@ -25,15 +25,14 @@ module Trade
         failed: :failed
       }
 
-      after_save :sync_to_card, if: -> { saved_change_to_amount? }
+      after_save :sync_to_card, if: -> { (saved_changes.keys & ['years', 'months', 'days']).present? }
       after_create_commit :sync_log
     end
 
     def sync_log
       log = self.card_log || self.build_card_log
-      log.title = I18n.t('card_log.income.card_advance.title')
-      log.tag_str = I18n.t('card_log.income.card_advance.tag_str')
-      log.amount = self.amount
+      log.title = self.duration.to_s
+      log.tag_str = I18n.t('card_log.purchase.tag_str')
       log.save
     end
 
