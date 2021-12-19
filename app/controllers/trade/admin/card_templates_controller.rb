@@ -35,6 +35,7 @@ module Trade
         :default,
         :text_color,
         :currency,
+        :code,
         advances_attributes: {}
       )
       p.merge! default_form_params

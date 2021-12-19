@@ -9,6 +9,7 @@ module Trade
       attribute :default, :boolean, default: false
       attribute :text_color, :string
       attribute :cards_count, :integer, default: 0
+      attribute :code, :string
 
       belongs_to :organ, optional: true
 
@@ -23,6 +24,8 @@ module Trade
       accepts_nested_attributes_for :advances
 
       has_one_attached :cover
+
+      validates :code, uniqueness: { scope: :organ_id }
     end
 
   end
