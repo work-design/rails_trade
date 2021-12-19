@@ -3,7 +3,7 @@
     <p class="card-header-title"><%= model.name %></p>
   </div>
   <div class="card-content is-cover is-flex is-flex-direction-column-reverse" style="height: 128px; color: <%= model.text_color %>; background-image: url(<%= rails_blob_url(model.cover) %>)">
-    <div class="description">有效期：<%= model.duration.inspect %></div>
+    <div class="description"></div>
   </div>
   <div class="card-footer">
     <%= render partial: 'purchase', collection: model.purchases %>
