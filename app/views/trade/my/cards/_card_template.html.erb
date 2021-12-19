@@ -6,6 +6,7 @@
     <div class="description">有效期：<%= model.duration.inspect %></div>
   </div>
   <div class="card-footer">
+    <%= render partial: 'purchase', collection: model.purchases %>
     <%= render partial: 'advance', collection: model.opened_advances %>
   </div>
 </div>
