@@ -1,4 +1,4 @@
-<%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: advance.id, good_type: advance.class_name }, class: 'card-footer-item is-flex-direction-column has-text-grey has-text-centered') do %>
+<%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: advance.id, good_type: advance.class_name }, class: 'column is-one-third has-background-light is-flex-direction-column has-text-grey has-text-centered') do %>
   <div class="header"><%= advance.amount %></div>
   <div class="description">价格：￥<%= advance.price %></div>
 <% end %>

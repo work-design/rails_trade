@@ -1,7 +1,10 @@
-<div class="card is-radiusless">
+<div class="card">
   <div class="card-header level mb-0">
     <div class="level-left">
-      <p class="card-header-title"><%= model.card_template.name %></p>
+      <p class="card-header-title">
+        <span><%= model.card_template.name %></span>
+        <span class="has-text-grey">（已开通）</span>
+      </p>
     </div>
     <div class="level-right mt-0 pr-3">
       <span><%= Trade::Card.human_attribute_name(:amount) %>：<%= model.amount %></span>
@@ -22,7 +25,37 @@
     </div>
   </div>
   <div class="card-footer">
-    <%= render partial: 'purchase', collection: model.card_template.purchases %>
     <%= render partial: 'advance', collection: model.card_template.unopened_advances %>
+  </div>
+</div>
+
+<div class="weui-panel">
+  <div class="weui-panel__hd level is-flex">
+    <span class="level-left">续费</span>
+    <div class="level-right mt-0 pr-3">
+      <span>有效期至</span>
+      <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.expire_at.to_s(:iso8601) %></time>
+      <%= link_to '续费记录', { controller: 'card_purchases', card_id: model.id } %>
+    </div>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="columns m-4 is-flex is-multiline is-mobile">
+      <%= render partial: 'purchase', collection: model.card_template.purchases %>
+    </div>
+  </div>
+</div>
+
+<div class="weui-panel">
+  <div class="weui-panel__hd level is-flex">
+    <span class="level-left">充值</span>
+    <div class="level-right mt-0 pr-3">
+      <span><%= Trade::Card.human_attribute_name(:amount) %>：<%= model.amount %></span>
+      <%= link_to '记录', { controller: 'card_logs', card_id: model.id } %>
+    </div>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="columns m-4 is-flex is-multiline is-mobile">
+      <%= render partial: 'advance', collection: model.card_template.unopened_advances %>
+    </div>
   </div>
 </div>

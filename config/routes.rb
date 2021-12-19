@@ -176,8 +176,9 @@ Rails.application.routes.draw do
         collection do
           get :token
         end
+        resources :card_purchases
+        resources :card_logs, only: [:index]
       end
-      resources :card_logs, only: [:index]
       resources :cash_logs, only: [:index]
       resources :payouts, only: [:index, :create] do
         collection do
