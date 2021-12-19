@@ -16,13 +16,6 @@ module Trade
       @current_cart
     end
 
-    def current_card
-      platform = request.headers['OS'].to_s.downcase
-      if defined?(current_user) && current_user
-        current_user.init_wallet(platform)
-      end
-    end
-
     def current_cart_count
       if current_cart
         current_cart.trade_items.size # 不去数据库计算数量

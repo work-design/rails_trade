@@ -62,9 +62,8 @@ module Trade
       after_initialize if: :new_record? do
         if good
           self.good_name = good.name
-          self.single_price = good.price
-          self.advance_amount = good.advance_price
           self.produce_on = good.produce_on if good.respond_to? :produce_on
+          compute_price
         end
         if produce_plan
           self.produce_on = produce_plan.produce_on
@@ -85,6 +84,18 @@ module Trade
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
+    end
+
+    def compute_price
+      card = cart.card
+
+      # todo
+      if card
+        self.single_price = good.vip_price.fetch(card.card_template.code, good.price)
+      else
+        self.single_price = good.price
+      end
+      self.advance_amount = good.advance_price
     end
 
     def order_uuid

@@ -34,7 +34,7 @@ module Trade
       has_many :trade_items, -> { where(status: ['init', 'checked']) }, inverse_of: :cart, autosave: false, dependent: :destroy_async
       has_many :all_trade_items, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true, dependent: :destroy_async  # overall can be blank
-      has_many :cards
+      has_many :cards, -> { includes(:card_template) }
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 
@@ -44,6 +44,10 @@ module Trade
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
       after_save :set_current, if: -> { current? && saved_change_to_current? }
+    end
+
+    def card
+      cards[0]
     end
 
     def name
