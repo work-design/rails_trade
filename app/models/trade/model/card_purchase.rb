@@ -26,14 +26,6 @@ module Trade
       }
 
       after_save :sync_to_card, if: -> { (saved_changes.keys & ['years', 'months', 'days']).present? }
-      after_create_commit :sync_log
-    end
-
-    def sync_log
-      log = self.card_log || self.build_card_log
-      log.title = self.duration.inspect
-      log.tag_str = I18n.t('card_log.purchase.tag_str')
-      log.save
     end
 
     def duration
