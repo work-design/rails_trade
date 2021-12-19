@@ -1,3 +1,7 @@
+<div>
+  <span>有效期至：</span>
+  <time data-controller="time"><%= @card.expire_at.to_s(:iso8601) %></time>
+</div>
 <table class="table is-striped is-hoverable is-fullwidth">
   <%= render partial: 'card_purchase', collection: @card_purchases, as: :model %>
 </table>

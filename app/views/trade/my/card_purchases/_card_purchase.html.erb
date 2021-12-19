@@ -1,5 +1,5 @@
 <tr>
   <td><span class="tag"><%= model.duration.inspect %></span></td>
-  <td class="has-text-success"><time data-controller="time"><%= model.last_expire_on %></time></td>
+  <td class="has-text-success"><%= model.last_expire_on %></td>
   <td class="has-text-right"><time data-controller="time"><%= model.created_at.to_s(:iso8601) %></time></td>
 </tr>
