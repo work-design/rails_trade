@@ -41,7 +41,7 @@ module Trade
     end
 
     def sync_to_card
-      card.expire_at = card.expire_at.since(duration).end_of_day
+      card.expire_at = (card.expire_at || Date.today).since(duration).end_of_day
       card.save!
     end
 
