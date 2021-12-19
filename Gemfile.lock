@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 1801f57810cc55cba1a62e2739d91430f5198f00
+  revision: 8bbfcadf61c42b9149fc99a53c8deb382a019ae2
   specs:
     rails_com (1.3.0)
       acme-client
@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 859205b3c6818310da4680da5a56b55f8d72c586
+  revision: 5348768ae4e015d33911301b8722eb4bd4149de2
   specs:
     rails_design (0.0.1)
       rails
@@ -151,7 +151,7 @@ GEM
       activesupport (>= 5.0)
     http-2-next (0.5.0)
     http-form_data (2.3.0)
-    httpx (0.18.2)
+    httpx (0.18.3)
       http-2-next (>= 0.4.1)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
@@ -159,7 +159,7 @@ GEM
     io-wait (0.2.1)
     irb (1.3.7)
       reline (>= 0.2.7)
-    jbuilder (2.11.3)
+    jbuilder (2.11.4)
       activesupport (>= 5.0.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -265,8 +265,9 @@ GEM
     strscan (3.0.1)
     thor (1.1.0)
     timeout (0.2.0)
-    turbo-rails (0.9.0)
-      rails (>= 6.0.0)
+    turbo-rails (1.0.0)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uri (0.11.0)
