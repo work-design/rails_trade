@@ -9,7 +9,7 @@ module Trade
       attribute :years, :integer, default: 0
       attribute :state, :string
       attribute :note, :string
-      attribute :last_expire_on, :datetime
+      attribute :last_expire_on, :date
 
       enum kind: {
         given: 'given'  # 系统赠送
