@@ -1,5 +1,5 @@
 <div class="weui-navbar">
 <% @card_templates.each do |card_template| %>
-  <div class="<%= active_helper(id: card_template.id, active: 'weui-navbar__item weui-navbar__item_on', item: 'weui-navbar__item') %>"><%= card_template.name %></div>
+  <div class="<%= active_params(id: card_template.id, active: 'weui-navbar__item weui-bar__item_on', item: 'weui-navbar__item') %>"><%= card_template.name %></div>
 <% end %>
 </div>
