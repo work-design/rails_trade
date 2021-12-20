@@ -25,7 +25,7 @@
 <div class="<%= active_helper(controllers: ['trade/admin'], active: 'menu ex-accordion is-active', item: 'menu ex-accordion is-active') %>" data-controller="menu">
   <%= content_tag :div, class: 'menu-list' do %>
     <%= link_to t('trade.admin.card_templates.index.title'), { controller: 'trade/admin/card_templates' }, class: active_helper(controllers: ['card_templates', 'cards', 'advances', 'purchases', 'privileges', 'card_promotes'], active: 'is-active') %>
-    <%= link_to t('trade.admin.cashes.index.title'), { controller: 'trade/admin/cashes' }, class: active_helper(controllers: 'cashes', active: 'is-active') %>
+    <%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'trade/admin/wallet_templates' }, class: active_helper(controllers: 'wallets', active: 'is-active') %>
     <%= link_to t('trade.admin.payouts.index.title'), { controller: 'trade/admin/payouts' }, class: active_helper(controllers: 'payouts', active: 'is-active') -%>
   <% end %>
   <a class="menu-label" data-action="menu#toggle">

@@ -84,9 +84,9 @@ zh:
       advances:
         index:
           title: 充值设置
-      cashes:
+      wallet_templates:
         index:
-          title: 现金
+          title: 钱包
       payouts:
         index:
           title: 提现

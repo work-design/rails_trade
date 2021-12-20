@@ -1,0 +1,15 @@
+<div class="field is-horizontal" data-controller="field" data-field-index-value="<%= ef.index %>">
+  <% if ef.index == 0 %>
+    <%= ef.options[:parent_builder].label :advances %>
+  <% else %>
+    <label class="field-label"></label>
+  <% end %>
+  <div class="field-body">
+    <%= ef.number_field :amount, label: nil, placeholder: Trade::Advance.human_attribute_name(:amount) %>
+    <%= ef.number_field :price, label: nil, placeholder: Trade::Advance.human_attribute_name(:price) %>
+    <div class="field has-addons has-addons-middle">
+      <i class="fa-light fa-plus" style="cursor: pointer" data-action="click->field#add"></i>
+      <i class="fa-light fa-minus" style="cursor: pointer" data-action="click->field#remove"></i>
+    </div>
+  </div>
+</div>

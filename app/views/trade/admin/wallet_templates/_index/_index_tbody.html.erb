@@ -1,0 +1,11 @@
+<td>
+  <span><%= model.name %></span>
+</td>
+<td><%= model.code %></td>
+<td><%= model.currency %></td>
+<td>
+  <%= link_to({ controller: 'wallets', wallet_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
+    <i class="fa-light fa-bars"></i>
+    <span>（<%= model.wallets_count %>）</span>
+  <% end %>
+</td>
