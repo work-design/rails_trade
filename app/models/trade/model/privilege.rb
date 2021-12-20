@@ -9,7 +9,7 @@ module Trade
       attribute :code, :string
 
       belongs_to :card_template
-      belongs_to :privileged, polymorphic: true
+      belongs_to :privileged, polymorphic: true, optional: true
 
       has_one_attached :logo
 

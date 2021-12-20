@@ -2,6 +2,7 @@ module Trade
   class Admin::PrivilegesController < Admin::BaseController
     before_action :set_card_template
     before_action :set_privilege, only: [:show, :edit, :update, :destroy]
+    before_action :set_new_privilege, only: [:new, :create]
 
     def index
       @privileges = @card_template.privileges.page(params[:page])
