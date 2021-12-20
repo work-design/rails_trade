@@ -8,7 +8,6 @@
 <td style="background-image: url(<%= rails_blob_url(model.cover) %>); background-size: cover; background-repeat: no-repeat">
   <span style="color: <%= model.text_color %>">文字颜色</span>
 </td>
-<td><%= model.currency %></td>
 <td><%= model.grade %></td>
 <td>
   <%= link_to({ controller: 'cards', card_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
