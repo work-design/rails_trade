@@ -6,10 +6,10 @@ module Trade
       attribute :name, :string
       attribute :description, :string
       attribute :currency, :string
-      attribute :default, :boolean, default: false
       attribute :text_color, :string
       attribute :cards_count, :integer, default: 0
       attribute :code, :string
+      attribute :grade, :integer, default: 1, comment: '会员级别'
 
       belongs_to :organ, optional: true
 
@@ -25,6 +25,8 @@ module Trade
 
       has_one_attached :cover
       has_one_attached :logo
+
+      scope :default, -> { where(grade: 1) }
 
       validates :code, uniqueness: { scope: :organ_id }
     end

@@ -131,9 +131,11 @@ zh:
         amount: 数额
         tag_str: 交易类别
       trade/card_template:
-        valid_years: 有效年
-        valid_months: 有效月
-        valid_days: 有效天数
         default: 默认显示
         name: 卡类型
         cards_count: 已办卡
+        grade: 级别
+      trade/card_purchase:
+        years: 有效年
+        months: 有效月
+        days: 有效天数

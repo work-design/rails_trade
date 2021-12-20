@@ -1,6 +1,7 @@
 module Trade
   class My::CardsController < My::BaseController
     before_action :set_card, only: [:show, :edit, :update, :destroy]
+    before_action :set_card_templates, only: [:show]
 
     def index
       q_params = {}
@@ -8,7 +9,10 @@ module Trade
       q_params.merge! params.permit(:card_uuid, :card_template_id)
 
       @cards = current_cart.cards.includes(:card_template).default_where(q_params).order(id: :desc).page(params[:page])
-      set_card_templates
+    end
+
+    def show
+
     end
 
     def new
@@ -38,15 +42,16 @@ module Trade
     private
     def set_card_templates
       q_params = {
-        default: true
+        grade: 1
       }
       q_params.merge! default_params
 
-      @card_templates = CardTemplate.default_where(q_params).where.not(id: @cards.pluck(:card_template_id))
+      # @card_templates = CardTemplate.default_where(q_params).where.not(id: @cards.pluck(:card_template_id))
+      @card_templates = CardTemplate.default_where(default_params)
     end
 
     def set_card
-      @card = Card.find(params[:id])
+      @card = Card.default_where(default_params).find(params[:id])
     end
 
     def token_params

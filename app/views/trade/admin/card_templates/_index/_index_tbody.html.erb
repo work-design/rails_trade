@@ -9,12 +9,7 @@
   <span style="color: <%= model.text_color %>">文字颜色</span>
 </td>
 <td><%= model.currency %></td>
-<td>
-  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
-    <%= f.check_box :default, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
-    <label data-action="click->input#check"></label>
-  <% end %>
-</td>
+<td><%= model.grade %></td>
 <td>
   <%= link_to({ controller: 'cards', card_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
     <i class="fa-light fa-bars"></i>

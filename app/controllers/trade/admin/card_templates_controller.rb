@@ -28,12 +28,9 @@ module Trade
       p = params.fetch(:card_template, {}).permit(
         :name,
         :description,
-        :valid_years,
-        :valid_months,
-        :valid_days,
         :cover,
         :logo,
-        :default,
+        :grade,
         :text_color,
         :currency,
         :code,

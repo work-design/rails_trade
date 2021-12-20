@@ -5,3 +5,5 @@ zh:
         scope: 是否可以对多个商品进行统一计算
       trade_promote:
         amount: 负数表示减少金额，正数表示增加金额
+      card_template:
+        grade: 低级别可以向高级别升级

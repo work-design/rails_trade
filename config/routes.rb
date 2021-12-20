@@ -179,6 +179,7 @@ Rails.application.routes.draw do
         resources :card_purchases
         resources :card_logs, only: [:index]
       end
+      resources :card_templates
       resources :cash_logs, only: [:index]
       resources :payouts, only: [:index, :create] do
         collection do

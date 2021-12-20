@@ -1,6 +1,7 @@
 module Trade
-  class CardTemplatesController < BaseController
+  class My::CardTemplatesController < My::BaseController
     before_action :set_card_template, only: [:show]
+    before_action :set_card_templates
 
     def index
       q_params = {}
@@ -14,7 +15,11 @@ module Trade
 
     private
     def set_card_template
-      @card_template = CardTemplate.find(params[:id])
+      @card_template = CardTemplate.default_where(default_params).find(params[:id])
+    end
+
+    def set_card_templates
+      @card_templates = CardTemplate.default_where(default_params)
     end
 
   end
