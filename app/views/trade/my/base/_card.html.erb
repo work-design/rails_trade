@@ -1,26 +1,20 @@
 <div class="weui-panel">
   <div class="weui-panel__bd m-4">
-    <div class="card">
+    <div class="card" style="background-image: url(<%= rails_blob_url(model.card_template.cover) %>)">
       <div class="card-header level mb-0">
         <div class="level-left">
-          <p class="card-header-title">
+          <p class="card-header-title" style="color: <%= model.card_template.text_color %>">
             <span><%= model.card_template.name %></span>
             <span class="has-text-grey">（已开通）</span>
           </p>
         </div>
         <div class="level-right mt-0 pr-3"></div>
       </div>
-      <div class="card-content is-cover is-flex is-flex-direction-column-reverse" style="height: 128px; color: <%= model.card_template.text_color %>; background-image: url(<%= rails_blob_url(model.card_template.cover) %>)">
+      <div class="card-content is-cover is-flex is-flex-direction-column-reverse" style="height: 128px; color: <%= model.card_template.text_color %>">
         <div class="header">
           <%= model.card_uuid %>
         </div>
         <div class="description">
-          <div>
-            <% if model.expire_at %>
-              <span>有效期：</span>
-              <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at.to_s(:iso8601) %></time>
-            <% end %>
-          </div>
         </div>
       </div>
       <div class="card-footer"></div>

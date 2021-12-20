@@ -1,14 +1,18 @@
-<div class="card">
-  <div class="card-header">
-    <p class="card-header-title">
-      <span><%= model.name %></span>
-      <span class="has-text-grey">（未开通）</span>
-    </p>
-  </div>
-  <div class="card-content is-cover is-flex is-flex-direction-column-reverse" style="height: 128px; color: <%= model.text_color %>; background-image: url(<%= rails_blob_url(model.cover) %>)">
-    <div class="description"></div>
-  </div>
-  <div class="card-footer">
+<div class="weui-panel">
+  <div class="weui-panel__bd m-4">
+    <div class="card" style="background-image: url(<%= rails_blob_url(model.cover) %>)">
+      <div class="card-header">
+        <p class="card-header-title" style="color: <%= model.text_color %>">
+          <span><%= model.name %></span>
+          <span class="has-text-grey">（未开通）</span>
+        </p>
+      </div>
+      <div class="card-content is-cover is-flex is-flex-direction-column-reverse" style="height: 128px; color: <%= model.text_color %>">
+        <div class="description"></div>
+      </div>
+      <div class="card-footer">
+      </div>
+    </div>
   </div>
 </div>
 
