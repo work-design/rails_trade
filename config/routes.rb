@@ -117,18 +117,19 @@ Rails.application.routes.draw do
       end
       resources :cards do
         resources :card_logs
-        resources :card_advances
         resources :card_purchases
         resources :card_payments
       end
-      resources :cashes
-      resources :cash_givens
+      resources :wallet_templates
+      resources :wallets do
+        resources :wallet_advances
+        resources :wallet_logs
+      end
       resources :payouts do
         member do
           put :do_pay
         end
       end
-      resources :cash_logs
     end
 
     namespace :my, defaults: { namespace: 'my' } do
@@ -189,7 +190,7 @@ Rails.application.routes.draw do
           get :code
         end
       end
-      resources :cash_logs, only: [:index]
+      resources :wallet_logs, only: [:index]
       resources :payouts, only: [:index, :create] do
         collection do
           get :list

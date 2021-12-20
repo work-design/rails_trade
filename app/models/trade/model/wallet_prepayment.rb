@@ -1,5 +1,5 @@
 module Trade
-  module Model::CardPrepayment
+  module Model::WalletPrepayment
     extend ActiveSupport::Concern
 
     included do
@@ -7,7 +7,7 @@ module Trade
       attribute :amount, :decimal
       attribute :expire_at, :datetime
 
-      belongs_to :card_template
+      belongs_to :wallet_template
 
       before_validation :update_token, if: -> { new_record? }
     end

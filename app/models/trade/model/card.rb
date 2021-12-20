@@ -10,7 +10,6 @@ module Trade
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
       attribute :lock_version, :integer
-      attribute :currency, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :cart
@@ -42,17 +41,8 @@ module Trade
       self.card_uuid ||= UidHelper.nsec_uuid('CARD')
       if card_template
         self.organ_id ||= card_template.organ_id
-        self.currency = card_template.currency
         self.effect_at ||= Time.current
       end
-    end
-
-    def compute_income_amount
-      card_advances.sum(:amount)
-    end
-
-    def compute_expense_amount
-      card_payments.sum(:total_amount)
     end
 
   end

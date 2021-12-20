@@ -1,5 +1,5 @@
 module Trade
-  module Model::Cash
+  module Model::Wallet
     extend ActiveSupport::Concern
 
     included do
@@ -12,20 +12,20 @@ module Trade
       attribute :lock_version, :integer
 
       belongs_to :user
-      has_many :cash_logs
+      has_many :wallet_logs
       has_many :payouts
-      has_many :cash_givens, as: :money
+      has_many :wallet_advances
 
       validates :user, presence: true, uniqueness: true
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
     end
 
     def compute_expense_amount
-      self.payouts.sum(:requested_amount)
+      self.payouts.sum(:requested_amount) + wallet_payments.sum(:total_amount)
     end
 
     def compute_income_amount
-      self.cash_givens.sum(:amount)
+      self.cash_advances.sum(:amount)
     end
 
   end

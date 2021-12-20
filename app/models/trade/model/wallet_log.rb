@@ -1,5 +1,5 @@
 module Trade
-  module Model::CashLog
+  module Model::WalletLog
     extend ActiveSupport::Concern
 
     included do
