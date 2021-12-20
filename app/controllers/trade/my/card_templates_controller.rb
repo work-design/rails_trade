@@ -14,6 +14,13 @@ module Trade
       @card = current_cart.cards.find_by(card_template_id: @card_template.id)
     end
 
+    def code
+      @card_template = CardTemplate.default_where(default_params).find_by(code: params[:id])
+      @card = current_cart.cards.find_by(card_template_id: @card_template.id)
+
+      render :show
+    end
+
     private
     def set_card_template
       @card_template = CardTemplate.default_where(default_params).find(params[:id])
