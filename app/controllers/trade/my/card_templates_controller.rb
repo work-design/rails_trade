@@ -11,6 +11,7 @@ module Trade
     end
 
     def show
+      @card = current_cart.cards.find_by(card_template_id: @card_template.id)
     end
 
     private

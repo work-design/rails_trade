@@ -1,6 +1,9 @@
 <%= render 'menu' %>
 
 <div class="cards">
-  <%# render partial: 'card', locals: { model: @card } %>
+<% if @card %>
+  <%= render partial: 'card', locals: { model: @card } %>
+<% else %>
   <%= render partial: 'card_template', locals: { model: @card_template } %>
+<% end %>
 </div>
