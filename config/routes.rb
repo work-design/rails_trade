@@ -107,6 +107,7 @@ Rails.application.routes.draw do
         end
         resources :advances
         resources :purchases
+        resources :privileges
         resources :card_promotes
         resources :card_prepayments
       end

@@ -139,3 +139,5 @@ zh:
         years: 有效年
         months: 有效月
         days: 有效天数
+      trade/privilege:
+        amount: 额度

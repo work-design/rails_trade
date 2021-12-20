@@ -18,6 +18,9 @@ zh:
       purchases:
         index:
           title: 购买/续费
+      privilege:
+        index:
+          title: 特权
       carts:
         index:
           title: 购物用户
