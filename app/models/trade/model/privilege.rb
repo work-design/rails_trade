@@ -15,6 +15,8 @@ module Trade
       has_one_attached :logo
       acts_as_list scope: :card_template_id
 
+      default_scope -> { order(position: :asc) }
+
       #validates :code, uniqueness: { scope: :card_template_id }
     end
 
