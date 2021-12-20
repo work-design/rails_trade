@@ -32,6 +32,7 @@ module Trade
         :valid_months,
         :valid_days,
         :cover,
+        :logo,
         :default,
         :text_color,
         :currency,

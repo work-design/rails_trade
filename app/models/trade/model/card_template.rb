@@ -24,6 +24,7 @@ module Trade
       accepts_nested_attributes_for :advances
 
       has_one_attached :cover
+      has_one_attached :logo
 
       validates :code, uniqueness: { scope: :organ_id }
     end
