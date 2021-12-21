@@ -31,7 +31,7 @@ module Trade
       else
         wallet = wallet_template.wallets.find_or_initialize_by(cart_id: trade_item.cart_id)
       end
-      wa = wallet.walllet_advances.build
+      wa = wallet.wallet_advances.build
       wa.trade_item = trade_item
       wa.amount = amount
 

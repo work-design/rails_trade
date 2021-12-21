@@ -13,14 +13,14 @@ zh:
         title: 系统赠送
         tag_str: 赠送
     expense:
-      svf_card_payment:
+      wallet_payment:
         title: 储值卡支付
         tag_str: 支付
     purchase:
       title: 续费
-  cash_log:
+  wallet_log:
     income:
-      cash_given:
+      wallet_advance:
         title: 系统赠予
         tag_str: 收入
 

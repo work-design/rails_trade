@@ -3,13 +3,13 @@ zh:
     title: 电商
     admin:
       title: 交易管理
-      card_advances:
+      wallet_advances:
         index:
           title: 充值明细
       card_payments:
         index:
           title: 支付
-      card_prepayments:
+      wallet_prepayments:
         index:
           title: 充值码
       card_purchases:
@@ -87,6 +87,9 @@ zh:
       wallet_templates:
         index:
           title: 钱包
+      wallets:
+        index:
+          title: 钱包明细
       payouts:
         index:
           title: 提现

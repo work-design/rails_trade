@@ -6,7 +6,7 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:user_id, :wallet_id)
 
-      @wallet_logs = CashLog.includes(:user).default_where(q_params).order(id: :desc).page(params[:page])
+      @wallet_logs = WalletLog.includes(:cart).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def show
@@ -14,7 +14,7 @@ module Trade
 
     private
     def set_wallet_log
-      @wallet_log = CashLog.find(params[:id])
+      @wallet_log = WalletLog.find(params[:id])
     end
 
   end

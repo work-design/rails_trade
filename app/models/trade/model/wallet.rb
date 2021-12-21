@@ -36,7 +36,7 @@ module Trade
     end
 
     def compute_income_amount
-      self.cash_advances.sum(:amount)
+      self.wallet_advances.sum(:amount)
     end
 
     def set_default
