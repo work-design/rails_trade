@@ -9,6 +9,7 @@ module Trade
       attribute :open, :boolean, default: false
 
       belongs_to :card_template
+      belongs_to :wallet_template
 
       scope :open, -> { where(open: true) }
 
