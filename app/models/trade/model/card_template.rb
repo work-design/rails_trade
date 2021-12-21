@@ -5,7 +5,6 @@ module Trade
     included do
       attribute :name, :string
       attribute :description, :string
-      attribute :currency, :string
       attribute :text_color, :string
       attribute :cards_count, :integer, default: 0
       attribute :code, :string

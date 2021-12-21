@@ -1,5 +1,5 @@
 module Trade
-  module Model::Payment::CardPayment
+  module Model::Payment::WalletPayment
     extend ActiveSupport::Concern
 
     included do

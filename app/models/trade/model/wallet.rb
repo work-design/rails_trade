@@ -11,12 +11,11 @@ module Trade
       attribute :account_number, :string
       attribute :lock_version, :integer
 
-      belongs_to :user
+      belongs_to :cart
       has_many :wallet_logs
       has_many :payouts
       has_many :wallet_advances
 
-      validates :user, presence: true, uniqueness: true
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
     end
 
