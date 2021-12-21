@@ -1,5 +1,8 @@
 <td>
-  <span><%= model.name %></span>
+  <div class="is-several">
+    <%= image_tag model.logo, class: 'image is-24x24' if model.logo.attached? %>
+    <span><%= model.name %></span>
+  </div>
 </td>
 <td><%= model.code %></td>
 <td><%= model.currency %></td>

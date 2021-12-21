@@ -30,7 +30,8 @@ module Trade
         :description,
         :currency,
         :code,
-        :default
+        :default,
+        :logo
       )
       p.merge! default_form_params
     end

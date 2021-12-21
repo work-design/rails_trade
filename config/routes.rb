@@ -140,6 +140,7 @@ Rails.application.routes.draw do
         get :addresses
         get :promote
       end
+      resource :wallet
       resources :promote_carts
       resources :trade_items do
         member do

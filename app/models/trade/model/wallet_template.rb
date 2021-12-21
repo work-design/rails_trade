@@ -18,6 +18,8 @@ module Trade
       has_many :opened_advances, -> { where(open: true).order(amount: :asc) }, class_name: 'Advance'
       has_many :unopened_advances, -> { where(open: false).order(amount: :asc) }, class_name: 'Advance'
 
+      has_one_attached :logo
+
       validates :code, uniqueness: { scope: :organ_id }
 
       scope :default, -> { where(default: true) }
