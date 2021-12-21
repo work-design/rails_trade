@@ -17,7 +17,14 @@ module Trade
     end
 
     def current_wallet
-      current_cart.wallet
+      return @current_wallet if @current_wallet
+
+      wallet_template = WalletTemplate.default_where(default_params).default.take
+      if wallet_template
+        @current_wallet = current_cart.wallet || current_cart.wallets.create(wallet_template_id: wallet_template.id)
+      end
+
+      @current_wallet
     end
 
     def current_cart_count

@@ -20,6 +20,8 @@ module Trade
 
       validates :code, uniqueness: { scope: :organ_id }
 
+      scope :default, -> { where(default: true) }
+
       after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
