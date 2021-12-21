@@ -2,6 +2,7 @@ module Trade
   class Admin::AdvancesController < Admin::BaseController
     before_action :set_card_template
     before_action :set_advance, only: [:show, :edit, :update, :destroy]
+    before_action :prepare_form, only: [:new, :edit]
 
     def index
       @advances = @card_template.advances.order(id: :desc).page(params[:page])
@@ -24,6 +25,10 @@ module Trade
       @card_template = CardTemplate.find params[:card_template_id]
     end
 
+    def prepare_form
+      @wallet_templates = WalletTemplate.default_where(default_params)
+    end
+
     def set_advance
       @advance = @card_template.advances.find(params[:id])
     end
@@ -34,6 +39,7 @@ module Trade
         :amount,
         :state,
         :apple_product_id,
+        :wallet_template_id,
         :open,
         :logo
       )

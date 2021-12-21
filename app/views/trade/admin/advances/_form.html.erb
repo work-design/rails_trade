@@ -2,3 +2,4 @@
 <%= f.text_field :price, required: true %>
 <%= f.text_field :apple_product_id %>
 <%= f.file_field :logo %>
+<%= f.collection_select :wallet_template_id, @wallet_templates, :id, :name %>
