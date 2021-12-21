@@ -27,5 +27,9 @@ module Trade
       self.class.where.not(id: self.id).where(organ_id: self.organ_id, default: true).update_all(default: false)
     end
 
+    def set_wallets_default
+      self.wallets.update(default: true)
+    end
+
   end
 end
