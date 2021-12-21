@@ -12,6 +12,8 @@ module Trade
       attribute :lock_version, :integer
 
       belongs_to :cart
+      belongs_to :wallet_template
+
       has_many :wallet_logs
       has_many :payouts
       has_many :wallet_advances

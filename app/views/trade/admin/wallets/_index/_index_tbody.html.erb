@@ -5,14 +5,11 @@
 </td>
 <td><%= model.amount %></td>
 <td>
-  <%= link_to model.income_amount, admin_cash_givens_path(cash_id: model.id) %>
+  <%= link_to model.income_amount, { controller: 'wallet_advances', wallet_id: model.id } %>
 </td>
 <td>
-  <%= link_to model.expense_amount, admin_payouts_path(cash_id: model.id) %>
+  <%= link_to model.expense_amount, { controller: 'payouts', wallet_id: model.id } %>
 </td>
 <td>
-  <%= link_to model.user.name, admin_user_path(model.user_id) if model.user_id %>
-</td>
-<td>
-  <p><%= link_to 'incomes', admin_user_advances_path(cash_id: model.id) %></p>
+  <p><%= link_to 'incomes', { controller: 'wallet_logs', wallet_id: model.id } %></p>
 </td>
