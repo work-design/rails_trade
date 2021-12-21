@@ -35,6 +35,8 @@ module Trade
       has_many :all_trade_items, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true, dependent: :destroy_async  # overall can be blank
       has_many :cards, -> { includes(:card_template) }
+      has_many :wallets
+      has_one :wallet, -> { where(default: true) }
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
 

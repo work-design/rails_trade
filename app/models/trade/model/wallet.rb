@@ -20,6 +20,8 @@ module Trade
       has_many :payouts
       has_many :wallet_advances
 
+      scope :default, -> { where(default: true) }
+
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
       after_save :set_default, if: -> { default? && saved_change_to_default? }
