@@ -1,7 +1,7 @@
 <td>
   <p><%= model.account_bank %></p>
   <p><%= model.account_name %></p>
-  <p><%= model.account_num %></p>
+  <p><%= model.account_number %></p>
 </td>
 <td><%= model.amount %></td>
 <td>
@@ -13,3 +13,4 @@
 <td>
   <p><%= link_to 'incomes', { controller: 'wallet_logs', wallet_id: model.id } %></p>
 </td>
+<td><%= model.default %></td>

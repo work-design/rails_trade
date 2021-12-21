@@ -24,6 +24,10 @@ module Trade
 
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
+
+      before_validation do
+        self.default = wallet_template.default
+      end
       after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
