@@ -9,6 +9,7 @@ module Trade
       attribute :wallets_count, :integer, default: 0
       attribute :code, :string
       attribute :platform, :string
+      attribute :default, :boolean
 
       belongs_to :organ, optional: true
 
@@ -18,6 +19,12 @@ module Trade
       has_many :unopened_advances, -> { where(open: false).order(amount: :asc) }, class_name: 'Advance'
 
       validates :code, uniqueness: { scope: :organ_id }
+
+      after_save :set_default, if: -> { default? && saved_change_to_default? }
+    end
+
+    def set_default
+      self.class.where.not(id: self.id).where(organ_id: self.organ_id, default: true).update_all(default: false)
     end
 
   end

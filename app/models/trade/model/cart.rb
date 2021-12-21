@@ -55,7 +55,7 @@ module Trade
     end
 
     def set_current
-      self.class.where.not(id: self.id).where(current: true).update_all(current: false)
+      self.class.where.not(id: self.id).where(user_id: user_id, current: true).update_all(current: false)
     end
 
     def sync_member_organ

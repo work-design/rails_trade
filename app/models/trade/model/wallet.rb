@@ -4,12 +4,14 @@ module Trade
 
     included do
       attribute :amount, :decimal, precision: 10, scale: 2, default: 0
+      attribute :withdrawable_amount, :decimal, comment: '可提现的额度'
       attribute :income_amount, :decimal, precision: 10, scale: 2, default: 0
       attribute :expense_amount, :decimal, precision: 10, scale: 2, default: 0
       attribute :account_bank, :string
       attribute :account_name, :string
       attribute :account_number, :string
       attribute :lock_version, :integer
+      attribute :default, :boolean
 
       belongs_to :cart
       belongs_to :wallet_template
@@ -19,6 +21,8 @@ module Trade
       has_many :wallet_advances
 
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
+
+      after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
     def compute_expense_amount
@@ -27,6 +31,10 @@ module Trade
 
     def compute_income_amount
       self.cash_advances.sum(:amount)
+    end
+
+    def set_default
+      self.class.where.not(id: self.id).where(cart_id: cart_id, default: true).update_all(default: false)
     end
 
   end
