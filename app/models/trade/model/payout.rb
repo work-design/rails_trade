@@ -13,11 +13,11 @@ module Trade
       attribute :account_name, :string
       attribute :account_num, :string
 
-      belongs_to :cash
+      belongs_to :wallet
       belongs_to :operator, class_name: 'User', optional: true
       belongs_to :payable, polymorphic: true, optional: true
 
-      has_one :cash_log, ->(o) { where(cash_id: o.cash_id) }, as: :source
+      has_one :wallet_log, ->(o) { where(wallet_id: o.wallet_id) }, as: :source
 
       has_one_attached :proof
 
@@ -31,8 +31,8 @@ module Trade
         self.payout_uuid ||= UidHelper.nsec_uuid('POT')
       end
       #before_save :sync_state
-      after_save :sync_to_cash, if: -> { saved_change_to_requested_amount? }
-      after_create_commit :sync_cash_log
+      after_save :sync_to_wallet, if: -> { saved_change_to_requested_amount? }
+      after_create_commit :sync_wallet_log
     end
 
     def sync_state
@@ -47,20 +47,20 @@ module Trade
       end
     end
 
-    def sync_to_cash
-      (self.cash && cash.reload) || create_cash
+    def sync_to_wallet
+      (self.wallet && wallet.reload) || create_wallet
 
-      cash.expense_amount += self.requested_amount
-      if cash.expense_amount == cash.compute_expense_amount
-        cash.save!
+      wallet.expense_amount += self.requested_amount
+      if wallet.expense_amount == wallet.compute_expense_amount
+        wallet.save!
       else
-        cash.errors.add :expense_amount, 'not equal'
-        raise ActiveRecord::RecordInvalid.new(cash)
+        wallet.errors.add :expense_amount, 'not equal'
+        raise ActiveRecord::RecordInvalid.new(wallet)
       end
     end
 
-    def sync_cash_log
-      cl = self.cash_log || self.build_cash_log
+    def sync_wallet_log
+      cl = self.wallet_log || self.build_wallet_log
       cl.title = '提现'
       cl.tag_str = '支出'
       cl.amount = -self.requested_amount

@@ -75,7 +75,7 @@ module Trade
         payment.save!
       else
         payment.errors.add :checked_amount, 'uncheck not equal'
-        logger.error "#{self.class.name}/Payment: #{payment.errors.full_messages.join(', ')}"
+        logger.error "#{self.class.name}/Payment: #{payment.error_text}"
         raise ActiveRecord::RecordInvalid.new(payment)
       end
     end
@@ -89,7 +89,7 @@ module Trade
         order.save!
       else
         order.errors.add :received_amount, 'uncheck not equal'
-        logger.error "#{self.class.name}/Order: #{order.errors.full_messages.join(', ')}"
+        logger.error "#{self.class.name}/Order: #{order.error_text}"
         raise ActiveRecord::RecordInvalid.new(order)
       end
     end

@@ -19,6 +19,8 @@ module Trade
       has_many :wallet_logs
       has_many :payouts
       has_many :wallet_advances
+      has_many :wallet_payments, dependent: :nullify  # expense
+      has_many :wallet_refunds, dependent: :nullify
 
       scope :default, -> { where(default: true) }
 

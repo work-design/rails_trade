@@ -16,30 +16,17 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def update
-      @payment.assign_attributes(payment_params)
-
-      unless @payment.save
-        render :edit, locals: { model: @payment }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @payment.destroy
-    end
-
     private
     def set_payment
-      @payment = current_user.payments.find(params[:id])
+      if current_wallet
+        @payment = current_wallet.wallet_payments.find(params[:id])
+      end
     end
 
     def payment_params
       params.fetch(:payment, {}).permit(
         :type,
-        :card_id,
+        :wallet_id,
         :total_amount,
         payment_orders_attributes: [:order_id, :check_amount, :state]
       )
