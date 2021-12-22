@@ -24,9 +24,7 @@ module Trade
       has_many :card_promotes, ->(o){ default_where('income_min-lte': o.income_amount, 'income_max-gt': o.income_amount) }, foreign_key: :card_template_id, primary_key: :card_template_id
       has_many :promotes, through: :card_promotes
       has_many :plan_attenders, ->(o){ where(attender_type: o.client_type) }, foreign_key: :attender_id, primary_key: :client_id
-
-      accepts_nested_attributes_for :card_advances
-
+      
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
