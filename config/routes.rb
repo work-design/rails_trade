@@ -141,6 +141,7 @@ Rails.application.routes.draw do
         get :promote
       end
       resource :wallet
+      resources :wallet_logs, only: [:index]
       resources :promote_carts
       resources :trade_items do
         member do
@@ -191,7 +192,6 @@ Rails.application.routes.draw do
           get :code
         end
       end
-      resources :wallet_logs, only: [:index]
       resources :payouts, only: [:index, :create] do
         collection do
           get :list
