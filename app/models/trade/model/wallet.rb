@@ -14,7 +14,7 @@ module Trade
       attribute :default, :boolean
 
       belongs_to :cart
-      belongs_to :wallet_template
+      belongs_to :wallet_template, counter_cache: true
 
       has_many :wallet_logs
       has_many :payouts
