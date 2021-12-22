@@ -21,6 +21,8 @@
     开通
   </div>
   <div class="weui-panel__bd">
-    <%= render partial: 'purchase', collection: model.purchases %>
+    <div class="columns m-4 is-flex is-multiline is-mobile">
+      <%= render partial: 'purchase', collection: model.purchases %>
+    </div>
   </div>
 </div>

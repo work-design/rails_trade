@@ -86,7 +86,7 @@ module Trade
 
     def compute_price
       # todo
-      if cart
+      if cart.card
         self.single_price = good.vip_price.fetch(cart.card.card_template.code, good.price)
       else
         self.single_price = good.price
