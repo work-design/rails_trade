@@ -118,15 +118,15 @@ zh:
         total_amount: 金额
         order_id: 订单
         payment_id: 支付
-      trade/cash:
+      trade/wallet:
         user: 所属用户
-        amount: 数额
+        amount: 余额
         income_amount: 收入
         expense_amount: 提现数额
         account_bank: 开户银行
         account_name: 户名
         account_num: 账号
-      trade/cash_log:
+      trade/wallet_log:
         title: 摘要
         amount: 数额
         tag_str: 交易类别

@@ -6,7 +6,7 @@ zh:
       wallet_advances:
         index:
           title: 充值明细
-      card_payments:
+      wallet_payments:
         index:
           title: 支付
       wallet_prepayments:
