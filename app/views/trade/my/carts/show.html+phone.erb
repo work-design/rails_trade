@@ -23,7 +23,7 @@
     <i class="px-4" style="width: 48.75px"></i>
   </div>
   <div class="weui-panel__bd">
-    <%= link_to({ controller: 'profiled/my/addresses', action: 'list', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
+    <%= link_to({ controller: 'ship/my/addresses', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
       <div class="weui-cell__bd">
         <% if current_cart.address %>
           <p>
