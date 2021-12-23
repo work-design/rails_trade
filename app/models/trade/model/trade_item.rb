@@ -60,7 +60,7 @@ module Trade
       )
 
       after_initialize if: :new_record? do
-        self.good_name = good.name
+        self.good_name = good&.name
         self.produce_on = good.produce_on if good.respond_to? :produce_on
         compute_price
         if produce_plan
@@ -89,9 +89,9 @@ module Trade
       if cart&.card
         self.single_price = good.vip_price.fetch(cart.card.card_template.code, good.price)
       else
-        self.single_price = good.price
+        self.single_price = good&.price
       end
-      self.advance_amount = good.advance_price
+      self.advance_amount = good&.advance_price
     end
 
     def order_uuid
