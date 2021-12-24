@@ -1,6 +1,6 @@
 <%= form_with theme: 'search', model: Trade::Order.new(params.permit(:uuid)) do |f| %>
   <div class="field-body">
-    <%= f.text_field :uuid %>
+    <%= f.text_field :uuid, style: 'width: 240px' %>
     <div class="field is-narrow">
       <%= f.submit %>
       <%= link_to t('.clear'), filter_params(except: [:uuid, :user_id]), class: 'button is-light' %>
