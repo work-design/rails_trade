@@ -1,4 +1,6 @@
-<%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: advance.id, good_type: advance.class_name }, class: 'column is-one-third has-background-light is-flex-direction-column has-text-grey has-text-centered') do %>
-  <div class="header"><%= advance.amount %></div>
-  <div class="description">价格：￥<%= advance.price %></div>
-<% end %>
+<div class="column is-one-third">
+  <%= link_to({ controller: 'trade/my/orders', action: 'add', good_id: advance.id, good_type: advance.class_name }, class: 'is-block py-2 has-background-light is-flex-direction-column has-text-centered') do %>
+    <div class="header has-text-grey"><%= advance.amount %></div>
+    <div class="description has-text-danger"><%= advance.price.to_money.format(html_wrap: true).html_safe %></div>
+  <% end %>
+</div>
