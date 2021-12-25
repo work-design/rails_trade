@@ -23,7 +23,7 @@ module Trade
     end
 
     def generate_token
-      UidHelper.nsec_uuid 'CP'
+      UidHelper.nsec_uuid 'WP'
     end
 
   end
