@@ -118,12 +118,13 @@ Rails.application.routes.draw do
         resources :card_logs
         resources :card_purchases
       end
-      resources :wallet_templates
+      resources :wallet_templates do
+        resources :wallet_prepayments
+      end
       resources :wallets do
         resources :wallet_payments
         resources :wallet_advances
         resources :wallet_logs
-        resources :wallet_prepayments
       end
       resources :payouts do
         member do
