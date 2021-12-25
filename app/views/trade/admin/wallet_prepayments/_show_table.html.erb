@@ -1,0 +1,16 @@
+<tr>
+  <td class="has-text-right"><%= Trade::WalletPrepayment.human_attribute_name(:amount) %></td>
+  <td><%= @wallet_prepayment.amount %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Trade::WalletPrepayment.human_attribute_name(:token) %></td>
+  <td><%= @wallet_prepayment.token %></td>
+</tr>
+<tr>
+  <td class="has-text-right"><%= Trade::WalletPrepayment.human_attribute_name(:expire_at) %></td>
+  <td><time data-controller="time"><%= @wallet_prepayment.expire_at.to_s(:iso8601) %></time></td>
+</tr>
+<tr>
+  <td></td>
+  <td><%= image_tag @wallet_prepayment.qrcode_url %></td>
+</tr>
