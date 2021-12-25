@@ -1,5 +1,0 @@
-<%= render layout: 'index_table', locals: { cache_key: Trade::CardPayment.column_names.hash } do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @card_payments, as: :model %>
-<% end %>
-
-<%= paginate @card_payments %>
