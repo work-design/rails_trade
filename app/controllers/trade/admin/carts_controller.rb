@@ -5,6 +5,7 @@ module Trade
     def index
       q_params = {}
       q_params.merge! default_params
+      q_params.merge! params.permit(:id)
 
       @carts = Cart.includes(:user, :member, :member_organ).default_where(q_params).order(member_organ_id: :asc, member_id: :asc).page(params[:page])
     end
