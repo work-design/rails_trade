@@ -4,7 +4,7 @@ module Trade
 
     def index
       q_params = {}
-      q_params.merge! params.permit(:promote_id, :user_id, :member_id)
+      q_params.merge! params.permit(:promote_id, :user_id, :member_id, :promote_good_id)
 
       @promote_carts = PromoteCart.includes(:promote, cart: [:user, :member]).default_where(q_params).page(params[:page])
       if params[:promote_good_id]
