@@ -1,5 +1,5 @@
 <td>
-  <span><%= model.user.name %></span>
+  <span><%= link_to model.user.name, { action: 'show', id: model.id } %></span>
   <span class="has-text-grey">（<%= model.user_id %>）</span>
 </td>
 <td>

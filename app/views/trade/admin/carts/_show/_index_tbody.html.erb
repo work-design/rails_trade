@@ -1,0 +1,19 @@
+<td><%= check_box_tag(:trade_item_id, model.id, model.checked?) %></td>
+<td>
+  <i class="child icon<%= model.myself ? ' green' : '' %>"></i>
+  <%= model.good&.name %>
+</td>
+<td><%= model.status_i18n %></td>
+<td>
+  <%= render partial: 'good_price', locals: { model: model } %>
+</td>
+<td><%= model.number %></td>
+<td id="retail_price_<%= model.id %>">
+  <%= render partial: 'retail_price', locals: { model: model } %>
+</td>
+<td id="single_price_<%= model.id %>">
+  <%= render partial: 'single_price', locals: { model: model } %>
+</td>
+<td id="order_price_<%= model.id %>">
+  <%# render partial: 'order_price', locals: { model: model } %>
+</td>
