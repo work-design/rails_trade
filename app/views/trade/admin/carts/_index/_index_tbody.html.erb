@@ -4,10 +4,7 @@
 </td>
 <td>
   <% if model.member %>
-    <p>
-      <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
-      <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
-    </p>
+    <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
   <% end %>
 </td>
 <td class="has-text-right">
