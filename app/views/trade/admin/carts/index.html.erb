@@ -1,5 +1,10 @@
 <%= render layout: 'index_table', locals: { cache_key: Trade::Cart.column_names.hash } do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @carts, as: :model %>
+  <% @carts.group_by(&:member_organ).each do |member_organ, carts| %>
+    <tr>
+      <td rowspan="<%= carts.size + 1 %>"><%= member_organ&.name %></td>
+    </tr>
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: carts, as: :model %>
+  <% end %>
 <% end %>
 
 <%= paginate @carts %>

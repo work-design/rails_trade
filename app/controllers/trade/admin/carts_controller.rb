@@ -6,7 +6,7 @@ module Trade
       q_params = {}
       q_params.merge! default_params
 
-      @carts = Cart.includes(:user, :member, :member_organ).default_where(q_params).order(user_id: :desc, member_id: :desc).page(params[:page])
+      @carts = Cart.includes(:user, :member, :member_organ).default_where(q_params).order(user_id: :desc, member_id: :desc).order(member_organ_id: :asc).page(params[:page])
     end
 
     def single
