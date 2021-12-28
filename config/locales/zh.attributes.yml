@@ -41,9 +41,11 @@ zh:
         payment_type: 支付方式
         amount: 金额
         received_amount: 已收金额
+        unreceived_amount: 未收金额
         currency: 币种
         user_id: 购买者
         extra: 附加信息
+        state: 状态
       trade/trade_item:
         good_id: 商品
         good_name: 商品名称
