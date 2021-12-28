@@ -94,7 +94,8 @@ module Trade
       overall_promotes = available_promotes
 
       overall_promotes.each do |_, promote_hash|
-        value = metering_attributes.fetch(promote_hash[:promote].metering)
+        value = metering_attributes.fetch(promote_hash[:promote].metering, nil)
+        next if value.nil?
         promote_charge = promote_hash[:promote].compute_charge(value, **extra)
         next unless promote_charge
 
