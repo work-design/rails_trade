@@ -82,6 +82,7 @@ module Trade
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
+      after_save_commit :print_later, if: -> { saved_change_to_status? && ['paid'].include?(status) }
     end
 
     def compute_price
@@ -249,6 +250,12 @@ module Trade
 
     def sync_organ
       self.organ_id = cart&.organ_id
+    end
+
+    def print_later
+    end
+
+    def print
     end
 
   end
