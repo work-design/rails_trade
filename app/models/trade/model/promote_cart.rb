@@ -20,7 +20,10 @@ module Trade
         expired: 'expired'
       }
 
-      scope :valid, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
+      scope :available, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
+
+      validates :effect_at, presence: true
+      validates :expire_at, presence: true
 
       before_validation do
         self.promote = self.promote_good.promote

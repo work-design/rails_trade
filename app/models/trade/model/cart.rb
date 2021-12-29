@@ -26,6 +26,7 @@ module Trade
 
       has_many :orders, dependent: :nullify
       has_many :promote_carts, dependent: :destroy_async
+      has_many :available_promote_carts, -> { available }, class_name: 'PromoteCart'
       has_many :promotes, through: :promote_carts
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references

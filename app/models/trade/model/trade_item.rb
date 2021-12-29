@@ -142,7 +142,7 @@ module Trade
           total_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
         end
       end
-      cart.promote_carts.each do |promote_cart|
+      cart.available_promote_carts.each do |promote_cart|
         if promote_cart.promote.single?
           single_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
         else
