@@ -1,28 +1,12 @@
 <table class="table is-fullwidth">
   <thead>
     <tr>
-      <th>商品</th>
-      <th></th>
-      <th>Pure Price</th>
-      <th>Serve Sum</th>
-      <th>Promote Sum</th>
-      <th></th>
-      <th>数量</th>
+    
     </tr>
   </thead>
   <% @order.trade_items.each do |trade_item| %>
   <tr>
-    <td>
-      <%= trade_item.good_name %>
-      <span><%= trade_item.single_price %></span>
-      <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
-    </td>
-    <td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
-    <td><%= trade_item.original_amount %></td>
-    <td><%= trade_item.additional_amount %></td>
-    <td><%= trade_item.reduced_amount %></td>
-    <td><%= trade_item.amount %></td>
-    <td><%= trade_item.number %></td>
+  
   </tr>
     <% trade_item.trade_promotes.each do |trade_promote| %>
       <tr class="warning">
