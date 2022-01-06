@@ -62,7 +62,10 @@ module Trade
     end
 
     def sync_member_organ
-      self.member_organ_id = self.member.organ_id if member
+      if member
+        self.member_organ_id = self.member.organ_id
+        self.user_id = self.member.user&.id
+      end
     end
 
     def sync_amount
