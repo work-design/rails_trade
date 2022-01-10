@@ -14,17 +14,7 @@ module Trade
     end
 
     def add
-      trade_item = current_cart.trade_items.find(&->(i){ i.good_id.to_s == params[:good_id] && i.good_type == params[:good_type] && i.produce_plan_id.to_s == params[:produce_plan_id].to_s }) ||
-        current_cart.trade_items.build(good_id: params[:good_id], good_type: params[:good_type], produce_plan_id: params[:produce_plan_id])
-      if trade_item.persisted? && trade_item.checked?
-        params[:number] ||= 1
-        trade_item.number += params[:number].to_i
-      elsif trade_item.persisted? && trade_item.init?
-        trade_item.status = 'checked'
-        trade_item.number = 1
-      else
-        trade_item.status = 'checked'
-      end
+      trade_item = current_cart.get_trade_item(params[:good_type], params[:good_id], params[:number], params[:produce_plan_id])
       trade_item.save
 
       @trade_items = current_cart.trade_items.page(params[:page])

@@ -1,11 +1,9 @@
-<% content_for :banner, 'banner_cart' %>
 <div class="ui container content">
-    <!-- 失败 -->
-    <div class="settlement">
-        <%= image_tag "face.jpg"%>
-        <p class="title">Something went wrong...</p>
-        <p>Please make another attempt or contact <span>support@ichemical.com</span> for more payment options.</p>
-        <%= link_to 'My Order list', show_orders_my_personal_center_path, class: 'ui green button mr_w_15 settlement_btn2' %>
-        <%= link_to 'Back Home', root_path, class: 'ui yellow button mr_w_15' %>
-    </div>
+  <div class="settlement">
+    <%= image_tag "face.jpg"%>
+    <p class="title">Something went wrong...</p>
+    <p>Please make another attempt or contact <span>support@ichemical.com</span> for more payment options.</p>
+    <%= link_to 'My Order list', show_orders_my_personal_center_path, class: 'button is-primary' %>
+    <%= link_to 'Back Home', root_path, class: 'button' %>
+  </div>
 </div>
