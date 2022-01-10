@@ -13,8 +13,10 @@ module Trade
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :trade_items_count, :integer, default: 0
 
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
@@ -50,20 +52,22 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
-      after_initialize if: :new_record? do
-        if cart
-          self.user_id = cart.user_id
-          self.organ_id = cart.organ_id
-          self.address_id = cart.address_id
-          self.payment_strategy_id = cart.payment_strategy_id
-        end
-      end
+      before_validation :init_from_cart, if: -> { cart && cart_id_changed? }
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
       before_save :compute_amount, if: -> { cart.blank? }
       after_create :sync_from_cart, if: -> { cart }
       after_create_commit :confirm_ordered!
+    end
+
+    def init_from_cart
+      self.organ_id = cart.organ_id
+      self.user_id = cart.user_id
+      self.member_id = cart.member_id
+      self.member_organ_id = cart.member_organ_id
+      self.address_id = cart.address_id
+      self.payment_strategy_id = cart.payment_strategy_id
     end
 
     def remaining_amount
