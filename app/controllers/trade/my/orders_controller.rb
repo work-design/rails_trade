@@ -111,7 +111,7 @@ module Trade
       if @wxpay_order['code'].present? || @wxpay_order.blank?
         render 'wxpay_pay_err', status: :unprocessable_entity
       else
-        @image_url = QrcodeHelper.code_file @wxpay_order['code_url']
+        @image_url = QrcodeHelper.data_url @wxpay_order['code_url']
         render 'wxpay_pc_pay'
       end
     end
