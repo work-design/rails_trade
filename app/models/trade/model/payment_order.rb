@@ -82,6 +82,7 @@ module Trade
 
     def unchecked_to_order
       self.order && order.reload
+      return if order.blank?
 
       order.received_amount -= self.check_amount
       if order.received_amount == order.compute_received_amount
