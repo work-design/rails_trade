@@ -109,16 +109,10 @@ module Trade
       @wxpay_order = @order.native_order(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
-        render 'wxpay_pay_err'
+        render 'wxpay_pay_err', status: :unprocessable_entity
       else
-        file = QrcodeHelper.code_file @wxpay_order['code_url']
-        @blob = ActiveStorage::Blob.build_after_upload io: file, filename: "#{@order.id}"
-        if @blob.save
-          @image_url = @blob.url
-          render 'wxpay_pc_pay'
-        else
-          render 'wxpay_pay_err', status: :unprocessable_entity
-        end
+        @image_url = QrcodeHelper.code_file @wxpay_order['code_url']
+        render 'wxpay_pc_pay'
       end
     end
 
