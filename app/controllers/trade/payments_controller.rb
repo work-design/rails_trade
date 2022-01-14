@@ -44,7 +44,7 @@ module Trade
       result = nil
       if notify_params['out_trade_no'].start_with?('PAY')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
-        result = @payment.confirm!
+        result = @payment.confirm!(notify_params)
       else
         @order = Order.find_by(uuid: notify_params['out_trade_no'])
         if @order #&& WxPay::Sign.verify?(notify_params, key: wechat_app.key)

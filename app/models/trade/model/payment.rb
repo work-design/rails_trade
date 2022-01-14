@@ -23,6 +23,7 @@ module Trade
       attribute :comment, :string
       attribute :verified, :boolean, default: true
       attribute :lock_version, :integer
+      attribute :extra, :json, default: {}
 
       enum state: {
         init: 'init',
@@ -119,8 +120,12 @@ module Trade
       self.save!
     end
 
-    def confirm!
-      payment_orders.each(&:confirm!)
+    def confirm!(params = {})
+      self.assign_detail params
+      self.class.transaction do
+        self.save!
+        payment_orders.each(&:confirm!)
+      end
       send_notice
     end
 
