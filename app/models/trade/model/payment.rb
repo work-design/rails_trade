@@ -125,7 +125,7 @@ module Trade
     end
 
     def send_notice
-      broadcast_action_to self, action: :update, target: 'order_result', partial: 'factory/buy/payments/success'
+      broadcast_action_to self, action: :update, target: 'order_result', partial: 'factory/buy/payments/success', locals: { organ_id: organ_id }
     end
 
     class_methods do
