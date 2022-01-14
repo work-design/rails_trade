@@ -119,6 +119,10 @@ module Trade
       self.save!
     end
 
+    def confirm!
+      payment_orders.each(&:confirm!)
+    end
+
     class_methods do
 
       def total_amount_step
