@@ -121,6 +121,11 @@ module Trade
 
     def confirm!
       payment_orders.each(&:confirm!)
+      send_notice
+    end
+
+    def send_notice
+      broadcast_action_to self, action: :update, target: 'order_result', partial: 'factory/buy/payments/success'
     end
 
     class_methods do
