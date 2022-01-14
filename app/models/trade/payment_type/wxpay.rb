@@ -76,31 +76,5 @@ module Trade
       end
     end
 
-    def wxpay_result(app)
-      #return self if self.payment_status == 'all_paid'
-      options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
-      }
-      params = {
-        mchid: app.mch_id,
-        out_trade_no: self.uuid,
-      }
-
-      begin
-        result = WxPay::Api.order_query params, options
-      rescue #todo only net errr
-        result = { 'err_code_des' => 'network error' }
-      end
-      logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
-
-      if result['trade_state'] == 'SUCCESS'
-        self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
-      else
-        self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
-      end
-    end
-
   end
 end
