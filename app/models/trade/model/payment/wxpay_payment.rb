@@ -25,7 +25,7 @@ module Trade
       }
       params = {
         mchid: app.mch_id,
-        out_trade_no: self.uuid,
+        out_trade_no: self.payment_uuid,
       }
 
       begin
