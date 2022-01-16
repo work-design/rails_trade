@@ -16,8 +16,11 @@
         <div class="description">
         </div>
       </div>
-      <div class="card-footer">
-        <p><%= model.card_uuid %></p>
+      <div class="card-footer level" style="color: <%= model.card_template.text_color %>">
+        <div class="level-left">
+          <p><%= model.card_uuid %></p>
+        </div>
+        <div class="level-right"></div>
       </div>
     </div>
   </div>
