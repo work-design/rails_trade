@@ -42,7 +42,7 @@
     <% if model.expire_at %>
       <div class="is-flex is-align-items-center has-background-danger-light" style="border-radius: 18px">
         <span class="has-text-grey ml-2">
-          <time data-controller="countdown" data-countdown-time-value="<%= model.expire_at.to_s(:iso8601) %>" class="has-text-danger">
+          <time data-controller="countdown" data-countdown-time-value="<%= model.expire_at.to_formatted_s(:iso8601) %>" class="has-text-danger">
             <%= exact_distance_time(model.expire_at) %>
           </time>
           <span>后截止下单</span>

@@ -23,7 +23,7 @@
       <ul class="weui-media-box__info mt-2">
         <li class="weui-media-box__info__meta">
           <span>下单时间：</span>
-          <time data-controller="time"><%= model.created_at.to_s(:iso8601) %></time>
+          <time data-controller="time"><%= model.created_at.to_formatted_s(:iso8601) %></time>
         </li>
       </ul>
     </div>

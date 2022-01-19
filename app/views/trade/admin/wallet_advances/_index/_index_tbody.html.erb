@@ -2,4 +2,4 @@
 <td><%= model.advance&.name %></td>
 <td><%= model.state_i18n %></td>
 <td><%= model.note %></td>
-<td><time data-controller="time"><%= model.created_at.to_s(:iso8601) %></time></td>
+<td><time data-controller="time"><%= model.created_at.to_formatted_s(:iso8601) %></time></td>

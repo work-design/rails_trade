@@ -9,4 +9,4 @@
 <td>
   <span class="tag"><%= payout.state_i18n %></span>
 </td>
-<td><time data-controller="time"><%= payout.created_at.to_s(:iso8601) %></time></td>
+<td><time data-controller="time"><%= payout.created_at.to_formatted_s(:iso8601) %></time></td>
