@@ -69,7 +69,7 @@ module Trade
           self.expire_at = produce_plan.book_finish_at
         end
         if member
-          self.user_id = member.user_id
+          self.user_id = member.user&.id
           self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
         end
         self.original_amount = single_price * self.number
