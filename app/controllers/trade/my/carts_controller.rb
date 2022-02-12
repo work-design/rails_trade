@@ -13,14 +13,6 @@ module Trade
       @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).checked.pluck(:id)
     end
 
-    def add
-      trade_item = current_cart.get_trade_item(params[:good_type], params[:good_id], params[:number], params[:produce_plan_id])
-      trade_item.save
-
-      @trade_items = current_cart.trade_items.page(params[:page])
-      @checked_ids = current_cart.trade_items.checked.pluck(:id)
-    end
-
     def addresses
       @addresses = current_user.addresses.order(id: :asc)
     end

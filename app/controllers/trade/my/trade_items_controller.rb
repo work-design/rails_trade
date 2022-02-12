@@ -1,20 +1,13 @@
 module Trade
   class My::TradeItemsController < My::BaseController
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
+    before_action :set_new_trade_item
 
     def create
-      trade_item = current_cart.trade_items.find_or_initialize_by(good_id: params[:good_id], good_type: params[:good_type])
-      trade_item.assign_attributes trade_item_params
-      if trade_item.persisted?
-        params[:number] ||= 1
-        trade_item.number += params[:number].to_i
-      end
-      trade_item.compute_promote
-      trade_item.sum_amount
-      trade_item.save
+      @trade_item.save
 
-      @trade_items = @cart.trade_items.page(params[:page])
-      @checked_ids = @cart.trade_items.checked.pluck(:id)
+      @trade_items = current_cart.trade_items.page(params[:page])
+      @checked_ids = current_cart.trade_items.checked.pluck(:id)
     end
 
     def promote
@@ -34,6 +27,27 @@ module Trade
     private
     def set_trade_item
       @trade_item = current_cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
+    end
+
+    def set_new_trade_item
+      @trade_item = TradeItem.find_or_initialize_by(
+        member_id: params[:member_id],
+        user_id: params[:user_id],
+        organ_id: params[:organ_id],
+        good_type: params[:good_type],
+        good_id: params[:good_id],
+        produce_plan_id: params[:produce_plan_id]
+      )
+      if @trade_item.persisted? && @trade_item.checked?
+        @trade_item.number += (params[:number].present? ? params[:number].to_i : 1)
+      elsif @trade_item.persisted? && @trade_item.init?
+        @trade_item.status = 'checked'
+        @trade_item.number = 1
+      else
+        @trade_item.status = 'checked'
+      end
+
+      @trade_item
     end
 
     def trade_item_params

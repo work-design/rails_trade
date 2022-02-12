@@ -23,9 +23,10 @@ module Trade
       attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
 
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
@@ -67,9 +68,9 @@ module Trade
           self.produce_on = produce_plan.produce_on
           self.expire_at = produce_plan.book_finish_at
         end
-        if cart
-          self.user_id = cart.user_id
-          self.member_id = cart.member_id  # 数据冗余，方便订单搜索和筛选
+        if member
+          self.user_id = member.user_id
+          self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
         end
         self.original_amount = single_price * self.number
         self.amount = original_amount
