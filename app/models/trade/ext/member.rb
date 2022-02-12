@@ -1,10 +1,13 @@
 module Trade
-  module Model::Member
+  module Ext::Member
     extend ActiveSupport::Concern
 
     included do
-      has_many :payment_references, dependent: :destroy_async, autosave: true
+      has_many :payment_references, class_name: 'Trade::PaymentReference', dependent: :destroy_async, autosave: true
       has_many :payment_methods, through: :payment_references, autosave: true
+      has_many :carts, class_name: 'Trade::Cart'
+      has_many :trade_items, class_name: 'Trade::TradeItem'
+      has_many :cart_trade_items, ->{ where(status: ['init', 'checked']) }, class_name: 'Trade::TradeItem'
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
     end

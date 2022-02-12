@@ -12,7 +12,6 @@ module Trade
     end
 
     def show
-
     end
 
     def new
