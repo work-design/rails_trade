@@ -36,7 +36,7 @@ module Trade
       belongs_to :production_plan, ->(o) { where(produce_on: o.produce_on) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: true, optional: true
 
       belongs_to :good, polymorphic: true
-      belongs_to :cart, ->(o){ where(organ_id: o.organ_id) }, inverse_of: :trade_items, foreign_key: :user_id, primary_key: :user_id, optional: true
+      belongs_to :cart, ->(o){ where(organ_id: o.organ_id, member_id: o.member_id) }, inverse_of: :trade_items, foreign_key: :user_id, primary_key: :user_id, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
@@ -62,6 +62,7 @@ module Trade
 
       after_initialize if: :new_record? do
         self.good_name = good&.name
+        self.organ_id = good&.organ_id
         self.produce_on = good.produce_on if good.respond_to? :produce_on
         compute_price
         if produce_plan
@@ -75,7 +76,6 @@ module Trade
         self.original_amount = single_price * self.number
         self.amount = original_amount
       end
-      before_validation :sync_organ, if: -> { cart_id_changed? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
       before_save :sync_changed_amount, if: -> {
@@ -247,10 +247,6 @@ module Trade
 
     def clean_when_expired
       TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
-    end
-
-    def sync_organ
-      self.organ_id = cart&.organ_id
     end
 
     def print_later
