@@ -32,7 +32,7 @@ module Trade
       has_many :payment_methods, through: :payment_references
       # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21
       # 设置 autosave: false，当 trade_item 为 new_records 也不 save
-      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, status: ['init', 'checked']) }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false, dependent: :destroy_async
+      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, status: ['init', 'checked']) }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false, dependent: :destroy_async
       has_many :all_trade_items, class_name: 'TradeItem'
       has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true, dependent: :destroy_async  # overall can be blank
       has_many :cards, -> { includes(:card_template) }
@@ -126,7 +126,7 @@ module Trade
       summed_amount = available_trade_items.sum(&:amount)
 
       unless self.item_amount == summed_amount
-        errors.add :item_amount, "Item Amount: #{item_amount} not equal Summed amount: #{summed_amount}"
+        errors.add :item_amount, " #{item_amount} not equal Summed amount: #{summed_amount} (cart id: #{id})"
         logger.error "\e[35m  #{self.class.name}: #{error_text}  \e[0m"
         raise ActiveRecord::RecordInvalid.new(self)
       end

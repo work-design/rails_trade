@@ -13,6 +13,11 @@ module Trade
       attribute :promote_name, :string
 
       belongs_to :cart, inverse_of: :trade_promotes
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
+
       belongs_to :order, inverse_of: :trade_promotes, optional: true
       belongs_to :trade_item, inverse_of: :trade_promotes, optional: true
       belongs_to :promote

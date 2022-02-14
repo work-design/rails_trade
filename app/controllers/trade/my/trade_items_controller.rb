@@ -38,7 +38,7 @@ module Trade
         good_id: params[:good_id]
       }
       options.compact!
-      options.merge! produce_plan_id: params[:produce_plan_id]
+      options.merge! produce_plan_id: params[:produce_plan_id].presence
 
       @trade_item = TradeItem.find_or_initialize_by(options)
       if @trade_item.persisted? && @trade_item.checked?
