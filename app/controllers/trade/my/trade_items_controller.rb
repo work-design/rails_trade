@@ -1,5 +1,6 @@
 module Trade
   class My::TradeItemsController < My::BaseController
+    before_action :set_cart
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_trade_item, only: [:create]
 
@@ -29,18 +30,26 @@ module Trade
       @trade_item = current_cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
     end
 
+    def set_cart
+      options = {
+        member_id: params[:member_id].presence || current_member&.id,
+        user_id: params[:user_id].presence,
+        organ_id: params[:organ_id].presence || current_organ&.id
+      }
+      options.compact!
+
+      @cart = Cart.find_or_create_by(options)
+    end
+
     def set_new_trade_item
       options = {
-        member_id: params[:member_id],
-        user_id: params[:user_id],
-        organ_id: params[:organ_id],
         good_type: params[:good_type],
         good_id: params[:good_id]
       }
       options.compact!
       options.merge! produce_plan_id: params[:produce_plan_id].presence
 
-      @trade_item = TradeItem.find_or_initialize_by(options)
+      @trade_item = @cart.trade_items.find_or_initialize_by(options)
       if @trade_item.persisted? && @trade_item.checked?
         @trade_item.number += (params[:number].present? ? params[:number].to_i : 1)
       elsif @trade_item.persisted? && @trade_item.init?
