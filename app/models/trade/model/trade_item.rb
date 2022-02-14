@@ -192,6 +192,7 @@ module Trade
         return
       end
 
+      cart || build_cart
       cart.item_amount += changed_amount
       cart.valid_item_amount
       cart.save!
