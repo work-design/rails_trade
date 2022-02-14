@@ -115,6 +115,10 @@ zh:
       promote_carts:
         index:
           title: 优惠券
+    me:
+      orders:
+        index:
+          title: 企业订单
     panel:
       title: 电商设置
       exchange_rates:

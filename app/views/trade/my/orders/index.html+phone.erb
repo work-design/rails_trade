@@ -1,7 +1,3 @@
-<%= content_for(:wechat_js) do %>
-  <%= wechat_config_js debug: false, apis: ['chooseWXPay'] -%>
-<% end %>
-
 <% if @orders.blank? %>
   <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="height: 100%">
     <%= image_vite_tag 'no_order.png' %>
