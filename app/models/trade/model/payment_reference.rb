@@ -6,7 +6,8 @@ module Trade
       attribute :state, :string
 
       belongs_to :payment_method, inverse_of: :payment_references
-      belongs_to :cart
+      belongs_to :user, class_name: 'Auth::User', optional: true
+      belongs_to :member, class_name: 'Org::Member', optional: true
 
       before_save :prevent_duplicate
     end
