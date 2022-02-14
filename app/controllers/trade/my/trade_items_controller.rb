@@ -33,7 +33,7 @@ module Trade
     def set_cart
       options = {
         member_id: params[:member_id].presence || current_member&.id,
-        user_id: params[:user_id].presence,
+        user_id: params[:user_id].presence || current_user&.id,
         organ_id: params[:organ_id].presence || current_organ&.id
       }
       options.compact!

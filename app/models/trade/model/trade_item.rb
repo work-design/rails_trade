@@ -62,7 +62,7 @@ module Trade
 
       after_initialize if: :new_record? do
         self.good_name = good&.name
-        self.organ_id = good&.organ_id
+        self.organ_id ||= good&.organ_id
         self.produce_on = good.produce_on if good.respond_to? :produce_on
         compute_price
         if produce_plan
