@@ -16,9 +16,11 @@ module Trade
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :current, :boolean, default: false
       attribute :auto, :boolean, default: false, comment: '自动下单'
+      attribute :myself, :boolean, default: true, comment: '自己下单，即 member.user.id == user_id'
+
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :user, class_name: 'Auth::User'
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
@@ -43,7 +45,8 @@ module Trade
 
       scope :current, -> { where(current: true) }
 
-      before_validation :sync_member_organ, if: -> { member_id_changed? }
+      before_validation :sync_member_organ, if: -> { member_id_changed? && member }
+      before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
       after_save :set_current, if: -> { current? && saved_change_to_current? }
@@ -62,10 +65,12 @@ module Trade
     end
 
     def sync_member_organ
-      if member
-        self.member_organ_id = self.member.organ_id
-        self.user_id = self.member.user&.id
-      end
+      self.member_organ_id = member.organ_id
+      self.user_id ||= member.user&.id
+    end
+
+    def set_myself
+      self.myself = (member.user&.id == user_id)
     end
 
     def sync_amount
