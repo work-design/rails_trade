@@ -42,6 +42,7 @@ module Trade
       has_one :wallet, -> { where(default: true) }
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
+      validates :member_id, uniqueness: { scope: [:organ_id, :user_id] }
 
       scope :current, -> { where(current: true) }
 
