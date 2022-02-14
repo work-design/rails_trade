@@ -32,8 +32,7 @@ module Trade
 
     def set_cart
       options = {
-        user_id: current_user.id,
-        member_id: nil
+        member_id: current_member.id
       }
       options.merge! default_params
 

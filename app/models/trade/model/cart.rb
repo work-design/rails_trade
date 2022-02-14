@@ -14,7 +14,6 @@ module Trade
       attribute :bulk_price, :decimal, default: 0
       attribute :total_quantity, :decimal, default: 0
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
-      attribute :current, :boolean, default: false
       attribute :auto, :boolean, default: false, comment: '自动下单'
       attribute :myself, :boolean, default: true, comment: '自己下单，即 member.user.id == user_id'
 
@@ -44,13 +43,10 @@ module Trade
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
       validates :member_id, uniqueness: { scope: [:organ_id, :user_id] }
 
-      scope :current, -> { where(current: true) }
-
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
-      after_save :set_current, if: -> { current? && saved_change_to_current? }
     end
 
     def card
@@ -59,10 +55,6 @@ module Trade
 
     def name
       member&.name || user.name
-    end
-
-    def set_current
-      self.class.where.not(id: self.id).where(user_id: user_id, current: true).update_all(current: false)
     end
 
     def sync_member_organ
