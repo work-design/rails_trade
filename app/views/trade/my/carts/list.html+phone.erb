@@ -2,7 +2,7 @@
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells weui-cells_radio">
-        <label class="weui-cell weui-cell_active weui-check__label">
+        <%= link_to({ controller: '/my/home' }, class: 'weui-cell weui-cell_active weui-check__label') do %>
           <span class="weui-cell__hd is-several">
             <span class="weui-badge">个人版</span>
           </span>
@@ -14,7 +14,7 @@
               <span class="weui-icon-checked"></span>
             <% end %>
           </span>
-        </label>
+        <% end %>
       </div>
     </div>
   </div>
