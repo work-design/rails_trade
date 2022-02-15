@@ -202,6 +202,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
 
     namespace :me, defaults: { namespace: 'me' } do
       resources :orders
+      resources :trade_items
     end
   end
 end

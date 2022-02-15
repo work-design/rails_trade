@@ -5,6 +5,7 @@ module Trade
     before_action :set_new_trade_item, only: [:create]
 
     def create
+      binding.b
       @trade_item.save
     end
 
@@ -23,13 +24,10 @@ module Trade
     end
 
     private
-    def set_trade_item
-      @trade_item = current_cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
-    end
-
     def set_cart
       options = {
-        member_id: current_member.id
+        member_id: current_member.id,
+        user_id: current_user.id
       }
       options.merge! default_params
 
@@ -54,6 +52,10 @@ module Trade
       end
 
       @trade_item
+    end
+
+    def set_trade_item
+      @trade_item = @cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
     end
 
     def trade_item_params
