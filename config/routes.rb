@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
   namespace :trade, defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
@@ -204,5 +204,5 @@ Rails.application.routes.draw do
       resources :orders
     end
   end
-
+end
 end

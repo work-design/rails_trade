@@ -10,7 +10,14 @@ module Trade
       return @current_cart if @current_cart
 
       if current_user
-        @current_cart = current_user.carts.find_by(default_form_params) || current_user.carts.find_by(default_form_params) || current_user.carts.create(default_form_params)
+        options = {}
+        options.merge! default_form_params
+        if params[:global_member_id]
+          options.merge! member_id: params[:global_member_id].delete_prefix('member_')
+        else
+          options.merge! member_id: nil
+        end
+        @current_cart = current_user.carts.find_by(options) || current_user.carts.create(options)
       end
       logger.debug "\e[33m  Current Trade cart: #{@current_cart&.id}  \e[0m"
       @current_cart

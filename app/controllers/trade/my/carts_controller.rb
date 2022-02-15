@@ -24,16 +24,6 @@ module Trade
     def promote
     end
 
-    def current
-      p = {
-        member_id: cart_params[:member_id]
-      }.merge! default_form_params
-      @cart = current_user.carts.find_or_initialize_by(p)
-      @cart.current = true
-
-      @cart.save
-    end
-
     def edit
     end
 
