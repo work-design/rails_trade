@@ -5,7 +5,6 @@ module Trade
     before_action :set_new_trade_item, only: [:create]
 
     def create
-      binding.b
       @trade_item.save
     end
 

@@ -78,8 +78,8 @@ module Trade
       end
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
-      before_save :sync_changed_amount, if: -> {
-        (changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
+      after_save :sync_changed_amount, if: -> {
+        (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
@@ -182,12 +182,12 @@ module Trade
     end
 
     def sync_changed_amount
-      if (destroyed? && status == 'checked') || (init? && status_was == 'checked')
+      if (destroyed? && checked?) || (init? && status_previously_was == 'checked')
         changed_amount = -amount
-      elsif checked? && ['init', nil].include?(status_was)
+      elsif checked? && ['init', nil].include?(status_previously_was)
         changed_amount = amount
-      elsif checked? && amount_was
-        changed_amount = amount - amount_was.to_d
+      elsif checked? && amount_previously_was
+        changed_amount = amount - amount_previously_was.to_d
       else
         return
       end
