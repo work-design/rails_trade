@@ -193,7 +193,7 @@ module Trade
       end
 
       cart.item_amount += changed_amount
-      cart.valid_item_amount
+      logggr.debug "item_amount #{cart.item_amount} not equal Summed amount: #{cart.checked_trade_items.sum(&:amount)} (cart id: #{id})"
       cart.save!
     end
 
