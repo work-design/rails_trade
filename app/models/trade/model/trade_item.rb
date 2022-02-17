@@ -226,7 +226,7 @@ module Trade
         body: '您的订单将按时到达配送点',
         link: Rails.application.routes.url_for(controller: 'trade/my/orders', action: 'show', id: order_id),
         verbose: true,
-        organ_id: cart.organ_id
+        organ_id: organ_id
       )
     end
 
