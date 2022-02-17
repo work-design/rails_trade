@@ -119,6 +119,9 @@ zh:
       orders:
         index:
           title: 企业订单
+      promote_carts:
+        index:
+          title: 优惠券
     panel:
       title: 电商设置
       exchange_rates:

@@ -213,6 +213,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
           get :promote
         end
       end
+      resources :promote_carts
     end
   end
 end
