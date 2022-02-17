@@ -27,7 +27,7 @@ module Trade
       options = {
         user_id: current_user.id,
         member_id: current_member.id,
-        organ_id: params[:organ_id]
+        organ_id: params[:organ_id].presence
       }
 
       @cart = Cart.find_or_create_by(options)
