@@ -75,44 +75,24 @@ module Trade
     def doc
     end
 
-    def update
-      @trade_item.update(quantity: params[:quantity])
-    end
-
     private
-    def set_trade_item
-      @trade_item = TradeItem.find(params[:id])
-      @trade_items = TradeItem.where(user_id: @trade_item.user_id)
+    def set_cart
+      options = {
+        user_id: current_user.id,
+        member_id: params[:member_id],
+        organ_id: params[:organ_id]
+      }
+
+      @cart = Cart.find_or_create_by(options)
     end
 
-    def set_additions
-      if params[:buyer_type].present? && params[:buyer_id].present?
-        @additions = TradeItem.checked_items(buyer_type: params[:buyer_type], buyer_id: params[:buyer_id])
-      elsif params[:id]
-        @additions = TradeItem.checked_items(buyer_type: @trade_item.buyer_type, buyer_id: @trade_item.buyer_id)
-      else
-        @additions = TradeItem.checked_items(buyer_type: nil, buyer_id: nil)
-      end
-    end
-
-    def set_trade_items
-      if params[:buyer_type].present? && params[:buyer_id].present?
-        @buyer = params[:buyer_type].constantize.find params[:buyer_id]
-        @trade_items = TradeItem.where(buyer_type: params[:buyer_type], buyer_id: params[:buyer_id])
-      elsif params[:id].present?
-        @trade_items = TradeItem.where(id: params[:id])
-      else
-        @trade_items = TradeItem.none
-      end
-      @trade_items = @trade_items.pending.default_where(params.permit(:good_type, :myself, :id))
+    def set_new_trade_item
+      @trade_item = @cart.get_trade_item(params[:good_type], params[:good_id], params[:number], params[:produce_plan_id])
     end
 
     def trade_item_params
-      params.require(:trade_item).permit(
-        id: [],
-        single_price: [],
-        amount: [],
-        total_price: []
+      params.fetch(:trade_item, {}).permit(
+        :number
       )
     end
 

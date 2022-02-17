@@ -41,23 +41,7 @@ module Trade
     end
 
     def set_new_trade_item
-      options = {
-        good_type: params[:good_type],
-        good_id: params[:good_id]
-      }
-      options.merge! produce_plan_id: params[:produce_plan_id].presence
-
-      @trade_item = @cart.trade_items.find_or_initialize_by(options)
-      if @trade_item.persisted? && @trade_item.checked?
-        @trade_item.number += (params[:number].present? ? params[:number].to_i : 1)
-      elsif @trade_item.persisted? && @trade_item.init?
-        @trade_item.status = 'checked'
-        @trade_item.number = 1
-      else
-        @trade_item.status = 'checked'
-      end
-
-      @trade_item
+      @trade_item = @cart.get_trade_item(params[:good_type], params[:good_id], params[:number], params[:produce_plan_id].presence)
     end
 
     def trade_item_params
