@@ -135,7 +135,6 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
 
     namespace :my, defaults: { namespace: 'my' } do
       resource :cart do
-        match :add, via: [:get, :post]
         get :list
         post :current
         get :addresses
@@ -201,8 +200,19 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
     end
 
     namespace :me, defaults: { namespace: 'me' } do
+      resource :cart do
+        get :list
+        post :current
+        get :addresses
+        get :promote
+      end
       resources :orders
-      resources :trade_items
+      resources :trade_items do
+        member do
+          patch :toggle
+          get :promote
+        end
+      end
     end
   end
 end

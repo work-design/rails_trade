@@ -1,5 +1,5 @@
 module Trade
-  class My::CartsController < My::BaseController
+  class Me::CartsController < My::CartsController
 
     def show
       q_params = {
@@ -34,6 +34,10 @@ module Trade
         :address_id,
         :auto
       )
+    end
+
+    def self.local_prefixes
+      [controller_path, 'trade/me/base', 'me']
     end
 
   end
