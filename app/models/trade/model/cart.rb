@@ -1,4 +1,3 @@
-# 数据定期清理
 # 改变数据动作：
 #   * 新增(check)
 #   * 更新数量
@@ -36,7 +35,7 @@ module Trade
       has_many :trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id, status: ['init', 'checked']) }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false, dependent: :destroy_async
       has_many :checked_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id, status: 'checked') }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id, dependent: :destroy_async
       has_many :all_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id, dependent: :destroy_async
-      has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true, dependent: :destroy_async  # overall can be blank
+      has_many :trade_promotes, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, trade_item_id: nil, order_id: nil) }, foreign_key: :user_id, primary_key: :user_id, autosave: true, dependent: :destroy_async  # overall can be blank
       has_many :cards, -> { includes(:card_template) }
       has_many :wallets
       has_one :wallet, -> { where(default: true) }
