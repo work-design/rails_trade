@@ -28,6 +28,7 @@ module Trade
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :agent, class_name: 'Org::Member', optional: true
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
       #has_many :organs 用于对接供应商

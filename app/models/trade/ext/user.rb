@@ -7,6 +7,8 @@ module Trade
       has_many :orders, class_name: 'Trade::Order'
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :payments, class_name: 'Trade::Payment'
+
+      has_many :cart_trade_items, ->{ where(status: ['init', 'checked']) }, class_name: 'Trade::TradeItem'
     end
 
     def give_cash(amount, note: nil, **options)
