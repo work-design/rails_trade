@@ -5,6 +5,7 @@ module Trade
     before_action :set_new_trade_item, only: [:create]
 
     def create
+      @trade_item.agent_id = params[:agent_id]
       @trade_item.save
     end
 

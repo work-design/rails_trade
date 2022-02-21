@@ -44,7 +44,7 @@ module Trade
       validates :member_id, uniqueness: { scope: [:organ_id, :user_id] }
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
-      before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
+      #before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
     end
