@@ -84,17 +84,10 @@ module Trade
     end
 
     def sync_from_cart
-      items = cart.trade_items.checked.default_where(myself: myself)
-      self.trade_items_count = items.size
-
-      items.update_all(order_id: self.id, address_id: self.address_id, status: 'ordered')
       cart.trade_promotes.update_all(order_id: self.id, status: 'ordered')
 
       self.compute_amount
-      cart.compute_amount
-
       self.save
-      cart.save
     end
 
     def user_name

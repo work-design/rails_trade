@@ -82,6 +82,7 @@ module Trade
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
+      after_save :sync_after_ordered, if: -> { order && saved_change_to_order_id? }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
       after_save_commit :print_later, if: -> { saved_change_to_status? && ['paid'].include?(status) && produce_plan.blank? }
@@ -124,13 +125,9 @@ module Trade
       self.original_amount = single_price * number
     end
 
-    # todo remove
-    def sync_from_cart
-      cart.trade_items.checked.default_where(myself: myself).update_all(trade_type: self.class.name, trade_id: self.id, address_id: self.address_id)
-      cart.trade_promotes.update_all(trade_type: self.class.name, trade_id: self.id)
-
-      self.compute_amount
-      self.save
+    def sync_after_ordered
+      cart.compute_amount
+      cart.save
     end
 
     def available_promotes
