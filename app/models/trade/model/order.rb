@@ -63,6 +63,7 @@ module Trade
 
     def init_from_member
       self.user = member.user
+      self.member_organ_id = member.organ_id
     end
 
     def init_from_cart
