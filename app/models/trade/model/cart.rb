@@ -32,7 +32,7 @@ module Trade
       has_many :payment_methods, through: :payment_references
       # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21
       # 设置 autosave: false，当 trade_item 为 new_records 也不 save
-      has_many :trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id, status: ['init', 'checked']) }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false, dependent: :destroy_async
+      has_many :trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id).carting }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false, dependent: :destroy_async
       has_many :checked_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id, status: 'checked') }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id, dependent: :destroy_async
       has_many :all_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id, dependent: :destroy_async
       has_many :trade_promotes, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, trade_item_id: nil, order_id: nil) }, foreign_key: :user_id, primary_key: :user_id, autosave: true, dependent: :destroy_async  # overall can be blank
