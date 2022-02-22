@@ -9,6 +9,7 @@ module Trade
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :cart_trade_items, ->{ where(status: ['init', 'checked']) }, class_name: 'Trade::TradeItem'
       has_many :agent_trade_items, class_name: 'Trade::TradeItem', foreign_key: :agent_id
+      has_many :orders, class_name: 'Trade::Order'
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
     end

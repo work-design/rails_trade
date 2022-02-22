@@ -52,13 +52,17 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
-      before_validation :init_from_cart, if: -> { cart && cart_id_changed? }
+      before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
       before_save :compute_amount, if: -> { cart.blank? }
       after_create :sync_from_cart, if: -> { cart }
       after_create_commit :confirm_ordered!
+    end
+
+    def init_from_member
+      self.user = member.user
     end
 
     def init_from_cart
