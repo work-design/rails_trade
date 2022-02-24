@@ -14,6 +14,9 @@ module Trade
       attribute :default, :boolean
 
       belongs_to :cart
+      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :wallet_template, counter_cache: true
 
       has_many :wallet_logs
