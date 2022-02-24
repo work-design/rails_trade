@@ -116,9 +116,9 @@ module Trade
       self.changes
     end
 
-    def get_trade_item(good_type, good_id, number = 1, produce_plan_id = nil)
-      trade_item = trade_items.find(&->(i){ i.good_type == good_type && i.good_id.to_s == good_id.to_s && i.produce_plan_id.to_s == produce_plan_id.to_s }) ||
-        trade_items.build(good_id: good_id, good_type: good_type, produce_plan_id: produce_plan_id)
+    def get_trade_item(good_type:, good_id:, number: 1, produce_on: nil, scene_id: nil)
+      trade_item = trade_items.find(&->(i){ i.good_type == good_type && i.good_id.to_s == good_id.to_s && i.produce_on.to_s == produce_on.to_s && i.scene_id.to_s == scene_id.to_s }) ||
+        trade_items.build(good_id: good_id, good_type: good_type, produce_on: produce_on, scene_id: scene_id)
 
       if trade_item.persisted? && trade_item.checked?
         trade_item.number += (number.present? ? number.to_i : 1)
