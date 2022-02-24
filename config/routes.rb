@@ -1,5 +1,43 @@
 Rails.application.routes.draw do
 scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
+  concern :orderable do
+    resources :orders do
+      collection do
+        match :add, via: [:get, :post]
+        post :direct
+        get :refresh
+      end
+      member do
+        get :paypal_pay
+        get :alipay_pay
+        get :wxpay_pay
+        get :wxpay_pc_pay
+        get :wait
+        patch :stripe_pay
+        get :paypal_execute
+        get :pay
+        get :payment_types
+        get 'payment_type' => :edit_payment_type
+        get 'cancel' => :edit_cancel
+        put 'cancel' => :update_cancel
+        put :refund
+        patch :cancel
+        get :success
+      end
+    end
+    resources :trade_items do
+      member do
+        patch :toggle
+        get :promote
+      end
+    end
+    resource :cart do
+      get :list
+      get :addresses
+      get :promote
+    end
+    resources :promote_carts, only: [:index, :show]
+  end
   namespace :trade, defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
@@ -134,45 +172,9 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
     end
 
     namespace :my, defaults: { namespace: 'my' } do
-      resource :cart do
-        get :list
-        post :current
-        get :addresses
-        get :promote
-      end
+      concerns :orderable
       resource :wallet
       resources :wallet_logs, only: [:index]
-      resources :promote_carts
-      resources :trade_items do
-        member do
-          patch :toggle
-          get :promote
-        end
-      end
-      resources :orders do
-        collection do
-          match :add, via: [:get, :post]
-          post :direct
-          get :refresh
-        end
-        member do
-          get :paypal_pay
-          get :alipay_pay
-          get :wxpay_pay
-          get :wxpay_pc_pay
-          get :wait
-          patch :stripe_pay
-          get :paypal_execute
-          get :pay
-          get :payment_types
-          get 'payment_type' => :edit_payment_type
-          get 'cancel' => :edit_cancel
-          put 'cancel' => :update_cancel
-          put :refund
-          patch :cancel
-          get :success
-        end
-      end
       resources :payments
       resources :payment_methods
       resources :advances do
@@ -200,20 +202,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
     end
 
     namespace :me, defaults: { namespace: 'me' } do
-      resource :cart do
-        get :list
-        post :current
-        get :addresses
-        get :promote
-      end
-      resources :orders
-      resources :trade_items do
-        member do
-          patch :toggle
-          get :promote
-        end
-      end
-      resources :promote_carts, only: [:index, :show]
+      concerns :orderable
     end
   end
 end
