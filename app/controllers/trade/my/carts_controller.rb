@@ -1,5 +1,6 @@
 module Trade
   class My::CartsController < My::BaseController
+    before_action :set_cart, only: [:show, :update]
 
     def show
       q_params = {
