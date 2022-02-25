@@ -245,6 +245,10 @@ module Trade
     def confirm_refund!
     end
 
+    def expired?
+      expire_at.acts_like?(:time) && Time.current > expire_at
+    end
+
     def clean_when_expired
       TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end

@@ -1,6 +1,6 @@
 <div class="weui-panel weui-panel_access is-borderless">
   <div class="weui-panel__hd as-bar pt-0">
-    <%= link_to params[:return_to], class: 'px-4' do %>
+    <%= link_to({ controller: 'factory/buy/productions' }, class: 'px-4') do %>
       <i class="fa-regular fa-fw fa-angle-left"></i>
     <% end %>
     <span class="weui-title">
@@ -9,7 +9,7 @@
     <i class="px-4" style="width: 48.75px"></i>
   </div>
   <div class="weui-panel__bd">
-    <%= link_to({ controller: 'ship/my/addresses', return_to: url_for(controller: 'trade/me/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
+    <div class="weui-cell">
       <div class="weui-cell__bd">
         <% if current_organ.default_address %>
           <p>
@@ -25,7 +25,7 @@
         <% end %>
       </div>
       <div class="weui-cell__ft"></div>
-    <% end %>
+    </div>
   </div>
 </div>
 
