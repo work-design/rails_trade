@@ -23,7 +23,6 @@ module Trade
       belongs_to :promote
       belongs_to :promote_charge
       belongs_to :promote_good
-      belongs_to :promote_cart, counter_cache: true, optional: true
 
       enum status: {
         init: 'init',
@@ -44,7 +43,7 @@ module Trade
         end
         self.sequence = self.promote.sequence
       end
-      after_create_commit :check_promote_cart
+      after_create_commit :check_promote_good, if: -> { promote_good.present? }
     end
 
     def compute_amount
@@ -66,8 +65,7 @@ module Trade
     end
 
     def check_promote_cart
-      return unless promote_cart
-      self.promote_cart.update state: 'used'
+      promote_good.update state: 'used'
     end
 
   end
