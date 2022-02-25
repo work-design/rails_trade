@@ -3,7 +3,10 @@ module Trade
     before_action :set_trade_promote, only: [:show, :edit, :update, :destroy]
 
     def index
-      @trade_promotes = TradePromote.page(params[:page])
+      q_params = {}
+      q_params.merge! params.permit(:trade_item_id)
+
+      @trade_promotes = TradePromote.default_where(q_params).page(params[:page])
     end
 
     def new
@@ -16,24 +19,6 @@ module Trade
       unless @trade_promote.save
         render :new, locals: { model: @trade_promote }, status: :unprocessable_entity
       end
-    end
-
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @trade_promote.assign_attributes(trade_promote_params)
-
-      unless @trade_promote.save
-        render :edit, locals: { model: @trade_promote }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @trade_promote.destroy
     end
 
     private

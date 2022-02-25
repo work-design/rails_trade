@@ -52,7 +52,6 @@ module Trade
       scope :valid, -> { where(status: 'init', myself: true) }
       scope :starred, -> { where(status: 'init', starred: true) }
       scope :carting, -> { where(status: ['init', 'checked']) }
-      default_scope -> { order(id: :asc) }
 
       enum status: {
         init: 'init',
