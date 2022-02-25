@@ -1,5 +1,6 @@
 module Trade
-  class Me::TradeItemsController < Me::BaseController
+  class Me::TradeItemsController < My::TradeItemsController
+    include Controller::Me
     before_action :set_cart
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_trade_item, only: [:create]

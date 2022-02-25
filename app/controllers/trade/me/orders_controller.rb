@@ -1,5 +1,6 @@
 module Trade
   class Me::OrdersController < My::OrdersController
+    include Controller::Me
 
     def index
       q_params = {
@@ -24,10 +25,6 @@ module Trade
         :note,
         trade_items_attributes: {}
       )
-    end
-
-    def self.local_prefixes
-      [controller_path, 'trade/me/base', 'me']
     end
 
   end

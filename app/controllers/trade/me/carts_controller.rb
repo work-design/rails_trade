@@ -37,9 +37,5 @@ module Trade
       )
     end
 
-    def self.local_prefixes
-      [controller_path, 'trade/me/base', 'me']
-    end
-
   end
 end
