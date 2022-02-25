@@ -45,9 +45,9 @@ module Trade
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
-      has_many :unavailable_promote_goods, ->(o) { unavailable.where(good_id: [o.good_id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :available_promote_goods, ->(o) { available.where(good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :default_promote_goods, ->(o) { default.where(good_id: [o.good_id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :unavailable_promote_goods, ->(o) { unavailable.where(good_id: [o.good_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :available_promote_goods, ->(o) { available.where(good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :default_promote_goods, ->(o) { default.where(good_id: [o.good_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       scope :valid, -> { where(status: 'init', myself: true) }
       scope :starred, -> { where(status: 'init', starred: true) }
