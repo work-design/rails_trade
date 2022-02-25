@@ -16,12 +16,12 @@
         <td><%= refund.total_amount.to_money(refund.currency).format %></td>
         <td><%= refund.order_amount.to_money.format %></td>
         <td><%= refund.type_i18n %></td>
-        <td><time data-controller="time"><%= refund.created_at.to_formatted_s(:iso8601) %></time></td>
+        <td><time data-controller="time"><%= refund.created_at.to_fs(:iso8601) %></time></td>
         <td><%= refund.state %></td>
         <td><%= refund.comment %></td>
         <td>
           <% if refund.refunded_at %>
-            <time data-controller="time"><%= refund.refunded_at.to_formatted_s(:iso8601) %></time>
+            <time data-controller="time"><%= refund.refunded_at.to_fs(:iso8601) %></time>
           <% else %>
             <%= refund.reason.to_s.truncate(27) %>
           <% end %>

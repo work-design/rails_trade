@@ -1,11 +1,11 @@
 module Trade
-  class Me::PromoteCartsController < My::PromoteCartsController
+  class Me::PromoteGoodsController < My::PromoteGoodsController
 
     def index
       q_params = {}
       q_params.merge! params.permit(:state)
 
-      @promote_carts = current_cart.promote_carts.default_where(q_params).page(params[:page])
+      @promote_goods = current_cart.promote_goods.default_where(q_params).page(params[:page])
     end
 
     def self.local_prefixes

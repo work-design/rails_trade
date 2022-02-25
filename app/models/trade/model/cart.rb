@@ -25,9 +25,8 @@ module Trade
       belongs_to :payment_strategy, optional: true
 
       has_many :orders, dependent: :nullify
-      has_many :promote_carts, dependent: :destroy_async
-      has_many :available_promote_carts, -> { available }, class_name: 'PromoteCart'
-      has_many :promotes, through: :promote_carts
+      has_many :promote_goods, foreign_key: :user_id, primary_key: :user_id
+      has_many :available_promote_goods, -> { available }, class_name: 'PromoteGood'
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
       # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21

@@ -18,6 +18,6 @@
   <p><%= model.state_i18n %></p>
 </td>
 <td>
-  <p><time data-controller="time"><%= model.effect_at&.to_formatted_s(:iso8601) %></time></p>
-  <p><time data-controller="time"><%= model.expire_at&.to_formatted_s(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.effect_at&.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
 </td>

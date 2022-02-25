@@ -4,11 +4,11 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Card.human_attribute_name(:effect_at) %></td>
-  <td><time data-controller="time"><%= @card.effect_at.to_formatted_s(:iso8601) %></time></td>
+  <td><time data-controller="time"><%= @card.effect_at.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Card.human_attribute_name(:expire_at) %></td>
-  <td><time data-controller="time"><%= @card.expire_at.to_formatted_s(:iso8601) %></time></td>
+  <td><time data-controller="time"><%= @card.expire_at.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Card.human_attribute_name(:amount) %></td>
@@ -16,5 +16,5 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Card.human_attribute_name(:created_at) %></td>
-  <td><time data-controller="time"><%= @card.created_at.to_formatted_s(:iso8601) %></time></td>
+  <td><time data-controller="time"><%= @card.created_at.to_fs(:iso8601) %></time></td>
 </tr>

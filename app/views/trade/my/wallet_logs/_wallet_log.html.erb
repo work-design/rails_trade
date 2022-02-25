@@ -1,5 +1,5 @@
 <tr>
   <td class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>"><%= model.amount %></td>
   <td><span class="tag"><%= model.tag_str %></span></td>
-  <td class="has-text-right"><time data-controller="time"><%= model.created_at.to_formatted_s(:iso8601) %></time></td>
+  <td class="has-text-right"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 </tr>

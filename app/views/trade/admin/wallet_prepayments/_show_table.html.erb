@@ -8,7 +8,7 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::WalletPrepayment.human_attribute_name(:expire_at) %></td>
-  <td><time data-controller="time"><%= @wallet_prepayment.expire_at.to_formatted_s(:iso8601) %></time></td>
+  <td><time data-controller="time"><%= @wallet_prepayment.expire_at.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
   <td></td>
