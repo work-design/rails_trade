@@ -3,16 +3,24 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :state, :string, default: 'unused'
       attribute :status, :string, default: 'available'
       attribute :effect_at, :datetime, default: -> { Time.current }
       attribute :expire_at, :datetime
+      attribute :trade_promotes_count, :integer, default: 0
+
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :promote
       belongs_to :good, polymorphic: true, optional: true
-      has_many :promote_carts, dependent: :delete_all
+      has_many :trade_promotes, dependent: :nullify
 
       scope :verified, -> { where(status: ['default', 'available']) }
       scope :valid, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
+      scope :available, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
 
       enum status: {
         default: 'default',  # 默认直接添加的服务，不可取消
@@ -21,6 +29,14 @@ module Trade
         specific: 'specific'  # 特定的？
       }
 
+      enum state: {
+        unused: 'unused',
+        used: 'used',
+        expired: 'expired'
+      }
+
+      validates :effect_at, presence: true
+      validates :expire_at, presence: true
       validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
     end
 

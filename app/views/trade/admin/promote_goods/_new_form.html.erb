@@ -7,9 +7,9 @@
     <div class="panel-block" id="user_content">
     </div>
   <% end %>
-  <%= form_with model: @promote_cart, url: { action: 'create' } do |f| %>
+  <%= form_with model: @promote_good, url: { action: 'create' } do |f| %>
     <%= render partial: 'form', locals: { f: f } %>
-    <%= f.hidden_field :cart_id, data: { typer_target: 'value' } %>
+    <%= f.hidden_field :member_id, data: { typer_target: 'value' } %>
     <%= f.submit %>
   <% end %>
 </div>

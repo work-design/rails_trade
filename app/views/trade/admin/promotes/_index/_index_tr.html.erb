@@ -2,13 +2,10 @@
   <%= yield %>
   <td>
     <span data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'promote_goods', promote_id: model.id }, data: { turbo_frame: '_top' }, aria: { label: '适用商品' }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-light fa-cogs"></i>
-      <% end %>
-      <%= link_to({ controller: 'promote_carts', promote_id: model.id }, data: { turbo_frame: '_top' }, aria: { label: '派发' }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'promote_goods', promote_id: model.id }, aria: { label: '适用商品' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-light fa-gift"></i>
       <% end %>
-      <%= link_to({ controller: 'promote_charges', promote_id: model.id }, data: { turbo_frame: '_top' }, aria: { label: t('trade.admin.promote_charges.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'promote_charges', promote_id: model.id }, aria: { label: t('trade.admin.promote_charges.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-light fa-server"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>

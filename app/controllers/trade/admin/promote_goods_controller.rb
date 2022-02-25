@@ -13,7 +13,6 @@ module Trade
     end
 
     def goods
-      # todo support search
       @goods = params[:good_type].constantize.default_where(default_params).order(id: :desc)
       @promote_good = PromoteGood.new
     end
@@ -30,6 +29,10 @@ module Trade
       end
     end
 
+    def search
+      @carts = Cart.default_where('user.name-like': params['name-like'])
+    end
+
     private
     def set_promote_good
       @promote_good = PromoteGood.find(params[:id])
@@ -40,6 +43,9 @@ module Trade
         :promote_id,
         :good_type,
         :good_id,
+        :member_id,
+        :member_organ_id,
+        :user_id,
         :effect_at,
         :expire_at,
         :status

@@ -1,9 +1,0 @@
-<%= form_with theme: 'search', model: Trade::PromoteCart.new do |f| %>
-  <div class="field-body">
-    <%= f.text_field 'cart.member_id' %>
-    <%= f.text_field 'cart.user_id' %>
-    <div class="field is-narrow">
-      <%= f.submit %>
-    </div>
-  </div>
-<% end %>
