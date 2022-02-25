@@ -59,7 +59,7 @@ module Trade
       end
 
       self.computed_amount = self.promote_charge.final_price(based_amount)
-      self.amount += computed_amount unless edited?
+      self.amount = computed_amount unless edited?
       self
     end
 
