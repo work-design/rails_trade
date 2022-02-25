@@ -35,13 +35,12 @@ module Trade
 
       after_initialize if: :new_record? do
         if trade_item
-          self.cart = trade_item.cart
           self.order = trade_item.order
         end
         if self.promote_good
           self.promote_id = self.promote_good.promote_id
         end
-        self.sequence = self.promote.sequence
+        self.sequence = self.promote.sequence if self.promote
       end
       after_create_commit :check_promote_good, if: -> { promote_good.present? }
     end

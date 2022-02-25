@@ -34,6 +34,9 @@ zh:
       trade_items:
         index:
           title: 订单明细
+      trade_promotes:
+        index:
+          title: 订单优惠
       payments:
         index:
           title: 支付流水

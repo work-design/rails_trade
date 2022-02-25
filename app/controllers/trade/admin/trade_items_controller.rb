@@ -1,6 +1,5 @@
 module Trade
   class Admin::TradeItemsController < Admin::BaseController
-    #before_action :set_trade_items, only: [:index, :create, :only, :total]
     before_action :set_trade_item, only: [:show, :update, :destroy]
 
     def index
@@ -88,6 +87,10 @@ module Trade
 
     def set_new_trade_item
       @trade_item = @cart.get_trade_item(params[:good_type], params[:good_id], params[:number], params[:produce_plan_id])
+    end
+
+    def set_trade_item
+      @trade_item = TradeItem.find params[:id]
     end
 
     def trade_item_params
