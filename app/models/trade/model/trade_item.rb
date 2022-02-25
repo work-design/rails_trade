@@ -48,6 +48,10 @@ module Trade
       has_many :promote_carts, foreign_key: :user_id, primary_key: :user_id
       has_many :available_promote_carts, -> { available }, class_name: 'PromoteCart', foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_carts
+      has_many :unavailable_promote_goods, ->(o) { unavailable.where(good_id: [o.good_id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :available_promote_goods, ->(o) { available.where(good_id: [o.good_id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :default_promote_goods, ->(o) { default.where(good_id: [o.good_id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+
 
       scope :valid, -> { where(status: 'init', myself: true) }
       scope :starred, -> { where(status: 'init', starred: true) }
@@ -131,19 +135,13 @@ module Trade
     def available_promotes
       single_promotes = {}
       total_promotes = {}
+      unavailable_ids = unavailable_promote_goods.pluck(:promote_id)
 
-      good.valid_promote_goods.each do |promote_good|
+      available_promote_goods.where.not(promote_id: unavailable_ids).each do |promote_good|
         if promote_good.promote.single?
           single_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
         else
           total_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
-        end
-      end
-      available_promote_carts.each do |promote_cart|
-        if promote_cart.promote.single?
-          single_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
-        else
-          total_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
         end
       end
 

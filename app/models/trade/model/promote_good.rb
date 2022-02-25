@@ -10,7 +10,7 @@ module Trade
       attribute :trade_promotes_count, :integer, default: 0
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
@@ -26,7 +26,6 @@ module Trade
         default: 'default',  # 默认直接添加的服务，不可取消
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
-        specific: 'specific'  # 特定的？
       }
 
       enum state: {
