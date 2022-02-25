@@ -10,6 +10,6 @@
 <td class="has-text-right">
   <p><%= model.item_amount %></p>
   <p><%= model.overall_additional_amount %></p>
-  <p><%= model.overall_reduced_amount %></p>
+  <p><%= link_to model.overall_reduced_amount, { controller: 'trade_promotes', cart_id: model.id } %></p>
   <p><%= model.amount %></p>
 </td>

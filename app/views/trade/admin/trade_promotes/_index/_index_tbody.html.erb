@@ -1,2 +1,7 @@
-<td><%= model.amount %></td>
+<td><%= model.promote.name %></td>
+<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td>
+  <p><%= model.based_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.computed_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
 <td><%= model.note %></td>
