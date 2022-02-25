@@ -39,13 +39,13 @@
     <div class="weui-cell weui-cell_link">
       <div class="weui-cell__bd"></div>
       <div class="weui-cell__ft is-flex">
-        <%= button_to({ controller: 'trade/my/orders', action: 'cancel', id: model.id }, method: :patch, class: 'weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea ml-2', form: { class: '' }) do %>
+        <%= button_to({ action: 'cancel', id: model.id }, method: :patch, class: 'weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea ml-2', form: { class: '' }) do %>
           <span>取消订单</span>
         <% end if model.can_cancel? %>
         <%= link_to({ action: 'show', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea ml-2') do %>
           <span>售后</span>
         <% end if model.all_paid? %>
-        <%= link_to({ controller: 'trade/my/orders', action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea ml-2') do %>
+        <%= link_to({ action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea ml-2') do %>
           <span>去支付</span>
         <% end if model.can_pay? %>
       </div>
