@@ -6,7 +6,7 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:trade_item_id, :cart_id)
 
-      @trade_promotes = TradePromote.default_where(q_params).page(params[:page])
+      @trade_promotes = TradePromote.includes(:promote, :promote_charge).default_where(q_params).page(params[:page])
     end
 
     def new

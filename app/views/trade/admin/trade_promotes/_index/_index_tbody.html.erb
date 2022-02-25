@@ -1,7 +1,14 @@
 <td><%= model.promote.name %></td>
-<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
 <td>
   <p><%= model.based_amount.to_money.format(html_wrap: true).html_safe %></p>
   <p><%= model.computed_amount.to_money.format(html_wrap: true).html_safe %></p>
 </td>
+<td>
+  <p>
+    <span><%= model.promote_charge.type_i18n %></span>
+    <span class="has-text-grey">(<%= model.promote_charge.min %>~<%= model.promote_charge.max %>)</span>
+  </p>
+  <p><%= model.promote_charge.parameter %></p>
+</td>
+<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
 <td><%= model.note %></td>
