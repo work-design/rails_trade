@@ -213,11 +213,6 @@ module Trade
       self.save(*args)
     end
 
-    def valid_promote_buyers(buyer)
-      ids = (available_promote_ids & buyer.all_promote_ids) - buyer.promote_buyers.pluck(:promote_id)
-      Promote.where(id: ids)
-    end
-
     def metering_attributes
       attributes.slice 'quantity', 'original_amount', 'number'
     end
