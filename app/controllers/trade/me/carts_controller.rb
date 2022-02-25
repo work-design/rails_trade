@@ -1,5 +1,6 @@
 module Trade
   class Me::CartsController < My::CartsController
+    include Controller::Me
 
     def show
       q_params = {

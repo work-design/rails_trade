@@ -122,6 +122,9 @@ zh:
       promote_carts:
         index:
           title: 优惠券
+      carts:
+        show:
+          title: 我的购物车
     panel:
       title: 电商设置
       exchange_rates:
