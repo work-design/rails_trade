@@ -7,9 +7,9 @@ module Trade
     # 负数的折扣，原价 * （1+折扣），如 100 * (1-0.3), parameter 为 -0.3
     def final_price(amount)
       if parameter < 0 && parameter > -1
-        (amount * parameter).round(2)
+        (amount * (1 + parameter)).round(2)
       elsif parameter > 0 && parameter < 1
-        -(amount * (1 - parameter)).round(2)
+        (amount * parameter).round(2)
       else
         amount
       end
