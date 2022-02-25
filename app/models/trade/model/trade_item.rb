@@ -34,16 +34,20 @@ module Trade
       #has_many :organs 用于对接供应商
 
       belongs_to :scene, class_name: 'Factory::Scene', optional: true
-      belongs_to :produce_plan, ->(o) { where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
-      belongs_to :production_plan, ->(o) { where(produce_on: o.produce_on, scene_id: o.scene_id) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: true, optional: true
+      belongs_to :produce_plan, ->(o){ where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
+      belongs_to :production_plan, ->(o){ where(produce_on: o.produce_on, scene_id: o.scene_id) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: true, optional: true
 
       belongs_to :good, polymorphic: true
       belongs_to :cart, ->(o){ where(organ_id: o.organ_id, member_id: o.member_id) }, inverse_of: :trade_items, foreign_key: :user_id, primary_key: :user_id, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :cards, ->(o) { includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
+
+      has_many :promote_carts, foreign_key: :user_id, primary_key: :user_id
+      has_many :available_promote_carts, -> { available }, class_name: 'PromoteCart', foreign_key: :user_id, primary_key: :user_id
+      has_many :promotes, through: :promote_carts
 
       scope :valid, -> { where(status: 'init', myself: true) }
       scope :starred, -> { where(status: 'init', starred: true) }
@@ -135,13 +139,13 @@ module Trade
           total_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
         end
       end
-      cart.available_promote_carts.each do |promote_cart|
+      available_promote_carts.each do |promote_cart|
         if promote_cart.promote.single?
           single_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
         else
           total_promotes.merge! promote_cart.promote_id => { promote: promote_cart.promote, promote_good_id: promote_cart.promote_good_id, promote_cart_id: promote_cart.id }
         end
-      end if cart
+      end
 
       [single_promotes, total_promotes]
     end
