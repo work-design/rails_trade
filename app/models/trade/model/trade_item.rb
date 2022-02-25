@@ -41,6 +41,7 @@ module Trade
       belongs_to :cart, ->(o){ where(organ_id: o.organ_id, member_id: o.member_id) }, inverse_of: :trade_items, foreign_key: :user_id, primary_key: :user_id, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
+      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, foreign_key: :user_id, primary_key: :user_id
       has_many :cards, ->(o) { includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
@@ -86,7 +87,6 @@ module Trade
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
-      after_save :sync_after_ordered, if: -> { order && saved_change_to_order_id? }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
       after_save_commit :print_later, if: -> { saved_change_to_status? && ['paid'].include?(status) && produce_plan.blank? }
@@ -122,11 +122,6 @@ module Trade
 
     def recompute_amount
       self.original_amount = single_price * number
-    end
-
-    def sync_after_ordered
-      cart.compute_amount
-      cart.save
     end
 
     def available_promotes
@@ -189,9 +184,18 @@ module Trade
         return
       end
 
-      cart.item_amount += changed_amount
-      logger.debug "\e[33m  Item amount: #{cart.item_amount}, Summed amount: #{cart.checked_trade_items.sum(&:amount)}, Cart id: #{cart.id})  \e[0m"
-      cart.save!
+      carts.each do |cart|
+        cart.item_amount += changed_amount
+        logger.debug "\e[33m  Item amount: #{cart.item_amount}, Summed amount: #{cart.checked_trade_items.sum(&:amount)}, Cart id: #{cart.id})  \e[0m"
+        cart.save!
+      end
+    end
+
+    def reset_carts
+      carts.each do |cart|
+        cart.reset_amount
+        cart.save
+      end
     end
 
     def reset_amount
