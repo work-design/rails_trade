@@ -32,13 +32,13 @@ module Trade
       has_many :payment_methods, through: :payment_references
       # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21
       # 设置 autosave: false，当 trade_item 为 new_records 也不 save
-      has_many :trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id).carting }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false, dependent: :destroy_async
-      has_many :checked_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id, status: 'checked') }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id, dependent: :destroy_async
-      has_many :all_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id, dependent: :destroy_async
-      has_many :trade_promotes, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, trade_item_id: nil, order_id: nil) }, foreign_key: :user_id, primary_key: :user_id, autosave: true, dependent: :destroy_async  # overall can be blank
-      has_many :cards, -> { includes(:card_template) }
+      has_many :trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id).carting }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false
+      has_many :checked_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id, status: 'checked') }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
+      has_many :all_trade_items, ->(o) { default_where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
+      has_many :trade_promotes, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, trade_item_id: nil, order_id: nil) }, foreign_key: :user_id, primary_key: :user_id, autosave: true  # overall can be blank
+      has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets
-      has_one :wallet, -> { where(default: true) }
+      has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
       validates :member_id, uniqueness: { scope: [:organ_id, :user_id] }
@@ -47,10 +47,6 @@ module Trade
       #before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
-    end
-
-    def card
-      cards[0]
     end
 
     def name

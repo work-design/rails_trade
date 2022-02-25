@@ -40,6 +40,8 @@ module Trade
       belongs_to :good, polymorphic: true
       belongs_to :cart, ->(o){ where(organ_id: o.organ_id, member_id: o.member_id) }, inverse_of: :trade_items, foreign_key: :user_id, primary_key: :user_id, optional: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
+
+      has_many :cards, ->(o) { includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :trade_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
       scope :valid, -> { where(status: 'init', myself: true) }
@@ -91,13 +93,8 @@ module Trade
     end
 
     def compute_price
-      # todo
-      if cart&.card
-        self.single_price = good.vip_price.fetch(cart.card.card_template.code, good.price)
-      else
-        self.single_price = good&.price
-      end
-      self.advance_amount = good&.advance_price
+      self.single_price = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).values.min || good.single_price
+      self.advance_amount = good.advance_price
     end
 
     def order_uuid
@@ -105,7 +102,7 @@ module Trade
     end
 
     def cart_organ
-      cart.organ.name
+      organ.name
     end
 
     def weight_str
