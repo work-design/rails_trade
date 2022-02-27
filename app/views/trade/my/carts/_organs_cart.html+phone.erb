@@ -17,11 +17,8 @@
             <span class="is-size-7"><%= model.identity %></span>
           </span>
           <span class="weui-cell__ft" data-controller="input">
-            <%= form_with theme: nil, scope: 'cart', url: { action: 'current' } do |f| %>
-              <%= f.hidden_field :member_id, value: model.id %>
-              <%= f.check_box :current, value: true, checked: current_cart.member_id == model.id, class: 'weui-check', data: { action: 'input#form' } %>
-              <span class="weui-icon-checked"></span>
-            <% end %>
+            <%= check_box_tag :current, true, current_cart.member_id == model.id, class: 'weui-check', data: { action: 'input#form' } %>
+            <span class="weui-icon-checked"></span>
           </span>
         <% end %>
       </div>
