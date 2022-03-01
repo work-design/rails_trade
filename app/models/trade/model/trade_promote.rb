@@ -63,7 +63,7 @@ module Trade
       self
     end
 
-    def check_promote_cart
+    def check_promote_good
       promote_good.update state: 'used'
     end
 
