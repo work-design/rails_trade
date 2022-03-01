@@ -96,7 +96,7 @@ module Trade
     end
 
     def compute_price
-      self.single_price = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).values.min || good.single_price
+      self.single_price = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).values.min || good.price
       self.advance_amount = good.advance_price
     end
 
