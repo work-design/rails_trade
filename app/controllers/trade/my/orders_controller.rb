@@ -10,11 +10,11 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
-      @orders = current_user.orders.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = current_cart.orders.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
-      @order = current_cart.orders.build
+      @order = current_user.orders.build
     end
 
     def refresh
@@ -23,7 +23,12 @@ module Trade
     end
 
     def create
-      @order = current_cart.orders.build(order_params)
+      @order = current_user.orders.build(order_params)
+      current_cart.trade_items.each do |trade_item|
+        trade_item.order = @order
+        trade_item.status = 'ordered'
+        trade_item.address_id = params[:address_id]
+      end
 
       if @order.save
         render 'create'
@@ -149,7 +154,7 @@ module Trade
     end
 
     def order_params
-      params.fetch(:order, {}).permit(
+      p = params.fetch(:order, {}).permit(
         :quantity,
         :payment_id,
         :payment_type,
@@ -158,6 +163,7 @@ module Trade
         :note,
         trade_items_attributes: {}
       )
+      p.merge! default_form_params
     end
 
   end

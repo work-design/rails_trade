@@ -20,15 +20,14 @@ module Trade
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
-      belongs_to :cart, optional: true
       belongs_to :payment_strategy, optional: true
 
       has_many :payment_orders, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders
       has_many :refunds, dependent: :nullify, inverse_of: :order
-      has_many :promote_carts, -> { available }, foreign_key: :cart_id, primary_key: :cart_id, dependent: :destroy_async
-      has_many :promotes, through: :promote_carts
-      has_many :trade_items, inverse_of: :order, dependent: :destroy_async
+      has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
+      has_many :promotes, through: :promote_goods
+      has_many :trade_items, inverse_of: :order
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, dependent: :destroy_async  # overall can be blank
       accepts_nested_attributes_for :trade_items
       accepts_nested_attributes_for :trade_promotes

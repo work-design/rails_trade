@@ -3,9 +3,7 @@ module Trade
     before_action :set_cart, only: [:show, :update]
 
     def show
-      q_params = {
-        status: ['init', 'checked']
-      }
+      q_params = {}
       if params[:address_id].present?
         current_cart.update address_id: params[:address_id]
       end
