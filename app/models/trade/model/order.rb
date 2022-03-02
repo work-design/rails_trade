@@ -55,8 +55,7 @@ module Trade
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
-      before_save :compute_amount, if: -> { cart.blank? }
-      after_create :sync_from_cart, if: -> { cart }
+      before_save :compute_amount
       after_create_commit :confirm_ordered!
     end
 
@@ -81,13 +80,6 @@ module Trade
     def subject
       r = trade_items.map { |oi| oi.good.name.presence }.join(', ')
       r.presence || 'goods'
-    end
-
-    def sync_from_cart
-      cart.trade_promotes.update_all(order_id: self.id, status: 'ordered')
-
-      self.compute_amount
-      self.save
     end
 
     def user_name
@@ -116,32 +108,6 @@ module Trade
         errors.add :item_amount, "Item Amount #{item_amount} not equal #{summed_amount}"
         logger.error "#{self.class.name}: #{error_text}"
         raise ActiveRecord::RecordInvalid.new(self)
-      end
-    end
-
-    def wxpay_result(app)
-      #return self if self.payment_status == 'all_paid'
-      options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
-      }
-      params = {
-        mchid: app.mch_id,
-        out_trade_no: self.uuid,
-      }
-
-      begin
-        result = WxPay::Api.order_query params, options
-      rescue #todo only net errr
-        result = { 'err_code_des' => 'network error' }
-      end
-      logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
-
-      if result['trade_state'] == 'SUCCESS'
-        self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
-      else
-        self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
     end
 

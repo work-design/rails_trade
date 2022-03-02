@@ -6,11 +6,13 @@ module Trade
     ]
 
     def index
-      q_params = {}
+      q_params = {
+        user_id: current_user.id
+      }
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
-      @orders = current_cart.orders.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = Order.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
@@ -28,6 +30,11 @@ module Trade
         trade_item.order = @order
         trade_item.status = 'ordered'
         trade_item.address_id = params[:address_id]
+      end
+      current_cart.trade_promotes.each do |trade_promote|
+        trade_promote.order = @order
+        trade_promote.status = 'ordered'
+        trade_promote.save
       end
 
       if @order.save
