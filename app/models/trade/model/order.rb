@@ -56,6 +56,7 @@ module Trade
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
       before_save :compute_amount
+      before_save :auto_paid, if: -> { amount.zero? }
       after_create_commit :confirm_ordered!
     end
 
@@ -113,6 +114,11 @@ module Trade
 
     def confirm_ordered!
       self.trade_items.each(&:confirm_ordered!)
+    end
+
+    def auto_paid
+      self.payment_status = 'all_paid'
+      self.confirm_paid!
     end
 
     def compute_received_amount
