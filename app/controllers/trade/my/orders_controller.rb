@@ -34,7 +34,6 @@ module Trade
       current_cart.trade_promotes.each do |trade_promote|
         trade_promote.order = @order
         trade_promote.status = 'ordered'
-        trade_promote.save
       end
 
       if @order.save
