@@ -30,7 +30,6 @@ module Trade
         ordered: 'ordered'
       }, _default: 'init'
 
-      validates :promote_id, uniqueness: { scope: [:cart_id, :trade_item_id] }
       validates :amount, presence: true
 
       after_initialize if: :new_record? do

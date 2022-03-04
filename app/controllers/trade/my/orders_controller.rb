@@ -39,6 +39,7 @@ module Trade
       if @order.save
         render 'create'
       else
+        binding.b
         render :new, locals: { model: @order }, status: :unprocessable_entity
       end
     end

@@ -93,10 +93,8 @@ module Trade
     def check_state
       if self.received_amount.to_d >= self.amount
         self.payment_status = 'all_paid'
-        self.confirm_paid!
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount
         self.payment_status = 'part_paid'
-        self.confirm_part_paid!
       elsif self.received_amount.to_d <= 0
         self.payment_status = 'unpaid'
       end
