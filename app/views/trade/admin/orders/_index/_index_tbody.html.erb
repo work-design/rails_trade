@@ -20,9 +20,9 @@
 <td>
   <p><%= link_to model.user_name, { user_id: model.user_id } %></p>
   <p>
-  <% if model&.cart&.member %>
-    <span><%= model.cart.member.name %></span>
-    <span class="has-text-grey">（<%= model.cart.member_organ.name %>）</span>
+  <% if model&.member %>
+    <span><%= model.member.name %></span>
+    <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
   <% end %>
   </p>
 </td>
