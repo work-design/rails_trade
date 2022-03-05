@@ -41,6 +41,7 @@ module Trade
         end
         self.sequence = self.promote.sequence if self.promote
       end
+      after_update :sync_to_cart, if: -> { order.present? && saved_change_to_order_id? }
       after_create_commit :check_promote_good, if: -> { promote_good.present? }
     end
 
@@ -60,6 +61,10 @@ module Trade
       self.computed_amount = self.promote_charge.final_price(based_amount)
       self.amount = computed_amount unless edited?
       self
+    end
+
+    def sync_to_cart
+      cart.reset_amount!
     end
 
     def check_promote_good
