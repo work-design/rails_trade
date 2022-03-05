@@ -87,6 +87,7 @@ module Trade
       end
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
+      before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
@@ -206,6 +207,10 @@ module Trade
     def reset_amount!(*args)
       self.reset_amount
       self.save(*args)
+    end
+
+    def sync_from_order
+      self.address_id = order.address_id
     end
 
     def metering_attributes
