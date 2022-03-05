@@ -64,6 +64,7 @@ module Trade
     end
 
     def sync_to_cart
+      cart.trade_promotes.reload
       cart.reset_amount!
     end
 
