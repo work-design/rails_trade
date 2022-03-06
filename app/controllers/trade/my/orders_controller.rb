@@ -39,13 +39,12 @@ module Trade
       if @order.save
         render 'create'
       else
-        binding.b
         render :new, locals: { model: @order }, status: :unprocessable_entity
       end
     end
 
     def add
-      @order = current_cart.orders.build
+      @order = current_user.orders.build
       @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
       @order.compute_amount
     end
