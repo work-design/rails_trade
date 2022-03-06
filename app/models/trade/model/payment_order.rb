@@ -17,7 +17,7 @@ module Trade
       #validate :valid_check_amount
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      before_save :checked_payment, if: -> { confirmed? && (state_changed? || check_amount_changed?) }
+      after_save :checked_payment, if: -> { confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
       after_save :unchecked_payment, if: -> { init? && state_before_last_save == 'confirmed' }
       after_destroy_commit :unchecked_to_order
     end
@@ -41,9 +41,10 @@ module Trade
       payment.checked_amount += self.check_amount
       if payment.checked_amount == payment.compute_checked_amount
         payment.check_state
+        payment.save
       else
         payment.errors.add :checked_amount, 'check not equal'
-        logger.error "#{self.class.name}/Payment: #{payment.error_text}"
+        logger.error "checked: #{payment.checked_amount}, computed: #{payment.compute_checked_amount} #{self.class.name}/Payment: #{payment.error_text}"
         raise ActiveRecord::RecordInvalid.new(payment)
       end
     end
@@ -52,6 +53,7 @@ module Trade
       order.received_amount += self.check_amount
       if order.received_amount == order.compute_received_amount
         order.check_state
+        order.save
       else
         order.errors.add :received_amount, 'check not equal'
         logger.error "#{self.class.name}/Order: #{order.error_text}"

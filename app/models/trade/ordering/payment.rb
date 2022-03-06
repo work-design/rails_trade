@@ -50,9 +50,8 @@ module Trade
         payment_order = self.payment_orders.find { |i| i.id.nil? }
         payment_order.check_amount = payment.total_amount
         payment_order.state = 'confirmed'
-
         begin
-          self.save!
+          self.save
         rescue ActiveRecord::RecordInvalid => e
           payment.errors.add :base, 'can not save'
           logger.error "#{payment.errors.full_messages.join(', ')}"
