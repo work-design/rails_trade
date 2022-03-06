@@ -58,8 +58,8 @@ module Trade
       before_save :compute_amount
       before_save :check_state, if: -> { amount.zero? }
       after_create_commit :confirm_ordered!
-      after_create_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
-      after_create_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
+      after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
+      after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
     end
 
     def init_from_member
@@ -102,16 +102,6 @@ module Trade
       self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
-    end
-
-    def valid_item_amount
-      summed_amount = trade_items.sum(&:amount)
-
-      unless item_amount == summed_amount
-        errors.add :item_amount, "Item Amount #{item_amount} not equal #{summed_amount}"
-        logger.error "#{self.class.name}: #{error_text}"
-        raise ActiveRecord::RecordInvalid.new(self)
-      end
     end
 
     def confirm_ordered!
