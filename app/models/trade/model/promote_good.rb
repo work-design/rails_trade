@@ -37,6 +37,12 @@ module Trade
       validates :effect_at, presence: true
       validates :expire_at, presence: true
       validates :promote_id, uniqueness: { scope: [:good_type, :good_id] }
+
+      before_validation :sync_from_promote, if: -> { promote.present? && promote_id_changed? }
+    end
+
+    def sync_from_promote
+      self.organ_id = promote.organ_id
     end
 
     def promote_name
