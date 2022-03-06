@@ -51,8 +51,7 @@ module Trade
     end
 
     def direct
-      @order = current_cart.orders.build(order_params)
-      @order.organ = current_organ
+      @order = current_user.orders.build(order_params)
 
       if @order.save
         render :direct
