@@ -55,7 +55,7 @@ module Trade
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
-      before_save :compute_amount
+      before_create :compute_amount
       before_save :check_state, if: -> { amount.zero? }
       after_create_commit :confirm_ordered!
       after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
@@ -109,7 +109,7 @@ module Trade
     end
 
     def compute_received_amount
-      _received_amount = self.payment_orders.where(state: 'confirmed').sum(:check_amount)
+      _received_amount = self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:check_amount)
       _refund_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
       _received_amount - _refund_amount
     end

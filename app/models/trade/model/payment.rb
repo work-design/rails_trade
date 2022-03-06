@@ -74,7 +74,7 @@ module Trade
     end
 
     def compute_checked_amount
-      self.payment_orders.where(state: :confirmed).sum(:check_amount)
+      self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:check_amount)
     end
 
     def pending_orders
@@ -113,11 +113,6 @@ module Trade
       else
         self.state = 'abusive_checked'
       end
-    end
-
-    def check_state!
-      self.check_state
-      self.save!
     end
 
     def confirm!(params = {})
