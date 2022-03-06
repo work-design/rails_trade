@@ -36,7 +36,6 @@
         data-wechat-options-value="<%= current_wechat_app.js_config(request.original_url).to_json %>"
         data-wechat-apis-value="<%= ['closeWindow'].to_json %>"
         data-action="wechat#close"
-        data-wechat-address-value="/pages/service/index?url=<%= url_for(action: 'show', only_path: false) %>"
       >联系客服</button>
     </div>
   </div>
