@@ -5,6 +5,9 @@
       <span class="tag pl-0"><%= model.duration.inspect %></span>
     </span>
   </td>
-  <td class="has-text-success"><%= model.last_expire_on %></td>
+  <td>
+    <p class="has-text-success"><%= model.last_expire_on + model.duration %></p>
+    <p class="has-text-grey"><%= model.last_expire_on %></p>
+  </td>
   <td class="has-text-right"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 </tr>
