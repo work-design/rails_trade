@@ -36,7 +36,7 @@ module Trade
       has_many :all_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true  # overall can be blank
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :wallets
+      has_many :wallets, -> { includes(:wallet_template) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true

@@ -29,7 +29,7 @@ module Trade
         wallet = wallet_template.wallets.find_or_initialize_by(client_type: trade_item.maintain.client_type, client_id: trade_item.maintain.client_id)
         wallet.agency_id = trade_item.maintain.agency_id
       else
-        wallet = wallet_template.wallets.find_or_initialize_by(cart_id: trade_item.cart_id)
+        wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
       end
       wa = wallet.wallet_advances.build
       wa.trade_item = trade_item
