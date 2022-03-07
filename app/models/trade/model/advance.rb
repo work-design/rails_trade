@@ -17,7 +17,7 @@ module Trade
       validates :price, uniqueness: { scope: :card_template_id }
 
       has_one_attached :logo
-      delegate :cover, to: :card_template
+      delegate :cover, :organ_id, to: :card_template
     end
 
     def name
