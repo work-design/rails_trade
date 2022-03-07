@@ -1,5 +1,10 @@
 <tr>
-  <td><span class="tag"><%= model.duration.inspect %></span></td>
+  <td>
+    <span class="tags has-addons">
+      <span class="tag has-text-success pr-1"><i class="fa-light fa-plus fa-sm"></i></span>
+      <span class="tag pl-0"><%= model.duration.inspect %></span>
+    </span>
+  </td>
   <td class="has-text-success"><%= model.last_expire_on %></td>
   <td class="has-text-right"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 </tr>
