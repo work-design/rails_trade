@@ -22,12 +22,13 @@ module Trade
 
       belongs_to :payment_strategy, optional: true
 
+      has_many :carts, ->(o){ where(organ_id: o.organ_id, member_id: [o.member_id, nil]) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders
-      has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
-      has_many :trade_items, ->(o) { where(user_id: o.user_id) }, inverse_of: :order
+      has_many :trade_items, ->(o){ where(user_id: o.user_id) }, inverse_of: :order
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, autosave: true, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :trade_items
       accepts_nested_attributes_for :trade_promotes
@@ -67,15 +68,6 @@ module Trade
       self.member_organ_id = member.organ_id
     end
 
-    def init_from_cart
-      self.organ_id = cart.organ_id
-      self.user_id = cart.user_id
-      self.member_id = cart.member_id
-      self.member_organ_id = cart.member_organ_id
-      self.address_id = cart.address_id
-      self.payment_strategy_id = cart.payment_strategy_id
-    end
-
     def remaining_amount
       amount - received_amount
     end
@@ -105,6 +97,9 @@ module Trade
     end
 
     def confirm_ordered!
+      self.carts.each do |cart|
+        cart.reset_amount!
+      end
       self.trade_items.each(&:confirm_ordered!)
     end
 
