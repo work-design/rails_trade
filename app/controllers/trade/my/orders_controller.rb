@@ -45,7 +45,7 @@ module Trade
 
     def add
       @order = current_user.orders.build
-      @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type])
+      @order.trade_items.build(good_id: params[:good_id], good_type: params[:good_type], member_id: params[:member_id])
       @order.compute_amount
     end
 
