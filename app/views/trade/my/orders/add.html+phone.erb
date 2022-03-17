@@ -4,6 +4,7 @@
       <%= f.fields :trade_items do |ef| %>
         <%= ef.hidden_field :good_type %>
         <%= ef.hidden_field :good_id %>
+        <%= ef.hidden_field :member_id %>
         <div class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
             <%= image_tag ef.object.good.logo, class: 'weui-media-box__thumb' if ef.object.good.logo.attached? %>
