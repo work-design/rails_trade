@@ -49,7 +49,7 @@ module Trade
         good_id: params[:good_id],
         good_type: params[:good_type],
         member_id: params[:member_id],
-        extra: params.except(:good_id, :good_type, :member_id)
+        extra: params.except(:good_id, :good_type, :member_id, :business, :namespace, :controller, :action, :authenticity_token)
       )
       @order.compute_amount
     end

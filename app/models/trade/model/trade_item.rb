@@ -84,6 +84,7 @@ module Trade
         end
         self.original_amount = single_price * self.number
         self.amount = original_amount
+        self.extra = JSON.parse(extra) if self.extra.is_a?(String)
       end
       before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
