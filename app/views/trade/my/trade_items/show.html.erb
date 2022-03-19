@@ -37,6 +37,10 @@
       <span><%= @trade_item.retail_price.to_money.format(html_wrap: true).html_safe %></span>
     </p>
     <p>
+      <span class="has-text-grey"><%= Trade::TradeItem.human_attribute_name(:wholesale_price) %>：</span>
+      <span><%= @trade_item.wholesale_price.to_money.format(html_wrap: true).html_safe %></span>
+    </p>
+    <p>
       <span class="has-text-grey"><%= Trade::TradeItem.human_attribute_name(:amount) %>：</span>
       <span><%= @trade_item.amount.to_money.format(html_wrap: true).html_safe %></span>
     </p>
