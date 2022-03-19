@@ -50,7 +50,8 @@ zh:
           volume: 体积
       trade/trade_item:
         good_type:
-          Facilitate: 标准化服务
+          Bench::Facilitate: 标准化服务
+          Crm::Source: 客户来源
         status:
           init: 初始状态
           checked: 已选中
