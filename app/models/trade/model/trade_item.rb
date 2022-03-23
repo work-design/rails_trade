@@ -60,8 +60,9 @@ module Trade
         paid: 'paid',
         packaged: 'packaged',
         done: 'done',
-        canceled: 'canceled'
-      }, _default: 'init'
+        canceled: 'canceled',
+        expired: 'expired'
+      }, _default: 'init', _prefix: true
 
       acts_as_notify(
         :default,
@@ -174,11 +175,11 @@ module Trade
     end
 
     def sync_changed_amount
-      if (destroyed? && checked?) || (init? && status_previously_was == 'checked')
+      if (destroyed? && status_checked?) || (status_init? && status_previously_was == 'checked')
         changed_amount = -amount
-      elsif checked? && ['init', nil].include?(status_previously_was)
+      elsif status_checked? && ['init', nil].include?(status_previously_was)
         changed_amount = amount
-      elsif checked? && amount_previously_was
+      elsif status_checked? && amount_previously_was
         changed_amount = amount - amount_previously_was.to_d
       else
         return
