@@ -18,7 +18,7 @@ module Trade
       orders.order(overdue_date: :asc).first&.overdue_date
     end
 
-    def get_trade_item(good_type:, good_id:, number: 1, **options)
+    def get_agent_trade_item(good_type:, good_id:, number: 1, **options)
       args = { good_type: good_type, good_id: good_id, **options.slice(:produce_on, :scene_id, :member_id) }
       args.reject!(&->(_, v){ v.blank? })
       trade_item = agent_trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'member_id').reject(&->(_, v){ v.blank? }) == args.stringify_keys }) || agent_trade_items.build(args)
@@ -33,6 +33,13 @@ module Trade
       end
 
       trade_item
+    end
+
+    def get_trade_item(good_type:, good_id:, **options)
+      args = { good_type: good_type, good_id: good_id, **options.slice(:produce_on, :scene_id) }
+      args.reject!(&->(_, v){ v.blank? })
+
+      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
     end
 
     class_methods do
