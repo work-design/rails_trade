@@ -23,9 +23,9 @@ module Trade
       args.reject!(&->(_, v){ v.blank? })
       trade_item = agent_trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'member_id').reject(&->(_, v){ v.blank? }) == args.stringify_keys }) || agent_trade_items.build(args)
 
-      if trade_item.persisted? && trade_item.checked?
+      if trade_item.persisted? && trade_item.status_checked?
         trade_item.number += (number.present? ? number.to_i : 1)
-      elsif trade_item.persisted? && trade_item.init?
+      elsif trade_item.persisted? && trade_item.status_init?
         trade_item.status = 'checked'
         trade_item.number = 1
       else

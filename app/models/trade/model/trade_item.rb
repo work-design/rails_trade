@@ -51,7 +51,7 @@ module Trade
 
       scope :valid, -> { where(status: 'init', myself: true) }
       scope :starred, -> { where(status: 'init', starred: true) }
-      scope :carting, -> { where(status: ['init', 'checked']) }
+      scope :carting, -> { where(status: ['init', 'checked', 'expired']) }
 
       enum status: {
         init: 'init',

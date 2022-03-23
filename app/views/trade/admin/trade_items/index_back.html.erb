@@ -25,13 +25,13 @@
 <table class="table is-hoverable is-fullwidth">
   <thead>
     <tr>
-    
+
     </tr>
   </thead>
   <tbody>
   <% @trade_items.each do |trade_item| %>
-    <tr class="<%= active_asserts join: false, active: trade_item.checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
-    
+    <tr class="<%= active_asserts join: false, active: trade_item.status_checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
+
     </tr>
   <% end %>
   </tbody>
