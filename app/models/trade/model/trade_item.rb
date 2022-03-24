@@ -39,7 +39,7 @@ module Trade
 
       belongs_to :good, polymorphic: true
       belongs_to :cart, ->(o){ where(organ_id: o.organ_id, member_id: o.member_id) }, inverse_of: :trade_items, foreign_key: :user_id, primary_key: :user_id, optional: true
-      belongs_to :order, ->(o){ where(user_id: o.user_id) }, inverse_of: :trade_items, counter_cache: true, optional: true
+      belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, foreign_key: :user_id, primary_key: :user_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id

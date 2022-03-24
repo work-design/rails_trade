@@ -28,7 +28,7 @@ module Trade
       has_many :payments, through: :payment_orders, inverse_of: :orders
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
-      has_many :trade_items, ->(o){ where(user_id: o.user_id) }, inverse_of: :order
+      has_many :trade_items, inverse_of: :order
       has_many :trade_promotes, -> { where(trade_item_id: nil) }, autosave: true, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :trade_items
       accepts_nested_attributes_for :trade_promotes
