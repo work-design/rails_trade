@@ -17,7 +17,7 @@ module Trade
     def toggle
       if @trade_item.status_init?
         @trade_item.status = 'checked'
-      elsif @trade_item.checked?
+      elsif @trade_item.status_checked?
         @trade_item.status = 'init'
       end
 

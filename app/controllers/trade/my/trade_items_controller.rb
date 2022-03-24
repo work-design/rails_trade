@@ -8,7 +8,7 @@ module Trade
       @trade_item.save
 
       @trade_items = current_cart.trade_items.page(params[:page])
-      @checked_ids = current_cart.trade_items.checked.pluck(:id)
+      @checked_ids = current_cart.trade_items.status_checked.pluck(:id)
     end
 
     def promote
@@ -16,9 +16,9 @@ module Trade
     end
 
     def toggle
-      if @trade_item.init?
+      if @trade_item.status_init?
         @trade_item.status = 'checked'
-      elsif @trade_item.checked?
+      elsif @trade_item.status_checked?
         @trade_item.status = 'init'
       end
 
