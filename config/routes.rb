@@ -61,6 +61,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
 
     namespace :panel, defaults: { namespace: 'panel' } do
       resources :exchange_rates
+      resources :orders
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do

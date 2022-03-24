@@ -133,3 +133,6 @@ zh:
       exchange_rates:
         index:
           title: 汇率设置
+      orders:
+        index:
+          title: 平台订单

@@ -1,0 +1,21 @@
+<td><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></td>
+<td class="has-text-right">
+  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
+<td>
+  <%= model.payment_status_i18n %>
+</td>
+<td><%= model.state_i18n %></td>
+<td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
+<td>
+  <p><%= link_to model.user_name, { user_id: model.user_id } %></p>
+  <p>
+  <% if model&.member %>
+    <span><%= model.member.name %></span>
+    <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
+  <% end %>
+  </p>
+</td>
+<td><%= simple_format(model.extra_i18n) %></td>
