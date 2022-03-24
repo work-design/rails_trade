@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
   concern :orderable do
     resources :orders do
       collection do
@@ -38,6 +37,15 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
     end
     resources :promote_goods, only: [:index, :show]
   end
+
+  namespace :factory, defaults: { business: 'factory' } do
+    namespace :buy, defaults: { namespace: 'buy' } do
+      concerns :orderable
+    end
+  end
+
+scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
+
   namespace :trade, defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
