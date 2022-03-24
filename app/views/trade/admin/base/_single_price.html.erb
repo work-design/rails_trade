@@ -1,28 +1,27 @@
 <div>
-  <span style="color: grey;">Good price: </span>
-  <%= model.single_price %>
+  <span class="has-text-grey"><%= Trade::TradeItem.human_attribute_name(:single_price) %></span>
+  <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
 </div>
 <div>
-  <span style="color: grey;">Serve Price: </span>
+  <span><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></span>
   <%= model.additional_amount %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
     <% model.trade_promotes.each do |trade_promote| %>
       <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
-  <%= link_to 'edit', { controller: 'trade_promotes', trade_item_id: model.id }, class: 'ui mini label' %>
+  <%= link_to 'edit', { controller: 'trade_promotes', trade_item_id: model.id }, class: '' %>
 </div>
 <div>
-  <span style="color: grey;">Promote Price: </span>
-  <span style="color: red;"><%= model.reduced_amount %></span>
-  <i class="info circle icon xx_popup" style="color: grey;"></i>
-  <div class="ui popup">
+  <span><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></span>
+  <span><%= model.reduced_amount %></span>
+  <div>
     <% model.trade_promotes.each do |trade_promote| %>
       <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
     <% end %>
   </div>
 </div>
 <div>
-  <span style="color: grey;">Final Price: </span>
-  <span><%= model.amount %></span>
+  <span class="has-text-grey"><%= Trade::TradeItem.human_attribute_name(:amount) %></span>
+  <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
 </div>
