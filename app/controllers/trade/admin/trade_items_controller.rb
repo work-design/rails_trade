@@ -53,7 +53,7 @@ module Trade
         trade_item.save
       end
 
-      @checked_ids = @trade_items.checked.pluck(:id)
+      @checked_ids = @trade_items.status_checked.pluck(:id)
 
       render 'index'
     end

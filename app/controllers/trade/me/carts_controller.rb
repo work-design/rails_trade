@@ -11,7 +11,7 @@ module Trade
       end
 
       @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).page(params[:page])
-      @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).checked.pluck(:id)
+      @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def addresses
