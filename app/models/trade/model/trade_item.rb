@@ -10,6 +10,7 @@ module Trade
       attribute :number, :integer, default: 1
       attribute :weight, :decimal, default: 0, comment: '重量'
       attribute :unit, :string, comment: '单位'
+      attribute :vip_code, :string
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
       attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
@@ -100,7 +101,13 @@ module Trade
     end
 
     def compute_price
-      self.single_price = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).values.min || good.price
+      min = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).min
+      if min.present?
+        self.vip_code = min[0]
+        self.single_price = min[1]
+      else
+        self.single_price = good.price
+      end
       self.advance_amount = good.advance_price
     end
 

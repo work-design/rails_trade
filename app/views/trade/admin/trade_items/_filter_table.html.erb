@@ -1,7 +1,7 @@
 <p>
   <span>Good Type:</span>
   <%= link_to t('.all'), filter_params(except: [:good_type]), class: active_params(type: '', active: 'button is-info', item: 'button is-light') %>
-  <% CartItem.good_types.each do |good_type| %>
+  <% Trade::TradeItem.good_types.each do |good_type| %>
     <%= link_to good_type, filter_params(good_type: good_type), class: active_params(type: good_type, active: 'button is-info', item: 'button is-light') %>
   <% end %>
 </p>

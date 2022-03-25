@@ -1,13 +1,8 @@
 <div>
-  <%= model.good.price %><i class="info circle icon xx_popup" style="color: grey;"></i>
-  <div>
-    <p>
-      Export price:
-      <%= model.good.price %>
-    </p>
-    <% model.trade_promotes.each do |trade_promote| %>
-      <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
-    <% end %>
-  </div>
+  <p>Export price:</p>
+  <p></p>
+  <% model.trade_promotes.each do |trade_promote| %>
+    <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
+  <% end %>
 </div>
 <p><%= model.good&.quantity %><%= model.good&.unit %></p>
