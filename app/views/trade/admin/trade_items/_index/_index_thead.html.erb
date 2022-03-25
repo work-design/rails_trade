@@ -12,3 +12,10 @@
   <p><%= Trade::TradeItem.human_attribute_name(:wholesale_price) %></p>
 </th>
 <th><%= Trade::TradeItem.human_attribute_name(:status) %></th>
+<th>
+  <p><%= Trade::TradeItem.human_attribute_name(:user_id) %></p>
+  <p>
+    <span><%= Trade::TradeItem.human_attribute_name(:member_id) %></span>
+    <span class="has-text-grey">（<%= Trade::TradeItem.human_attribute_name(:member_organ_id) %>）</span>
+  </p>
+</th>
