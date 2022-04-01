@@ -43,7 +43,7 @@
     <% elsif model.expire_at.acts_like?(:time) %>
       <div class="is-flex is-align-items-center has-background-danger-light" style="border-radius: 18px">
         <span class="has-text-grey ml-2">
-          <time data-controller="countdown" data-countdown-time-value="<%= model.expire_at.to_fs(:iso8601) %>" class="has-text-danger" style="font-family: monospace"><%= exact_distance_time(model.expire_at) %></time>
+          <time data-controller="time-count" data-time-count-time-value="<%= model.expire_at.to_fs(:iso8601) %>" class="has-text-danger" style="font-family: monospace"><%= exact_distance_time(model.expire_at) %></time>
           <span>后截止下单</span>
         </span>
       </div>
