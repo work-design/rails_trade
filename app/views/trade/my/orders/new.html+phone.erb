@@ -1,7 +1,7 @@
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
 
-<div class="weui-panel mt-0 is-borderless">
-  <div class="weui-panel__hd as-bar pt-0">
+<div class="weui-panel mt-0">
+  <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
     <%= link_to({ controller: 'carts', action: 'show' }, class: 'px-4') do %>
       <i class="fa-regular fa-angle-left"></i>
     <% end %>
@@ -9,7 +9,7 @@
     <i class="px-4" style="width: 48.75px"></i>
   </div>
   <div class="weui-panel__bd">
-    <% current_cart.trade_items.checked.each do |trade_item| %>
+    <% current_cart.trade_items.status_checked.each do |trade_item| %>
       <div class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
           <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>

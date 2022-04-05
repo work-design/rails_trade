@@ -1,0 +1,44 @@
+<div class="weui-panel weui-panel_access is-borderless">
+  <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
+    <%= link_to params[:return_to], class: 'px-4' do %>
+      <i class="fa-regular fa-fw fa-angle-left"></i>
+    <% end %>
+    <span class="weui-title">
+      <span class="mr-1"><%= t('.title') %></span>
+      <%= link_to(action: 'list') do %>
+        <% if current_cart.member %>
+          <span class="weui-badge weui-badge__primary">
+            <span>企业版</span>
+            <span><%= current_cart.member.organ.name %></span>
+          </span>
+        <% else %>
+          <span class="weui-badge">个人版</span>
+        <% end %>
+      <% end %>
+    </span>
+    <i class="px-4" style="width: 48.75px"></i>
+  </div>
+  <div class="weui-panel__bd">
+    <%= link_to({ controller: 'ship/my/addresses', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, class: 'weui-cell weui-cell_access') do %>
+      <div class="weui-cell__hd">
+        <i class="fa-light fa-location-dot fa-fw has-text-danger pr-2"></i>
+      </div>
+      <div class="weui-cell__bd">
+      <% if current_cart.address %>
+        <p>
+          <span><%= current_cart.address.contact %></span>
+          <span><%= current_cart.address.tel %></span>
+        </p>
+        <p class="is-size-7">
+          <span><%= current_cart.address.area.full_name %></span>
+          <span><%= current_cart.address.station&.name %></span>
+          <span><%= current_cart.address.detail %></span>
+        </p>
+      <% else %>
+        <p>选择地址</p>
+      <% end %>
+      </div>
+      <div class="weui-cell__ft"></div>
+    <% end %>
+  </div>
+</div>
