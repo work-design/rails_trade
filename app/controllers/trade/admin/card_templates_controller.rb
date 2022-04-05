@@ -1,6 +1,7 @@
 module Trade
   class Admin::CardTemplatesController < Admin::BaseController
     before_action :set_card_template, only: [:show, :advance_options, :edit, :update, :destroy]
+    before_action :set_new_card_template, only: [:new, :create]
 
     def index
       q_params = {}
@@ -11,8 +12,6 @@ module Trade
     end
 
     def new
-      @card_template = CardTemplate.new
-      @card_template.advances.build
     end
 
     def advance_options
@@ -22,6 +21,10 @@ module Trade
     private
     def set_card_template
       @card_template = CardTemplate.find(params[:id])
+    end
+
+    def set_new_card_template
+      @card_template = CardTemplate.new(card_template_params)
     end
 
     def card_template_params
