@@ -1,0 +1,16 @@
+<% if current_cart.address.blank? %>
+  <%= link_to({ controller: 'ship/my/addresses' }, data: { controller: 'alert', alert_content_value: '请先设置地址', action: 'alert#alert' }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
+    <span>结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  <% end %>
+<% elsif @checked_ids.present? %>
+  <%= link_to({ controller: 'orders', action: 'new' }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
+    <span>结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  <% end %>
+<% else %>
+  <button class="weui-btn weui-btn_mini weui-btn_disabled">
+    <span>结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+<% end %>

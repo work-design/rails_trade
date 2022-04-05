@@ -14,20 +14,5 @@
   </div>
 </div>
 <div class="level-right mt-0 p-2">
-  <% if current_cart.address.blank? %>
-    <%= link_to({ controller: 'ship/my/addresses', return_to: url_for(controller: 'trade/my/carts', action: 'show') }, data: { controller: 'alert', alert_content_value: '请先设置地址', action: 'alert#alert' }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
-      <span>结算</span>
-      <i class="fa-solid fa-angle-right"></i>
-    <% end %>
-  <% elsif @checked_ids.present? %>
-    <%= link_to({ controller: 'orders', action: 'new' }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
-      <span>结算</span>
-      <i class="fa-solid fa-angle-right"></i>
-    <% end %>
-  <% else %>
-    <button class="weui-btn weui-btn_mini weui-btn_disabled">
-      <span>结算</span>
-      <i class="fa-solid fa-angle-right"></i>
-    </button>
-  <% end %>
+  <%= render 'cart_order' %>
 </div>
