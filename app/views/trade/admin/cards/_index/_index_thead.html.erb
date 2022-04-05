@@ -1,6 +1,8 @@
-<th><%= Trade::Card.human_attribute_name('card_template.name') %></th>
+<th>
+  <p><%= Trade::Card.human_attribute_name('card_template.name') %></p>
+  <p class="has-text-grey"><%= Trade::Card.human_attribute_name(:card_uuid) %></p>
+</th>
 <th><%= Trade::Card.human_attribute_name(:user_id) %></th>
-<th><%= Trade::Card.human_attribute_name(:card_uuid) %></th>
 <th>
   <p><%= Trade::Card.human_attribute_name(:effect_at) %></p>
   <p><%= Trade::Card.human_attribute_name(:expire_at) %></p>

@@ -1,8 +1,10 @@
-<td><%= model.card_template.name %></td>
 <td>
-  <p><%= model.cart&.name %></p>
+  <p><%= model.card_template.name %></p>
+  <p class="has-text-grey"><%= model.card_uuid %></p>
 </td>
-<td><%= model.card_uuid %></td>
+<td>
+  <p><%= model.user&.name %></p>
+</td>
 <td>
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p>
