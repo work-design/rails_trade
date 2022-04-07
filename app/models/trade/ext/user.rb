@@ -3,7 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      has_many :carts, -> { order(id: :asc) }, class_name: 'Trade::Cart', dependent: :destroy_async
+      has_many :carts, -> { order(id: :asc) }, class_name: 'Trade::Cart'
+      has_many :wallets, class_name: 'Trade::Wallet'
       has_many :orders, class_name: 'Trade::Order'
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :payments, class_name: 'Trade::Payment'

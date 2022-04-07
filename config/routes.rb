@@ -178,8 +178,6 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
 
     namespace :my, defaults: { namespace: 'my' } do
       concerns :orderable
-      resource :wallet
-      resources :wallet_logs, only: [:index]
       resources :payments
       resources :payment_methods
       resources :advances do
@@ -198,6 +196,10 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
         member do
           get :code
         end
+      end
+      resources :wallet_templates
+      resources :wallets do
+        resources :wallet_logs, only: [:index]
       end
       resources :payouts, only: [:index, :create] do
         collection do

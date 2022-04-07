@@ -28,7 +28,7 @@ module Trade
 
       wallet_template = WalletTemplate.default_where(default_params).default.take
       if wallet_template
-        @current_wallet = current_cart.wallet || current_cart.wallets.create(wallet_template_id: wallet_template.id)
+        @current_wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: wallet_template.id)
       end
 
       @current_wallet
