@@ -118,6 +118,9 @@ zh:
       promote_goods:
         index:
           title: 优惠券
+      wallet_logs:
+        index:
+          title: 交易记录
     me:
       orders:
         index:
