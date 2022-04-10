@@ -25,16 +25,8 @@ module Trade
       @promote_good = PromoteGood.new(params.permit(:promote_id, :good_type, :good_id))
     end
 
-    def create
-      @promote_good = PromoteGood.new(promote_good_params)
-
-      unless @promote_good.save
-        render :new, locals: { model: @promote_good }, status: :unprocessable_entity
-      end
-    end
-
     def search
-      @carts = Cart.default_where('user.name-like': params['name-like'])
+      @accounts = Auth::Account.includes(:user, members: :organ).where(identity: params[:identity])
     end
 
     private

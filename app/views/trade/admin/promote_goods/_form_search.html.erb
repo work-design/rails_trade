@@ -1,4 +1,4 @@
-<div class="panel-block" data-action="click->typer#choose" data-id="<%= model.id %>" data-name="<%= model.user.name || model.member&.name %>">
+<div class="panel-block" data-action="click->typer#choose" data-id="<%= model.id %>" data-name="<%= model.user.name || model.members.first&.name %>">
   <span><%= model.user.name %></span>
-  <span><%= model.member&.name %></span>
+  <span><%= model.members.first&.name %></span>
 </div>
