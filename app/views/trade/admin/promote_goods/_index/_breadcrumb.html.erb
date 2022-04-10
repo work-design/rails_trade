@@ -2,7 +2,7 @@
   <ul>
     <li><%= link_to t('trade.admin.promotes.index.title'), { controller: 'promotes' } %></li>
     <% if params[:promote_id] %>
-      <li><span><%= @promote.name %></span></li>
+      <li><span class="px-3"><%= @promote.name %></span></li>
     <% end %>
     <li class="is-active"><%= t('.title') %></li>
   </ul>
