@@ -21,6 +21,10 @@ module Trade
       @promote_good = PromoteGood.new(params.permit(:promote_id, :good_type, :good_id))
     end
 
+    def user
+      @promote_good = PromoteGood.new(params.permit(:promote_id, :good_type, :good_id))
+    end
+
     def create
       @promote_good = PromoteGood.new(promote_good_params)
 
