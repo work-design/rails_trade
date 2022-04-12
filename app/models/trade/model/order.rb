@@ -29,9 +29,9 @@ module Trade
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :trade_items, inverse_of: :order
-      has_many :trade_promotes, -> { where(trade_item_id: nil) }, autosave: true, dependent: :nullify  # overall can be blank
+      has_many :cart_promotes, autosave: true, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :trade_items
-      accepts_nested_attributes_for :trade_promotes
+      accepts_nested_attributes_for :cart_promotes
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
@@ -91,8 +91,8 @@ module Trade
 
     def compute_amount
       self.item_amount = trade_items.sum(&:amount)
-      self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
-      self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
+      self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+      self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 

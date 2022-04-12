@@ -93,7 +93,6 @@ module Trade
         next unless promote_charge
 
         tp = cart_promotes.find(&->(i){ i.promote_id == promote_id }) || cart_promotes.build(promote_id: promote_id)
-        tp.promote_good_id = promote_hash[:promote_good_id]
         tp.promote_charge_id = promote_charge.id
         tp.compute_amount
       end

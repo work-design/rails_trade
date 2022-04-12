@@ -12,10 +12,10 @@ module Trade
       attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
       attribute :promote_name, :string
 
-      belongs_to :cart, inverse_of: :trade_promotes
+      belongs_to :cart, inverse_of: :cart_promotes
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :order, inverse_of: :trade_promotes, optional: true
+      belongs_to :order, inverse_of: :cart_promotes, optional: true
       belongs_to :promote
       belongs_to :promote_charge
 
@@ -28,18 +28,14 @@ module Trade
       validates :amount, presence: true
 
       after_initialize if: :new_record? do
-        if self.promote_good
-          self.promote_id = self.promote_good.promote_id
-        end
         self.sequence = self.promote.sequence if self.promote
       end
       after_update :sync_to_cart, if: -> { order.present? && saved_change_to_order_id? }
-      after_create_commit :check_promote_good, if: -> { promote_good.present? }
     end
 
     def compute_amount
       value = cart.metering_attributes.fetch(promote.metering, 0)
-      added_amount = cart.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
+      added_amount = cart.cart_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
 
       self.based_amount = value + added_amount
       self.computed_amount = self.promote_charge.final_price(based_amount)
