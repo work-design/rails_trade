@@ -1,5 +1,5 @@
 module Trade
-  module Model::TradePromote
+  module Model::CartPromote
     extend ActiveSupport::Concern
 
     included do
@@ -12,16 +12,12 @@ module Trade
       attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
       attribute :promote_name, :string
 
+      belongs_to :cart, inverse_of: :trade_promotes
       belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :order, inverse_of: :trade_promotes, optional: true
-      belongs_to :trade_item, inverse_of: :trade_promotes
       belongs_to :promote
       belongs_to :promote_charge
-      belongs_to :promote_good
 
       enum status: {
         init: 'init',
@@ -32,20 +28,18 @@ module Trade
       validates :amount, presence: true
 
       after_initialize if: :new_record? do
-        if trade_item
-          self.order = trade_item.order
-        end
         if self.promote_good
           self.promote_id = self.promote_good.promote_id
         end
         self.sequence = self.promote.sequence if self.promote
       end
+      after_update :sync_to_cart, if: -> { order.present? && saved_change_to_order_id? }
       after_create_commit :check_promote_good, if: -> { promote_good.present? }
     end
 
     def compute_amount
-      value = trade_item.metering_attributes.fetch(promote.metering, 0)
-      added_amount = trade_item.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
+      value = cart.metering_attributes.fetch(promote.metering, 0)
+      added_amount = cart.trade_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
 
       self.based_amount = value + added_amount
       self.computed_amount = self.promote_charge.final_price(based_amount)
@@ -53,8 +47,9 @@ module Trade
       self
     end
 
-    def check_promote_good
-      promote_good.update state: 'used'
+    def sync_to_cart
+      cart.trade_promotes.reload
+      cart.reset_amount!
     end
 
   end
