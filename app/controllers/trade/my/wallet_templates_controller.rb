@@ -3,7 +3,7 @@ module Trade
     before_action :set_wallet_template, only: [:show]
 
     def show
-      @wallet = current_user.wallets.find_by(wallet_template_id: @wallet_template.id)
+      @wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: @wallet_template.id)
     end
 
     private
