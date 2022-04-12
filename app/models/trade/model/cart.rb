@@ -34,7 +34,7 @@ module Trade
       has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false
       has_many :checked_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, status: 'checked') }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :all_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
-      has_many :trade_promotes, -> { where(trade_item_id: nil, order_id: nil) }, inverse_of: :cart, autosave: true  # overall can be blank
+      has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, -> { includes(:wallet_template) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
@@ -92,7 +92,7 @@ module Trade
         promote_charge = promote_hash[:promote].compute_charge(value, **extra)
         next unless promote_charge
 
-        tp = trade_promotes.find(&->(i){ i.promote_id == promote_id }) || trade_promotes.build(promote_id: promote_id)
+        tp = cart_promotes.find(&->(i){ i.promote_id == promote_id }) || cart_promotes.build(promote_id: promote_id)
         tp.promote_good_id = promote_hash[:promote_good_id]
         tp.promote_charge_id = promote_charge.id
         tp.compute_amount
@@ -102,8 +102,8 @@ module Trade
     end
 
     def sum_amount
-      self.overall_additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
-      self.overall_reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
+      self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+      self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
       self.item_amount = checked_trade_items.sum(&:amount)
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
