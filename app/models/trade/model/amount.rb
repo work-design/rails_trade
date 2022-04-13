@@ -44,7 +44,7 @@ module Trade
 
       sequences.each do |sequence|
         x = result.select { |k, _| k.sequence == sequence }
-        promote, answer = x.min_by { |_, v| v[:value] }
+        promote, answer = x.min_by { |_, v| v[:computed_amount] }
         cart_promotes.where(status: 'init').where.not(promote_id: promote.id).delete_all
 
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
