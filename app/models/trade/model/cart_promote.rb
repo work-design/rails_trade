@@ -34,10 +34,7 @@ module Trade
     end
 
     def compute_amount
-      value = cart.metering_attributes.fetch(promote.metering, 0)
-      added_amount = cart.cart_promotes.select { |cp| cp.promote.sequence < self.promote.sequence }.sum(&->(o){ o.send(promote.metering) })
-
-      self.based_amount = value + added_amount
+      self.based_amount = cart.metering_attributes.fetch(promote.metering, 0)
       self.computed_amount = self.promote_charge.final_price(based_amount)
       self.amount = computed_amount unless edited?
       self

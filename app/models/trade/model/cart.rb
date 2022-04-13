@@ -93,9 +93,9 @@ module Trade
         promote_charge = promote_hash[:promote].compute_charge(value, **extra)
         next unless promote_charge
 
-        tp = cart_promotes.find(&->(i){ i.promote_id == promote_id }) || cart_promotes.build(promote_id: promote_id)
-        tp.promote_charge_id = promote_charge.id
-        tp.compute_amount
+        cp = cart_promotes.find(&->(i){ i.promote_id == promote_id }) || cart_promotes.build(promote_id: promote_id)
+        cp.promote_charge_id = promote_charge.id
+        cp.compute_amount
       end
 
       sum_amount
