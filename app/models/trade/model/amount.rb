@@ -16,25 +16,39 @@ module Trade
       trade.amount += changed_amount
     end
 
-    def compute_promote
+    def compute_promote_hash
       promotes = available_promotes
-
       cart_promotes.where(status: 'init').where.not(promote_id: promotes.keys).delete_all
-      promotes.map do |promote, available_items|
-        value = available_items.sum(&->(i){ i[:trade_item].metering_attributes[promote.metering] })
-        logger.debug("#{promote.metering} is #{value}")
-        next if value.nil?
-        promote_charge = promote.compute_charge(value, **extra)
-        logger.debug("charge is #{promote_charge}")
-        next unless promote_charge
+      result = {}
+
+      promotes.each do |promote, available_items|
+        r = {}
+
+        r[:value] = available_items.sum(&->(i){ i[:trade_item].metering_attributes[promote.metering] || 0 })
+        r[:promote_charge] = promote.compute_charge(r[:value], **extra)
+        if r[:promote_charge]
+          r[:computed_amount] = r[:promote_charge].final_price(r[:value]) if r[:promote_charge]
+        else
+          r[:computed_amount] = nil
+        end
+        r[:items] = available_items
+
+        result.merge! promote => r
       end
+
+      result
     end
 
-    def compute_promote_amount
-      result = compute_promote
-      result.each do |promote, items|
+    def compute_promote
+      result = compute_promote_hash
+      sequences = result.keys.map!(&:sequence).sort!
+
+      sequences.each do |sequence|
+        x = result.select { |k, _| k.sequence == sequence }
+        promote, items = x.min_by { |_, v| v[:value] }
+
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
-        available_items.each do |item|
+        items.each do |item|
           ip = cp.item_promotes.find_or_initialize_by(trade_item_id: item[:trade_item].id)
           ip.promote_good = item[:promote_good]
         end
