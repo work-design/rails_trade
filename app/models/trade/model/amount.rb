@@ -45,16 +45,16 @@ module Trade
 
       sequences.each do |sequence|
         x = result.select { |k, _| k.sequence == sequence }
-        promote, items = x.min_by { |_, v| v[:value] }
+        promote, answer = x.min_by { |_, v| v[:value] }
 
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
-        items.each do |item|
+        answer[:items].each do |item|
           ip = cp.item_promotes.find_or_initialize_by(trade_item_id: item[:trade_item].id)
           ip.promote_good = item[:promote_good]
         end
-        cp.based_amount = value
-        cp.promote_charge = promote_charge
-        cp.computed_amount = promote_charge.final_price(based_amount)
+        cp.based_amount = answer[:value]
+        cp.promote_charge = answer[:promote_charge]
+        cp.computed_amount = answer[:computed_amount]
       end
       self.sum_amount
     end
