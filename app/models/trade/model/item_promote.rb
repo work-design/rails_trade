@@ -8,14 +8,10 @@ module Trade
       attribute :promote_name, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :cart_promote, inverse_of: :item_promotes, optional: true
       belongs_to :trade_item, inverse_of: :item_promotes
       belongs_to :promote
-      belongs_to :promote_charge
       belongs_to :promote_good
 
       enum status: {
