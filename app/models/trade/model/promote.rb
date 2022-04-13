@@ -7,7 +7,6 @@ module Trade
       attribute :short_name, :string
       attribute :code, :string
       attribute :description, :string
-      attribute :scope, :string
       attribute :metering, :string
       attribute :editable, :boolean, default: false, comment: '是否可更改价格'
       attribute :verified, :boolean, default: false
@@ -25,10 +24,6 @@ module Trade
 
       validates :code, uniqueness: true, allow_blank: true
 
-      enum scope: {
-        single: 'single',  # 适用于单独计算商品
-        overall: 'overall'  # 适用于多个商品一起计算
-      }
       enum metering: {
         number: 'number',  # 商品购买件数
         weight: 'weight',  # 商品总重量，support sequence

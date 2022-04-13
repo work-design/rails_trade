@@ -139,19 +139,14 @@ module Trade
     end
 
     def available_promotes
-      single_promotes = {}
-      total_promotes = {}
+      promotes = {}
       unavailable_ids = unavailable_promote_goods.pluck(:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).each do |promote_good|
-        if promote_good.promote.single?
-          single_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
-        else
-          total_promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
-        end
+        promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
       end
 
-      [single_promotes, total_promotes]
+      promotes
     end
 
     def compute_promote(**extra)

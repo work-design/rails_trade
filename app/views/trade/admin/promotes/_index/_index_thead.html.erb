@@ -2,10 +2,6 @@
   <p><%= Trade::Promote.human_attribute_name(:name) %></p>
   <p><%= Trade::Promote.human_attribute_name(:short_name) %>(<%= Trade::Promote.human_attribute_name(:code) %>)</p>
 </th>
-<th>
-  <%= Trade::Promote.human_attribute_name(:scope) %>
-  <span aria-label="<%= Trade::Promote.help_i18n(:scope) %>"><i class="fa-light fa-question-circle"></i></span>
-</th>
 <th><%= Trade::Promote.human_attribute_name(:metering) %></th>
 <th><%= Trade::Promote.human_attribute_name(:editable) %></th>
 <th><%= Trade::Promote.human_attribute_name(:sequence) %></th>
