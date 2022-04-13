@@ -79,7 +79,7 @@ module Trade
       checked_trade_items.each do |item|
         item.available_promotes.each do |promote_id, detail|
           promotes[promote_id] ||= []
-          promotes[promote_id] << detail[:trade_item]
+          promotes[promote_id] << detail
         end
       end
 
