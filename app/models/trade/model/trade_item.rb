@@ -151,8 +151,8 @@ module Trade
     end
 
     def sum_amount
-      self.additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
-      self.reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
+      self.additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
+      self.reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
 
       self.retail_price = single_price + additional_amount
       self.wholesale_price = original_amount + additional_amount
@@ -187,8 +187,8 @@ module Trade
     end
 
     def reset_amount
-      self.additional_amount = trade_promotes.default_where('amount-gte': 0).sum(:amount)
-      self.reduced_amount = trade_promotes.default_where('amount-lt': 0).sum(:amount)
+      self.additional_amount = item_promotes.default_where('amount-gte': 0).sum(:amount)
+      self.reduced_amount = item_promotes.default_where('amount-lt': 0).sum(:amount)
       self.amount = original_amount + additional_amount + reduced_amount
       self.valid?
       self.changes
