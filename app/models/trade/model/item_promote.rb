@@ -27,9 +27,6 @@ module Trade
       validates :amount, presence: true
 
       after_initialize if: :new_record? do
-        if trade_item
-          self.order = trade_item.order
-        end
         if self.promote_good
           self.promote_id = self.promote_good.promote_id
         end
