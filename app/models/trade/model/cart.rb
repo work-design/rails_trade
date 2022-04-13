@@ -91,7 +91,7 @@ module Trade
 
       cart_promotes.where(status: 'init').where.not(promote_id: promotes.keys).delete_all
       result = promotes.map do |promote, available_items|
-        value = available_items.sum(&->(i){ i.send(promote.metering) })
+        value = available_items.sum(&->(i){ i.metering_attributes[promote.metering] })
         logger.debug("#{promote.metering} is #{value}")
         next if value.nil?
         promote_charge = promote.compute_charge(value, **extra)
