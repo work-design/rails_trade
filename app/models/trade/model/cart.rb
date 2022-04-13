@@ -86,28 +86,6 @@ module Trade
       promotes.transform_keys!(&->(i){ Promote.find(i) })
     end
 
-    def compute_promote(**extra)
-      promotes = available_promotes
-
-      cart_promotes.where(status: 'init').where.not(promote_id: promotes.keys).delete_all
-      result = promotes.map do |promote, available_items|
-        value = available_items.sum(&->(i){ i.metering_attributes[promote.metering] })
-        logger.debug("#{promote.metering} is #{value}")
-        next if value.nil?
-        promote_charge = promote.compute_charge(value, **extra)
-        logger.debug("charge is #{promote_charge}")
-        next unless promote_charge
-
-        cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
-        cp.based_amount = value
-        cp.promote_charge = promote_charge
-        cp.compute_amount
-      end
-
-      self.sum_amount
-      result
-    end
-
     def sum_amount
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格

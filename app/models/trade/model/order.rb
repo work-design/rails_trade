@@ -89,6 +89,19 @@ module Trade
       amount_to_money(self.currency)
     end
 
+    def available_promotes
+      promotes = {}
+
+      trade_items.each do |item|
+        item.available_promotes.each do |promote_id, detail|
+          promotes[promote_id] ||= []
+          promotes[promote_id] << detail[:trade_item]
+        end
+      end
+
+      promotes.transform_keys!(&->(i){ Promote.find(i) })
+    end
+
     def compute_amount
       self.item_amount = trade_items.sum(&:amount)
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)

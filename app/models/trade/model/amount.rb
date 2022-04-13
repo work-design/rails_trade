@@ -15,6 +15,28 @@ module Trade
       trade.amount += changed_amount
     end
 
+    def compute_promote(**extra)
+      promotes = available_promotes
+
+      cart_promotes.where(status: 'init').where.not(promote_id: promotes.keys).delete_all
+      result = promotes.map do |promote, available_items|
+        value = available_items.sum(&->(i){ i.metering_attributes[promote.metering] })
+        logger.debug("#{promote.metering} is #{value}")
+        next if value.nil?
+        promote_charge = promote.compute_charge(value, **extra)
+        logger.debug("charge is #{promote_charge}")
+        next unless promote_charge
+
+        cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
+        cp.based_amount = value
+        cp.promote_charge = promote_charge
+        cp.compute_amount
+      end
+
+      self.sum_amount
+      result
+    end
+
     def reset_amount
       self.compute_amount
       self.valid?

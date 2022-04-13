@@ -19,6 +19,8 @@ module Trade
       belongs_to :promote
       belongs_to :promote_charge
 
+      has_many :trade_promotes, dependent: :destroy_async
+
       enum status: {
         init: 'init',
         checked: 'checked',
