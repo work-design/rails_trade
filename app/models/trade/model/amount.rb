@@ -28,6 +28,9 @@ module Trade
         next unless promote_charge
 
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
+        available_items.each do |item|
+          cp.trade_promotes.find_or_initialize_by(trade_item_id: item)
+        end
         cp.based_amount = value
         cp.promote_charge = promote_charge
         cp.compute_amount
