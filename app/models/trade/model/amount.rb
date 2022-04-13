@@ -18,7 +18,6 @@ module Trade
 
     def compute_promote_hash
       promotes = available_promotes
-      cart_promotes.where(status: 'init').where.not(promote_id: promotes.keys).delete_all
       result = {}
 
       promotes.each do |promote, available_items|
@@ -46,6 +45,7 @@ module Trade
       sequences.each do |sequence|
         x = result.select { |k, _| k.sequence == sequence }
         promote, answer = x.min_by { |_, v| v[:value] }
+        cart_promotes.where(status: 'init').where.not(promote_id: promote.id).delete_all
 
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         answer[:items].each do |item|
