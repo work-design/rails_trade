@@ -150,22 +150,6 @@ module Trade
       promotes
     end
 
-    def compute_promote(**extra)
-      single_promotes = available_promotes[0]
-
-      single_promotes.each do |_, promote_hash|
-        value = metering_attributes.fetch(promote_hash[:promote].metering)
-        promote_charge = promote_hash[:promote].compute_charge(value, **extra)
-        next unless promote_charge
-
-        tp = trade_promotes.find(&->(i){ i.promote_good_id == promote_hash[:promote_good_id] && i.promote_cart_id == promote_hash[:promote_cart_id] }) || trade_promotes.build(promote_good_id: promote_hash[:promote_good_id], promote_cart_id: promote_hash[:promote_cart_id])
-        tp.promote_charge_id = promote_charge.id
-        tp.compute_amount
-      end
-
-      sum_amount
-    end
-
     def sum_amount
       self.additional_amount = trade_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.reduced_amount = trade_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
