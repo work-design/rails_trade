@@ -55,6 +55,7 @@ module Trade
         cp.based_amount = answer[:value]
         cp.promote_charge = answer[:promote_charge]
         cp.computed_amount = answer[:computed_amount]
+        cp.sync_amount
       end
       self.sum_amount
     end
