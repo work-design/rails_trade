@@ -34,14 +34,3 @@ en:
           FinalPromoteCharge: Final
           MinusPromoteCharge: Minus
           CashPromoteCharge: Cash
-      serve:
-        type:
-          QuantityServe: 总重量
-          NumberServe: 购买件数
-        scope:
-          total: 全部应用
-          single: 单独应用
-      serve_charge:
-        type:
-          SingleServeCharge: Single Charge
-          TotalServeCharge: Total Charge

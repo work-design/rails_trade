@@ -40,9 +40,6 @@ zh:
           init: 待确认
           confirmed: 已确认
       trade/promote:
-        scope:
-          overall: 全体商品
-          single: 单个商品
         metering:
           number: 购买件数
           original_amount: 总金额
@@ -72,10 +69,8 @@ zh:
           Trade::PlusPromoteCharge: 附加费用
       trade/promote_good:
         status:
-          default: 默认生效
           available: 适用
           unavailable: 不适用
-          specific: 特定的
         good_type:
           Trade::Advance: 会员充值
       trade/promote_cart:

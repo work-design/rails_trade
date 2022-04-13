@@ -23,7 +23,6 @@ module Trade
       scope :available, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
 
       enum status: {
-        default: 'default',  # 默认直接添加的服务，不可取消
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
       }
