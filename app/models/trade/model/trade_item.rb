@@ -90,6 +90,7 @@ module Trade
       before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
+      before_save :sum_amount, if: -> { original_amount_changed? }
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
@@ -156,7 +157,6 @@ module Trade
 
       self.retail_price = single_price + additional_amount
       self.wholesale_price = original_amount + additional_amount
-
       self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
       self.changes
     end
