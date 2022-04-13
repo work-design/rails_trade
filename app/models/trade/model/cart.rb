@@ -86,6 +86,7 @@ module Trade
     def compute_promote(**extra)
       overall_promotes = available_promotes
 
+      cart_promotes.where(status: 'init').where.not(promote_id: overall_promotes.keys).delete_all
       overall_promotes.each do |promote_id, promote_hash|
         value = metering_attributes.fetch(promote_hash[:promote].metering, nil)
         next if value.nil?
