@@ -32,13 +32,12 @@ module Trade
       after_initialize if: :new_record? do
         self.sequence = self.promote.sequence if self.promote
       end
+      before_save :sync_amount, if: -> { computed_amount_changed? }
       after_update :sync_to_cart, if: -> { order.present? && saved_change_to_order_id? }
     end
 
-    def compute_amount
-      self.computed_amount = self.promote_charge.final_price(based_amount)
+    def sync_amount
       self.amount = computed_amount unless edited?
-      self
     end
 
     def sync_to_cart
