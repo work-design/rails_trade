@@ -34,7 +34,6 @@ module Trade
     end
 
     def compute_amount
-      self.based_amount = cart.metering_attributes.fetch(promote.metering, 0)
       self.computed_amount = self.promote_charge.final_price(based_amount)
       self.amount = computed_amount unless edited?
       self

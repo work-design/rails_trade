@@ -142,7 +142,10 @@ module Trade
       unavailable_ids = unavailable_promote_goods.pluck(:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).each do |promote_good|
-        promotes.merge! promote_good.promote_id => { promote: promote_good.promote, promote_good_id: promote_good.id }
+        promotes.merge! promote_good.promote_id => {
+          promote_good: promote_good,
+          trade_item: self
+        }
       end
 
       promotes

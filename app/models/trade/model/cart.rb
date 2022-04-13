@@ -74,31 +74,38 @@ module Trade
     end
 
     def available_promotes
-      overall_promotes = {}
+      promotes = {}
 
-      checked_trade_items.each do |i|
-        overall_promotes.merge! i.available_promotes[1]
+      checked_trade_items.each do |item|
+        item.available_promotes.each do |promote_id, detail|
+          promotes[promote_id] ||= []
+          promotes[promote_id] << detail[:trade_item]
+        end
       end
 
-      overall_promotes
+      promotes.transform_keys!(&->(i){ Promote.find(i) })
     end
 
     def compute_promote(**extra)
-      overall_promotes = available_promotes
+      promotes = available_promotes
 
-      cart_promotes.where(status: 'init').where.not(promote_id: overall_promotes.keys).delete_all
-      overall_promotes.each do |promote_id, promote_hash|
-        value = metering_attributes.fetch(promote_hash[:promote].metering, nil)
+      cart_promotes.where(status: 'init').where.not(promote_id: promotes.keys).delete_all
+      result = promotes.map do |promote, available_items|
+        value = available_items.sum(&->(i){ i.send(promote.metering) })
+        logger.debug("#{promote.metering} is #{value}")
         next if value.nil?
-        promote_charge = promote_hash[:promote].compute_charge(value, **extra)
+        promote_charge = promote.compute_charge(value, **extra)
+        logger.debug("charge is #{promote_charge}")
         next unless promote_charge
 
-        cp = cart_promotes.find(&->(i){ i.promote_id == promote_id }) || cart_promotes.build(promote_id: promote_id)
-        cp.promote_charge_id = promote_charge.id
+        cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
+        cp.based_amount = value
+        cp.promote_charge = promote_charge
         cp.compute_amount
       end
 
-      sum_amount
+      self.sum_amount
+      result
     end
 
     def sum_amount

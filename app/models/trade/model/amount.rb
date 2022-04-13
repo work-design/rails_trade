@@ -21,10 +21,6 @@ module Trade
       self.changes
     end
 
-    def metering_attributes
-      attributes.slice 'quantity', 'original_amount'
-    end
-
     def reset_amount!(*args)
       self.reset_amount
       self.save(*args)
