@@ -7,15 +7,16 @@
         </div>
         <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
-          <p class="weui-media-box__desc"><%= trade_item.amount %></p>
+          <p class="weui-media-box__desc"><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></p>
         </div>
       </div>
     <% end %>
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
       <ul class="weui-media-box__info m-0">
-        <li class="weui-media-box__info__meta">总价：</li>
-        <li class="weui-media-box__info__meta"><%= @order.amount %></li>
-        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
+        <li class="weui-media-box__info__meta">
+          <span>总价：</span>
+          <span><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
+        </li>
       </ul>
     </div>
   </div>
