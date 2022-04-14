@@ -8,13 +8,13 @@
         </div>
         <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
-          <p class="weui-media-box__desc"><%= trade_item.amount %></p>
+          <p class="weui-media-box__desc"><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></p>
         </div>
       </div>
     <% end %>
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
       <ul class="weui-media-box__info m-0">
-        <li class="weui-media-box__info__meta"><%= model.amount %></li>
+        <li class="weui-media-box__info__meta"><%= model.amount.to_money.format(html_wrap: true).html_safe %></li>
         <li class="weui-media-box__info__meta"><%= model.payment_status_i18n %></li>
         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
           <%= link_to '支付', { action: 'payment_types', id: model.id } unless model.all_paid? %>
