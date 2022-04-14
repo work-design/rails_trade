@@ -36,6 +36,10 @@ module Trade
       promote_extras.pluck(:extra_name, :column_name).to_h
     end
 
+    def existing_good_types
+      promote_goods.pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
+    end
+
     def compute_charge(value, **extra)
       extra.transform_keys! { |key| extra_mappings[key.to_s] }
       extra.delete nil
