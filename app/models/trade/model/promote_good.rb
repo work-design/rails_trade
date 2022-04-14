@@ -3,6 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :type, :string
       attribute :state, :string, default: 'unused'
       attribute :status, :string, default: 'available'
       attribute :effect_at, :datetime, default: -> { Time.current }
@@ -26,7 +27,7 @@ module Trade
       enum status: {
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
-      }
+      }, _default: 'available'
 
       enum state: {
         unused: 'unused',
