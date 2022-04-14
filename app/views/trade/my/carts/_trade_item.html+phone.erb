@@ -15,13 +15,13 @@
     </div>
     <div class="weui-media-box__bd">
       <h4 class="weui-media-box__title"><%= model.good.name %></h4>
-      <p class="weui-media-box__desc">
+      <ul class="weui-media-box__info">
         <% if model.good.respond_to?(:parts) %>
           <% model.good.parts.each do |part| %>
-            <span><%= part.name %></span>
+            <li><%= part.name %></li>
           <% end %>
         <% end %>
-      </p>
+      </ul>
       <div class="weui-media-box__info is-flex is-justify-content-space-between">
         <div class="is-flex is-align-items-center">
           <div class="weui-media-box__info__meta">
