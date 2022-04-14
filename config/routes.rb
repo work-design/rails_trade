@@ -93,7 +93,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
         resources :order_payments
       end
       resources :trade_items
-      resources :trade_promotes
+      resources :cart_promotes
       resources :payments do
         collection do
           get :dashboard
@@ -125,7 +125,10 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
         collection do
           get :search
         end
-        resources :promote_charges, as: 'charges'
+        resources :promote_charges
+        resources :promote_good_types do
+
+        end
       end
       resources :promote_charges, only: [] do
         collection do
