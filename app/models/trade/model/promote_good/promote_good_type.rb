@@ -1,5 +1,5 @@
 module Trade
-  module Model::Promote::PromoteGoodType
+  module Model::PromoteGood::PromoteGoodType
     extend ActiveSupport::Concern
 
     included do
