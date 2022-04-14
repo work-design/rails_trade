@@ -7,7 +7,7 @@
         </div>
         <div class="weui-media-box__bd">
           <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
-          <p class="weui-media-box__desc"><%= trade_item.amount %></p>
+          <p class="weui-media-box__desc"><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></p>
           <% if trade_item.produce_plan %>
             <p class="weui-media-box__desc has-text-danger">提货：<%= trade_item.produce_plan.produce_on %></p>
           <% end %>
