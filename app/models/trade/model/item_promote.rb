@@ -11,7 +11,7 @@ module Trade
 
       belongs_to :cart_promote, inverse_of: :item_promotes
       belongs_to :trade_item, inverse_of: :item_promotes
-      belongs_to :promote_good
+      belongs_to :promote_good, counter_cache: true
       belongs_to :promote, optional: true
 
       enum status: {

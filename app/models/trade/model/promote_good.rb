@@ -4,11 +4,10 @@ module Trade
 
     included do
       attribute :type, :string
-      attribute :state, :string, default: 'unused'
       attribute :status, :string, default: 'available'
       attribute :effect_at, :datetime, default: -> { Time.current }
       attribute :expire_at, :datetime
-      attribute :trade_promotes_count, :integer, default: 0
+      attribute :item_promotes_count, :integer, default: 0
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true
@@ -28,12 +27,6 @@ module Trade
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
       }, _default: 'available'
-
-      enum state: {
-        unused: 'unused',
-        used: 'used',
-        expired: 'expired'
-      }
 
       validates :effect_at, presence: true
       validates :expire_at, presence: true

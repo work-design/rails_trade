@@ -8,6 +8,7 @@ module RailsTrade
       "#{config.root}/app/models/payment_method",
       "#{config.root}/app/models/payout",
       "#{config.root}/app/models/promote_charge",
+      "#{config.root}/app/models/promote_good",
       "#{config.root}/app/models/refund"
 
     ]
@@ -17,16 +18,13 @@ module RailsTrade
       "#{config.root}/app/models/payment_method",
       "#{config.root}/app/models/payout",
       "#{config.root}/app/models/promote_charge",
+      "#{config.root}/app/models/promote_good",
       "#{config.root}/app/models/refund"
     ]
 
     config.generators do |g|
       g.helper = false
       g.resource_route = false
-      g.test_unit = {
-        fixture: true,
-        fixture_replacement: :factory_girl
-      }
       g.templates.unshift File.expand_path('lib/templates', RailsCom::Engine.root)
     end
 
