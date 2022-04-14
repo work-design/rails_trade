@@ -8,7 +8,11 @@
     </div>
   <% end %>
   <%= form_with model: @promote_good, url: { action: 'create' } do |f| %>
-    <%= render partial: 'form', locals: { f: f } %>
+    <%= f.hidden_field :promote_id %>
+    <%= f.hidden_field :good_type %>
+    <%= f.hidden_field :good_id %>
+    <%= f.datetime_field :effect_at, data: { action: 'change->equal#updateTime' }, step: 1 %>
+    <%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>
     <%= f.hidden_field :member_id, data: { typer_target: 'value' } %>
     <%= f.submit %>
   <% end %>
