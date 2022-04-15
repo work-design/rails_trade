@@ -1,3 +1,5 @@
-<td><%= model.effect_at %></td>
-<td><%= model.expire_at %></td>
-<td><%= model.good_type %></td>
+<td><%= model.good_type_i18n %></td>
+<td>
+  <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at.to_fs(:iso8601) %></time></p>
+</td>

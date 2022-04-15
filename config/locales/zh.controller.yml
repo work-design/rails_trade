@@ -70,6 +70,9 @@ zh:
         index:
           title: 优惠券发放
           user: 派发给用户
+      promote_good_types:
+        index:
+          title: 优惠券设置
       refunds:
         index:
           title: 退款列表

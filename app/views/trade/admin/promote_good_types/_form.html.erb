@@ -1,3 +1,3 @@
-<%= f.text_field :effect_at %>
-<%= f.text_field :expire_at %>
-<%= f.text_field :good_type %>
+<%= f.select :good_type, options_for_select(Trade::PromoteGood.options_i18n(:good_type).except(*@promote_good.promote.existing_good_types), @promote_good.good_type) %>
+<%= f.datetime_field :effect_at %>
+<%= f.datetime_field :expire_at %>
