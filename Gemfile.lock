@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: b9975aa5e902577445b8b7a225c90dba4d806ba1
+  revision: dfe787ab004e759d52f729baf3f6fa4100ff64e3
   specs:
     rails_design (0.0.1)
       rails
@@ -32,13 +32,6 @@ GIT
   specs:
     rails_extend (1.0.1)
       rails (>= 5.0)
-
-GIT
-  remote: https://github.com/work-design/rails_vite.git
-  revision: d565f52c196db60c161cf1e71308d75c89b77f23
-  specs:
-    rails_vite (0.0.1)
-      rails
 
 PATH
   remote: .
@@ -206,6 +199,8 @@ GEM
     nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri (1.13.4-x86_64-linux)
+      racc (~> 1.4)
     pg (1.3.5)
     racc (1.6.0)
     rack (2.2.3)
@@ -275,7 +270,6 @@ DEPENDENCIES
   rails_design!
   rails_extend!
   rails_trade!
-  rails_vite!
   sdoc
 
 BUNDLED WITH
