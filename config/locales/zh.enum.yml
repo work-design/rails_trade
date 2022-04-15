@@ -71,6 +71,10 @@ zh:
         status:
           available: 适用
           unavailable: 不适用
+        state:
+          unused: 未使用
+          used: 已使用
+          expired: 已过期
         good_type:
           Trade::Advance: 会员充值
       trade/promote_cart:
