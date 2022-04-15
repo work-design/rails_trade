@@ -8,7 +8,21 @@ module Trade
       @promote_goods = @promote.promote_goods.page(params[:page])
     end
 
+    def new
+    end
+
+    def create
+      @promote_good.save
+    end
+
     def show
+    end
+
+    def edit
+    end
+
+    def destroy
+      @promote_good.destroy
     end
 
     private
@@ -22,6 +36,7 @@ module Trade
 
     def set_new_promote_good
       @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
+      @promote_good.assign_attributes promote_good_params
     end
 
     def promote_good_params
