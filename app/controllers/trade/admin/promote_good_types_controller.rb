@@ -2,6 +2,7 @@ module Trade
   class Admin::PromoteGoodTypesController < Admin::BaseController
     before_action :set_promote
     before_action :set_new_promote_good, only: [:new, :create]
+    before_action :set_promote_good, only: [:show, :edit, :update, :destroy]
 
     def index
       @promote_goods = @promote.promote_goods.page(params[:page])
