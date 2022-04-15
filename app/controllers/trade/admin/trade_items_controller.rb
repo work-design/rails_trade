@@ -7,7 +7,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :address_id, :status)
 
-      @trade_items = TradeItem.includes(:trade_promotes).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @trade_items = TradeItem.includes(:item_promotes).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def only

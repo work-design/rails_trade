@@ -94,6 +94,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
       end
       resources :trade_items
       resources :cart_promotes
+      resources :item_promotes
       resources :payments do
         collection do
           get :dashboard

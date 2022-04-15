@@ -40,7 +40,6 @@ module Trade
         :good_type,
         :good_id,
         :member_id,
-        :member_organ_id,
         :user_id,
         :effect_at,
         :expire_at,
