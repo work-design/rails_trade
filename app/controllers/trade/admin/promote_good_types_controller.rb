@@ -8,6 +8,9 @@ module Trade
       @promote_goods = @promote.promote_goods.page(params[:page])
     end
 
+    def show
+    end
+
     private
     def set_promote
       @promote = Promote.find params[:promote_id]
