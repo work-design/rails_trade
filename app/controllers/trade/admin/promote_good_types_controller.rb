@@ -2,10 +2,10 @@ module Trade
   class Admin::PromoteGoodTypesController < Admin::BaseController
     before_action :set_promote
     before_action :set_new_promote_good, only: [:new, :create]
-    before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :update, :destroy]
+    before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
 
     def index
-      @promote_goods = @promote.promote_good_types
+      @promote_goods = @promote.promote_good_types.where(good_id: nil).available
     end
 
     def new
@@ -30,8 +30,22 @@ module Trade
     end
 
     def blacklist_create
-      @blacklist = @promote_good.blacklists.build
-      @blacklist.assign_attributes
+      @blacklist = @promote_good.blacklists.build(status: 'unavailable')
+      @blacklist.assign_attributes blacklist_params
+
+      if @blacklist.save
+        render :blacklist_create, locals: { model: @blacklist }
+      else
+        render :blacklist_new, status: :unprocessable_entity
+      end
+    end
+
+    def blacklist_search
+      q_params = {}
+      q_params.merge! default_params
+      q_params.merge! params.permit('name-like')
+
+      @goods = @promote_good.good_type.constantize.default_where(q_params)
     end
 
     def destroy

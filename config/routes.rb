@@ -131,6 +131,8 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
           member do
             get :blacklist
             get :blacklist_new
+            post :blacklist_create
+            post :blacklist_search
           end
         end
       end

@@ -20,7 +20,7 @@ module Trade
       has_many :cart_promotes
       has_many :item_promotes
 
-      scope :verified, -> { where(status: ['default', 'available']) }
+      scope :verified, -> { where(status: ['available']) }
       scope :valid, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
       scope :available, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
 
