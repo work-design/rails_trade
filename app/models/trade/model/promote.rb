@@ -17,6 +17,8 @@ module Trade
       has_many :promote_charges, dependent: :delete_all
       has_many :promote_extras, dependent: :delete_all
       has_many :promote_goods, dependent: :destroy_async
+      has_many :promote_good_types, dependent: :destroy_async
+      has_many :promote_good_users, dependent: :destroy_async
 
       scope :verified, -> { where(verified: true) }
       scope :default, -> { verified.where(default: true) }
@@ -26,7 +28,7 @@ module Trade
 
       enum metering: {
         number: 'number',  # 商品购买件数
-        weight: 'weight',  # 商品总重量，support sequence
+        weight: 'weight',  # 商品总重量, support sequence
         volume: 'volume',  # 商品总体积, support sequence
         original_amount: 'original_amount'  # 商品总金额, support sequence
       }
