@@ -11,8 +11,8 @@ module Trade
       attribute :identity, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :user, class_name: 'Auth::User', counter_cache: true, optional: true
+      belongs_to :member, class_name: 'Org::Member', counter_cache: true, optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :promote
@@ -40,7 +40,7 @@ module Trade
     def sync_from_promote
       self.organ_id = promote.organ_id
     end
-    
+
     def sync_user
       self.user = self.member&.user
     end

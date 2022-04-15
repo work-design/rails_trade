@@ -3,11 +3,14 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :promote_goods_count, :integer, default: 0
+
       has_many :carts, -> { order(id: :asc) }, class_name: 'Trade::Cart'
       has_many :wallets, class_name: 'Trade::Wallet'
       has_many :orders, class_name: 'Trade::Order'
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :payments, class_name: 'Trade::Payment'
+      has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
       has_many :cart_trade_items, ->{ carting }, class_name: 'Trade::TradeItem'
     end

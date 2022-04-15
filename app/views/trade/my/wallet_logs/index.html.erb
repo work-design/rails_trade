@@ -1,9 +1,9 @@
-<table class="table is-striped is-hoverable is-fullwidth">
+<table class="table is-striped is-borderless is-fullwidth">
   <thead>
-    <tr class="has-text-centered has-text-weight-normal is-size-7">
+    <tr class="has-text-weight-normal is-size-7">
       <th>金额</th>
-      <th>类别</th>
-      <th>时间</th>
+      <th class="has-text-centered">类别</th>
+      <th class="has-text-centered">时间</th>
     </tr>
   </thead>
   <%= render partial: 'wallet_log', collection: @wallet_logs, as: :model %>

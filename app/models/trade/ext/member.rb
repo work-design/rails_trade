@@ -3,6 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :promote_goods_count, :integer, default: 0
+
       #has_many :payment_references, class_name: 'Trade::PaymentReference', dependent: :destroy_async
       #has_many :payment_methods, through: :payment_references
       has_many :carts, class_name: 'Trade::Cart'
@@ -10,6 +12,7 @@ module Trade
       has_many :cart_trade_items, ->{ carting }, class_name: 'Trade::TradeItem'
       has_many :agent_trade_items, class_name: 'Trade::TradeItem', foreign_key: :agent_id
       has_many :orders, class_name: 'Trade::Order'
+      has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
     end
