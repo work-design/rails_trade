@@ -1,0 +1,10 @@
+<div class="tabs">
+  <ul>
+    <li class="<%= active_helper(controller: 'promote_good_types', active: 'is-active', item: nil) %>">
+      <%= link_to t('trade.admin.promote_good_types.index.title'), { controller: 'promote_good_types' } %>
+    </li>
+    <li class="<%= active_helper(controller: 'promote_good_users', active: 'is-active', item: nil) %>">
+      <%= link_to t('trade.admin.promote_good_users.index.title'), { controller: 'promote_good_users' } %>
+    </li>
+  </ul>
+</div>
