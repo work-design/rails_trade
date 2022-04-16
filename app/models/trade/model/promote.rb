@@ -39,7 +39,7 @@ module Trade
     end
 
     def existing_good_types
-      promote_goods.pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
+      promote_good_types.pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
     end
 
     def compute_charge(value, **extra)
