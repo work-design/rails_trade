@@ -4,7 +4,7 @@
   </div>
   <div class="field-body">
     <div class="panel" data-controller="typer" data-typer-url-value="<%= url_for(action: 'user_search') %>" data-typer-method-value="post">
-      <%= f.hidden_field :member_id, data: { typer_target: 'value' } %>
+      <%= f.hidden_field :user_id, data: { typer_target: 'value' } %>
       <div class="control has-icons-left">
         <%= search_field_tag :identity, nil, class: 'input', placeholder: '搜索', data: { typer_target: 'input' } %>
         <span class="icon is-left"><i class="fa-light fa-search"></i></span>
