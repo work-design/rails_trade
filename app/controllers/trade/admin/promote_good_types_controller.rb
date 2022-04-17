@@ -11,6 +11,10 @@ module Trade
       @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
     end
 
+    def part_new
+      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
+    end
+
     def create
       @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
       @promote_good.assign_attributes promote_good_params
@@ -47,12 +51,12 @@ module Trade
       end
     end
 
-    def blacklist_search
+    def search
       q_params = {}
       q_params.merge! default_params
       q_params.merge! params.permit('name-like')
 
-      @goods = @promote_good.good_type.constantize.default_where(q_params)
+      @goods = params[:good_type].constantize.default_where(q_params)
     end
 
     def destroy
