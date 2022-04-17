@@ -140,7 +140,12 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
             post :blacklist_create
           end
         end
-        resources :promote_good_users
+        resources :promote_good_users do
+          collection do
+            post :user_search
+            post :good_search
+          end
+        end
       end
       resources :promote_charges, only: [] do
         collection do
