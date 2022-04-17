@@ -1,0 +1,2 @@
+<% f_object = form_object(@promote_good) %>
+$('#promote_good_good_id').html('<%= j(render partial: 'goods_options', locals: { f: f_object }) %>')

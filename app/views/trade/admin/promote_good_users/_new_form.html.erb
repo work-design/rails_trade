@@ -1,0 +1,5 @@
+<%= form_with model: @promote_good, url: { action: 'create' }, data: { controller: 'equal', equal_plus_value: { years: 1 }.to_json } do |f| %>
+  <%= render 'error_messages', target: f.object  %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit %>
+<% end %>

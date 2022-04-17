@@ -66,6 +66,9 @@ zh:
       promote_charges:
         index:
           title: 服务计算细则
+      promote_goods:
+        index:
+          title: 优惠券
       promote_good_users:
         index:
           title: 优惠券发放
