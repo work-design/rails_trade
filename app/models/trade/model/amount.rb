@@ -40,6 +40,9 @@ module Trade
 
     def compute_promote
       result = compute_promote_hash
+      if result.blank?
+        cart_promotes.delete_all
+      end
       sequences = result.keys.map!(&:sequence).sort!
 
       sequences.each do |sequence|
