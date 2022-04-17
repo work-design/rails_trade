@@ -22,6 +22,10 @@ module Trade
       end
     end
 
+    def part
+      @promote_goods = @promote.promote_good_types.where(good_type: params[:good_type]).available
+    end
+
     def part_new
       @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
     end

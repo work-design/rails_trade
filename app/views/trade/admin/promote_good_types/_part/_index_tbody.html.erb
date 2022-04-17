@@ -1,0 +1,10 @@
+<td>
+  <div class="is-several">
+    <%= image_tag model.good.logo, class: 'image is-24x24' if model.good.logo.attached? %>
+    <span><%= model.good.name %></span>
+  </div>
+</td>
+<td>
+  <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at.to_fs(:iso8601) %></time></p>
+</td>

@@ -131,6 +131,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
           collection do
             get :part_new
             post :part_create
+            get :part
             post :search
           end
           member do

@@ -11,5 +11,9 @@
     <% end %>
   </div>
 </td>
-<td></td>
+<td>
+  <%= link_to({ action: 'part', good_type: model[1] }, text: true) do %>
+    <span><%= Trade::PromoteGoodType.available.where(good_type: model[1]).where.not(good_id: nil).count %></span>
+  <% end %>
+</td>
 <td></td>

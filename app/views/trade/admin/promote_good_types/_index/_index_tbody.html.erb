@@ -4,5 +4,8 @@
   <p><time data-controller="time"><%= model.expire_at.to_fs(:iso8601) %></time></p>
 </td>
 <td>
-  <%= link_to model.blacklists_count, { action: 'blacklist', id: model.id }, text: true %>
+  <%= link_to({ action: 'blacklist', id: model.id }, text: true) do %>
+    <span><%= Trade::PromoteGood.human_attribute_name(:blacklists_count) %></span>
+    <span><%= model.blacklists_count %></span>
+  <% end %>
 </td>
