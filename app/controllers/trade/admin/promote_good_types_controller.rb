@@ -4,7 +4,7 @@ module Trade
     before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
 
     def index
-      @promote_goods = @promote.promote_good_types.where(good_id: nil)
+      @promote_goods = @promote.promote_good_types.where(good_id: nil).order(good_type: :asc).available
     end
 
     def new
