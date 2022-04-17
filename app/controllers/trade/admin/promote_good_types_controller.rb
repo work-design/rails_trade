@@ -11,10 +11,6 @@ module Trade
       @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
     end
 
-    def part_new
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
-    end
-
     def create
       @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
       @promote_good.assign_attributes promote_good_params
@@ -23,6 +19,21 @@ module Trade
         render :create, locals: { model: @promote_good }
       else
         render :new, status: :unprocessable_entity
+      end
+    end
+
+    def part_new
+      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
+    end
+
+    def part_create
+      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
+      @promote_good.assign_attributes promote_good_params
+
+      if @promote_good.save
+        render :create, locals: { model: @promote_good }
+      else
+        render :part_new, status: :unprocessable_entity
       end
     end
 

@@ -130,6 +130,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
         resources :promote_good_types do
           collection do
             get :part_new
+            post :part_create
             post :search
           end
           member do
