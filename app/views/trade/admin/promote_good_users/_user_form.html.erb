@@ -1,4 +1,4 @@
-<%= form_with model: @promote_good, url: { action: 'create' }, data: { controller: 'equal' } do |f| %>
+<%= form_with model: @promote_good, url: { action: 'create' }, data: { controller: 'equal', equal_plus_value: { years: 1 }.to_json } do |f| %>
   <%= f.hidden_field :good_type %>
   <%= f.datetime_field :effect_at, data: { action: 'change->equal#updateTime' }, step: 1 %>
   <%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>
