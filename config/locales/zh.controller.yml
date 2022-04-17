@@ -76,6 +76,8 @@ zh:
       promote_good_types:
         index:
           title: 优惠券设置
+          new: 所有商品
+          part_new: 部分商品
         blacklist:
           title: 例外商品
       refunds:

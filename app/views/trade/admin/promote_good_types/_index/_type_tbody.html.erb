@@ -1,9 +1,15 @@
 <td><%= model[0] %></td>
 <td>
-  <%= link_to({ action: 'new', good_type: model[1] }, data: { turbo_frame: 'modal' }, class: 'button is-small is-link') do %>
-    <i class="fa-light fa-plus"></i>
-    <span><%= t('.new') %></span>
-  <% end %>
+  <div class="buttons are-small">
+    <%= link_to({ action: 'new', good_type: model[1] }, data: { turbo_frame: 'modal' }, class: 'button is-small is-link') do %>
+      <i class="fa-light fa-plus"></i>
+      <span><%= t('.new') %></span>
+    <% end %>
+    <%= link_to({ action: 'part_new', good_type: model[1] }, data: { turbo_frame: 'modal' }, class: 'button is-small is-link') do %>
+      <i class="fa-light fa-plus"></i>
+      <span><%= t('.part_new') %></span>
+    <% end %>
+  </div>
 </td>
 <td></td>
 <td></td>
