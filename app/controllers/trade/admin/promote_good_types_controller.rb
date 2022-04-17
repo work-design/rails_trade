@@ -1,18 +1,25 @@
 module Trade
   class Admin::PromoteGoodTypesController < Admin::BaseController
     before_action :set_promote
-    before_action :set_new_promote_good, only: [:new, :create]
     before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
 
     def index
-      @promote_goods = @promote.promote_good_types.where(good_id: nil).available
+      @promote_goods = @promote.promote_good_types.where(good_id: nil)
     end
 
     def new
+      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
     end
 
     def create
-      @promote_good.save
+      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
+      @promote_good.assign_attributes promote_good_params
+
+      if @promote_good.save
+        render :create, locals: { model: @promote_good }
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
 
     def show
@@ -59,11 +66,6 @@ module Trade
 
     def set_promote_good
       @promote_good = @promote.promote_goods.find params[:id]
-    end
-
-    def set_new_promote_good
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
-      @promote_good.assign_attributes promote_good_params
     end
 
     def blacklist_params
