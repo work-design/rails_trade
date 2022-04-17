@@ -18,10 +18,12 @@ module Trade
 
       has_one_attached :logo
       delegate :cover, :organ_id, to: :card_template
+
+      before_validation :sync_name, if: -> { (changes.keys & ['card_template_id', 'amount']).present? }
     end
 
-    def name
-      "#{card_template.name}-#{amount}"
+    def sync_name
+      self.name = "#{card_template.name}-#{amount}"
     end
 
     def order_paid(trade_item)
