@@ -4,12 +4,10 @@ module Trade
 
     def index
       q_params = {}
+      q_params.merge! default_params
       q_params.merge! params.permit(:promote_id, :good_type, :good_id)
 
       @promote_goods = PromoteGood.default_where(q_params).page(params[:page])
-      if params[:promote_id]
-        @promote = Promote.find params[:promote_id]
-      end
     end
 
     def goods
