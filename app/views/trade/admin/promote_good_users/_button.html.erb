@@ -4,4 +4,9 @@
     <span><%= text %></span>
     <span><%= t('.new') %></span>
   <% end %>
+  <%= link_to({ action: 'user', good_type: good_type }, data: { turbo_frame: 'modal' }, class: 'button is-warning') do %>
+    <i class="fa-light fa-plus"></i>
+    <span><%= text %></span>
+    <span><%= t('.new') %></span>
+  <% end %>
 <% end %>
