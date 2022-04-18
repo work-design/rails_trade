@@ -2,7 +2,8 @@
   <p><%= model.good_type_i18n %></p>
   <p>
   <% if model.good_id %>
-    <%= model.good.name %>
+    <span><%= model.good.name %></span>
+    <span class="has-text-grey">(<%= model.good_id %>)</span>
   <% else %>
     <span class="has-text-success">不限商品</span>
   <% end %>
