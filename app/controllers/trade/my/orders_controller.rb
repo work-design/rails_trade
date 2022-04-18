@@ -31,9 +31,9 @@ module Trade
         trade_item.status = 'ordered'
         trade_item.address_id = params[:address_id]
       end
-      current_cart.trade_promotes.each do |trade_promote|
-        trade_promote.order = @order
-        trade_promote.status = 'ordered'
+      current_cart.cart_promotes.each do |cart_promote|
+        cart_promote.order = @order
+        cart_promote.status = 'ordered'
       end
 
       if @order.save

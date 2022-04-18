@@ -70,7 +70,7 @@ module Trade
         :invoice_address_id,
         :amount,
         trade_items_attributes: [:deliver_on, :advance_price, :comment],
-        trade_promotes_attributes: [:promote_id]
+        cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params
     end

@@ -18,6 +18,7 @@ module Trade
       belongs_to :order, inverse_of: :cart_promotes, optional: true
       belongs_to :promote
       belongs_to :promote_charge
+      belongs_to :promote_good, counter_cache: true
 
       has_many :item_promotes, dependent: :destroy_async
 

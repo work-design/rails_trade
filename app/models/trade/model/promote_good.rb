@@ -8,6 +8,7 @@ module Trade
       attribute :effect_at, :datetime, default: -> { Time.current }
       attribute :expire_at, :datetime
       attribute :item_promotes_count, :integer, default: 0
+      attribute :cart_promotes_count, :integer, default: 0
       attribute :identity, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
