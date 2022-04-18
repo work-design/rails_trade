@@ -18,7 +18,7 @@ module Trade
       belongs_to :order, inverse_of: :cart_promotes, optional: true
       belongs_to :promote
       belongs_to :promote_charge
-      belongs_to :promote_good, counter_cache: true
+      belongs_to :promote_good, counter_cache: true, optional: true
 
       has_many :item_promotes, dependent: :destroy_async
 
@@ -42,7 +42,7 @@ module Trade
     end
 
     def sync_to_cart
-      cart.trade_promotes.reload
+      cart.cart_promotes.reload
       cart.reset_amount!
     end
 
