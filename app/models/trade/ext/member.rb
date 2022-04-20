@@ -33,7 +33,7 @@ module Trade
       args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
       args.merge! 'member_id' => options[:member_id].to_i if options[:member_id].present?
 
-      trade_item = agent_trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'member_id') == args }) || agent_trade_items.build(args)
+      trade_item = agent_trade_items.carting.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'member_id') == args }) || agent_trade_items.build(args)
 
       if trade_item.persisted? && trade_item.status_checked?
         trade_item.number += (number.present? ? number.to_i : 1)
