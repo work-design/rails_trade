@@ -3,7 +3,11 @@
     <div>
       <p class="title"><%= t('.title') %></p>
       <p><%= t('.tip') %></p>
-      <%= link_to t('trade.my.orders.index.title'), { controller: 'trade/my/orders', action: 'index' } %>
+      <% if model.agent_id %>
+        <%= link_to t('factory.buy.orders.index.title'), { controller: 'factory/buy/orders', action: 'index' } %>
+      <% else %>
+        <%= link_to t('trade.my.orders.index.title'), { controller: 'trade/my/orders', action: 'index' } %>
+      <% end %>
     </div>
   </div>
 </div>

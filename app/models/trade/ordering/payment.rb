@@ -62,7 +62,11 @@ module Trade
     end
 
     def send_notice
-      broadcast_action_to self, action: :update, target: 'order_result', partial: 'trade/my/orders/success'
+      broadcast_action_to self, action: :update, target: 'order_result', partial: 'trade/my/orders/success', locals: { model: self }
+    end
+
+    def agent_id
+      trade_items.pluck(:agent_id)
     end
 
     def payment_result(payment_kind: payment_type)
