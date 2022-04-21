@@ -1,19 +1,23 @@
 <div class="weui-panel">
   <div class="weui-panel__bd">
-    <% model.trade_items.each do |trade_item| %>
-      <%= link_to({ action: 'show', id: model.id }, class: 'weui-media-box weui-media-box_appmsg') do %>
-        <div class="weui-media-box__hd">
-          <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
-        </div>
-        <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
-          <p class="weui-media-box__desc"><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></p>
-          <% if trade_item.produce_plan %>
-            <p class="weui-media-box__desc has-text-danger">提货：<%= trade_item.produce_plan.produce_on %></p>
-          <% end %>
-        </div>
-      <% end %>
+  <% model.trade_items.each do |trade_item| %>
+    <%= link_to({ action: 'show', id: model.id }, class: 'weui-media-box weui-media-box_appmsg') do %>
+      <div class="weui-media-box__hd">
+        <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
+      </div>
+      <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
+        <p class="weui-media-box__desc">
+          <span class="has-text-danger"><%= trade_item.single_price.to_money.format(html_wrap: true).html_safe %></span>
+          <span class="has-text-grey-lighter">x</span>
+          <span class="is-size-7"><%= trade_item.number %></span>
+        </p>
+        <% if trade_item.produce_plan %>
+          <p class="weui-media-box__desc has-text-danger">提货：<%= trade_item.produce_plan.produce_on %></p>
+        <% end %>
+      </div>
     <% end %>
+  <% end %>
   </div>
   <div class="weui-panel__ft has-border-top">
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
