@@ -9,27 +9,34 @@
     <i class="px-4" style="width: 48.75px"></i>
   </div>
   <div class="weui-panel__bd">
-    <% current_cart.trade_items.status_checked.each do |trade_item| %>
-      <div class="weui-media-box weui-media-box_appmsg">
-        <div class="weui-media-box__hd">
-          <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
-        </div>
-        <div class="weui-media-box__bd">
-          <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
-          <p class="weui-media-box__desc"><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></p>
-        </div>
-      </div>
-    <% end %>
-    <div class="weui-media-box weui-media-box_text pb-1 pt-2">
-      <ul class="weui-media-box__info m-0">
-        <li class="weui-media-box__info__meta">
-          <span>总价：</span>
-          <span><%= current_cart.amount.to_money.format(html_wrap: true).html_safe %></span>
-        </li>
-        <li class="weui-media-box__info__meta"></li>
-      </ul>
+    <%= render partial: 'trade_item', collection: current_cart.trade_items.status_checked, as: :trade_item %>
+  </div>
+</div>
+
+<div class="weui-form-preview mt-4">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:original_amount) %></label>
+      <span class="weui-form-preview__value"><%= current_cart.original_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></label>
+      <span class="weui-form-preview__value"><%= current_cart.overall_additional_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
+      <span class="weui-form-preview__value"><%= current_cart.overall_reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
   </div>
+  <div class="weui-form-preview__ft">
+    <div class="px-4 is-pulled-right">
+      <span><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></span>
+      <span><%= current_cart.overall_reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+  </div>
+</div>
+
+<div class="weui-panel">
   <div class="weui-panel__ft p-4">
     <%= submit_tag t('.confirm'), class: 'weui-btn weui-btn_primary', form: 'new_order' %>
   </div>
