@@ -1,25 +1,22 @@
 <div class="weui-panel">
+  <div class="weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between">
+    <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
+    <span><%= model.payment_status_i18n %></span>
+  </div>
   <div class="weui-panel__bd">
     <%= render partial: 'trade_item', collection: model.trade_items, as: :trade_item, locals: { model: model } %>
   </div>
   <div class="weui-panel__ft has-border-top">
-    <div class="weui-media-box weui-media-box_text pb-1 pt-2">
+    <div class="level m-4">
       <ul class="weui-media-box__info m-0">
         <li class="weui-media-box__info__meta">
           <span>总价：</span>
           <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
         </li>
-        <li class="weui-media-box__info__meta"><span class="weui-badge"><%= model.payment_status_i18n %></span></li>
         <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
           <span>共</span>
           <span><%= model.trade_items_count %></span>
           <span>份</span>
-        </li>
-      </ul>
-      <ul class="weui-media-box__info mt-2">
-        <li class="weui-media-box__info__meta">
-          <span>下单时间：</span>
-          <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
         </li>
       </ul>
     </div>
