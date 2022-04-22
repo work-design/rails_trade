@@ -1,4 +1,4 @@
-<%= link_to({ action: 'show', id: model.id }, class: 'weui-media-box weui-media-box_appmsg') do %>
+<%= link_to({ controller: '/factory/productions', action: 'show', id: trade_item.good_id }, class: 'weui-media-box weui-media-box_appmsg') do %>
   <div class="weui-media-box__hd">
     <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
   </div>
