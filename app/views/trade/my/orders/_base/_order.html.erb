@@ -1,8 +1,8 @@
 <div class="weui-panel">
-  <div class="weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between">
+  <%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between') do %>
     <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
     <span><%= model.payment_status_i18n %></span>
-  </div>
+  <% end %>
   <div class="weui-panel__bd">
     <%= render partial: 'trade_item', collection: model.trade_items, as: :trade_item, locals: { model: model } %>
   </div>
