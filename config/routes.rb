@@ -229,4 +229,10 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
     end
   end
 end
+  resolve 'Trade::Purchase', global_member_id: nil do |purchase, options|
+    [:trade, :my, purchase.card_template, options]
+  end
+  resolve 'Trade::Advance', global_member_id: nil do |advance, options|
+    [:trade, :my, advance.wallet_template, options]
+  end
 end
