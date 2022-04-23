@@ -1,7 +1,9 @@
+<div class="box is-radiusless has-text-centered">
+  <span> 待支付：</span>
+  <span class="has-text-danger has-text-weight-bold"><%= @order.remaining_amount.to_money.format(html_wrap: true).html_safe %></span>
+</div>
+
 <div class="weui-panel">
-  <div class="weui-panel__hd">
-    待支付：<%= @order.remaining_amount.to_money %>
-  </div>
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells weui-cells_checkbox">
