@@ -1,0 +1,35 @@
+<div class="weui-panel">
+  <div class="weui-media-box weui-media-box_appmsg pl-2" data-controller="swipe" data-action="touchmove->swipe#move:passive touchstart->swipe#start:passive touchend->swipe#end:passive">
+    <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
+      <label class="weui-cells_checkbox">
+        <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
+        <i class="weui-icon-checked"></i>
+      </label>
+    <% end %>
+    <div class="weui-media-box__hd">
+    <% if model.good.respond_to?(:logo) && model.good.logo.attached? %>
+      <%= image_tag model.good.logo, class: 'weui-media-box__thumb' %>
+    <% elsif model.good.respond_to?(:cover) && model.good.cover.attached? %>
+      <%= image_tag model.good.cover, class: 'weui-media-box__thumb' %>
+    <% end %>
+    </div>
+    <div class="weui-media-box__bd">
+      <h4 class="weui-media-box__title"><%= model.good.name %></h4>
+      <ul class="weui-media-box__info">
+        <% if model.good.respond_to?(:parts) %>
+          <% model.good.parts.each do |part| %>
+            <li><%= part.name %></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <div class="weui-media-box__info is-flex is-justify-content-space-between">
+        <div class="is-flex is-align-items-center">
+          <div class="weui-media-box__info__meta">
+            <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'number', locals: { model: model } %>
+</div>

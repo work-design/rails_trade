@@ -95,7 +95,7 @@ module Trade
     end
 
     def get_trade_item(good_type:, good_id:, number: 1, **options)
-      args = { good_type: good_type, good_id: good_id, **options.slice(:produce_on, :scene_id) }
+      args = { good_type: good_type, good_id: good_id, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
       args.reject!(&->(_, v){ v.blank? })
       trade_item = trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id').reject(&->(_, v){ v.blank? }) == args.stringify_keys }) || trade_items.build(args)
 

@@ -4,8 +4,6 @@ module Trade
 
     included do
       attribute :status, :string
-      attribute :myself, :boolean, default: true, comment: '是否后台协助添加'
-      attribute :starred, :boolean, default: false, comment: '收藏'
       attribute :good_name, :string
       attribute :number, :integer, default: 1
       attribute :weight, :decimal, default: 0, comment: '重量'
@@ -23,6 +21,9 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
+      attribute :fetch_oneself, :boolean, default: false, comment: '自取'
+      attribute :fetch_start_at, :datetime
+      attribute :fetch_finish_at, :datetime
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
@@ -49,8 +50,6 @@ module Trade
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_id, good_id: [o.good_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promote_goods, ->(o) { available.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
-      scope :valid, -> { where(status: 'init', myself: true) }
-      scope :starred, -> { where(status: 'init', starred: true) }
       scope :carting, -> { where(status: ['init', 'checked', 'expired']) }
 
       enum status: {
