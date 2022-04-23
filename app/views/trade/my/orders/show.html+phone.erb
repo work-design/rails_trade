@@ -1,6 +1,5 @@
-<div class="box is-radiusless">
-  <span>订单编号：</span>
-  <%= @order.uuid %>
+<div class="box is-radiusless has-text-centered">
+  <span class="has-text-weight-bold"><%= @order.payment_status_i18n %></span>
 </div>
 
 <%= render partial: 'order', locals: { model: @order } %>
@@ -11,7 +10,6 @@
 
   <div class="weui-panel__ft">
     <div class="weui-cell weui-cell_link">
-      <%= link_to '支付', { action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary' unless model.all_paid? %>
       <button
         class="weui-btn weui-btn_mini weui-btn_default"
         data-controller="wechat"
@@ -19,6 +17,7 @@
         data-wechat-apis-value="<%= ['closeWindow'].to_json %>"
         data-action="wechat#close"
       >联系客服</button>
+      <%= link_to '支付', { action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary' unless model.all_paid? %>
     </div>
   </div>
 </div>
