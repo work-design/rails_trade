@@ -1,10 +1,14 @@
-<% (1..3).each do |hour| %>
+<% (0..3).each do |hour| %>
 <div class="weui-media-box weui-media-box_text">
   <div class="weui-media-box__title">
+  <% if hour == 0 %>
     <span>现在</span>
+  <% else %>
+    <span><%= hour %>小时后</span>
+  <% end %>
   </div>
   <div class="pt-4" data-controller="custom">
-  <% TimeHelper.step.each_with_index do |arr, index| %>
+  <% TimeHelper.step(after: hour).each_with_index do |arr, index| %>
     <label
       data-action="click->time-range#time"
       data-start-at="<%= Time.current.change(hour: arr[0][0..1], min: arr[0][-2..-1]).to_fs(:iso8601) %>"
