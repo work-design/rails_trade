@@ -49,7 +49,9 @@ module Trade
 
     def trade_item_params
       params.fetch(:trade_item, {}).permit(
-        :number
+        :number,
+        :fetch_start_at,
+        :fetch_finish_at
       )
     end
 

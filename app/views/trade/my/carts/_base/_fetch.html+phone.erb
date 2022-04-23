@@ -10,7 +10,7 @@
   <div class="weui-cell__ft"></div>
 </div>
 
-<div data-controller="weui-dialog" id="fetch_dialog" class="weui-dialog__wrap">
+<div data-controller="weui-dialog time-range" id="fetch_dialog" class="weui-dialog__wrap">
   <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
     <div class="weui-half-screen-dialog__hd">
       <div class="weui-half-screen-dialog__hd__side"></div>
@@ -28,8 +28,8 @@
     </div>
     <div class="weui-half-screen-dialog__ft">
       <%= form_with(model: model, url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch) do |f| %>
-        <%= f.hidden_field :fetch_start_at %>
-        <%= f.hidden_field :fetch_finish_at %>
+        <%= f.hidden_field :fetch_start_at, data: { time_range_target: 'start' } %>
+        <%= f.hidden_field :fetch_finish_at, data: { time_range_target: 'finish' } %>
         <%= f.submit '确认' %>
       <% end %>
     </div>
