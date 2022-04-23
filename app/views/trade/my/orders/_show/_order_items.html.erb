@@ -2,10 +2,17 @@
   <div class="weui-form-preview__bd">
     <div class="weui-form-prewview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:uuid) %></label>
-      <span class="weui-form-preview__value" data-controller="clipboard">
+      <div class="weui-form-preview__value" data-controller="clipboard">
         <span data-clipboard-target="source"><%= model.uuid %></span>
-        <span class="weui-badge weui-badge__default" data-action="clipboard#copy">复制</span>
-      </span>
+        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <div data-clipboard-target="toast" class="weui-toast__wrap">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="weui-form-prewview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:created_at) %></label>
