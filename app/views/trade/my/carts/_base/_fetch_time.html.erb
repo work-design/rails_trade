@@ -6,14 +6,13 @@
   <div class="pt-4" data-controller="custom">
   <% TimeHelper.step.each_with_index do |arr, index| %>
     <label
-      class="mb-2 <%= arr.include?(index) ? 'is-success' : '' %>"
       data-action="click->time-range#time"
       data-start-at="<%= Time.current.change(hour: arr[0][0..1], min: arr[0][-2..-1]).to_fs(:iso8601) %>"
       data-finish-at="<%= Time.current.change(hour: arr[1][0..1], min: arr[1][-2..-1]).to_fs(:iso8601) %>"
       for="time_<%= "#{model.id}_#{hour}_#{index}" %>"
     >
-      <%= radio_button_tag 'x', nil, false, class: 'weui-check', id: "time_#{model.id}_#{hour}_#{index}" %>
-      <div class="button is-small "><%= arr.join('-') %></div>
+      <%= radio_button_tag 'x', nil, model.fetch_include?(arr[0], arr[1]), class: 'weui-check', id: "time_#{model.id}_#{hour}_#{index}" %>
+      <div class="button is-small mb-2"><%= arr.join('-') %></div>
     </label>
   <% end %>
   </div>

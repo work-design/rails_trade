@@ -7,7 +7,9 @@
   <% end %>
   </div>
   <div class="weui-cell__bd"></div>
-  <div class="weui-cell__ft"></div>
+  <div class="weui-cell__ft">
+    <time data-controller="time"><%= model.fetch_start_at&.to_fs(:iso8601) %></time>
+  </div>
 </div>
 
 <div data-controller="weui-dialog time-range" id="fetch_dialog" class="weui-dialog__wrap">

@@ -236,6 +236,14 @@ module Trade
     def confirm_refund!
     end
 
+    def fetch_include?(start_time, finish_time)
+      return nil if fetch_start_at.blank?
+      start = fetch_start_at.to_fs(:time)
+      finish = fetch_finish_at.to_fs(:time)
+
+      start <= start_time && finish >= finish_time
+    end
+
     def expired?
       expire_at.acts_like?(:time) && Time.current > expire_at
     end
