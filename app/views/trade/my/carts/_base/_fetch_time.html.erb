@@ -1,0 +1,16 @@
+<% (1..3).each do |hour| %>
+<div class="weui-media-box weui-media-box_text">
+  <div class="weui-media-box__title">
+    <span>现在</span>
+  </div>
+  <div class="pt-4" data-controller="custom">
+  <% TimeHelper.step.each_with_index do |arr, index| %>
+    <label class="button is-small mb-2 <%= arr.include?(index) ? 'is-success' : 'is-light' %>" for="part_<%= "#{hour}_#{index}" %>">
+      <span><%= arr.join('-') %></span>
+      <%# hidden_field_tag 'production[part_ids][]', part.id, form: 'edit_custom', data: { part_taxon_id: product_part_taxon.part_taxon_id }, id: nil if @production.part_ids.include?(part.id) && product_part_taxon.disabled?(@production.part_ids, part) %>
+      <%# check_box_tag 'production[part_ids][]', part.id, @production.part_ids.include?(part.id), disabled: product_part_taxon.disabled?(@production.part_ids, part), data: { action: 'custom#toggle', part_taxon_id: product_part_taxon.part_taxon_id }, class: 'weui-check', id: "part_#{part.id}", form: 'edit_custom' %>
+    </label>
+  <% end %>
+  </div>
+</div>
+<% end %>

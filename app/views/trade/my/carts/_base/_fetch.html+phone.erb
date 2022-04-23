@@ -1,0 +1,31 @@
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog" data-action="click->weui-dialog#toggle">
+  <div class="weui-cell__hd">
+  <% if model.fetch_oneself %>
+    <span>自取</span>
+  <% else %>
+    <span>配送</span>
+  <% end %>
+  </div>
+  <div class="weui-cell__bd"></div>
+  <div class="weui-cell__ft"></div>
+</div>
+
+<div data-controller="weui-dialog" id="fetch_dialog" class="weui-dialog__wrap">
+  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+    <div class="weui-half-screen-dialog__hd">
+      <div class="weui-half-screen-dialog__hd__side"></div>
+      <div class="weui-half-screen-dialog__hd__main">
+        <div class="weui-half-screen-dialog__title">选择时间</div>
+      </div>
+      <div class="weui-half-screen-dialog__hd__side">
+        <button class="weui-icon-btn" data-action="weui-dialog#close">
+          <i class="weui-icon-close-thin"></i>
+        </button>
+      </div>
+    </div>
+    <div class="weui-half-screen-dialog__bd">
+      <%= render partial: 'fetch_time' %>
+    </div>
+    <div class="weui-half-screen-dialog__ft"></div>
+  </div>
+</div>
