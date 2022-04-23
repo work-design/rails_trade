@@ -26,6 +26,12 @@
     <div class="weui-half-screen-dialog__bd">
       <%= render partial: 'fetch_time' %>
     </div>
-    <div class="weui-half-screen-dialog__ft"></div>
+    <div class="weui-half-screen-dialog__ft">
+      <%= form_with(model: model, url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch) do |f| %>
+        <%= f.hidden_field :fetch_start_at %>
+        <%= f.hidden_field :fetch_finish_at %>
+        <%= f.submit '确认' %>
+      <% end %>
+    </div>
   </div>
 </div>
