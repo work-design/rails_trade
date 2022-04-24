@@ -1,6 +1,7 @@
 <label class="weui-cell weui-cell_active">
   <span class="weui-cell__bd">
-    <%= wallet.wallet_template.name %>(可用： <%= wallet.amount %>)
+    <span><%= wallet.wallet_template.name %></span>
+    <span class="has-text-grey is-size-7">（余额： <%= wallet.amount %>）</span>
   </span>
   <span class="weui-cell__ft" data-controller="input">
     <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, id: "wallet_#{wallet.id}" do |f| %>
