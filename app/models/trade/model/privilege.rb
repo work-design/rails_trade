@@ -10,7 +10,7 @@ module Trade
       attribute :position, :integer
 
       belongs_to :card_template
-      belongs_to :privileged, polymorphic: true, optional: true
+      belongs_to :promote, optional: true
 
       has_one_attached :logo
       acts_as_list scope: :card_template_id
