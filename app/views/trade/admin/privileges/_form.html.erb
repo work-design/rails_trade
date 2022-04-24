@@ -1,3 +1,4 @@
 <%= f.text_field :name %>
 <%= f.number_field :amount %>
 <%= f.file_field :logo %>
+<%= f.collection_select :promote_id, @promotes, :id, :name, include_blank: true %>

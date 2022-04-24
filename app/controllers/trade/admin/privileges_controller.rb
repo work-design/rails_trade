@@ -3,6 +3,7 @@ module Trade
     before_action :set_card_template
     before_action :set_privilege, only: [:show, :edit, :update, :reorder, :destroy]
     before_action :set_new_privilege, only: [:new, :create]
+    before_action :set_promotes, only: [:new, :create, :edit, :update]
 
     def index
       @privileges = @card_template.privileges.page(params[:page])
@@ -11,6 +12,10 @@ module Trade
     private
     def set_new_privilege
       @privilege = @card_template.privileges.build(privilege_params)
+    end
+
+    def set_promotes
+      @promotes = Promote.default_where(default_params)
     end
 
     def set_privilege

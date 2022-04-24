@@ -1,6 +1,9 @@
+<td><i class="fa-light fa-bars fa-fw has-text-grey is-drawable"></i></td>
 <td>
-  <i class="fa-light fa-bars fa-fw has-text-grey is-drawable"></i>
-  <span><%= model.name %></span>
+  <div class="is-several">
+    <%= image_tag model.logo, class: 'image is-32x32' if model.logo.attached? %>
+    <span><%= model.name %></span>
+  </div>
 </td>
 <td><%= model.amount %></td>
-<td><%= image_tag model.logo, class: 'image is-32x32' if model.logo.attached? %></td>
+<td><%= model.promote&.name %></td>
