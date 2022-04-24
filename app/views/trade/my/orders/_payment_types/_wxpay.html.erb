@@ -4,8 +4,12 @@
   data-mini-program-url-value="/pages/trade/my/orders/wxpay_pay?url=<%= url_for(action: 'wxpay_pay', only_path: false) %>&id=<%= @order.id %>"
 >
   <%= link_to({ action: 'wxpay_pay' }, data: { action: 'mini-program#link' }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
-    <div class="weui-cell__hd"></div>
-    <div class="weui-cell__bd weui-cell_primary">微信支付</div>
+    <div class="weui-cell__hd">
+      <%= image_tag 'wx_pay.png', class: 'image is-24x24' %>
+    </div>
+    <div class="weui-cell__bd weui-cell_primary">
+      <span>微信支付</span>
+    </div>
     <div class="weui-cell__ft"></div>
   <% end unless @order.all_paid? %>
 </div>
