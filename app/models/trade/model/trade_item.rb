@@ -113,6 +113,11 @@ module Trade
       self.advance_amount = good.advance_price
     end
 
+    def compute_price!
+      compute_price
+      save
+    end
+
     def order_uuid
       order.uuid
     end

@@ -26,6 +26,7 @@ module Trade
       has_many :card_logs, dependent: :destroy_async
       has_many :card_promotes, ->(o){ default_where('income_min-lte': o.income_amount, 'income_max-gt': o.income_amount) }, foreign_key: :card_template_id, primary_key: :card_template_id
       has_many :promotes, through: :card_promotes
+      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, foreign_key: :user_id, primary_key: :user_id
       has_many :plan_attenders, ->(o){ where(attender_type: o.client_type) }, foreign_key: :attender_id, primary_key: :client_id
 
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
@@ -36,6 +37,7 @@ module Trade
       scope :temporary, ->{ where(temporary: true) }
 
       before_validation :sync_from_card_template
+      after_commit :recompute_price, on: [:create, :destroy]
     end
 
     def sync_from_card_template
@@ -44,6 +46,10 @@ module Trade
         self.organ_id ||= card_template.organ_id
         self.effect_at ||= Time.current
       end
+    end
+
+    def recompute_price
+      trade_items.each(&:compute_price!)
     end
 
   end

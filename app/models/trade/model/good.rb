@@ -66,5 +66,8 @@ module Trade
     def order_paid(trade_item = nil)
     end
 
+    def order_prune(trade_item = nil)
+    end
+
   end
 end

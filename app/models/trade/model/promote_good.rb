@@ -10,6 +10,8 @@ module Trade
       attribute :item_promotes_count, :integer, default: 0
       attribute :cart_promotes_count, :integer, default: 0
       attribute :identity, :string
+      attribute :use_limit, :integer
+      attribute :over_limit, :boolean, default: false
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', counter_cache: true, optional: true
@@ -36,6 +38,11 @@ module Trade
 
       before_validation :sync_from_promote, if: -> { promote.present? && promote_id_changed? }
       before_validation :sync_user, if: -> { member_id_changed? }
+      after_save_commit :compute_over_limit, if: -> {}
+    end
+
+    def expired?
+      expire_at < Time.current
     end
 
     def sync_from_promote
