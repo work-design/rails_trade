@@ -1,6 +1,9 @@
 <% @card_templates.each do |card_template| %>
 <div class="level is-flex pt-4 pl-4 mb-0">
-  <div class="level-left"><%= card_template.name %></div>
+  <div class="level-left is-flex">
+    <div class="level-item mb-0"><%= card_template.name %></div>
+    <div class="level-item has-text-grey ml-2"><%= card_template.promote&.name %></div>
+  </div>
   <div class="level-right">
 
   </div>
