@@ -4,7 +4,9 @@ module Trade
     before_action :set_purchase, only: [:show]
 
     def show
-      q_params = {}
+      q_params = {
+        good_type: ['Factory::Production']
+      }
 
       @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
       @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
