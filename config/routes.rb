@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       end
     end
     resources :trade_items do
+      collection do
+        post :trial
+      end
       member do
         patch :toggle
         get :promote
