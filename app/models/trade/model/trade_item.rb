@@ -96,7 +96,10 @@ module Trade
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
+      after_save_commit :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
+      after_save_commit :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
       after_save_commit :print_later, if: -> { saved_change_to_status? && ['paid'].include?(status) && produce_plan.blank? }
+      after_destroy_commit :order_pruned!
     end
 
     def compute_price
@@ -226,9 +229,16 @@ module Trade
       self.good.order_done
     end
 
-    def item_confirm_paid!
-      self.update status: 'paid'
+    def order_trial!
+      self.good.order_trial(self)
+    end
+
+    def order_paid!
       self.good.order_paid(self)
+    end
+
+    def order_pruned!
+      self.good.order_prune(self)
     end
 
     def confirm_part_paid!

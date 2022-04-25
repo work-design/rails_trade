@@ -18,7 +18,7 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :card_template, counter_cache: true
-      belongs_to :trade_item, optional: true
+      belongs_to :trade_item, optional: true # 记录开通的 trade_item
       belongs_to :client, optional: true
       belongs_to :agency, optional: true
 

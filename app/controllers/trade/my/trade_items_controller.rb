@@ -2,7 +2,7 @@ module Trade
   class My::TradeItemsController < My::BaseController
     before_action :set_cart
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
-    before_action :set_new_trade_item, only: [:create]
+    before_action :set_new_trade_item, only: [:create, :trial]
 
     def create
       @trade_item.save
@@ -13,6 +13,13 @@ module Trade
 
     def promote
       render layout: false
+    end
+
+    def trial
+      @trade_item.status = 'trial'
+      @trade_item.save
+
+      @trade_items = current_cart.trade_items.page(params[:page])
     end
 
     def toggle
@@ -28,7 +35,7 @@ module Trade
     private
     def set_trade_item
       #@trade_item = @cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
-      @trade_item = TradeItem.find params[:id]
+      @trade_item = current_user.trade_items.find params[:id]
     end
 
     def set_cart

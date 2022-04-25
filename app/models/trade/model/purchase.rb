@@ -52,6 +52,18 @@ module Trade
       card
     end
 
+    def order_trial(trade_item)
+      card = card_template.cards.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
+      card.trade_item = trade_item
+      card.temporary = true
+      card.save
+    end
+
+    def order_prune(trade_item)
+      card = card_template.cards.temporary.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id, trade_item_id: trade_item.id)
+      card.destroy
+    end
+
     def set_default
       self.class.where.not(id: self.id).where(card_template_id: self.card_template_id).update_all(default: false)
     end

@@ -5,20 +5,21 @@
     <span><%= card_template.name %></span>
     <span class="has-text-grey ml-2"><%= card_template.promote&.name %></span>
   </span>
-  <span class="weui-cell__ft" data-controller="input">
-    <%= form_with theme: nil, url: { controller: 'trade/my/trade_items', action: 'create' }, data: { turbo_scroll: true, turbo_scroll_container: 'production_body' }, id: "purchase_#{card_template.purchase.id}", class: 'ml-1 button_to' do |f| %>
+  <span class="weui-cell__ft">
+  <% if current_cart.temp_owned?(card_template) %>
+    <%= form_with theme: nil, url: { controller: 'trade_items', action: 'destroy', id: current_cart.temp_owned?(card_template).trade_item_id }, method: :delete, data: { controller: 'input' } do |f| %>
+      <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
+      <span class="weui-icon-checked"></span>
+    <% end %>
+  <% else %>
+    <%= form_with theme: nil, url: { controller: 'trade/my/trade_items', action: 'trial' }, data: { controller: 'input', turbo_scroll: true, turbo_scroll_container: 'production_body' }, class: 'ml-1 button_to' do |f| %>
       <%= f.hidden_field :member_id, value: current_member&.id %>
       <%= f.hidden_field :good_type, value: card_template.purchase.class_name %>
       <%= f.hidden_field :good_id, value: card_template.purchase.id %>
-    <% end %>
-    <% if current_cart.temp_owned?(card_template) %>
-      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
-        <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
-      <% end %>
-    <% else %>
-      <%= check_box_tag 'xx', 'x', false, class: 'weui-check', form: "purchase_#{card_template.purchase.id}", data: { action: 'input#form' } %>
+      <%= check_box_tag 'xx', 'x', false, class: 'weui-check', data: { action: 'input#form' } %>
       <span class="weui-icon-checked"></span>
     <% end %>
+  <% end %>
   </span>
 </label>
 <% end %>

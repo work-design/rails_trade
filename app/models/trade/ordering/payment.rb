@@ -33,7 +33,7 @@ module Trade
 
     def confirm_paid!
       self.expire_at = nil
-      self.trade_items.each(&:item_confirm_paid!)
+      self.trade_items.update(status: 'paid')
       send_notice
     end
 

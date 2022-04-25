@@ -70,7 +70,7 @@ module Trade
     end
 
     def temp_owned?(card_template)
-      cards.temporary.pluck(:card_template_id).include?(card_template.id)
+      cards.temporary.find_by(card_template_id: card_template.id)
     end
 
     def compute_amount

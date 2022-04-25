@@ -60,6 +60,9 @@ module Trade
       puts 'Should realize in good entity'
     end
 
+    def order_trial(trade_item = nil)
+    end
+
     def order_paid(trade_item = nil)
     end
 
