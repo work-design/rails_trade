@@ -1,7 +1,7 @@
 module Trade
   class Admin::PurchasesController < Admin::BaseController
     before_action :set_card_template
-    before_action :set_advance, only: [:show, :edit, :update, :destroy]
+    before_action :set_purchase, only: [:show, :edit, :update, :destroy]
 
     def index
       @purchases = @card_template.purchases.order(id: :desc).page(params[:page])
@@ -12,7 +12,7 @@ module Trade
     end
 
     def create
-      @purchase = @card_template.purchases.build(advance_params)
+      @purchase = @card_template.purchases.build(purchase_params)
 
       unless @purchase.save
         render :new, locals: { model: @purchase }, status: :unprocessable_entity
@@ -24,11 +24,11 @@ module Trade
       @card_template = CardTemplate.find params[:card_template_id]
     end
 
-    def set_advance
+    def set_purchase
       @purchase = @card_template.purchases.find(params[:id])
     end
 
-    def advance_params
+    def purchase_params
       params.fetch(:purchase, {}).permit(
         :price,
         :title,

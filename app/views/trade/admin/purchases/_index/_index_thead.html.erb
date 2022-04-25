@@ -1,7 +1,9 @@
 <th><%= Trade::Purchase.human_attribute_name(:title) %></th>
-<th><%= Trade::Purchase.human_attribute_name(:years) %></th>
-<th><%= Trade::Purchase.human_attribute_name(:months) %></th>
-<th><%= Trade::Purchase.human_attribute_name(:days) %></th>
+<th>
+  <p><%= Trade::Purchase.human_attribute_name(:years) %></p>
+  <p><%= Trade::Purchase.human_attribute_name(:months) %></p>
+  <p><%= Trade::Purchase.human_attribute_name(:days) %></p>
+</th>
 <th><%= Trade::Purchase.human_attribute_name(:price) %></th>
 <th><%= Trade::Purchase.human_attribute_name(:note) %></th>
 <th><%= Trade::Purchase.human_attribute_name(:default) %></th>
