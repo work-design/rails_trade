@@ -94,7 +94,7 @@ module Trade
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
       }
-      after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会出发 trade_item 的删除
+      after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
       after_save_commit :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
       after_save_commit :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
@@ -171,7 +171,7 @@ module Trade
     end
 
     def sync_changed_amount
-      if (destroyed? && status_checked?) || (status_init? && status_previously_was == 'checked')
+      if (destroyed? && ['checked', 'trial'].include?(status)) || (status_init? && ['checked'].include?(status_previously_was) )
         changed_amount = -amount
       elsif status_checked? && ['init', nil].include?(status_previously_was)
         changed_amount = amount
