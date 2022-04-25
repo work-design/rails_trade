@@ -4,6 +4,12 @@
 # received_amount
 module Trade
   module Ordering::Payment
+    extend ActiveSupport::Concern
+
+    included do
+      after_save_commit :confirm_paid!, if: -> { all_paid? &&  saved_change_to_payment_status? }
+      after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
+    end
 
     def can_pay?
       ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
@@ -27,7 +33,7 @@ module Trade
 
     def confirm_paid!
       self.expire_at = nil
-      self.trade_items.each(&:confirm_paid!)
+      self.trade_items.each(&:item_confirm_paid!)
       send_notice
     end
 

@@ -56,6 +56,7 @@ module Trade
         init: 'init',
         checked: 'checked',
         ordered: 'ordered',
+        trial: 'trial',
         paid: 'paid',
         packaged: 'packaged',
         done: 'done',
@@ -225,7 +226,7 @@ module Trade
       self.good.order_done
     end
 
-    def confirm_paid!
+    def item_confirm_paid!
       self.update status: 'paid'
       self.good.order_paid(self)
     end

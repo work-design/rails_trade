@@ -59,8 +59,6 @@ module Trade
       before_validation :compute_amount, if: :new_record?
       before_save :check_state, if: -> { amount.zero? }
       after_create_commit :confirm_ordered!
-      after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
-      after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
     end
 
     def init_from_member
