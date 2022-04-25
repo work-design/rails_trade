@@ -1,9 +1,14 @@
 <div class="weui-cells weui-cells_checkbox">
 <% @card_templates.each do |card_template| %>
 <label class="weui-cell weui-cell_active">
-  <span class="weui-cell__bd">
-    <span><%= card_template.name %></span>
-    <span class="has-text-grey ml-2"><%= card_template.promote&.name %></span>
+  <span class="weui-cell__bd is-flex is-justify-content-space-between">
+    <span>
+      <span><%= card_template.name %></span>
+      <span class="has-text-grey ml-2"><%= card_template.promote&.name %></span>
+    </span>
+    <span>
+      <span><%= card_template.purchase.price.to_money.format(html_wrap: true).html_safe %></span>
+    </span>
   </span>
   <span class="weui-cell__ft">
   <% if current_cart.temp_owned?(card_template) %>

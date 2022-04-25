@@ -108,6 +108,7 @@ module Trade
         self.vip_code = min[0]
         self.single_price = min[1]
       else
+        self.vip_code = nil
         self.single_price = good.price
       end
       self.advance_amount = good.advance_price

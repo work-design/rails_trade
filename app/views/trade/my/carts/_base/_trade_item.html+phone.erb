@@ -26,6 +26,7 @@
         <div class="is-flex is-align-items-center">
           <div class="weui-media-box__info__meta">
             <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+            <span><%= model.vip_code %></span>
           </div>
         </div>
       </div>
