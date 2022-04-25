@@ -2,8 +2,6 @@
 <%= f.text_field :code, required: true %>
 <%= f.text_area :description %>
 <%= f.color_field :text_color %>
-<%= f.fields :advances, wrap: { all: nil, input: 'field' }, on: { label: false } do |ef| %>
-  <%= render partial: 'item_form', locals: { ef: ef } %>
-<% end %>
 <%= f.file_field :logo %>
 <%= f.number_field :grade %>
+<%= f.collection_select :promote_id, @promotes, :id, :name, include_blank: true %>

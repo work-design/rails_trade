@@ -1,5 +1,8 @@
-<th><%= Trade::CardTemplate.human_attribute_name(:name) %></th>
-<th><%= Trade::CardTemplate.human_attribute_name(:code) %></th>
+<th style="width: 4rem"><%= Trade::CardTemplate.human_attribute_name(:grade) %></th>
+<th>
+  <span><%= Trade::CardTemplate.human_attribute_name(:name) %></span>
+  <span class="has-text-grey">（<%= Trade::CardTemplate.human_attribute_name(:code) %>）</span>
+</th>
 <th><%= Trade::CardTemplate.human_attribute_name(:cover) %></th>
-<th><%= Trade::CardTemplate.human_attribute_name(:grade) %></th>
 <th><%= Trade::CardTemplate.human_attribute_name(:cards_count) %></th>
+<th><%= Trade::CardTemplate.human_attribute_name(:promote_id) %></th>

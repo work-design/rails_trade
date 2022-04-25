@@ -1,12 +1,10 @@
 module Trade
   class My::CartsController < My::BaseController
     before_action :set_cart, only: [:show, :update]
+    before_action :set_purchase, only: [:show]
 
     def show
       q_params = {}
-      if params[:address_id].present?
-        current_cart.update address_id: params[:address_id]
-      end
 
       @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
       @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
@@ -26,6 +24,11 @@ module Trade
     private
     def set_cart
       @cart = current_cart
+    end
+
+    def set_purchase
+      min_grade = Trade::CardTemplate.default_where(default_params).minimum(:grade)
+      @card_templates = Trade::CardTemplate.default_where(default_params).where(grade: min_grade)
     end
 
     def cart_params

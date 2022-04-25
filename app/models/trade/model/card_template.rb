@@ -11,7 +11,9 @@ module Trade
       attribute :grade, :integer, default: 1, comment: '会员级别'
 
       belongs_to :organ, optional: true
+      belongs_to :promote, optional: true
 
+      has_one :purchase, -> { where(default: true) }
       has_many :cards, dependent: :nullify
       has_many :advances, dependent: :destroy_async
       has_many :purchases, dependent: :destroy_async
