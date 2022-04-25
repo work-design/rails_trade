@@ -27,8 +27,9 @@ module Trade
     end
 
     def set_purchase
+      effective_ids = [] || current_cart.cards.effective.pluck(:card_template_id)
       min_grade = Trade::CardTemplate.default_where(default_params).minimum(:grade)
-      @card_templates = Trade::CardTemplate.default_where(default_params).where(grade: min_grade)
+      @card_templates = Trade::CardTemplate.default_where(default_params).where.not(id: effective_ids).where(grade: min_grade)
     end
 
     def cart_params

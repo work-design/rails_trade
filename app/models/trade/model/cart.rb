@@ -65,6 +65,14 @@ module Trade
       self.original_amount = item_amount + overall_additional_amount
     end
 
+    def owned?(card_template)
+      cards.pluck(:card_template_id).include?(card_template.id)
+    end
+
+    def temp_owned?(card_template)
+      cards.temporary.pluck(:card_template_id).include?(card_template.id)
+    end
+
     def compute_amount
       self.retail_price = checked_trade_items.sum(&:retail_price)
       self.discount_price = checked_trade_items.sum(&:discount_price)

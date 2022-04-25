@@ -10,6 +10,7 @@ module Trade
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
       attribute :lock_version, :integer
+      attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
@@ -30,6 +31,9 @@ module Trade
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
+
+      scope :effective, ->{ t = Time.current; default_where('expire_at-gte': t, 'effect_at-lte': t) }
+      scope :temporary, ->{ where(temporary: true) }
 
       before_validation :sync_from_card_template
     end
