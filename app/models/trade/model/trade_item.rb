@@ -92,7 +92,7 @@ module Trade
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_save :sync_changed_amount, if: -> {
-        (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked'].include?(status)
+        (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status)
       }
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
       after_create_commit :clean_when_expired, if: -> { expire_at.present? }
