@@ -50,7 +50,7 @@ module Trade
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_id, good_id: [o.good_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promote_goods, ->(o) { available.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
-      scope :carting, -> { where(status: ['init', 'checked', 'expired']) }
+      scope :carting, -> { where(status: ['init', 'checked', 'trial', 'expired']) }
 
       enum status: {
         init: 'init',

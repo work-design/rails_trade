@@ -6,18 +6,18 @@
   <span><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></span>
   <%= model.additional_amount %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% model.trade_promotes.each do |trade_promote| %>
-      <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
+    <% model.item_promotes.each do |item_promote| %>
+      <p><%= item_promote.promote&.name %>: <%= item_promote.amount %></p>
     <% end %>
   </div>
-  <%= link_to 'edit', { controller: 'trade_promotes', trade_item_id: model.id }, class: '' %>
+  <%= link_to 'edit', { controller: 'item_promotes', trade_item_id: model.id }, class: '' %>
 </div>
 <div>
   <span><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></span>
   <span><%= model.reduced_amount %></span>
   <div>
-    <% model.trade_promotes.each do |trade_promote| %>
-      <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
+    <% model.item_promotes.each do |item_promote| %>
+      <p><%= item_promote.promote&.name %>: <%= item_promote.amount %></p>
     <% end %>
   </div>
 </div>

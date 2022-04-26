@@ -1,8 +1,8 @@
 <div>
   <p>Export price:</p>
   <p></p>
-  <% model.trade_promotes.each do |trade_promote| %>
-    <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
+  <% model.item_promotes.each do |item_promote| %>
+    <p><%= item_promote.promote&.name %>: <%= item_promote.amount %></p>
   <% end %>
 </div>
 <p><%= model.good&.quantity %><%= model.good&.unit %></p>

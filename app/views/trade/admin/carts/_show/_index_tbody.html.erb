@@ -1,6 +1,5 @@
 <td><%= check_box_tag(:trade_item_id, model.id, model.status_checked?) %></td>
 <td>
-  <i class="child icon<%= model.myself ? ' green' : '' %>"></i>
   <%= model.good&.name %>
 </td>
 <td><%= model.status_i18n %></td>
