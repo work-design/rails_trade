@@ -83,9 +83,6 @@ module Trade
           self.user_id = member.user&.id
           self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
         end
-        self.original_amount = single_price * self.number
-        self.amount = original_amount
-        self.extra = JSON.parse(extra) if self.extra.is_a?(String)
       end
       before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
@@ -111,6 +108,8 @@ module Trade
         self.vip_code = nil
         self.single_price = good.price
       end
+      self.original_amount = self.single_price * self.number
+      self.amount = original_amount
       self.advance_amount = good.advance_price
     end
 
