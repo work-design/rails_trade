@@ -173,9 +173,9 @@ module Trade
     def sync_changed_amount
       if (destroyed? && ['checked', 'trial'].include?(status)) || (status_init? && ['checked'].include?(status_previously_was) )
         changed_amount = -amount
-      elsif status_checked? && ['init', nil].include?(status_previously_was)
+      elsif ['checked', 'trial'].include?(status) && ['init', nil].include?(status_previously_was)
         changed_amount = amount
-      elsif status_checked? && amount_previously_was
+      elsif ['checked', 'trial'].include?(status) && amount_previously_was
         changed_amount = amount - amount_previously_was.to_d
       else
         return
