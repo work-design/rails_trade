@@ -31,7 +31,7 @@
     <span class="level-left">续费</span>
     <div class="level-right mt-0 pr-3 has-text-weight-normal">
       <span>有效期至</span>
-      <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at.to_fs(:iso8601) %></time>
+      <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at.to_fs(:iso8601) if model.expire_at.present? %></time>
       <%= link_to '续费记录', { controller: 'card_purchases', card_id: model.id } %>
     </div>
   </div>
