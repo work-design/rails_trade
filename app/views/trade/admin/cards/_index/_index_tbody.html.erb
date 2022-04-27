@@ -8,7 +8,7 @@
 <td>
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p>
-    <time data-controller="time"><%= model.expire_at.to_fs(:iso8601) %></time>
+    <time data-controller="time"><%= model.expire_at.to_fs(:iso8601) if model.expire_at.present? %></time>
     <%= link_to({ controller: 'card_purchases', card_id: model.id }, aria: { label: t('trade.admin.card_purchases.index.title') }, class: 'button is-small is-rounded is-light') do %>
       <i class="fa-light fa-gem"></i>
     <% end %>
