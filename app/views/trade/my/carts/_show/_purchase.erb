@@ -1,7 +1,7 @@
-<div class="weui-cells weui-cells_checkbox mt-0">
+<div class="p-4">
 <% @card_templates.each do |card_template| %>
-<label class="weui-cell weui-cell_active" for="xx">
-  <span class="weui-cell__bd is-flex is-justify-content-space-between">
+<label class="level is-flex" for="xx">
+  <span class="level-left is-flex is-justify-content-space-between">
     <span>
       <span><%= card_template.name %></span>
       <span class="has-text-grey ml-2"><%= card_template.promote&.name %></span>
@@ -10,7 +10,7 @@
       <span><%= card_template.purchase.price.to_money.format(html_wrap: true).html_safe %></span>
     </span>
   </span>
-  <span class="weui-cell__ft">
+  <span class="weui-cells_checkbox">
   <% if current_cart.temp_owned?(card_template) %>
     <%= form_with theme: nil, url: { controller: 'trade_items', action: 'destroy', id: current_cart.temp_owned?(card_template).trade_item_id }, method: :delete, data: { controller: 'input' } do |f| %>
       <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
