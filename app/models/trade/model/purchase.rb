@@ -14,8 +14,8 @@ module Trade
       belongs_to :card_template
       has_many :card_purchases
 
-      has_one_attached :logo
       delegate :cover, :organ_id, to: :card_template
+      delegate :logo, to: :card_template
 
       after_update :set_default, if: -> { default? && saved_change_to_default? }
     end
