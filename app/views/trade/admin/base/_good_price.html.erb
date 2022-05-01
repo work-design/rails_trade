@@ -1,8 +1,6 @@
-<div>
-  <p>Export price:</p>
-  <p></p>
+<tr>
   <% model.item_promotes.each do |item_promote| %>
-    <p><%= item_promote.promote&.name %>: <%= item_promote.amount %></p>
+    <p><%= item_promote.promote&.name %>: <%= item_promote.amount.to_money.format(html_wrap: true).html_safe %></p>
   <% end %>
-</div>
+</tr>
 <p><%= model.good&.quantity %><%= model.good&.unit %></p>
