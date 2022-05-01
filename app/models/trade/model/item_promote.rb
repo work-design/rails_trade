@@ -28,7 +28,6 @@ module Trade
         end
         self.sequence = self.promote.sequence if self.promote
       end
-      after_create_commit :check_promote_good, if: -> { promote_good.present? }
     end
 
     def compute_amount
@@ -36,10 +35,6 @@ module Trade
       self.computed_amount = self.promote_charge.final_price(based_amount)
       self.amount = computed_amount unless edited?
       self
-    end
-
-    def check_promote_good
-      promote_good.update state: 'used'
     end
 
   end
