@@ -2,5 +2,6 @@
   <%= render 'error_messages', target: f.object  %>
   <%= f.datetime_field :effect_at, step: 1 %>
   <%= f.datetime_field :expire_at, step: 1 %>
+  <%= f.number_field :use_limit %>
   <%= f.submit %>
 <% end %>

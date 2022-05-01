@@ -64,6 +64,7 @@ module Trade
         :user_id,
         :effect_at,
         :expire_at,
+        :use_limit,
         :status
       )
     end
