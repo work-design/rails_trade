@@ -11,7 +11,7 @@ module Trade
     end
 
     def show
-      @card = current_cart.cards.find_by(card_template_id: @card_template.id)
+      @card = current_cart.cards.formal.find_by(card_template_id: @card_template.id)
     end
 
     def code

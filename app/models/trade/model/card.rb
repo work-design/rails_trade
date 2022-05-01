@@ -35,6 +35,7 @@ module Trade
 
       scope :effective, ->{ t = Time.current; default_where('expire_at-gte': t, 'effect_at-lte': t) }
       scope :temporary, ->{ where(temporary: true) }
+      scope :formal, ->{ where.not(temporary: true) }
 
       before_validation :sync_from_card_template
       after_commit :recompute_price, on: [:create, :destroy]
