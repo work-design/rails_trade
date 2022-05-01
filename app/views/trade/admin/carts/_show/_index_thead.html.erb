@@ -1,7 +1,10 @@
 <th><%= check_box_tag :all %></th>
-<th><%= Trade::TradeItem.human_attribute_name('good/name') %></th>
+<th>
+  <p><%= Trade::TradeItem.human_attribute_name('good/name') %></p>
+  <p><%= Trade::TradeItem.human_attribute_name('good/quantity') %></p>
+  <p><%= Trade::TradeItem.human_attribute_name('good/unit') %></p>
+</th>
 <th><%= Trade::TradeItem.human_attribute_name(:status) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:amount) %></th>
 <th>
   <p><%= Trade::TradeItem.human_attribute_name(:single_price) %></p>
   <p class="has-text-grey"><%= Trade::TradeItem.human_attribute_name(:number) %></p>
@@ -15,3 +18,4 @@
   <p class="has-text-danger"><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></p>
   <p><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></p>
 </th>
+<th><%= Trade::TradeItem.human_attribute_name(:amount) %></th>

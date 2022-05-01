@@ -1,4 +1,4 @@
-<tr class="is-selected">
+<tr class="has-background-light">
   <td><%= check_box_tag(:trade_item_id, model.id, model.status_checked?) %></td>
   <td>
     <p><%= model.good.name %></p>
@@ -6,7 +6,6 @@
     <p><%= model.good.unit %></p>
   </td>
   <td><%= model.status_i18n %></td>
-  <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td>
     <p><%= model.single_price.to_money.format(html_wrap: true).html_safe %></p>
     <p class="has-text-grey"><%= model.number %></p>
@@ -18,5 +17,6 @@
     </p>
     <p><%= model.reduced_amount %></p>
   </td>
+  <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
 </tr>
 <%= render partial: 'promote_tbody', collection: model.item_promotes, as: :item_promote %>
