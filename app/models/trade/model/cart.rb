@@ -66,7 +66,7 @@ module Trade
     end
 
     def owned?(card_template)
-      cards.pluck(:card_template_id).include?(card_template.id)
+      cards.where(card_template_id: card_template.id, temporary: false).take
     end
 
     def temp_owned?(card_template)
