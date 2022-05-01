@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <div class="<%= ['unused'].include?(model.state) ? 'has-text-success' : 'has-text-danger' %> tag"><%= model.state_i18n %></div>
+    <div class="<%= ['unused'].include?(model.use_limit) ? 'has-text-success' : 'has-text-danger' %> tag"><%= model.over_limit %></div>
   </td>
   <td><%= model.promote.name %></td>
   <td class="has-text-right">

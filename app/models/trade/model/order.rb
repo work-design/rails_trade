@@ -111,7 +111,7 @@ module Trade
       self.carts.each do |cart|
         cart.reset_amount!
       end
-      self.trade_items.update(&:confirm_ordered!)
+      self.trade_items.update(status: 'ordered')
     end
 
     def compute_received_amount
