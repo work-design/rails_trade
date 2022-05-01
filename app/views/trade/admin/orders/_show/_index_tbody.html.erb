@@ -13,4 +13,4 @@
   <td><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
 </tr>
-<%= render partial: 'promote_tbody', collection: trade_item.trade_promotes, as: :trade_promote %>
+<%= render partial: 'promote_tbody', collection: trade_item.item_promotes, as: :item_promote %>
