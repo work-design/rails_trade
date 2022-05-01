@@ -1,18 +1,22 @@
-<td><%= check_box_tag(:trade_item_id, model.id, model.status_checked?) %></td>
-<td>
-  <%= model.good&.name %>
-</td>
-<td><%= model.status_i18n %></td>
-<td>
-  <%= render partial: 'good_price', locals: { model: model } %>
-</td>
-<td><%= model.number %></td>
-<td id="retail_price_<%= model.id %>">
-  <%= render partial: 'retail_price', locals: { model: model } %>
-</td>
-<td id="single_price_<%= model.id %>">
-  <%= render partial: 'single_price', locals: { model: model } %>
-</td>
-<td id="order_price_<%= model.id %>">
-  <%# render partial: 'order_price', locals: { model: model } %>
-</td>
+<tr class="is-selected">
+  <td><%= check_box_tag(:trade_item_id, model.id, model.status_checked?) %></td>
+  <td>
+    <p><%= model.good.name %></p>
+    <p><%= model.good.quantity %></p>
+    <p><%= model.good.unit %></p>
+  </td>
+  <td><%= model.status_i18n %></td>
+  <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td>
+    <p><%= model.single_price.to_money.format(html_wrap: true).html_safe %></p>
+    <p class="has-text-grey"><%= model.number %></p>
+  </td>
+  <td>
+    <p>
+      <span><%= model.additional_amount %></span>
+      <%= link_to 'edit', { controller: 'item_promotes', trade_item_id: model.id }, class: '' %>
+    </p>
+    <p><%= model.reduced_amount %></p>
+  </td>
+</tr>
+<%= render partial: 'promote_tbody', collection: model.item_promotes, as: :item_promote %>

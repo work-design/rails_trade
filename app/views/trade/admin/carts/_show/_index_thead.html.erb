@@ -2,7 +2,16 @@
 <th><%= Trade::TradeItem.human_attribute_name('good/name') %></th>
 <th><%= Trade::TradeItem.human_attribute_name(:status) %></th>
 <th><%= Trade::TradeItem.human_attribute_name(:amount) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:number) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:original_amount) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:retail_price) %></th>
-<th><%= Trade::TradeItem.human_attribute_name(:wholesale_price) %></th>
+<th>
+  <p><%= Trade::TradeItem.human_attribute_name(:single_price) %></p>
+  <p class="has-text-grey"><%= Trade::TradeItem.human_attribute_name(:number) %></p>
+</th>
+<th>
+  <p><%= Trade::TradeItem.human_attribute_name(:retail_price) %></p>
+  <p><%= Trade::TradeItem.human_attribute_name(:wholesale_price) %></p>
+</th>
+<th>
+  <p><%= Trade::TradeItem.human_attribute_name(:original_amount) %></p>
+  <p class="has-text-danger"><%= Trade::TradeItem.human_attribute_name(:reduced_amount) %></p>
+  <p><%= Trade::TradeItem.human_attribute_name(:additional_amount) %></p>
+</th>
