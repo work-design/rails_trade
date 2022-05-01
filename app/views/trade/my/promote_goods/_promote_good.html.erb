@@ -1,9 +1,17 @@
 <tr>
   <td>
-    <div class="<%= ['unused'].include?(model.use_limit) ? 'has-text-success' : 'has-text-danger' %> tag"><%= model.over_limit %></div>
+    <p><%= model.promote.name %></p>
+    <p class="has-text-grey"><%= model.good_type_i18n %></p>
   </td>
-  <td><%= model.promote.name %></td>
   <td class="has-text-right">
     <time data-controller="time"><%= model.expire_at.to_fs(:iso8601) if model.expire_at.present? %></time>
+  </td>
+  <td class="has-text-centered">
+    <p>
+      <span><%= model.use_limit %></span>
+      <span>/</span>
+      <span><%= model.item_promotes_count %></>
+    </p>
+    <div class="<%= ['unused'].include?(model.use_limit) ? 'has-text-success' : 'has-text-danger' %> tag"><%= model.over_limit %></div>
   </td>
 </tr>
