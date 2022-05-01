@@ -1,10 +1,14 @@
 <tr>
   <td>
-    <%= trade_item.good.name %>
-    <span><%= trade_item.good&.price %></span>
-    <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
+    <%= link_to trade_item.good, target: '_blank' do %>
+      <span><%= trade_item.good.name %></span>
+    <% end %>
   </td>
-  <td><%= trade_item.number %></td>
+  <td>
+    <span><%= trade_item.good.price.to_money.format(html_wrap: true).html_safe %></span>
+    <span class="has-text-grey">x</span>
+    <span><%= trade_item.number %></span>
+  </td>
   <td><%= trade_item.original_amount.to_money.format(html_wrap: true).html_safe %></td>
   <td>
     <p><%= trade_item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
