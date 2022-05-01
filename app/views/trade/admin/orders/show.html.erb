@@ -1,12 +1,18 @@
 <table class="table is-fullwidth">
   <%= render 'index_thead' %>
   <%= render partial: 'index_tbody', collection: @order.trade_items, as: :trade_item %>
+  <tr class="has-background-light">
+    <td><%= Trade::Order.human_attribute_name(:item_amount) %></td>
+    <td colspan="3"></td>
+    <td><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></td>
+    <td></td>
+  </tr>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
   <tr class="has-background-light">
-    <td>总价</td>
+    <td><%= Trade::Order.human_attribute_name(:amount) %></td>
     <td colspan="3"></td>
     <td>
-      <%= @order.amount %>
+      <span><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
       <%= link_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-light fa-credit-card"></i>
       <% end %>
