@@ -1,0 +1,12 @@
+<tr>
+  <td><%= cart_promote.promote.name %></td>
+  <td colspan="3"></td>
+  <td><%= cart_promote.amount %></td>
+  <td>
+    <% if cart_promote.promote.editable %>
+      <%= link_to({ controller: 'trade_promotes', action: 'edit', id: cart_promote.id }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-light fa-pencil"></i>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
