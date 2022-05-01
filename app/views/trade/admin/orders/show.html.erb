@@ -1,10 +1,10 @@
-<table class="table is-fullwidth">
+<table class="table is-fullwidth is-hoverable">
   <%= render 'index_thead' %>
   <%= render partial: 'index_tbody', collection: @order.trade_items, as: :trade_item %>
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:item_amount) %></td>
     <td colspan="3"></td>
-    <td><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></td>
+    <td class="has-text-success"><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></td>
     <td></td>
   </tr>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
