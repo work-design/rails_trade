@@ -2,7 +2,12 @@
 <td><%= model.amount %></td>
 <td><%= model.price %></td>
 <td><%= model.apple_product_id %></td>
-<td><%= model.wallet_template&.name %></td>
+<td>
+  <div class="is-several">
+    <%= image_tag model.wallet_template.logo, class: 'image is-24x24' %>
+    <span><%= model.wallet_template&.name %></span>
+  </div>
+</td>
 <td>
   <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
     <%= f.check_box :open, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
