@@ -44,9 +44,6 @@ module Trade
     def show
     end
 
-    def edit
-    end
-
     def blacklist
       @blacklists = @promote_good.blacklists.page(params[:page])
     end
