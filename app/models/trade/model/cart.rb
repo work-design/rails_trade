@@ -32,7 +32,7 @@ module Trade
       has_many :payment_methods, through: :payment_references
       # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21
       # 设置 autosave: false，当 trade_item 为 new_records 也不 save
-      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, inverse_of: :cart, foreign_key: :user_id, primary_key: :user_id, autosave: false
+      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, foreign_key: :user_id, primary_key: :user_id, autosave: false
       has_many :checked_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, status: ['checked', 'trial']) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :all_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
