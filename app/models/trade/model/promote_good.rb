@@ -8,7 +8,6 @@ module Trade
       attribute :effect_at, :datetime, default: -> { Time.current }
       attribute :expire_at, :datetime
       attribute :item_promotes_count, :integer, default: 0
-      attribute :cart_promotes_count, :integer, default: 0
       attribute :identity, :string
       attribute :use_limit, :integer
       attribute :over_limit, :boolean, default: false
@@ -20,7 +19,7 @@ module Trade
 
       belongs_to :promote
       belongs_to :good, polymorphic: true, optional: true
-      has_many :cart_promotes
+
       has_many :item_promotes
 
       scope :verified, -> { where(status: ['available']) }
