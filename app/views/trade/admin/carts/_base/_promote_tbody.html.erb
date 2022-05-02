@@ -1,6 +1,9 @@
-<tr>
+<tr title="<%= item_promote.id %>">
   <td></td>
   <td><%= item_promote.promote&.name %></td>
-  <td colspan="4"></td>
+  <td colspan="4">
+    <span><%= item_promote.promote_good.good_type_i18n %></span>
+    <span class="has-text-grey">（<%= item_promote.promote_good_id %>）</span>
+  </td>
   <td><%= item_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
 </tr>

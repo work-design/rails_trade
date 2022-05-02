@@ -12,7 +12,7 @@ module Trade
       belongs_to :cart_promote, inverse_of: :item_promotes
       belongs_to :trade_item, inverse_of: :item_promotes
       belongs_to :promote_good, counter_cache: true
-      belongs_to :promote, optional: true
+      belongs_to :promote
 
       enum status: {
         init: 'init',
@@ -22,12 +22,16 @@ module Trade
 
       validates :amount, presence: true
 
-      after_initialize if: :new_record? do
-        if self.promote_good
-          self.promote_id = self.promote_good.promote_id
-        end
-        self.sequence = self.promote.sequence if self.promote
-      end
+      before_validation :sync_promote, if: -> { promote_good_id_changed? && promote_good }
+      before_validation :sync_sequence, if: -> { promote_id_changed? && promote }
+    end
+
+    def sync_promote
+      self.promote_id = self.promote_good.promote_id
+    end
+
+    def sync_sequence
+      self.sequence = self.promote.sequence
     end
 
     def compute_amount

@@ -24,7 +24,7 @@
             <span class="weui-form-preview__value has-text-danger"><%= current_cart.overall_reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
           </div>
           <% current_cart.cart_promotes.each do |cart_promote| %>
-          <div class="weui-form-preview__item pl-4">
+          <div class="weui-form-preview__item pl-4" title="<%= cart_promote.id %>">
             <label class="weui-form-preview__label"><%= cart_promote.promote.name %></label>
             <span class="weui-form-preview__value has-text-grey"><%= cart_promote.amount.to_money.format(html_wrap: true).html_safe %></span>
           </div>
