@@ -1,0 +1,8 @@
+<tr class="has-background-warning" title="<%= model.id %>">
+  <td></td>
+  <td><%= model.promote&.name %></td>
+  <td colspan="4">
+    <span class="has-text-grey">（<%= model.promote_good_id %>）</span>
+  </td>
+  <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+</tr>
