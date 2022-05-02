@@ -15,6 +15,7 @@ module Trade
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
       attribute :myself, :boolean, default: true, comment: '自己下单，即 member.user.id == user_id'
+      attribute :trade_items_count, :integer, default: 0
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
