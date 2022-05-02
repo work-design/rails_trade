@@ -107,6 +107,9 @@ zh:
       payouts:
         index:
           title: 提现
+      item_promotes:
+        index:
+          title: 优惠明细
     my:
       title: 订单
       carts:
