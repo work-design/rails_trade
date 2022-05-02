@@ -1,6 +1,9 @@
 <th><%= check_box_tag :all %></th>
 <th>
   <p><%= Trade::TradeItem.human_attribute_name('good/name') %></p>
+  <p><%= Trade::TradeItem.human_attribute_name(:good_type) %></p>
+</th>
+<th>
   <p><%= Trade::TradeItem.human_attribute_name('good/quantity') %></p>
   <p><%= Trade::TradeItem.human_attribute_name('good/unit') %></p>
 </th>

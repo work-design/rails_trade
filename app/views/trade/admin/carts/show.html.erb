@@ -1,3 +1,11 @@
-<%= render layout: 'index_table' do %>
+<table class="table is-fullwidth is-hoverable">
+  <%= render 'index_thead' %>
   <%= render partial: 'index_tbody', collection: @cart.trade_items, as: :model %>
-<% end %>
+  <tr>
+    <td></td>
+    <td><%= Trade::Cart.human_attribute_name(:amount) %></td>
+    <td colspan="4"></td>
+    <td class="has-text-success"><%= @cart.amount.to_money.format(html_wrap: true).html_safe %></td>
+    <td></td>
+  </tr>
+</table>

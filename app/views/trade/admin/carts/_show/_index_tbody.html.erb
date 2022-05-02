@@ -2,6 +2,9 @@
   <td><%= check_box_tag(:trade_item_id, model.id, model.status_checked?) %></td>
   <td>
     <p><%= model.good.name %></p>
+    <p class="has-text-grey"><%= model.good_type_i18n %></p>
+  </td>
+  <td>
     <p><%= model.good.quantity %></p>
     <p><%= model.good.unit %></p>
   </td>
