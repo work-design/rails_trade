@@ -9,9 +9,13 @@
 </th>
 <th>
   <p><%= Trade::PromoteGood.human_attribute_name(:status) %></p>
-  <p><%= Trade::PromoteGood.human_attribute_name(:state) %></p>
 </th>
 <th>
   <p><%= Trade::PromoteGood.human_attribute_name(:effect_at) %></p>
   <p><%= Trade::PromoteGood.human_attribute_name(:expire_at) %></p>
+</th>
+<th>
+  <span><%= Trade::PromoteGood.human_attribute_name(:use_limit) %></span>
+  <span class="has-text-grey">/</span>
+  <span><%= Trade::PromoteGood.human_attribute_name(:item_promotes_count) %></span>
 </th>

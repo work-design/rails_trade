@@ -16,9 +16,13 @@
 </td>
 <td>
   <p><%= model.status_i18n %></p>
-  <p><%= model.state_i18n %></p>
 </td>
 <td>
   <p><time data-controller="time"><%= model.effect_at&.to_fs(:iso8601) %></time></p>
   <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
+</td>
+<td>
+  <span><%= model.use_limit %></span>
+  <span class="has-text-grey">/</span>
+  <span><%= model.item_promotes_count %></span>
 </td>
