@@ -31,6 +31,7 @@ zh:
         retail_price: 原价
         discount_price: 优惠价格
         bulk_price: 批发价
+        item_amount: 子项合计
         original_amount: 原价
         overall_additional_amount: 附加费用
         overall_reduced_amount: 已优惠
