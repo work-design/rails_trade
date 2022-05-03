@@ -7,5 +7,6 @@
 <% else %>
 <table class="table is-striped is-borderless is-fullwidth">
   <%= render partial: 'promote_good', collection: @promote_goods, as: :model %>
+  <%= render partial: 'promote_good', collection: @global_promote_goods, as: :model %>
 </table>
 <% end %>

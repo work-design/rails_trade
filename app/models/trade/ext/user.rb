@@ -24,6 +24,11 @@ module Trade
       oauth_users.where(type: 'WechatUser').first&.uid
     end
 
+    def promotes_count
+      r = PromoteGood.effective.where(user_id: nil).count
+      r + promote_goods_count
+    end
+
     def init_wallet(platform = nil)
       if platform == 'ios'
         self.ios_wallet || self.create_ios_wallet
