@@ -25,6 +25,7 @@
       <div class="weui-media-box__info is-flex is-justify-content-space-between">
         <div class="is-flex is-align-items-center">
           <div class="weui-media-box__info__meta">
+          <% if model.vip_code.present? %>
             <div class="tags has-addons is-price control m-0 ml-2" style="display: inline-flex">
               <div class="tag is-danger">
                 <i class="fa-solid fa-badge-check"></i>
@@ -32,9 +33,10 @@
               </div>
               <span class="tag is-right"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
             </div>
-            <% if model.vip_code.present? %>
-              <span style="text-decoration: line-through"><%= model.good.price.to_money.format(html_wrap: true).html_safe %></span>
-            <% end %>
+            <span style="text-decoration: line-through"><%= model.good.price.to_money.format(html_wrap: true).html_safe %></span>
+          <% else %>
+            <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+          <% end %>
           </div>
         </div>
       </div>
