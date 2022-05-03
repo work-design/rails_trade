@@ -8,10 +8,15 @@
   </td>
   <td class="has-text-centered">
     <p>
-      <span><%= model.use_limit.blank? ? '不限次' : model.use_limit %></span>
+      <span class="is-size-7">
+      <% if model.use_limit.blank? %>
+        <span>不限次</span>
+      <% else %>
+        <span class="has-text-grey">限用</span><span><%= model.use_limit %></span>
+      <% end %>
+      </span>
       <span>/</span>
-      <span><%= model.item_promotes_count %></span>
+      <span class="is-size-7">已用<%= model.item_promotes_count %></span>
     </p>
-    <div class="<%= ['unused'].include?(model.use_limit) ? 'has-text-success' : 'has-text-danger' %> tag"><%= model.over_limit %></div>
   </td>
 </tr>
