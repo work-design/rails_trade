@@ -1,7 +1,8 @@
 <tr title="<%= model.id %>">
   <td></td>
   <td>
-    <p><%= model.promote&.name %></p>
+    <span><%= model.promote&.name %></span>
+    <span class="has-text-grey">（<%= model.promote_id %>）</span>
   </td>
   <td>
     <span><%= model.promote_good.good_type_i18n %></span>
@@ -9,6 +10,6 @@
   </td>
   <td><%= model.status_i18n %></td>
   <td colspan="2"></td>
-  <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td class="has-text-grey"><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td></td>
 </tr>
