@@ -1,10 +1,14 @@
-<tr title="<%= item_promote.id %>">
+<tr title="<%= model.id %>">
   <td></td>
-  <td><%= item_promote.promote&.name %></td>
-  <td colspan="4">
-    <span><%= item_promote.promote_good.good_type_i18n %></span>
-    <span class="has-text-grey">（<%= item_promote.promote_good_id %>）</span>
+  <td>
+    <p><%= model.promote&.name %></p>
   </td>
-  <td><%= item_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td>
+    <span><%= model.promote_good.good_type_i18n %></span>
+    <span class="has-text-grey">（<%= model.promote_good_id %>）</span>
+  </td>
+  <td><%= model.status_i18n %></td>
+  <td colspan="2"></td>
+  <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td></td>
 </tr>

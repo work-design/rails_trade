@@ -27,4 +27,4 @@
   </td>
   <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
 </tr>
-<%= render partial: 'promote_tbody', collection: model.item_promotes, as: :item_promote %>
+<%= render partial: 'promote_tbody', collection: model.item_promotes, as: :model %>

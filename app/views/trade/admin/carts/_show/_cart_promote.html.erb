@@ -1,8 +1,11 @@
 <tr class="has-background-warning" title="<%= model.id %>">
   <td></td>
-  <td><%= model.promote&.name %></td>
-  <td colspan="5">
-    <span class="has-text-grey">（<%= model.promote_good_id %>）</span>
+  <td>
+    <span><%= model.promote&.name %></span>
+    <span class="has-text-grey">（<%= model.promote_id %>）</span>
   </td>
+  <td></td>
+  <td><%= model.status_i18n %></td>
+  <td colspan="3"></td>
   <td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
 </tr>
