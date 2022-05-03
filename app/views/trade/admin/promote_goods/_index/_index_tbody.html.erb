@@ -22,7 +22,7 @@
   <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
 </td>
 <td>
-  <span><%= model.use_limit %></span>
+  <span><%= model.use_limit.blank? ? '不限次' : model.use_limit %></span>
   <span class="has-text-grey">/</span>
   <%= link_to(model.item_promotes_count, { controller: 'item_promotes', promote_good_id: model.id }, aria: { label: t('trade.admin.item_promotes.index.title') }) %>
 </td>

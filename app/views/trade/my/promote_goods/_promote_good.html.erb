@@ -8,7 +8,7 @@
   </td>
   <td class="has-text-centered">
     <p>
-      <span><%= model.use_limit %></span>
+      <span><%= model.use_limit.blank? ? '不限次' : model.use_limit %></span>
       <span>/</span>
       <span><%= model.item_promotes_count %></span>
     </p>
