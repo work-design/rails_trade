@@ -87,16 +87,16 @@ module Trade
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
+      after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_changed_amount, if: -> {
         (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status)
       }
+      after_save :order_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
+      after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
+      after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
+      after_save :print_later, if: -> { saved_change_to_status? && ['paid'].include?(status) && produce_plan.blank? }
+      after_destroy :order_pruned!
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
-      after_create_commit :clean_when_expired, if: -> { expire_at.present? }
-      after_save_commit :confirm_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
-      after_save_commit :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
-      after_save_commit :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
-      after_save_commit :print_later, if: -> { saved_change_to_status? && ['paid'].include?(status) && produce_plan.blank? }
-      after_destroy_commit :order_pruned!
     end
 
     def compute_price
@@ -230,7 +230,8 @@ module Trade
       )
     end
 
-    def confirm_ordered!
+    def order_ordered!
+      self.item_promotes.update(status: 'ordered')
       self.good.order_done
     end
 
