@@ -24,7 +24,6 @@ module Trade
 
       scope :verified, -> { where(status: ['available']) }
       scope :effective, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
-      scope :available, -> { t = Time.current; unused.default_where('expire_at-gte': t, 'effect_at-lte': t) }
 
       enum status: {
         available: 'available',  # 可选
