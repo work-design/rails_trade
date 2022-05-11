@@ -92,6 +92,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
         end
         member do
           patch :refund
+          patch :actions
         end
         resources :order_payments
       end
