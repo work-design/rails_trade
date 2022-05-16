@@ -9,9 +9,11 @@ module Trade
       attribute :myself, :boolean, default: true
       attribute :note, :string
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
+      attribute :serial_number, :integer
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :trade_items_count, :integer, default: 0
+      attribute :paid_at, :datetime
 
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :organ, class_name: 'Org::Organ', optional: true
@@ -58,12 +60,18 @@ module Trade
       end
       before_validation :compute_amount, if: :new_record?
       before_save :check_state, if: -> { amount.zero? }
+      after_save :init_serial_number, if: -> { saved_change_to_created_at? }
       after_create_commit :confirm_ordered!
     end
 
     def init_from_member
       self.user = member.user
       self.member_organ_id = member.organ_id
+    end
+
+    def init_serial_number
+      last_item = self.class.where(organ_id: self.organ_id)
+
     end
 
     def remaining_amount

@@ -33,13 +33,15 @@ module Trade
 
     def confirm_paid!
       self.expire_at = nil
+      self.paid_at = Time.current
       self.trade_items.update(status: 'paid')
       send_notice
     end
 
     def confirm_part_paid!
       self.expire_at = nil
-      self.trade_items.each(&:confirm_part_paid!)
+      self.paid_at = Time.current
+      self.trade_items.update(status: 'part_paid')
     end
 
     def change_to_paid!(type:, payment_uuid:, params: {})

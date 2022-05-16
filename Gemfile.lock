@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 51908a1534f3181c8d8f94f655175afd28e38f7b
+  revision: bb3de914e42a713688968950aeb8749a4efd6338
   specs:
     rails_design (0.0.1)
       rails
@@ -197,8 +197,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
-      racc (~> 1.4)
-    nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
     pg (1.3.5)
     psych (4.0.3)
