@@ -9,7 +9,7 @@ module Trade
       attribute :myself, :boolean, default: true
       attribute :note, :string
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
-      attribute :serial_number, :integer
+      attribute :serial_number, :string
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :trade_items_count, :integer, default: 0
@@ -73,7 +73,7 @@ module Trade
       last_item = self.class.where(organ_id: self.organ_id).default_where('paid_at-gte': paid_at.beginning_of_day, 'paid_at-lte': paid_at.end_of_day).order(paid_at: :desc).first
 
       if last_item
-        self.serial_number = last_item.serial_number + 1
+        self.serial_number = last_item.serial_number.to_i + 1
       else
         self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
       end
