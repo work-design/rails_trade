@@ -35,6 +35,7 @@ module Trade
       self.expire_at = nil
       self.paid_at = Time.current
       self.trade_items.update(status: 'paid')
+      self.save
       send_notice
     end
 
@@ -42,6 +43,7 @@ module Trade
       self.expire_at = nil
       self.paid_at = Time.current
       self.trade_items.update(status: 'part_paid')
+      self.save
     end
 
     def change_to_paid!(type:, payment_uuid:, params: {})

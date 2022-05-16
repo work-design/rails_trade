@@ -13,7 +13,7 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :trade_items_count, :integer, default: 0
-      attribute :paid_at, :datetime
+      attribute :paid_at, :datetime, index: true
 
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :organ, class_name: 'Org::Organ', optional: true
@@ -60,7 +60,7 @@ module Trade
       end
       before_validation :compute_amount, if: :new_record?
       before_save :check_state, if: -> { amount.zero? }
-      after_save :init_serial_number, if: -> { saved_change_to_created_at? }
+      before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end
 
@@ -70,8 +70,13 @@ module Trade
     end
 
     def init_serial_number
-      last_item = self.class.where(organ_id: self.organ_id)
+      last_item = self.class.where(organ_id: self.organ_id).default_where('paid_at-gte': paid_at.beginning_of_day, 'paid_at-lte': paid_at.end_of_day).order(paid_at: :desc).first
 
+      if last_item
+        self.serial_number = last_item.serial_number + 1
+      else
+        self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
+      end
     end
 
     def remaining_amount
