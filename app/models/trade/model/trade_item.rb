@@ -110,7 +110,7 @@ module Trade
         self.single_price = min[1]
       else
         self.vip_code = nil
-        self.single_price = good.price
+        self.single_price = good.price unless self.single_price > 0
       end
       self.original_amount = self.single_price * self.number
       self.amount = original_amount
