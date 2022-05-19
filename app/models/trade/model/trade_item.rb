@@ -76,7 +76,6 @@ module Trade
         self.good_name = good&.name
         self.organ_id ||= good&.organ_id if good.respond_to? :organ_id
         self.produce_on = good.produce_on if good.respond_to? :produce_on
-        compute_price
         if self.respond_to?(:produce_plan) && produce_plan
           self.produce_on = produce_plan.produce_on
           self.expire_at = produce_plan.book_finish_at
@@ -86,6 +85,7 @@ module Trade
           self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
         end
       end
+      before_validation :compute_price, if: -> { new_record? || good_id_changed? }
       before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
