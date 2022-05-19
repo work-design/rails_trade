@@ -6,9 +6,6 @@ module Trade
 
     def create
       @trade_item.save
-
-      @trade_items = current_cart.trade_items.page(params[:page])
-      @checked_ids = current_cart.trade_items.status_checked.pluck(:id)
     end
 
     def promote
@@ -18,8 +15,6 @@ module Trade
     def trial
       @trade_item.status = 'trial'
       @trade_item.save
-
-      @trade_items = current_cart.trade_items.page(params[:page])
     end
 
     def toggle
