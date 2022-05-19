@@ -35,9 +35,11 @@ module Trade
 
       #has_many :organs 用于对接供应商
 
+      if defined?(RailsFactory)
       belongs_to :scene, class_name: 'Factory::Scene', optional: true
       belongs_to :produce_plan, ->(o){ where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
       belongs_to :production_plan, ->(o){ where(produce_on: o.produce_on, scene_id: o.scene_id) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: true, optional: true
+      end
 
       belongs_to :good, polymorphic: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
@@ -75,7 +77,7 @@ module Trade
         self.organ_id ||= good&.organ_id if good.respond_to? :organ_id
         self.produce_on = good.produce_on if good.respond_to? :produce_on
         compute_price
-        if produce_plan
+        if self.respond_to?(:produce_plan) && produce_plan
           self.produce_on = produce_plan.produce_on
           self.expire_at = produce_plan.book_finish_at
         end
