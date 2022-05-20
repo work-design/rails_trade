@@ -1,10 +1,3 @@
-<% if @orders.blank? %>
-  <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="height: 100%">
-    <%= image_tag 'no_order.png' %>
-    <p class="mt-4" style="margin-bottom: 10rem">
-      <%= link_to '去点单', { controller: '/factory/produce_plans' }, class: 'button is-warning px-6' %>
-    </p>
-  </div>
-<% end %>
+<% render partial: 'no_order' if @orders.blank? %>
 
 <%= render partial: 'order', collection: @orders, as: :model %>
