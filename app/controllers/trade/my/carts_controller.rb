@@ -5,10 +5,14 @@ module Trade
 
     def show
       q_params = {
-        good_type: ['Factory::Production']
+        good_type: RailsTrade.config.cart_models
       }
 
-      @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      if defined? RailsFactory
+        @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      else
+        @trade_items = current_cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
+      end
       @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
