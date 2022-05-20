@@ -103,10 +103,10 @@ module Trade
       self.changes
     end
 
-    def get_trade_item(good_type:, good_id:, number: 1, **options)
-      args = { good_type: good_type, good_id: good_id, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
+    def get_trade_item(good_type:, good_id:, aim: 'use', number: 1, **options)
+      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
       args.reject!(&->(_, v){ v.blank? })
-      trade_item = trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id').reject(&->(_, v){ v.blank? }) == args.stringify_keys }) || trade_items.build(args)
+      trade_item = trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'aim').reject(&->(_, v){ v.blank? }) == args.stringify_keys }) || trade_items.build(args)
 
       if trade_item.persisted? && trade_item.status_checked?
         trade_item.number += (number.present? ? number.to_i : 1)

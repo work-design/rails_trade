@@ -41,7 +41,7 @@ module Trade
         use: 'use',
         invest: 'invest',
         rent: 'rent'
-      }, _prefix: true
+      }, _default: 'use', _prefix: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
