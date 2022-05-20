@@ -3,7 +3,6 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :status, :string
       attribute :good_name, :string
       attribute :number, :integer, default: 1
       attribute :weight, :decimal, default: 0, comment: '重量'
@@ -260,7 +259,7 @@ module Trade
     def order_part_paid!
     end
 
-    def confirm_refund!
+    def order_refund!
     end
 
     def fetch_include?(start_time, finish_time)
