@@ -44,7 +44,7 @@ module Trade
     end
 
     def set_new_trade_item
-      options = params.permit(:good_type, :good_id, :number, :produce_on, :scene_id, :fetch_oneself)
+      options = params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
 
       @trade_item = @cart.get_trade_item(**options.to_h.symbolize_keys)
     end
