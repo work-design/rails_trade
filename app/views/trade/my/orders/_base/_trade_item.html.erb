@@ -9,7 +9,7 @@
       <span class="has-text-grey-lighter">x</span>
       <span class="is-size-7"><%= trade_item.number %></span>
     </p>
-    <% if trade_item.produce_plan %>
+    <% if trade_item.respond_to?(:produce_plan) && trade_item.produce_plan %>
       <p class="weui-media-box__desc">提货：<%= trade_item.produce_plan.produce_on %></p>
     <% end %>
   </div>
