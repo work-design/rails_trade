@@ -5,7 +5,6 @@ module Trade
     included do
       attribute :type, :string, default: 'Trade::HandPayment'
       attribute :payment_uuid, :string
-      attribute :state, :string, default: 'init', index: true
       attribute :pay_status, :string
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :total_amount, :decimal, default: 0
