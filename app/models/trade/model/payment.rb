@@ -130,7 +130,7 @@ module Trade
     class_methods do
 
       def total_amount_step
-        0.1.to_d.power(self.columns_hash['total_amount'].scale || self.columns_hash['total_amount'].limit)
+        0.1.to_d.power(self.columns_hash['total_amount'].scale || self.columns_hash['total_amount'].limit || 2)
       end
 
     end
