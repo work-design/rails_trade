@@ -1,7 +1,7 @@
 module Trade
   class My::CartsController < My::BaseController
     before_action :set_cart, only: [:show, :update]
-    before_action :set_purchase, only: [:show]
+    before_action :set_purchase, only: [:show, :invest, :rent]
 
     def show
       q_params = {
