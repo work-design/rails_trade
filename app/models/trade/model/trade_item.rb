@@ -24,6 +24,25 @@ module Trade
       attribute :fetch_start_at, :datetime
       attribute :fetch_finish_at, :datetime
 
+      enum status: {
+        init: 'init',
+        checked: 'checked',
+        ordered: 'ordered',
+        trial: 'trial',
+        paid: 'paid',
+        part_paid: 'part_paid',
+        packaged: 'packaged',
+        done: 'done',
+        canceled: 'canceled',
+        expired: 'expired'
+      }, _default: 'init', _prefix: true
+
+      enum aim: {
+        use: 'use',
+        invest: 'invest',
+        rent: 'rent'
+      }, _prefix: true
+
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User'
       belongs_to :member, class_name: 'Org::Member', optional: true
@@ -52,25 +71,6 @@ module Trade
 
       scope :carting, -> { where(status: ['init', 'checked', 'trial', 'expired']) }
 
-      enum status: {
-        init: 'init',
-        checked: 'checked',
-        ordered: 'ordered',
-        trial: 'trial',
-        paid: 'paid',
-        part_paid: 'part_paid',
-        packaged: 'packaged',
-        done: 'done',
-        canceled: 'canceled',
-        expired: 'expired'
-      }, _default: 'init', _prefix: true
-
-      acts_as_notify(
-        :default,
-        only: [:good_name, :number, :amount, :note],
-        methods: [:order_uuid, :cart_organ]
-      )
-
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
       before_validation :sync_from_good, if: -> { good && good_id_changed? }
       before_validation :sync_from_member, if: -> { member && member_id_changed? }
@@ -90,6 +90,12 @@ module Trade
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && produce_plan.blank? }
       after_destroy :order_pruned!
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
+
+      acts_as_notify(
+        :default,
+        only: [:good_name, :number, :amount, :note],
+        methods: [:order_uuid, :cart_organ]
+      )
     end
 
     def sync_from_good
