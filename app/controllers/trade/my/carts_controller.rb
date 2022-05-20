@@ -16,6 +16,10 @@ module Trade
       @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
+    def rent
+
+    end
+
     def addresses
       @addresses = current_user.addresses.order(id: :asc)
     end

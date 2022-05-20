@@ -120,5 +120,9 @@ module Trade
       trade_item
     end
 
+    def find_trade_item(good_type:, good_id:, aim: 'use', number: 1, **options)
+      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'aim').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
+    end
+
   end
 end

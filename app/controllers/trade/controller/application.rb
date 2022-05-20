@@ -36,7 +36,8 @@ module Trade
 
     def current_cart_count
       if current_cart
-        current_cart.trade_items.size # 不去数据库计算数量
+        #current_cart.trade_items.size # 不去数据库计算数量
+        current_cart.trade_items.count
       else
         0
       end
