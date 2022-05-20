@@ -1,0 +1,4 @@
+<div class="<%= model.status_expired? ? 'weui-panel has-background-light' : 'weui-panel' %>">
+  <%= render partial: 'good', locals: { model: model } %>
+  <%= render partial: 'number', locals: { model: model } %>
+</div>

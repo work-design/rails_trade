@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     end
     resource :cart do
       get :list
+      get :invest
+      get :rent
       get :addresses
       get :promote
     end
