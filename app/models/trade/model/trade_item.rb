@@ -72,19 +72,9 @@ module Trade
         methods: [:order_uuid, :cart_organ]
       )
 
-      after_initialize if: :new_record? do
-        self.good_name = good&.name
-        self.organ_id ||= good&.organ_id if good.respond_to? :organ_id
-        self.produce_on = good.produce_on if good.respond_to? :produce_on
-        if self.respond_to?(:produce_plan) && produce_plan
-          self.produce_on = produce_plan.produce_on
-          self.expire_at = produce_plan.book_finish_at
-        end
-        if member
-          self.user_id = member.user&.id
-          self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
-        end
-      end
+      before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
+      before_validation :sync_from_good, if: -> { good && good_id_changed? }
+      before_validation :sync_from_member, if: -> { member && member_id_changed? }
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
       before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
@@ -101,6 +91,22 @@ module Trade
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && produce_plan.blank? }
       after_destroy :order_pruned!
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
+    end
+
+    def sync_from_good
+      self.good_name = good.name
+      self.organ_id ||= good.organ_id if good.respond_to? :organ_id
+      self.produce_on = good.produce_on if good.respond_to? :produce_on
+    end
+
+    def sync_from_member
+      self.user_id = member.user&.id
+      self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
+    end
+
+    def sync_from_produce_plan
+      self.produce_on = produce_plan.produce_on
+      self.expire_at = produce_plan.book_finish_at
     end
 
     def compute_price
