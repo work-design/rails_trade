@@ -106,7 +106,7 @@ module Trade
     def get_trade_item(good_type:, good_id:, aim: 'use', number: 1, **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
       args.reject!(&->(_, v){ v.blank? })
-      trade_item = trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'aim').reject(&->(_, v){ v.blank? }) == args.stringify_keys }) || trade_items.build(args)
+      trade_item = find_trade_item(**args) || trade_items.build(args)
 
       if trade_item.persisted? && trade_item.status_checked?
         trade_item.number += (number.present? ? number.to_i : 1)
@@ -120,7 +120,9 @@ module Trade
       trade_item
     end
 
-    def find_trade_item(good_type:, good_id:, aim: 'use', number: 1, **options)
+    def find_trade_item(good_type:, good_id:, aim: 'use', **options)
+      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
+      args.reject!(&->(_, v){ v.blank? })
       trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'aim').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
     end
 
