@@ -1,4 +1,4 @@
-<div class="level">
+<div class="level is-flex box is-radiusless">
   <div class="level-left">
     <div class="level-item">
       <% if current_cart.address %>
@@ -10,7 +10,7 @@
       <% end %>
     </div>
   </div>
-  <div class="level-right">
+  <div class="level-right mt-0">
     <%= link_to({ action: 'addresses' }, data: { turbo_frame: 'modal' }, class: 'level-item') do %>
       <i class="fa-light fa-angle-right"></i>
     <% end %>
