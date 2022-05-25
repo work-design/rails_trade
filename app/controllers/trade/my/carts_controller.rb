@@ -5,7 +5,7 @@ module Trade
 
     def show
       q_params = {
-        good_type: RailsTrade.config.cart_models
+        good_type: 'Factory::Production'
       }
 
       @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
@@ -14,7 +14,7 @@ module Trade
 
     def invest
       q_params = {
-        good_type: RailsTrade.config.cart_models,
+        good_type: 'Ship::BoxSpecification',
         aim: 'invest'
       }
 
@@ -24,7 +24,7 @@ module Trade
 
     def rent
       q_params = {
-        good_type: RailsTrade.config.cart_models,
+        good_type: 'Ship::BoxSpecification',
         aim: 'rent'
       }
 

@@ -7,9 +7,6 @@ module RailsTrade
     config.default_currency = 'CNY'
     config.disabled_models = []
     config.expire_after = 2.hour
-    config.cart_models = [
-      'Factory::Production'
-    ]
   end
 
 end
