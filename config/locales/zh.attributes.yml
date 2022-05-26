@@ -64,6 +64,9 @@ zh:
         additional_amount: 附加费
         reduced_amount: 优惠金额
         amount: 总价
+        user_id: 用户
+        address_id: 地址
+        produce_plan_id: 生产计划
       trade/trade_promote:
         amount: 金额
       trade/payment:
