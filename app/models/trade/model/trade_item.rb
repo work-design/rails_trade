@@ -51,8 +51,6 @@ module Trade
       belongs_to :agent, class_name: 'Org::Member', optional: true
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
-      #has_many :organs 用于对接供应商
-
       if defined?(RailsFactory)
       belongs_to :scene, class_name: 'Factory::Scene', optional: true
       belongs_to :produce_plan, ->(o){ where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
