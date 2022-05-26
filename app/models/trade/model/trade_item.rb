@@ -68,7 +68,7 @@ module Trade
       has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       scope :carting, ->{ where(status: ['init', 'checked', 'trial', 'expired']) }
-      scope :deliverable, ->{ where(status: 'paid') }
+      scope :deliverable, ->{ where(status: ['paid', 'packaged']) }
 
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
       before_validation :sync_from_good, if: -> { good && good_id_changed? }
