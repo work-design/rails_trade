@@ -100,7 +100,7 @@ module Trade
 
     def sync_from_good
       self.good_name = good.name
-      self.organ_id ||= good.organ_id if good.respond_to? :organ_id
+      self.organ_id = good.organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on
     end
 

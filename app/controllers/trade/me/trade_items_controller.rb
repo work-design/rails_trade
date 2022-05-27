@@ -1,7 +1,6 @@
 module Trade
   class Me::TradeItemsController < My::TradeItemsController
     include Controller::Me
-    before_action :set_cart
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_trade_item, only: [:create]
 
@@ -25,24 +24,19 @@ module Trade
     end
 
     private
-    def set_cart
+    def set_new_trade_item
       options = {
         user_id: current_user.id,
         member_id: current_member.id,
         organ_id: params[:organ_id].presence
       }
-
-      @cart = Cart.find_or_create_by(options)
-    end
-
-    def set_new_trade_item
       options = params.permit(:good_type, :good_id, :number, :produce_on, :scene_id)
 
-      @trade_item = @cart.get_trade_item(**options.to_h.symbolize_keys)
+      @trade_item = TradeItem.get_trade_item(**options.to_h.symbolize_keys)
     end
 
     def set_trade_item
-      @trade_item = @cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
+      @trade_item = current_member.trade_items.find(params[:id])
     end
 
     def trade_item_params
