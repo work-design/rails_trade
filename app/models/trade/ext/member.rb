@@ -47,17 +47,12 @@ module Trade
       trade_item
     end
 
-    def get_trade_item(good_type:, good_id:, **options)
-      args = {
-        'good_type' => good_type,
-        'good_id' => good_id,
-        'produce_on' => nil,
-        'scene_id' => nil
-      }
+    def get_trade_item(good_type:, good_id:, aim: 'use', **options)
+      args = { good_type: good_type, good_id: good_id, aim: aim }
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
       args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
 
-      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id') == args })
+      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'aim', 'produce_on', 'scene_id').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
     end
 
     class_methods do

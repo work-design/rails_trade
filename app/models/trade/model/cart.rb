@@ -1,8 +1,3 @@
-# 改变数据动作：
-#   * 新增(check)
-#   * 更新数量
-#   * 选择或更换优惠券
-#   * 选择服务
 module Trade
   module Model::Cart
     extend ActiveSupport::Concern
@@ -121,9 +116,12 @@ module Trade
     end
 
     def find_trade_item(good_type:, good_id:, aim: 'use', **options)
-      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
+      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
+      args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
+      args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
       args.reject!(&->(_, v){ v.blank? })
-      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'aim').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
+
+      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'aim', 'produce_on', 'scene_id', 'fetch_oneself').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
     end
 
   end
