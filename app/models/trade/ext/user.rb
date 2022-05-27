@@ -39,5 +39,14 @@ module Trade
       end
     end
 
+    def get_trade_item(good_type:, good_id:, aim: 'use', **options)
+      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
+      args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
+      args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
+      args.reject!(&->(_, v){ v.blank? })
+
+      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'aim', 'produce_on', 'scene_id', 'fetch_oneself').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
+    end
+
   end
 end
