@@ -1,6 +1,5 @@
 module Trade
   class My::TradeItemsController < My::BaseController
-    before_action :set_cart
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_trade_item, only: [:create, :trial]
 
@@ -29,24 +28,17 @@ module Trade
 
     private
     def set_trade_item
-      #@trade_item = @cart.trade_items.find(&->(i){ i.id.to_s == params[:id] })
       @trade_item = current_user.trade_items.find params[:id]
     end
 
-    def set_cart
+    def set_new_trade_item
       options = {
-        user_id: current_user.id,
-        member_id: nil
+        user_id: current_user.id
       }
       options.merge! default_params
+      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
 
-      @cart = Cart.find_or_create_by(options)
-    end
-
-    def set_new_trade_item
-      options = params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
-
-      @trade_item = @cart.get_trade_item(**options.to_h.symbolize_keys)
+      @trade_item = TradeItem.new(options)
     end
 
     def trade_item_params
