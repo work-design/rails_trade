@@ -12,7 +12,7 @@ module Trade
       attribute :unit, :string
       attribute :quantity, :decimal, default: 0
       attribute :unified_quantity, :decimal, default: 0
-      attribute :good_type, :string, default: -> { base_class.name }
+      attribute :good_type, :string, default: -> { class_name }
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -32,7 +32,7 @@ module Trade
     end
 
     def valid_promote_goods
-      PromoteGood.valid.where(good_type: self.class.base_class.name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.select(:promote_id).unavailable)
+      PromoteGood.valid.where(good_type: self.class_name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.select(:promote_id).unavailable)
     end
 
     def generate_order!(cart: , maintain_id: nil, **params)

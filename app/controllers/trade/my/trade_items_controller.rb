@@ -35,7 +35,6 @@ module Trade
       options = {
         user_id: current_user.id
       }
-      options.merge! default_params
       options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
 
       @trade_item = TradeItem.new(options)
