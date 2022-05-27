@@ -3,6 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :good_type, :string
+      attribute :aim, :string
       attribute :retail_price, :decimal, default: 0, comment: '汇总：原价'
       attribute :discount_price, :decimal, default: 0, comment: '汇总：优惠'
       attribute :bulk_price, :decimal, default: 0
