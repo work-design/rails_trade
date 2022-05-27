@@ -12,7 +12,7 @@ module Trade
       attribute :unit, :string
       attribute :quantity, :decimal, default: 0
       attribute :unified_quantity, :decimal, default: 0
-      attribute :good_type, :string, default: -> { class_name }
+      attribute :good_type, :string, default: -> { base_class.name }
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
