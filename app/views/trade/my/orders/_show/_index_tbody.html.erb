@@ -1,11 +1,11 @@
 <td>
-  <%= trade_item.good_name %>
-  <span><%= trade_item.single_price %></span>
-  <%# link_to trade_item.good&.name, controller: '/' + trade_item.good_type.underscore.pluralize, action: 'show', id: trade_item.good_id %>
+  <%= model.good_name %>
+  <span><%= model.single_price %></span>
+  <%# link_to model.good&.name, model, action: 'show', id: model.good_id %>
 </td>
-<td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
-<td><%= trade_item.original_amount %></td>
-<td><%= trade_item.additional_amount %></td>
-<td><%= trade_item.reduced_amount %></td>
-<td><%= trade_item.amount %></td>
-<td><%= trade_item.number %></td>
+<td><%= link_to '订单流程', { controller: 'models', action: 'show', id: model.id } %></td>
+<td><%= model.original_amount %></td>
+<td><%= model.additional_amount %></td>
+<td><%= model.reduced_amount %></td>
+<td><%= model.amount %></td>
+<td><%= model.number %></td>
