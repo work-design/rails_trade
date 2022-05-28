@@ -1,5 +1,5 @@
 module Trade
-  class Panel::RefundsController < Panel::BaseController
+  class Panel::RefundsController < Admin::RefundsController
     before_action :set_refund, only: [:show, :edit, :update, :confirm, :deny, :destroy]
 
     def index
