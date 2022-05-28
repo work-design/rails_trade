@@ -19,18 +19,16 @@ module Trade
     end
 
     def order_params
-      p = params.fetch(:order, {}).permit(
-        :quantity,
+      params.fetch(:order, {}).permit(
         :state,
         :payment_id,
         :payment_type,
         :address_id,
         :invoice_address_id,
-        :amount,
+        :note,
         trade_items_attributes: [:deliver_on, :advance_price, :comment],
         trade_promotes_attributes: [:promote_id]
       )
-      p.merge! default_form_params
     end
 
   end
