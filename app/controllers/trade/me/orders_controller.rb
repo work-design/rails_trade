@@ -1,18 +1,17 @@
 module Trade
   class Me::OrdersController < My::OrdersController
-    include Controller::Me
+    before_action :set_order, only: [:show]
 
     def index
-      q_params = {
-        member_id: current_member.id
-      }
+      q_params = {}
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
-      @orders = current_user.orders.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = current_member.orders.includes(:trade_items).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
+    private
     def set_order
-      @order = Order.find(params[:id])
+      @order = current_member.orders.find(params[:id])
     end
 
     def order_params
