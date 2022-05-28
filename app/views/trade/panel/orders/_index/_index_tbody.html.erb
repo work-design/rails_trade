@@ -6,6 +6,14 @@
 </td>
 <td>
   <%= model.payment_status_i18n %>
+  <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
+    <%= button_to t('.refund'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
+  <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+    <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: model.id }, class: 'button is-link is-small' %>
+  <% end %>
+  <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
+    <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
+  <% end %>
 </td>
 <td><%= model.state_i18n %></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>

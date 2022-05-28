@@ -42,6 +42,33 @@ Rails.application.routes.draw do
     end
     resources :promote_goods, only: [:index, :show]
   end
+  concern :order_admin do
+    resources :orders do
+      collection do
+        get :payments
+        get :refresh
+      end
+      member do
+        patch :refund
+        patch :actions
+      end
+      resources :order_payments
+    end
+    resources :payments do
+      collection do
+        get :dashboard
+      end
+      member do
+        patch :analyze
+        patch :adjust
+      end
+      resources :payment_orders do
+        member do
+          patch :cancel
+        end
+      end
+    end
+  end
 
   namespace :factory, defaults: { business: 'factory' } do
     namespace :buy, defaults: { namespace: 'buy' } do
@@ -65,12 +92,13 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
     end
 
     namespace :panel, defaults: { namespace: 'panel' } do
+      concerns :order_admin
       resources :exchange_rates
-      resources :orders
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do
       get 'trade' => 'trade#index'
+      concerns :order_admin
       resources :users do
         collection do
           get :overdue
@@ -87,34 +115,9 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
           get :only
         end
       end
-      resources :orders do
-        collection do
-          get :payments
-          get :refresh
-        end
-        member do
-          patch :refund
-          patch :actions
-        end
-        resources :order_payments
-      end
       resources :trade_items
       resources :cart_promotes
       resources :item_promotes
-      resources :payments do
-        collection do
-          get :dashboard
-        end
-        member do
-          patch :analyze
-          patch :adjust
-        end
-        resources :payment_orders do
-          member do
-            patch :cancel
-          end
-        end
-      end
       resources :payment_strategies
       resources :payment_methods do
         collection do
