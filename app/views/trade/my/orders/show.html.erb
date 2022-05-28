@@ -1,44 +1,7 @@
-<table class="table is-fullwidth">
-  <thead>
-    <tr>
-    
-    </tr>
-  </thead>
-  <% @order.trade_items.each do |trade_item| %>
-  <tr>
-  
-  </tr>
-    <% trade_item.trade_promotes.each do |trade_promote| %>
-      <tr class="warning">
-        <td><%= trade_promote.promote.name %></td>
-        <td></td>
-        <td></td>
-        <td><%= trade_promote.amount %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    <% end %>
-  <% end %>
-  <% @order.trade_promotes.each do |trade_promote| %>
-    <tr>
-      <td><%= trade_promote.promote.name %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><%= trade_promote.amount %></td>
-      <td></td>
-      <td></td>
-    </tr>
-  <% end %>
+
   <tr>
     <td>总价</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td colspan="3"></td>
     <td><%= @order.item_amount %>(<%= @order.amount %>)</td>
     <td></td>
   </tr>
-</table>
