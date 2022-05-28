@@ -1,18 +1,18 @@
 <td>
-  <%= link_to order.uuid, { action: 'show', id: order.id } %>
+  <%= link_to model.uuid, { action: 'show', id: model.id } %>
 </td>
 <td>
-  <%= order.amount %>
+  <%= model.amount %>
 </td>
 <td>
-  <span><%= order.payment_status_i18n %></span>
-  <%= link_to({ action: 'payment_types', id: order.id }, class: 'button is-small') do %>
+  <span><%= model.payment_status_i18n %></span>
+  <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small') do %>
     <span>支付</span>
-  <% end if order.can_pay? %>
+  <% end if model.can_pay? %>
 </td>
 <td>
-  <span><%= order.note %></span>
-  <%= link_to({ action: 'edit', id: order.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }) do %>
+  <span><%= model.note %></span>
+  <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }) do %>
     <i class="fa-light fa-pencil"></i>
   <% end %>
 </td>
