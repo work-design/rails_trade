@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 82dac2fb18b33da1040c1cd2c3e7b2b7167fb0e3
+  revision: b6c72e56596e81d8efdfa3eb5fe78f7e7c99260a
   specs:
     rails_com (1.3.0)
       acme-client
@@ -152,7 +152,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    loofah (2.17.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -191,11 +191,13 @@ GEM
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri (1.13.6-x86_64-linux)
+      racc (~> 1.4)
     pg (1.3.5)
-    psych (4.0.3)
+    psych (4.0.4)
       stringio
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (7.0.3)
@@ -237,7 +239,7 @@ GEM
     stringio (3.0.2)
     strscan (3.0.3)
     thor (1.2.1)
-    timeout (0.2.0)
+    timeout (0.3.0)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
