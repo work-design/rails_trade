@@ -1,5 +1,5 @@
 module Trade
-  class Admin::PaymentsController < Admin::BaseController
+  class Panel::PaymentsController < Panel::BaseController
     before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
 
     def dashboard
