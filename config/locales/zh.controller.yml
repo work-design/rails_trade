@@ -60,6 +60,9 @@ zh:
           relate: 关联买家
         index:
           title: 支付方式
+      payment_strategies:
+        index:
+          title: 结款形式
       promotes:
         index:
           title: 促销

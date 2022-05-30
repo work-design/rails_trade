@@ -4,6 +4,7 @@ module Trade
 
     def index
       q_params = {}
+      q_params.merge! default_params
 
       @payment_strategies = PaymentStrategy.default_where(q_params)
     end

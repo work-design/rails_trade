@@ -70,6 +70,7 @@ module Trade
 
       scope :carting, ->{ where(status: ['init', 'checked', 'trial', 'expired']) }
       scope :deliverable, ->{ where(status: ['paid', 'packaged']) }
+      scope :packable, ->{ where(status: ['paid']) }
 
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
       before_validation :sync_from_good, if: -> { good && good_id_changed? }
