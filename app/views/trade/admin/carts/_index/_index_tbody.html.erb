@@ -7,6 +7,10 @@
     <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
   <% end %>
 </td>
+<td>
+  <p><%= model.payment_strategy&.name %></p>
+  <p><%= model.deposit_ratio %></p>
+</td>
 <td class="has-text-right">
   <p><%= model.item_amount %></p>
   <p><%= model.overall_additional_amount %></p>

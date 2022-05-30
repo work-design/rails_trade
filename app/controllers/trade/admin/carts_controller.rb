@@ -1,13 +1,14 @@
 module Trade
   class Admin::CartsController < Admin::BaseController
     before_action :set_cart, only: [:show, :destroy]
+    before_action :set_payment_strategies, only: [:new, :create, :edit, :update]
 
     def index
       q_params = {}
       q_params.merge! default_params
       q_params.merge! params.permit(:id)
 
-      @carts = Cart.includes(:user, :member, :member_organ, :trade_items).default_where(q_params).order(member_organ_id: :asc, member_id: :asc).page(params[:page])
+      @carts = Cart.includes(:user, :member, :member_organ, :payment_strategy, :trade_items).default_where(q_params).order(member_organ_id: :asc, member_id: :asc).page(params[:page])
     end
 
     def single
@@ -54,10 +55,14 @@ module Trade
       @cart = Cart.find params[:id]
     end
 
+    def set_payment_strategies
+      @payment_strategies = PaymentStrategy.default_where(default_params)
+    end
+
     def cart_params
       params.fetch(:cart, {}).permit(
-        :serve_id,
-        :price
+        :payment_strategy_id,
+        :deposit_ratio
       )
     end
 

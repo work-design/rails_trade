@@ -1,0 +1,6 @@
+<%= form_with model: @cart, url: { action: 'update' } do |f| %>
+  <%= render 'error_messages', target: f.object %>
+  <%= f.collection_select :payment_strategy_id, @payment_strategies, :id, :name %>
+  <%= f.number_field :deposit_ratio %>
+  <%= f.submit %>
+<% end %>
