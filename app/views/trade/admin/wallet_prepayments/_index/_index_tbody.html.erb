@@ -1,3 +1,3 @@
 <td><%= model.amount %></td>
 <td><%= model.token %></td>
-<td><time data-controller="time"><%= model.expire_at.to_fs(:iso8601) if model.expire_at %></time></td>
+<td><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></td>

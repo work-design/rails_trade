@@ -21,4 +21,4 @@
     <%= link_to 'Payment Method', { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'tag', targe: '_blank' %>
   <% end %>
 </td>
-<td><time data-controller="time"><%= model.notified_at.to_fs(:iso8601) if model.notified_at %></time></td>
+<td><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></td>

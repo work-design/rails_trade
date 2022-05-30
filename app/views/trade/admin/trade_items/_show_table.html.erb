@@ -45,7 +45,7 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::TradeItem.human_attribute_name(:expire_at) %></td>
-  <td><time data-controller="time"><%= @trade_item.expire_at.to_fs(:iso8601) if @trade_item.expire_at.present? %></time></td>
+  <td><time data-controller="time"><%= @trade_item.expire_at&.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::TradeItem.human_attribute_name(:produce_on) %></td>
