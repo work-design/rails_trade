@@ -60,7 +60,6 @@ module Trade
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
       before_validation :compute_amount, if: :new_record?
-      before_save :check_state, if: -> { amount.zero? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end

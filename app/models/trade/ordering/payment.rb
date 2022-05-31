@@ -7,7 +7,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      after_save_commit :confirm_paid!, if: -> { all_paid? &&  saved_change_to_payment_status? }
+      before_save :check_state, if: -> { amount.zero? }
+      after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
     end
 
