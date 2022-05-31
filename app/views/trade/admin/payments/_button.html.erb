@@ -1,4 +1,4 @@
 <div class="buttons are-small mb-0">
   <%= link_to t('.new'), { action: 'new' }, data: { turbo_frame: 'modal' }, class: 'button is-link' %>
-  <%= link_to t('.import'), { controller: 'datum/panel/table_lists', action: 'new_import', data_list_id: 'PaymentImport' }, class: 'button is-link' %>
+  <%= link_to t('.import'), { controller: 'datum/panel/table_lists', action: 'new_import', data_list_id: 'PaymentImport' }, data: { turbo_frame: 'modal' }, class: 'button is-success' %>
 </div>
