@@ -1,9 +1,10 @@
-<td>
-  <%= link_to admin_payout_path(payout), class: 'ui blue mini icon button' do %>
-    <i class="location arrow icon"></i>
-  <% end %>
-  <%= link_to do_pay_admin_payout_path(payout), method: :put, data: { confirm: t('.confirm') }, class: 'ui green mini icon button' do %>
-    <i class="handshake icon"></i>
-  <% end %>
-</td>
+<tr>
+  <td>
+    <%= link_to admin_payout_path(payout), class: 'ui blue mini icon button' do %>
+      <i class="location arrow icon"></i>
+    <% end %>
+    <%= link_to do_pay_admin_payout_path(payout), method: :put, data: { confirm: t('.confirm') }, class: 'ui green mini icon button' do %>
+      <i class="handshake icon"></i>
+    <% end %>
+  </td>
 </tr>
