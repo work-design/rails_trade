@@ -29,9 +29,9 @@ module Trade
         user_id: current_user.id,
         member_id: current_member.id
       }
-      options.merge! params.permit(:good_type, :good_id, :number, :produce_on, :scene_id)
+      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
 
-      @trade_item = TradeItem.get_trade_item(**options.to_h.symbolize_keys)
+      @trade_item = TradeItem.new(**options.to_h.symbolize_keys)
     end
 
     def set_trade_item
