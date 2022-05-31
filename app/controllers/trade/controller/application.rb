@@ -34,10 +34,9 @@ module Trade
       @current_wallet
     end
 
-    def current_cart_count
+    def current_cart_count(good_type: 'Factory::Production')
       if current_cart
-        #current_cart.trade_items.size # 不去数据库计算数量
-        current_cart.trade_items.count
+        current_cart.trade_items.select(&->(i){ i.persisted? && i.good_type == good_type }).size
       else
         0
       end
