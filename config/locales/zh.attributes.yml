@@ -95,8 +95,8 @@ zh:
         bank: 银行
         verified: 已审核
         payment_references: 关联账号
-      trade/payment_strategies:
-        period: 结款周期
+      trade/payment_strategy:
+        period: 延后付款（天）
       trade/payment_order:
         state: 核销状态
         check_amount: 核销金额
