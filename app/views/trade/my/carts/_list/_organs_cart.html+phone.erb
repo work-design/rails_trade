@@ -8,7 +8,7 @@
         </span>
       </div>
       <div class="weui-cells weui-cells_radio">
-        <label class="weui-cell weui-cell_active weui-check__label" for="address_id_<%= model.id %>">
+        <label class="weui-cell weui-cell_active weui-check__label" for="member_id_<%= model.id %>">
           <span class="weui-cell__hd">
             <%= image_tag model.organ.logo.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if model.organ.logo.attached? %>
           </span>
@@ -17,8 +17,8 @@
             <span class="is-size-7"><%= model.identity %></span>
           </span>
           <span class="weui-cell__ft" data-controller="input">
-            <%= form_with theme: nil, url: { action: 'update' }, method: :patch do |f| %>
-              <%= f.radio_button :address_id, model.id, checked: model == current_client, class: 'weui-check', data: { action: 'input#form' } %>
+            <%= form_with theme: nil, url: { controller: 'org/my/authorized_tokens', action: 'update' }, method: :patch do |f| %>
+              <%= f.radio_button :member_id, model.id, checked: model == current_client, class: 'weui-check', data: { action: 'input#form' } %>
               <span class="weui-icon-checked"></span>
             <% end %>
           </span>
