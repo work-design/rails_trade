@@ -1,8 +1,11 @@
 <tfoot>
   <tr>
-    <td>总价</td>
-    <td colspan="3"></td>
-    <td><%= @order.item_amount %>(<%= @order.amount %>)</td>
+    <td><%= Trade::Order.human_attribute_name(:amount) %></td>
+    <td colspan="4"></td>
+    <td>
+      <p><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></p>
+      <p><%= @order.amount.to_money.format(html_wrap: true).html_safe %></p>
+    </td>
     <td></td>
   </tr>
 </tfoot>
