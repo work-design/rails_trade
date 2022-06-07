@@ -236,10 +236,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resolve 'Trade::Purchase', global_member_id: nil do |purchase, options|
+  resolve 'Trade::Purchase' do |purchase, options|
     [:trade, :my, purchase.card_template, options]
   end
-  resolve 'Trade::Advance', global_member_id: nil do |advance, options|
+  resolve 'Trade::Advance' do |advance, options|
     [:trade, :my, advance.wallet_template, options]
   end
 end

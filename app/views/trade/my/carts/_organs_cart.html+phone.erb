@@ -8,7 +8,7 @@
         </span>
       </div>
       <div class="weui-cells weui-cells_radio">
-        <%= link_to({ controller: '/my/home', global_member_id: "member_#{model.id}" }, class: 'weui-cell weui-cell_active weui-check__label') do %>
+        <%= link_to({ controller: '/my/home' }, class: 'weui-cell weui-cell_active weui-check__label') do %>
           <span class="weui-cell__hd">
             <%= image_tag model.organ.logo.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if model.organ.logo.attached? %>
           </span>
