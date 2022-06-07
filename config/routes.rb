@@ -76,8 +76,6 @@ Rails.application.routes.draw do
     end
   end
 
-scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
-
   namespace :trade, defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
@@ -237,7 +235,7 @@ scope '(/:global_member_id)', constraints: { global_member_id: /member_\d+/ } do
       concerns :orderable
     end
   end
-end
+
   resolve 'Trade::Purchase', global_member_id: nil do |purchase, options|
     [:trade, :my, purchase.card_template, options]
   end
