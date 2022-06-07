@@ -1,7 +1,5 @@
+<%= render 'filter_table' %>
 
-  <tr>
-    <td>总价</td>
-    <td colspan="3"></td>
-    <td><%= @order.item_amount %>(<%= @order.amount %>)</td>
-    <td></td>
-  </tr>
+<%= render layout: 'index_table' do %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.trade_items, as: :model %>
+<% end %>
