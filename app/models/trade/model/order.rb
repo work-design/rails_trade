@@ -4,7 +4,6 @@ module Trade
 
     included do
       attribute :uuid, :string
-      attribute :payment_id, :integer, comment: 'for paypal'
       attribute :myself, :boolean, default: true
       attribute :note, :string
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }

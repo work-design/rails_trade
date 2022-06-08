@@ -1,5 +1,10 @@
 module Trade
   module PaymentType::Paypal
+    extend ActiveSupport::Concern
+
+    included do
+      attribute :payment_id, :integer, comment: 'for paypal'
+    end
 
     def paypal_prepay
       paypal_payment = PayPal::SDK::REST::DataTypes::Payment.new(paypal_params)

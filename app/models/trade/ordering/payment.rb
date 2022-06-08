@@ -5,6 +5,7 @@ module Trade
     included do
       attribute :amount, :decimal, default: 0
       attribute :received_amount, :decimal, default: 0
+      attribute :payment_kind, :string
 
       before_save :check_state, if: -> { amount.zero? }
       after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
@@ -83,7 +84,7 @@ module Trade
       trade_items.pluck(:agent_id)
     end
 
-    def payment_result(payment_kind: payment_type)
+    def payment_result(payment_kind)
       if self.payment_status == 'all_paid'
         return self
       end
