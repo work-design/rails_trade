@@ -12,6 +12,7 @@ module Trade
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :trade_items_count, :integer, default: 0
       attribute :paid_at, :datetime, index: true
+      attribute :pay_later, :boolean, default: false
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -53,9 +54,10 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
+      before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      before_validation :sum_amount, if: :new_record?
+      before_create :init_pay_later
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end
@@ -79,6 +81,14 @@ module Trade
       else
         self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
       end
+    end
+
+    def init_pay_later
+      self.pay_later = true if should_pay_later?
+    end
+
+    def should_pay_later?
+      trade_items.pluck(:aim).include?('rent')
     end
 
     def subject

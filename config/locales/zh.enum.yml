@@ -25,6 +25,9 @@ zh:
           init: 当前订单
           done: 已完成
           canceled: 已取消
+        pay_later:
+          true: 后付
+          false: 预付
       trade/payment:
         type:
           Trade::HandPayment: 后台支付
