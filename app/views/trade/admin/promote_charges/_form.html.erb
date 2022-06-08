@@ -1,10 +1,11 @@
-<%= f.select :type, options_for_select(Trade::PromoteCharge.options_i18n(:type), @promote_charge.type) %>
+<%= f.select :type, options_for_select(Trade::PromoteCharge.options_i18n(:type), f.object.type) %>
 <%= f.number_field :min, step: Trade::PromoteCharge.min_step %>
 <%= f.check_box :contain_min %>
 <%= f.number_field :max, step: Trade::PromoteCharge.max_step %>
 <%= f.check_box :contain_max %>
 <%= f.number_field :parameter, step: 0.01, wrap: { all_id: true } %>
 <%= f.number_field :base_price, step: 0.01 %>
+<%= f.select :unit, options_for_select(Trade::PromoteCharge.options_i18n(f.object.promote.metering), f.object.unit) %>
 <% Trade::PromoteCharge.extra_columns.each do |ex| %>
   <%= f.text_field ex %>
 <% end %>

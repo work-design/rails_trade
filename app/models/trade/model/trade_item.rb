@@ -6,7 +6,8 @@ module Trade
       attribute :good_name, :string
       attribute :number, :integer, default: 1
       attribute :weight, :decimal, default: 0, comment: '重量'
-      attribute :unit, :string, comment: '单位'
+      attribute :duration, :integer, comment: '占用时长'
+      attribute :volume, :integer, comment: '体积'
       attribute :vip_code, :string
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
