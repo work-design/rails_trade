@@ -56,17 +56,21 @@ module Trade
       }, _default: 'unpaid'
 
       before_validation :init_from_member, if: -> { member && member_id_changed? }
-      before_validation do
-        self.uuid ||= UidHelper.nsec_uuid('OD')
-      end
+      before_validation :init_uuid, if: -> { uuid.blank? }
       before_validation :sum_amount, if: :new_record?
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end
 
+    def init_uuid
+      self.uuid = UidHelper.nsec_uuid('OD')
+      self
+    end
+
     def init_from_member
       self.user = member.user
       self.member_organ_id = member.organ_id
+      self
     end
 
     def init_serial_number
