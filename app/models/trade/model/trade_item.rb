@@ -82,9 +82,7 @@ module Trade
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_changed_amount, if: -> {
-        (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status)
-      }
+      after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
       after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
       after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
@@ -93,11 +91,7 @@ module Trade
       after_destroy :order_pruned!
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
 
-      acts_as_notify(
-        :default,
-        only: [:good_name, :number, :amount, :note],
-        methods: [:order_uuid, :cart_organ]
-      )
+      acts_as_notify(:default, only: [:good_name, :number, :amount, :note], methods: [:order_uuid, :cart_organ])
     end
 
     def sync_from_good
