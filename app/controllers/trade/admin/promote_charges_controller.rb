@@ -12,7 +12,6 @@ module Trade
     end
 
     def options
-
     end
 
     def new
@@ -27,22 +26,6 @@ module Trade
       end
     end
 
-    def edit
-
-    end
-
-    def update
-      @promote_charge.assign_attributes(promote_charge_params)
-
-      unless @promote_charge.save
-        render :edit, locals: { model: @promote_charge }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @promote_charge.destroy
-    end
-
     private
     def promote_charge_params
       params.fetch(:promote_charge, {}).permit(
@@ -51,6 +34,7 @@ module Trade
         :type,
         :unit,
         :parameter,
+        :base_price,
         :contain_min,
         :contain_max,
         *PromoteCharge.extra_columns

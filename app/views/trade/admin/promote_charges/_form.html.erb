@@ -3,7 +3,8 @@
 <%= f.check_box :contain_min %>
 <%= f.number_field :max, step: Trade::PromoteCharge.max_step %>
 <%= f.check_box :contain_max %>
-<%= f.number_field :parameter, step: '0.01', wrap: { all_id: true } %>
+<%= f.number_field :parameter, step: 0.01, wrap: { all_id: true } %>
+<%= f.number_field :base_price, step: 0.01 %>
 <% Trade::PromoteCharge.extra_columns.each do |ex| %>
   <%= f.text_field ex %>
 <% end %>
