@@ -59,7 +59,7 @@ module Trade
       before_validation do
         self.uuid ||= UidHelper.nsec_uuid('OD')
       end
-      before_validation :compute_amount, if: :new_record?
+      before_validation :sum_amount, if: :new_record?
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end
@@ -113,7 +113,7 @@ module Trade
       promotes.transform_keys!(&->(i){ Promote.find(i) })
     end
 
-    def compute_amount
+    def sum_amount
       self.item_amount = trade_items.sum(&:amount)
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
