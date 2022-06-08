@@ -83,6 +83,8 @@ zh:
           part_new: 部分商品
         blacklist:
           title: 例外商品
+        part:
+          title: 支持商品
       refunds:
         index:
           title: 退款列表
