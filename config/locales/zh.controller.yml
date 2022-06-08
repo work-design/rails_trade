@@ -162,3 +162,6 @@ zh:
       orders:
         index:
           title: 平台订单
+      units:
+        index:
+          title: 单位设置

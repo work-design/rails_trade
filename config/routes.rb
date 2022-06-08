@@ -92,6 +92,7 @@ Rails.application.routes.draw do
     namespace :panel, defaults: { namespace: 'panel' } do
       concerns :order_admin
       resources :exchange_rates
+      resources :units
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do

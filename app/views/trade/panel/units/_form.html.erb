@@ -1,0 +1,5 @@
+<%= f.select :metering, options_for_select(Trade::Unit.options_i18n(:metering), f.object.metering) %>
+<%= f.text_field :name %>
+<%= f.text_field :code %>
+<%= f.number_field :rate %>
+<%= f.check_box :default %>
