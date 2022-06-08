@@ -96,7 +96,7 @@ Rails.application.routes.draw do
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do
-      get 'trade' => 'trade#index'
+      root 'home#index'
       concerns :order_admin
       resources :users do
         collection do
