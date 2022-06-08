@@ -21,7 +21,7 @@ module Trade
 
     included do
       attribute :type, :string
-      attribute :unit, :string
+      attribute :unit_code, :string
       attribute :min, :decimal, precision: 10, scale: 2, default: 0
       attribute :max, :decimal, precision: 10, scale: 2, default: 99999999.99
       attribute :filter_min, :decimal, precision: 10, scale: 2, default: 0
@@ -32,6 +32,7 @@ module Trade
       attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
 
       belongs_to :promote
+      belongs_to :unit, foreign_key: :unit_code, primary_key: :code, optional: true
 
       scope :filter_with, ->(amount){ default_where('filter_min-lte': amount, 'filter_max-gte': amount) }
 

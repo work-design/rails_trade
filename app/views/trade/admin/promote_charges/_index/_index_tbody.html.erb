@@ -14,6 +14,6 @@
   <% end %>
 </td>
 <td><%= model.parameter %></td>
-<td><%= model.class.enum_i18n(model.promote.metering, model.unit) %></td>
+<td><%= model.unit&.name %></td>
 <td><%= model.base_price %></td>
 <td><%= simple_format(model.extra) %></td>

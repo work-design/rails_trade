@@ -14,6 +14,8 @@ module Trade
         duration: 'duration'
       }
 
+      validates :code, uniqueness: { scope: :metering }
+
       after_update :set_default, if: -> { default? && saved_change_to_default? }
     end
 
