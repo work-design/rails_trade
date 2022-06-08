@@ -1,12 +1,11 @@
-# payment_id
-# payment_type
-# amount
-# received_amount
 module Trade
   module Ordering::Payment
     extend ActiveSupport::Concern
 
     included do
+      attribute :amount, :decimal, default: 0
+      attribute :received_amount, :decimal, default: 0
+
       before_save :check_state, if: -> { amount.zero? }
       after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
@@ -18,6 +17,10 @@ module Trade
 
     def unreceived_amount
       self.amount.to_d - self.received_amount.to_d
+    end
+
+    def remaining_amount
+      amount - received_amount
     end
 
     def init_received_amount

@@ -4,7 +4,6 @@ module Trade
 
     included do
       attribute :uuid, :string
-      attribute :received_amount, :decimal, default: 0
       attribute :payment_id, :integer, comment: 'for paypal'
       attribute :myself, :boolean, default: true
       attribute :note, :string
@@ -81,10 +80,6 @@ module Trade
       else
         self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
       end
-    end
-
-    def remaining_amount
-      amount - received_amount
     end
 
     def subject
