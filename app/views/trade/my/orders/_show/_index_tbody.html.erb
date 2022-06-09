@@ -2,17 +2,20 @@
   <%= model.good_name %>
   <%# link_to model.good&.name, model, action: 'show', id: model.good_id %>
 </td>
-<td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', order_id: @order.id, id: model.id } %></td>
-<td>
-  <p><%= model.single_price.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></p>
-</td>
-<td><%= model.additional_amount.to_money.format(html_wrap: true).html_safe %></td>
-<td><%= model.reduced_amount.to_money.format(html_wrap: true).html_safe %></td>
-<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
-<td><%= model.number %></td>
 <td>
 <% if model.aim == 'rent' %>
   <%= model.aim_i18n %>
 <% end %>
 </td>
+<td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', order_id: @order.id, id: model.id } %></td>
+<td>
+  <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+  <i class="fa-light fa-times"></i>
+  <span><%= model.number %></span>
+</td>
+<td><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></td>
+<td>
+  <p><%= model.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
+<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
