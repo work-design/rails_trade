@@ -12,9 +12,9 @@ module Trade
       attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
       attribute :promote_name, :string
 
-      belongs_to :cart, inverse_of: :cart_promotes
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
+      belongs_to :cart, inverse_of: :cart_promotes, optional: true
       belongs_to :order, inverse_of: :cart_promotes, optional: true
       belongs_to :promote
       belongs_to :promote_charge
@@ -29,11 +29,13 @@ module Trade
 
       validates :amount, presence: true
 
-      after_initialize if: :new_record? do
-        self.sequence = self.promote.sequence if self.promote
-      end
+      after_initialize :init_sequence, if: -> { new_record? && self.promote }
       before_save :sync_amount, if: -> { computed_amount_changed? }
       after_update :sync_to_cart, if: -> { order.present? && saved_change_to_order_id? }
+    end
+
+    def init_sequence
+      self.sequence = self.promote.sequence
     end
 
     def sync_amount

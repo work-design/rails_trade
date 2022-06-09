@@ -61,10 +61,11 @@ module Trade
         cp.sync_amount
       end
       self.sum_amount
+      self.changes
     end
 
     def reset_amount
-      self.compute_amount
+      self.sum_amount
       self.valid?
       self.changes
     end
