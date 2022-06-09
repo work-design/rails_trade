@@ -8,7 +8,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:scope, :id)
 
-      @promotes = Promote.default_where(q_params).order(id: :desc).page(params[:page])
+      @promotes = Promote.includes(:unit).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def create

@@ -8,7 +8,7 @@ module Trade
       q_params.merge! params.permit(PromoteCharge.extra_columns)
       q_params.merge! 'filter_min-lte': params[:value], 'filter_max-gte': params[:value]
 
-      @promote_charges = @promote.promote_charges.includes(:unit).default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
+      @promote_charges = @promote.promote_charges.default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
     end
 
     def options

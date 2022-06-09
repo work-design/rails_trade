@@ -2,6 +2,9 @@
   <p><%= Trade::Promote.human_attribute_name(:name) %></p>
   <p><%= Trade::Promote.human_attribute_name(:short_name) %>(<%= Trade::Promote.human_attribute_name(:code) %>)</p>
 </th>
-<th><%= Trade::Promote.human_attribute_name(:metering) %></th>
+<th>
+  <p><%= Trade::Promote.human_attribute_name(:metering) %></p>
+  <p><%= Trade::Promote.human_attribute_name(:unit_code) %></p>
+</th>
 <th><%= Trade::Promote.human_attribute_name(:editable) %></th>
 <th><%= Trade::Promote.human_attribute_name(:sequence) %></th>

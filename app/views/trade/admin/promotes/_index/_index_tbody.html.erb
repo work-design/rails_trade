@@ -7,7 +7,10 @@
     <% end %>
   </p>
 </td>
-<td><%= model.metering_i18n %></td>
+<td>
+  <p><%= model.metering_i18n %></p>
+  <p><%= model.unit&.name %></p>
+</td>
 <td>
   <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
     <%= f.check_box :editable, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
