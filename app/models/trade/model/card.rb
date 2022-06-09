@@ -3,13 +3,13 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :lock_version, :integer
       attribute :card_uuid, :string
       attribute :effect_at, :datetime
       attribute :expire_at, :datetime
       attribute :amount, :decimal, default: 0
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
-      attribute :lock_version, :integer
       attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true

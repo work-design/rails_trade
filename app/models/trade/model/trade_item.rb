@@ -228,7 +228,7 @@ module Trade
     end
 
     def metering_attributes
-      attributes.slice 'quantity', 'original_amount', 'number'
+      attributes.slice 'original_amount', 'number', 'weight', 'volume', 'duration'
     end
 
     def to_notice
