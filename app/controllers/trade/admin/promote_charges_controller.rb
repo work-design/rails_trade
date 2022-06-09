@@ -2,7 +2,6 @@ module Trade
   class Admin::PromoteChargesController < Admin::BaseController
     before_action :set_promote, except: [:options]
     before_action :set_promote_charge, only: [:edit, :update, :destroy]
-    before_action :set_units, only: [:new, :create, :edit, :upadte]
 
     def index
       q_params = {}
@@ -33,7 +32,6 @@ module Trade
         :min,
         :max,
         :type,
-        :unit_code,
         :parameter,
         :base_price,
         :contain_min,
@@ -48,10 +46,6 @@ module Trade
 
     def set_promote_charge
       @promote_charge = @promote.promote_charges.find params[:id]
-    end
-
-    def set_units
-      @units = Unit.where(metering: @promote.metering)
     end
 
   end

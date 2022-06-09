@@ -6,6 +6,7 @@ module Trade
       attribute :name, :string
       attribute :short_name, :string
       attribute :code, :string
+      attribute :unit_code, :string
       attribute :description, :string
       attribute :metering, :string
       attribute :editable, :boolean, default: false, comment: '是否可更改价格'
@@ -13,7 +14,10 @@ module Trade
       attribute :extra, :json
 
       belongs_to :organ, optional: true
+
       belongs_to :deal, polymorphic: true, optional: true
+      belongs_to :unit, foreign_key: :unit_code, primary_key: :code, optional: true
+
       has_many :promote_charges, dependent: :delete_all
       has_many :promote_extras, dependent: :delete_all
       has_many :promote_goods, dependent: :destroy_async

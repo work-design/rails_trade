@@ -1,6 +1,7 @@
 module Trade
   class Admin::PromotesController < Admin::BaseController
     before_action :set_promote, only: [:show, :edit, :update, :destroy]
+    before_action :set_units, only: [:edit, :upadte]
 
     def index
       q_params = {}
@@ -29,6 +30,7 @@ module Trade
       p = params.fetch(:promote, {}).permit(
         :name,
         :code,
+        :unit_code,
         :short_name,
         :description,
         :metering,
@@ -36,6 +38,10 @@ module Trade
         extra: []
       )
       p.merge! default_form_params
+    end
+
+    def set_units
+      @units = Unit.where(metering: @promote.metering)
     end
   end
 end

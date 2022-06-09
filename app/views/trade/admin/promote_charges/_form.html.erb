@@ -5,7 +5,6 @@
 <%= f.check_box :contain_max %>
 <%= f.number_field :parameter, step: 0.01, wrap: { all_id: true } %>
 <%= f.number_field :base_price, step: 0.01 %>
-<%= f.collection_select :unit_code, @units, :code, :name %>
 <% Trade::PromoteCharge.extra_columns.each do |ex| %>
   <%= f.text_field ex %>
 <% end %>
