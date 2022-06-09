@@ -80,10 +80,6 @@ module Trade
       broadcast_action_to self, action: :update, target: 'order_result', partial: 'trade/my/orders/success', locals: { model: self }
     end
 
-    def agent_id
-      trade_items.pluck(:agent_id)
-    end
-
     def payment_result(payment_kind)
       if self.payment_status == 'all_paid'
         return self

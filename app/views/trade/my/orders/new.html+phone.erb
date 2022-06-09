@@ -1,41 +1,14 @@
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
 
-<div class="weui-panel mt-0">
-  <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
-    <%= link_to({ controller: 'carts', action: 'show' }, class: 'px-4') do %>
-      <i class="fa-regular fa-angle-left"></i>
-    <% end %>
-    <div class="weui-title"><%= t('.title') %></div>
-    <i class="px-4" style="width: 48.75px"></i>
-  </div>
+<%= render 'top_bar' %>
+
+<div class="weui-panel">
   <div class="weui-panel__bd">
     <%= render partial: 'trade_item', collection: current_cart.trade_items.status_checked, as: :trade_item %>
   </div>
 </div>
 
-<div class="weui-form-preview mt-4">
-  <div class="weui-form-preview__bd">
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:original_amount) %></label>
-      <span class="weui-form-preview__value"><%= current_cart.original_amount.to_money.format(html_wrap: true).html_safe %></span>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></label>
-      <span class="weui-form-preview__value"><%= current_cart.overall_additional_amount.to_money.format(html_wrap: true).html_safe %></span>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
-      <span class="weui-form-preview__value"><%= current_cart.overall_reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
-    </div>
-  </div>
-  <div class="weui-form-preview__ft is-justify-content-flex-end">
-    <div class="px-4">
-      <span><%= Trade::Cart.human_attribute_name(:amount) %></span>
-      <span>:</span>
-      <span><%= current_cart.amount.to_money.format(html_wrap: true).html_safe %></span>
-    </div>
-  </div>
-</div>
+<%= render partial: 'cart', locals: { cart: current_cart } %>
 
 <div class="weui-panel">
   <div class="weui-panel__ft p-4">

@@ -1,0 +1,23 @@
+<div class="weui-form-preview mt-4">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:original_amount) %></label>
+      <span class="weui-form-preview__value"><%= cart.original_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></label>
+      <span class="weui-form-preview__value"><%= cart.overall_additional_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
+      <span class="weui-form-preview__value"><%= cart.overall_reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+  </div>
+  <div class="weui-form-preview__ft is-justify-content-flex-end">
+    <div class="px-4">
+      <span><%= Trade::Cart.human_attribute_name(:amount) %></span>
+      <span>:</span>
+      <span><%= cart.amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+  </div>
+</div>

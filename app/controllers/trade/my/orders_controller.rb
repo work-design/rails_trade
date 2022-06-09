@@ -18,8 +18,11 @@ module Trade
       @order = current_user.orders.build
     end
 
+    def blank
+    end
+
     def refresh
-      @order = current_cart.orders.build(myself: true)
+      @order = current_user.orders.build(myself: true)
       @order.assign_attributes order_params
     end
 
