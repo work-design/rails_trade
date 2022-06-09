@@ -7,7 +7,7 @@
       <span class="has-text-grey ml-2"><%= card_template.promote&.name %></span>
     </span>
     <span>
-      <span><%= card_template.purchase.price.to_money.format(html_wrap: true).html_safe %></span>
+      <span><%= card_template.purchase.price.to_money.format(html_wrap: true).html_safe if card_template.purchase %></span>
     </span>
   </span>
   <span class="weui-cells_checkbox">
@@ -23,7 +23,7 @@
       <%= f.hidden_field :good_id, value: card_template.purchase.id %>
       <%= check_box_tag 'xx', 'x', false, class: 'weui-check', data: { action: 'input#form' } %>
       <span class="weui-icon-checked"></span>
-    <% end %>
+    <% end if card_template.purchase %>
   <% end %>
   </span>
 </label>
