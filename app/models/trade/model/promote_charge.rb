@@ -12,8 +12,7 @@ module Trade
       'parameter',
       'base_price',
       'type',
-      'metering',
-      'unit',
+      'unit_code',
       'created_at',
       'updated_at'
     ].freeze

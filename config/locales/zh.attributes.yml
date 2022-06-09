@@ -135,6 +135,7 @@ zh:
         extra: 额外参数
         parameter: 参数
         base_price: 基础价格
+        unit_code: 单位
       trade/refund:
         refunded_at: 退款时间
         total_amount: 金额
