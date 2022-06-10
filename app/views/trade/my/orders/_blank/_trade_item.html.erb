@@ -1,0 +1,34 @@
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog" data-action="click->weui-dialog#toggle">
+  <div class="weui-cell__hd"></div>
+  <div class="weui-cell__bd">
+    <span>物品信息</span>
+    <span class="weui-badge">必填</span>
+  </div>
+  <div class="weui-cell__ft"></div>
+</div>
+
+<div data-controller="weui-dialog" id="fetch_dialog" class="weui-dialog__wrap">
+  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
+  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+    <div class="weui-half-screen-dialog__hd">
+      <div class="weui-half-screen-dialog__hd__side"></div>
+      <div class="weui-half-screen-dialog__hd__main">
+        <div class="weui-half-screen-dialog__title">选择时间</div>
+      </div>
+      <div class="weui-half-screen-dialog__hd__side">
+        <button class="weui-icon-btn" data-action="weui-dialog#close">
+          <i class="weui-icon-close-thin"></i>
+        </button>
+      </div>
+    </div>
+    <div class="weui-half-screen-dialog__bd">
+      <%= form.fields :trade_items do |f| %>
+        <%= f.text_field :good_name, form: 'new_order' %>
+        <%= f.number_field :number, form: 'new_order' %>
+      <% end %>
+    </div>
+    <div class="weui-half-screen-dialog__ft">
+      <%= form.submit '确认', form: 'new_order' %>
+    </div>
+  </div>
+</div>

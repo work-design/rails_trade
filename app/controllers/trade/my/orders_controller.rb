@@ -19,6 +19,12 @@ module Trade
     end
 
     def blank
+      @order = current_user.orders.build
+      @order.trade_items.build
+    end
+
+    def create_blank
+
     end
 
     def refresh

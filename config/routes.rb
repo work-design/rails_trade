@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :orders do
       collection do
         get :blank
+        post :create_blank
         match :add, via: [:get, :post]
         post :direct
         get :refresh

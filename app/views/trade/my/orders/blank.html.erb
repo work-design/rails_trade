@@ -1,3 +1,9 @@
 <%= render 'top_bar' %>
 
+<%= form_with model: @order, url: { action: 'create_blank' }, id: 'new_order' do %><% end %>
+
 <%= render 'address' %>
+
+<div class="weui-panel">
+  <%= render partial: 'trade_item', locals: { form: form_object(@order) } %>
+</div>

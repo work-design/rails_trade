@@ -1,6 +1,5 @@
-<%= form_for [:my, @order], :url => date_my_order_path(@order), :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_with model: @order, url: date_my_order_path(@order) do |f| %>
   <%= render 'error_messages', target: @order %>
-
   <div class="form-group">
     <%= f.label :order_on, '预约日期：', :class => 'col-sm-2 control-label' %>
     <div class="col-sm-5">
