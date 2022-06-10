@@ -25,6 +25,7 @@
     </div>
     <div class="weui-half-screen-dialog__bd">
       <%= form.fields :trade_items, model: trade_item do |f| %>
+        <%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
         <%= f.text_field :good_name, form: 'new_order' %>
         <%= f.number_field :number, form: 'new_order' %>
         <%= f.number_field :weight, form: 'new_order' %>

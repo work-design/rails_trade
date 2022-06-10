@@ -22,6 +22,7 @@ module Trade
       @order = current_user.orders.build(order_params)
       @order.address_id ||= params[:address_id]
       @order.trade_items.build
+      @order.compute_promote
 
       if params[:commit].present? && @order.save
         render 'blank'
