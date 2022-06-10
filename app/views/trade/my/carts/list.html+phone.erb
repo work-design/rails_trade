@@ -2,16 +2,18 @@
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells weui-cells_radio">
-        <%= link_to({ controller: '/my/home' }, class: 'weui-cell weui-cell_active weui-check__label') do %>
+        <label class="weui-cell weui-cell_active weui-check__label" for="member_id">
           <span class="weui-cell__hd is-several">
             <span class="weui-badge">个人版</span>
           </span>
           <span class="weui-cell__bd"></span>
           <span class="weui-cell__ft" data-controller="input">
-            <%= check_box_tag :current, true, current_cart.member_id.nil?, class: 'weui-check', data: { action: 'input#form' } %>
-            <span class="weui-icon-checked"></span>
+            <%= form_with theme: nil, url: { controller: 'org/my/authorized_tokens', action: 'update' }, method: :patch do |f| %>
+              <%= f.radio_button :member_id, nil, checked: current_client.nil?, class: 'weui-check', data: { action: 'input#form' } %>
+              <span class="weui-icon-checked"></span>
+            <% end %>
           </span>
-        <% end %>
+        </label>
       </div>
     </div>
   </div>
