@@ -10,4 +10,8 @@
   <%= render partial: 'trade_item', collection: @order.trade_items, as: :trade_item, locals: { form: form_object(@order, theme: 'weui') } %>
 </div>
 
+<div class="weui-panel">
+  <%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'weui') } %>
+</div>
+
 <%= render 'show_order' %>
