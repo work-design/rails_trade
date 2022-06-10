@@ -1,13 +1,16 @@
-<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog" data-action="click->weui-dialog#toggle">
-  <div class="weui-cell__hd"></div>
-  <div class="weui-cell__bd">
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= trade_item.uuid %>" data-action="click->weui-dialog#toggle">
+  <div class="weui-cell__hd">
     <span>物品信息</span>
     <span class="weui-badge">必填</span>
+  </div>
+  <div class="weui-cell__bd">
+    <span><%= trade_item.good_name %></span>
+    <span class="has-text-grey"><%= trade_item.number %></span>
   </div>
   <div class="weui-cell__ft"></div>
 </div>
 
-<div data-controller="weui-dialog" id="fetch_dialog" class="weui-dialog__wrap">
+<div data-controller="weui-dialog" id="fetch_dialog_<%= trade_item.uuid %>" class="weui-dialog__wrap">
   <div class="weui-mask" data-action="click->weui-dialog#close"></div>
   <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
     <div class="weui-half-screen-dialog__hd">
@@ -22,7 +25,7 @@
       </div>
     </div>
     <div class="weui-half-screen-dialog__bd">
-      <%= form.fields :trade_items do |f| %>
+      <%= form.fields :trade_items, model: trade_item do |f| %>
         <%= f.text_field :good_name, form: 'new_order' %>
         <%= f.number_field :number, form: 'new_order' %>
         <%= f.number_field :weight, form: 'new_order' %>

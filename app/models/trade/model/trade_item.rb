@@ -3,6 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :uuid, :string
       attribute :good_name, :string
       attribute :number, :integer, default: 1, comment: '数量'
       attribute :weight, :integer, default: 0, comment: '重量'
@@ -74,6 +75,7 @@ module Trade
       scope :packable, ->{ where(status: ['paid']) }
       scope :packaged, ->{ where(status: ['packaged', 'done']) }
 
+      after_initialize :init_uuid, if: :new_record?
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
       before_validation :sync_from_good, if: -> { good && good_id_changed? }
       before_validation :sync_from_member, if: -> { member && member_id_changed? }
@@ -93,6 +95,11 @@ module Trade
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
 
       acts_as_notify(:default, only: [:good_name, :number, :amount, :note], methods: [:order_uuid, :cart_organ])
+    end
+
+    def init_uuid
+      self.uuid = UidHelper.nsec_uuid('ITEM')
+      self
     end
 
     def sync_from_good

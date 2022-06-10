@@ -21,7 +21,7 @@ module Trade
     def blank
       @order = current_user.orders.build(order_params)
       @order.address_id ||= params[:address_id]
-      @order.trade_items.build if @order.trade_items.blank?
+      @order.trade_items.build
 
       if params[:commit].present? && @order.save
         render 'blank'
