@@ -64,6 +64,8 @@ zh:
         retail_price: 零售价
         wholesale_price: 批发价
         number: 数量
+        weight: 总重量
+        volume: 体积
         original_amount: 原价
         additional_amount: 附加费
         reduced_amount: 优惠金额

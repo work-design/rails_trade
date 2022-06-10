@@ -25,6 +25,8 @@
       <%= form.fields :trade_items do |f| %>
         <%= f.text_field :good_name, form: 'new_order' %>
         <%= f.number_field :number, form: 'new_order' %>
+        <%= f.number_field :weight, form: 'new_order' %>
+        <%= f.number_field :volume, form: 'new_order' %>
       <% end %>
     </div>
     <div class="weui-half-screen-dialog__ft">

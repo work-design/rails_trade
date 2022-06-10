@@ -1,18 +1,18 @@
 <div class="weui-panel">
-  <%= link_to({ controller: 'ship/my/addresses' }, class: 'weui-cell weui-cell_access') do %>
+  <%= link_to({ controller: 'ship/my/addresses', action: 'order' }, class: 'weui-cell weui-cell_access') do %>
     <div class="weui-cell__hd">
       <i class="fa-light fa-location-dot fa-fw has-text-danger pr-2"></i>
     </div>
     <div class="weui-cell__bd">
-    <% if current_cart.address %>
+    <% if @order.address %>
       <p>
-        <span><%= current_cart.address.contact %></span>
-        <span><%= current_cart.address.tel %></span>
+        <span><%= @order.address.contact %></span>
+        <span><%= @order.address.tel %></span>
       </p>
       <p class="is-size-7">
-        <span><%= current_cart.address.area.full_name %></span>
-        <span><%= current_cart.address.station&.name %></span>
-        <span><%= current_cart.address.detail %></span>
+        <span><%= @order.address.area.full_name %></span>
+        <span><%= @order.address.station&.name %></span>
+        <span><%= @order.address.detail %></span>
       </p>
     <% else %>
       <p>收货人信息</p>
