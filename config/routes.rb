@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   concern :orderable do
     resources :orders do
       collection do
-        get :blank
-        post :create_blank
+        match :blank, via: [:get, :post]
         match :add, via: [:get, :post]
         post :direct
         get :refresh

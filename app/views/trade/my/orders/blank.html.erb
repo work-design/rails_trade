@@ -1,6 +1,8 @@
 <%= render 'top_bar' %>
 
-<%= form_with model: @order, url: { action: 'create_blank' }, id: 'new_order' do %><% end %>
+<%= form_with model: @order, url: { action: 'blank' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :address_id %>
+<% end %>
 
 <%= render 'address' %>
 

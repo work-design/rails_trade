@@ -19,12 +19,25 @@ module Trade
     end
 
     def blank
-      @order = current_user.orders.build
-      @order.trade_items.build
+      @order = current_user.orders.build(order_params)
+      @order.address_id ||= params[:address_id]
+      @order.trade_items.build if @order.trade_items.blank?
+
+      if params[:commit].present? && @order.save
+        render 'blank'
+      else
+        render 'blank'
+      end
     end
 
     def create_blank
+      @order = current_user.orders.build(order_params)
 
+      if params[:commit].present? && @order.save
+        render 'create_blank'
+      else
+        render 'blank'
+      end
     end
 
     def refresh
