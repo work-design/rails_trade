@@ -8,11 +8,14 @@
       <%= link_to(action: 'list', return_url: url_for) do %>
         <% if current_cart.member %>
           <span class="weui-badge weui-badge__primary">
-            <span>企业版</span>
+            <i class="fa-solid fa-building"></i>
             <span><%= current_cart.member.organ.name %></span>
           </span>
         <% else %>
-          <span class="weui-badge">个人版</span>
+          <span class="weui-badge">
+             <i class="fa-solid fa-user"></i>
+            <span>个人版</span>
+          </span>
         <% end %>
       <% end %>
     </span>
