@@ -118,8 +118,9 @@ module Trade
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
       args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
       args.reject!(&->(_, v){ v.blank? })
+      args.stringify_keys!
 
-      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'aim', 'produce_on', 'scene_id', 'fetch_oneself').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
+      trade_items.find(&->(i){ i.attributes.slice(*args.keys).reject(&->(_, v){ v.blank? }) == args })
     end
 
   end

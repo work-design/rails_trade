@@ -109,7 +109,7 @@ module Trade
     end
 
     def sync_from_member
-      self.user_id = member.user&.id
+      self.user = member.user
       self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
     end
 
