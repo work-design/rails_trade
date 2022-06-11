@@ -1,5 +1,5 @@
 <div class="weui-media-box weui-media-box_appmsg pl-2" data-controller="swipe" data-action="touchmove->swipe#move:passive touchstart->swipe#start:passive touchend->swipe#end:passive">
-  <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
+  <%= form_with theme: nil, model: model, url: { controller: 'trade_items', action: 'toggle', id: model.id }, data: { controller: 'input', turbo_scroll: true, turbo_scroll_container: 'weui-tab__panel' }, class: 'pr-2' do |f| %>
     <label class="weui-cells_checkbox">
       <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
       <i class="weui-icon-checked"></i>
