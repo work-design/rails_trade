@@ -8,7 +8,7 @@
       <%= link_to(action: 'list', return_url: url_for) do %>
         <% if current_cart.member %>
           <span class="weui-badge weui-badge__primary">
-            <i class="fa-solid fa-building"></i>
+            <i class="fa-solid fa-building-user"></i>
             <span><%= current_cart.member.organ.name %></span>
           </span>
         <% else %>
