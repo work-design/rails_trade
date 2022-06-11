@@ -41,7 +41,7 @@ module Trade
     end
 
     def set_units
-      @units = Unit.where(metering: @promote.metering)
+      @units = Unit.all
     end
   end
 end
