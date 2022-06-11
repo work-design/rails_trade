@@ -9,7 +9,8 @@
           <span class="weui-cell__bd"></span>
           <span class="weui-cell__ft" data-controller="input">
             <%= form_with theme: nil, url: { controller: 'org/my/authorized_tokens', action: 'update' }, method: :patch do |f| %>
-              <%= f.radio_button :member_id, nil, checked: current_client.nil?, class: 'weui-check', data: { action: 'input#form' } %>
+              <%= f.hidden_field :return_url, value: params[:return_url] %>
+              <%= f.radio_button :member_id, nil, checked: current_client.nil?, class: 'weui-check', data: { action: 'click->input#form' } %>
               <span class="weui-icon-checked"></span>
             <% end %>
           </span>

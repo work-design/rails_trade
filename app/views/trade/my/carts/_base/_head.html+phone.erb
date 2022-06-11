@@ -5,7 +5,7 @@
     <% end %>
     <span class="weui-title">
       <span class="mr-1"><%= t('.title') %></span>
-      <%= link_to(action: 'list') do %>
+      <%= link_to(action: 'list', return_url: url_for) do %>
         <% if current_cart.member %>
           <span class="weui-badge weui-badge__primary">
             <span>企业版</span>
