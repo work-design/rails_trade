@@ -1,7 +1,7 @@
 module Trade
   class Admin::PromotesController < Admin::BaseController
     before_action :set_promote, only: [:show, :edit, :update, :destroy]
-    before_action :set_units, only: [:edit, :upadte]
+    before_action :set_units, only: [:new, :create, :edit, :upadte]
 
     def index
       q_params = {}
