@@ -33,6 +33,7 @@ module Trade
         trial: 'trial',
         paid: 'paid',
         part_paid: 'part_paid',
+        pay_later: 'pay_later',
         packaged: 'packaged',
         done: 'done',
         canceled: 'canceled',
@@ -90,6 +91,7 @@ module Trade
       after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
       after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
       after_save :order_part_paid!, if: -> { saved_change_to_status? && ['part_paid'].include?(status) }
+      after_save :order_pay_later!, if: -> { saved_change_to_status? && ['pay_later'].include?(status) }
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
       after_destroy :order_pruned!
       after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
@@ -267,9 +269,15 @@ module Trade
     end
 
     def order_part_paid!
+      self.good.order_part_paid(self)
+    end
+
+    def order_pay_later!
+      self.good.order_pay_later(self)
     end
 
     def order_refund!
+      self.good.order_refund(self)
     end
 
     def fetch_include?(start_time, finish_time)

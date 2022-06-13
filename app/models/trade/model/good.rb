@@ -58,16 +58,31 @@ module Trade
     end
 
     def order_done(trade_item = nil)
-      puts 'Should realize in good entity'
+      puts 'order_done Should realize in good entity'
     end
 
     def order_trial(trade_item = nil)
+      puts 'order_trial Should realize in good entity'
     end
 
     def order_paid(trade_item = nil)
+      puts 'order_paid Should realize in good entity'
+    end
+
+    def order_part_paid(trade_item = nil)
+      puts 'order_part_paid Should realize in good entity'
+    end
+
+    def order_pay_later(trade_item = nil)
+      puts 'order_pay_later Should realize in good entity'
+    end
+
+    def order_refund(trade_item = nil)
+      puts 'order_refund Should realize in good entity'
     end
 
     def order_prune(trade_item = nil)
+      puts 'order_prune Should realize in good entity'
     end
 
   end
