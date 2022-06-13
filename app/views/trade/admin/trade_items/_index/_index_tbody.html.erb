@@ -15,6 +15,7 @@
   <p><%= model.wholesale_price.to_money.format(html_wrap: true).html_safe %></p>
 </td>
 <td><%= model.status_i18n %></td>
+<td><%= model.aim_i18n %></td>
 <td>
   <p class="is-several">
     <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
