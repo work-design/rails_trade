@@ -10,6 +10,7 @@ module Trade
       before_save :check_state, if: -> { !pay_later && amount.zero? }
       after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
+      after_save_commit :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
     end
 
     def can_pay?
@@ -49,6 +50,10 @@ module Trade
       self.paid_at = Time.current
       self.trade_items.update(status: 'part_paid')
       self.save
+    end
+
+    def confirm_pay_later!
+      self.trade_items.update(status: 'pay_later')
     end
 
     def change_to_paid!(type:, payment_uuid:, params: {})
