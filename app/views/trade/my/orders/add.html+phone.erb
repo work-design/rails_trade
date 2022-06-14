@@ -4,7 +4,6 @@
       <%= f.fields :trade_items do |ef| %>
         <%= ef.hidden_field :good_type %>
         <%= ef.hidden_field :good_id %>
-        <%= ef.hidden_field :member_id %>
         <%= ef.hidden_field :extra, value: ef.object.extra.to_json %>
         <div class="weui-media-box weui-media-box_appmsg">
           <div class="weui-media-box__hd">
