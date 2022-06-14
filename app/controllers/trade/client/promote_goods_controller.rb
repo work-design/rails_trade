@@ -1,6 +1,5 @@
 module Trade
-  class Me::PromoteGoodsController < My::PromoteGoodsController
-    include Controller::Me
+  class Client::PromoteGoodsController < My::PromoteGoodsController
 
     def index
       q_params = {}
@@ -8,8 +7,6 @@ module Trade
 
       @promote_goods = current_cart.promote_goods.default_where(q_params).page(params[:page])
     end
-
-
 
   end
 end

@@ -19,11 +19,5 @@ module Trade
       @current_cart
     end
 
-    class_methods do
-      def local_prefixes
-        [controller_path, 'trade/me/base', 'me']
-      end
-    end
-
   end
 end
