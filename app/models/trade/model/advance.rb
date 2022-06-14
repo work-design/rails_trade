@@ -8,8 +8,8 @@ module Trade
       attribute :apple_product_id, :string, comment: 'For 苹果应用内支付'
       attribute :open, :boolean, default: false
 
-      belongs_to :card_template
       belongs_to :wallet_template
+      belongs_to :card_template, optional: true
 
       scope :open, -> { where(open: true) }
 
@@ -23,7 +23,7 @@ module Trade
     end
 
     def sync_name
-      self.name = "#{card_template.name}-#{amount}"
+      self.name = "#{wallet_template.name}-#{amount}"
     end
 
     def order_paid(trade_item)

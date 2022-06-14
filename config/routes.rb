@@ -173,7 +173,6 @@ Rails.application.routes.draw do
         collection do
           get :advance_options
         end
-        resources :advances
         resources :purchases
         resources :privileges do
           member do
@@ -187,6 +186,7 @@ Rails.application.routes.draw do
         resources :card_purchases
       end
       resources :wallet_templates do
+        resources :advances
         resources :wallet_prepayments
       end
       resources :wallets do

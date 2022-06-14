@@ -1,5 +1,5 @@
-<%= f.text_field :amount, required: true %>
-<%= f.text_field :price, required: true %>
-<%= f.text_field :apple_product_id %>
+<%= f.number_field :amount, required: true %>
+<%= f.number_field :price, required: true %>
 <%= f.file_field :logo %>
-<%= f.collection_select :wallet_template_id, @wallet_templates, :id, :name %>
+<%= f.text_field :apple_product_id %>
+<%= f.collection_select :card_template_id, @card_templates, :id, :name, include_blank: true %>
