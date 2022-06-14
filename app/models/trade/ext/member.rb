@@ -7,6 +7,8 @@ module Trade
 
       #has_many :payment_references, class_name: 'Trade::PaymentReference', dependent: :destroy_async
       #has_many :payment_methods, through: :payment_references
+      has_many :wallets, class_name: 'Trade::Wallet'
+      has_many :cards, class_name: 'Trade::Card'
       has_many :carts, class_name: 'Trade::Cart'
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :cart_trade_items, ->{ carting }, class_name: 'Trade::TradeItem'
@@ -15,6 +17,11 @@ module Trade
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
+    end
+
+    def promotes_count
+      r = PromoteGood.effective.where(member_id: nil).count
+      r + promote_goods_count
     end
 
     def last_overdue_date
