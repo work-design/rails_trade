@@ -73,6 +73,7 @@ module Trade
         good_type: params[:good_type],
         extra: params.except(:good_id, :good_type, :member_id, :business, :namespace, :controller, :action, :authenticity_token, :button)
       )
+      @order.valid?
       @order.sum_amount
     end
 
