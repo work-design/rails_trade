@@ -219,6 +219,11 @@ module Trade
       all_carts.find_or_initialize_by(organ_id: organ_id, member_id: member_id)
       all_carts.find_or_initialize_by(organ_id: organ_id, member_id: nil)
       all_carts.find_or_initialize_by(organ_id: nil, member_id: member_id)
+
+      if member
+        all_carts.find_or_initialize_by(member_organ_id: member.organ_id)
+      end
+      save
     end
 
     def reset_amount
