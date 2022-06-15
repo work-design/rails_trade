@@ -39,25 +39,6 @@ module Trade
       render 'only'
     end
 
-    def create
-      trade_item = @trade_items.unscope(where: :status).where(good_id: params[:good_id], good_type: params[:good_type]).first
-      if trade_item.present?
-        params[:quantity] ||= 0
-        trade_item.checked = true
-        trade_item.status = 'pending'
-        trade_item.quantity = trade_item.quantity + params[:quantity].to_i
-        trade_item.save
-      else
-        trade_item = @trade_items.build(good_id: params[:good_id], good_type: params[:good_type], quantity: params[:quantity], myself: false)
-        trade_item.checked = true
-        trade_item.save
-      end
-
-      @checked_ids = @trade_items.status_checked.pluck(:id)
-
-      render 'index'
-    end
-
     def total
       if params[:add_id].present?
         @add = @trade_items.find_by(id: params[:add_id])
@@ -74,23 +55,8 @@ module Trade
     end
 
     private
-    def set_cart
-      options = {
-        user_id: current_user.id,
-        member_id: params[:member_id],
-        organ_id: params[:organ_id]
-      }
-
-      @cart = Cart.find_or_create_by(options)
-    end
-
-    def set_new_trade_item
-      options = params.permit(:good_type, :good_id, :number, :produce_on, :scene_id)
-      @trade_item = @cart.get_trade_item(**options.to_h.symbolize_keys)
-    end
-
     def set_trade_item
-      @trade_item = TradeItem.find params[:id]
+      @trade_item = TradeItem.where(default_params).find params[:id]
     end
 
     def trade_item_params

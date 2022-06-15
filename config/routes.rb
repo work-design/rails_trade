@@ -201,6 +201,10 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :in, defaults: { namespace: 'in' } do
+      resources :trade_items
+    end
+
     namespace :my, defaults: { namespace: 'my' } do
       concerns :orderable
       resources :payments
