@@ -13,7 +13,7 @@ module Trade
         options = {}
         options.merge! default_form_params
         options.merge! client_params
-        @current_cart = current_user.carts.find_by(options)
+        @current_cart = current_user.carts.find_or_create_by(options)
       end
       logger.debug "\e[33m  Current Trade cart: #{@current_cart&.id}  \e[0m"
       @current_cart
