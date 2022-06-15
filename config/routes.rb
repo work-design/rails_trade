@@ -233,7 +233,7 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :client, defaults: { namespace: 'client' } do
+    namespace :our, defaults: { namespace: 'our' } do
       concerns :orderable
     end
   end

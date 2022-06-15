@@ -1,5 +1,5 @@
 module Trade
-  class Client::TradeItemsController < My::TradeItemsController
+  class Our::TradeItemsController < My::TradeItemsController
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_trade_item, only: [:create]
 

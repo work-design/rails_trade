@@ -1,5 +1,5 @@
 module Trade
-  class Client::OrdersController < My::OrdersController
+  class Our::OrdersController < My::OrdersController
     before_action :set_order, only: [:show]
 
     def index

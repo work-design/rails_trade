@@ -1,5 +1,5 @@
 module Trade
-  class Client::PromoteGoodsController < My::PromoteGoodsController
+  class Our::PromoteGoodsController < My::PromoteGoodsController
 
     def index
       q_params = {}
