@@ -47,8 +47,6 @@ module Trade
         @remove = @trade_items.find_by(id: params[:remove_id])
         @remove.update(checked: false)
       end
-
-      response.headers['X-Request-URL'] = request.url
     end
 
     def doc
