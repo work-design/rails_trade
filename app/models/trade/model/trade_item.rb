@@ -64,7 +64,8 @@ module Trade
       belongs_to :good, polymorphic: true
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
-      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
+      has_many :all_carts, class_name: 'Cart', primary_key: :user_id, foreign_key: :user_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
@@ -213,6 +214,12 @@ module Trade
         cart.reset_amount
         cart.save
       end
+    end
+
+    def check_carts
+      all_carts.find_or_initialize_by(organ_id: organ_id, member_id: member_id)
+      all_carts.find_or_initialize_by(organ_id: organ_id, member_id: nil)
+      all_carts.find_or_initialize_by(organ_id: nil, member_id: member_id)
     end
 
     def reset_amount
