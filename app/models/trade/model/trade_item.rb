@@ -38,7 +38,7 @@ module Trade
         done: 'done',
         canceled: 'canceled',
         expired: 'expired'
-      }, _default: 'init', _prefix: true
+      }, _default: 'checked', _prefix: true
 
       enum aim: {
         use: 'use',
