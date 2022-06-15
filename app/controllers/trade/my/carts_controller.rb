@@ -15,7 +15,7 @@ module Trade
     def invest
       q_params = {
         good_type: 'Ship::BoxSpecification',
-        aim: 'invest'
+        aim: 'use'
       }
 
       @trade_items = current_cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
