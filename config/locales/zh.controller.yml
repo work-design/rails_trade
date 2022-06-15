@@ -146,10 +146,11 @@ zh:
       wallet_logs:
         index:
           title: 交易记录
-    me:
+    our:
       orders:
         index:
           title: 企业订单
+    me:
       promote_goods:
         index:
           title: 优惠券

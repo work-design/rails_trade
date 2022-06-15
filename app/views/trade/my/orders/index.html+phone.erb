@@ -1,3 +1,4 @@
+<%= render 'nav_bar' %>
 <%= render partial: 'no_order' if @orders.blank? %>
 
 <%= render partial: 'order', collection: @orders, as: :model %>
