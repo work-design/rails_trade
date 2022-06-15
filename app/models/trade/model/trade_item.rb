@@ -62,6 +62,7 @@ module Trade
       end
 
       belongs_to :good, polymorphic: true
+      belongs_to :current_cart, class_name: 'Cart'
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
@@ -202,11 +203,9 @@ module Trade
         return
       end
 
-      carts.each do |cart|
-        cart.item_amount += changed_amount
-        logger.debug "\e[33m  Item amount: #{cart.item_amount}, Summed amount: #{cart.checked_trade_items.sum(&:amount)}, Cart id: #{cart.id})  \e[0m"
-        cart.save!
-      end
+      current_cart.item_amount += changed_amount
+      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_trade_items.sum(&:amount)}, Cart id: #{current_cart.id})  \e[0m"
+      current_cart.save!
     end
 
     def reset_carts
