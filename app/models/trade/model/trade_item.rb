@@ -62,7 +62,7 @@ module Trade
       end
 
       belongs_to :good, polymorphic: true
-      belongs_to :current_cart, class_name: 'Cart'
+      belongs_to :current_cart, class_name: 'Cart'  # 下单时的购物车
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
@@ -88,7 +88,7 @@ module Trade
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_changed_amount, if: -> { (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
+      after_save :sync_amount_to_current_cart, if: -> { (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
       after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
       after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
@@ -96,7 +96,7 @@ module Trade
       after_save :order_pay_later!, if: -> { saved_change_to_status? && ['pay_later'].include?(status) }
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
       after_destroy :order_pruned!
-      after_destroy :sync_changed_amount  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
+      after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
 
       acts_as_notify(:default, only: [:good_name, :number, :amount, :note], methods: [:order_uuid, :cart_organ])
     end
@@ -192,7 +192,7 @@ module Trade
       self.changes
     end
 
-    def sync_changed_amount
+    def sync_amount_to_current_cart
       if (destroyed? && ['checked', 'trial'].include?(status)) || (status_init? && ['checked'].include?(status_previously_was) )
         changed_amount = -amount
       elsif ['checked', 'trial'].include?(status) && ['init', nil].include?(status_previously_was)
@@ -206,6 +206,10 @@ module Trade
       current_cart.item_amount += changed_amount
       logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_trade_items.sum(&:amount)}, Cart id: #{current_cart.id})  \e[0m"
       current_cart.save!
+    end
+
+    def sync_amount_to_all_carts
+
     end
 
     def reset_carts
