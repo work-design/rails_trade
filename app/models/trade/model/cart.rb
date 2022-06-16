@@ -11,7 +11,6 @@ module Trade
       attribute :total_quantity, :decimal, default: 0
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
-      attribute :myself, :boolean, default: true, comment: '自己下单，即 member.user.id == user_id'
       attribute :trade_items_count, :integer, default: 0
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
@@ -39,7 +38,6 @@ module Trade
       validates :member_id, uniqueness: { scope: [:organ_id, :user_id, :good_type, :aim] }
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
-      #before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
     end
@@ -47,10 +45,6 @@ module Trade
     def sync_member_organ
       self.member_organ_id = member.organ_id
       self.user ||= member.user
-    end
-
-    def set_myself
-      self.myself = (user.present? && member.user == user)
     end
 
     def sync_amount
