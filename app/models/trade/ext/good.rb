@@ -1,5 +1,5 @@
 module Trade
-  module Model::Good
+  module Ext::Good
     extend ActiveSupport::Concern
 
     included do
