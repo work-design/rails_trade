@@ -3,6 +3,7 @@ module Trade
     before_action :set_cart, only: [:show, :update]
     before_action :set_purchase, only: [:show, :invest, :rent]
     before_action :set_invest_cart, only: [:invest]
+    before_action :set_rent_cart, only: [:rent]
 
     def show
       q_params = {
@@ -29,8 +30,8 @@ module Trade
         aim: 'rent'
       }
 
-      @trade_items = current_cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @trade_items = @cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def addresses
@@ -51,6 +52,10 @@ module Trade
 
     def set_invest_cart
       @cart = current_carts.find_by(good_type: 'Ship::BoxSpecification', aim: 'use')
+    end
+
+    def set_rent_cart
+      @cart = current_carts.find_by(good_type: 'Ship::BoxSpecification', aim: 'rent')
     end
 
     def set_purchase
