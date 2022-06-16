@@ -38,7 +38,7 @@ module Trade
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-      validates :member_id, uniqueness: { scope: [:organ_id, :user_id] }
+      validates :member_id, uniqueness: { scope: [:organ_id, :user_id, :good_type] }
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       #before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }

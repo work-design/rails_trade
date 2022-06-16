@@ -6,6 +6,18 @@ module Trade
       helper_method :current_cart, :current_cart_count, :current_wallet
     end
 
+    def current_carts
+      return @current_carts if @current_carts
+
+      if current_user
+        options = {}
+        options.merge! default_form_params
+        options.merge! member_id: current_client.id if current_client
+        @current_carts = current_user.carts.where(options)
+      end
+      @current_carts
+    end
+
     def current_cart
       return @current_cart if @current_cart
 
