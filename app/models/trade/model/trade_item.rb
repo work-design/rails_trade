@@ -74,6 +74,7 @@ module Trade
       has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       scope :carting, ->{ where(status: ['init', 'checked', 'trial', 'expired']) }
+      scope :checked, ->{ where(status: ['checked', 'trial']) }
       scope :deliverable, ->{ where(status: ['paid', 'packaged']) }
       scope :packable, ->{ where(status: ['paid']) }
       scope :packaged, ->{ where(status: ['packaged', 'done']) }

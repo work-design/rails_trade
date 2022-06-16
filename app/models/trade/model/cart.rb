@@ -28,17 +28,17 @@ module Trade
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
       # https://github.com/rails/rails/blob/17843072b3cec8aee4e97d04ba4c4c6a5e83a526/activerecord/lib/active_record/autosave_association.rb#L21
-      # 设置 autosave: false，当 trade_item 为 new_records 也不 save
-      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type).carting }, foreign_key: :user_id, primary_key: :user_id, autosave: false
-      has_many :checked_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, status: ['checked', 'trial']) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
-      has_many :all_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
+      # todo remove 设置 autosave: false，当 trade_item 为 new_records 也不 save
+      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim).carting }, foreign_key: :user_id, primary_key: :user_id, autosave: false
+      has_many :checked_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, aim: o.aim).checked }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
+      has_many :all_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, aim: o.aim) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, -> { includes(:wallet_template) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-      validates :member_id, uniqueness: { scope: [:organ_id, :user_id, :good_type] }
+      validates :member_id, uniqueness: { scope: [:organ_id, :user_id, :good_type, :aim] }
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       #before_validation :set_myself, if: -> { user_id_changed? || (member_id_changed? && member) }
@@ -113,8 +113,8 @@ module Trade
       trade_item
     end
 
-    def find_trade_item(good_type:, good_id:, aim: 'use', **options)
-      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
+    def find_trade_item(good_id:, **options)
+      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself, :good_type, :aim) }
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
       args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
       args.reject!(&->(_, v){ v.blank? })
