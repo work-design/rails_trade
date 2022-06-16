@@ -1,6 +1,6 @@
 module Trade
   class My::TradeItemsController < My::BaseController
-    before_action :set_trade_item, only: [:show, :promote, :update, :cost, :toggle, :destroy]
+    before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_trade_item, only: [:create, :cost, :trial]
 
     def create
