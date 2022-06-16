@@ -70,8 +70,8 @@ module Trade
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
-      has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_id, good_id: [o.good_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil]) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_id, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       scope :carting, ->{ where(status: ['init', 'checked', 'trial', 'expired']) }
       scope :checked, ->{ where(status: ['checked', 'trial']) }

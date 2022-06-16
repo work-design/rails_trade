@@ -9,8 +9,14 @@ module Trade
       attribute :expire_at, :datetime
       attribute :item_promotes_count, :integer, default: 0
       attribute :identity, :string
+      attribute :aim, :string
       attribute :use_limit, :integer
       attribute :over_limit, :boolean, default: false
+
+      enum status: {
+        available: 'available',  # 可选
+        unavailable: 'unavailable',  # 不可选
+      }, _default: 'available'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', counter_cache: true, optional: true
@@ -24,11 +30,6 @@ module Trade
 
       scope :verified, -> { where(status: ['available']) }
       scope :effective, -> { t = Time.current; verified.default_where('effect_at-lte': t, 'expire_at-gte': t) }
-
-      enum status: {
-        available: 'available',  # 可选
-        unavailable: 'unavailable',  # 不可选
-      }, _default: 'available'
 
       validates :effect_at, presence: true
       validates :expire_at, presence: true

@@ -1,6 +1,6 @@
 # see RailsBooking::PlanAttender
 module Trade
-  module Model::PlanAttender
+  module Ext::PlanAttender
     extend ActiveSupport::Concern
 
     included do
