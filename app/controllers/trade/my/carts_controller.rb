@@ -2,6 +2,7 @@ module Trade
   class My::CartsController < My::BaseController
     before_action :set_cart, only: [:show, :update]
     before_action :set_purchase, only: [:show, :invest, :rent]
+    before_action :set_invest_cart, only: [:invest]
 
     def show
       q_params = {
@@ -18,8 +19,8 @@ module Trade
         aim: 'use'
       }
 
-      @trade_items = current_cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @trade_items = @cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def rent
@@ -46,6 +47,10 @@ module Trade
     private
     def set_cart
       @cart = current_cart
+    end
+
+    def set_invest_cart
+      @cart = current_carts.find_by(good_type: 'Ship::BoxSpecification', aim: 'use')
     end
 
     def set_purchase
