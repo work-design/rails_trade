@@ -65,7 +65,7 @@ module Trade
       belongs_to :current_cart, class_name: 'Cart'  # 下单时的购物车
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
-      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
+      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: o.good_type) }, primary_key: :user_id, foreign_key: :user_id
       has_many :all_carts, class_name: 'Cart', primary_key: :user_id, foreign_key: :user_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
@@ -220,14 +220,18 @@ module Trade
     end
 
     def check_carts
-      all_carts.find_or_initialize_by(organ_id: organ_id, member_id: member_id)
-      all_carts.find_or_initialize_by(organ_id: organ_id, member_id: nil)
-      all_carts.find_or_initialize_by(organ_id: nil, member_id: member_id)
+      # organ_id 为 nil，则为平台级订单
+      [organ_id, nil].each do |org_id|
+        [member_id, nil].each do |mem_id|
+          all_carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id)
+        end
+      end
 
       if member
         all_carts.find_or_initialize_by(member_organ_id: member.organ_id)
       end
-      save
+      #save
+      all_carts
     end
 
     def reset_amount

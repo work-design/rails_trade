@@ -1,9 +1,14 @@
 module Trade
   class My::TradeItemsController < My::BaseController
-    before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
-    before_action :set_new_trade_item, only: [:create, :trial]
+    before_action :set_trade_item, only: [:show, :promote, :update, :cost, :toggle, :destroy]
+    before_action :set_new_trade_item, only: [:create, :cost, :trial]
 
     def create
+      @trade_item.save
+    end
+
+    def cost
+      @trade_item.single_price = @trade_item.good.cost
       @trade_item.save
     end
 
@@ -34,7 +39,7 @@ module Trade
     def set_new_trade_item
       options = {}
       options.merge! client_params
-      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
+      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself, :current_cart_id)
 
       @trade_item = TradeItem.new(options)
     end
