@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :promote_goods_count, :integer, default: 0
 
-      has_many :carts, -> { order(id: :asc) }, class_name: 'Trade::Cart'
+      has_many :carts, class_name: 'Trade::Cart'
       has_many :wallets, class_name: 'Trade::Wallet'
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, class_name: 'Trade::Order'
