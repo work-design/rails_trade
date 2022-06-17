@@ -1,18 +1,18 @@
 module Trade
-  module Model::Sell
+  module Ext::Sell
     extend ActiveSupport::Concern
 
     included do
       include Ext::Good
 
-      belongs_to :buyer, optional: true
+      belongs_to :user, class_name: 'Auth::User', optional: true
 
-      has_one :trade_item, as: :good, dependent: :nullify
-      has_one :order, ->(o){ where(buyer_type: o.buyer.class.name, buyer_id: o.buyer.id) }, through: :order_item
+      has_one :trade_item, as: :good, class_name: 'Trade::TradeItem', dependent: :nullify
+      has_one :order, through: :trade_item
     end
 
     def update_order
-      order_item.update amount: self.price
+      trade_item.update amount: self.price
     end
 
     def get_order
