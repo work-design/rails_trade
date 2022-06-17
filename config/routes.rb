@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         match :add, via: [:get, :post]
         post :direct
         get :refresh
+        post :trial
       end
       member do
         get :paypal_pay
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
         get :paypal_execute
         get :pay
         get :payment_types
-        get 'payment_type' => :edit_payment_type
+        get :payment_type
         get 'cancel' => :edit_cancel
         put 'cancel' => :update_cancel
         put :refund

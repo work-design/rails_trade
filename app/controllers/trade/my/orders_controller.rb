@@ -1,7 +1,7 @@
 module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
-      :show, :edit, :update, :refund, :payment_types, :edit_payment_type, :wait, :destroy, :cancel,
+      :show, :edit, :update, :refund, :payment_types, :payment_type, :wait, :destroy, :cancel,
       :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
     ]
 
@@ -44,6 +44,10 @@ module Trade
     def refresh
       @order = current_user.orders.build(myself: true)
       @order.assign_attributes order_params
+    end
+
+    def trial
+      @order = current_user.orders.build(order_params)
     end
 
     def create
@@ -97,9 +101,6 @@ module Trade
     end
 
     def payment_types
-    end
-
-    def edit_payment_type
     end
 
     def stripe_pay

@@ -48,6 +48,11 @@ module Trade
     def compute(now = Time.current)
       self.update duration: compute_duration(now)[promote.unit_code]
       order.compute_promote
+      order
+    end
+
+    def compute!(now = Time.current)
+      compute(now)
       order.save
     end
 
