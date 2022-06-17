@@ -26,7 +26,7 @@ module Trade
       has_many :available_promote_goods, -> { available }, class_name: 'PromoteGood'
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
-      has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim).carting }, foreign_key: :user_id, primary_key: :user_id
+      has_many :trade_items, ->(o) { where({organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim}.compact).carting }, foreign_key: :user_id, primary_key: :user_id
       has_many :checked_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, aim: o.aim).checked }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :all_trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id, aim: o.aim) }, class_name: 'TradeItem', foreign_key: :user_id, primary_key: :user_id
       has_many :current_trade_items, class_name: 'TradeItem', foreign_key: :current_cart_id
