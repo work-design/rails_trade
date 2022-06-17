@@ -224,7 +224,9 @@ module Trade
       # organ_id 为 nil，则为平台级订单
       [organ_id, nil].each do |org_id|
         [member_id, nil].each do |mem_id|
-          all_carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id)
+          [aim, nil].each do |_aim|
+            all_carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id, aim: _aim)
+          end
         end
       end
 
