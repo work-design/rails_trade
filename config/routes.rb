@@ -34,12 +34,12 @@ Rails.application.routes.draw do
         get :promote
       end
     end
-    resource :cart do
-      get :list
-      get :invest
-      get :rent
-      get :addresses
-      get :promote
+    resources :carts do
+      collection do
+        get :list
+        get :addresses
+        get :promote
+      end
     end
     resources :promote_goods, only: [:index, :show]
   end

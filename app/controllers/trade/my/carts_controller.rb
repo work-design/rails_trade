@@ -6,12 +6,10 @@ module Trade
     before_action :set_rent_cart, only: [:rent]
 
     def show
-      q_params = {
-        good_type: 'Factory::Production'
-      }
+      q_params = {}
 
-      @trade_items = current_cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = current_cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @trade_items = @cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def invest
@@ -47,7 +45,7 @@ module Trade
 
     private
     def set_cart
-      @cart = current_cart
+      @cart = current_carts.find params[:id]
     end
 
     def set_invest_cart
