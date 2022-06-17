@@ -10,6 +10,7 @@ module Trade
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, class_name: 'Trade::Order'
       has_many :trade_items, class_name: 'Trade::TradeItem'
+      has_many :rents, -> { aim_rent }, class_name: 'Trade::TradeItem'
       has_many :payments, class_name: 'Trade::Payment'
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
