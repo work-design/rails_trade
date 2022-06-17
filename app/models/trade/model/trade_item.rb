@@ -67,6 +67,7 @@ module Trade
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: o.good_type) }, primary_key: :user_id, foreign_key: :user_id
       has_many :all_carts, class_name: 'Cart', primary_key: :user_id, foreign_key: :user_id
+      has_many :organ_carts, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
 
@@ -210,7 +211,8 @@ module Trade
     end
 
     def sync_amount_to_all_carts
-
+      all_carts
+      organ_carts
     end
 
     def reset_carts
@@ -231,10 +233,10 @@ module Trade
       end
 
       # 非用户级别的购物车
-      if member
+      if member_organ
         [organ_id, nil].each do |org_id|
           [aim, nil].each do |_aim|
-            Cart.find_or_initialize_by(organ_id: org_id, member_organ_id: member.organ_id, aim: _aim, member_id: nil, user_id: nil)
+            organ_carts.find_or_initialize_by(member_id: nil, user_id: nil, organ_id: org_id, aim: _aim)
           end
         end
       end
