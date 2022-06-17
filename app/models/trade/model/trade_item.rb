@@ -230,8 +230,13 @@ module Trade
         end
       end
 
+      # 非用户级别的购物车
       if member
-        all_carts.find_or_initialize_by(member_organ_id: member.organ_id)
+        [organ_id, nil].each do |org_id|
+          [aim, nil].each do |_aim|
+            Cart.find_or_initialize_by(organ_id: org_id, member_organ_id: member.organ_id, aim: _aim, member_id: nil, user_id: nil)
+          end
+        end
       end
       #save
       all_carts
