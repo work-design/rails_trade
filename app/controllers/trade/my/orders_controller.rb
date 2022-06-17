@@ -193,7 +193,6 @@ module Trade
         :payment_id,
         :payment_type,
         :address_id,
-        :invoice_address_id,
         :note,
         trade_items_attributes: {}
       )
