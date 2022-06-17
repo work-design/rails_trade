@@ -97,7 +97,8 @@ module Trade
         :effect_at,
         :expire_at,
         :good_type,
-        :good_id
+        :good_id,
+        :aim
       )
     end
 

@@ -91,6 +91,10 @@ zh:
           expired: 已过期
         good_type:
           Trade::Advance: 会员充值
+        aim:
+          use: 使用
+          invest: 投资
+          rent: 租用
       trade/promote_cart:
         state:
           unused: 未使用

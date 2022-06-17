@@ -1,3 +1,4 @@
 <%= f.hidden_field :good_type %>
 <%= f.datetime_field :effect_at, data: { action: 'change->equal#updateTime' }, step: 1 %>
 <%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>
+<%= f.select :aim, options_for_select(Trade::PromoteGood.options_i18n(:aim), f.object.aim) %>

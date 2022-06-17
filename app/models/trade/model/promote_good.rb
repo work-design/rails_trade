@@ -9,7 +9,6 @@ module Trade
       attribute :expire_at, :datetime
       attribute :item_promotes_count, :integer, default: 0
       attribute :identity, :string
-      attribute :aim, :string
       attribute :use_limit, :integer
       attribute :over_limit, :boolean, default: false
 
@@ -17,6 +16,12 @@ module Trade
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
       }, _default: 'available'
+
+      enum aim: {
+        use: 'use',
+        rent: 'rent',
+        invest: 'invest'
+      }, _default: 'use'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', counter_cache: true, optional: true
