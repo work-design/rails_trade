@@ -8,8 +8,8 @@ module Trade
       has_many :member_trade_items, class_name: 'Trade::TradeItem', foreign_key: :member_organ_id
       has_many :member_orders, class_name: 'Trade::Order', foreign_key: :member_organ_id
       has_many :member_ordered_trade_items, class_name: 'Trade::TradeItem', through: :member_orders, source: :trade_items
-      has_many :cards, -> { includes(:card_template) }, foreign_key: :member_organ_id
-      has_many :wallets, -> { includes(:wallet_template) }, foreign_key: :member_organ_id
+      has_many :cards, -> { includes(:card_template) }, class_name: 'Trade::Card', foreign_key: :member_organ_id
+      has_many :wallets, -> { includes(:wallet_template) }, class_name: 'Trade::Wallet', foreign_key: :member_organ_id
     end
 
     def get_trade_item(good_type:, good_id:, aim: 'use', **options)
