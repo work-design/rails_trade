@@ -9,7 +9,7 @@ module Trade
       #has_many :payment_methods, through: :payment_references
       has_many :wallets, class_name: 'Trade::Wallet'
       has_many :cards, class_name: 'Trade::Card'
-      has_many :carts, class_name: 'Trade::Cart'
+      has_many :carts, ->{ where(organ_id: nil) }, class_name: 'Trade::Cart'
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :cart_trade_items, ->{ carting }, class_name: 'Trade::TradeItem'
       has_many :agent_trade_items, class_name: 'Trade::TradeItem', foreign_key: :agent_id
