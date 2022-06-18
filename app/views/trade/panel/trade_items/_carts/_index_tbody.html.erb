@@ -5,9 +5,11 @@
 </td>
 <td>
   <% if model.member %>
-    <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
+    <span><%= model.member.name %></span>
+    <span class="has-text-grey">（<%= model.member_id %>）</span>
   <% end %>
 </td>
+<td><%= model.member_organ_id %></td>
 <td><%= model.organ_id %></td>
 <td><%= model.good_type_i18n %></td>
 <td><%= model.aim %></td>
