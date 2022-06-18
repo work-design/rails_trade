@@ -83,6 +83,7 @@ module Trade
       after_initialize :init_uuid, if: :new_record?
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
       before_validation :sync_from_good, if: -> { good && good_id_changed? }
+      before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_member, if: -> { member && member_id_changed? }
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
       before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
@@ -112,6 +113,10 @@ module Trade
       self.good_name = good.name
       self.organ_id = good.organ_id if good.respond_to? :organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on
+    end
+
+    def sync_from_current_cart
+      self.aim = current_cart.aim
     end
 
     def sync_from_member

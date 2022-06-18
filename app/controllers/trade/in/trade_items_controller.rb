@@ -14,7 +14,7 @@ module Trade
         user_id: current_user.id,
         member_id: current_member.id
       }
-      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id)
+      options.merge! params.permit(:good_type, :good_id, :current_cart_id, :number, :produce_on, :scene_id)
 
       @trade_item = TradeItem.new(options)
     end
