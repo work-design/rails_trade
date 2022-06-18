@@ -168,3 +168,8 @@ zh:
       units:
         index:
           title: 单位设置
+      trade_items:
+        index:
+          title: 订单明细
+        carts:
+          title: 对应购物车

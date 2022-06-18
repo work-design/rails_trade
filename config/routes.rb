@@ -92,9 +92,15 @@ Rails.application.routes.draw do
     end
 
     namespace :panel, defaults: { namespace: 'panel' } do
+      root 'home#index'
       concerns :order_admin
       resources :exchange_rates
       resources :units
+      resources :trade_items do
+        member do
+          get :carts
+        end
+      end
     end
 
     namespace :admin, defaults: { namespace: 'admin' } do

@@ -1,0 +1,10 @@
+<%= render 'filter_form' %>
+
+<%= render layout: 'index_table' do %>
+<% @trade_item.carts.group_by(&:member_organ).each do |member_organ, carts| %>
+  <tr>
+    <td rowspan="<%= carts.size + 1 %>"><%= member_organ&.name %></td>
+  </tr>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: carts, as: :model %>
+<% end %>
+<% end %>

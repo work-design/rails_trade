@@ -1,0 +1,34 @@
+<td>
+  <p>
+    <span><%= model.good_type_i18n %></span>
+    <span class="tag"><%= model.good_id %></span>
+  </p>
+  <p><%= link_to model.good.name, { action: 'show', id: model.id } %></p>
+</td>
+<td><%= model.number %></td>
+<td>
+  <p class="has-text-grey"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
+<td>
+  <p><%= model.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
+<td>
+  <p><%= model.retail_price.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.wholesale_price.to_money.format(html_wrap: true).html_safe %></p>
+</td>
+<td><%= model.status_i18n %></td>
+<td><%= model.aim_i18n %></td>
+<td>
+  <p class="is-several">
+    <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
+    <span><%= model.user.name %></span>
+  </p>
+  <p>
+    <span><%= model.member&.name %></span>
+    <% if model.member_organ %>
+      <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
+    <% end %>
+  </p>
+</td>

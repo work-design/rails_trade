@@ -65,8 +65,8 @@ module Trade
       belongs_to :current_cart, class_name: 'Cart'  # 下单时的购物车
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
-      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: o.good_type) }, primary_key: :user_id, foreign_key: :user_id
-      has_many :all_carts, class_name: 'Cart', primary_key: :user_id, foreign_key: :user_id
+      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil]) }, primary_key: :user_id, foreign_key: :user_id
+      has_many :all_carts, ->(o){ where(organ_id: [o.organ_id, nil]) }, class_name: 'Cart', primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
@@ -240,8 +240,8 @@ module Trade
           end
         end
       end
-      #save
-      all_carts
+
+      save
     end
 
     def reset_amount
