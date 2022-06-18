@@ -1,6 +1,6 @@
 module Trade
-  class TradeItem < ApplicationRecord
-    include Model::TradeItem
+  class Rent < ApplicationRecord
+    include Model::Rent
     include Ordering::Rent
     include Job::Ext::Jobbed
   end

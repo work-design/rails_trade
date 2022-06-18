@@ -7,8 +7,6 @@ module Trade
       attribute :rent_estimate_finish_at, :datetime
       attribute :rent_finish_at, :datetime
 
-      belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
-
       after_create_commit :compute_later
     end
 
@@ -46,7 +44,7 @@ module Trade
     end
 
     def compute(now = Time.current)
-      self.duration = compute_duration(now)[promote.unit_code]
+      self.duration = compute_duration(now)[promote.unit_code] 
       order.compute_promote
       order
     end
