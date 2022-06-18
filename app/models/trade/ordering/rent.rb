@@ -1,5 +1,5 @@
 module Trade
-  module Rent::TradeItem
+  module Ordering::Rent
     extend ActiveSupport::Concern
 
     included do
@@ -44,7 +44,7 @@ module Trade
     end
 
     def compute(now = Time.current)
-      self.duration = compute_duration(now)[promote.unit_code] 
+      self.duration = compute_duration(now)[promote.unit_code]
       order.compute_promote
       order
     end
