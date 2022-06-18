@@ -59,7 +59,6 @@ module Trade
       before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      before_create :init_pay_later
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end
@@ -95,6 +94,7 @@ module Trade
 
     def sync_from_current_cart
       self.address_id ||= current_cart.address_id
+      self.pay_layter = true if current_cart.aim == 'rent'
       current_cart.trade_items.each do |trade_item|
         trade_item.order = self
         trade_item.status = 'ordered'
