@@ -20,25 +20,6 @@ module Trade
 
     def new
       @order = Order.new
-
-      if params[:cart_item_id]
-        @order.migrate_from_cart_item(params[:cart_item_id])
-      else
-        @order.migrate_from_cart_items
-      end
-    end
-
-    def refresh
-      @order = Order.new(buyer_id: params[:buyer_id])
-      @order.assign_attributes order_params
-
-      if params[:cart_item_id]
-        cart_item = CartItem.find(params[:cart_item_id])
-        cart_item.update extra: @order.extra
-        @order.migrate_from_cart_item(params[:cart_item_id])
-      else
-        @order.migrate_from_cart_items
-      end
     end
 
     def create

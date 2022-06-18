@@ -23,9 +23,9 @@ module Trade
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
+      belongs_to :current_cart, class_name: 'Cart'
       belongs_to :payment_strategy, optional: true
 
-      has_many :carts, ->(o){ where(organ_id: o.organ_id, member_id: [o.member_id, nil]) }, foreign_key: :user_id, primary_key: :user_id
       has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders
@@ -58,6 +58,7 @@ module Trade
       before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
+      before_validation :sync_from_current_cart
       before_create :init_pay_later
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
@@ -90,6 +91,19 @@ module Trade
 
     def should_pay_later?
       trade_items.pluck(:aim).include?('rent')
+    end
+
+    def sync_from_current_cart
+      self.address_id ||= current_cart.address_id
+      current_cart.trade_items.each do |trade_item|
+        trade_item.order = self
+        trade_item.status = 'ordered'
+        trade_item.address_id = address_id
+      end
+      current_cart.cart_promotes.each do |cart_promote|
+        cart_promote.order = self
+        cart_promote.status = 'ordered'
+      end
     end
 
     def subject
@@ -130,9 +144,6 @@ module Trade
     end
 
     def confirm_ordered!
-      self.carts.each do |cart|
-        cart.reset_amount!
-      end
       self.trade_items.update(status: 'ordered')
     end
 

@@ -52,16 +52,7 @@ module Trade
 
     def create
       @order = current_user.orders.build(order_params)
-      @order.address_id = params[:address_id].presence || current_cart.address_id
-      current_cart.trade_items.each do |trade_item|
-        trade_item.order = @order
-        trade_item.status = 'ordered'
-        trade_item.address_id = params[:address_id].presence || current_cart.address_id
-      end
-      current_cart.cart_promotes.each do |cart_promote|
-        cart_promote.order = @order
-        cart_promote.status = 'ordered'
-      end
+      @order.sync_from_current_cart
 
       if @order.save
         render 'create'
@@ -194,6 +185,7 @@ module Trade
         :payment_type,
         :address_id,
         :note,
+        :current_cart_id,
         trade_items_attributes: {}
       )
       p.merge! default_form_params
