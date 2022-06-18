@@ -1,3 +1,4 @@
+<td><%= model.id %></td>
 <td>
   <span><%= model.user.name %></span>
   <span class="has-text-grey">（<%= model.user_id %>）</span>
@@ -7,6 +8,8 @@
     <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
   <% end %>
 </td>
+<td><%= model.organ_id %></td>
+<td><%= model.aim %></td>
 <td>
   <p><%= model.payment_strategy&.name %></p>
   <p><%= model.deposit_ratio %></p>
@@ -18,3 +21,4 @@
   <p><%= model.amount %></p>
 </td>
 <td class="has-text-centered"><%= model.trade_items.size %></td>
+

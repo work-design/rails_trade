@@ -3,7 +3,7 @@
   <td>
     <div data-show-target="item" style="visibility: hidden">
       <%= link_to({ action: 'carts', id: model.id }, aria: { label: t('trade.panel.trade_items.carts.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-light fa-cart"></i>
+        <i class="fa-light fa-cart-circle-check"></i>
       <% end %>
       <%= link_to({ action: 'show', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-light fa-circle-info"></i>
