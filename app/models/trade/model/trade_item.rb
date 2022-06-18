@@ -66,7 +66,6 @@ module Trade
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
-      has_many :all_carts, ->(o){ where(organ_id: [o.organ_id, nil]) }, class_name: 'Cart', primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o){ where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
@@ -211,7 +210,7 @@ module Trade
     end
 
     def sync_amount_to_all_carts
-      all_carts
+      carts
       organ_carts
     end
 
@@ -222,16 +221,19 @@ module Trade
       end
     end
 
+    # 理论上共计 10 个购物车
     def check_carts
+      # 理论上是6个
       # organ_id 为 nil，则为平台级订单
       [organ_id, nil].each do |org_id|
         [member_id, nil].each do |mem_id|
           [aim, nil].each do |_aim|
-            all_carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id, aim: _aim)
+            carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id, aim: _aim)
           end
         end
       end
 
+      # 理论上是4个
       # 非用户级别的购物车
       if member_organ
         [organ_id, nil].each do |org_id|

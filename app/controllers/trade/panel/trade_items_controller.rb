@@ -3,7 +3,7 @@ module Trade
     before_action :set_trade_item, only: [:show, :carts, :edit, :update, :destroy]
 
     def index
-      @trade_items = TradeItem.includes(:all_carts, :organ_carts).order(id: :desc).page(params[:page])
+      @trade_items = TradeItem.includes(:carts, :organ_carts).order(id: :desc).page(params[:page])
     end
 
     def carts
