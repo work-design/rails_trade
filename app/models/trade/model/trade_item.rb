@@ -62,7 +62,7 @@ module Trade
       end
 
       belongs_to :good, polymorphic: true
-      belongs_to :current_cart, class_name: 'Cart'  # 下单时的购物车
+      belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
