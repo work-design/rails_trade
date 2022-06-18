@@ -1,3 +1,8 @@
+<%= form_with model: order, url: { action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :user_id %>
+  <%= f.hidden_field :amount %>
+<% end %>
+
 <div class="box">
   <p><%= @order.member&.name %></p>
   <p><%= @order.user&.name %></p>
@@ -11,11 +16,10 @@
 
 <%# render partial: 'error_messages', locals: { target: @order } %>
 
-<%# render partial: 'new_items', locals: { order: @order } %>
+<%# render partial: 'new_items', locals: { order: @order.trade_items } %>
 
 <%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
 <%# render partial: 'orders/invoice_addresses', locals: { addresses: @order.user.addresses.invoice } %>
-
 
 <div class="ui center aligned segment">
   <%= submit_tag '确认订单', class: 'ui red button', form: 'new_order' %>

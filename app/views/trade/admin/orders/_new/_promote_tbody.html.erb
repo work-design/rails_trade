@@ -1,0 +1,8 @@
+<td>
+  <%= order_promote.promote&.name %>
+  <%= op.hidden_field :promote_id, form: 'new_order' %>
+  <%= op.hidden_field :promote_charge_id, form: 'new_order' %>
+</td>
+<td colspan="3"></td>
+<td><%= op.number_field :amount, step: '0.01', form: 'new_order' %></td>
+<td></td>
