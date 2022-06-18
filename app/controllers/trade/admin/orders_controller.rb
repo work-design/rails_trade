@@ -19,7 +19,7 @@ module Trade
     end
 
     def new
-      @order = Order.new
+      @order = Order.new(current_cart_id: params[:current_cart_id])
     end
 
     def create
@@ -48,7 +48,6 @@ module Trade
         :payment_id,
         :payment_type,
         :address_id,
-        :invoice_address_id,
         :amount,
         trade_items_attributes: [:deliver_on, :advance_price, :comment],
         cart_promotes_attributes: [:promote_id]
