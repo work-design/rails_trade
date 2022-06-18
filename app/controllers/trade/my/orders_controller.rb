@@ -4,6 +4,7 @@ module Trade
       :show, :edit, :update, :refund, :payment_types, :payment_type, :wait, :destroy, :cancel,
       :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
     ]
+    before_action :set_cart, only: [:new]
 
     def index
       q_params = {}
@@ -15,7 +16,7 @@ module Trade
     end
 
     def new
-      @order = current_user.orders.build
+      @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
     end
 
     def blank
@@ -172,6 +173,10 @@ module Trade
       else
         super
       end
+    end
+
+    def set_cart
+      @cart = Cart.find params[:current_cart_id]
     end
 
     def set_order

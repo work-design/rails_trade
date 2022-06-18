@@ -4,11 +4,11 @@
 
 <div class="weui-panel">
   <div class="weui-panel__bd">
-    <%= render partial: 'trade_item', collection: current_cart.trade_items.status_checked, as: :trade_item %>
+    <%= render partial: 'trade_item', collection: @cart.trade_items.status_checked, as: :trade_item %>
   </div>
 </div>
 
-<%= render partial: 'cart', locals: { cart: current_cart } %>
+<%= render partial: 'cart', locals: { cart: @cart } %>
 
 <div class="weui-panel">
   <div class="weui-panel__ft p-4">
