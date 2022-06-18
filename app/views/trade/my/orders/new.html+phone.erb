@@ -1,4 +1,6 @@
-<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
+<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :current_cart_id %>
+<% end %>
 
 <%= render 'top_bar' %>
 
