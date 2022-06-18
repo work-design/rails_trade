@@ -219,11 +219,15 @@ module Trade
         cart.reset_amount
         cart.save
       end
+      organ_carts.each do |cart|
+        cart.reset_amount
+        cart.save
+      end
     end
 
-    # 理论上共计 10 个购物车
+    # 理论上共计 24 个购物车
     def check_carts
-      # 理论上是6个
+      # 理论上是 2 的 4 次方 16 个
       # organ_id 为 nil，则为平台级订单
       [organ_id, nil].each do |org_id|
         [member_id, nil].each do |mem_id|
@@ -236,7 +240,7 @@ module Trade
         end
       end
 
-      # 理论上是4个
+      # 理论上是 2 的 3 次方 8 个
       # 非用户级别的购物车
       if member_organ
         [organ_id, nil].each do |org_id|
