@@ -228,7 +228,9 @@ module Trade
       [organ_id, nil].each do |org_id|
         [member_id, nil].each do |mem_id|
           [aim, nil].each do |_aim|
-            carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id, aim: _aim)
+            [good_type, nil].each do |_type|
+              carts.find_or_initialize_by(organ_id: org_id, member_id: mem_id, aim: _aim, good_type: _type)
+            end
           end
         end
       end
@@ -238,7 +240,9 @@ module Trade
       if member_organ
         [organ_id, nil].each do |org_id|
           [aim, nil].each do |_aim|
-            organ_carts.find_or_initialize_by(member_id: nil, user_id: nil, organ_id: org_id, aim: _aim)
+            [good_type, nil].each do |_type|
+              organ_carts.find_or_initialize_by(member_id: nil, user_id: nil, organ_id: org_id, aim: _aim, good_type: _type)
+            end
           end
         end
       end
