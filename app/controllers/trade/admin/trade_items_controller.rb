@@ -59,7 +59,8 @@ module Trade
 
     def trade_item_params
       params.fetch(:trade_item, {}).permit(
-        :number
+        :number,
+        :current_cart_id
       )
     end
 
