@@ -55,10 +55,10 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
+      before_validation :sync_from_current_cart, if: :new_record?
       before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      before_validation :sync_from_current_cart
       before_create :init_pay_later
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
