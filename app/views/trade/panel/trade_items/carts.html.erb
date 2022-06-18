@@ -1,16 +1,18 @@
 <%= render 'filter_form' %>
 
 <%= render layout: 'index_table' do %>
-<% @trade_item.carts.group_by(&:member_organ).each do |member_organ, carts| %>
   <tr>
-    <td rowspan="<%= carts.size + 1 %>"><%= member_organ&.name %></td>
+    <td rowspan="<%= @trade_item.carts.size + 1 %>">
+      <span>用户级购物车</span>
+      <span class="tag"><%= @trade_item.carts.size %></span>
+    </td>
   </tr>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: carts, as: :model %>
-<% end %>
-<% @trade_item.organ_carts.group_by(&:member_organ).each do |member_organ, carts| %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @trade_item.carts, as: :model %>
   <tr>
-    <td rowspan="<%= carts.size + 1 %>"><%= member_organ&.name %></td>
+    <td rowspan="<%= @trade_item.organ_carts.size + 1 %>">
+      <span>企业级购物车</span>
+      <span class="tag"><%= @trade_item.organ_carts.size %></span>
+    </td>
   </tr>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: carts, as: :model %>
-<% end %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @trade_item.organ_carts, as: :model %>
 <% end %>
