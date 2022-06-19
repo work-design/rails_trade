@@ -43,13 +43,13 @@ module Trade
 
     def order_params
       p = params.fetch(:order, {}).permit(
-        :quantity,
+        :weight,
         :state,
         :payment_id,
         :payment_type,
         :address_id,
         :amount,
-        trade_items_attributes: [:deliver_on, :advance_price, :comment],
+        trade_items_attributes: [:deliver_on, :number, :note],
         cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params
