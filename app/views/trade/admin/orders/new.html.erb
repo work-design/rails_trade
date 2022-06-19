@@ -1,6 +1,5 @@
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
-  <%= f.hidden_field :user_id %>
-  <%= f.hidden_field :amount %>
+  <%= f.hidden_field :current_cart_id %>
 <% end %>
 
 <div class="box">
@@ -23,7 +22,3 @@
 
 <%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
 <%# render partial: 'orders/invoice_addresses', locals: { addresses: @order.user.addresses.invoice } %>
-
-<div class="ui center aligned segment">
-  <%= submit_tag '确认订单', class: 'ui red button', form: 'new_order' %>
-</div>

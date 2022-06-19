@@ -55,7 +55,7 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
-      after_initialize :sync_from_current_cart, if: -> { current_cart && new_record? }
+      after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
@@ -93,6 +93,7 @@ module Trade
     end
 
     def sync_from_current_cart
+      return unless current_cart
       self.address_id ||= current_cart.address_id
       self.pay_layter = true if current_cart.aim == 'rent'
       current_cart.trade_items.each do |trade_item|
