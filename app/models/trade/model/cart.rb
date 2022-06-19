@@ -39,6 +39,7 @@ module Trade
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
+      validates :good_type, presence: true
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
@@ -109,13 +110,22 @@ module Trade
     end
 
     def find_trade_item(good_id:, **options)
-      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself, :good_type, :aim) }
+      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
       args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
       args.reject!(&->(_, v){ v.blank? })
       args.stringify_keys!
 
       trade_items.find(&->(i){ i.attributes.slice(*args.keys).reject(&->(_, v){ v.blank? }) == args })
+    end
+
+    def organ_trade_item(good_id:, **options)
+      args = { good_id: good_id, good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
+      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
+      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
+      args.stringify_keys!
+
+      member_trade_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
   end
