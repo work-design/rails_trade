@@ -55,7 +55,7 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
-      before_validation :sync_from_current_cart, if: :new_record?
+      after_initialize :sync_from_current_cart, if: -> { current_cart && new_record? }
       before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
