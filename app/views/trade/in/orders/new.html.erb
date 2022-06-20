@@ -1,9 +1,19 @@
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :current_cart_id %>
 <% end %>
 
 <div class="box">
   <p><%= @order.member&.name %></p>
   <p><%= @order.user&.name %></p>
+  <p>
+    <span class="ui blue label"><%= @order.current_cart.payment_strategy&.name %></span>
+    <% if @order.current_cart.deposit_ratio %>
+      <span class="ui orange label">
+        Deposit Ratio:
+        <%= @order.current_cart.deposit_ratio %>%
+      </span>
+    <% end %>
+  </p>
 </div>
 
 <%= render layout: 'index_table' do %>
