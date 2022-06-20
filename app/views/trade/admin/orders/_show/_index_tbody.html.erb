@@ -2,10 +2,10 @@
   <td>
     <%= link_to trade_item.good, target: '_blank' do %>
       <span><%= trade_item.good.name %></span>
-    <% end %>
+    <% end if trade_item.good %>
   </td>
   <td>
-    <span><%= trade_item.good.price.to_money.format(html_wrap: true).html_safe %></span>
+    <span><%= trade_item.good.price.to_money.format(html_wrap: true).html_safe if trade_item.good %></span>
     <span class="has-text-grey">x</span>
     <span><%= trade_item.number %></span>
   </td>

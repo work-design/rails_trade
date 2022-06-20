@@ -48,7 +48,7 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
@@ -61,7 +61,7 @@ module Trade
       belongs_to :production_plan, ->(o){ where(produce_on: o.produce_on, scene_id: o.scene_id) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: true, optional: true
       end
 
-      belongs_to :good, polymorphic: true
+      belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
 
@@ -91,7 +91,7 @@ module Trade
       before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_amount_to_current_cart, if: -> { (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
+      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
       after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
       after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
@@ -130,6 +130,7 @@ module Trade
     end
 
     def compute_price
+      return unless good
       min = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).min
       if min.present?
         self.vip_code = min[0]
@@ -200,6 +201,7 @@ module Trade
     end
 
     def sync_amount_to_current_cart
+      return unless current_cart
       if (destroyed? && ['checked', 'trial'].include?(status)) || (status_init? && ['checked'].include?(status_previously_was) )
         changed_amount = -amount
       elsif ['checked', 'trial'].include?(status) && ['init', nil].include?(status_previously_was)
@@ -308,7 +310,7 @@ module Trade
     end
 
     def order_paid!
-      self.good.order_paid(self)
+      self.good.order_paid(self) if good
     end
 
     def order_pruned!

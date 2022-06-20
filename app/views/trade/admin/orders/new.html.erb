@@ -7,7 +7,9 @@
 </div>
 
 <%= render layout: 'index_table' do %>
-  <%= render partial: 'item_tbody', layout: 'item_tr', collection: @order.trade_items, as: :model %>
+  <% form_object(@order, theme: 'inline').fields :trade_items do |ef| %>
+    <%= render partial: 'item_tbody', layout: 'item_tr', locals: { f: ef } %>
+  <% end %>
 <% end %>
 
 <%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
