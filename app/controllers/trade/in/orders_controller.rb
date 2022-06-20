@@ -1,5 +1,5 @@
 module Trade
-  class Admin::OrdersController < Admin::BaseController
+  class In::OrdersController < In::BaseController
     before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
     skip_before_action :verify_authenticity_token, only: [:refresh]
 
@@ -19,8 +19,7 @@ module Trade
     end
 
     def new
-      @order = Order.new
-      @order.trade_items.build
+      @order = Order.new(current_cart_id: params[:current_cart_id])
     end
 
     def create
