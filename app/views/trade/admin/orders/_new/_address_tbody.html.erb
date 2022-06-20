@@ -1,0 +1,12 @@
+<td>
+  <div class="ui radio checkbox">
+    <%= radio_button_tag :'order[invoice_address_id]', address.id, @order.address_id == address.id, form: 'new_order' %><label></label>
+  </div>
+</td>
+<td><%= address.contact %></td>
+<td><%= address.tel %></td>
+<td>
+  <%= address.area.full_name %>
+</td>
+<td><%= address.detail %></td>
+<td></td>

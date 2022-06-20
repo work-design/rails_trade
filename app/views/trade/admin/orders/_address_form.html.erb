@@ -1,4 +1,1 @@
-<%= form_with model: @order, url: { action: 'update' } do |f| %>
-  <%= f.collection_select :address_id, @addresses, :id, :name %>
-  <%= f.submit %>
-<% end %>
+<%= f.collection_select :address_id, @addresses, :id, :name %>

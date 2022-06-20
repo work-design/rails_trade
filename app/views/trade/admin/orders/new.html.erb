@@ -6,11 +6,12 @@
   <p><%= @order.user&.name %></p>
 </div>
 
+<%= render partial: 'address_tbody', collection: @addresses, as: :address %>
+
 <%= render layout: 'index_table' do %>
   <% form_object(@order, theme: 'inline').fields :trade_items do |ef| %>
     <%= render partial: 'item_tbody', layout: 'item_tr', locals: { f: ef } %>
   <% end %>
 <% end %>
 
-<%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
 <%# render partial: 'orders/invoice_addresses', locals: { addresses: @order.user.addresses.invoice } %>
