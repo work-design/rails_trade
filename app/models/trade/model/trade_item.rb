@@ -86,7 +86,7 @@ module Trade
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
-      before_validation :sync_from_order, if: -> { order_id.present? && order_id_changed? }
+      before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
