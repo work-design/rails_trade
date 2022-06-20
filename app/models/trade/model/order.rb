@@ -96,14 +96,30 @@ module Trade
       return unless current_cart
       self.address_id ||= current_cart.address_id
       self.pay_layter = true if current_cart.aim == 'rent'
+      if current_cart.user_id.blank?
+        sync_items_from_organ
+      else
+        sync_items_from_user
+      end
+      current_cart.cart_promotes.each do |cart_promote|
+        cart_promote.order = self
+        cart_promote.status = 'ordered'
+      end
+    end
+
+    def sync_items_from_user
       current_cart.trade_items.each do |trade_item|
         trade_item.order = self
         trade_item.status = 'ordered'
         trade_item.address_id = address_id
       end
-      current_cart.cart_promotes.each do |cart_promote|
-        cart_promote.order = self
-        cart_promote.status = 'ordered'
+    end
+
+    def sync_items_from_organ
+      current_cart.organ_trade_items.each do |trade_item|
+        trade_item.order = self
+        trade_item.status = 'ordered'
+        trade_item.address_id = address_id
       end
     end
 

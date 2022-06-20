@@ -30,7 +30,7 @@ module Trade
       has_many :trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).carting }, primary_key: :user_id, foreign_key: :user_id
       has_many :checked_trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact).checked }, class_name: 'TradeItem', primary_key: :user_id, foreign_key: :user_id
       has_many :all_trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact) }, class_name: 'TradeItem', primary_key: :user_id, foreign_key: :user_id
-      has_many :member_trade_items, ->(o){ where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'TradeItem', primary_key: :member_organ_id, foreign_key: :member_organ_id
+      has_many :organ_trade_items, ->(o){ where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'TradeItem', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_trade_items, class_name: 'TradeItem', foreign_key: :current_cart_id
 
       has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
@@ -125,7 +125,7 @@ module Trade
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
       args.stringify_keys!
 
-      member_trade_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
+      organ_trade_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
   end
