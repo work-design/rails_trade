@@ -1,7 +1,7 @@
 <td>
-  <div class="checkbox">
-    <%= radio_button_tag 'order[invoice_address_id]', address.id, @order.address_id == address.id, form: 'new_order' %><label></label>
-  </div>
+  <label class="checkbox">
+    <%= radio_button_tag 'order[address_id]', address.id, @order.address_id == address.id, form: 'new_order' %>
+  </label>
 </td>
 <td><%= address.contact %></td>
 <td><%= address.tel %></td>
