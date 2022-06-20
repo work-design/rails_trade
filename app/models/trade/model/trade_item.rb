@@ -82,13 +82,12 @@ module Trade
 
       after_initialize :init_uuid, if: :new_record?
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
-      before_validation :sync_from_good, if: -> { good && good_id_changed? }
+      before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
-      before_validation :sync_from_member, if: -> { member && member_id_changed? }
+      before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
-      before_validation :sync_user_from_order, if: -> { order && user_id.blank? }
+      before_validation :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
-      before_save :sync_from_order, if: -> { order.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
@@ -110,6 +109,7 @@ module Trade
     end
 
     def sync_from_good
+      return unless good
       self.good_name = good.name
       self.organ_id = good.organ_id if good.respond_to? :organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on
@@ -120,8 +120,16 @@ module Trade
     end
 
     def sync_from_member
+      return unless member
       self.user = member.user
       self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
+    end
+
+    def sync_from_order
+      return unless order
+      self.organ_id ||= order.organ_id
+      self.user_id ||= order.user_id
+      self.address_id = order.address_id
     end
 
     def sync_from_produce_plan
@@ -275,14 +283,6 @@ module Trade
     def reset_amount!(*args)
       self.reset_amount
       self.save(*args)
-    end
-
-    def sync_from_order
-      self.address_id = order.address_id
-    end
-
-    def sync_user_from_order
-      self.user = order.user
     end
 
     def metering_attributes
