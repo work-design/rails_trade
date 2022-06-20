@@ -25,6 +25,7 @@ module Trade
 
     def create
       @order = Order.new(order_params)
+      @order.agent_id = current_member.id
 
       if @order.save
         render 'create'
