@@ -23,7 +23,7 @@ module Trade
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
-      belongs_to :current_cart, class_name: 'Cart'
+      belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
