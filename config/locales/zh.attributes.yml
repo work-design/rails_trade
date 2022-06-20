@@ -166,3 +166,7 @@ zh:
         days: 有效天数
       trade/privilege:
         amount: 额度
+      trade/rent:
+        rent_start_at: 开始时间
+        rent_estimate_finish_at: 预计结束时间
+        rent_finish_at: 实际结束时间
