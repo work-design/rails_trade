@@ -49,6 +49,7 @@ module Trade
         :payment_type,
         :address_id,
         :amount,
+        :note,
         trade_items_attributes: [:deliver_on, :number, :note],
         cart_promotes_attributes: [:promote_id]
       )

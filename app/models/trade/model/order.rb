@@ -95,7 +95,7 @@ module Trade
     def sync_from_current_cart
       return unless current_cart
       self.address_id ||= current_cart.address_id
-      self.pay_layter = true if current_cart.aim == 'rent'
+      self.pay_later = true if current_cart.aim == 'rent'
       if current_cart.user_id.blank?
         sync_items_from_organ
       else

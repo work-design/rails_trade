@@ -1,4 +1,4 @@
 <%= form_with model: @order, url: { action: 'update' } do |f| %>
-  <%= f.select :state, options_for_select(Trade::Order.options_i18n(:state), @order.state) %>
+  <%= f.text_area :note %>
   <%= f.submit %>
 <% end %>
