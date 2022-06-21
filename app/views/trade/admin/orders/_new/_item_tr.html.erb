@@ -1,7 +1,7 @@
-<tr id="tr_<%= f.object.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
+<tr data-controller="field" data-field-index-value="<%= f.index %>">
   <%= yield %>
   <td>
-    <div data-show-target="item" style="visibility: hidden">
-    </div>
+    <i class="fa-solid fa-plus" style="cursor: pointer" data-action="click->field#add"></i>
+    <i class="fa-solid fa-minus pl-1" style="cursor: pointer" data-action="click->field#remove"></i>
   </td>
 </tr>
