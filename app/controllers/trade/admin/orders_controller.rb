@@ -1,7 +1,7 @@
 module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
-    skip_before_action :verify_authenticity_token, only: [:refresh]
+    before_action :set_new_order, only: [:new, :create]
 
     def index
       q_params = {}
@@ -19,12 +19,10 @@ module Trade
     end
 
     def new
-      @order = Order.new
       @order.trade_items.build
     end
 
     def create
-      @order = Order.new(order_params)
       @order.agent_id = current_member.id
 
       if @order.save
@@ -41,6 +39,10 @@ module Trade
     private
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_new_order
+      @order = Order.new order_params
     end
 
     def order_params
