@@ -57,6 +57,7 @@ zh:
         paid_at: 支付时间
         trade_items_count: 子订单数
         pay_later: 后付款
+        serial_number: 序号
       trade/trade_item:
         good_id: 商品
         good_name: 商品名称
