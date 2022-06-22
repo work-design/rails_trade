@@ -52,6 +52,7 @@ module Trade
         :payment_id,
         :payment_type,
         :address_id,
+        :from_address_id,
         :amount,
         :note,
         trade_items_attributes: [:good_name, :number, :weight, :note],
