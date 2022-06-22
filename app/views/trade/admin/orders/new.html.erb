@@ -7,7 +7,20 @@
 </div>
 
 <div class="box">
-  <%= render 'address_button' %>
+  <div>
+    <span><%= Trade::Order.human_attribute_name(:from_address_id) %></span>
+    <%= render 'address_button' %>
+  </div>
+  <%= render layout: 'address_table' do %>
+    <%= render partial: 'address_tbody', layout: 'address_tr', collection: @addresses, as: :address %>
+  <% end %>
+</div>
+
+<div class="box">
+  <div>
+    <span><%= Trade::Order.human_attribute_name(:address_id) %></span>
+    <%= render 'address_button' %>
+  </div>
   <%= render layout: 'address_table' do %>
     <%= render partial: 'address_tbody', layout: 'address_tr', collection: @addresses, as: :address %>
   <% end %>
@@ -20,4 +33,5 @@
     <% end %>
   <% end %>
 </div>
+
 <%# render partial: 'orders/invoice_addresses', locals: { addresses: @order.user.addresses.invoice } %>
