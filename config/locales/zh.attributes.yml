@@ -38,6 +38,7 @@ zh:
         amount: 总金额
         deposit_ratio: 预付款比例
         payment_strategy_id: 结款方式
+        address_id: 收货地址
       trade/order:
         uuid: 订单号
         payment_status: 付款状态
@@ -58,6 +59,8 @@ zh:
         trade_items_count: 子订单数
         pay_later: 后付款
         serial_number: 序号
+        from_address_id: 发货地址
+        address_id: 收货地址
       trade/trade_item:
         good_id: 商品
         good_name: 商品名称
@@ -72,7 +75,8 @@ zh:
         reduced_amount: 优惠金额
         amount: 总价
         user_id: 用户
-        address_id: 地址
+        address_id: 收货地址
+        from_address_id: 收货地址
         produce_plan_id: 生产计划
       trade/trade_promote:
         amount: 金额
