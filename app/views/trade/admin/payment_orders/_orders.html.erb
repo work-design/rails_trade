@@ -6,7 +6,7 @@
   <td>
     <%= link_to order.uuid, admin_order_path(order.id) %>
   </td>
-  <td><%= order.amount %></td>
+  <td><%= order.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td>
     <%= hidden_field_tag 'payment_order[order_id]', order.id, form: "new_payment_#{order.id}" %>
     <%= number_field_tag 'payment_order[check_amount]', order.unreceived_amount, class: 'input', step: 0.01, form: "new_payment_#{order.id}" %>

@@ -1,6 +1,8 @@
 <td>
+<% if model.user %>
   <span><%= link_to model.user.name, { action: 'show', id: model.id } %></span>
   <span class="has-text-grey">（<%= model.user_id %>）</span>
+<% end %>
 </td>
 <td>
   <% if model.member %>
@@ -12,9 +14,9 @@
   <p><%= model.deposit_ratio %></p>
 </td>
 <td class="has-text-right">
-  <p><%= model.item_amount %></p>
-  <p><%= model.overall_additional_amount %></p>
-  <p><%= link_to model.overall_reduced_amount, { controller: 'cart_promotes', cart_id: model.id } %></p>
-  <p><%= model.amount %></p>
+  <p><%= model.item_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.overall_additional_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= link_to model.overall_reduced_amount.to_money.format(html_wrap: true).html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
+  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
 </td>
 <td class="has-text-centered"><%= model.trade_items.size %></td>
