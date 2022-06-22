@@ -12,7 +12,7 @@
     <%= render 'address_button' %>
   </div>
   <%= render layout: 'address_table' do %>
-    <%= render partial: 'address_tbody', layout: 'address_tr', collection: @addresses, as: :address %>
+    <%= render partial: 'from_address_tbody', layout: 'address_tr', collection: @addresses, as: :address %>
   <% end %>
 </div>
 
