@@ -1,5 +1,9 @@
 <td>
+<% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>
+<% else %>
+  <%= model.good_name %>
+<% end %>
 </td>
 <td><%= model.number %></td>
 <td>
@@ -17,10 +21,12 @@
 <td><%= model.status_i18n %></td>
 <td><%= model.aim_i18n %></td>
 <td>
+  <% if model.user %>
   <p class="is-several">
     <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
     <span><%= model.user.name %></span>
   </p>
+  <% end %>
   <p>
     <span><%= model.member&.name %></span>
     <% if model.member_organ %>
