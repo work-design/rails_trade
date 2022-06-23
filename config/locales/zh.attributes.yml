@@ -78,6 +78,7 @@ zh:
         address_id: 收货地址
         from_address_id: 收货地址
         produce_plan_id: 生产计划
+        status: 状态
       trade/trade_promote:
         amount: 金额
       trade/payment:
