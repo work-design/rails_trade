@@ -1,10 +1,7 @@
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
 <% end %>
 
-<div class="box">
-  <p><%= @order.member&.name %></p>
-  <p><%= @order.user&.name %></p>
-</div>
+<%= render 'head' %>
 
 <div class="box">
   <div class="is-several">
