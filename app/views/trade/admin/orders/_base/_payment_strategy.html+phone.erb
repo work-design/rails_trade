@@ -1,0 +1,30 @@
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="payment_strategy_dialog" data-action="click->weui-dialog#toggle">
+  <div class="weui-cell__hd">
+    <span class="has-text-grey">付款方式</span>
+  </div>
+  <div class="weui-cell__bd"></div>
+  <div class="weui-cell__ft">现结</div>
+</div>
+
+<div data-controller="weui-dialog" id="payment_strategy_dialog" class="weui-dialog__wrap">
+  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
+  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+    <div class="weui-half-screen-dialog__hd">
+      <div class="weui-half-screen-dialog__hd__side"></div>
+      <div class="weui-half-screen-dialog__hd__main">
+        <div class="weui-half-screen-dialog__title">付款方式</div>
+      </div>
+      <div class="weui-half-screen-dialog__hd__side">
+        <button class="weui-icon-btn" data-action="weui-dialog#close">
+          <i class="weui-icon-close-thin"></i>
+        </button>
+      </div>
+    </div>
+    <div class="weui-half-screen-dialog__bd">
+      <%= form.text_field :good_type, value: 'Factory::Production', form: 'new_order' %>
+    </div>
+    <div class="weui-half-screen-dialog__ft">
+      <%= form.submit '确认', value: nil, form: 'new_order' %>
+    </div>
+  </div>
+</div>

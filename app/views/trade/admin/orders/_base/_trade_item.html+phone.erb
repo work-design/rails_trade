@@ -1,0 +1,42 @@
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= trade_item.uuid %>" data-action="click->weui-dialog#toggle">
+  <div class="weui-cell__hd">
+    <span class="has-text-grey">添加物品</span>
+  </div>
+  <div class="weui-cell__bd">
+    <span><%= trade_item.good_name %></span>
+    <span class="has-text-grey"><%= trade_item.number %></span>
+  </div>
+  <div class="weui-cell__ft"></div>
+</div>
+
+<div data-controller="weui-dialog" id="fetch_dialog_<%= trade_item.uuid %>" class="weui-dialog__wrap">
+  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
+  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+    <div class="weui-half-screen-dialog__hd">
+      <div class="weui-half-screen-dialog__hd__side"></div>
+      <div class="weui-half-screen-dialog__hd__main">
+        <div class="weui-half-screen-dialog__title">添加物品</div>
+      </div>
+      <div class="weui-half-screen-dialog__hd__side">
+        <button class="weui-icon-btn" data-action="weui-dialog#close">
+          <i class="weui-icon-close-thin"></i>
+        </button>
+      </div>
+    </div>
+    <div class="weui-half-screen-dialog__bd">
+      <%= form.fields :trade_items, model: trade_item do |f| %>
+        <%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
+        <%= f.hidden_field :organ_id, value: current_organ.id, form: 'new_order' %>
+        <%= f.text_field :good_name, form: 'new_order' %>
+        <%= f.number_field :single_price, form: 'new_order' %>
+        <%= f.number_field :number, form: 'new_order' %>
+        <%= f.number_field :amount, form: 'new_order' %>
+        <%= f.number_field :weight, form: 'new_order' %>
+        <%= f.number_field :volume, form: 'new_order' %>
+      <% end %>
+    </div>
+    <div class="weui-half-screen-dialog__ft">
+      <%= form.submit '确认', value: nil, form: 'new_order' %>
+    </div>
+  </div>
+</div>
