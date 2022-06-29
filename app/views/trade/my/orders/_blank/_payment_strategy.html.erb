@@ -21,7 +21,11 @@
       </div>
     </div>
     <div class="weui-half-screen-dialog__bd">
-      <%= form.text_field :good_type, value: 'Factory::Production', form: 'new_order' %>
+      <div class="weui-cells weui-cells_radio">
+      <% @payment_strategies.each do |payment_strategy| %>
+        <%= form.radio_button :payment_strategy_id, payment_strategy.id, label: payment_strategy.name, form: 'new_order' %>
+      <% end %>
+      </div>
     </div>
     <div class="weui-half-screen-dialog__ft">
       <%= form.submit '确认', value: nil, form: 'new_order' %>

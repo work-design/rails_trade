@@ -5,6 +5,7 @@ module Trade
       :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
     ]
     before_action :set_cart, only: [:new]
+    before_action :set_payment_strategies, only: [:blank]
 
     def index
       q_params = {}
@@ -181,6 +182,10 @@ module Trade
 
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_payment_strategies
+      @payment_strategies = PaymentStrategy.limit(5)
     end
 
     def order_params
