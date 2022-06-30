@@ -23,7 +23,7 @@
     <div class="weui-half-screen-dialog__bd">
       <div class="weui-cells weui-cells_radio">
       <% @payment_strategies.each do |payment_strategy| %>
-        <%= form.radio_button :payment_strategy_id, payment_strategy.id, label: payment_strategy.name, form: 'new_order' %>
+        <%= form.radio_button :payment_strategy_id, payment_strategy.id, label: payment_strategy.name, label_position: 'before', origin: { label: 'weui-cell__bd' }, form: 'new_order' %>
       <% end %>
       </div>
     </div>
