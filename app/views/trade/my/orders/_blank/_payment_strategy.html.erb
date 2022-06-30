@@ -3,7 +3,7 @@
     <span class="has-text-grey">付款方式</span>
   </div>
   <div class="weui-cell__bd"></div>
-  <div class="weui-cell__ft">现结</div>
+  <div class="weui-cell__ft"><%= @order.payment_strategy&.name || '选择' %></div>
 </div>
 
 <div data-controller="weui-dialog" id="payment_strategy_dialog" class="weui-dialog__wrap">

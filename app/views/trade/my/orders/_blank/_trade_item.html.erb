@@ -1,10 +1,18 @@
 <div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= trade_item.uuid %>" data-action="click->weui-dialog#toggle">
   <div class="weui-cell__hd">
+  <% if trade_item.good_name.blank? %>
     <span class="has-text-grey">添加物品</span>
+  <% else %>
+    <span><%= trade_item.good_name %></span>
+  <% end %>
   </div>
   <div class="weui-cell__bd">
-    <span><%= trade_item.good_name %></span>
+  <% if trade_item.good_name.present? %>
+    <span class="has-text-grey">x</span>
     <span class="has-text-grey"><%= trade_item.number %></span>
+    <span><%= trade_item.weight %></span>
+    <span>千克</span>
+  <% end %>
   </div>
   <div class="weui-cell__ft"></div>
 </div>
