@@ -3,6 +3,7 @@
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p><time data-controller="time"><%= model.expire_at.to_fs(:iso8601) %></time></p>
 </td>
+<td><%= model.aim_i18n %></td>
 <td>
   <%= link_to({ action: 'blacklist', id: model.id }, text: true) do %>
     <span><%= Trade::PromoteGood.human_attribute_name(:blacklists_count) %></span>

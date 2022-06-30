@@ -1,5 +1,5 @@
 <td><%= model[0] %></td>
-<td>
+<td colspan="2">
   <div class="buttons are-small">
     <%= link_to({ action: 'new', good_type: model[1] }, data: { turbo_frame: 'modal' }, class: 'button is-small is-link') do %>
       <i class="fa-light fa-plus"></i>
@@ -16,4 +16,3 @@
     <span><%= Trade::PromoteGoodType.available.where(good_type: model[1]).where.not(good_id: nil).count %></span>
   <% end %>
 </td>
-<td></td>
