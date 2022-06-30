@@ -1,9 +1,9 @@
 <%= link_to(trade_item.good, class: 'weui-media-box weui-media-box_appmsg', text: true) do %>
   <div class="weui-media-box__hd">
-    <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
+    <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good && trade_item.good.logo.attached? %>
   </div>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
+    <h4 class="weui-media-box__title"><%= trade_item.good_name %></h4>
     <p class="weui-media-box__desc">
       <span class="has-text-danger"><%= trade_item.single_price.to_money.format(html_wrap: true).html_safe %></span>
       <span class="has-text-grey-lighter">x</span>
