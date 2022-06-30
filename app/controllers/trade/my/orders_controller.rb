@@ -27,7 +27,8 @@ module Trade
       @order.compute_promote
 
       if params[:commit].present? && @order.save
-        render 'blank'
+        #render 'blank_success'
+        redirect_to action: 'index'
       else
         render 'blank'
       end

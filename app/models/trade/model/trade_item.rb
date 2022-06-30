@@ -304,11 +304,11 @@ module Trade
 
     def order_ordered!
       self.item_promotes.update(status: 'ordered')
-      self.good.order_done
+      self.good.order_done if good
     end
 
     def order_trial!
-      self.good.order_trial(self)
+      self.good.order_trial(self) if good
     end
 
     def order_paid!
@@ -316,19 +316,19 @@ module Trade
     end
 
     def order_pruned!
-      self.good.order_prune(self)
+      self.good.order_prune(self) if good
     end
 
     def order_part_paid!
-      self.good.order_part_paid(self)
+      self.good.order_part_paid(self) if good
     end
 
     def order_pay_later!
-      self.good.order_pay_later(self)
+      self.good.order_pay_later(self) if good
     end
 
     def order_refund!
-      self.good.order_refund(self)
+      self.good.order_refund(self) if good
     end
 
     def fetch_include?(start_time, finish_time)
