@@ -25,10 +25,10 @@ module Trade
     def create
       @order.agent_id = current_member.id
 
-      if @order.save
+      if params[:commit].present? && @order.save
         render 'create'
       else
-        render 'new', locals: { model: @order }, status: :unprocessable_entity
+        render 'new'
       end
     end
 
@@ -47,7 +47,6 @@ module Trade
 
     def order_params
       p = params.fetch(:order, {}).permit(
-        :weight,
         :state,
         :payment_id,
         :payment_type,
@@ -55,6 +54,7 @@ module Trade
         :from_address_id,
         :amount,
         :note,
+        :payment_strategy_id,
         trade_items_attributes: [:good_name, :number, :weight, :note],
         cart_promotes_attributes: [:promote_id]
       )
