@@ -189,6 +189,16 @@ module Trade
       @payment_strategies = PaymentStrategy.limit(5)
     end
 
+    def _prefixes
+      super do |pres|
+        if params[:action] == 'blank'
+          pres + ['trade/admin/orders/_base']
+        else
+          pres
+        end
+      end
+    end
+
     def order_params
       p = params.fetch(:order, {}).permit(
         :quantity,
