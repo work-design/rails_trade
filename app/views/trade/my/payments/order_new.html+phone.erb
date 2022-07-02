@@ -1,7 +1,8 @@
-<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'create' } do |f| %>
+<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'order_create' } do |f| %>
   <div class="weui-form__control-area">
     <div class="weui-cells__group weui-cells__group_form">
       <div class="weui-cells">
+        <%= hidden_field_tag :order_id, @order.id %>
         <%= render partial: 'form', locals: { f: f } %>
       </div>
     </div>
