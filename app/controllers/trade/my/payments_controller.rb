@@ -20,8 +20,7 @@ module Trade
     end
 
     def order_create
-      @payment = @order.payments.build(type: type, payment_uuid: payment_uuid)
-      @payment.assign_attributes payment_params
+      @payment = @order.payments.build(payment_params)
 
       payment_order = @order.payment_orders.find(&:new_record?)
       payment_order.check_amount = @payment.total_amount
