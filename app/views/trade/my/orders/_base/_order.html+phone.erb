@@ -10,19 +10,20 @@
     <%= render partial: 'trade_item', collection: model.trade_items, as: :trade_item, locals: { model: model } %>
   </div>
   <div class="weui-panel__ft has-border-top">
-    <div class="level m-4">
-      <ul class="weui-media-box__info m-0">
-        <li class="weui-media-box__info__meta">
-          <span>总价：</span>
+    <%= link_to({ action: 'show', id: model.id }, class: 'weui-cell weui-cell_link') do %>
+      <div class="weui-cell__bd"></div>
+      <div class="weui-cell__ft">
+        <span class="is-size-7">
+          <span class="has-text-grey">总价：</span>
           <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
-        </li>
-        <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+        </span>
+        <span class="pl-2 is-size-7">
           <span>共</span>
           <span><%= model.trade_items_count %></span>
           <span>份</span>
-        </li>
-      </ul>
-    </div>
+        </span>
+      </div>
+    <% end %>
     <div class="weui-cell weui-cell_link">
       <div class="weui-cell__bd"></div>
       <div class="weui-cell__ft is-flex">
