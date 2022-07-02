@@ -28,6 +28,7 @@ module Trade
         :type,
         :wallet_id,
         :total_amount,
+        :proof,
         payment_orders_attributes: [:order_id, :check_amount, :state]
       )
     end

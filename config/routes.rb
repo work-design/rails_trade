@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources :payments do
       collection do
         get :dashboard
+        get :order_new
       end
       member do
         patch :analyze

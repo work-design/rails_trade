@@ -1,6 +1,8 @@
 module Trade
   class Admin::PaymentsController < Admin::BaseController
     before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
+    before_action :set_order, only: [:order_new, :order_create]
+    before_action :set_new_payment, only: [:new, :create, :order_new]
 
     def dashboard
     end
@@ -14,29 +16,23 @@ module Trade
     end
 
     def new
-      @payment = Payment.new
-
-      if params[:order_id]
-        @order = Order.find params[:order_id]
-        @payment.total_amount = @order.unreceived_amount
-      end
-      @payment.payment_uuid = UidHelper.nsec_uuid('PAY')
+      @payment.init_uuid
     end
 
     def create
-      if params[:order_id].present?
-        @order = Order.find params[:order_id]
-        @payment = @order.change_to_paid! type: 'Trade::HandPayment', payment_uuid: UidHelper.nsec_uuid('PAY'), params: payment_params
-        #@payment = @order.payments.build(payment_params)
-      else
-        @payment = Payment.new(payment_params)
-      end
-
-      if true#@payment.save
+      if @payment.save
         render 'create'
       else
         render :new, locals: { model: @payment }, status: :unprocessable_entity
       end
+    end
+
+    def order_new
+      @payment.total_amount = @order.unreceived_amount
+    end
+
+    def order_create
+      @payment = @order.change_to_paid! type: 'Trade::HandPayment', params: payment_params
     end
 
     def analyze
@@ -50,6 +46,14 @@ module Trade
     private
     def set_payment
       @payment = Payment.find(params[:id])
+    end
+
+    def set_new_payment
+      @payment = Payment.new(payment_params)
+    end
+
+    def set_order
+      @order = Order.find params[:order_id]
     end
 
     def payment_params
