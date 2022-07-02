@@ -5,7 +5,10 @@
       <% if model.payment_method.present? %>
         <%= link_to t('.show'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light', target: '_blank' %>
       <% end %>
-      <%= link_to t('.checking'), { controller: 'payment_orders', action: 'new', payment_id: model.id }, data: { action: 'common#link' }, class: 'button is-small is-rounded is-light' %>
+      <%= link_to({ controller: 'payment_orders', action: 'new', payment_id: model.id }, data: { action: 'common#link' }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-light fa-check-double"></i>
+        <span class="pl-1"><%= t('trade.admin.payment_orders.new.title') %></span>
+      <% end %>
       <%= link_to({ controller: 'auditor/admin/audits', audited_type: 'Payment', audited_id: model.id }, aria: { label: t('.log') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-light fa-comments"></i>
       <% end %>
