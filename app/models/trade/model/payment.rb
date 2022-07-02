@@ -44,13 +44,15 @@ module Trade
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
-      before_validation do
-        self.payment_uuid = UidHelper.nsec_uuid('PAY') if payment_uuid.blank?
-      end
+      before_validation :init_uuid, if: -> { payment_uuid.blank? }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
       before_create :analyze_payment_method
 
       has_one_attached :proof
+    end
+
+    def init_uuid
+      self.payment_uuid = UidHelper.nsec_uuid('PAY')
     end
 
     def analyze_payment_method
