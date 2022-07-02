@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       collection do
         get :dashboard
         get :order_new
+        post :order_create
       end
       member do
         patch :analyze
@@ -219,7 +220,12 @@ Rails.application.routes.draw do
 
     namespace :my, defaults: { namespace: 'my' } do
       concerns :orderable
-      resources :payments
+      resources :payments do
+        collection do
+          get :order_new
+          post :order_create
+        end
+      end
       resources :payment_methods
       resources :advances do
         member do
