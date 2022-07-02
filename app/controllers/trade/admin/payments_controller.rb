@@ -63,7 +63,8 @@ module Trade
         :comment,
         :buyer_name,
         :buyer_identifier,
-        :buyer_bank
+        :buyer_bank,
+        :proof
       )
       p.merge! default_form_params
     end
