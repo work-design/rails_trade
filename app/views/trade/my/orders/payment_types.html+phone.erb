@@ -11,7 +11,12 @@
         <%= render partial: 'wallet', locals: { wallet: current_wallet } %>
       <% end %>
       </div>
-      <%= render partial: 'wxpay' %>
+      <div class="weui-cells">
+      <% unless @order.all_paid? %>
+        <%= render partial: 'wxpay' %>
+        <%= render 'hand_payment' %>
+      <% end %>
+      </div>
     </div>
   </div>
 </div>
