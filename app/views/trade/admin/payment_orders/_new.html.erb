@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <% unless @payment.all_checked? %>
-        <%= render partial: 'orders', collection: @orders, as: :order %>
+        <%= render partial: 'order', collection: @orders, as: :order %>
       <% end %>
       <%= render partial: 'index', collection: @payment.payment_orders, as: :payment_order %>
     </table>

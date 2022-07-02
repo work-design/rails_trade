@@ -17,9 +17,12 @@
   <td><%= Trade::PaymentOrder.enum_i18n(:state, payment_order.state) %></td>
   <td>
     <% if payment_order.confirmed? %>
-      <%= link_to '撤销', { action: 'cancel', payment_id: @payment, id: payment_order.id }, method: :patch %>
+      <%= button_to({ action: 'cancel', payment_id: @payment, id: payment_order.id }, method: :patch, class: 'button is-small is-warning') do %>
+        <i class="fa-light fa-clock-rotate-left"></i>
+        <span class="pl-1">撤销</span>
+      <% end %>
     <% else %>
-      <%= submit_tag '核销', form: "edit_payment_order_#{payment_order.id}", class: 'button is-small' %>
+      <%= submit_tag '核销', form: "edit_payment_order_#{payment_order.id}", class: 'button is-small is-success' %>
     <% end %>
   </td>
 </tr>

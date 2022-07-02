@@ -1,0 +1,2 @@
+<%= turbo_stream.remove 'add_payment_order' %>
+<%= turbo_stream.after "tr_#{@payment.id}", partial: 'new' %>
