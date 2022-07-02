@@ -20,6 +20,11 @@ module Trade
     end
 
     def order_create
+      @payment = @order.payments.build(type: type, payment_uuid: payment_uuid)
+      @payment.assign_attributes payment_params
+
+      payment_order = @order.payment_orders.find(&:new_record?)
+      payment_order.check_amount = @payment.total_amount
       @payment.save
     end
 
@@ -39,13 +44,14 @@ module Trade
     end
 
     def payment_params
-      params.fetch(:payment, {}).permit(
+      p = params.fetch(:payment, {}).permit(
         :type,
         :wallet_id,
         :total_amount,
         :proof,
         payment_orders_attributes: [:order_id, :check_amount, :state]
       )
+      p.merge! default_form_params
     end
 
   end
