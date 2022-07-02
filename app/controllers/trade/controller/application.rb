@@ -14,6 +14,8 @@ module Trade
         options.merge! default_form_params
         options.merge! member_id: current_client.id if current_client
         @current_carts = current_user.carts.where(options)
+      else
+        @current_carts = Cart.none
       end
       @current_carts
     end
