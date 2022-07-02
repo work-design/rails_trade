@@ -7,7 +7,11 @@
     <span><%= model.payment_status_i18n %></span>
   <% end %>
   <div class="weui-panel__bd">
+  <% if model.from_address_id.present? %>
+    <%= render partial: 'ship_info', locals: { model: model } %>
+  <% else %>
     <%= render partial: 'trade_item', collection: model.trade_items, as: :trade_item, locals: { model: model } %>
+  <% end %>
   </div>
   <div class="weui-panel__ft has-border-top">
     <%= link_to({ action: 'show', id: model.id }, class: 'weui-cell weui-cell_link') do %>
