@@ -1,6 +1,4 @@
-<div class="box is-radiusless has-text-centered">
-  <span class="has-text-weight-bold"><%= @order.payment_status_i18n %></span>
-</div>
+<%= render 'top_bar' %>
 
 <%= render partial: 'order', locals: { model: @order } %>
 
