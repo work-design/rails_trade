@@ -118,6 +118,7 @@ module Trade
 
     def sync_from_current_cart
       self.aim = current_cart.aim
+      self.good_type ||= current_cart.good_type
     end
 
     def sync_from_member

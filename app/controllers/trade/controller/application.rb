@@ -28,6 +28,7 @@ module Trade
         options.merge! default_form_params
         options.merge! member_id: current_member.id if current_member
         @current_cart = current_user.carts.find_or_create_by(options)
+        @current_cart
       end
       logger.debug "\e[33m  Current Trade cart: #{@current_cart&.id}  \e[0m"
       @current_cart
