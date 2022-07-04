@@ -29,6 +29,13 @@ GIT
     rails_extend (1.0.1)
       rails (>= 5.0)
 
+GIT
+  remote: https://github.com/work-design/rails_notice.git
+  revision: 9466b5ecddd76cb3b61d71db5d6b14394575c4d5
+  specs:
+    rails_notice (1.0.3)
+      rails_extend
+
 PATH
   remote: .
   specs:
@@ -191,8 +198,6 @@ GEM
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.6-x86_64-linux)
-      racc (~> 1.4)
     pg (1.4.1)
     propshaft (0.6.4)
       actionpack (>= 7.0.0)
@@ -224,8 +229,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
-    rails_notice (0.1.0)
-      rails (>= 5.0.1)
     railties (7.0.3)
       actionpack (= 7.0.3)
       activesupport (= 7.0.3)
@@ -272,6 +275,7 @@ DEPENDENCIES
   rails_com!
   rails_design!
   rails_extend!
+  rails_notice!
   rails_trade!
   sdoc
 
