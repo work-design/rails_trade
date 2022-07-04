@@ -1,12 +1,19 @@
 <%= link_to({ controller: 'packages', action: 'show', order_id: @order.id, id: package.id }, class: 'weui-media-box weui-media-box_appmsg', text: true) do %>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title"><%= package.id %></h4>
-    <p class="weui-media-box__desc">
-      <span><%= package.state_i18n %></span>
-    </p>
+    <h4 class="weui-media-box__title">
+      <span class="has-text-grey"><%= Ship::Package.human_attribute_name(:id) %>：</span>
+      <span><%= package.id %></span>
+    </h4>
     <p class="weui-media-box__desc">
       <span class="has-text-grey"><%= Ship::Package.human_attribute_name(:expected_on) %></span>
       <span><%= package.expected_on %></span>
+      <span class="tag"><%= package.state_i18n %></span>
+    </p>
+    <p>
+      <span class="has-text-grey">包含物品：</span>
+      <% package.packageds.includes(:trade_item).each do |packaged| %>
+        <span><%= packaged.trade_item.good_name %></span>
+      <% end %>
     </p>
   </div>
 <% end %>
