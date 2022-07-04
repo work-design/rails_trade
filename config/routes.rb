@@ -19,12 +19,14 @@ Rails.application.routes.draw do
         get :pay
         get :payment_types
         get :payment_type
+        get :logs
         get 'cancel' => :edit_cancel
         put 'cancel' => :update_cancel
         put :refund
         patch :cancel
         get :success
       end
+      resources :packages
     end
     resources :trade_items do
       collection do

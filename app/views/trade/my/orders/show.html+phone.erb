@@ -2,6 +2,8 @@
 
 <%= render partial: 'order', locals: { model: @order } %>
 
+<%= render partial: 'packages', locals: { model: @order } %>
+
 <%= render partial: 'order_items', locals: { model: @order } %>
 
 <div class="weui-panel">

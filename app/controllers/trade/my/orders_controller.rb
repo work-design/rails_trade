@@ -163,6 +163,10 @@ module Trade
       @order.apply_for_refund
     end
 
+    def logs
+
+    end
+
     def cancel
       @order.state = 'canceled'
       @order.save
