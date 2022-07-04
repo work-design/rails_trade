@@ -54,7 +54,6 @@ Rails.application.routes.draw do
       end
       member do
         patch :refund
-        patch :actions
       end
       resources :order_payments
     end
