@@ -22,14 +22,18 @@
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:item_amount) %></label>
       <span class="weui-form-preview__value"><%= model.item_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
+    <% if model.overall_additional_amount > 0 %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:overall_additional_amount) %></label>
       <span class="weui-form-preview__value"><%= model.overall_additional_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
+    <% end %>
+    <% if model.overall_reduced_amount > 0 %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:overall_reduced_amount) %></label>
       <span class="weui-form-preview__value"><%= model.overall_reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
+    <% end %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
       <span class="weui-form-preview__value"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
