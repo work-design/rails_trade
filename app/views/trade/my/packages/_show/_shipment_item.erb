@@ -1,0 +1,10 @@
+<ul class="weui-steps weui-steps_vertical">
+  <li class="weui-steps__item">
+    <div class="weui-steps__item__inner">
+      <span class="weui-steps__item__title"><%= shipment_item.shipment.line.name %></span>
+      <span class="weui-steps__item__desc">
+            <time data-controller="time"><%= @order.created_at.to_fs(:iso8601) %></time>
+          </span>
+    </div>
+  </li>
+</ul>
