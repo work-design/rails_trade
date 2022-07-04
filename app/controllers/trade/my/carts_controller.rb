@@ -45,7 +45,7 @@ module Trade
 
     private
     def set_cart
-      @cart = current_carts.find params[:id]
+      @cart = current_carts.unscope(where: :organ_id).find params[:id]
     end
 
     def set_invest_cart
@@ -53,7 +53,7 @@ module Trade
     end
 
     def set_rent_cart
-      @cart = current_carts.find_by(good_type: 'Ship::BoxSpecification', aim: 'rent')
+      @cart = current_carts.unscope(where: :organ_id).find_by(good_type: 'Ship::BoxSpecification', aim: 'rent')
     end
 
     def set_purchase
