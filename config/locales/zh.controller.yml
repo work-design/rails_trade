@@ -50,6 +50,8 @@ zh:
           show: 支付方式
           analyze: 分析支付方式
           adjust: 平账
+        order_new:
+          title: 后台支付
       payment_orders:
         new:
           title: 核销
