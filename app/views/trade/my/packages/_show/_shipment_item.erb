@@ -1,11 +1,20 @@
 <div class="weui-panel">
   <div class="weui-panel__hd">
+    <i class="fa-solid fa-list-check has-text-success-dark pr-2"></i>
     <span><%= shipment_item.shipment.line.name %></span>
     <span class="tag"><%= shipment_item.state_i18n %></span>
   </div>
   <div class="weui-panel__bd pl-4 pt-4">
     <ul class="weui-steps weui-steps_vertical">
-      <li class="weui-steps__item">
+      <li class="weui-steps__item weui-steps__item_success">
+        <div class="weui-steps__item__inner">
+          <span class="weui-steps__item__title"><%= Ship::ShipmentItem.human_attribute_name(:unloaded_at) %></span>
+          <span class="weui-steps__item__desc">
+            <time data-controller="time"><%= shipment_item.unloaded_at.to_fs(:iso8601) %></time>
+          </span>
+        </div>
+      </li>
+      <li class="weui-steps__item weui-steps__item_success">
         <div class="weui-steps__item__inner">
           <span class="weui-steps__item__title"><%= Ship::ShipmentItem.human_attribute_name(:loaded_at) %></span>
           <span class="weui-steps__item__desc">
