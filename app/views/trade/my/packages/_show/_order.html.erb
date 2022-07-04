@@ -1,0 +1,14 @@
+<div class="weui-panel">
+  <div class="weui-panel__bd pl-4 pt-4">
+    <ul class="weui-steps weui-steps_vertical">
+      <li class="weui-steps__item">
+        <div class="weui-steps__item__inner">
+          <span class="weui-steps__item__title">您提交了订单，系统开始处理</span>
+          <span class="weui-steps__item__desc">
+            <time data-controller="time"><%= @order.created_at.to_fs(:iso8601) %></time>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
