@@ -7,10 +7,10 @@
     <ul class="weui-steps weui-steps_vertical">
       <li class="weui-steps__item">
         <div class="weui-steps__item__inner">
-          <span class="weui-steps__item__title"><%=  %></span>
+          <span class="weui-steps__item__title"><%= Ship::ShipmentItem.human_attribute_name(:loaded_at) %></span>
           <span class="weui-steps__item__desc">
-        <time data-controller="time"><%= shipment_item.created_at.to_fs(:iso8601) %></time>
-      </span>
+            <time data-controller="time"><%= shipment_item.loaded_at.to_fs(:iso8601) %></time>
+          </span>
         </div>
       </li>
     </ul>
