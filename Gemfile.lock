@@ -36,6 +36,13 @@ GIT
     rails_notice (1.0.3)
       rails_extend
 
+GIT
+  remote: https://github.com/work-design/rails_org.git
+  revision: 6f100faf11718cf6f596acf720290098b6364178
+  specs:
+    rails_org (0.0.1)
+      rails_com (~> 1.2)
+
 PATH
   remote: .
   specs:
@@ -198,6 +205,8 @@ GEM
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri (1.13.6-x86_64-linux)
+      racc (~> 1.4)
     pg (1.4.1)
     propshaft (0.6.4)
       actionpack (>= 7.0.0)
@@ -276,6 +285,7 @@ DEPENDENCIES
   rails_design!
   rails_extend!
   rails_notice!
+  rails_org!
   rails_trade!
   sdoc
 
