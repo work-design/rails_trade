@@ -12,7 +12,7 @@
     <%= link_to t('trade.admin.refunds.index.title'), { controller: 'refunds', order_id: model.id }, class: 'button is-link is-small' %>
   <% end %>
   <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
-    <%= link_to t('.add_payment'), { controller: 'payments', action: 'new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
+    <%= link_to t('trade.panel.payments.order_new.title'), { controller: 'payments', action: 'order_new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
   <% end %>
 </td>
 <td><%= model.state_i18n %></td>

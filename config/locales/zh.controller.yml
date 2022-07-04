@@ -169,6 +169,9 @@ zh:
       orders:
         index:
           title: 平台订单
+      payments:
+        order_new:
+          title: 添加支付流水
       units:
         index:
           title: 单位设置
