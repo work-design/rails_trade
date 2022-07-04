@@ -111,12 +111,11 @@ module Trade
 
     def find_trade_item(good_id:, **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
-      args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
-      args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
-      args.reject!(&->(_, v){ v.blank? })
+      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
+      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
       args.stringify_keys!
 
-      trade_items.find(&->(i){ i.attributes.slice(*args.keys).reject(&->(_, v){ v.blank? }) == args })
+      trade_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
     def organ_trade_item(good_id:, **options)
