@@ -36,6 +36,9 @@
             <span class="tag is-right"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
           </div>
           <span style="text-decoration: line-through"><%= model.good.price.to_money.format(html_wrap: true).html_safe %></span>
+        <% elsif model.aim_rent? %>
+          <span><%= Trade::TradeItem.human_attribute_name(:rent_start_at) %>：</span>
+          <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
         <% else %>
           <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
         <% end %>
