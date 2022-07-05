@@ -9,15 +9,10 @@ module Trade
     def current_carts
       return @current_carts if @current_carts
 
-      if current_user
-        options = {}
-        options.merge! default_form_params
-        options.merge! member_id: current_client.id if current_client
-        @current_carts = current_user.carts.where(options)
-      else
-        @current_carts = Cart.none
-      end
-      @current_carts
+      options = {}
+      options.merge! default_form_params
+      options.merge! client_params
+      @current_carts = Cart.where(options)
     end
 
     def current_cart
