@@ -25,13 +25,6 @@ module Trade
       @order.address_id ||= params[:address_id]
       @order.trade_items.build
       @order.compute_promote
-
-      if params[:commit].present? && @order.save
-        #render 'blank_success'
-        redirect_to action: 'index'
-      else
-        render 'blank'
-      end
     end
 
     def create_blank
@@ -55,7 +48,6 @@ module Trade
 
     def create
       @order = current_user.orders.build(order_params)
-      @order.sync_from_current_cart
 
       if @order.save
         render 'create'

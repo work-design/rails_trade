@@ -2,14 +2,20 @@
   <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
     <%= link_to({ controller: '/factory/productions' }, class: 'px-4') do %>
       <i class="fa-regular fa-fw fa-angle-left"></i>
-    <% end %>
+    <% end if @cart.good_type == 'Factory::Production' %>
+    <%= link_to({ controller: '/ship/box_specifications' }, class: 'px-4') do %>
+      <i class="fa-regular fa-fw fa-angle-left"></i>
+    <% end if @cart.good_type == 'Ship::BoxSpecification' && @cart.aim == 'use' %>
+    <%= link_to({ controller: '/ship/box_specifications', action: 'rent' }, class: 'px-4') do %>
+      <i class="fa-regular fa-fw fa-angle-left"></i>
+    <% end if @cart.good_type == 'Ship::BoxSpecification' && @cart.aim == 'rent' %>
     <span class="weui-title">
       <span class="mr-1"><%= t('.title') %></span>
       <%= link_to(action: 'list', return_url: url_for) do %>
-        <% if current_cart.member %>
+        <% if @cart.member %>
           <span class="weui-badge weui-badge__primary">
             <i class="fa-solid fa-building-user"></i>
-            <span><%= current_cart.member.organ.name %></span>
+            <span><%= @cart.member.organ.name %></span>
           </span>
         <% else %>
           <span class="weui-badge">
