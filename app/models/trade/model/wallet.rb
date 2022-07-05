@@ -30,10 +30,12 @@ module Trade
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
 
-      before_validation do
-        self.default = wallet_template.default
-      end
+      before_validation :init_from_template
       after_save :set_default, if: -> { default? && saved_change_to_default? }
+    end
+
+    def init_from_template
+      self.default = wallet_template.default
     end
 
     def compute_expense_amount
@@ -45,7 +47,7 @@ module Trade
     end
 
     def set_default
-      self.class.where.not(id: self.id).where(cart_id: cart_id, default: true).update_all(default: false)
+      self.class.where.not(id: self.id).where(user_id: user_id, member_id: member_id, default: true).update_all(default: false)
     end
 
   end
