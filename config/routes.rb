@@ -45,6 +45,15 @@ Rails.application.routes.draw do
       end
     end
     resources :promote_goods, only: [:index, :show]
+    resources :card_templates do
+      member do
+        get :code
+      end
+    end
+    resources :wallet_templates
+    resources :wallets do
+      resources :wallet_logs, only: [:index]
+    end
   end
   concern :order_admin do
     resources :orders do
@@ -240,15 +249,7 @@ Rails.application.routes.draw do
         resources :card_purchases
         resources :card_logs, only: [:index]
       end
-      resources :card_templates do
-        member do
-          get :code
-        end
-      end
-      resources :wallet_templates
-      resources :wallets do
-        resources :wallet_logs, only: [:index]
-      end
+
       resources :payouts, only: [:index, :create] do
         collection do
           get :list

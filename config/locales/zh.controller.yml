@@ -154,6 +154,9 @@ zh:
       orders:
         index:
           title: 企业订单
+      promote_goods:
+        index:
+          title: 优惠券
     me:
       promote_goods:
         index:
