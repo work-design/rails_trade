@@ -2,15 +2,15 @@
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells weui-cells_radio">
-        <label class="weui-cell weui-cell_active weui-check__label" for="member_id">
+        <label class="weui-cell weui-cell_active weui-check__label" for="member_id_">
           <span class="weui-cell__hd is-several">
             <span class="weui-badge">个人版</span>
           </span>
           <span class="weui-cell__bd"></span>
-          <span class="weui-cell__ft" data-controller="input">
+          <span class="weui-cell__ft" data-controller="input" data-input-force-value="true">
             <%= form_with theme: nil, url: { controller: 'org/my/authorized_tokens', action: 'update' }, method: :patch do |f| %>
               <%= f.hidden_field :return_url, value: params[:return_url] %>
-              <%= f.radio_button :member_id, nil, checked: current_client.nil?, class: 'weui-check', data: { action: 'click->input#form' } %>
+              <%= f.radio_button :member_id, '', checked: current_client.nil?, class: 'weui-check', data: { action: 'click->input#form' } %>
               <span class="weui-icon-checked"></span>
             <% end %>
           </span>
