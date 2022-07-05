@@ -37,16 +37,19 @@ module Trade
       scope :temporary, ->{ where(temporary: true) }
       scope :formal, ->{ where.not(temporary: true) }
 
-      before_validation :sync_from_card_template
+      before_validation :init_uuid, if: -> { card_uuid.blank? }
+      before_validation :sync_from_card_template, if: -> { card_template_id.present? }
       after_commit :recompute_price, on: [:create, :destroy]
     end
 
+    def init_uuid
+      self.card_uuid = UidHelper.nsec_uuid('CARD')
+    end
+
     def sync_from_card_template
-      self.card_uuid ||= UidHelper.nsec_uuid('CARD')
-      if card_template
-        self.organ_id ||= card_template.organ_id
-        self.effect_at ||= Time.current
-      end
+      return unless card_template
+      self.organ_id ||= card_template.organ_id
+      self.effect_at ||= Time.current
     end
 
     def recompute_price
