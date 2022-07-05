@@ -99,6 +99,7 @@ module Trade
       after_save :order_pay_later!, if: -> { saved_change_to_status? && ['pay_later'].include?(status) }
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
       after_destroy :order_pruned!
+      after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
 
       acts_as_notify(:default, only: [:good_name, :number, :amount, :note], methods: [:order_uuid, :cart_organ])
@@ -142,17 +143,22 @@ module Trade
 
     def compute_price
       return unless good
+      compute_single_price
+      self.original_amount = self.single_price * self.number
+      self.amount = original_amount
+      self.advance_amount = good.advance_price
+    end
+
+    def compute_single_price
+      return if self.single_price > 0 || aim_rent?
       min = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).min
       if min.present?
         self.vip_code = min[0]
         self.single_price = min[1]
       else
         self.vip_code = nil
-        self.single_price = good.price unless self.single_price > 0
+        self.single_price = good.price
       end
-      self.original_amount = self.single_price * self.number
-      self.amount = original_amount
-      self.advance_amount = good.advance_price
     end
 
     def compute_price!

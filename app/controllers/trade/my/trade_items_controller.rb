@@ -1,14 +1,9 @@
 module Trade
   class My::TradeItemsController < My::BaseController
     before_action :set_trade_item, only: [:show, :promote, :update, :toggle, :destroy]
-    before_action :set_new_trade_item, only: [:create, :cost, :trial]
+    before_action :set_new_trade_item, only: [:create, :trial]
 
     def create
-      @trade_item.save
-    end
-
-    def cost
-      @trade_item.single_price = @trade_item.good.cost
       @trade_item.save
     end
 
