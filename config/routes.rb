@@ -84,12 +84,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :factory, defaults: { business: 'factory' } do
-    namespace :buy, defaults: { namespace: 'buy' } do
-      concerns :orderable
-    end
-  end
-
   namespace :trade, defaults: { business: 'trade' } do
     resources :payments, only: [:index] do
       collection do
