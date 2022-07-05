@@ -14,7 +14,9 @@
   <% end %>
   </div>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title"><%= model.good.name %></h4>
+    <h4 class="weui-media-box__title">
+      <span><%= model.good.name %></span>
+    </h4>
     <ul class="weui-media-box__info">
     <% if model.good.respond_to?(:parts) %>
       <% model.good.parts.each do |part| %>

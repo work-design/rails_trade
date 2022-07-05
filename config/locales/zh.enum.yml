@@ -120,3 +120,7 @@ zh:
           weight: 总重量
           volume: 体积
           duration: 时长
+      trade/cart:
+        aim:
+          rent: 租用
+          use: 买入
