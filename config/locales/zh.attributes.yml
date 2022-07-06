@@ -80,6 +80,7 @@ zh:
         produce_plan_id: 生产计划
         status: 状态
         rent_start_at: 起租时间
+        image: 图片
       trade/trade_promote:
         amount: 金额
       trade/payment:
