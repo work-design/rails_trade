@@ -4,7 +4,7 @@
     <span><%= t('trade.admin.title') %></span>
     <i class="fa-solid dropdown"></i>
   </a>
-  <div class="menu-list">
+  <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
     <%= link_to t('trade.admin.trade_items.index.title'), { controller: 'trade/admin/trade_items' }, class: active_helper(controllers: 'trade_items', active: 'is-active') %>
     <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
@@ -18,7 +18,7 @@
     <span>促销</span>
     <i class="fa-solid dropdown"></i>
   </a>
-  <div class="menu-list">
+  <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, class: active_helper(controllers: ['promotes', 'promote_charges', 'promote_good_types', 'promote_good_users'], active: 'is-active') %>
     <%= link_to t('trade.admin.promote_goods.index.title'), { controller: 'trade/admin/promote_goods' }, class: active_helper(controllers: ['promote_goods'], active: 'is-active') %>
   </div>
@@ -29,7 +29,7 @@
     <span>会员</span>
     <i class="fa-solid dropdown"></i>
   </a>
-  <div class="menu-list">
+  <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.card_templates.index.title'), { controller: 'trade/admin/card_templates' }, class: active_helper(controllers: ['card_templates', 'cards', 'advances', 'purchases', 'privileges', 'card_promotes'], active: 'is-active') %>
     <%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'trade/admin/wallet_templates' }, class: active_helper(controllers: ['wallet_templates', 'wallets'], active: 'is-active') %>
     <%= link_to t('trade.admin.payouts.index.title'), { controller: 'trade/admin/payouts' }, class: active_helper(controllers: 'payouts', active: 'is-active') %>
@@ -41,7 +41,7 @@
     <span>配置</span>
     <i class="fa-solid dropdown"></i>
   </a>
-  <div class="menu-list">
+  <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.payment_strategies.index.title'), { controller: 'trade/admin/payment_strategies' }, class: active_helper(controllers: ['payment_strategies'], active: 'is-active') %>
   </div>
 </div>
