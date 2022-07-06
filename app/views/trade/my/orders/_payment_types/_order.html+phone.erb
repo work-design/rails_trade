@@ -8,10 +8,15 @@
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:received_amount) %></label>
       <span class="weui-form-preview__value"><%= @order.received_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
+    <% @order.payment_orders.each do |payment_order| %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label pl-4"><%= payment_order.payment.type_i18n %></label>
+      <span class="weui-form-preview__value"><%= payment_order.check_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <% end %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
       <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
   </div>
 </div>
-

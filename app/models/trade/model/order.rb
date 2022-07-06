@@ -27,7 +27,7 @@ module Trade
       belongs_to :payment_strategy, optional: true
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
-      has_many :payment_orders, dependent: :destroy_async
+      has_many :payment_orders, -> { includes(:payment) }, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods

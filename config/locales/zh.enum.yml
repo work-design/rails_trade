@@ -35,6 +35,7 @@ zh:
           Trade::PaypalPayment: Paypal
           Trade::WxpayPayment: 微信支付
           Trade::AlipayPayment: 支付宝
+          Trade::WalletPayment: 余额支付
         state:
           init: 未核销
           part_checked: 部分核销
