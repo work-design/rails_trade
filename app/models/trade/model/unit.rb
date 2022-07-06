@@ -16,7 +16,7 @@ module Trade
 
       validates :code, uniqueness: { scope: :metering }
 
-      after_update :set_default, if: -> { default? && saved_change_to_default? }
+      after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
     def set_default
