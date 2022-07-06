@@ -5,7 +5,7 @@ module Trade
       Alipay2::Service.trade_app_pay_params(
         subject: self.subject,
         out_trade_no: self.uuid,
-        total_amount: self.remaining_amount.to_s
+        total_amount: self.unreceived_amount.to_s
       )
     end
 

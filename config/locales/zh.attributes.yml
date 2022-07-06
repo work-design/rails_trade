@@ -49,7 +49,7 @@ zh:
         overall_reduced_amount: 优惠金额
         amount: 金额
         received_amount: 已收金额
-        unreceived_amount: 未收金额
+        unreceived_amount: 待支付
         currency: 币种
         user_id: 购买者
         extra: 附加信息

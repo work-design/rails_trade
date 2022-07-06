@@ -21,10 +21,6 @@ module Trade
       self.amount.to_d - self.received_amount.to_d
     end
 
-    def remaining_amount
-      amount - received_amount
-    end
-
     def init_received_amount
       self.payment_orders.confirmed.sum(:check_amount)
     end

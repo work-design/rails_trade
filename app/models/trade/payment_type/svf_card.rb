@@ -8,7 +8,7 @@ module Trade
 
       self.class.transaction do
         params = {
-          total_amount: self.remaining_amount,
+          total_amount: self.unreceived_amount,
           adjust_amount: self.amount,
           user_id: self.user_id
         }

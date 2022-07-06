@@ -52,7 +52,7 @@ module Trade
         out_trade_no: self.uuid,
         notify_url: Rails.application.routes.url_for(host: app.host, controller: 'trade/payments', action: 'wxpay_notify'),
         amount: {
-          total: (self.remaining_amount * 100).to_i,
+          total: (self.unreceived_amount * 100).to_i,
           currency: 'CNY'
         }
       }
