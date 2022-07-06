@@ -23,10 +23,12 @@
             <span>个人版</span>
           </span>
         <% end %>
+        <% if @cart.aim %>
         <span class="weui-badge">
           <i class="fa-solid fa-hand-holding-box"></i>
           <span><%= @cart.aim_i18n %></span>
         </span>
+        <% end %>
       <% end %>
     </span>
     <i class="px-4" style="width: 48.75px"></i>
