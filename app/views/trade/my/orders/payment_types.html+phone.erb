@@ -1,3 +1,4 @@
+<%= render 'top_bar' %>
 <%= render 'order' %>
 
 <div class="weui-panel">
@@ -15,16 +16,5 @@
       <% end %>
       </div>
     </div>
-  </div>
-</div>
-<div class="weui-bottom-fixed-opr-page">
-  <div class="weui-bottom-fixed-opr-page__content">
-    <% if @order.all_paid? %>
-      <p class="has-text-centered">已支付 <%= @order.received_amount %></p>
-      <%= link_to '查看订单', { action: 'show', id: @order.id }, class: 'weui-btn weui-btn_primary' %>
-    <% end %>
-  </div>
-  <div class="weui-bottom-fixed-opr">
-    <%= link_to '订单列表', { action: 'index' }, class: 'weui-btn weui-btn_primary' %>
   </div>
 </div>
