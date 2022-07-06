@@ -36,9 +36,7 @@
         <%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
         <%= f.hidden_field :organ_id, value: current_organ.id, form: 'new_order' %>
         <%= f.text_field :good_name, form: 'new_order' %>
-        <%= f.number_field :single_price, form: 'new_order' %>
         <%= f.number_field :number, form: 'new_order' %>
-        <%= f.number_field :amount, form: 'new_order' %>
         <%= f.number_field :weight, form: 'new_order' %>
         <%= f.number_field :volume, form: 'new_order' %>
       <% end %>
