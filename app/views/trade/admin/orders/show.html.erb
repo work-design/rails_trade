@@ -19,15 +19,5 @@
     </td>
     <td></td>
   </tr>
-  <tr>
-    <td><%= Trade::Order.human_attribute_name(:address_id) %></td>
-    <td colspan="4">
-      <%= @order.address %>
-    </td>
-    <td>
-      <%= link_to({ action: 'edit', id: @order.id }, aria: { label: t('.edit') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-light fa-pencil"></i>
-      <% end %>
-    </td>
-  </tr>
+  <%= render 'address' %>
 </table>
