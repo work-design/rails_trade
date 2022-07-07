@@ -55,7 +55,7 @@ module Trade
         :amount,
         :note,
         :payment_strategy_id,
-        trade_items_attributes: [:good_name, :number, :weight, :note],
+        trade_items_attributes: [:organ_id, :good_type, :good_name, :number, :weight, :volume, :note, :image],
         cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params
