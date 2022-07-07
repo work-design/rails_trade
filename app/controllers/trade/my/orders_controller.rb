@@ -197,6 +197,7 @@ module Trade
         :payment_id,
         :payment_type,
         :address_id,
+        :from_address_id,
         :note,
         :current_cart_id,
         trade_items_attributes: {}
