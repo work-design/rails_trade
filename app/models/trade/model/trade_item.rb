@@ -6,7 +6,7 @@ module Trade
       attribute :uuid, :string
       attribute :good_name, :string
       attribute :number, :integer, default: 1, comment: '数量'
-      attribute :weight, :integer, default: 0, comment: '重量'
+      attribute :weight, :integer, default: 1, comment: '重量'
       attribute :duration, :integer, default: 0, comment: '占用时长'
       attribute :volume, :integer, default: 0, comment: '体积'
       attribute :amount, :decimal, default: 0
