@@ -8,7 +8,9 @@
         data-wechat-apis-value="<%= ['closeWindow'].to_json %>"
         data-action="wechat#close"
       >联系客服</button>
-      <%= link_to '支付', { action: 'payment_types', id: @order.id }, class: 'weui-btn weui-btn_mini weui-btn_primary' unless @order.all_paid? %>
+      <%= link_to({ action: 'payment_types', id: @order.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
+        <span>支付</span>
+      <% end if @order.can_pay? %>
     </div>
   </div>
 </div>
