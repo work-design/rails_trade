@@ -1,9 +1,17 @@
 <div class="weui-panel">
   <%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between is-size-7') do %>
-    <span>
-      <span class="has-text-grey"><%= Trade::Order.human_attribute_name(:created_at) %>：</span>
-      <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
-    </span>
+    <div>
+      <div>
+        <span class="has-text-grey"><%= Trade::Order.human_attribute_name(:created_at) %>：</span>
+        <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
+      </div>
+      <% if model.maintain %>
+      <div>
+        <span class="has-text-grey">下单人：</span>
+        <span><%= model.maintain.member.name %></span>
+      </div>
+      <% end %>
+    </div>
     <span><%= model.payment_status_i18n %></span>
   <% end %>
   <div class="weui-panel__bd">
