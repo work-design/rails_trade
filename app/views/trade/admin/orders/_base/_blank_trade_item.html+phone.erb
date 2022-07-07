@@ -10,8 +10,10 @@
   <% if trade_item.good_name.present? %>
     <span class="has-text-grey">x</span>
     <span class="has-text-grey"><%= trade_item.number %></span>
-    <span><%= trade_item.weight %></span>
-    <span>千克</span>
+    <div class="tag has-text-grey">
+      <span><%= trade_item.weight %></span>
+      <span class="pl-1">千克</span>
+    </div>
   <% end %>
   </div>
   <div class="weui-cell__ft"></div>
