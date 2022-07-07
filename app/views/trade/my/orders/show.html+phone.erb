@@ -6,18 +6,11 @@
 
 <%= render partial: 'order_items', locals: { model: @order } %>
 
-<div class="weui-panel">
-
-  <div class="weui-panel__ft">
-    <div class="weui-cell weui-cell_link">
-      <button
-        class="weui-btn weui-btn_mini weui-btn_default"
-        data-controller="wechat"
-        data-wechat-options-value="<%= current_wechat_app.js_config(request.original_url).to_json %>"
-        data-wechat-apis-value="<%= ['closeWindow'].to_json %>"
-        data-action="wechat#close"
-      >联系客服</button>
-      <%= link_to '支付', { action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary' unless model.all_paid? %>
-    </div>
+<div class="weui-panel" data-controller="empty">
+  <div class="weui-panel__hd">支付</div>
+  <div class="weui-panel__bd" data-empty-target="content">
+    <%= render partial: 'payment', collection: @order.payment_orders, as: :model %>
   </div>
 </div>
+
+<%= render 'buttons' %>
