@@ -56,9 +56,9 @@ module Trade
       }, _default: 'unpaid'
 
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
-      before_validation :sum_amount, if: :new_record?
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
+      after_validation :sum_amount, if: :new_record? # 需要等 trade_items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       after_create_commit :confirm_ordered!
     end
