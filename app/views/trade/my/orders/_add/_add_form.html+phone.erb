@@ -8,15 +8,7 @@
 
 <div class="weui-panel mt-0">
   <div class="weui-panel__bd">
-    <div class="weui-media-box weui-media-box_appmsg">
-      <div class="weui-media-box__hd">
-        <%= image_tag ef.object.good.logo, class: 'weui-media-box__thumb' if ef.object.good.logo.attached? %>
-      </div>
-      <div class="weui-media-box__bd">
-        <h4 class="weui-media-box__title"><%= ef.object.good.name %></h4>
-        <p class="weui-media-box__desc"><%= ef.object.amount.to_money.format(html_wrap: true).html_safe %></p>
-      </div>
-    </div>
+    <%= render partial: 'trade_item', collection: @order.trade_items, as: :trade_item %>
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
       <ul class="weui-media-box__info m-0">
         <li class="weui-media-box__info__meta">
