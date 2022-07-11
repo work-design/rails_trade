@@ -17,6 +17,7 @@ module Trade
     end
 
     def order_new
+      @payment.total_amount = @order.unreceived_amount
     end
 
     def order_create
