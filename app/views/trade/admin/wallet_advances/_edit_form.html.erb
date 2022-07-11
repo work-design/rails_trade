@@ -1,0 +1,5 @@
+<%= form_with model: @wallet_advance, url: { action: 'update' } do |f| %>
+  <%= render 'error_messages', target: f.object %>
+  <%= f.text_area :note %>
+  <%= f.submit %>
+<% end %>

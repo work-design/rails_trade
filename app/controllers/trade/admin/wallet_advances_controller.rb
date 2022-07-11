@@ -28,7 +28,7 @@ module Trade
     end
 
     def set_wallet_advance
-      @wallet_advance = CardAdvance.find(params[:id])
+      @wallet_advance = @wallet.wallet_advances.find(params[:id])
     end
 
     def wallet_advance_params
