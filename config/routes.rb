@@ -4,7 +4,6 @@ Rails.application.routes.draw do
       collection do
         match :blank, via: [:get, :post]
         post :add
-        get :refresh
         post :trial
       end
       member do

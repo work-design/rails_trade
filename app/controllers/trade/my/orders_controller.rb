@@ -33,11 +33,6 @@ module Trade
       end
     end
 
-    def refresh
-      @order = current_user.orders.build(myself: true)
-      @order.assign_attributes order_params
-    end
-
     def trial
     end
 
