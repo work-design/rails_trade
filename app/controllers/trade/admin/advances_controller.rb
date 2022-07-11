@@ -33,6 +33,7 @@ module Trade
         :state,
         :apple_product_id,
         :wallet_template_id,
+        :card_template_id,
         :open,
         :logo
       )
