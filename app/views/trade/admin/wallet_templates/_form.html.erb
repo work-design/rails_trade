@@ -1,5 +1,5 @@
 <%= f.text_field :name, required: true %>
 <%= f.text_field :code, required: true %>
 <%= f.text_area :description %>
-<%= f.select :currency, options_for_select(Trade::ExchangeRate.currency_options, f.object.currency) %>
+<%= f.select :unit, options_for_select(Trade::WalletTemplate.options_i18n(:unit), f.object.unit) %>
 <%= f.file_field :logo %>

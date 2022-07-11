@@ -1,12 +1,12 @@
 en:
   activerecord:
     enum:
-      order:
+      trade/order:
         payment_type:
           paypal: Paypal
           alipay: Alipay
           stripe: Stripe
-      payment:
+      trade/payment:
         type:
           HandPayment: Hand Record
           BankPayment: Bank Record
@@ -16,11 +16,11 @@ en:
           part_checked: 部分核销
           all_checked: 全部核销
           abusive_checked: 问题核销
-      payment_order:
+      trade/payment_order:
         state:
           init: 预核销
           confirmed: 已核销
-      promote:
+      trade/promote:
         type:
           QuantityPromote: 总重量
           NumberPromote: 购买件数
@@ -28,7 +28,7 @@ en:
         scope:
           total: 全部应用
           single: 单独应用
-      promote_charge:
+      trade/promote_charge:
         type:
           DiscountPromoteCharge: Discount
           FinalPromoteCharge: Final

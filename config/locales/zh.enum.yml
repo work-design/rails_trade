@@ -125,3 +125,7 @@ zh:
         aim:
           rent: 租用
           use: 买入
+      trade/wallet_template:
+        unit:
+          currency: 默认货币
+          custom: 自定义

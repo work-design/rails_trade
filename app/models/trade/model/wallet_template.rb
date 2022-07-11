@@ -5,11 +5,17 @@ module Trade
     included do
       attribute :name, :string
       attribute :description, :string
-      attribute :currency, :string, default: 'CNY'
+      attribute :unit_name, :string
+      attribute :rate, :string, comment: '相对于默认货币的比率'
       attribute :wallets_count, :integer, default: 0
       attribute :code, :string
       attribute :platform, :string
       attribute :default, :boolean
+
+      enum unit: {
+        currency: 'currency',
+        custom: 'custom'
+      }
 
       belongs_to :organ, optional: true
 

@@ -28,7 +28,7 @@ module Trade
       p = params.fetch(:wallet_template, {}).permit(
         :name,
         :description,
-        :currency,
+        :unit,
         :code,
         :default,
         :logo
