@@ -29,12 +29,10 @@ module Trade
     end
 
     def order_paid(trade_item)
-      if trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
-        wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.client.users[0])
-        wallet.maintain_id = trade_item.order.maintain_id
-      else
-        wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
-      end
+      wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
+
+      wallet.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
+
       wa = wallet_advances.build
       wa.wallet = wallet
       wa.trade_item = trade_item
@@ -43,7 +41,6 @@ module Trade
       wallet.class.transaction do
         wallet.save!
         wa.save!
-        trade_item.maintain.transfer! if trade_item.respond_to?(:maintain) && trade_item.maintain
       end
 
       wallet
