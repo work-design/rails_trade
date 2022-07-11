@@ -11,6 +11,8 @@ module Trade
       belongs_to :wallet_template
       belongs_to :card_template, optional: true
 
+      has_many :wallet_advances
+
       scope :open, -> { where(open: true) }
 
       validates :amount, uniqueness: { scope: :card_template_id }
@@ -33,7 +35,8 @@ module Trade
       else
         wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
       end
-      wa = wallet.wallet_advances.build
+      wa = wallet_advances.build
+      wa.wallet = wallet
       wa.trade_item = trade_item
       wa.amount = amount
 

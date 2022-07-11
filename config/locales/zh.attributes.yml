@@ -16,7 +16,7 @@ zh:
         income_amount: 初始额度
         expense_amount: 已用额度
         client_id: 持卡人
-      trade/card_advance:
+      trade/wallet_advance:
         amount: 金额
       trade/card_log:
         tag_str: 标签
