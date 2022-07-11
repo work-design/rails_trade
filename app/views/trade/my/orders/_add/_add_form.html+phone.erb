@@ -1,31 +1,32 @@
-<%= form_with theme: nil, model: @order, url: { action: 'create' } do |f| %>
-  <div class="weui-panel mt-0">
-    <div class="weui-panel__bd">
-      <%= f.fields :trade_items do |ef| %>
-        <%= ef.hidden_field :good_type %>
-        <%= ef.hidden_field :good_id %>
-        <%= ef.hidden_field :extra, value: ef.object.extra.to_json %>
-        <div class="weui-media-box weui-media-box_appmsg">
-          <div class="weui-media-box__hd">
-            <%= image_tag ef.object.good.logo, class: 'weui-media-box__thumb' if ef.object.good.logo.attached? %>
-          </div>
-          <div class="weui-media-box__bd">
-            <h4 class="weui-media-box__title"><%= ef.object.good.name %></h4>
-            <p class="weui-media-box__desc"><%= ef.object.amount.to_money.format(html_wrap: true).html_safe %></p>
-          </div>
-        </div>
-      <% end %>
-      <div class="weui-media-box weui-media-box_text pb-1 pt-2">
-        <ul class="weui-media-box__info m-0">
-          <li class="weui-media-box__info__meta">
-            <span>总价：</span>
-            <span><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
-          </li>
-        </ul>
+<%= form_with theme: nil, model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.fields :trade_items do |ef| %>
+    <%= ef.hidden_field :good_type %>
+    <%= ef.hidden_field :good_id %>
+    <%= ef.hidden_field :extra, value: ef.object.extra.to_json %>
+  <% end %>
+<% end %>
+
+<div class="weui-panel mt-0">
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_appmsg">
+      <div class="weui-media-box__hd">
+        <%= image_tag ef.object.good.logo, class: 'weui-media-box__thumb' if ef.object.good.logo.attached? %>
+      </div>
+      <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title"><%= ef.object.good.name %></h4>
+        <p class="weui-media-box__desc"><%= ef.object.amount.to_money.format(html_wrap: true).html_safe %></p>
       </div>
     </div>
-    <div class="weui-panel__ft p-4">
-      <%= f.submit t('.confirm'), class: 'weui-btn weui-btn_primary' %>
+    <div class="weui-media-box weui-media-box_text pb-1 pt-2">
+      <ul class="weui-media-box__info m-0">
+        <li class="weui-media-box__info__meta">
+          <span>总价：</span>
+          <span><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
+        </li>
+      </ul>
     </div>
   </div>
-<% end %>
+  <div class="weui-panel__ft p-4">
+    <%= f.submit t('.confirm'), class: 'weui-btn weui-btn_primary', form: 'new_order' %>
+  </div>
+</div>
