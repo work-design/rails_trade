@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :orders do
       collection do
         match :blank, via: [:get, :post]
-        match :add, via: [:get, :post]
+        post :add
         post :direct
         get :refresh
         post :trial

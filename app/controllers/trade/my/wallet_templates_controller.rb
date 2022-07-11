@@ -10,5 +10,11 @@ module Trade
     def set_wallet_template
       @wallet_template = WalletTemplate.default_where(default_params).find(params[:id])
     end
+
+    def set_new_order
+      @order = current_user.orders.build
+      @order.trade_items.build
+    end
+
   end
 end
