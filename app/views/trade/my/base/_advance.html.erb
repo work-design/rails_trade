@@ -1,5 +1,5 @@
 <div class="column is-one-third">
-  <%= form_with model: @order, url: { controller: 'orders', action: 'create' }, class: 'button_to is-block' do |f| %>
+  <%= form_with model: @order, url: { controller: 'orders', action: 'add' }, class: 'button_to is-block' do |f| %>
     <%= f.fields :trade_items do |ef| %>
       <%= ef.hidden_field :good_type, value: advance.class_name %>
       <%= ef.hidden_field :good_id, value: advance.id %>

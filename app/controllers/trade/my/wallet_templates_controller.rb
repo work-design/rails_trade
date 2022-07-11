@@ -1,6 +1,7 @@
 module Trade
   class My::WalletTemplatesController < My::BaseController
     before_action :set_wallet_template, only: [:show]
+    before_action :set_new_order, only: [:show]
 
     def show
       @wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: @wallet_template.id)

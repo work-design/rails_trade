@@ -1,4 +1,4 @@
-<%= form_with theme: nil, model: @order, url: { action: 'direct' } do |f| %>
+<%= form_with theme: nil, model: @order, url: { action: 'create' } do |f| %>
   <div class="weui-panel mt-0">
     <div class="weui-panel__bd">
       <%= f.fields :trade_items do |ef| %>

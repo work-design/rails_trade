@@ -6,6 +6,7 @@ module Trade
     ]
     before_action :set_cart, only: [:new]
     before_action :set_payment_strategies, only: [:blank]
+    before_action :set_new_order, only: [:blank, :trial, :add, :create]
 
     def index
       q_params = {}
@@ -21,7 +22,6 @@ module Trade
     end
 
     def blank
-      @order = current_user.orders.build(order_params)
       @order.address_id ||= params[:address_id]
       @order.compute_promote
 
@@ -39,37 +39,18 @@ module Trade
     end
 
     def trial
-      @order = current_user.orders.build(order_params)
-    end
-
-    def create
-      @order = current_user.orders.build(order_params)
-
-      if @order.save
-        render 'create'
-      else
-        render :new, locals: { model: @order }, status: :unprocessable_entity
-      end
     end
 
     def add
-      @order = current_user.orders.build
-      @order.trade_items.build(
-        good_id: params[:good_id],
-        good_type: params[:good_type],
-        extra: params.except(:good_id, :good_type, :member_id, :business, :namespace, :controller, :action, :authenticity_token, :button)
-      )
       @order.valid?
       @order.sum_amount
     end
 
-    def direct
-      @order = current_user.orders.build(order_params)
-
+    def create
       if @order.save
-        render :direct
+        render 'create'
       else
-        render :add, locals: { model: @order }, status: :unprocessable_entity
+        render :new, locals: { model: @order }, status: :unprocessable_entity
       end
     end
 
@@ -175,6 +156,10 @@ module Trade
 
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_new_order
+      @order = current_user.orders.build(order_params)
     end
 
     def set_payment_strategies
