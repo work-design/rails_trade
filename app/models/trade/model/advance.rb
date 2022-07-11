@@ -29,9 +29,9 @@ module Trade
     end
 
     def order_paid(trade_item)
-      if trade_item.respond_to?(:maintain) && trade_item.maintain
-        wallet = wallet_template.wallets.find_or_initialize_by(client_type: trade_item.maintain.client_type, client_id: trade_item.maintain.client_id)
-        wallet.agency_id = trade_item.maintain.agency_id
+      if trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
+        wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.client.users[0])
+        wallet.maintain_id = trade_item.order.maintain_id
       else
         wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
       end
