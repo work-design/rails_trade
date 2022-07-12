@@ -31,13 +31,14 @@ module Trade
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
-      before_validation :init_from_template
+      before_validation :init_from_template, if: -> { wallet_template_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
     def init_from_template
       self.default = wallet_template.default
+      self.organ_id = wallet_template.organ_id
     end
 
     def compute_expense_amount

@@ -32,9 +32,7 @@ module Trade
 
     def wallet_payment_params
       params.fetch(:wallet_payment, {}).permit(
-        :total_amount,
-        :refunded_amount,
-        :created_at
+        :comment
       )
     end
 
