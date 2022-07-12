@@ -11,5 +11,5 @@
   <span><%= t('.show') %></span>
 <% end %>
 <%= link_to({ controller: 'trade/admin/payments', action: 'order_new', order_id: model.id }, class: 'weui-actionsheet__cell') do %>
-  <span><%= t('.add_payment') %></span>
+  <span><%= t('trade.admin.payments.order_new.title') %></span>
 <% end %>
