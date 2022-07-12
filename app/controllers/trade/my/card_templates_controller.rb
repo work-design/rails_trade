@@ -8,7 +8,7 @@ module Trade
       q_params = {}
       q_params.merge! default_params
 
-      @card_templates = CardTemplate.default_where(q_params).order(grade: :asc).page(params[:page])
+      @card_templates = CardTemplate.default_where(q_params).order(grade: :asc)
     end
 
     def show
