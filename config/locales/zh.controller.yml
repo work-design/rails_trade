@@ -113,6 +113,9 @@ zh:
       wallets:
         index:
           title: 钱包明细
+      wallet_logs:
+        index:
+          title: 使用明细
       payouts:
         index:
           title: 提现

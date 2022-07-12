@@ -1,5 +1,6 @@
 module Trade
   class Admin::WalletLogsController < Admin::BaseController
+    before_action :set_wallet
     before_action :set_wallet_log, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -13,6 +14,10 @@ module Trade
     end
 
     private
+    def set_wallet
+      @wallet = Wallet.find params[:wallet_id]
+    end
+
     def set_wallet_log
       @wallet_log = WalletLog.find(params[:id])
     end
