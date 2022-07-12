@@ -33,6 +33,8 @@ zh:
           refund_list: 退款详情
         new:
           title: 确认订单
+        payment_types:
+          title: 支付
       trade_items:
         index:
           title: 订单明细

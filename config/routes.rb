@@ -60,6 +60,7 @@ Rails.application.routes.draw do
         get :refresh
       end
       member do
+        get :payment_types
         patch :refund
       end
       resources :order_payments

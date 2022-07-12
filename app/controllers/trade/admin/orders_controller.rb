@@ -1,6 +1,6 @@
 module Trade
   class Admin::OrdersController < Admin::BaseController
-    before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
+    before_action :set_order, only: [:show, :payment_types, :edit, :update, :refund, :destroy]
     before_action :set_new_order, only: [:new, :create]
 
     def index
