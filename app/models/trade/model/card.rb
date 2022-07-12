@@ -7,9 +7,6 @@ module Trade
       attribute :card_uuid, :string
       attribute :effect_at, :datetime
       attribute :expire_at, :datetime
-      attribute :amount, :decimal, default: 0
-      attribute :income_amount, :decimal, default: 0
-      attribute :expense_amount, :decimal, default: 0
       attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
@@ -28,10 +25,6 @@ module Trade
       has_many :promotes, through: :card_promotes
       has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, foreign_key: :user_id, primary_key: :user_id
       has_many :plan_attenders, ->(o){ where(attender_type: o.client_type) }, foreign_key: :attender_id, primary_key: :client_id
-
-      validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
-      validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
-      validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
       scope :effective, ->{ t = Time.current; default_where('expire_at-gte': t, 'effect_at-lte': t) }
       scope :temporary, ->{ where(temporary: true) }

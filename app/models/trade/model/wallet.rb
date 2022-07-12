@@ -3,10 +3,10 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :amount, :decimal, precision: 10, scale: 2, default: 0
+      attribute :amount, :decimal, default: 0
+      attribute :income_amount, :decimal, default: 0
+      attribute :expense_amount, :decimal, default: 0
       attribute :withdrawable_amount, :decimal, comment: '可提现的额度'
-      attribute :income_amount, :decimal, precision: 10, scale: 2, default: 0
-      attribute :expense_amount, :decimal, precision: 10, scale: 2, default: 0
       attribute :account_bank, :string
       attribute :account_name, :string
       attribute :account_number, :string
@@ -28,9 +28,11 @@ module Trade
       scope :default, -> { where(default: true) }
 
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
-
+      validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
+      validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
       before_validation :init_from_template
+      before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
@@ -44,6 +46,22 @@ module Trade
 
     def compute_income_amount
       self.wallet_advances.sum(:amount)
+    end
+
+    def compute_amount
+      self.amount = self.income_amount - self.expense_amount
+    end
+
+    def reset_amount
+      self.income_amount = compute_income_amount
+      self.expense_amount = compute_expense_amount
+      self.valid?
+      self.changes
+    end
+
+    def reset_amount!(*args)
+      self.reset_amount
+      self.save(*args)
     end
 
     def set_default
