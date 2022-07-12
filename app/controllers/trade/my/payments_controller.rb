@@ -30,7 +30,15 @@ module Trade
 
     private
     def set_payment
-      @payment = current_wallet.wallet_payments.find(params[:id])
+      wallet_template = WalletTemplate.default_where(default_params).default.take
+      if wallet_template && current_client
+        @wallets = current_client.wallets.where(wallet_template_id: wallet_template.id)
+      elsif wallet_template
+        @wallets = current_user.wallets.where(wallet_template_id: wallet_template.id)
+      else
+        @wallets = Wallet.none
+      end
+      @payment = WalletPayment.where(wallet_id: @wallets.pluck(:id)).find(params[:id])
     end
 
     def set_new_payment

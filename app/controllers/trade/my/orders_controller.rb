@@ -7,6 +7,7 @@ module Trade
     before_action :set_cart, only: [:new]
     before_action :set_payment_strategies, only: [:blank]
     before_action :set_new_order, only: [:blank, :trial, :add, :create]
+    before_action :set_wallet, only: [:payment_types]
 
     def index
       q_params = {}
