@@ -30,9 +30,7 @@ module Trade
 
     private
     def set_payment
-      if current_wallet
-        @payment = current_wallet.wallet_payments.find(params[:id])
-      end
+      @payment = current_wallet.wallet_payments.find(params[:id])
     end
 
     def set_new_payment

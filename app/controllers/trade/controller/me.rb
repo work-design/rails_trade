@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      helper_method :current_cart, :current_cart_count, :current_wallet
+      helper_method :current_cart, :current_cart_count
     end
 
     def current_cart

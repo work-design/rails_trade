@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      helper_method :current_cart, :current_cart_count, :current_wallet
+      helper_method :current_cart, :current_cart_count
     end
 
     def current_carts
@@ -27,19 +27,6 @@ module Trade
       end
       logger.debug "\e[33m  Current Trade cart: #{@current_cart&.id}  \e[0m"
       @current_cart
-    end
-
-    def current_wallet
-      return @current_wallet if @current_wallet
-
-      wallet_template = WalletTemplate.default_where(default_params).default.take
-      if wallet_template && current_client
-        @current_wallet = current_client.wallets.find_or_create_by(wallet_template_id: wallet_template.id)
-      elsif wallet_template
-        @current_wallet = current_user.wallets.find_or_create_by(wallet_template_id: wallet_template.id)
-      end
-
-      @current_wallet
     end
 
     def current_cart_count(good_type: 'Factory::Production')
