@@ -2,6 +2,7 @@ module Trade
   class My::CardTemplatesController < My::BaseController
     before_action :set_card_template, only: [:show]
     before_action :set_card_templates
+    before_action :set_new_order, only: [:show]
 
     def index
       q_params = {}
@@ -28,6 +29,11 @@ module Trade
 
     def set_card_templates
       @card_templates = CardTemplate.default_where(default_params).order(grade: :asc)
+    end
+
+    def set_new_order
+      @order = current_user.orders.build
+      @order.trade_items.build
     end
 
   end
