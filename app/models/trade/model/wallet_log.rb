@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :title, :string
       attribute :tag_str, :string
-      attribute :amount, :decimal, precision: 10, scale: 2
+      attribute :amount, :decimal
 
       belongs_to :wallet
       belongs_to :source, polymorphic: true, optional: true

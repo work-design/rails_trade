@@ -20,7 +20,6 @@ module Trade
       belongs_to :agency, optional: true
 
       has_many :card_purchases, dependent: :nullify
-      has_many :card_logs, dependent: :destroy_async
       has_many :card_promotes, ->(o){ default_where('income_min-lte': o.income_amount, 'income_max-gt': o.income_amount) }, foreign_key: :card_template_id, primary_key: :card_template_id
       has_many :promotes, through: :card_promotes
       has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, foreign_key: :user_id, primary_key: :user_id
