@@ -1,8 +1,3 @@
-<td>
-  <p><%= model.account_bank %></p>
-  <p><%= model.account_name %></p>
-  <p><%= model.account_number %></p>
-</td>
 <td><%= model.amount %></td>
 <td>
   <span><%= model.income_amount %></span>
@@ -23,3 +18,8 @@
   <p><%= link_to 'incomes', { controller: 'wallet_logs', wallet_id: model.id } %></p>
 </td>
 <td><%= model.default %></td>
+<td>
+  <p><%= model.account_bank %></p>
+  <p><%= model.account_name %></p>
+  <p><%= model.account_number %></p>
+</td>
