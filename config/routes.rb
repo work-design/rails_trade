@@ -62,8 +62,11 @@ Rails.application.routes.draw do
       member do
         get :payment_types
         patch :refund
+        get :payment_orders
+        get :payment_new
+        patch :payment_create
+        delete :payment_destroy
       end
-      resources :order_payments
     end
     resources :payments do
       collection do

@@ -1,6 +1,9 @@
 module Trade
   class Admin::OrdersController < Admin::BaseController
-    before_action :set_order, only: [:show, :payment_types, :edit, :update, :refund, :destroy]
+    before_action :set_order, only: [
+      :show, :payment_types, :edit, :update, :refund, :destroy,
+      :payment_orders
+    ]
     before_action :set_new_order, only: [:new, :create]
 
     def index
@@ -37,6 +40,32 @@ module Trade
 
     def refund
       @order.apply_for_refund
+    end
+
+    def payment_orders
+      @payment_orders = @order.payment_orders
+    end
+
+    def payment_new
+      @payment_order = PaymentOrder.new
+      @payments = @order.pending_payments
+    end
+
+    def payment_create
+      @payment_order = @order.payment_orders.build(payment_order_params)
+      @order = @payment_order.order
+
+      if @payment_order.save
+        render 'create'
+      else
+        render 'create_fail'
+      end
+    end
+
+    def payment_destroy
+      if @payment_order.init?
+        @payment_order.destroy
+      end
     end
 
     private
