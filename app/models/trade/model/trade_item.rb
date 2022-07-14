@@ -52,7 +52,9 @@ module Trade
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :from_address, class_name: 'Profiled::Address', optional: true
+      belongs_to :from_station, class_name: 'Ship::Station', optional: true
       belongs_to :agent, class_name: 'Org::Member', optional: true
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
@@ -135,7 +137,9 @@ module Trade
       self.organ_id ||= order.organ_id
       self.user_id ||= order.user_id
       self.address_id = order.address_id
+      self.station_id = order.station_id
       self.from_address_id = order.from_address_id
+      self.from_station_id = order.from_station_id
     end
 
     def sync_from_produce_plan
