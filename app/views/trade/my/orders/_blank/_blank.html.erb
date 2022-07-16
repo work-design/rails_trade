@@ -16,6 +16,10 @@
   <%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'weui') } %>
 </div>
 
+<div class="weui-panel">
+  <%= render partial: 'collectable', locals: { form: form_object(@order, theme: 'weui') } %>
+</div>
+
 <%= render 'show_order' %>
 
 <div class="box is-radiusless">

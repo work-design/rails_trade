@@ -1,0 +1,32 @@
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="item_amount_dialog" data-action="click->weui-dialog#toggle">
+  <div class="weui-cell__hd">
+    <span class="has-text-grey">代收货款</span>
+  </div>
+  <div class="weui-cell__bd"></div>
+  <div class="weui-cell__ft"><%= @order.item_amount %></div>
+</div>
+
+<div data-controller="weui-dialog" id="item_amount_dialog" class="weui-dialog__wrap">
+  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
+  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+    <div class="weui-half-screen-dialog__hd">
+      <div class="weui-half-screen-dialog__hd__side"></div>
+      <div class="weui-half-screen-dialog__hd__main">
+        <div class="weui-half-screen-dialog__title">代收货款</div>
+      </div>
+      <div class="weui-half-screen-dialog__hd__side">
+        <button class="weui-icon-btn" data-action="weui-dialog#close">
+          <i class="weui-icon-close-thin"></i>
+        </button>
+      </div>
+    </div>
+    <div class="weui-half-screen-dialog__bd">
+      <div class="weui-cells weui-cells_radio">
+        <%= form.number_field :item_amount, form: 'new_order' %>
+      </div>
+    </div>
+    <div class="weui-half-screen-dialog__ft">
+      <%= button_tag '确认', class: 'weui-btn weui-btn_primary', form: 'new_order' %>
+    </div>
+  </div>
+</div>
