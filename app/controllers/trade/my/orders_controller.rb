@@ -25,6 +25,7 @@ module Trade
     def blank
       @order.address_id ||= params[:address_id]
       @order.compute_promote
+      @order.valid?
 
       if params[:commit].present? && @order.save
         render 'create_blank'

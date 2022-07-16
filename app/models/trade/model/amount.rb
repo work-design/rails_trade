@@ -11,7 +11,7 @@ module Trade
       attribute :lock_version, :integer
       attribute :extra, :json, default: {}
 
-      before_validation :compute_amount, if: -> { item_amount_changed? }
+      after_validation :compute_amount, if: -> { item_amount_changed? }
     end
 
     def compute_amount

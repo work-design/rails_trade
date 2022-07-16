@@ -30,7 +30,9 @@
     </div>
     <div class="weui-half-screen-dialog__bd">
       <div class="weui-cells weui-cells_radio">
-        <%= form.number_field :item_amount, form: 'new_order' %>
+        <%= form.fields :trade_items do |f| %>
+          <%= f.number_field :amount, label: f.object.good_name, form: 'new_order' if f.object.good_name.present? %>
+        <% end %>
         <%= form.check_box :collectable, label_position: 'before', form: 'new_order' %>
       </div>
     </div>
