@@ -190,6 +190,8 @@ module Trade
         :from_address_id,
         :note,
         :current_cart_id,
+        :item_amount,
+        :collectable,
         trade_items_attributes: {}
       )
       p.merge! default_form_params
