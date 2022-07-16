@@ -10,6 +10,12 @@ module Trade
       attribute :amount, :decimal, default: 0
       attribute :lock_version, :integer
       attribute :extra, :json, default: {}
+
+      before_validation :compute_amount, if: -> { item_amount_changed? }
+    end
+
+    def compute_amount
+      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
     def xx

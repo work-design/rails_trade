@@ -159,7 +159,6 @@ module Trade
       self.item_amount = trade_items.sum(&:amount)
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)
-      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
     def confirm_ordered!
