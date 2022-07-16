@@ -2,8 +2,16 @@
   <div class="weui-cell__hd">
     <span class="has-text-grey">代收货款</span>
   </div>
-  <div class="weui-cell__bd"></div>
-  <div class="weui-cell__ft"><%= @order.item_amount %></div>
+  <div class="weui-cell__bd">
+  <% if @order.collectable %>
+    <i class="fa-solid fa-circle-check has-text-success"></i>
+  <% else %>
+    <i class="fa-solid fa-circle-check has-text-grey"></i>
+  <% end %>
+  </div>
+  <div class="weui-cell__ft">
+    <span><%= @order.item_amount %></span>
+  </div>
 </div>
 
 <div data-controller="weui-dialog" id="item_amount_dialog" class="weui-dialog__wrap">
