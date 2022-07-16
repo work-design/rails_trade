@@ -44,7 +44,7 @@ zh:
         payment_status: 付款状态
         payment_type: 支付方式
         original_amount: 原价
-        item_amount: 原价
+        item_amount: 货物价格
         overall_additional_amount: 附加费用
         overall_reduced_amount: 优惠金额
         amount: 金额
