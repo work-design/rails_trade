@@ -27,7 +27,6 @@ module Trade
     end
 
     def sync_amount
-      wallet.reload
       wallet.expense_amount += self.total_amount
       computed = wallet.compute_expense_amount
       if wallet.expense_amount == computed
@@ -40,7 +39,6 @@ module Trade
     end
 
     def sync_amount_after_destroy
-      wallet.reload
       wallet.expense_amount -= self.total_amount
       computed = wallet.compute_expense_amount
       if wallet.expense_amount == computed

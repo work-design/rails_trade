@@ -22,7 +22,7 @@ module Trade
       has_many :wallet_logs
       has_many :payouts
       has_many :wallet_advances
-      has_many :wallet_payments, dependent: :nullify  # expense
+      has_many :wallet_payments, inverse_of: :wallet, dependent: :nullify  # expense
       has_many :wallet_refunds, dependent: :nullify
 
       scope :default, -> { where(default: true) }
@@ -42,7 +42,7 @@ module Trade
     end
 
     def compute_expense_amount
-      self.payouts.sum(:requested_amount) + wallet_payments.sum(:total_amount)
+      self.payouts.sum(:requested_amount) + wallet_payments.sum(&:total_amount)
     end
 
     def compute_income_amount
