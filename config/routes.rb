@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     end
     resources :wallet_templates
     resources :wallets do
-      resources :wallet_logs, only: [:index]
+      resources :wallet_logs, only: [:index, :show]
     end
   end
   concern :order_admin do
@@ -242,7 +242,6 @@ Rails.application.routes.draw do
           get :token
         end
         resources :card_purchases
-        resources :card_logs, only: [:index]
       end
 
       resources :payouts, only: [:index, :create] do

@@ -1,0 +1,7 @@
+<p class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>">
+  <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+  <span class="tag"><%= model.tag_str %></span>
+</p>
+<p class="is-size-7 has-text-grey">
+  <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.created_at.to_fs(:iso8601) %></time>
+</p>

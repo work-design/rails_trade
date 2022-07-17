@@ -1,0 +1,9 @@
+<div class="weui-panel">
+  <div class="weui-panel__hd">
+    <span>余额</span>
+    <span><%= @wallet.amount.to_money.format(html_wrap: true).html_safe %></span>
+  </div>
+  <div class="weui-panel__bd">
+    <%= yield %>
+  </div>
+</div>
