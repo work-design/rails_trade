@@ -7,9 +7,9 @@ module Trade
       has_many :wallet_logs, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
 
       before_validation :init_amount, if: -> { checked_amount_changed? }
-      after_update :sync_amount, if: -> { saved_change_to_total_amount? }
-      after_create_commit :sync_wallet_log, if: -> { saved_change_to_total_amount? }
+      after_save :sync_amount, if: -> { saved_change_to_total_amount? }
       after_destroy :sync_amount_after_destroy
+      after_create_commit :sync_wallet_log, if: -> { saved_change_to_total_amount? }
       after_destroy_commit :sync_destroy_wallet_log
     end
 
