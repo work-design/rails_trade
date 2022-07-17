@@ -25,6 +25,8 @@ module Trade
       has_many :trade_items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, foreign_key: :user_id, primary_key: :user_id
       has_many :plan_attenders, ->(o){ where(attender_type: o.client_type) }, foreign_key: :attender_id, primary_key: :client_id
 
+      has_many :wallets, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, primary_key: :user_id, foreign_key: :user_id
+
       scope :effective, ->{ t = Time.current; default_where('expire_at-gte': t, 'effect_at-lte': t) }
       scope :temporary, ->{ where(temporary: true) }
       scope :formal, ->{ where.not(temporary: true) }
