@@ -32,7 +32,7 @@
     <div class="level-right mt-0 pr-3 has-text-weight-normal">
       <span>有效期至</span>
       <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at&.to_fs(:iso8601) %></time>
-      <%= link_to '续费记录', { controller: 'card_purchases', card_id: model.id } %>
+      <%= link_to t('trade.my.card_purchases.index.title'), { controller: 'card_purchases', card_id: model.id } %>
     </div>
   </div>
   <div class="weui-panel__bd">

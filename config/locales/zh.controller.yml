@@ -155,6 +155,9 @@ zh:
       wallet_logs:
         index:
           title: 交易记录
+      card_purchases:
+        index:
+          title: 续费记录
     our:
       orders:
         index:
