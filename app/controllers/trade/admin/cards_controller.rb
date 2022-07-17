@@ -2,6 +2,7 @@ module Trade
   class Admin::CardsController < Admin::BaseController
     before_action :set_card, only: [:show, :edit, :update, :destroy]
     before_action :set_card_templates, only: [:index]
+    before_action :set_card_template
 
     def index
       q_params = {}
@@ -26,6 +27,10 @@ module Trade
     private
     def set_card
       @card = Card.find(params[:id])
+    end
+
+    def set_card_template
+      @card_template = CardTemplate.find params[:card_template_id]
     end
 
     def set_card_templates
