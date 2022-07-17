@@ -195,9 +195,9 @@ Rails.application.routes.draw do
           end
         end
         resources :card_promotes
-      end
-      resources :cards do
-        resources :card_purchases
+        resources :cards do
+          resources :card_purchases
+        end
       end
       resources :wallet_templates do
         resources :advances
