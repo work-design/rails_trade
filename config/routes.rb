@@ -207,11 +207,11 @@ Rails.application.routes.draw do
           resources :wallet_payments
           resources :wallet_advances
           resources :wallet_logs
-        end
-      end
-      resources :payouts do
-        member do
-          put :do_pay
+          resources :payouts do
+            member do
+              put :do_pay
+            end
+          end
         end
       end
     end

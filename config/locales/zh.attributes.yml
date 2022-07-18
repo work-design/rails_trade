@@ -157,7 +157,7 @@ zh:
         user: 所属用户
         amount: 余额
         income_amount: 收入
-        expense_amount: 提现数额
+        expense_amount: 支出
         account_bank: 开户银行
         account_name: 户名
         account_num: 账号

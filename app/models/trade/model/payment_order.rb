@@ -39,26 +39,12 @@ module Trade
 
     def checked_to_payment
       payment.checked_amount += self.check_amount
-      if payment.checked_amount == payment.compute_checked_amount
-        payment.check_state
-        payment.save
-      else
-        payment.errors.add :checked_amount, 'check not equal'
-        logger.error "checked: #{payment.checked_amount}, computed: #{payment.compute_checked_amount} #{self.class.name}/Payment: #{payment.error_text}"
-        raise ActiveRecord::RecordInvalid.new(payment)
-      end
+      payment.check_state
     end
 
     def checked_to_order
       order.received_amount += self.check_amount
-      if order.received_amount == order.compute_received_amount
-        order.check_state
-        order.save
-      else
-        order.errors.add :received_amount, 'check not equal'
-        logger.error "#{self.class.name}/Order: #{order.error_text}"
-        raise ActiveRecord::RecordInvalid.new(order)
-      end
+      order.check_state
     end
 
     def unchecked_payment

@@ -28,26 +28,12 @@ module Trade
 
     def sync_amount
       wallet.expense_amount += self.total_amount
-      computed = wallet.compute_expense_amount
-      if wallet.expense_amount == computed
-        wallet.save!
-      else
-        wallet.errors.add :expense_amount, "#{wallet.expense_amount} Not Equal Computed #{computed}"
-        logger.error "#{self.class.name}/Card: #{wallet.error_text}"
-        raise ActiveRecord::RecordInvalid.new(wallet)
-      end
+      wallet.save!
     end
 
     def sync_amount_after_destroy
       wallet.expense_amount -= self.total_amount
-      computed = wallet.compute_expense_amount
-      if wallet.expense_amount == computed
-        wallet.save!
-      else
-        wallet.errors.add :expense_amount, "#{wallet.expense_amount} Not Equal Computed #{computed}"
-        logger.error "#{self.class.name}/Card: #{wallet.error_text}"
-        raise ActiveRecord::RecordInvalid.new(wallet)
-      end
+      wallet.save!
     end
 
     def sync_wallet_log
