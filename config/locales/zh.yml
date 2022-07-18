@@ -6,9 +6,6 @@ zh:
         NormalWallet: 普通钱包
   card_log:
     income:
-      card_advance:
-        title: 用户充值
-        tag_str: 充值
       card_given:
         title: 系统赠送
         tag_str: 赠送
@@ -21,6 +18,6 @@ zh:
   wallet_log:
     income:
       wallet_advance:
-        title: 系统赠予
-        tag_str: 收入
+        title: 用户充值
+        tag_str: 充值
 
