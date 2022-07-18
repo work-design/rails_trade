@@ -1,0 +1,14 @@
+<p>
+  <span><%= model.payment_uuid %></span>
+  <span class="tag"><%= model.type_i18n %></span>
+</p>
+<p><%= model.total_amount.to_money.format(html_wrap: true).html_safe %></p>
+<p class="is-size-7">
+  <time data-controller="time">
+  <% if model.notified_at.present? %>
+    <%= model.notified_at.to_fs(:iso8601) %>
+  <% else %>
+    <%= model.created_at.to_fs(:iso8601) %>
+  <% end %>
+  </time>
+</p>
