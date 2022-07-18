@@ -53,32 +53,14 @@ module Trade
     end
 
     def unchecked_to_payment
-      self.payment && payment.reload
-
       payment.checked_amount -= self.check_amount
-      if payment.checked_amount == payment.compute_checked_amount
-        payment.check_state
-        payment.save!
-      else
-        payment.errors.add :checked_amount, 'uncheck not equal'
-        logger.error "#{self.class.name}/Payment: #{payment.error_text}"
-        raise ActiveRecord::RecordInvalid.new(payment)
-      end
+      payment.check_state
     end
 
     def unchecked_to_order
-      self.order && order.reload
       return if order.blank?
-
       order.received_amount -= self.check_amount
-      if order.received_amount == order.compute_received_amount
-        order.check_state
-        order.save!
-      else
-        order.errors.add :received_amount, 'uncheck not equal'
-        logger.error "#{self.class.name}/Order: #{order.error_text}"
-        raise ActiveRecord::RecordInvalid.new(order)
-      end
+      order.check_state
     end
 
     def confirm!
