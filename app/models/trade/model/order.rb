@@ -135,6 +135,14 @@ module Trade
       user&.name.presence || "#{user_id}"
     end
 
+    def to_cpcl
+      cpcl = BaseCpcl.new
+      cpcl.text uuid
+      cpcl.text amount
+      cpcl.right_qrcode('enter_url')
+      cpcl.render
+    end
+
     def can_cancel?
       init? && ['unpaid', 'to_check'].include?(self.payment_status)
     end

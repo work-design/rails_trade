@@ -4,7 +4,7 @@
   <span class="has-text-danger"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
   <span class="tag"><%= model.payment_status_i18n %></span>
 </p>
-<p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+<p class="is-size-7"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 <p><%= link_to model.user_name, { user_id: model.user_id } %></p>
 <p>
 <% if model&.member %>

@@ -2,7 +2,7 @@ module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
       :show, :payment_types, :edit, :update, :refund, :destroy,
-      :payment_orders
+      :payment_orders, :print_data
     ]
     before_action :set_new_order, only: [:new, :create]
 
@@ -66,6 +66,10 @@ module Trade
       if @payment_order.init?
         @payment_order.destroy
       end
+    end
+
+    def print_data
+      render json: @order.to_cpcl.bytes
     end
 
     private
