@@ -92,7 +92,8 @@ module Trade
         :amount,
         :note,
         :payment_strategy_id,
-        trade_items_attributes: [:organ_id, :good_type, :good_id, :good_name, :number, :weight, :volume, :note, :image],
+        :collectable,
+        trade_items_attributes: [:organ_id, :good_type, :good_id, :good_name, :number, :weight, :volume, :note, :image, :amount],
         cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params
