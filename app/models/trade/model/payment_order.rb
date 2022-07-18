@@ -17,8 +17,8 @@ module Trade
       #validate :valid_check_amount
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      after_save :checked_payment, if: -> { confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
-      after_save :unchecked_payment, if: -> { init? && state_before_last_save == 'confirmed' }
+      before_validation :checked_payment, if: -> { confirmed? && (changes.keys & ['state', 'check_amount']).present? }
+      before_validation :unchecked_payment, if: -> { init? && state_was == 'confirmed' }
       after_destroy_commit :unchecked_to_order
     end
 

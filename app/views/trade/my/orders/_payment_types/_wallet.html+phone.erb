@@ -13,10 +13,11 @@
       <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' } do |f| %>
         <%= f.hidden_field :type, value: 'Trade::WalletPayment' %>
         <%= f.hidden_field :wallet_id, value: wallet.id %>
+        <%= f.hidden_field :total_amount, value: @order.amount < wallet.amount ? @order.amount : wallet.amount %>
         <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
           <%= ef.hidden_field :order_id, value: @order.id %>
           <%= ef.hidden_field :state, value: 'confirmed' %>
-          <%= ef.hidden_field :check_amount, value: @order.amount < wallet.amount ? @order.amount : wallet.amount %>
+          <%= ef.hidden_field :check_amount, value: f.object.total_amount %>
         <% end %>
         <%= f.check_box 'xx', checked: false, class: 'weui-check', data: { action: 'input#form' } %>
         <span class="weui-icon-checked"></span>
