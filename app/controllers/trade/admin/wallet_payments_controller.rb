@@ -26,6 +26,7 @@ module Trade
     def wallet_payment_params
       params.fetch(:wallet_payment, {}).permit(
         :total_amount,
+        :notified_at,
         :comment
       )
     end
