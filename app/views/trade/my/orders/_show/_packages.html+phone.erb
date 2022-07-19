@@ -1,5 +1,17 @@
 <div class="weui-panel" data-controller="empty">
-  <div class="weui-panel__hd">包裹及物流</div>
+  <div class="weui-panel__hd">
+    <span>包裹及物流</span>
+    <button
+      data-controller="mini-program"
+      data-mini-program-url-value="/pages/print/execute/index"
+      data-mini-program-data-value="<%= { url: url_for(action: 'print_data', id: model.id, only_path: false) }.to_json %>"
+      data-action="click->mini-program#link"
+      class="weui-btn weui-btn_mini weui-btn_primary"
+    >
+      <i class="fa-regular fa-print"></i>
+      <span>打印订单</span>
+    </button>
+  </div>
   <div class="weui-panel__bd" data-empty-target="content">
     <%= render partial: 'package', collection: model.packages, as: :package %>
   </div>
