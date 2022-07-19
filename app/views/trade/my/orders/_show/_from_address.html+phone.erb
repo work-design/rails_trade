@@ -1,0 +1,16 @@
+<div class="weui-panel">
+  <div class="weui-panel__hd is-flex is-justify-content-space-between">
+    <div>
+      <i class="fa-solid fa-location-dot has-text-success"></i>
+      <strong><%= model.contact %></strong>
+      <span><%= model.tel %></span>
+    </div>
+    <div class="has-text-grey"><%= Trade::Order.human_attribute_name(:from_address_id) %></div>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_text">
+      <strong class="is-size-7"><%= model.area.full_name %></strong>
+      <span class="is-size-7"><%= model.detail %></span>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,9 @@
 
 <%= render partial: 'order', locals: { model: @order } %>
 
+<%= render partial: 'address', locals: { model: @order.address } if @order.address %>
+<%= render partial: 'from_address', locals: { model: @order.from_address } if @order.from_address %>
+
 <%= render partial: 'packages', locals: { model: @order } %>
 
 <%= render partial: 'order_items', locals: { model: @order } %>

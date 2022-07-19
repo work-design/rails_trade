@@ -1,6 +1,6 @@
-<div class="weui-panel">
+<div class="weui-panel" data-controller="empty">
   <div class="weui-panel__hd">包裹及物流</div>
-  <div class="weui-panel__bd">
+  <div class="weui-panel__bd" data-empty-target="content">
     <%= render partial: 'package', collection: model.packages, as: :package %>
   </div>
 </div>
