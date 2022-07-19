@@ -38,7 +38,17 @@
         <%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
         <%= f.hidden_field :organ_id, value: current_organ.id, form: 'new_order' %>
         <%= f.text_field :good_name, form: 'new_order' %>
-        <%= f.number_field :number, form: 'new_order' %>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label"><%= Trade::TradeItem.human_attribute_name(:number) %></label>
+          </div>
+          <div data-controller="modify" class="weui-cell__bd is-flex is-align-items-center">
+            <i class="fa-solid fa-xl fa-circle-minus has-text-grey-dark is-flex-none" data-action="click->modify#minus"></i>
+            <%= f.number_field :number, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'weui-input is-flex-grow-1' %>
+            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark is-flex-none pr-1" data-action="click->modify#plus"></i>
+            <span class="is-flex-none" style="width: 3em"></span>
+          </div>
+        </div>
         <div class="weui-cell">
           <div class="weui-cell__hd">
             <label class="weui-label"><%= Trade::TradeItem.human_attribute_name(:weight) %></label>
@@ -46,11 +56,21 @@
           <div data-controller="modify" class="weui-cell__bd is-flex is-align-items-center">
             <i class="fa-solid fa-xl fa-circle-minus has-text-grey-dark is-flex-none" data-action="click->modify#minus"></i>
             <%= f.number_field :weight, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'weui-input is-flex-grow-1' %>
-            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark is-flex-none" data-action="click->modify#plus"></i>
-            <span class="has-text-grey is-flex-none pl-1">千克</span>
+            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark is-flex-none pr-1" data-action="click->modify#plus"></i>
+            <span class="has-text-grey is-flex-none" style="width: 3em">千克</span>
           </div>
         </div>
-        <%= f.number_field :volume, form: 'new_order' %>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label class="weui-label"><%= Trade::TradeItem.human_attribute_name(:volume) %></label>
+          </div>
+          <div data-controller="modify" class="weui-cell__bd is-flex is-align-items-center">
+            <i class="fa-solid fa-xl fa-circle-minus has-text-grey-dark is-flex-none" data-action="click->modify#minus"></i>
+            <%= f.number_field :volume, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'weui-input is-flex-grow-1' %>
+            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark is-flex-none pr-1" data-action="click->modify#plus"></i>
+            <span class="has-text-grey is-flex-none" style="width: 3em">立方米</span>
+          </div>
+        </div>
         <%= f.file_field :image, form: 'new_order' %>
       <% end %>
     </div>
