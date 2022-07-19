@@ -5,7 +5,7 @@
       <td class="has-text-danger"><%= @order.unreceived_amount.to_money.format(html_wrap: true).html_safe %></td>
     </tr>
     <% unless @order.trade_items.map(&:good_type).include?('Trade::Advance') %>
-      <%= render partial: 'wallet', collection: @order.user.wallets, as: :wallet %>
+      <%= render partial: 'wallet', collection: @order.user.wallets, as: :wallet if @order.user %>
     <% end %>
     <tr>
       <td></td>

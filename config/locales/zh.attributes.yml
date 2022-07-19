@@ -43,6 +43,7 @@ zh:
         uuid: 订单号
         payment_status: 付款状态
         payment_type: 支付方式
+        payment_strategy_id: 付款方式
         original_amount: 原价
         item_amount: 货物价格
         overall_additional_amount: 附加费用

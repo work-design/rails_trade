@@ -18,5 +18,11 @@
       <label class="weui-form-preview__label has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
       <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
+    <% if @order.payment_strategy %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></label>
+      <span class="weui-form-preview__value"><%= @order.payment_strategy.name %></span>
+    </div>
+    <% end %>
   </div>
 </div>
