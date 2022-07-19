@@ -1,6 +1,6 @@
 <div class="weui-form-preview">
   <div class="weui-form-preview__bd">
-    <div class="weui-form-prewview__item">
+    <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:payment_uuid) %></label>
       <div class="weui-form-preview__value" data-controller="clipboard">
         <span data-clipboard-target="source"><%= model.payment.payment_uuid %></span>
@@ -18,7 +18,7 @@
       <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:type) %></label>
       <span class="weui-form-preview__value"><%= model.payment.type_i18n %></span>
     </div>
-    <div class="weui-form-prewview__item">
+    <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:created_at) %></label>
       <span class="weui-form-preview__value"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></span>
     </div>

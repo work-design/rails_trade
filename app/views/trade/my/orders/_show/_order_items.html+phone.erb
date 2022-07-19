@@ -1,6 +1,6 @@
 <div class="weui-form-preview mt-4">
   <div class="weui-form-preview__bd">
-    <div class="weui-form-prewview__item">
+    <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:uuid) %></label>
       <div class="weui-form-preview__value" data-controller="clipboard">
         <span data-clipboard-target="source"><%= model.uuid %></span>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="weui-form-prewview__item">
+    <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:created_at) %></label>
       <span class="weui-form-preview__value"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></span>
     </div>

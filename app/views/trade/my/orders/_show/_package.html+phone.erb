@@ -4,16 +4,16 @@
       <span class="has-text-grey"><%= Ship::Package.human_attribute_name(:id) %>：</span>
       <span><%= package.id %></span>
       <span class="tag"><%= package.state_i18n %></span>
+
+
     </h4>
     <p class="weui-media-box__desc">
-      <span class="has-text-grey"><%= Ship::Package.human_attribute_name(:expected_on) %>：</span>
+      <span class="has-text-grey">：</span>
       <span><%= package.expected_on %></span>
     </p>
     <p>
-      <span class="has-text-grey">包含物品：</span>
-      <% package.packageds.includes(:trade_item).each do |packaged| %>
-        <span><%= packaged.trade_item.good_name %></span>
-      <% end %>
+      <span class="has-text-grey"></span>
+
     </p>
   </div>
 <% end %>
