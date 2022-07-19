@@ -1,19 +1,46 @@
-<%= link_to({ controller: 'packages', action: 'show', order_id: @order.id, id: package.id }, class: 'weui-media-box weui-media-box_appmsg', text: true) do %>
-  <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title">
-      <span class="has-text-grey"><%= Ship::Package.human_attribute_name(:id) %>：</span>
-      <span><%= package.id %></span>
-      <span class="tag"><%= package.state_i18n %></span>
-
-
-    </h4>
-    <p class="weui-media-box__desc">
-      <span class="has-text-grey">：</span>
-      <span><%= package.expected_on %></span>
-    </p>
-    <p>
-      <span class="has-text-grey"></span>
-
-    </p>
+<div class="weui-form-preview">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:id) %></label>
+      <div class="weui-form-preview__value" data-controller="clipboard">
+        <span data-clipboard-target="source"><%= package.id %></span>
+        <span class="tag"><%= package.state_i18n %></span>
+        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <div data-clipboard-target="toast" class="weui-toast__wrap">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:expected_on) %></label>
+      <span class="weui-form-preview__value"><%= package.expected_on %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label">包含物品：</label>
+      <div class="weui-form-preview__value">
+      <% package.packageds.includes(:trade_item).each do |packaged| %>
+        <span><%= packaged.trade_item.good_name %></span>
+      <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
+  <div class="weui-form-preview__ft">
+    <button
+      data-controller="mini-program"
+      data-mini-program-url-value="/pages/print/execute/index"
+      data-mini-program-data-value="<%= { url: url_for(controller: 'ship/admin/packages', action: 'print_data', id: package.id, only_path: false) }.to_json %>"
+      data-action="click->mini-program#link"
+      class="weui-form-preview__btn weui-form-preview__btn_primary"
+    >
+      <i class="fa-regular fa-print"></i>
+      <span>打印包裹</span>
+    </button>
+    <%= link_to({ controller: 'packages', action: 'show', order_id: @order.id, id: package.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
+      <span>详情</span>
+    <% end %>
+  </div>
+</div>
