@@ -42,7 +42,7 @@ module Trade
     end
 
     def compute_expense_amount
-      self.payouts.sum(:requested_amount) + wallet_payments.sum(&:total_amount)
+      self.payouts.sum(:requested_amount) + wallet_payments.sum(:total_amount)
     end
 
     def compute_income_amount
