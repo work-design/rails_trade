@@ -1,16 +1,17 @@
 <%= button_to({ action: 'destroy', id: model.id }, method: :delete, class: 'has-text-danger', form: { data: { turbo_confirm: t('.confirm') }, class: 'weui-actionsheet__cell weui-actionsheet__cell_warn' }) do %>
-  <i class="fa-light fa-trash"></i>
+  <i class="fa-regular fa-trash"></i>
   <span><%= t('.destroy') %></span>
 <% end %>
 <%= link_to({ action: 'edit', id: model.id }, class: 'weui-actionsheet__cell') do %>
-  <i class="fa-light fa-pencil"></i>
+  <i class="fa-regular fa-pencil"></i>
   <span><%= t('.edit') %></span>
 <% end %>
 <%= link_to({ action: 'show', id: model.id }, class: 'weui-actionsheet__cell') do %>
-  <i class="fa-light fa-info"></i>
+  <i class="fa-regular fa-info"></i>
   <span><%= t('.show') %></span>
 <% end %>
 <%= link_to({ action: 'payment_types', id: model.id }, class: 'weui-actionsheet__cell') do %>
+  <i class="fa-regular fa-credit-card"></i>
   <span><%= t('trade.admin.orders.payment_types.title') %></span>
 <% end %>
 <div
@@ -21,7 +22,7 @@
   class="weui-actionsheet__cell"
 >
   <button>
-    <i class="fa-light fa-print"></i>
+    <i class="fa-regular fa-print"></i>
     <span>打印订单</span>
   </button>
 </div>
