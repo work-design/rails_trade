@@ -12,7 +12,12 @@
       </div>
       <% end %>
     </div>
-    <span><%= model.payment_status_i18n %></span>
+    <div>
+      <span><%= model.payment_status_i18n %></span>
+      <% if model.payment_strategy %>
+      <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+      <% end %>
+    </div>
   <% end %>
   <div class="weui-panel__bd">
   <% if model.from_address_id.present? %>

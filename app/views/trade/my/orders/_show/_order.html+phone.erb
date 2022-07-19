@@ -1,5 +1,10 @@
 <div class="weui-panel">
-  <div class="weui-panel__hd"><%= model.payment_status_i18n %></div>
+  <div class="weui-panel__hd">
+    <span><%= model.payment_status_i18n %></span>
+    <% if model.payment_strategy %>
+      <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+    <% end %>
+  </div>
   <div class="weui-panel__bd">
     <%= render partial: 'trade_item', collection: model.trade_items, as: :trade_item %>
   </div>

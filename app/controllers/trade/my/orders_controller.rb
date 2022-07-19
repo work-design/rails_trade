@@ -15,7 +15,7 @@ module Trade
       q_params.merge! client_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
-      @orders = Order.includes(:trade_items, address: :area, from_address: :area).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = Order.includes(:payment_strategy, :trade_items, address: :area, from_address: :area).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
