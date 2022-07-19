@@ -17,8 +17,10 @@ module Trade
       #validate :valid_check_amount
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      after_validation :checked_payment, if: -> { confirmed? && (changes.keys & ['state', 'check_amount']).present? }
-      after_validation :unchecked_payment, if: -> { init? && state_was == 'confirmed' }
+      before_validation :checked_to_payment, if: -> { confirmed? && (changes.keys & ['state', 'check_amount']).present? }
+      before_validation :unchecked_to_payment, if: -> { init? && state_was == 'confirmed' }
+      after_save :checked_to_order, if: -> { confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
+      after_save :unchecked_to_order, if: -> { init? && state_before_last_save == 'confirmed' }
       after_destroy_commit :unchecked_to_order
     end
 
@@ -32,13 +34,13 @@ module Trade
       end
     end
 
-    def checked_payment
-      checked_to_payment
-      checked_to_order
-    end
-
     def checked_to_payment
       payment.checked_amount += self.check_amount
+      payment.check_state
+    end
+
+    def unchecked_to_payment
+      payment.checked_amount -= self.check_amount
       payment.check_state
     end
 
@@ -46,16 +48,6 @@ module Trade
       order.received_amount += self.check_amount
       order.check_state
       order.save
-    end
-
-    def unchecked_payment
-      unchecked_to_payment
-      unchecked_to_order
-    end
-
-    def unchecked_to_payment
-      payment.checked_amount -= self.check_amount
-      payment.check_state
     end
 
     def unchecked_to_order
