@@ -22,7 +22,7 @@ zh:
           refunded: 已退款
           denied: 退款失败
         state:
-          init: 当前订单
+          init: 进行中
           done: 已完成
           canceled: 已取消
         pay_later:

@@ -22,7 +22,7 @@
 <td><%= model.state_i18n %></td>
 <td>
   <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
-  <p><time data-controller="time"><%= model.paid_at&.to_fs(:iso8601) %></time></p>
+  <p class="has-text-success"><time data-controller="time"><%= model.paid_at&.to_fs(:iso8601) %></time></p>
 </td>
 <td>
   <p><%= link_to model.user_name, { user_id: model.user_id } %></p>
