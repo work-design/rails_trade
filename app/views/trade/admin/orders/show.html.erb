@@ -19,5 +19,5 @@
     </td>
     <td></td>
   </tr>
-  <%= render partial: 'address', locals: { address: @order.address } if @order.address %>
+  <%= render partial: 'show_address', locals: { address: @order.address } if @order.address %>
 </table>

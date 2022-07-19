@@ -2,7 +2,7 @@ module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
       :show, :payment_types, :edit, :update, :refund, :destroy,
-      :payment_orders, :print_data
+      :payment_orders, :print_data, :package
     ]
     before_action :set_new_order, only: [:new, :create]
     skip_before_action :require_login, only: [:print_data] if whether_filter :require_login
@@ -42,6 +42,10 @@ module Trade
 
     def refund
       @order.apply_for_refund
+    end
+
+    def package
+      @order.package
     end
 
     def payment_orders

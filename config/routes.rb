@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       member do
         get :payment_types
         patch :refund
+        patch :package
         get :print_data
         get :payment_orders
         get :payment_new
