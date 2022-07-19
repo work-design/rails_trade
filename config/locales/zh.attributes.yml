@@ -77,8 +77,10 @@ zh:
         reduced_amount: 优惠金额
         amount: 总价
         user_id: 用户
+        station_id: 收货网点
         address_id: 收货地址
-        from_address_id: 收货地址
+        from_station_id: 发货网点
+        from_address_id: 发货地址
         produce_plan_id: 生产计划
         status: 状态
         rent_start_at: 起租时间
