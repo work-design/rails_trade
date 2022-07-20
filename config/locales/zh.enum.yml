@@ -9,10 +9,10 @@ zh:
         temporary:
           true: 临时卡
           false: 正式卡
-      trade/card_log:
+      trade/wallet_log:
         source_type:
-          Trade::CardAdvance: 充值
-          Trade::CardPayment: 支付
+          Trade::WalletAdvance: 充值
+          Trade::WalletPayment: 支付
       trade/order:
         payment_status:
           unpaid: 未支付
