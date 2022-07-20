@@ -2,12 +2,24 @@
   <div class="weui-panel__ft">
     <div class="weui-cell weui-cell_link">
       <button
-        class="weui-btn weui-btn_mini weui-btn_default"
         data-controller="wechat"
         data-wechat-options-value="<%= current_wechat_app.js_config(request.original_url).to_json %>"
         data-wechat-apis-value="<%= ['closeWindow'].to_json %>"
         data-action="wechat#close"
-      >联系客服</button>
+        class="weui-btn weui-btn_mini weui-btn_default"
+      >
+        <span>联系客服</span>
+      </button>
+      <button
+        data-controller="mini-program"
+        data-mini-program-url-value="/pages/print/execute/index"
+        data-mini-program-data-value="<%= { url: url_for(action: 'print_data', id: model.id, only_path: false) }.to_json %>"
+        data-action="click->mini-program#link"
+        class="weui-btn weui-btn_mini weui-btn_warn"
+      >
+        <i class="fa-regular fa-print"></i>
+        <span>打印订单</span>
+      </button>
       <%= link_to({ action: 'payment_types', id: @order.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
         <span>支付</span>
       <% end if @order.can_pay? %>
