@@ -1,8 +1,8 @@
+<%= render 'top_bar' %>
+
 <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
   <%= f.hidden_field :current_cart_id %>
 <% end %>
-
-<%= render 'top_bar' %>
 
 <div class="weui-panel">
   <div class="weui-panel__bd">
