@@ -7,10 +7,10 @@
       <div class="weui-cell__bd">
       <% if @order.address %>
         <p>
-          <span><%= @order.address.contact %></span>
+          <strong><%= @order.address.contact %></strong>
           <span><%= @order.address.tel %></span>
         </p>
-        <p class="is-size-7">
+        <p class="has-text-grey is-size-7">
           <span><%= @order.address.area.full_name %></span>
           <span><%= @order.address.station&.name %></span>
           <span><%= @order.address.detail %></span>
