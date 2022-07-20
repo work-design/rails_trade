@@ -9,7 +9,7 @@ module Trade
     end
 
     def create
-      if params[:xx] == 'x' && @payment.save
+      if @payment.save
         render 'create'
       else
         render :new, locals: { model: @payment }, status: :unprocessable_entity
