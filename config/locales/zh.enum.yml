@@ -12,7 +12,7 @@ zh:
       trade/wallet_log:
         source_type:
           Trade::WalletAdvance: 充值
-          Trade::WalletPayment: 支付
+          Trade::Payment: 支付
       trade/order:
         payment_status:
           unpaid: 未支付
