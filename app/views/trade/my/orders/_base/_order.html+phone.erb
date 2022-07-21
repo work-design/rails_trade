@@ -1,6 +1,7 @@
 <div class="weui-panel">
-  <%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between is-size-7') do %>
+  <%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between is-align-items-center is-size-7') do %>
     <div>
+      <div class="has-text-grey"><%= model.uuid %></div>
       <div>
         <span class="has-text-grey"><%= Trade::Order.human_attribute_name(:created_at) %>：</span>
         <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
