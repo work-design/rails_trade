@@ -138,7 +138,8 @@ module Trade
     def to_cpcl
       cpcl = BaseCpcl.new
       cpcl.text uuid
-      cpcl.text amount
+      cpcl.text "#{from_station&.name || from_address&.area&.full_name} -> #{station&.name || address&.area&.full_name}"
+      cpcl.text "#{address.contact}  #{address.tel}"
       cpcl.right_qrcode(enter_url)
       cpcl.render
     end
