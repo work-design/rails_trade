@@ -46,7 +46,7 @@ zh:
         payment_strategy_id: 付款方式
         original_amount: 原价
         item_amount: 货物价格
-        overall_additional_amount: 附加费用
+        overall_additional_amount: 附加费用（运费、保险等）
         overall_reduced_amount: 优惠金额
         amount: 金额
         received_amount: 已收金额
