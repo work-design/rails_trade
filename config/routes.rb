@@ -100,6 +100,11 @@ Rails.application.routes.draw do
     resources :card_templates do
       resources :advances
     end
+    resources :orders, only: [] do
+      member do
+        get :qrcode
+      end
+    end
 
     namespace :panel, defaults: { namespace: 'panel' } do
       root 'home#index'

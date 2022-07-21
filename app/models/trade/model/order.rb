@@ -139,8 +139,20 @@ module Trade
       cpcl = BaseCpcl.new
       cpcl.text uuid
       cpcl.text amount
-      cpcl.right_qrcode('enter_url')
+      cpcl.right_qrcode(enter_url)
       cpcl.render
+    end
+
+    def enter_url
+      Rails.application.routes.url_for(controller: 'trade/orders', action: 'qrcode', id: self.id)
+    end
+
+    def qrcode_enter_png
+      QrcodeHelper.code_png(enter_url, border_modules: 0, fill: 'pink')
+    end
+
+    def qrcode_enter_url
+      QrcodeHelper.data_url(enter_url)
     end
 
     def can_cancel?
