@@ -140,7 +140,7 @@ module Trade
       cpcl.text uuid
       cpcl.text "#{from_station&.name || from_address&.area&.full_name} -> #{station&.name || address&.area&.full_name}"
       cpcl.bold_text "#{address.contact}", line_add: false
-      cpcl.text "#{address.tel}", x: 99
+      cpcl.text "#{address.tel}", x: 24 * (address.contact.size + 1)
       cpcl.right_qrcode(enter_url)
       cpcl.render
     end
