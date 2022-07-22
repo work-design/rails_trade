@@ -14,6 +14,8 @@ module Trade
         freight_collect: 'freight_collect',
         included_goods: 'included_goods'
       }
+
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
     end
 
     def credit?
