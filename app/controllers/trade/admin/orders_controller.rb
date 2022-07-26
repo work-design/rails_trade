@@ -6,6 +6,7 @@ module Trade
     ]
     before_action :set_new_order, only: [:new, :create]
     skip_before_action :require_login, only: [:print_data] if whether_filter :require_login
+    skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
 
     def index
       q_params = {}
