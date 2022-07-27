@@ -9,12 +9,12 @@
         <p>
           <strong><%= @order.from_address.contact %></strong>
           <span><%= @order.from_address.tel %></span>
+          <% if @order.from_address.station %>
+            <span class="tag"><%= @order.from_address.station.name %></span>
+          <% end %>
         </p>
         <p class="has-text-grey is-size-7">
           <span><%= @order.from_address.area.full_name %></span>
-          <% if @order.from_address.station %>
-          <span class="tag"><%= @order.from_address.station.name %></span>
-          <% end %>
           <span><%= @order.from_address.detail %></span>
         </p>
       <% else %>
