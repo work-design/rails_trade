@@ -10,7 +10,7 @@
         <div class="weui-steps__item__inner">
           <span class="weui-steps__item__title"><%= Ship::ShipmentItem.human_attribute_name(:unloaded_at) %></span>
           <span class="weui-steps__item__desc">
-            <time data-controller="time"><%= shipment_item.unloaded_at.to_fs(:iso8601) %></time>
+            <time data-controller="time"><%= shipment_item.unloaded_at&.to_fs(:iso8601) %></time>
           </span>
         </div>
       </li>
@@ -18,7 +18,7 @@
         <div class="weui-steps__item__inner">
           <span class="weui-steps__item__title"><%= Ship::ShipmentItem.human_attribute_name(:loaded_at) %></span>
           <span class="weui-steps__item__desc">
-            <time data-controller="time"><%= shipment_item.loaded_at.to_fs(:iso8601) %></time>
+            <time data-controller="time"><%= shipment_item.loaded_at&.to_fs(:iso8601) %></time>
           </span>
         </div>
       </li>
