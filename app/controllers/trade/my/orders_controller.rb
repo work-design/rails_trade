@@ -160,7 +160,7 @@ module Trade
     end
 
     def set_payment_strategies
-      @payment_strategies = PaymentStrategy.limit(5)
+      @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
     end
 
     def set_wallet
