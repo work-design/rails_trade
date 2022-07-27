@@ -2,7 +2,8 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :refund, :payment_types, :payment_type, :wait, :destroy, :cancel,
-      :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay
+      :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay,
+      :package
     ]
     before_action :set_cart, only: [:new]
     before_action :set_payment_strategies, only: [:blank]
@@ -129,8 +130,11 @@ module Trade
       @order.apply_for_refund
     end
 
-    def logs
+    def package
+      @order.package
+    end
 
+    def logs
     end
 
     def cancel

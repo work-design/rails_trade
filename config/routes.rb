@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           get :wxpay_pc_pay
           get :wait
           patch :stripe_pay
+          post :package
           get :paypal_execute
           get :pay
           get :payment_types
