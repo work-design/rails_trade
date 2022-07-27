@@ -29,6 +29,7 @@
     </div>
   </div>
   <div class="weui-form-preview__ft">
+    <% if request.variant.any?(:mini_program) %>
     <button
       data-controller="mini-program"
       data-mini-program-url-value="/pages/print/execute/index"
@@ -39,6 +40,7 @@
       <i class="fa-regular fa-print"></i>
       <span>打印包裹</span>
     </button>
+    <% end %>
     <%= link_to({ controller: 'packages', action: 'show', order_id: @order.id, id: package.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
       <span>详情</span>
     <% end %>
