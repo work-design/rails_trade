@@ -13,7 +13,9 @@ module Trade
 
       has_many :wallet_advances
 
-      scope :open, -> { where(open: true) }
+      scope :opened, -> { where(open: true) }
+      scope :unopened, -> { where(open: false) }
+      scope :without_card, -> { where(card_template_id: nil) }
 
       validates :amount, uniqueness: { scope: :card_template_id }
       validates :price, uniqueness: { scope: :card_template_id }
