@@ -1,4 +1,4 @@
-<td><%= model.amount %></td>
+<td><%= sprintf('%g', model.amount) %></td>
 <td><%= model.price.to_money.format(html_wrap: true).html_safe %></td>
 <td>
 <% if model.card_template %>

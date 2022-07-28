@@ -5,7 +5,7 @@
       <%= ef.hidden_field :good_id, value: advance.id %>
     <% end %>
     <%= button_tag class: 'py-2 has-background-light is-flex-direction-column has-text-centered' do %>
-      <div class="header has-text-grey"><%= advance.amount %></div>
+      <div class="header has-text-grey"><%= sprintf('%g', advance.amount) %></div>
       <div class="description has-text-danger"><%= advance.price.to_money.format(html_wrap: true).html_safe %></div>
     <% end %>
   <% end %>
