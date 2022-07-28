@@ -1,5 +1,16 @@
 <%= render 'top_bar' %>
 
-<% if @wallet %>
-  <%= render partial: 'wallet', locals: { model: @wallet } %>
-<% end %>
+<div class="weui-panel">
+  <div class="weui-panel__hd level is-flex">
+    <span class="level-left">充值</span>
+    <div class="level-right mt-0 pr-3 has-text-weight-normal">
+      <span><%= Trade::Wallet.human_attribute_name(:amount) %>：<%= @wallet.amount %></span>
+      <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @wallet.id } if @wallet.id %>
+    </div>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="columns m-4 is-flex is-multiline is-mobile">
+      <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances %>
+    </div>
+  </div>
+</div>
