@@ -4,7 +4,7 @@ zh:
       trade/advance:
         amount: 额度
         price: 价格
-        apple_product_id: iOS内购配置
+        card_template_id: 会员
         open: 开卡充值
       trade/card:
         card_template_id: 会员卡类型

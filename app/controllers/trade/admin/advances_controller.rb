@@ -30,8 +30,6 @@ module Trade
       params.fetch(:advance, {}).permit(
         :price,
         :amount,
-        :state,
-        :apple_product_id,
         :wallet_template_id,
         :card_template_id,
         :open,
