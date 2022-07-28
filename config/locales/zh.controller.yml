@@ -144,6 +144,8 @@ zh:
           confirm: 确认订单
         blank:
           title: 一键下单
+        add:
+          title: 生成订单
         edit_payment_type:
           title: 支付方式
         wxpay_pc_pay:
