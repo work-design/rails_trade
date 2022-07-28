@@ -3,6 +3,9 @@ zh:
     title: 电商
     admin:
       title: 交易管理
+      home:
+        index:
+          title: 交易管理
       wallet_advances:
         index:
           title: 充值明细
