@@ -7,7 +7,7 @@
 <td><%= model.code %></td>
 <td>
   <p><span class="tag"><%= model.unit_kind_i18n %></span></p>
-  <p><%= model.unit %></p>
+  <p class="has-text-centered"><%= model.unit %></p>
 </td>
 <td>
   <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
