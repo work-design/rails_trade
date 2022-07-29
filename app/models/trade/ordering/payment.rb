@@ -8,9 +8,9 @@ module Trade
       attribute :payment_kind, :string
 
       before_save :check_state, if: -> { !pay_later && amount.zero? }
-      after_save_commit :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
-      after_save_commit :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
-      after_save_commit :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
+      after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
+      after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
+      after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
     end
 
     def can_pay?
@@ -77,7 +77,13 @@ module Trade
     end
 
     def send_notice
-      broadcast_action_to self, action: :update, target: 'order_result', partial: 'trade/my/orders/success', locals: { model: self }
+      broadcast_action_to(
+        self,
+        action: :update,
+        target: 'order_result',
+        partial: 'trade/my/orders/success',
+        locals: { model: self }
+      )
     end
 
     def payment_result(payment_kind)
