@@ -12,7 +12,7 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Purchase.human_attribute_name(:price) %></td>
-  <td><%= @purchase.price %></td>
+  <td><%= @purchase.price.to_money.format(html_safe: true).html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Purchase.human_attribute_name(:note) %></td>
