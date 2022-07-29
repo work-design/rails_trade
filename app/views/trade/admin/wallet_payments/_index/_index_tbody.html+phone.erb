@@ -1,4 +1,6 @@
-<td><%= model.total_amount.to_money.format(html_wrap: true).html_safe %></td>
-<td><%= model.refunded_amount.to_money.format(html_wrap: true).html_safe %></td>
-<td><%= model.comment %></td>
-<td><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></td>
+<p>
+  <span class="has-text-danger"><%= model.total_amount %></span>
+  <span class="has-text-grey"><%= model.wallet.wallet_template.unit %></span>
+</p>
+<p><%= model.comment %></p>
+<p class="is-size-7 has-text-grey"><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></p>
