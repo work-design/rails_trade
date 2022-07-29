@@ -1,0 +1,4 @@
+<td><%= model.total_amount.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.refunded_amount.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.comment %></td>
+<td><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></td>
