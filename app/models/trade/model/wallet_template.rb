@@ -12,6 +12,7 @@ module Trade
       attribute :platform, :string
       attribute :default, :boolean
       attribute :unit, :string
+      attribute :digit, :integer
 
       enum unit_kind: {
         currency: 'currency',
