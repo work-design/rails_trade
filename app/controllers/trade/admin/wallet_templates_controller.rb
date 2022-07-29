@@ -29,6 +29,7 @@ module Trade
         :name,
         :description,
         :unit,
+        :unit_kind,
         :code,
         :default,
         :logo

@@ -126,6 +126,6 @@ zh:
           rent: 租用
           use: 买入
       trade/wallet_template:
-        unit:
+        unit_kind:
           currency: 默认货币
           custom: 自定义

@@ -11,13 +11,14 @@ module Trade
       attribute :code, :string
       attribute :platform, :string
       attribute :default, :boolean
+      attribute :unit, :string
 
-      enum unit: {
+      enum unit_kind: {
         currency: 'currency',
         custom: 'custom'
       }
 
-      belongs_to :organ, optional: true
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
 
       has_many :wallets, dependent: :nullify
       has_many :advances, dependent: :destroy_async
