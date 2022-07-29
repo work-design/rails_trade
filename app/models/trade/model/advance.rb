@@ -32,9 +32,14 @@ module Trade
     end
 
     def order_paid(trade_item)
-      wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
-
-      wallet.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
+      if trade_item.user_id
+        wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
+        wallet.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain_id)
+      elsif trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
+        wallet = wallet_template.wallets.find_or_initialize_by(maintain_id: trade_item.order.maintain_id)
+      else
+        return
+      end
 
       wa = wallet_advances.build
       wa.wallet = wallet

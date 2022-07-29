@@ -29,10 +29,16 @@ module Trade
     end
 
     def order_paid(trade_item)
-      card = card_template.cards.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
-      card.temporary = false
-      card.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
+      if trade_item.user_id
+        card = card_template.cards.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
+        card.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain_id)
+      elsif trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
+        card = card_template.cards.find_or_initialize_by(maintain_id: trade_item.order.maintain_id)
+      else
+        return
+      end
 
+      card.temporary = false
       cp = card.card_purchases.build
       cp.trade_item = trade_item
       cp.years = years
