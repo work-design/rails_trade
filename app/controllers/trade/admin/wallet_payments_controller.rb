@@ -17,6 +17,7 @@ module Trade
 
     def set_new_wallet_payment
       @wallet_payment = @wallet.wallet_payments.build(wallet_payment_params)
+      @wallet_payment.notified_at ||= Time.current
     end
 
     def set_wallet_payment

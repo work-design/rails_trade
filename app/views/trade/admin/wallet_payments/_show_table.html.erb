@@ -10,3 +10,7 @@
   <td class="has-text-right"><%= Trade::WalletPayment.human_attribute_name(:created_at) %></td>
   <td><time data-controller="time"><%= @wallet_payment.created_at.to_fs(:iso8601) %></time></td>
 </tr>
+<tr>
+  <td class="has-text-right"><%= Trade::WalletPayment.human_attribute_name(:comment) %></td>
+  <td><%= @wallet_payment.comment %></td>
+</tr>
