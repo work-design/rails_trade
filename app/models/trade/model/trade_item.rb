@@ -106,7 +106,11 @@ module Trade
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
 
-      acts_as_notify(:default, only: [:good_name, :number, :amount, :note], methods: [:order_uuid, :cart_organ])
+      acts_as_notify(
+        :default,
+        only: [:good_name, :number, :amount, :note],
+        methods: [:order_uuid, :cart_organ]
+      )
     end
 
     def init_uuid
