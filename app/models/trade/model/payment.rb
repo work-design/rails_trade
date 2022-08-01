@@ -40,8 +40,6 @@ module Trade
       has_many :orders, through: :payment_orders, inverse_of: :payments
       accepts_nested_attributes_for :payment_orders
 
-      default_scope -> { order(created_at: :desc) }
-
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
       before_validation :init_uuid, if: -> { payment_uuid.blank? }
