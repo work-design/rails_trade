@@ -1,0 +1,35 @@
+<td>
+  <% unless order.cancel? || order.init_received_amount >= order.amount %>
+    <%= check_box_tag(:order_id, order.id) %>
+  <% end %>
+</td>
+<td>
+  <%= order.uuid %>
+  <% if order.cancel? %>
+    <label class="ui red label">Canceled</label>
+  <% end %>
+</td>
+<td><%# order.charger&.name %></td>
+<td><%= order.created_at %></td>
+<td>
+  <% order.order_items.each do |order_item| %>
+    <p><%= order_item.chemical.name.truncate(50) %></p>
+    <p><%= order_item.chemical.cas %></p>
+  <% end %>
+</td>
+<td class="<%= order.overdue_date && order.overdue_date < Date.today ? 'error' : '' %>">
+  <%= order.overdue_date %>
+</td>
+<td><%= order.amount %> / <%= order.unreceived_amount %></td>
+<td><%= order.remind_counter %></td>
+<td>
+  <% if order.exists_payments && !order.cancel? %>
+    <%= link_to new_admin_order_order_payment_path(order.id), class: 'ui icon green button' do %>
+      <i class="payment icon"></i>
+    <% end %>
+  <% elsif !order.cancel? %>
+    <%= link_to new_admin_order_order_payment_path(order.id), class: 'ui icon grey button' do %>
+      <i class="payment icon"></i>
+    <% end %>
+  <% end %>
+</td>

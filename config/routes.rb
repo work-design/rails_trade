@@ -124,15 +124,6 @@ Rails.application.routes.draw do
       namespace :admin, defaults: { namespace: 'admin' } do
         root 'home#index'
         concerns :order_admin
-        resources :users do
-          collection do
-            get :overdue
-            put :remind
-          end
-          member do
-            get :orders
-          end
-        end
         resources :carts, except: [:new] do
           collection do
             get :total
