@@ -138,6 +138,7 @@ Rails.application.routes.draw do
             get :total
             get :doc
             get :only
+            get :member_organ
           end
         end
         resources :trade_items

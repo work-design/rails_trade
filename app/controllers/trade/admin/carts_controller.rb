@@ -11,7 +11,8 @@ module Trade
       @carts = Cart.includes(:user, :member, :member_organ, :payment_strategy, :trade_items).default_where(q_params).order(member_organ_id: :asc, member_id: :asc).page(params[:page])
     end
 
-    def single
+    def member_organ
+      @organ_carts = Trade::Cart.select(:member_organ_id).distinct.where.not(member_organ_id: nil).includes(:member_organ).page(params[:page])
     end
 
     def total
