@@ -29,6 +29,8 @@ module Trade
       belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
 
+      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
+
       has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, -> { includes(:payment) }, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders

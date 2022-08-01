@@ -115,20 +115,3 @@
   </div>
 </div>
 
-<script>
-  function getCheckedIds() {
-    var ids = [];
-    $('input[name="order_id"]:checked').each(function(){
-      ids.push($(this).val())
-    });
-    ids = ids.join(',');
-    return ids
-  }
-
-  $('input[name="order_id"]').change(function(){
-    var remind_link = new URL($('#remind_link')[0].href);
-    //var batch_link = new URL($('#batch_reconcile')[0].attr('href'));
-
-    $('#remind_link').attr('href', remind_link.pathname + '?order_ids=' + getCheckedIds());
-  });
-</script>

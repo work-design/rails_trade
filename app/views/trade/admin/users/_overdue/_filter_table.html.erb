@@ -1,0 +1,4 @@
+<p>
+  <span>State:</span>
+  <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active: 'button is-info', item: 'button is-light') %>
+</p>
