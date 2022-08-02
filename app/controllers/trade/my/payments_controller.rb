@@ -29,7 +29,7 @@ module Trade
     end
 
     def wxpay_pay
-      @wxpay_order = @order.wxpay_order(current_wechat_app)
+      @wxpay_order = @payment.wxpay_order(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
         render 'wxpay_pay_err', status: :unprocessable_entity
