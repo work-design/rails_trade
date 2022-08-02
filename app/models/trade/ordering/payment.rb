@@ -60,13 +60,13 @@ module Trade
       self.trade_items.update(status: 'pay_later')
     end
 
-    def change_to_paid!(type:, payment_uuid: nil, params: {})
+    def change_to_paid!(payment_uuid: nil, params: {})
       if payment_uuid.present?
-        payment = self.payments.find_by(type: type, payment_uuid: payment_uuid)
+        payment = Payment.find_by(payment_uuid: payment_uuid)
         self.check_state! if payment
         payment
       else
-        payment = self.payments.build(type: type, payment_uuid: payment_uuid)
+        payment = Payment.build(payment_uuid: payment_uuid)
         payment.organ_id = organ_id
         payment.assign_detail params
 

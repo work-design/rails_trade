@@ -10,8 +10,11 @@ module Trade
         confirmed: 'confirmed'
       }, _default: 'init'
 
+      belongs_to :user, class_name: 'Auth::User'
+
       belongs_to :order, inverse_of: :payment_orders
       belongs_to :payment, inverse_of: :payment_orders
+
       has_one :refund, ->(o){ where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
       #validate :valid_check_amount

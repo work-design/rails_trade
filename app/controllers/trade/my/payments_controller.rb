@@ -28,6 +28,16 @@ module Trade
       @payment.save
     end
 
+    def wxpay_pay
+      @wxpay_order = @order.wxpay_order(current_wechat_app)
+
+      if @wxpay_order['code'].present? || @wxpay_order.blank?
+        render 'wxpay_pay_err', status: :unprocessable_entity
+      else
+        render 'wxpay_pay'
+      end
+    end
+
     private
     def set_payment
       wallet_template = WalletTemplate.default_where(default_params).default.take
