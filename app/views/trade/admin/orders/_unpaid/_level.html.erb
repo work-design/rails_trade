@@ -1,0 +1,26 @@
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">未付总额</p>
+      <p class="title"><%= @orders.sum(:unreceived_amount) %></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">订单总额</p>
+      <p class="title"><%= @orders.sum(:amount) %></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">已收款</p>
+      <p class="title"><%= @orders.sum(:received_amount) %></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Likes</p>
+      <p class="title">789</p>
+    </div>
+  </div>
+</nav>
