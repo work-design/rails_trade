@@ -13,22 +13,28 @@ module Trade
 
     def new
       @order.address_id ||= params[:address_id]
+      @order.trade_items.build
+    end
+
+    def create
       @order.compute_promote
       @order.valid?
 
       if params[:commit].present? && @order.save
-        render 'create_blank'
+        render 'create'
       else
         @order.trade_items.build
+        render 'new'
       end
-    end
-
-    def create
     end
 
     private
     def set_order
-      @order = current_user.orders.find(params[:id])
+      @order = current_user.from_orders.find(params[:id])
+    end
+
+    def set_new_order
+      @order = current_user.from_orders.build(order_params)
     end
 
     def _prefixes
@@ -39,18 +45,6 @@ module Trade
           pres
         end
       end
-    end
-
-    def order_params
-      params.fetch(:order, {}).permit(
-        :quantity,
-        :payment_id,
-        :payment_type,
-        :address_id,
-        :invoice_address_id,
-        :note,
-        trade_items_attributes: {}
-      )
     end
 
   end
