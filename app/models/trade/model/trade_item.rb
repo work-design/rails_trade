@@ -53,9 +53,10 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true
+
       belongs_to :from_address, class_name: 'Profiled::Address', optional: true
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
-      belongs_to :agent, class_name: 'Org::Member', optional: true
+
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
       if defined?(RailsFactory)

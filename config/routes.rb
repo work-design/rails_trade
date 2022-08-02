@@ -261,6 +261,10 @@ Rails.application.routes.draw do
       namespace :our, defaults: { namespace: 'our' } do
         concerns :orderable
       end
+
+      namespace :board, defaults: { namespace: 'board' } do
+        concerns :orderable
+      end
     end
   end
   resolve 'Trade::Purchase' do |purchase, options|
