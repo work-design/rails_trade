@@ -2,11 +2,20 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
+      <%= button_to({ action: 'refund', id: model.id }, method: :patch, class: 'button is-small is-rounded is-warning', form: { data: { turbo_confirm: t('.confirm') } }) do %>
+        <span><%= t('trade.admin.orders.refund.title') %></span>
+      <% end if ['part_paid', 'all_paid'].include?(model.payment_status) %>
+      <%= link_to({ controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
+        <span><%= t('trade.admin.refunds.index.title') %></span>
+      <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+      <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-link') do %>
+        <span><%= t('trade.admin.orders.payment_types.title') %></span>
+      <% end if ['unpaid', 'part_paid'].include?(model.payment_status) %>
       <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-light fa-info"></i>
+        <i class="fa-regular fa-circle-info"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-light fa-pencil"></i>
+        <i class="fa-regular fa-circle-pencil"></i>
       <% end %>
     </div>
   </td>

@@ -1,5 +1,8 @@
 <td>
-  <p><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></p>
+  <p>
+    <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
+    <span class="tag"><%= model.payment_status_i18n %></span>
+  </p>
   <p class="has-text-grey"><%= model.serial_number %></p>
 </td>
 <td class="has-text-right">
@@ -11,18 +14,6 @@
     </div>
   <% end %>
   <% if model.unreceived_amount.to_d > 0 %><p class="has-text-danger"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p><% end %>
-</td>
-<td>
-  <%= model.payment_status_i18n %>
-  <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
-    <%= button_to t('trade.admin.orders.refund.title'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
-  <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
-    <%= link_to t('trade.admin.refunds.index.title'), { controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-link is-small' %>
-  <% end %>
-  <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
-    <%= link_to t('trade.admin.orders.payment_types.title'), { action: 'payment_types', id: model.id }, class: 'button is-link is-small' %>
-    <%# link_to t('.add_payment'), { controller: 'trade/admin/payments', action: 'order_new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
-  <% end %>
 </td>
 <td><%= model.state_i18n %></td>
 <td>

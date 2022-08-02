@@ -59,6 +59,7 @@ zh:
         extra: 附加信息
         state: 状态
         created_at: 下单时间
+        pay_deadline_at: 付款截止时间
         paid_at: 支付时间
         trade_items_count: 子订单数
         pay_later: 后付款
