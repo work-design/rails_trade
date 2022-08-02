@@ -10,15 +10,15 @@
     <span class="tag"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
   </p>
   <% if model.received_amount.to_d > 0 %>
-    <div class="tags has-addons is-justify-content-end">
-      <span class="tag"><%= Trade::Order.human_attribute_name(:received_amount) %></span>
-      <span class="tag is-success"><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></span>
+    <div class="tags has-addons is-justify-content-end mt-1">
+      <span class="tag is-success"><%= Trade::Order.human_attribute_name(:received_amount) %></span>
+      <span class="tag"><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
   <% end %>
   <% if model.unreceived_amount.to_d > 0 %>
-    <p class="tags has-addons is-justify-content-end">
-      <span class="tag"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></span>
-      <span class="tag is-danger"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></span>
+    <p class="tags has-addons is-justify-content-end mt-1">
+      <span class="tag is-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></span>
+      <span class="tag"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></span>
     </p>
   <% end %>
 </td>
