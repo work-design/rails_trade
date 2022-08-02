@@ -45,6 +45,8 @@ zh:
           title: 确认订单
         payment_types:
           title: 支付
+        unpaid:
+          title: 待付款订单
         refund:
           title: 申请退款
       trade_items:

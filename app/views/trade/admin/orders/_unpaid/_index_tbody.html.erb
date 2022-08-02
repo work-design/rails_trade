@@ -1,0 +1,42 @@
+<td>
+  <p>
+    <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
+    <span class="tag"><%= model.state_i18n %></span>
+  </p>
+  <p class="has-text-grey"><%= model.serial_number %></p>
+</td>
+<td class="has-text-right">
+  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
+  <% if model.received_amount.to_d > 0 %>
+    <div class="tags has-addons is-justify-content-end">
+      <span class="tag"><%= Trade::Order.human_attribute_name(:received_amount) %></span>
+      <span class="tag is-success"><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+  <% end %>
+  <% if model.unreceived_amount.to_d > 0 %><p class="has-text-danger"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p><% end %>
+</td>
+<td>
+  <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
+    <%= button_to t('trade.admin.orders.refund.title'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
+  <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+    <%= link_to t('trade.admin.refunds.index.title'), { controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-link is-small' %>
+  <% end %>
+  <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
+    <%= link_to t('trade.admin.orders.payment_types.title'), { action: 'payment_types', id: model.id }, class: 'button is-link is-small' %>
+    <%# link_to t('.add_payment'), { controller: 'trade/admin/payments', action: 'order_new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
+  <% end %>
+</td>
+<td>
+  <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p class="has-text-success"><time data-controller="time"><%= model.paid_at&.to_fs(:iso8601) %></time></p>
+</td>
+<td>
+  <p><%= link_to model.user_name, { action: 'user', user_id: model.user_id } %></p>
+  <p>
+  <% if model&.member %>
+    <span><%= model.member.name %></span>
+    <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
+  <% end %>
+  </p>
+</td>
+<td><%= simple_format(model.extra_i18n) %></td>

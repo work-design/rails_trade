@@ -1,0 +1,11 @@
+<table class="table as-search">
+  <tr>
+    <th><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></th>
+    <td>
+      <%= link_to t('.all'), filter_params(except: [:payment_strategy_id]), class: active_params(payment_strategy_id: '', active: 'button is-info', item: 'button is-light') %>
+      <% @payment_strategies.each do |payment_strategy| %>
+        <%= link_to payment_strategy.name, filter_params(payment_strategy_id: payment_strategy.id), class: active_params(payment_strategy_id: payment_strategy.id, active: 'button is-info', item: 'button is-light') %>
+      <% end %>
+    </td>
+  </tr>
+</table>

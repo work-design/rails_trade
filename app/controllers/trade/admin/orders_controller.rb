@@ -6,6 +6,7 @@ module Trade
     ]
     before_action :set_new_order, only: [:new, :create]
     before_action :set_user, only: [:user]
+    before_action :set_payment_strategies, only: [:unpaid]
     skip_before_action :require_login, only: [:print_data] if whether_filter :require_login
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
 
@@ -20,6 +21,16 @@ module Trade
     def user
       q_params = {
         user_id: params[:user_id]
+      }
+      q_params.merge! default_params
+      q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type)
+
+      @orders = Order.includes(:user, :member, :member_organ, :payment_strategy).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+    end
+
+    def unpaid
+      q_params = {
+        payment_status: ['unpaid', 'part_paid']
       }
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type)
@@ -101,6 +112,10 @@ module Trade
 
     def set_user
       @user = Auth::User.find params[:user_id]
+    end
+
+    def set_payment_strategies
+      @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
     end
 
     def _prefixes
