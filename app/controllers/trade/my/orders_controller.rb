@@ -6,7 +6,6 @@ module Trade
       :package
     ]
     before_action :set_cart, only: [:new]
-    before_action :set_payment_strategies, only: [:blank]
     before_action :set_new_order, only: [:blank, :trial, :add, :create]
     before_action :set_wallet, only: [:payment_types]
 
@@ -22,8 +21,6 @@ module Trade
     def new
       @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
     end
-
-
 
     def trial
     end
@@ -141,7 +138,7 @@ module Trade
     end
 
     def set_cart
-      @cart = Cart.find params[:current_cart_id]
+      @cart = Cart.find_by id: params[:current_cart_id]
     end
 
     def set_order
@@ -162,16 +159,6 @@ module Trade
         @wallet = current_client.wallets.find_or_create_by(wallet_template_id: wallet_template.id)
       elsif wallet_template
         @wallet = current_user.wallets.find_or_create_by(wallet_template_id: wallet_template.id)
-      end
-    end
-
-    def _prefixes
-      super do |pres|
-        if params[:action] == 'blank'
-          pres + ['trade/admin/orders/_base']
-        else
-          pres
-        end
       end
     end
 

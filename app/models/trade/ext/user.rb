@@ -9,6 +9,7 @@ module Trade
       has_many :wallets, class_name: 'Trade::Wallet'
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, class_name: 'Trade::Order'
+      has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_user_id
       has_many :trade_items, class_name: 'Trade::TradeItem'
       has_many :rents, -> { aim_rent }, class_name: 'Trade::TradeItem'
       has_many :payments, class_name: 'Trade::Payment'

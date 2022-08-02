@@ -1,6 +1,8 @@
 module Trade
   class From::OrdersController < My::OrdersController
     before_action :set_order, only: [:show]
+    before_action :set_new_order, only: [:new, :create]
+    before_action :set_payment_strategies, only: [:new, :create]
 
     def index
       q_params = {}
@@ -18,13 +20,25 @@ module Trade
         render 'create_blank'
       else
         @order.trade_items.build
-        render 'blank'
       end
+    end
+
+    def create
     end
 
     private
     def set_order
       @order = current_user.orders.find(params[:id])
+    end
+
+    def _prefixes
+      super do |pres|
+        if ['new', 'create'].include?(params[:action])
+          pres + ['trade/admin/orders/_base']
+        else
+          pres
+        end
+      end
     end
 
     def order_params

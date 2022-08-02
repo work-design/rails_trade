@@ -14,6 +14,7 @@ module Trade
       has_many :cart_trade_items, ->{ carting }, class_name: 'Trade::TradeItem'
       has_many :agent_trade_items, class_name: 'Trade::TradeItem', foreign_key: :agent_id
       has_many :orders, class_name: 'Trade::Order'
+      has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_member_id
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }

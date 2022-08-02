@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     concern :orderable do
       resources :orders do
         collection do
-          match :blank, via: [:get, :post]
           post :add
           post :trial
         end
@@ -259,6 +258,10 @@ Rails.application.routes.draw do
       end
 
       namespace :our, defaults: { namespace: 'our' } do
+        concerns :orderable
+      end
+
+      namespace :from, defaults: { namespace: 'from' } do
         concerns :orderable
       end
 
