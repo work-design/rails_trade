@@ -23,18 +23,7 @@ module Trade
       @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
     end
 
-    def blank
-      @order.address_id ||= params[:address_id]
-      @order.compute_promote
-      @order.valid?
 
-      if params[:commit].present? && @order.save
-        render 'create_blank'
-      else
-        @order.trade_items.build
-        render 'blank'
-      end
-    end
 
     def trial
     end
