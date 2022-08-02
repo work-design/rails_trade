@@ -31,7 +31,7 @@ module Trade
 
       after_initialize :init_sequence, if: -> { new_record? && self.promote }
       before_save :sync_amount, if: -> { computed_amount_changed? }
-      after_update :sync_to_cart, if: -> { order.present? && saved_change_to_order_id? }
+      after_update :sync_to_cart, if: -> { cart_id.present? && saved_change_to_cart_id? }
     end
 
     def init_sequence
@@ -43,6 +43,7 @@ module Trade
     end
 
     def sync_to_cart
+      return unless cart
       cart.cart_promotes.reload
       cart.reset_amount!
     end

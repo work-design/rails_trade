@@ -58,7 +58,12 @@ module Trade
 
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         answer[:items].each do |item|
-          ip = cp.item_promotes.find_or_initialize_by(trade_item_id: item[:trade_item].id)
+          if item[:trade_item].id
+            ip = cp.item_promotes.find_or_initialize_by(trade_item_id: item[:trade_item].id)
+          else
+            ip = cp.item_promotes.build
+            ip.trade_item = item[:trade_item]
+          end
           ip.promote_good = item[:promote_good]
         end
         cp.based_amount = answer[:value]
@@ -68,6 +73,11 @@ module Trade
       end
       self.sum_amount
       self.changes
+    end
+
+    # for generate order with item
+    def init_promote
+
     end
 
     def reset_amount
