@@ -11,6 +11,7 @@ module Trade
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :trade_items_count, :integer, default: 0
       attribute :paid_at, :datetime, index: true
+      attribute :pay_deadline_at, :datetime
       attribute :pay_later, :boolean, default: false
       attribute :collectable, :boolean, default: false
 

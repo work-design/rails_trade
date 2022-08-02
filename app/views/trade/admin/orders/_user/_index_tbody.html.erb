@@ -8,7 +8,7 @@
   <p><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p>
 </td>
 <td>
-  <%= model.payment_status_i18n %>
+  <span><%= model.payment_status_i18n %></span>
   <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
     <%= button_to t('trade.admin.orders.refund.title'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
   <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>

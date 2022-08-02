@@ -8,9 +8,15 @@ module Trade
       attribute :payment_kind, :string
 
       before_save :check_state, if: -> { !pay_later && amount.zero? }
+      before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
+    end
+
+    def compute_pay_deadline_at
+      return unless payment_strategy
+      self.pay_deadline_at = (Date.today + payment_strategy.period).end_of_day
     end
 
     def can_pay?

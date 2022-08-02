@@ -22,6 +22,7 @@ module Trade
         user_id: params[:user_id]
       }
       q_params.merge! default_params
+      q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type)
 
       @orders = Order.includes(:user, :member, :member_organ, :payment_strategy).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
