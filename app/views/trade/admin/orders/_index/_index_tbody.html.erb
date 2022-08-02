@@ -1,6 +1,6 @@
 <td>
   <p><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></p>
-  <p><%= model.serial_number %></p>
+  <p class="has-text-grey"><%= model.serial_number %></p>
 </td>
 <td class="has-text-right">
   <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
