@@ -1,6 +1,5 @@
-<th>ID</th>
-<th>名称</th>
-<th>Credit Terms(Period)</th>
-<th>负责人</th>
-<th></th>
-<th></th>
+<th><%= Auth::User.human_attribute_name(:name) %></th>
+<th><%= Trade::Cart.human_attribute_name(:payment_strategy_id) %></th>
+<th><%= Trade::Cart.human_attribute_name(:aim) %></th>
+<th><%= Trade::Cart.human_attribute_name(:good_type) %></th>
+<th><%= Trade::Cart.human_attribute_name(:trade_items_count) %></th>

@@ -12,14 +12,14 @@ module Trade
     end
 
     def member_organ
-      @carts = Trade::Cart.select(:member_organ_id).distinct.where.not(member_organ_id: nil).includes(:member_organ).page(params[:page])
+      @carts = Cart.select(:member_organ_id).distinct.where.not(member_organ_id: nil).includes(:member_organ).page(params[:page])
     end
 
     def user
       q_params = {}
       q_params.merge! default_params
 
-      @carts = Trade::Cart.where(member_id: nil).where.not(user_id: nil).default_where(q_params).page(params[:page])
+      @carts = Cart.includes(:user, :payment_strategy, :trade_items).where(member_id: nil).where.not(user_id: nil).default_where(q_params).page(params[:page])
     end
 
     def new
