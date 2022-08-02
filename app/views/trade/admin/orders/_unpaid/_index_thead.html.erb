@@ -5,6 +5,10 @@
 <th class="has-text-right"><%= Trade::Order.human_attribute_name(:amount) %></th>
 <th><%= Trade::Order.human_attribute_name(:state) %></th>
 <th>
+  <p><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></p>
+  <p><%= Trade::Order.human_attribute_name(:pay_deadline_at) %></p>
+</th>
+<th>
   <p><%= Trade::Order.human_attribute_name(:created_at) %></p>
   <p class="has-text-success"><%= Trade::Order.human_attribute_name(:paid_at) %></p>
 </th>
