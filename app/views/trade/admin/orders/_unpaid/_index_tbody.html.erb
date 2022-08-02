@@ -6,25 +6,32 @@
   <p class="has-text-grey"><%= model.serial_number %></p>
 </td>
 <td class="has-text-right">
-  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p>
+    <span class="tag"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+  </p>
   <% if model.received_amount.to_d > 0 %>
     <div class="tags has-addons is-justify-content-end">
       <span class="tag"><%= Trade::Order.human_attribute_name(:received_amount) %></span>
       <span class="tag is-success"><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
   <% end %>
-  <% if model.unreceived_amount.to_d > 0 %><p class="has-text-danger"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p><% end %>
+  <% if model.unreceived_amount.to_d > 0 %>
+    <p class="tags has-addons is-justify-content-end">
+      <span class="tag"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></span>
+      <span class="tag is-danger"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></span>
+    </p>
+  <% end %>
 </td>
 <td>
-  <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
-    <%= button_to t('trade.admin.orders.refund.title'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
-  <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
-    <%= link_to t('trade.admin.refunds.index.title'), { controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-link is-small' %>
-  <% end %>
-  <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
-    <%= link_to t('trade.admin.orders.payment_types.title'), { action: 'payment_types', id: model.id }, class: 'button is-link is-small' %>
-    <%# link_to t('.add_payment'), { controller: 'trade/admin/payments', action: 'order_new', order_id: model.id }, data: { turbo_frame: 'modal' }, class: 'button is-link is-small' %>
-  <% end %>
+  <%= button_to({ action: 'refund', id: model.id }, method: :patch, class: 'button is-small is-warning', form: { data: { turbo_confirm: t('.confirm') } }) do %>
+    <span><%= t('trade.admin.orders.refund.title') %></span>
+  <% end if ['part_paid', 'all_paid'].include?(model.payment_status) %>
+  <%= link_to({ controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-small is-link') do %>
+    <span><%= t('trade.admin.refunds.index.title') %></span>
+  <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+  <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-link') do %>
+    <span><%= t('trade.admin.orders.payment_types.title') %></span>
+  <% end if ['unpaid', 'part_paid'].include?(model.payment_status) %>
 </td>
 <td>
   <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
