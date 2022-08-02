@@ -1,6 +1,5 @@
 module Trade
   class From::OrdersController < My::OrdersController
-    before_action :set_order, only: [:show]
     before_action :set_new_order, only: [:new, :create]
     before_action :set_payment_strategies, only: [:new, :create]
 
