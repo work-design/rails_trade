@@ -2,7 +2,7 @@ module Trade
   class Admin::CardPromotesController < Admin::BaseController
     before_action :set_card_template
     before_action :set_card_promote, only: [:show, :edit, :update, :destroy]
-    before_action :prepare_form, only: [:new, :edit]
+    before_action :set_promotes, only: [:new, :edit]
 
     def index
       @card_promotes = @card_template.card_promotes.page(params[:page])
@@ -29,7 +29,7 @@ module Trade
       @card_promote = CardPromote.find(params[:id])
     end
 
-    def prepare_form
+    def set_promotes
       @promotes = Promote.default_where(default_params)
     end
 

@@ -3,10 +3,8 @@
   <td colspan="3"></td>
   <td class="has-text-danger"><%= cart_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td>
-  <% if cart_promote.promote.editable %>
-    <%= link_to({ controller: 'trade_promotes', action: 'edit', id: cart_promote.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'cart_promotes', action: 'edit', id: cart_promote.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
       <i class="fa-light fa-pencil"></i>
-    <% end %>
-  <% end %>
+    <% end if cart_promote.promote.editable %>
   </td>
 </tr>

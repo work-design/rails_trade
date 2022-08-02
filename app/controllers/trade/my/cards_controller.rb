@@ -11,9 +11,6 @@ module Trade
       @cards = current_cart.cards.includes(:card_template).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
     def new
       @card = current_cart.cards.find_or_initialize_by(card_template_id: params[:card_template_id])
     end

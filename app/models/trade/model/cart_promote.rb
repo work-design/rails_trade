@@ -31,11 +31,18 @@ module Trade
 
       after_initialize :init_sequence, if: -> { new_record? && self.promote }
       before_save :sync_amount, if: -> { computed_amount_changed? }
+      after_save :sync_amount_to_order, if: -> { order_id.present? && saved_change_to_amount? }
       after_update :sync_to_cart, if: -> { cart_id.present? && saved_change_to_cart_id? }
     end
 
     def init_sequence
       self.sequence = self.promote.sequence
+    end
+
+    def sync_amount_to_order
+      return unless order
+      order.sum_amount
+      order.save
     end
 
     def sync_amount
