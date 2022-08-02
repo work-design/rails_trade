@@ -5,12 +5,12 @@
   </div>
   <div class="weui-cell__ft" data-controller="input">
     <% if @order.payments.pluck(:wallet_id).include?(wallet.id) %>
-      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
+      <%= form_with theme: nil, url: { controller: 'my/payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
         <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
         <span class="weui-icon-checked"></span>
       <% end %>
     <% else %>
-      <%= form_with theme: nil, model: Trade::WalletPayment.new(total_amount: @order.amount < wallet.amount ? @order.amount : wallet.amount), scope: 'payment', url: { controller: 'payments', action: 'create' } do |f| %>
+      <%= form_with theme: nil, model: Trade::WalletPayment.new(total_amount: @order.amount < wallet.amount ? @order.amount : wallet.amount), scope: 'payment', url: { controller: 'my/payments', action: 'create' } do |f| %>
         <%= f.hidden_field :wallet_id, value: wallet.id %>
         <%= f.hidden_field :type %>
         <%= f.hidden_field :total_amount  %>
