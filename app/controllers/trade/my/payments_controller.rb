@@ -1,7 +1,8 @@
 module Trade
   class My::PaymentsController < My::BaseController
     before_action :set_payment, only: [:show, :edit, :update, :destroy]
-    before_action :set_new_payment, only: [:new, :create, :order_new, :order_create]
+    before_action :set_new_payment, only: [:new, :create]
+    before_action :set_new_payment_with_order, only: [:order_new, :order_create]
     before_action :set_order, only: [:order_new, :order_create]
 
     def index
@@ -29,6 +30,7 @@ module Trade
     end
 
     def wxpay_pay
+      @payment = @order.payments.build type: 'Trade::WxpayPayment'
       @wxpay_order = @payment.wxpay_order(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
@@ -53,6 +55,10 @@ module Trade
 
     def set_new_payment
       @payment = Payment.new(payment_params)
+    end
+
+    def set_new_payment_with_order
+      @payment = @order.payments.build(payment_params)
     end
 
     def set_order

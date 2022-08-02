@@ -102,8 +102,6 @@ module Trade
       end
     end
 
-
-
     def refund
       @order.apply_for_refund
     end
