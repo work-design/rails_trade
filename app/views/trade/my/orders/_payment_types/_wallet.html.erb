@@ -7,11 +7,11 @@
     <div class="is-several">
       <div><%= wallet.amount.to_money.format(html_wrap: true).html_safe %></div>
       <% if @order.payments.pluck(:wallet_id).include?(wallet.id) %>
-        <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
+        <%= form_with theme: nil, url: { controller: 'my/payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
           <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
         <% end %>
       <% else %>
-        <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'payments', action: 'create' }, data: { controller: 'input' } do |f| %>
+        <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'my/payments', action: 'create' }, data: { controller: 'input' } do |f| %>
           <%= f.hidden_field :type, value: 'Trade::WalletPayment' %>
           <%= f.hidden_field :wallet_id, value: wallet.id %>
           <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
