@@ -8,4 +8,13 @@
       <% end %>
     </td>
   </tr>
+  <tr>
+    <th><%= Trade::Cart.human_attribute_name(:aim) %></th>
+    <td>
+      <%= link_to t('.all'), filter_params(except: [:aim]), class: active_params(aim: '', active: 'button is-info', item: 'button is-light') %>
+      <% Trade::Cart.options_i18n(:aim).each do |text, value| %>
+        <%= link_to text, filter_params(aim: value, except: [:id]), class: active_params(aim: value, active: 'button is-info', item: 'button is-light') %>
+      <% end %>
+    </td>
+  </tr>
 </table>
