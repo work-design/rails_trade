@@ -33,7 +33,7 @@ module Trade
         payment_status: ['unpaid', 'part_paid']
       }
       q_params.merge! default_params
-      q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type)
+      q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type, 'created_at-lte', 'created_at-gte')
 
       @orders = Order.includes(:user, :member, :member_organ, :payment_strategy).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
