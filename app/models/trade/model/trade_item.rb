@@ -9,7 +9,7 @@ module Trade
       attribute :weight, :integer, default: 1, comment: '重量'
       attribute :duration, :integer, default: 0, comment: '占用时长'
       attribute :volume, :integer, default: 0, comment: '体积'
-      attribute :amount, :decimal, default: 0
+      attribute :amount, :decimal
       attribute :vip_code, :string
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
