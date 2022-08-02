@@ -193,6 +193,7 @@ module Trade
         :payment_type,
         :address_id,
         :from_address_id,
+        :payment_strategy_id,
         :note,
         :current_cart_id,
         :collectable,
