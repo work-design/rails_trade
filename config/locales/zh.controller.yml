@@ -28,6 +28,10 @@ zh:
         index:
           title: 购物用户
           promote: 派发优惠券
+        member_organ:
+          title: 企业用户
+        user:
+          title: 个人用户
       orders:
         index:
           title: 订单

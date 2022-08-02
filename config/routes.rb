@@ -130,6 +130,7 @@ Rails.application.routes.draw do
             get :doc
             get :only
             get :member_organ
+            get :member
             get :user
           end
         end
