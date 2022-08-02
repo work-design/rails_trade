@@ -5,6 +5,7 @@ module Trade
       :payment_orders, :print_data, :package
     ]
     before_action :set_new_order, only: [:new, :create]
+    before_action :set_user, only: [:user]
     skip_before_action :require_login, only: [:print_data] if whether_filter :require_login
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
 
@@ -12,6 +13,15 @@ module Trade
       q_params = {}
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
+
+      @orders = Order.includes(:user, :member, :member_organ, :payment_strategy).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+    end
+
+    def user
+      q_params = {
+        user_id: params[:user_id]
+      }
+      q_params.merge! default_params
 
       @orders = Order.includes(:user, :member, :member_organ, :payment_strategy).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
@@ -86,6 +96,10 @@ module Trade
 
     def set_new_order
       @order = Order.new order_params
+    end
+
+    def set_user
+      @user = Auth::User.find params[:user_id]
     end
 
     def _prefixes

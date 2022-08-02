@@ -61,6 +61,7 @@ Rails.application.routes.draw do
         collection do
           get :payments
           get :refresh
+          get 'user/:user_id' => :user
         end
         member do
           get :payment_types
