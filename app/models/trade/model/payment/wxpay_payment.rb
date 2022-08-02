@@ -91,7 +91,7 @@ module Trade
       self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     end
 
-    def wxpay__xresult(app)
+    def result
       #return self if self.payment_status == 'all_paid'
       options = {
         mchid: app.mch_id,
@@ -111,34 +111,14 @@ module Trade
       logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
 
       if result['trade_state'] == 'SUCCESS'
-        self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
+        self.assign_detail result
+        self.confirm!
       else
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
-    end
-
-    def result
-      #return self if self.payment_status == 'all_paid'
-      options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
-      }
-      params = {
-        mchid: app.mch_id,
-        out_trade_no: self.payment_uuid,
-      }
-
-      begin
-        result = WxPay::Api.order_query params, options
-      rescue #todo only net errr
-        result = { 'err_code_des' => 'network error' }
-      end
-      logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
 
       if result['trade_state'] == 'SUCCESS'
-        self.assign_detail result
-        self.confirm!
+        self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
       else
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
