@@ -6,7 +6,7 @@ module Trade
       belongs_to :app, class_name: 'Wechat::App', foreign_key: :seller_identifier, primary_key: :appid, optional: true
     end
 
-    def wxpay_prepay(app)
+    def prepay(app)
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -20,7 +20,7 @@ module Trade
       ::WxPay::Api.invoke_unifiedorder params, options
     end
 
-    def h5_order(app, payer_client_ip: '127.0.0.1')
+    def h5(app, payer_client_ip: '127.0.0.1')
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -35,7 +35,7 @@ module Trade
       ::WxPay::Api.h5_order params, options
     end
 
-    def native_order(app)
+    def native(app)
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -63,8 +63,8 @@ module Trade
       }
     end
 
-    def wxpay_order(app)
-      prepay = wxpay_prepay(app)
+    def js_pay(app)
+      prepay = prepay(app)
       options = {
         appid: app.appid,
         mchid: app.mch_id,
@@ -113,12 +113,6 @@ module Trade
       if result['trade_state'] == 'SUCCESS'
         self.assign_detail result
         self.confirm!
-      else
-        self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
-      end
-
-      if result['trade_state'] == 'SUCCESS'
-        self.change_to_paid! type: 'Trade::WxpayPayment', payment_uuid: result['transaction_id'], params: result
       else
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
