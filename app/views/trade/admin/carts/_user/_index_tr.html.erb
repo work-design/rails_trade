@@ -1,0 +1,11 @@
+<tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
+  <%= yield %>
+  <td>
+    <div data-show-target="item" style="visibility: hidden">
+      <%= link_to({ action: 'user_show', user_id: model.user_id }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-regular fa-users"></i>
+        <span class="pl-1"><%= t('trade.admin.carts.user_show.title') %></span>
+      <% end %>
+    </div>
+  </td>
+</tr>

@@ -32,6 +32,8 @@ zh:
           title: 企业用户
         user:
           title: 个人用户
+        user_show:
+          title: 个人详情
       orders:
         index:
           title: 订单

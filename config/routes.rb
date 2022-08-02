@@ -132,6 +132,7 @@ Rails.application.routes.draw do
             get :member_organ
             get :member
             get :user
+            get 'user/:user_id' => :user_show
           end
         end
         resources :trade_items

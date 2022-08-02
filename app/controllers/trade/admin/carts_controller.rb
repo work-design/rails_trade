@@ -26,31 +26,17 @@ module Trade
       @carts = Cart.includes(:user, :payment_strategy, :trade_items).where(member_id: nil).where.not(user_id: nil).where(q_params).order(id: :desc).page(params[:page])
     end
 
-    def new
-      @cart_serve = @cart_item.cart_serves.find_or_initialize_by(serve_id: params[:serve_id])
-      @serve_charge = @cart_item.get_charge(@cart_serve.serve)
+    def user_show
+      @user = Auth::User.find params[:user_id]
+      @carts = Cart.includes(:payment_strategy, :trade_items).where(user_id: params[:user_id])
     end
 
     def create
-      @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: cart_item_serve_params[:serve_id])
-      @cart_item_serve.assign_attributes cart_item_serve_params
 
-      @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
-      @serve_charge.subtotal = @cart_item_serve.price
-
-      if @cart_item_serve.save
-
-      else
-        render :new
-      end
     end
 
     def add
-      @cart_item_serve = @cart_item.cart_item_serves.find_or_initialize_by(serve_id: params[:serve_id])
 
-      @serve_charge = @cart_item.get_charge(@cart_item_serve.serve)
-      @cart_item_serve.price = @serve_charge.default_subtotal
-      @cart_item_serve.save
     end
 
     def orders
