@@ -3,12 +3,14 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :amount, :decimal, default: 0
-      attribute :received_amount, :decimal, default: 0
+      attribute :amount, :decimal
+      attribute :received_amount, :decimal
+      attribute :unreceived_amount, :decimal
       attribute :payment_kind, :string
 
       before_save :check_state, if: -> { !pay_later && amount.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
+      before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
@@ -19,12 +21,12 @@ module Trade
       self.pay_deadline_at = (Date.today + payment_strategy.period).end_of_day
     end
 
-    def can_pay?
-      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
+    def compute_unreceived_amount
+      self.unreceived_amount = self.amount.to_d - self.received_amount.to_d
     end
 
-    def unreceived_amount
-      self.amount.to_d - self.received_amount.to_d
+    def can_pay?
+      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
     def init_received_amount
