@@ -18,6 +18,7 @@ module Trade
     def user
       q_params = {}
       q_params.merge! default_params
+      q_params.merge! params.permit(:good_type)
 
       @carts = Cart.includes(:user, :payment_strategy, :trade_items).where(member_id: nil).where.not(user_id: nil).default_where(q_params).order(id: :desc).page(params[:page])
     end
