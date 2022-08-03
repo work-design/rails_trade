@@ -33,7 +33,9 @@ module Trade
         refunded: 'refunded'
       }, _default: 'init'
 
-      belongs_to :organ, optional: true
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+      belongs_to :user, class_name: 'Auth::User', optional: true
+
       belongs_to :payment_method, optional: true
       has_many :payment_orders, inverse_of: :payment, dependent: :destroy_async
       has_many :orders, through: :payment_orders, inverse_of: :payments

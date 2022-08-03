@@ -22,10 +22,6 @@ module Trade
     end
 
     def order_create
-      @payment = @order.payments.build(payment_params)
-
-      payment_order = @order.payment_orders.find(&:new_record?)
-      payment_order.check_amount = @payment.total_amount
       @payment.save
     end
 

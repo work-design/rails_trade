@@ -233,8 +233,8 @@ Rails.application.routes.draw do
         concerns :orderable
         resources :payments do
           collection do
-            get :order_new
-            post :order_create
+            get 'order/:order_id' => :order_new
+            post 'order/:order_id' => :order_create
           end
         end
         resources :payment_methods
