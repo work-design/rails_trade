@@ -13,7 +13,6 @@ module Trade
     def new
       @order.address_id ||= params[:address_id]
       @order.trade_items.build
-      @order.payments.build
     end
 
     def create
@@ -24,7 +23,7 @@ module Trade
         render 'create'
       else
         @order.trade_items.build
-        if @order.payments.blank?
+        if @order.payments.blank? && @order.item_amount.to_d > 0
           @order.payments.build(total_amount: @order.item_amount)
         end
         if @order.payment_strategy&.from_pay
@@ -41,6 +40,10 @@ module Trade
 
     def set_new_order
       @order = current_user.from_orders.build(order_params)
+    end
+
+    def init_payments
+
     end
 
     def _prefixes

@@ -1,13 +1,6 @@
 <%= render 'top_bar' %>
 
-<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
-  <%= f.hidden_field :from_address_id %>
-  <%= f.hidden_field :address_id %>
-  <%= f.fields :payments do |ef| %>
-    <%= ef.hidden_field :total_amount %>
-  <% end %>
-<% end %>
-
+<%= render 'blank_order' %>
 <%= render 'from_address' %>
 <%= render 'address' %>
 
