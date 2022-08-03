@@ -86,7 +86,8 @@ Rails.application.routes.draw do
         end
         resources :payment_orders do
           member do
-            patch :cancel
+            post :confirm
+            post :cancel
           end
         end
       end
