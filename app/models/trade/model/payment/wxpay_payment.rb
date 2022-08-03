@@ -6,7 +6,7 @@ module Trade
       belongs_to :app, class_name: 'Wechat::App', foreign_key: :seller_identifier, primary_key: :appid, optional: true
     end
 
-    def prepay(app)
+    def prepay(app, user)
       options = {
         mchid: app.mch_id,
         serial_no: app.serial_no,
@@ -63,8 +63,8 @@ module Trade
       }
     end
 
-    def js_pay(app)
-      prepay = prepay(app)
+    def js_pay(app, user)
+      prepay = prepay(app, user)
       options = {
         appid: app.appid,
         mchid: app.mch_id,
