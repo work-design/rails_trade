@@ -36,8 +36,12 @@ module Trade
       end
     end
 
+    def edit
+      @payment = Payment.find params[:id]
+    end
+
     private
-    def set_payment
+    def set_wallet_payment
       wallet_template = WalletTemplate.default_where(default_params).default.take
       if wallet_template && current_client
         @wallets = current_client.wallets.where(wallet_template_id: wallet_template.id)
@@ -47,6 +51,10 @@ module Trade
         @wallets = Wallet.none
       end
       @payment = WalletPayment.where(wallet_id: @wallets.pluck(:id)).find(params[:id])
+    end
+
+    def set_payment
+      @payment = Payment.find params[:id]
     end
 
     def set_new_payment
@@ -62,14 +70,13 @@ module Trade
     end
 
     def payment_params
-      p = params.fetch(:payment, {}).permit(
+      params.fetch(:payment, {}).permit(
         :type,
         :wallet_id,
         :total_amount,
         :proof,
         payment_orders_attributes: [:order_id, :check_amount, :state]
       )
-      p.merge! default_form_params
     end
 
   end

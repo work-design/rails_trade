@@ -33,4 +33,9 @@
       <span class="weui-form-preview__value"><%= model.state_i18n %></span>
     </div>
   </div>
+  <div class="weui-form-preview__ft">
+    <%= link_to({ controller: 'my/payments', action: 'edit', id: model.payment_id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
+      <span>支付</span>
+    <% end %>
+  </div>
 </div>

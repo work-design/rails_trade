@@ -1,0 +1,10 @@
+<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'update' } do |f| %>
+  <div class="weui-form__control-area">
+    <div class="weui-cells__group weui-cells__group_form">
+      <div class="weui-cells">
+        <%= render partial: 'form', locals: { f: f } %>
+      </div>
+    </div>
+  </div>
+  <%= f.submit %>
+<% end %>

@@ -181,6 +181,8 @@ zh:
           title: 优惠券
     from:
       orders:
+        index:
+          title: 寄件
         new:
           title: 寄件
         create:
