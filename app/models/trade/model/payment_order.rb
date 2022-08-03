@@ -17,7 +17,6 @@ module Trade
 
       has_one :refund, ->(o){ where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
-      #validate :valid_check_amount
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
       before_validation :checked_to_payment, if: -> { confirmed? && (changes.keys & ['state', 'check_amount']).present? }
@@ -25,16 +24,6 @@ module Trade
       after_save :checked_to_order, if: -> { confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
       after_save :unchecked_to_order, if: -> { init? && state_before_last_save == 'confirmed' }
       after_destroy_commit :unchecked_to_order
-    end
-
-    def valid_check_amount
-      if the_payment_amount > payment.total_amount + payment.adjust_amount
-        self.errors.add(:check_amount, 'Total checked amount greater than payment\'s amount')
-      end
-
-      if the_order_amount > order.amount + order.adjust_amount
-        self.errors.add(:check_amount, 'Total checked amount greater than Order\'s amount')
-      end
     end
 
     def checked_to_payment
