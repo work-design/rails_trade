@@ -187,6 +187,10 @@ zh:
           title: 寄件
         create:
           title: 寄件
+    board:
+      orders:
+        index:
+          title: 平台订单
     me:
       promote_goods:
         index:
