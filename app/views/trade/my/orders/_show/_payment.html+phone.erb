@@ -1,5 +1,6 @@
 <div class="weui-form-preview">
   <div class="weui-form-preview__bd">
+    <% if model.payment %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:payment_uuid) %></label>
       <div class="weui-form-preview__value" data-controller="clipboard">
@@ -19,23 +20,24 @@
       <span class="weui-form-preview__value"><%= model.payment.type_i18n %></span>
     </div>
     <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:created_at) %></label>
+      <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:created_at) %></label>
       <span class="weui-form-preview__value">
-        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.created_at.to_fs(:iso8601) %></time>
+        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.payment.created_at.to_fs(:iso8601) %></time>
       </span>
     </div>
+    <% end %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:check_amount) %></label>
       <span class="weui-form-preview__value"><%= model.check_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:state) %></label>
-      <span class="weui-form-preview__value"><%= model.payment.state_i18n %></span>
+      <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:state) %></label>
+      <span class="weui-form-preview__value"><%= model.state_i18n %></span>
     </div>
   </div>
   <div class="weui-form-preview__ft">
-    <%= link_to({ controller: 'my/payments', action: 'edit', id: model.payment_id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
+    <%= link_to({ controller: 'my/payments', action: 'new' }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
       <span>支付</span>
-    <% end if ['init'].include?(model.payment.state) %>
+    <% end unless model.payment %>
   </div>
 </div>

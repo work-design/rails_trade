@@ -40,12 +40,12 @@ module Trade
 
     def init_payments
       if @order.item_amount.to_d > 0
-        p = @order.payments.find(&->(i){ i.comment == "#{@order.uuid}_item_amount" }) || @order.payments.build(comment: "#{@order.uuid}_item_amount")
-        p.total_amount = @order.item_amount
+        p = @order.payment_orders.find(&->(i){ i.kind == 'item_amount' }) || @order.payment_orders.build(kind: 'item_amount')
+        p.check_amount = @order.item_amount
       end
       if @order.payment_strategy&.from_pay && @order.overall_additional_amount.to_d > 0
-        p = @order.payments.find(&->(i){ i.comment == "#{@order.uuid}_add_amount" }) || @order.payments.build(comment: "#{@order.uuid}_add_amount")
-        p.total_amount = @order.overall_additional_amount
+        p = @order.payment_orders.find(&->(i){ i.kind == 'overall_additional_amount' }) || @order.payment_orders.build(kind: 'overall_additional_amount')
+        p.check_amount = @order.overall_additional_amount
       end
     end
 

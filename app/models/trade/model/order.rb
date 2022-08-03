@@ -39,8 +39,8 @@ module Trade
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, dependent: :destroy_async
+      accepts_nested_attributes_for :payment_orders
       has_many :payments, through: :payment_orders, inverse_of: :orders
-      accepts_nested_attributes_for :payments
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :trade_items, inverse_of: :order

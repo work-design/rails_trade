@@ -164,7 +164,7 @@ module Trade
         :uuid,
         :current_cart_id,
         trade_items_attributes: {},
-        payments_attributes: {}
+        payment_orders_attributes: {}
       )
       p.merge! default_form_params
     end

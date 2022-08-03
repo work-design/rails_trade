@@ -2,8 +2,8 @@
   <%= f.hidden_field :uuid %>
   <%= f.hidden_field :from_address_id %>
   <%= f.hidden_field :address_id %>
-  <%= f.fields :payments do |ef| %>
-    <%= ef.hidden_field :total_amount %>
-    <%= ef.hidden_field :comment %>
+  <%= f.fields :payment_orders do |ef| %>
+    <%= ef.hidden_field :check_amount %>
+    <%= ef.hidden_field :kind %>
   <% end %>
 <% end %>
