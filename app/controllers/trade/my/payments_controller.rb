@@ -1,6 +1,7 @@
 module Trade
   class My::PaymentsController < My::BaseController
     before_action :set_order, only: [:order_new, :order_create]
+    before_action :set_payment_order, only: [:payment_order_new]
     before_action :set_payment, only: [:show, :edit, :update, :destroy]
     before_action :set_new_payment, only: [:new, :create]
     before_action :set_new_payment_with_order, only: [:order_new, :order_create]
@@ -19,6 +20,11 @@ module Trade
 
     def order_new
       @payment.total_amount = @order.unreceived_amount
+    end
+
+    def payment_order_new
+      @payment = @payment_order.build_payment
+      @payment.total_amount = @payment_order.check_amount
     end
 
     def order_create
@@ -63,6 +69,10 @@ module Trade
 
     def set_new_payment_with_order
       @payment = @order.payments.build(payment_params)
+    end
+
+    def set_payment_order
+      @payment_order = PaymentOrder.find params[:payment_order_id]
     end
 
     def set_order
