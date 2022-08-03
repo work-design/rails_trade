@@ -29,7 +29,7 @@ module Trade
 
     def init_check_amount
       self.check_amount ||= payment.total_amount
-      self.user = order.user
+      self.user = order&.user
     end
 
     def checked_to_payment
