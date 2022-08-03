@@ -13,7 +13,6 @@ module Trade
       attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
       attribute :pay_later, :boolean, default: false
-      attribute :collectable, :boolean, default: false
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 

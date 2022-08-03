@@ -3,11 +3,7 @@
     <span class="has-text-grey">代收货款</span>
   </div>
   <div class="weui-cell__bd">
-  <% if @order.collectable %>
     <i class="fa-solid fa-circle-check has-text-success"></i>
-  <% else %>
-    <i class="fa-solid fa-circle-check has-text-grey"></i>
-  <% end %>
   </div>
   <div class="weui-cell__ft">
     <span><%= @order.item_amount %></span>
@@ -33,7 +29,6 @@
         <%= form.fields :trade_items do |f| %>
           <%= f.number_field :amount, placeholder: '输入货款金额', label: f.object.good_name, form: 'new_order' if f.object.good_name.present? %>
         <% end %>
-        <%= form.check_box :collectable, label_position: 'before', form: 'new_order' %>
       </div>
     </div>
     <div class="weui-half-screen-dialog__ft">
