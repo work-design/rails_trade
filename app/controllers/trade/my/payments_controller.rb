@@ -1,9 +1,9 @@
 module Trade
   class My::PaymentsController < My::BaseController
+    before_action :set_order, only: [:order_new, :order_create]
     before_action :set_payment, only: [:show, :edit, :update, :destroy]
     before_action :set_new_payment, only: [:new, :create]
     before_action :set_new_payment_with_order, only: [:order_new, :order_create]
-    before_action :set_order, only: [:order_new, :order_create]
 
     def index
       @payments = current_user.payments.page(params[:page])
