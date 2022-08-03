@@ -26,6 +26,7 @@ module Trade
 
       enum state: {
         init: 'init',
+        proof_uploaded: 'proof_uploaded',
         part_checked: 'part_checked',
         all_checked: 'all_checked',
         adjust_checked: 'adjust_checked',
@@ -46,8 +47,13 @@ module Trade
       before_validation :init_uuid, if: -> { payment_uuid.blank? }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
       before_create :analyze_payment_method
+      before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
 
       has_one_attached :proof
+    end
+
+    def sync_state_proof_uploaded
+      self.state = 'proof_uploaded'
     end
 
     def init_uuid

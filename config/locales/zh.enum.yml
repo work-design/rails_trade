@@ -37,7 +37,8 @@ zh:
           Trade::AlipayPayment: 支付宝
           Trade::WalletPayment: 余额支付
         state:
-          init: 未核销
+          init: 待支付
+          proof_uploaded: 待核销
           part_checked: 部分核销
           all_checked: 全部核销
           adjust_checked: 调整核销
