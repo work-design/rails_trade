@@ -182,7 +182,9 @@ zh:
     from:
       orders:
         new:
-          title: 一键下单
+          title: 寄件
+        create:
+          title: 寄件
     me:
       promote_goods:
         index:
