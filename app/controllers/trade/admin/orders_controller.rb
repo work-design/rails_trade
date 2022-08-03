@@ -50,6 +50,7 @@ module Trade
     end
 
     def create
+      @order.agent_id = current_member.id
       @order.compute_promote
 
       if params[:commit].present? && @order.save
