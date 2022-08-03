@@ -24,7 +24,12 @@ module Trade
         render 'create'
       else
         @order.trade_items.build
-        @order.payments.build if @order.payments.blank?
+        if @order.payments.blank?
+          @order.payments.build(total_amount: @order.item_amount)
+        end
+        if @order.payment_strategy&.from_pay
+          @order.payments.build(total_amount: @order.overall_additional_amount)
+        end
         render 'new'
       end
     end

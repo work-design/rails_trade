@@ -130,6 +130,6 @@ zh:
           currency: 默认货币
           custom: 自定义
       trade/payment_strategy:
-        strategy:
-          from_pay: 寄付
-          to_pay: 到付
+        from_pay:
+          true: 寄付
+          false: 到付
