@@ -20,7 +20,9 @@
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:created_at) %></label>
-      <span class="weui-form-preview__value"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></span>
+      <span class="weui-form-preview__value">
+        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.created_at.to_fs(:iso8601) %></time>
+      </span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:check_amount) %></label>
