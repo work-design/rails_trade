@@ -235,8 +235,9 @@ Rails.application.routes.draw do
         resources :payments do
           collection do
             get 'order/:order_id' => :order_new
-            get 'payment_order/:payment_order_id' => :payment_order_new
             post 'order/:order_id' => :order_create
+            get 'payment_order/:payment_order_id' => :payment_order_new
+            post 'payment_order/:payment_order_id' => :payment_order_create
           end
         end
         resources :payment_methods
