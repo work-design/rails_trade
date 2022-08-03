@@ -31,8 +31,14 @@ module Trade
       end
     end
 
+    def confirm
+      @payment_order.state = 'confirmed'
+      @payment_order.save
+    end
+
     def cancel
-      @payment_order.revert_confirm!
+      @payment_order.state = 'init'
+      @payment_order.save
     end
 
     private
