@@ -118,6 +118,7 @@ zh:
         payment_references: 关联账号
       trade/payment_strategy:
         period: 延后付款（天）
+        from_pay: 寄付
       trade/payment_order:
         state: 核销状态
         check_amount: 核销金额

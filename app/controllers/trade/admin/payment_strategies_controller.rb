@@ -23,6 +23,7 @@ module Trade
       p = params.fetch(:payment_strategy, {}).permit(
         :name,
         :strategy,
+        :from_pay,
         :period
       )
       p.merge! default_form_params
