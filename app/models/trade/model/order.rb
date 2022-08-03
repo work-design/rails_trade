@@ -41,8 +41,8 @@ module Trade
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :trade_items, inverse_of: :order
-      has_many :cart_promotes, autosave: true, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :trade_items, reject_if: ->(attributes){ attributes['good_name'].blank? && attributes['good_id'].blank? }
+      has_many :cart_promotes, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :cart_promotes
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
