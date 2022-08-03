@@ -10,7 +10,7 @@ module Trade
         confirmed: 'confirmed'
       }, _default: 'init'
 
-      belongs_to :user, class_name: 'Auth::User'
+      belongs_to :user, class_name: 'Auth::User', optional: true
 
       belongs_to :order, inverse_of: :payment_orders
       belongs_to :payment, inverse_of: :payment_orders
@@ -29,6 +29,7 @@ module Trade
 
     def init_check_amount
       self.check_amount ||= payment.total_amount
+      self.user = order.user
     end
 
     def checked_to_payment

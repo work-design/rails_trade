@@ -153,8 +153,6 @@ zh:
         new:
           title: 确认订单
           confirm: 确认订单
-        blank:
-          title: 一键下单
         add:
           title: 生成订单
         edit_payment_type:
@@ -181,6 +179,10 @@ zh:
       promote_goods:
         index:
           title: 优惠券
+    from:
+      orders:
+        new:
+          title: 一键下单
     me:
       promote_goods:
         index:

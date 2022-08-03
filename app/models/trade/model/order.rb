@@ -36,8 +36,9 @@ module Trade
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
-      has_many :payment_orders, -> { includes(:payment) }, dependent: :destroy_async
+      has_many :payment_orders, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders
+      accepts_nested_attributes_for :payments
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :trade_items, inverse_of: :order

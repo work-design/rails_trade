@@ -13,6 +13,7 @@ module Trade
     def new
       @order.address_id ||= params[:address_id]
       @order.trade_items.build
+      @order.payments.build
     end
 
     def create
@@ -23,6 +24,7 @@ module Trade
         render 'create'
       else
         @order.trade_items.build
+        @order.payments.build if @order.payments.blank?
         render 'new'
       end
     end

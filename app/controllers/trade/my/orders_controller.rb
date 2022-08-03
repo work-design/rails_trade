@@ -162,8 +162,8 @@ module Trade
         :payment_strategy_id,
         :note,
         :current_cart_id,
-        :collectable,
-        trade_items_attributes: {}
+        trade_items_attributes: {},
+        payments_attributes: {}
       )
       p.merge! default_form_params
     end

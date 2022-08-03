@@ -29,6 +29,9 @@
         <%= form.fields :trade_items do |f| %>
           <%= f.number_field :amount, placeholder: '输入货款金额', label: f.object.good_name, form: 'new_order' if f.object.good_name.present? %>
         <% end %>
+        <%= form.fields :payments do |f| %>
+          <%= f.hidden_field :total_amount, value: @order.item_amount, form: 'new_order' %>
+        <% end %>
       </div>
     </div>
     <div class="weui-half-screen-dialog__ft">
