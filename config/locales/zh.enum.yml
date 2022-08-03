@@ -38,7 +38,7 @@ zh:
           Trade::WalletPayment: 余额支付
         state:
           init: 待支付
-          proof_uploaded: 待核销
+          proof_uploaded: 支付凭证已上传
           part_checked: 部分核销
           all_checked: 全部核销
           adjust_checked: 调整核销
