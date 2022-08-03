@@ -23,6 +23,7 @@ module Trade
       attribute :verified, :boolean, default: true
       attribute :lock_version, :integer
       attribute :extra, :json, default: {}
+      attribute :payment_orders_count, :integer, default: 0
 
       enum state: {
         init: 'init',
