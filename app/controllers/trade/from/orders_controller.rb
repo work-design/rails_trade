@@ -12,23 +12,19 @@ module Trade
 
     def new
       @order.address_id ||= params[:address_id]
+      @order.init_uuid
       @order.trade_items.build
     end
 
     def create
       @order.compute_promote
       @order.valid?
+      init_payments
 
       if params[:commit].present? && @order.save
         render 'create'
       else
         @order.trade_items.build
-        if @order.payments.blank? && @order.item_amount.to_d > 0
-          @order.payments.build(total_amount: @order.item_amount)
-        end
-        if @order.payment_strategy&.from_pay
-          @order.payments.build(total_amount: @order.overall_additional_amount)
-        end
         render 'new'
       end
     end
@@ -43,7 +39,14 @@ module Trade
     end
 
     def init_payments
-
+      if @order.item_amount.to_d > 0
+        p = @order.payments.find(&->(i){ i.comment == "#{@order.uuid}_item_amount" }) || @order.payments.build(comment: "#{@order.uuid}_item_amount")
+        p.total_amount = @order.item_amount
+      end
+      if @order.payment_strategy&.from_pay && @order.overall_additional_amount.to_d > 0
+        p = @order.payments.find(&->(i){ i.comment == "#{@order.uuid}_add_amount" }) || @order.payments.build(comment: "#{@order.uuid}_add_amount")
+        p.total_amount = @order.overall_additional_amount
+      end
     end
 
     def _prefixes

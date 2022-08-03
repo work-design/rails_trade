@@ -161,6 +161,7 @@ module Trade
         :from_address_id,
         :payment_strategy_id,
         :note,
+        :uuid,
         :current_cart_id,
         trade_items_attributes: {},
         payments_attributes: {}
