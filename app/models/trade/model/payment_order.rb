@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :check_amount, :decimal, default: 0
+      attribute :check_amount, :decimal
 
       enum state: {
         init: 'init',
