@@ -11,7 +11,7 @@ module Trade
       self.total_amount = trans.amount.total
     end
 
-    def url
+    def url(params = {})
       paypal_payment = PayPal::SDK::REST::DataTypes::Payment.new(paypal_params)
 
       result = paypal_payment.create

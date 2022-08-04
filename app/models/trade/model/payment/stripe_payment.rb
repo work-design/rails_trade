@@ -7,7 +7,7 @@ module Trade
       self.currency = charge.currency.upcase
     end
 
-    def stripe_charge(params = {})
+    def url(params = {})
       if params[:token]
         TheStripe.stripe_customer(buyer: self.buyer, token: params[:token])
       end
@@ -28,10 +28,11 @@ module Trade
         charge = Stripe::Charge.create(amount: self.amount.to_money(self.currency).cents, currency: self.currency, customer: stripe_payment_method.account_num)
         self.update payment_type: 'stripe', payment_id: charge.id
         self.stripe_record(charge)
+
+        charge.approve_url
       rescue Stripe::StripeError, Stripe::CardError => ex
         self.errors.add :base, ex.message
       end
-      self
     end
 
     def result
@@ -52,7 +53,7 @@ module Trade
     # execute payment
     # required:
     # token
-    def self.stripe_customer(buyer:, **params)
+    def stripe_customer(buyer:, **params)
       payment_method = buyer.payment_methods.build(type: 'StripeMethod')
       payment_method.token = params[:token]
       payment_method.detective_save

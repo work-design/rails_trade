@@ -50,45 +50,6 @@ module Trade
     def payment_types
     end
 
-    def stripe_pay
-      if @order.payment_status != 'all_paid'
-        @order.stripe_charge(params)
-      end
-
-      if @order.errors.blank?
-        render 'create', locals: { return_to: @order.approve_url }
-      else
-        render 'create', locals: { return_to: board_orders_url }
-      end
-    end
-
-    def alipay_pay
-      if @order.payment_status != 'all_paid'
-        render 'create', locals: { return_to: @order.alipay_prepay_url }
-      else
-        render 'create', locals: { return_to: board_orders_url }
-      end
-    end
-
-    def paypal_pay
-      if @order.payment_status != 'all_paid'
-        result = @order.paypal_prepay
-        render 'create', locals: { return_to: result }
-      else
-        render 'create', locals: { return_to: board_orders_url }
-      end
-    end
-
-    def paypal_execute
-      if @order.paypal_execute(params)
-        flase.now[:notice] = "Order[#{@order.uuid}] placed successfully"
-        render 'create', locals: { return_to: board_order_url(@order) }
-      else
-        flase.now[:notice] =  @order.error.inspect
-        render 'create', locals: { return_to: board_orders_url }
-      end
-    end
-
     # https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5
     # 二维码有效期为2小时
     def wxpay_pc_pay
@@ -108,9 +69,6 @@ module Trade
 
     def package
       @order.package
-    end
-
-    def logs
     end
 
     def cancel

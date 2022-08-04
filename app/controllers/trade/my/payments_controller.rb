@@ -36,9 +36,32 @@ module Trade
       @payment.save
     end
 
+    def next
+      if @order.payment_status == 'all_paid'
+        render 'paid' and return
+      end
+      url = @payment.url(params)
+
+      if @payment.errors.blank?
+        render 'create', locals: { url: url }
+      else
+        render 'create', locals: { url: url_for(controller: 'orders') }
+      end
+    end
+
+    def paypal_execute
+      if @order.paypal_execute(params)
+        flase.now[:notice] = "Order[#{@order.uuid}] placed successfully"
+        render 'create', locals: { return_to: board_order_url(@order) }
+      else
+        flase.now[:notice] =  @order.error.inspect
+        render 'create', locals: { return_to: board_orders_url }
+      end
+    end
+
     def wxpay_pay
       @payment = @order.payments.build type: 'Trade::WxpayPayment'
-      @wxpay_order = @payment.wxpay_order(current_wechat_app)
+      @wxpay_order = @payment.js_pay(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
         render 'wxpay_pay_err', status: :unprocessable_entity

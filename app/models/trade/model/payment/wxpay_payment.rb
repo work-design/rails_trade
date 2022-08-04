@@ -6,20 +6,6 @@ module Trade
       belongs_to :app, class_name: 'Wechat::App', foreign_key: :seller_identifier, primary_key: :appid, optional: true
     end
 
-    def prepay(app)
-      options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
-      }
-      params = {}
-      params.merge! common_params(app)
-      params.merge! payer: { openid: user.oauth_users.find_by(appid: app.appid)&.uid }
-      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
-
-      ::WxPay::Api.invoke_unifiedorder params, options
-    end
-
     def h5(app, payer_client_ip: '127.0.0.1')
       options = {
         mchid: app.mch_id,
@@ -49,22 +35,8 @@ module Trade
       ::WxPay::Api.native_order params, options
     end
 
-    def common_params(app)
-      {
-        appid: app.appid,
-        mchid: app.mch_id,
-        description: "订单编号: #{self.uuid}",
-        out_trade_no: self.uuid,
-        notify_url: Rails.application.routes.url_for(host: app.host, controller: 'trade/payments', action: 'wxpay_notify'),
-        amount: {
-          total: (self.amount * 100).to_i,
-          currency: 'CNY'
-        }
-      }
-    end
-
     def js_pay(app)
-      prepay = prepay(app)
+      prepay = common_prepay(app)
       options = {
         appid: app.appid,
         mchid: app.mch_id,
@@ -79,6 +51,34 @@ module Trade
       else
         prepay
       end
+    end
+
+    def common_prepay(app)
+      options = {
+        mchid: app.mch_id,
+        serial_no: app.serial_no,
+        key: app.apiclient_key
+      }
+      params = {}
+      params.merge! common_params(app)
+      params.merge! payer: { openid: user.oauth_users.find_by(appid: app.appid)&.uid }
+      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
+
+      ::WxPay::Api.invoke_unifiedorder params, options
+    end
+
+    def common_params(app)
+      {
+        appid: app.appid,
+        mchid: app.mch_id,
+        description: "订单编号: #{self.uuid}",
+        out_trade_no: self.uuid,
+        notify_url: Rails.application.routes.url_for(host: app.host, controller: 'trade/payments', action: 'wxpay_notify'),
+        amount: {
+          total: (self.amount * 100).to_i,
+          currency: 'CNY'
+        }
+      }
     end
 
     def assign_detail(params)
