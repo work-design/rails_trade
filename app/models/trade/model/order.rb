@@ -75,6 +75,7 @@ module Trade
       before_validation :init_uuid, if: -> { uuid.blank? }
       after_validation :sum_amount, if: :new_record? # 需要等 trade_items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
+      before_svae :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { !pay_later && amount.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
@@ -103,6 +104,10 @@ module Trade
       else
         self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
       end
+    end
+
+    def sync_user_from_address
+      self.user_id = address.account&.user_id
     end
 
     def init_pay_later
