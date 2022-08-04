@@ -45,8 +45,8 @@ zh:
           abusive_checked: 问题核销
       trade/payment_order:
         state:
-          init: 待确认
-          confirmed: 已确认
+          init: 待支付
+          confirmed: 已核销
       trade/promote:
         metering:
           number: 购买件数
