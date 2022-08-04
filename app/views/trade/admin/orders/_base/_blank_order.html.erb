@@ -3,7 +3,6 @@
   <%= f.hidden_field :from_address_id %>
   <%= f.hidden_field :address_id %>
   <%= f.fields :payment_orders do |ef| %>
-    <%= ef.hidden_field :check_amount %>
     <%= ef.hidden_field :kind %>
   <% end %>
 <% end %>

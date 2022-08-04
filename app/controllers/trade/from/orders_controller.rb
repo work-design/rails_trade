@@ -19,7 +19,7 @@ module Trade
     def create
       @order.compute_promote
       @order.valid?
-      init_payments
+      init_payment_orders
 
       if params[:commit].present? && @order.save
         render 'create'
@@ -38,7 +38,7 @@ module Trade
       @order = current_user.from_orders.build(order_params)
     end
 
-    def init_payments
+    def init_payment_orders
       if @order.item_amount.to_d > 0
         p = @order.payment_orders.find(&->(i){ i.kind == 'item_amount' }) || @order.payment_orders.build(kind: 'item_amount')
         p.check_amount = @order.item_amount
@@ -46,6 +46,7 @@ module Trade
       if @order.payment_strategy&.from_pay && @order.overall_additional_amount.to_d > 0
         p = @order.payment_orders.find(&->(i){ i.kind == 'overall_additional_amount' }) || @order.payment_orders.build(kind: 'overall_additional_amount')
         p.check_amount = @order.overall_additional_amount
+        p.user_id = @order.from_user_id
       end
     end
 
