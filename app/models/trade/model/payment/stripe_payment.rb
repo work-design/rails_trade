@@ -25,7 +25,7 @@ module Trade
       return self if self.amount <= 0
 
       begin
-        charge = Stripe::Charge.create(amount: self.amount_money.cents, currency: self.currency, customer: stripe_payment_method.account_num)
+        charge = Stripe::Charge.create(amount: self.amount.to_money(self.currency).cents, currency: self.currency, customer: stripe_payment_method.account_num)
         self.update payment_type: 'stripe', payment_id: charge.id
         self.stripe_record(charge)
       rescue Stripe::StripeError, Stripe::CardError => ex

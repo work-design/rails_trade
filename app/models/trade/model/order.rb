@@ -178,12 +178,12 @@ module Trade
       QrcodeHelper.data_url(enter_url)
     end
 
-    def can_cancel?
-      init? && ['unpaid', 'to_check'].include?(self.payment_status)
+    def can_pay?
+      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
-    def amount_money
-      amount_to_money(self.currency)
+    def can_cancel?
+      init? && ['unpaid', 'to_check'].include?(self.payment_status)
     end
 
     def available_promotes
@@ -276,6 +276,32 @@ module Trade
         self.confirm_refund!
         self.save!
       end
+    end
+
+    def send_notice
+      broadcast_action_to(
+        self,
+        action: :update,
+        target: 'order_result',
+        partial: 'trade/my/orders/success',
+        locals: { model: self }
+      )
+    end
+
+    def check_state
+      if self.received_amount.to_d >= self.amount
+        self.payment_status = 'all_paid'
+      elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount
+        self.payment_status = 'part_paid'
+      elsif self.received_amount.to_d <= 0
+        self.payment_status = 'unpaid'
+      end
+    end
+
+    def check_state!
+      self.received_amount = init_received_amount
+      self.check_state
+      self.save!
     end
 
   end

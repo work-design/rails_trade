@@ -2,18 +2,6 @@ module Trade
   module Ordering::Payment
     extend ActiveSupport::Concern
 
-    included do
-
-
-
-    end
-
-
-
-    def can_pay?
-      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
-    end
-
 
     def pending_payments
       Payment.where.not(id: self.payment_orders.pluck(:payment_id)).where(payment_method_id: self.cart&.payment_method_ids, state: ['init', 'part_checked'])
@@ -47,16 +35,6 @@ module Trade
       end
     end
 
-    def send_notice
-      broadcast_action_to(
-        self,
-        action: :update,
-        target: 'order_result',
-        partial: 'trade/my/orders/success',
-        locals: { model: self }
-      )
-    end
-
     def payment_result(payment_kind)
       if self.payment_status == 'all_paid'
         return self
@@ -78,21 +56,6 @@ module Trade
       self
     end
 
-    def check_state
-      if self.received_amount.to_d >= self.amount
-        self.payment_status = 'all_paid'
-      elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount
-        self.payment_status = 'part_paid'
-      elsif self.received_amount.to_d <= 0
-        self.payment_status = 'unpaid'
-      end
-    end
-
-    def check_state!
-      self.received_amount = init_received_amount
-      self.check_state
-      self.save!
-    end
 
   end
 end
