@@ -109,10 +109,6 @@ module Trade
       self.pay_later = true if should_pay_later?
     end
 
-    def should_pay_later?
-      trade_items.pluck(:aim).include?('rent')
-    end
-
     def sync_from_current_cart
       return unless current_cart
       self.address_id ||= current_cart.address_id
@@ -175,6 +171,10 @@ module Trade
 
     def qrcode_enter_url
       QrcodeHelper.data_url(enter_url)
+    end
+
+    def should_pay_later?
+      trade_items.pluck(:aim).include?('rent')
     end
 
     def can_pay?
