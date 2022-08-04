@@ -32,6 +32,7 @@ module Trade
     end
 
     def payment_order_create
+      @payment_order.state = 'pending'
       @payment.save
     end
 
