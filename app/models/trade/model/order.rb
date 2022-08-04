@@ -16,7 +16,6 @@ module Trade
       attribute :amount, :decimal
       attribute :received_amount, :decimal
       attribute :unreceived_amount, :decimal
-      attribute :payment_kind, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
