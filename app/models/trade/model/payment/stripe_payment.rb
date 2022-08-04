@@ -1,5 +1,10 @@
 module Trade
   module Model::Payment::StripePayment
+    extend ActiveSupport::Concern
+
+    included do
+      has_many :refunds, class_name: 'StripeRefund'
+    end
 
     def assign_detail(charge)
       self.payment_uuid = charge.id

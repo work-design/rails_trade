@@ -86,6 +86,7 @@ module Trade
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
+      after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_create_commit :confirm_ordered!
     end
 
@@ -259,33 +260,6 @@ module Trade
 
     def compute_unreceived_amount
       self.unreceived_amount = self.amount.to_d - self.received_amount.to_d
-    end
-
-    def apply_for_refund(payment_id = nil)
-      if ['unpaid', 'refunding', 'refunded'].include? self.payment_status
-        return
-      end
-
-      if payment_id
-        payments = self.payments.where(id: payment_id)
-      else
-        payments = self.payments
-      end
-
-      payments.each do |payment|
-        refund = self.refunds.build(payment_id: payment.id)
-        refund.type = payment.type.sub(/Payment/, '') + 'Refund'
-        refund.total_amount = payment.total_amount
-        refund.currency = payment.currency
-        self.received_amount -= payment.total_amount
-      end
-
-      self.payment_status = 'refunding'
-
-      self.class.transaction do
-        self.confirm_refund!
-        self.save!
-      end
     end
 
     def send_notice

@@ -32,7 +32,7 @@ module Trade
         self.refund_uuid ||= UidHelper.nsec_uuid('RD') if new_record?
         self.organ_id = payment.organ_id
       end
-      after_save :sync_refund, if: -> { completed? && state_before_last_save == 'init' }
+      after_save :sync_refund_to_payment, if: -> { completed? && state_before_last_save == 'init' }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
     end
 
@@ -46,7 +46,14 @@ module Trade
       Money::Currency.new(self.currency).symbol
     end
 
-    def sync_refund
+    def sync_refund_to_order
+      order.received_amount -= self.total_amount
+      order.payment_status = 'refunding'
+      self.confirm_refund!
+      order.save
+    end
+
+    def sync_refund_to_payment
       payment.total_amount -= total_amount
       payment.refunded_amount = total_amount
       payment.save

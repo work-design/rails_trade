@@ -5,6 +5,7 @@ module Trade
     included do
       belongs_to :wallet
       has_many :wallet_logs, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
+      has_many :refunds, class_name: 'WalletRefund'
 
       before_validation :init_amount, if: -> { checked_amount_changed? }
       after_save :sync_amount, if: -> { saved_change_to_total_amount? }

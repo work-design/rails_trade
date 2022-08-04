@@ -3,6 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      has_many :refunds, class_name: 'BankRefund'
+
       validates :buyer_name, presence: true
       validates :buyer_identifier, presence: true
     end

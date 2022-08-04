@@ -40,3 +40,10 @@
   </p>
 </td>
 <td><%= simple_format(model.extra_i18n) %></td>
+<td>
+<% model.payment_orders.each do |payment_order| %>
+  <%= button_to({ controller: 'payment_orders', action: 'refund', payment_id: payment_order.payment_id, id: payment_order.id }, class: 'button is-small is-rounded is-warning', form: { data: { turbo_confirm: t('.confirm') } }) do %>
+    <span><%= t('trade.admin.orders.refund.title') %></span>
+  <% end if ['pending', 'confirmed'].include?(payment_order.state) %>
+<% end %>
+</td>

@@ -1,5 +1,10 @@
 module Trade
   module Model::Payment::AlipayPayment
+    extend ActiveSupport::Concern
+
+    included do
+      has_many :refunds, class_name: 'AlipayRefund'
+    end
 
     def assign_detail(params)
       self.buyer_identifier = params['buyer_login_id']

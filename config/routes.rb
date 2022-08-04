@@ -7,14 +7,8 @@ Rails.application.routes.draw do
           post :trial
         end
         member do
-          get :paypal_pay
-          get :alipay_pay
-          get :wxpay_pay
-          get :wxpay_pc_pay
           get :wait
-          patch :stripe_pay
           post :package
-          get :paypal_execute
           get :pay
           get :payment_types
           get :payment_type
@@ -65,7 +59,6 @@ Rails.application.routes.draw do
         end
         member do
           get :payment_types
-          patch :refund
           post :package
           get :print_data
           get :payment_orders
@@ -88,6 +81,7 @@ Rails.application.routes.draw do
           member do
             post :confirm
             post :cancel
+            post :refund
           end
         end
       end

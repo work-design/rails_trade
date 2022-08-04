@@ -63,10 +63,6 @@ module Trade
     def payment_types
     end
 
-    def refund
-      @order.apply_for_refund
-    end
-
     def package
       @order.package
     end

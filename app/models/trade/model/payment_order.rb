@@ -58,5 +58,16 @@ module Trade
       order.save
     end
 
+    def refund
+      if ['init', 'pending'].include? self.state
+        return
+      end
+
+      refund = payment.refunds.build(order_id: order_id)
+      refund.total_amount = check_amount
+      refund.currency = payment.currency
+      refund.save
+    end
+
   end
 end

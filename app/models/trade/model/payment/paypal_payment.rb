@@ -4,6 +4,8 @@ module Trade
 
     included do
       attribute :payment_id, :integer, comment: 'for paypal'
+
+      has_many :refunds, class_name: 'PaypalRefund'
     end
 
     def assign_detail(trans)

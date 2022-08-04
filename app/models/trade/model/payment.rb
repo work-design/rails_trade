@@ -42,6 +42,7 @@ module Trade
       has_many :payment_orders, inverse_of: :payment, dependent: :destroy_async
       has_many :orders, through: :payment_orders, inverse_of: :payments
       accepts_nested_attributes_for :payment_orders
+      has_many :refunds
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 

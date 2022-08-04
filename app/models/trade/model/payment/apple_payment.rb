@@ -1,5 +1,10 @@
 module Trade
   module Model::Payment::ApplePayment
+    extend ActiveSupport::Concern
+
+    included do
+      has_many :refunds, class_name: 'AppleRefund'
+    end
 
     def assign_detail(params)
       self.total_amount = params[:total_amount]

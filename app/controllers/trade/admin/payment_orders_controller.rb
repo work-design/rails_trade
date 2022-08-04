@@ -1,7 +1,7 @@
 module Trade
   class Admin::PaymentOrdersController < Admin::BaseController
     before_action :set_payment
-    before_action :set_payment_order, only: [:update, :confirm, :cancel]
+    before_action :set_payment_order, only: [:update, :refund, :confirm, :cancel]
     after_action only: [:create] do
       mark_audits(instance: :@payment, include: [:payment_orders])
     end
@@ -29,6 +29,10 @@ module Trade
       else
         render 'create_fail'
       end
+    end
+
+    def refund
+      @payment_order.refund
     end
 
     def confirm

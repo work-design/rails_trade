@@ -4,6 +4,8 @@ module Trade
 
     included do
       belongs_to :app, class_name: 'Wechat::App', foreign_key: :seller_identifier, primary_key: :appid, optional: true
+
+      has_many :refunds, class_name: 'WxpayRefund'
     end
 
     def h5(app, payer_client_ip: '127.0.0.1')
