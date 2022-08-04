@@ -17,6 +17,27 @@ module Trade
       attribute :received_amount, :decimal
       attribute :unreceived_amount, :decimal
 
+      enum generate_mode: {
+        myself: 'myself',
+        by_from: 'by_from'
+      }, default: 'myself'
+
+      enum state: {
+        init: 'init',
+        done: 'done',
+        canceled: 'canceled'
+      }, _default: 'init'
+
+      enum payment_status: {
+        unpaid: 'unpaid',
+        to_check: 'to_check',
+        part_paid: 'part_paid',
+        all_paid: 'all_paid',
+        refunding: 'refunding',
+        refunded: 'refunded',
+        denied: 'denied'
+      }, _default: 'unpaid'
+
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :user, class_name: 'Auth::User', optional: true
@@ -32,7 +53,6 @@ module Trade
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
 
       belongs_to :agent, class_name: 'Org::Member', optional: true
-
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
       belongs_to :current_cart, class_name: 'Cart', optional: true
@@ -53,22 +73,6 @@ module Trade
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
-
-      enum state: {
-        init: 'init',
-        done: 'done',
-        canceled: 'canceled'
-      }, _default: 'init'
-
-      enum payment_status: {
-        unpaid: 'unpaid',
-        to_check: 'to_check',
-        part_paid: 'part_paid',
-        all_paid: 'all_paid',
-        refunding: 'refunding',
-        refunded: 'refunded',
-        denied: 'denied'
-      }, _default: 'unpaid'
 
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :init_from_member, if: -> { member && member_id_changed? }
@@ -107,7 +111,9 @@ module Trade
     end
 
     def sync_user_from_address
+      return unless address
       self.user_id = address.account&.user_id
+      self.generate_mode = 'by_from'
     end
 
     def init_pay_later
