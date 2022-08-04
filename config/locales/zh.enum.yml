@@ -46,6 +46,7 @@ zh:
       trade/payment_order:
         state:
           init: 待支付
+          pending: 待核销
           confirmed: 已核销
       trade/promote:
         metering:

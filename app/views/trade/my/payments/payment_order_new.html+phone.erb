@@ -1,3 +1,5 @@
+<%= render 'top_bar' %>
+
 <%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'payment_order_create' } do |f| %>
   <div class="weui-form__control-area">
     <div class="weui-cells__group weui-cells__group_form">

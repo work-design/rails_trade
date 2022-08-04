@@ -8,6 +8,7 @@ module Trade
 
       enum state: {
         init: 'init',
+        pending: 'pending',
         confirmed: 'confirmed'
       }, _default: 'init'
 
