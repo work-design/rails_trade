@@ -3,35 +3,17 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :amount, :decimal
-      attribute :received_amount, :decimal
-      attribute :unreceived_amount, :decimal
-      attribute :payment_kind, :string
 
-      before_save :check_state, if: -> { !pay_later && amount.zero? }
-      before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
-      before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
-      after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
-      after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
-      after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
+
+
     end
 
-    def compute_pay_deadline_at
-      return unless payment_strategy
-      self.pay_deadline_at = (Date.today + payment_strategy.period).end_of_day
-    end
 
-    def compute_unreceived_amount
-      self.unreceived_amount = self.amount.to_d - self.received_amount.to_d
-    end
 
     def can_pay?
       ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
-    def init_received_amount
-      self.payment_orders.confirmed.sum(:check_amount)
-    end
 
     def pending_payments
       Payment.where.not(id: self.payment_orders.pluck(:payment_id)).where(payment_method_id: self.cart&.payment_method_ids, state: ['init', 'part_checked'])
@@ -39,25 +21,6 @@ module Trade
 
     def exists_payments
       Payment.where.not(id: self.payment_orders.pluck(:payment_id)).exists?(payment_method_id: self.cart&.payment_method_ids, state: ['init', 'part_checked'])
-    end
-
-    def confirm_paid!
-      self.expire_at = nil
-      self.paid_at = Time.current
-      self.trade_items.update(status: 'paid')
-      self.save
-      send_notice
-    end
-
-    def confirm_part_paid!
-      self.expire_at = nil
-      self.paid_at = Time.current
-      self.trade_items.update(status: 'part_paid')
-      self.save
-    end
-
-    def confirm_pay_later!
-      self.trade_items.update(status: 'pay_later')
     end
 
     def change_to_paid!(payment_uuid: nil, params: {})

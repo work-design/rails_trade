@@ -13,6 +13,10 @@ module Trade
       attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
       attribute :pay_later, :boolean, default: false
+      attribute :amount, :decimal
+      attribute :received_amount, :decimal
+      attribute :unreceived_amount, :decimal
+      attribute :payment_kind, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -72,6 +76,12 @@ module Trade
       before_validation :init_uuid, if: -> { uuid.blank? }
       after_validation :sum_amount, if: :new_record? # 需要等 trade_items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
+      before_save :check_state, if: -> { !pay_later && amount.zero? }
+      before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
+      before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
+      after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
+      after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
+      after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
       after_create_commit :confirm_ordered!
     end
 
@@ -199,10 +209,73 @@ module Trade
       self.trade_items.update(status: 'ordered')
     end
 
+    def confirm_paid!
+      self.expire_at = nil
+      self.paid_at = Time.current
+      self.trade_items.update(status: 'paid')
+      self.save
+      send_notice
+    end
+
+    def confirm_part_paid!
+      self.expire_at = nil
+      self.paid_at = Time.current
+      self.trade_items.update(status: 'part_paid')
+      self.save
+    end
+
+    def confirm_pay_later!
+      self.trade_items.update(status: 'pay_later')
+    end
+
+    def confirm_refund!
+      self.trade_items.each(&:confirm_refund!)
+    end
+
     def compute_received_amount
       _received_amount = self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:check_amount)
       _refund_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
       _received_amount - _refund_amount
+    end
+
+    def init_received_amount
+      self.payment_orders.confirmed.sum(:check_amount)
+    end
+
+    def compute_pay_deadline_at
+      return unless payment_strategy
+      self.pay_deadline_at = (Date.today + payment_strategy.period).end_of_day
+    end
+
+    def compute_unreceived_amount
+      self.unreceived_amount = self.amount.to_d - self.received_amount.to_d
+    end
+
+    def apply_for_refund(payment_id = nil)
+      if ['unpaid', 'refunding', 'refunded'].include? self.payment_status
+        return
+      end
+
+      if payment_id
+        payments = self.payments.where(id: payment_id)
+      else
+        payments = self.payments
+      end
+
+      payments.each do |payment|
+        refund = self.refunds.build(payment_id: payment.id)
+        refund.type = payment.type.sub(/Payment/, '') + 'Refund'
+        refund.total_amount = payment.total_amount
+        refund.currency = payment.currency
+        self.received_amount -= payment.total_amount
+      end
+
+      self.payment_status = 'refunding'
+
+      self.class.transaction do
+        self.confirm_refund!
+        self.save!
+      end
     end
 
   end
