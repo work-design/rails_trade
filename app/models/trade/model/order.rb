@@ -189,7 +189,7 @@ module Trade
     end
 
     def can_pay?
-      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
+      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state) && payment_orders.blank?
     end
 
     def can_cancel?
