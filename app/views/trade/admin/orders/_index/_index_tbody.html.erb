@@ -3,21 +3,19 @@
     <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
     <span class="tag"><%= model.state_i18n %></span>
   </p>
-  <p class="has-text-grey"><%= model.serial_number %></p>
+  <p><%= model.serial_number %></p>
+  <p class="has-text-grey"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
-<td class="has-text-right">
+<td><%= model.payment_status_i18n %></td>
+<td>
   <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
-  <% if model.received_amount.to_d > 0 %>
-    <div class="tags has-addons is-justify-content-end">
-      <span class="tag"><%= Trade::Order.human_attribute_name(:received_amount) %></span>
-      <span class="tag is-success"><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></span>
-    </div>
-  <% end %>
+
   <% if model.unreceived_amount.to_d > 0 %><p class="has-text-danger"><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p><% end %>
 </td>
-<td><%= model.state_i18n %></td>
 <td>
-  <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <div class="tags has-addons mb-0">
+    <span class="tag <%= model.received_amount.to_d > 0 ? 'is-success' : 'is-light' %>"><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></span>
+  </div>
   <p class="has-text-success"><time data-controller="time"><%= model.paid_at&.to_fs(:iso8601) %></time></p>
 </td>
 <td>
