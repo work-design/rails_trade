@@ -1,7 +1,7 @@
 <td>
   <p>
     <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
-    <span class="tag"><%= model.payment_status_i18n %></span>
+    <span class="tag"><%= model.state_i18n %></span>
   </p>
   <p class="has-text-grey"><%= model.serial_number %></p>
 </td>

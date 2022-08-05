@@ -2,9 +2,6 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <%= button_to({ action: 'refund', id: model.id }, method: :patch, class: 'button is-small is-rounded is-warning', form: { data: { turbo_confirm: t('.confirm') } }) do %>
-        <span><%= t('trade.admin.orders.refund.title') %></span>
-      <% end if ['part_paid', 'all_paid'].include?(model.payment_status) %>
       <%= link_to({ controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
         <span><%= t('trade.admin.refunds.index.title') %></span>
       <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
