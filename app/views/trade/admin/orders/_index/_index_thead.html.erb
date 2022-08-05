@@ -3,7 +3,10 @@
   <p><%= Trade::Order.human_attribute_name(:serial_number) %></p>
   <p class="has-text-grey"><%= Trade::Order.human_attribute_name(:created_at) %></p>
 </th>
-<th><%= Trade::Order.human_attribute_name(:state) %></th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:payment_status) %></p>
+  <p><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></p>
+</th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:amount) %></p>
   <p><%= Trade::Order.human_attribute_name(:unreceived_amount) %></p>
