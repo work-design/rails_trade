@@ -87,6 +87,7 @@ module Trade
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
+      after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_create_commit :confirm_ordered!
     end
 
@@ -149,6 +150,14 @@ module Trade
         trade_item.order = self
         trade_item.status = 'ordered'
         trade_item.address_id = address_id
+      end
+    end
+
+    def sync_to_unpaid_payment_orders
+      (saved_changes.keys & ['overall_additional_amount', 'item_amount']).each do |item|
+        p = payment_orders.find(&->(i){ i.kind == item })
+        p.check_amount = self.send(item) if ['init'].include?(p.state)
+        p.save
       end
     end
 
