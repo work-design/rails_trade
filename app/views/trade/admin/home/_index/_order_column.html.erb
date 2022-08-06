@@ -1,0 +1,24 @@
+<%= link_to({ controller: 'orders' }, class: 'column has-block-centered') do %>
+  <div class="has-text-grey-dark">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar has-text-success-dark"></i>
+  </div>
+  <div class="has-text-dark">
+    <span><%= t('trade.admin.orders.index.title') %></span>
+  </div>
+<% end %>
+<%= link_to({ controller: 'trade_items' }, class: 'column has-block-centered') do %>
+  <div class="has-text-grey-dark">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar has-text-success-dark"></i>
+  </div>
+  <div class="has-text-dark">
+    <span><%= t('trade.admin.trade_items.index.title') %></span>
+  </div>
+<% end %>
+<%= link_to({ controller: 'carts' }, class: 'column has-block-centered') do %>
+  <div class="has-text-grey-dark">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar has-text-success-dark"></i>
+  </div>
+  <div class="has-text-dark">
+    <span><%= t('trade.admin.carts.index.title') %></span>
+  </div>
+<% end %>
