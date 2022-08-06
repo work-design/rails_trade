@@ -25,6 +25,7 @@ module Trade
       attribute :fetch_oneself, :boolean, default: false, comment: '自取'
       attribute :fetch_start_at, :datetime
       attribute :fetch_finish_at, :datetime
+      attribute :organ_ancestor_ids, :json, default: []
 
       enum status: {
         init: 'init',

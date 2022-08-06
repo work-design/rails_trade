@@ -161,18 +161,6 @@ module Trade
       user&.name.presence || "#{user_id}"
     end
 
-    def to_cpcl
-      cpcl = BaseCpcl.new
-      cpcl.text uuid
-      cpcl.text "#{from_station&.name || from_address&.area&.full_name} -> #{station&.name || address&.area&.full_name}"
-      cpcl.bold_text "#{address.contact}", font: 7, size: 1, line_add: false
-      cpcl.text "#{address.tel}", x: 24 * (address.contact.size + 1)
-      cpcl.line
-      cpcl.text "下单时间：#{created_at.to_fs(:db)}"
-      cpcl.right_qrcode(enter_url)
-      cpcl.render
-    end
-
     def enter_url
       Rails.application.routes.url_for(controller: 'trade/orders', action: 'qrcode', id: self.id)
     end
