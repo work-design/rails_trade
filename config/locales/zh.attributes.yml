@@ -120,6 +120,8 @@ zh:
         period: 延后付款（天）
         from_pay: 寄付
       trade/payment_order:
+        user_id: 付款人
+        order_id: 订单
         state: 状态
         check_amount: 金额
       trade/promote:
