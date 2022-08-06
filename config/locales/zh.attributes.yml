@@ -143,11 +143,8 @@ zh:
         expire_at: 过期时间
         use_limit: 限用次数
         item_promotes_count: 已用次数
-      trade/promote_cart:
-        cart_id: 用户类型
-        status: 状态
-        effect_at: 生效时间
-        expire_at: 过期时间
+      trade/cart_promote:
+        amount: 金额
       trade/promote_charge:
         value: 值
         min: 起始值

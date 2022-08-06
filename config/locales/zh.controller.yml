@@ -34,6 +34,9 @@ zh:
           title: 个人用户
         user_show:
           title: 个人详情
+      cart_promotes:
+        edit:
+          title: 修改价格
       orders:
         index:
           title: 订单
