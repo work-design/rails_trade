@@ -1,0 +1,14 @@
+<div class="weui-form-preview mt-4">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= cart_promote.promote.name %></label>
+      <span class="weui-form-preview__value"><%= cart_promote.amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+  </div>
+  <div class="weui-form-preview__ft">
+    <%= link_to({ controller: 'cart_promotes', action: 'edit', id: cart_promote.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
+      <i class="fa-light fa-pencil"></i>
+      <span class="pl-1"><%= t('trade.admin.cart_promotes.edit.title') %></span>
+    <% end if cart_promote.promote.editable %>
+  </div>
+</div>

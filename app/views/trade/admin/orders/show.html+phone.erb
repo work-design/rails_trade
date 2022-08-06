@@ -14,6 +14,13 @@
 <%= render partial: 'order_items', locals: { model: @order } %>
 
 <div class="weui-panel" data-controller="empty">
+  <div class="weui-panel__hd">服务/促销</div>
+  <div class="weui-panel__bd" data-empty-target="content">
+    <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
+  </div>
+</div>
+
+<div class="weui-panel" data-controller="empty">
   <div class="weui-panel__hd">支付</div>
   <div class="weui-panel__bd" data-empty-target="content">
     <%= render partial: 'payment', collection: @order.payment_orders, as: :model %>
