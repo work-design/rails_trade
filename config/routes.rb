@@ -47,6 +47,14 @@ Rails.application.routes.draw do
       resources :wallets do
         resources :wallet_logs, only: [:index, :show]
       end
+      resources :payments do
+        collection do
+          get 'order/:order_id' => :order_new
+          post 'order/:order_id' => :order_create
+          get 'payment_order/:payment_order_id' => :payment_order_new
+          post 'payment_order/:payment_order_id' => :payment_order_create
+        end
+      end
     end
 
     concern :order_admin do
@@ -226,14 +234,6 @@ Rails.application.routes.draw do
 
       namespace :my, defaults: { namespace: 'my' } do
         concerns :orderable
-        resources :payments do
-          collection do
-            get 'order/:order_id' => :order_new
-            post 'order/:order_id' => :order_create
-            get 'payment_order/:payment_order_id' => :payment_order_new
-            post 'payment_order/:payment_order_id' => :payment_order_create
-          end
-        end
         resources :payment_methods
         resources :advances do
           member do

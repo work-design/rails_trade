@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="weui-form-preview__ft">
-    <%= link_to({ controller: 'my/payments', action: 'payment_order_new', payment_order_id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
+    <%= link_to({ controller: 'payments', action: 'payment_order_new', payment_order_id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
       <span>支付</span>
     <% end unless model.payment %>
   </div>
