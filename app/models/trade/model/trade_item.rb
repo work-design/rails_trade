@@ -79,8 +79,8 @@ module Trade
       has_many :rents
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
 
-      has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_id, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_id, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       has_one_attached :image
 
@@ -96,6 +96,7 @@ module Trade
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
+      before_save :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sum_amount, if: -> { original_amount_changed? }
@@ -121,6 +122,11 @@ module Trade
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('ITEM')
       self
+    end
+
+    def sync_from_organ
+      return unless organ
+      self.organ_ancestor_ids = organ.self_and_ancestor_ids
     end
 
     def sync_from_good
