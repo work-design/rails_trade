@@ -1,0 +1,23 @@
+<p>
+  <span><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></span>
+  <span class="tag"><%= model.state_i18n %></span>
+</p>
+<p><%= model.serial_number %></p>
+<p>
+  <span class="has-text-danger"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+  <span class="tag"><%= model.payment_status_i18n %></span>
+  <% if model.payment_strategy %>
+  <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+  <% end %>
+</p>
+<p>
+  <span><%= link_to model.user_name, { user_id: model.user_id } %></span>
+  <time data-controller="time" class="is-size-7"><%= model.created_at.to_fs(:iso8601) %></time>
+</p>
+<p>
+<% if model&.member %>
+  <span><%= model.member.name %></span>
+  <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
+<% end %>
+</p>
+<p><%= simple_format(model.extra_i18n) %></p>

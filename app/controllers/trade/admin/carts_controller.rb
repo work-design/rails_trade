@@ -1,6 +1,6 @@
 module Trade
   class Admin::CartsController < Admin::BaseController
-    before_action :set_cart, only: [:show, :destroy]
+    before_action :set_cart, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_payment_strategies, only: [:new, :create, :edit, :update]
 
     def index
