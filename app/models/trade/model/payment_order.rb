@@ -10,7 +10,7 @@ module Trade
         init: 'init',
         pending: 'pending',
         confirmed: 'confirmed'
-      }, _default: 'init'
+      }, _default: 'init', _prefix: true
 
       belongs_to :user, class_name: 'Auth::User', optional: true
 
