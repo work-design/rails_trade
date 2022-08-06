@@ -17,8 +17,8 @@ module Trade
     end
 
     def create
-      @order.compute_promote
       @order.valid?
+      @order.compute_promote
       init_payment_orders
 
       if params[:commit].present? && @order.save
