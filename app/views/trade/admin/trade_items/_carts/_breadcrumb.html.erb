@@ -2,6 +2,7 @@
   <ul>
     <li><%= link_to t('trade.admin.trade_items.index.title'), { action: 'index' } %></li>
     <li><%= link_to @trade_item.order.uuid, { controller: 'orders', action: 'show', id: @trade_item.order_id } %></li>
-    <li class="is-active"><%= @trade_item.id %></li>
+    <li><span class="px-3"><%= @trade_item.id %></span></li>
+    <li class="is-active"><%= t('.title') %></li>
   </ul>
 </div>

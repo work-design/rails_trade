@@ -1,6 +1,6 @@
 module Trade
   class Admin::TradeItemsController < Admin::BaseController
-    before_action :set_trade_item, only: [:show, :update, :destroy]
+    before_action :set_trade_item, only: [:show, :update, :destroy, :actions, :carts]
 
     def index
       q_params = {}
@@ -8,6 +8,10 @@ module Trade
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :address_id, :status)
 
       @trade_items = TradeItem.includes(:item_promotes).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+    end
+
+    def carts
+      @carts = @trade_item.carts
     end
 
     def only

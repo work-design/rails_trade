@@ -55,6 +55,8 @@ zh:
       trade_items:
         index:
           title: 订单明细
+        carts:
+          title: 所在购物车
       trade_promotes:
         index:
           title: 订单优惠

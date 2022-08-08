@@ -139,7 +139,11 @@ Rails.application.routes.draw do
             get 'user/:user_id' => :user_show
           end
         end
-        resources :trade_items
+        resources :trade_items do
+          member do
+            get :carts
+          end
+        end
         resources :cart_promotes
         resources :item_promotes
         resources :payment_strategies
