@@ -156,6 +156,7 @@ module Trade
     def sync_to_unpaid_payment_orders
       (saved_changes.keys & ['overall_additional_amount', 'item_amount']).each do |item|
         p = payment_orders.find(&->(i){ i.kind == item })
+        next unless p
         p.check_amount = self.send(item) if ['init'].include?(p.state)
         p.save
       end
