@@ -11,7 +11,7 @@ module Trade
     end
 
     def carts
-      @carts = @trade_item.carts
+      @carts = @trade_item.carts.includes(:user, :member)
     end
 
     def only
