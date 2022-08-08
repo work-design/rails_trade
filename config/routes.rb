@@ -52,6 +52,7 @@ Rails.application.routes.draw do
           post 'order/:order_id' => :order_create
           get 'payment_order/:payment_order_id' => :payment_order_new
           post 'payment_order/:payment_order_id' => :payment_order_create
+          get 'wxpay/:order_id' => :wxpay
         end
       end
     end

@@ -1,6 +1,6 @@
 module Trade
   class My::PaymentsController < My::BaseController
-    before_action :set_order, only: [:order_new, :order_create]
+    before_action :set_order, only: [:order_new, :order_create, :wxpay]
     before_action :set_new_payment_with_order, only: [:order_new, :order_create]
     before_action :set_payment_order, only: [:payment_order_new, :payment_order_create]
     before_action :set_new_payment_with_payment_order, only: [:payment_order_new, :payment_order_create]
@@ -59,14 +59,15 @@ module Trade
       end
     end
 
-    def wxpay_pay
+    def wxpay
       @payment = @order.payments.build type: 'Trade::WxpayPayment'
+      @payment.user = current_user
       @wxpay_order = @payment.js_pay(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
-        render 'wxpay_pay_err', status: :unprocessable_entity
+        render 'wxpay_err', status: :unprocessable_entity
       else
-        render 'wxpay_pay'
+        render 'wxpay'
       end
     end
 

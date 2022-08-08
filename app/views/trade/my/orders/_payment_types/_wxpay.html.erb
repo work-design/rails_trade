@@ -1,4 +1,4 @@
-<%= link_to({ action: 'wxpay_pay' }, data: { controller: 'mini-program', action: 'mini-program#link', mini_program_url_value: "/pages/trade/my/orders/wxpay_pay?url=#{url_for(action: 'wxpay_pay', id: @order.id, only_path: false)}" }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
+<%= link_to({ controller: 'payments', action: 'wxpay', order_id: @order.id }, data: { controller: 'mini-program', action: 'mini-program#link', mini_program_url_value: "/pages/trade/my/orders/wxpay_pay?url=#{url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false)}" }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
   <div class="weui-cell__hd">
     <%= image_tag 'wx_pay.png', class: 'image fa-fw' %>
   </div>
