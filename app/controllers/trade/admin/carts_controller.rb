@@ -31,9 +31,10 @@ module Trade
         user_id: params[:user_id]
       }
       q_params.merge! default_params
+      q_params.merge! params.permit(:aim, :good_type)
 
       @user = Auth::User.find params[:user_id]
-      @carts = Cart.includes(:payment_strategy, :trade_items).default_where(q_params)
+      @carts = Cart.includes(:payment_strategy, :trade_items).where(member_id: nil).default_where(q_params)
     end
 
     def create
