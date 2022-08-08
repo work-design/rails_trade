@@ -229,8 +229,8 @@ module Trade
     end
 
     def sum_amount
-      self.additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&:amount)
-      self.reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&:amount)  # 促销价格
+      self.additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
+      self.reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
 
       self.retail_price = single_price + additional_amount
       self.wholesale_price = original_amount + additional_amount
@@ -251,7 +251,7 @@ module Trade
       end
 
       current_cart.item_amount += changed_amount
-      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_trade_items.sum(&:amount)}, Cart id: #{current_cart.id})  \e[0m"
+      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_trade_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
       current_cart.save!
     end
 
