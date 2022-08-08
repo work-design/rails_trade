@@ -215,13 +215,13 @@ module Trade
     end
 
     def confirm_ordered!
-      self.trade_items.update(status: 'ordered')
+      self.trade_items.each(&->(i){ i.status = 'ordered'})
     end
 
     def confirm_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.trade_items.update(status: 'paid')
+      self.trade_items.each(&->(i){ i.status = 'paid'})
       self.save
       send_notice
     end
@@ -229,12 +229,12 @@ module Trade
     def confirm_part_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.trade_items.update(status: 'part_paid')
+      self.trade_items.each(&->(i){ i.status = 'part_paid'})
       self.save
     end
 
     def confirm_pay_later!
-      self.trade_items.update(status: 'pay_later')
+      self.trade_items.each(&->(i){ i.status = 'pay_later'})
     end
 
     def confirm_refund!

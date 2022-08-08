@@ -38,9 +38,7 @@ module Trade
       wait = now.change(min: rent_start_at.min, sec: rent_start_at.sec)
       wait += 1.hour if wait <= now
 
-      r = RentComputeJob.set(wait_until: wait).perform_later(self, wait)
-      self.update(job_id: r.job_id)
-      r
+      RentComputeJob.set(wait_until: wait).perform_later(self, wait)
     end
 
     def compute(now = Time.current)

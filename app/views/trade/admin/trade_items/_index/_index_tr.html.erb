@@ -14,6 +14,9 @@
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-regular fa-pencil"></i>
       <% end %>
+      <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm'), turbo_scroll: true } }) do %>
+        <i class="fa-regular fa-trash"></i>
+      <% end %>
     </div>
   </td>
 </tr>

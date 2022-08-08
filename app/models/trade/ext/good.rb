@@ -60,7 +60,7 @@ module Trade
     end
 
     def order_done(trade_item = nil)
-      puts 'order_done Should realize in good entity'
+      puts "order_done Should realize in good entity, #{trade_item.object_id}"
     end
 
     def order_trial(trade_item = nil)

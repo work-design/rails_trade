@@ -101,7 +101,7 @@ module Trade
       before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial', 'ordered'].include?(status) }
+      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
       after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
       after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
@@ -111,6 +111,7 @@ module Trade
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
+      after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
 
       acts_as_notify(
         :default,
@@ -240,7 +241,7 @@ module Trade
 
     def sync_amount_to_current_cart
       return unless current_cart
-      if (destroyed? && ['checked', 'trial'].include?(status)) || (['init', 'ordered'].include?(status) && ['checked', 'trial'].include?(status_previously_was))
+      if (destroyed? && ['checked', 'trial'].include?(status)) || (['init'].include?(status) && ['checked', 'trial'].include?(status_previously_was))
         changed_amount = -amount
       elsif ['checked', 'trial'].include?(status) && ['init', nil].include?(status_previously_was)
         changed_amount = amount
@@ -253,6 +254,16 @@ module Trade
       current_cart.item_amount += changed_amount
       logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_trade_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
       current_cart.save!
+    end
+
+    def sync_ordered_to_current_cart
+      return unless current_cart
+      if ['ordered'].include?(status) && ['checked', 'trial'].include?(status_previously_was)
+        current_cart.with_lock do
+          current_cart.item_amount -= amount
+          current_cart.save!
+        end
+      end
     end
 
     def sync_amount_to_all_carts
@@ -332,7 +343,7 @@ module Trade
 
     def order_ordered!
       self.item_promotes.update(status: 'ordered')
-      self.good.order_done if good
+      self.good.order_done(self) if good
     end
 
     def order_trial!
