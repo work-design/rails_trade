@@ -85,7 +85,6 @@ module Trade
       before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
-      after_save :confirm_pay_later!, if: -> { pay_later? && saved_change_to_pay_later? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_create_commit :confirm_ordered!
@@ -215,7 +214,11 @@ module Trade
     end
 
     def confirm_ordered!
-      self.trade_items.each(&->(i){ i.status = 'ordered'})
+      if pay_later
+        self.trade_items.each(&->(i){ i.status = 'pay_later'})
+      else
+        self.trade_items.each(&->(i){ i.status = 'ordered'})
+      end
     end
 
     def confirm_paid!
@@ -231,10 +234,6 @@ module Trade
       self.paid_at = Time.current
       self.trade_items.each(&->(i){ i.status = 'part_paid'})
       self.save
-    end
-
-    def confirm_pay_later!
-      self.trade_items.each(&->(i){ i.status = 'pay_later'})
     end
 
     def confirm_refund!
