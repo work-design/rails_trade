@@ -1,3 +1,7 @@
 <%= turbo_stream.append 'body' do %>
-  <div data-controller="visit" data-visit-url-value="<%= url_for(action: 'payment_types', id: @order.id) %>"></div>
+  <% if @order.trade_items.pluck(:aim).all?('rent') %>
+    <%= render partial: 'visit', locals: { url: url_for(action: 'index') } %>
+  <% else %>
+    <%= render partial: 'visit', locals: { url: url_for(action: 'payment_types', id: @order.id) } %>
+  <% end %>
 <% end %>
