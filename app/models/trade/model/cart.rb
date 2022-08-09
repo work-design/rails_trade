@@ -4,7 +4,6 @@ module Trade
 
     included do
       attribute :good_type, :string
-      attribute :aim, :string
       attribute :retail_price, :decimal, default: 0, comment: '汇总：原价'
       attribute :discount_price, :decimal, default: 0, comment: '汇总：优惠'
       attribute :bulk_price, :decimal, default: 0
@@ -12,6 +11,12 @@ module Trade
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
       attribute :trade_items_count, :integer, default: 0
+
+      enum aim: {
+        use: 'use',
+        invest: 'invest',
+        rent: 'rent'
+      }, _default: 'use', _prefix: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
