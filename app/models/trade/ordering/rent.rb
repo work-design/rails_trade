@@ -7,7 +7,6 @@ module Trade
       attribute :rent_estimate_finish_at, :datetime
       attribute :rent_finish_at, :datetime
 
-      after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_status? && ['ordered'].include?(status) }
     end
 
     def compute_duration(now = Time.current)
