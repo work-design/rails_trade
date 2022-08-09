@@ -48,7 +48,7 @@ module Trade
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       before_save :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
-      before_save :compute_promote, if: -> { original_amount_changed? }
+      before_save :compute_promote, if: -> { original_amount_changed? || aim_rent? }
     end
 
     def sync_member_organ
