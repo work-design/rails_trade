@@ -4,15 +4,11 @@ module Trade
     before_action :set_order, only: [:order_new, :order_create]
     before_action :set_new_payment, only: [:new, :create, :order_new]
 
-    def dashboard
-    end
-
     def index
       q_params = {}
-      q_params.merge! default_params
       q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, 'buyer_name-like', 'payment_orders.state', 'orders.uuid')
 
-      @payments = Payment.includes(:payment_method, :payment_orders).default_where(q_params).order(id: :desc).page(params[:page])
+      @payments = Payment.includes(:payment_method, :payment_orders).where(organ_id: nil).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def analyze
