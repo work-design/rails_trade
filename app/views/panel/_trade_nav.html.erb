@@ -7,6 +7,7 @@
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.panel.orders.index.title'), { controller: 'trade/panel/orders' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
     <%= link_to t('trade.panel.trade_items.index.title'), { controller: 'trade/panel/trade_items' }, class: active_helper(controllers: 'trade_items', active: 'is-active') %>
+    <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/panel/payments' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
     <%= link_to t('trade.panel.units.index.title'), { controller: 'trade/panel/units' }, class: active_helper(controllers: 'units', active: 'is-active') %>
     <%= link_to t('trade.panel.exchange_rates.index.title'), { controller: 'trade/panel/exchange_rates' }, class: active_helper(controllers: 'exchange_rates', active: 'is-active') %>
   </div>
