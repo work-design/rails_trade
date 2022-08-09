@@ -35,6 +35,7 @@ module Trade
         paid: 'paid',
         part_paid: 'part_paid',
         pay_later: 'pay_later',
+        refund: 'refund',
         packaged: 'packaged',
         done: 'done',
         canceled: 'canceled',
@@ -102,11 +103,7 @@ module Trade
       before_save :sum_amount, if: -> { original_amount_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
-      after_save :order_ordered!, if: -> { saved_change_to_status? && ['ordered'].include?(status) }
-      after_save :order_trial!, if: -> { saved_change_to_status? && ['trial'].include?(status) }
-      after_save :order_paid!, if: -> { saved_change_to_status? && ['paid'].include?(status) }
-      after_save :order_part_paid!, if: -> { saved_change_to_status? && ['part_paid'].include?(status) }
-      after_save :order_pay_later!, if: -> { saved_change_to_status? && ['pay_later'].include?(status) }
+      after_save :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'paid', 'part_paid', 'pay_later', 'refund'].include?(status) }
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
@@ -341,33 +338,33 @@ module Trade
       )
     end
 
-    def order_ordered!
-      self.item_promotes.update(status: 'ordered')
-      self.good.order_done(self) if good
+    def order_work_later
+      TradeItemJob.perform_later(self)
     end
 
-    def order_trial!
-      self.good.order_trial(self) if good
-    end
-
-    def order_paid!
-      self.good.order_paid(self) if good
+    def order_work
+      return unless good
+      case status
+      when 'ordered'
+        self.item_promotes.update(status: 'ordered')
+        self.good.order_done(self)
+      when 'trial'
+        self.good.order_trial(self)
+      when 'paid'
+        self.good.order_paid(self)
+      when 'part_paid'
+        self.good.order_part_paid(self)
+      when 'pay_later'
+        self.good.order_pay_later(self)
+      when 'refund'
+        self.good.order_refund(self)
+      else
+        logger.debug ''
+      end
     end
 
     def order_pruned!
       self.good.order_prune(self) if good
-    end
-
-    def order_part_paid!
-      self.good.order_part_paid(self) if good
-    end
-
-    def order_pay_later!
-      self.good.order_pay_later(self) if good
-    end
-
-    def order_refund!
-      self.good.order_refund(self) if good
     end
 
     def fetch_include?(start_time, finish_time)

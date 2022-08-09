@@ -17,6 +17,8 @@ module Trade
       has_many :rents, class_name: 'Trade::Rent', as: :rentable
 
       scope :ordered, -> { where.not(trade_item_id: nil) }
+      scope :orderable, -> { where(trade_item_id: nil) }
+
     end
 
   end
