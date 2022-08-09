@@ -87,7 +87,6 @@ module Trade
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
-      after_create_commit :confirm_ordered!
     end
 
     def init_uuid
@@ -138,17 +137,24 @@ module Trade
 
     def sync_items_from_user
       current_cart.trade_items.each do |trade_item|
-        trade_item.order = self
-        trade_item.status = 'ordered'
-        trade_item.address_id = address_id
+        sync_trade_item(trade_item)
       end
     end
 
     def sync_items_from_organ
       current_cart.organ_trade_items.each do |trade_item|
-        trade_item.order = self
+        sync_trade_item(trade_item)
+      end
+    end
+
+    def sync_trade_item(trade_item)
+      trade_item.order = self
+      trade_item.address_id = address_id
+
+      if pay_later
+        trade_item.status = 'pay_later'
+      else
         trade_item.status = 'ordered'
-        trade_item.address_id = address_id
       end
     end
 
@@ -211,14 +217,6 @@ module Trade
       self.item_amount = trade_items.sum(&->(i){ i.amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
-    end
-
-    def confirm_ordered!
-      if pay_later
-        self.trade_items.each(&->(i){ i.status = 'pay_later'})
-      else
-        self.trade_items.each(&->(i){ i.status = 'ordered'})
-      end
     end
 
     def confirm_paid!
