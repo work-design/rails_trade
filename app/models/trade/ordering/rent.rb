@@ -7,7 +7,7 @@ module Trade
       attribute :rent_estimate_finish_at, :datetime
       attribute :rent_finish_at, :datetime
 
-      after_create_commit :compute_later
+      after_create_commit :compute_later, if: -> { aim_rent? }
     end
 
     def compute_duration(now = Time.current)
