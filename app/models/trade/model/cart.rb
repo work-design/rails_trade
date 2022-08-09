@@ -42,7 +42,7 @@ module Trade
       validates :good_type, presence: true
 
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
-      before_save :sync_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
+      before_save :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? }
     end
 
@@ -51,7 +51,7 @@ module Trade
       self.user ||= member.user
     end
 
-    def sync_amount
+    def sync_original_amount
       self.original_amount = item_amount + overall_additional_amount
     end
 
@@ -88,6 +88,7 @@ module Trade
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
       self.item_amount = checked_trade_items.sum(&->(i){ i.amount.to_d })
+      self.sync_original_amount
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
     end
