@@ -3,7 +3,12 @@
     <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good && trade_item.good.logo.attached? %>
   </div>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title"><%= trade_item.good_name %></h4>
+    <h4 class="weui-media-box__title">
+      <span><%= trade_item.good_name %></span>
+      <% if ['rent', 'invest'].include?(trade_item.aim) %>
+        <span class="tag is-danger"><%= trade_item.aim_i18n %></span>
+      <% end %>
+    </h4>
     <p class="weui-media-box__desc">
       <span class="has-text-danger"><%= trade_item.single_price.to_money.format(html_wrap: true).html_safe %></span>
       <span class="has-text-grey-lighter">x</span>
