@@ -7,7 +7,7 @@
 
 <% if @order.packages.present? %>
   <%= render partial: 'packages', locals: { model: @order } %>
-<% elsif @order.address %>
+<% elsif @order.address && @order.from_address %>
   <%= render partial: 'package_buttons', locals: { model: @order } %>
 <% end %>
 
