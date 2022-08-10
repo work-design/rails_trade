@@ -13,7 +13,16 @@
     <td>
       <%= link_to t('.all'), filter_params(except: [:good_type]), class: active_params(good_type: '', active: 'button is-info', item: 'button is-light') %>
       <% Trade::TradeItem.options_i18n(:good_type).each do |text, good_type| %>
-        <%= link_to text, filter_params(good_type: good_type), class: active_params(type: good_type, active: 'button is-info', item: 'button is-light') %>
+        <%= link_to text, filter_params(good_type: good_type), class: active_params(good_type: good_type, active: 'button is-info', item: 'button is-light') %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= Trade::TradeItem.human_attribute_name(:aim) %></th>
+    <td>
+      <%= link_to t('.all'), filter_params(except: [:aim]), class: active_params(aim: '', active: 'button is-info', item: 'button is-light') %>
+      <% Trade::TradeItem.options_i18n(:aim).each do |text, aim| %>
+        <%= link_to text, filter_params(aim: aim), class: active_params(aim: aim, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
