@@ -23,10 +23,10 @@ module Trade
     end
 
     def compute_promote_hash
-      promotes = available_promotes
+      item_promotes = available_promotes
       result = {}
 
-      promotes.each do |promote, available_items|
+      item_promotes.group_by(&:promote).each do |promote, available_items|
         r = {}
 
         r[:value] = available_items.sum(&->(i){ i[:trade_item].metering_attributes[promote.metering] || 0 })

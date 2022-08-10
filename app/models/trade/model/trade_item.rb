@@ -78,7 +78,7 @@ module Trade
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o){ where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :item_promotes, inverse_of: :trade_item, autosave: true, dependent: :destroy_async
+      has_many :item_promotes, inverse_of: :trade_item, dependent: :destroy_async
       has_many :rents
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
 
@@ -216,17 +216,12 @@ module Trade
     end
 
     def available_promotes
-      promotes = {}
       unavailable_ids = unavailable_promote_goods.pluck(:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).each do |promote_good|
-        promotes.merge! promote_good.promote_id => {
-          promote_good: promote_good,
-          trade_item: self
-        }
+        item_promote = item_promotes.find_or_initialize_by(promote_id: promote_good.promote_id)
+        item_promote.promote_good = promote_good
       end
-
-      promotes
     end
 
     def sum_amount

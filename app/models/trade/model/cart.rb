@@ -37,6 +37,7 @@ module Trade
       has_many :all_trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact) }, class_name: 'TradeItem', primary_key: :user_id, foreign_key: :user_id
       has_many :organ_trade_items, ->(o){ where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'TradeItem', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_trade_items, class_name: 'TradeItem', foreign_key: :current_cart_id
+      has_many :current_item_promotes, through: :current_trade_items, source: :item_promotes
 
       has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
@@ -77,16 +78,8 @@ module Trade
     end
 
     def available_promotes
-      promotes = {}
-
-      checked_trade_items.each do |item|
-        item.available_promotes.each do |promote_id, detail|
-          promotes[promote_id] ||= []
-          promotes[promote_id] << detail
-        end
-      end
-
-      promotes.transform_keys!(&->(i){ Promote.find(i) })
+      checked_trade_items.each(&:available_promotes)
+      checked_trade_items.map(&:item_promotes).flatten
     end
 
     def sum_amount

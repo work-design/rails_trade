@@ -6,6 +6,7 @@ module Trade
       attribute :sequence, :integer
       attribute :amount, :decimal, default: 0, comment: ''
       attribute :promote_name, :string
+      attribute :value, :decimal
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -13,6 +14,7 @@ module Trade
       belongs_to :trade_item, inverse_of: :item_promotes, optional: true
       belongs_to :promote_good, counter_cache: true
       belongs_to :promote
+      belongs_to :promote_charge
 
       enum status: {
         init: 'init',
@@ -35,6 +37,8 @@ module Trade
     end
 
     def compute_amount
+      self.value = trade_item.metering_attributes[promote.metering]
+      self.promote_charge = promote.compute_charge(value, **trade_item.extra)
       self.based_amount = value + added_amount
       self.computed_amount = self.promote_charge.final_price(based_amount)
       self.amount = computed_amount unless edited?
