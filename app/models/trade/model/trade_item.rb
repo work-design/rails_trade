@@ -26,6 +26,8 @@ module Trade
       attribute :fetch_start_at, :datetime
       attribute :fetch_finish_at, :datetime
       attribute :organ_ancestor_ids, :json, default: []
+      attribute :rent_start_at, :datetime, default: -> { Time.current }
+      attribute :rent_estimate_finish_at, :datetime
 
       enum status: {
         init: 'init',
@@ -389,17 +391,18 @@ module Trade
     end
 
     def compute_continue(now = Time.current)
-      compute_later(now) if renting?
+      compute_later(now + 1.hour)
     end
 
     def compute_later(now = Time.current)
       wait = now.change(min: rent_start_at.min, sec: rent_start_at.sec)
       wait += 1.hour if wait <= now
 
-      RentComputeJob.set(wait_until: wait).perform_later(self, wait)
+      TradeItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
     def compute(now = Time.current)
+      rents.each(&->(i){ i.compute_duration(now) })
       self.duration = rents.sum(&:duration)
       order.compute_promote
       order
