@@ -143,6 +143,7 @@ Rails.application.routes.draw do
           member do
             get :carts
           end
+          resources :rents
         end
         resources :cart_promotes
         resources :item_promotes
