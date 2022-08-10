@@ -1,7 +1,7 @@
 <div class="weui-panel">
   <%= render partial: 'order_overview', locals: { model: model } %>
   <div class="weui-panel__bd">
-  <% if model.from_address_id.present? %>
+  <% if model.from_address.present? %>
     <%= render partial: 'ship_info', locals: { model: model } %>
   <% else %>
     <%= render partial: 'trade_item', collection: model.trade_items, as: :trade_item, locals: { model: model } %>
