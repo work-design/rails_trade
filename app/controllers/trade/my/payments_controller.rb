@@ -113,13 +113,14 @@ module Trade
     end
 
     def payment_params
-      params.fetch(:payment, {}).permit(
+      p = params.fetch(:payment, {}).permit(
         :type,
         :wallet_id,
         :total_amount,
         :proof,
         payment_orders_attributes: [:order_id, :check_amount, :state]
       )
+      p.merge! default_form_params
     end
 
   end
