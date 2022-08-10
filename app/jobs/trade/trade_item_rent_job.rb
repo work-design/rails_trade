@@ -1,8 +1,8 @@
 module Trade
-  class RentComputeJob < ApplicationJob
+  class TradeItemRentJob < ApplicationJob
 
-    def perform(rent, wait)
-      rent.compute(wait)
+    def perform(trade_item, wait)
+      trade_item.compute(wait)
     end
 
     after_perform do |job|

@@ -2,7 +2,6 @@ module Trade
   module Ordering::Payment
     extend ActiveSupport::Concern
 
-
     def pending_payments
       Payment.where.not(id: self.payment_orders.pluck(:payment_id)).where(payment_method_id: self.cart&.payment_method_ids, state: ['init', 'part_checked'])
     end

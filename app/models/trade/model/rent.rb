@@ -4,6 +4,10 @@ module Trade
 
     included do
       attribute :amount, :decimal, comment: '价格小计'
+      attribute :rent_start_at, :datetime, default: -> { Time.current }
+      attribute :rent_estimate_finish_at, :datetime
+      attribute :rent_finish_at, :datetime
+      attribute :duration, :integer, default: 0
 
       belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
@@ -20,6 +24,24 @@ module Trade
       self.user_id = trade_item.user_id
       self.member_id = trade_item.member_id
       self.member_organ_id = trade_item.member_organ_id
+    end
+
+    def compute_duration(now = Time.current)
+      if rent_finish_at.acts_like?(:time)
+        r = rent_finish_at - rent_start_at
+      elsif rent_estimate_finish_at.acts_like?(:time)
+        r = rent_estimate_finish_at - rent_start_at
+      else
+        r = now - rent_start_at
+      end
+
+      x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
+
+      self.duration = x[trade_item.promote.unit_code]
+    end
+
+    def renting?
+      rent_estimate_finish_at.blank? && rent_finish_at.blank?
     end
 
   end

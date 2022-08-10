@@ -384,6 +384,32 @@ module Trade
       TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
+    def promote
+      good.available_promotes[0]
+    end
+
+    def compute_continue(now = Time.current)
+      compute_later(now) if renting?
+    end
+
+    def compute_later(now = Time.current)
+      wait = now.change(min: rent_start_at.min, sec: rent_start_at.sec)
+      wait += 1.hour if wait <= now
+
+      RentComputeJob.set(wait_until: wait).perform_later(self, wait)
+    end
+
+    def compute(now = Time.current)
+      self.duration = rents.sum(&:duration)
+      order.compute_promote
+      order
+    end
+
+    def compute!(now = Time.current)
+      compute(now)
+      order.save
+    end
+
     def print_later
     end
 
