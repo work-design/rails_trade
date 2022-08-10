@@ -3,7 +3,7 @@ module Trade
     before_action :set_trade_item
 
     def index
-      @rents = @trade_item.rents
+      @rents = @trade_item.rents.page(params[:page])
     end
 
     private

@@ -143,6 +143,9 @@ zh:
       item_promotes:
         index:
           title: 优惠明细
+      rents:
+        index:
+          title: 租用明细
     my:
       title: 订单
       carts:
