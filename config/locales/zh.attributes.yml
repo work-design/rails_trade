@@ -88,6 +88,7 @@ zh:
         produce_plan_id: 生产计划
         status: 状态
         rent_start_at: 起租时间
+        rent_estimate_finish_at: 预计结束时间
         image: 图片
       trade/trade_promote:
         amount: 金额
@@ -187,5 +188,4 @@ zh:
         amount: 额度
       trade/rent:
         rent_start_at: 开始时间
-        rent_estimate_finish_at: 预计结束时间
         rent_finish_at: 实际结束时间
