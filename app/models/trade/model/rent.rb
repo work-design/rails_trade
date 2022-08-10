@@ -24,6 +24,7 @@ module Trade
       self.user_id = trade_item.user_id
       self.member_id = trade_item.member_id
       self.member_organ_id = trade_item.member_organ_id
+      self.rent_start_at = trade_item.rent_start_at
     end
 
     def sync_duration
