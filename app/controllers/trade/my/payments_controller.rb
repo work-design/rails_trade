@@ -98,10 +98,12 @@ module Trade
 
     def set_new_payment_with_order
       @payment = @order.payments.build(payment_params)
+      @payment.user = current_user
     end
 
     def set_new_payment_with_payment_order
       @payment = @payment_order.build_payment(payment_params)
+      @payment.user = current_user
     end
 
     def set_payment_order
