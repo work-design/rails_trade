@@ -29,7 +29,11 @@ module Trade
     def sync_duration
       r = rent_finish_at - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[trade_item.promote.unit_code]
+      self.duration = x[promote.unit_code]
+    end
+
+    def promote
+      trade_item.good.available_promotes[0]
     end
 
     def compute_duration(now = nil)
@@ -44,7 +48,7 @@ module Trade
       end
 
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[trade_item.promote.unit_code]
+      self.duration = x[promote.unit_code]
     end
 
   end

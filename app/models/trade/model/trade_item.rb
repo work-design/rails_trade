@@ -386,10 +386,6 @@ module Trade
       TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
-    def promote
-      good.available_promotes[0]
-    end
-
     def compute_continue(now = Time.current)
       compute_later(now + 1.hour)
     end
