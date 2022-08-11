@@ -27,26 +27,21 @@ module Trade
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.compute_amount
+        cp
       end
     end
 
     def compute_promote
-      result = compute_cart_promote
-      if result.blank?
-        cart_promotes.delete_all
-      end
-      sequences = result.keys.map!(&:sequence).sort!
+      compute_cart_promote
+      binding.b
+      sequences = cart_promotes.map(&:sequence).sort!
       binding.b
       sequences.each do |sequence|
-        x = result.select { |k, _| k.sequence == sequence }
-        promote, answer = x.min_by { |_, v| v[:computed_amount] }
-        cart_promotes.where(status: 'init').where.not(promote_id: promote.id).delete_all
-
-        cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
-        cp.based_amount = answer[:value]
-        cp.promote_charge = answer[:promote_charge]
-        cp.computed_amount = answer[:computed_amount]
-        cp.sync_amount
+        x = cart_promotes.select(&->(i){ i.sequence == sequence })
+        promotes = x.sort_by { |v| v.computed_amount }
+        promotes[1..].each do |cart_promote|
+          cart_promotes.destroy(cart_promote)
+        end
       end
       self.sum_amount
       self.changes
