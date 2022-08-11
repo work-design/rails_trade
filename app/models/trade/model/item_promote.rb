@@ -7,8 +7,6 @@ module Trade
       attribute :promote_name, :string
       attribute :value, :decimal
 
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
-
       belongs_to :cart, optional: true
       belongs_to :order, optional: true
       belongs_to :cart_promote, ->(o){ where(cart_id: o.cart_id) }, foreign_key: :promote_id, primary_key: :promote_id, inverse_of: :item_promotes, optional: true
