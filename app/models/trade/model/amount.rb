@@ -22,30 +22,9 @@ module Trade
       trade.amount += changed_amount
     end
 
-    def compute_promote_hash
-      item_promotes = available_promotes
-      result = {}
-
-      item_promotes.group_by(&:promote).each do |promote, available_items|
-        r = {}
-
-        r[:value] = available_items.sum(&->(i){ i[:trade_item].metering_attributes[promote.metering] || 0 })
-        r[:promote_charge] = promote.compute_charge(r[:value], **extra)
-        if r[:promote_charge]
-          r[:computed_amount] = r[:promote_charge].final_price(r[:value]) if r[:promote_charge]
-        else
-          r[:computed_amount] = nil
-        end
-        r[:items] = available_items
-
-        result.merge! promote => r
-      end
-
-      result
-    end
-
     def compute_promote
-      result = compute_promote_hash
+      result = item_promotes.group_by(&:promote)
+      binding.b
       if result.blank?
         cart_promotes.delete_all
       end

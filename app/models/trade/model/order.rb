@@ -201,16 +201,8 @@ module Trade
     end
 
     def available_promotes
-      promotes = {}
-
-      trade_items.each do |item|
-        item.available_promotes.each do |promote_id, detail|
-          promotes[promote_id] ||= []
-          promotes[promote_id] << detail
-        end
-      end
-
-      promotes.transform_keys!(&->(i){ Promote.find(i) })
+      trade_items.each(&:available_promotes)
+      trade_items.map(&:item_promotes).flatten
     end
 
     def sum_amount
