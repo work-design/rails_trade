@@ -29,9 +29,7 @@ module Trade
 
     def compute_promote
       compute_cart_promote
-      binding.b
       sequences = cart_promotes.map(&:sequence).uniq.sort!
-      binding.b
       sequences.each do |sequence|
         x = cart_promotes.select(&->(i){ i.sequence == sequence })
         promotes = x.sort_by { |v| v.computed_amount }
