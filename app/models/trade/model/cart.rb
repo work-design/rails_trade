@@ -38,6 +38,7 @@ module Trade
       has_many :organ_items, ->(o){ where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
+      has_many :checked_item_promotes, through: :checked_items, source: :item_promotes
 
       has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
@@ -78,7 +79,7 @@ module Trade
     end
 
     def available_promotes
-      checked_items.map(&:item_promotes).flatten
+      checked_item_promotes.includes(:promote)
     end
 
     def sum_amount
