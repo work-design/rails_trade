@@ -12,16 +12,6 @@ module Trade
       render layout: false
     end
 
-    def toggle
-      if @item.status_init?
-        @item.status = 'checked'
-      elsif @item.status_checked?
-        @item.status = 'init'
-      end
-
-      @item.save
-    end
-
     private
     def set_new_item
       options = {
