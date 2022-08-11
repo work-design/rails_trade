@@ -3,14 +3,14 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :sequence, :integer
       attribute :amount, :decimal, default: 0, comment: ''
       attribute :promote_name, :string
       attribute :value, :decimal
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :cart
+      belongs_to :cart, optional: true
+      belongs_to :order, optional: true
       belongs_to :cart_promote, ->(o){ where(cart_id: o.cart_id) }, foreign_key: :promote_id, primary_key: :promote_id, inverse_of: :item_promotes
       belongs_to :trade_item, inverse_of: :item_promotes, optional: true
       belongs_to :promote_good, counter_cache: true
@@ -26,17 +26,11 @@ module Trade
       validates :amount, presence: true
 
       after_initialize :compute_amount, if: -> { new_record? && trade_item.present? }
-      after_initialize :sync_sequence, if: -> { new_record? && promote }
       before_validation :sync_promote, if: -> { promote_good_id_changed? && promote_good }
-      before_validation :sync_sequence, if: -> { persisted? && promote_id_changed? && promote }
     end
 
     def sync_promote
       self.promote_id = self.promote_good.promote_id
-    end
-
-    def sync_sequence
-      self.sequence = self.promote.sequence
     end
 
     def compute_amount

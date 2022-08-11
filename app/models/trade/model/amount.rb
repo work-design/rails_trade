@@ -23,13 +23,12 @@ module Trade
     end
 
     def compute_promote
-      result = item_promotes.group_by(&:promote)
-      binding.b
+      result = available_promotes.group_by(&:promote)
       if result.blank?
         cart_promotes.delete_all
       end
       sequences = result.keys.map!(&:sequence).sort!
-
+      binding.b
       sequences.each do |sequence|
         x = result.select { |k, _| k.sequence == sequence }
         promote, answer = x.min_by { |_, v| v[:computed_amount] }
