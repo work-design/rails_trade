@@ -18,10 +18,6 @@ module Trade
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
-    def xx
-      trade.amount += changed_amount
-    end
-
     def compute_cart_promote
       available_promotes.group_by(&:promote).each do |promote, item_promotes|
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
