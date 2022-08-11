@@ -17,6 +17,7 @@ module Trade
 
       before_validation :sync_from_item, if: -> { item_id_changed? && item }
       before_save :sync_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
+      before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
       after_create_commit :compute_later
     end
 
@@ -38,13 +39,11 @@ module Trade
     end
 
     def compute_amount
-      self.promote_charge = promote.compute_charge(duration, **item.extra)
-      self.amount = self.promote_charge.final_price(duration)
+      promote_charge = promote.compute_charge(duration, **item.extra)
+      self.amount = promote_charge.final_price(duration)
     end
 
     def compute_duration(now = nil)
-      return duration if duration.present?
-
       if now.acts_like?(:time)
         r = now - rent_start_at
       elsif item.rent_estimate_finish_at.acts_like?(:time)
@@ -55,6 +54,7 @@ module Trade
 
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[promote.unit_code]
+      x
     end
 
   end
