@@ -57,15 +57,6 @@ module Trade
         cart_promotes.where(status: 'init').where.not(promote_id: promote.id).delete_all
 
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
-        answer[:items].each do |item|
-          if item[:trade_item].id
-            ip = cp.item_promotes.find_or_initialize_by(trade_item_id: item[:trade_item].id)
-          else
-            ip = cp.item_promotes.build
-            ip.trade_item = item[:trade_item]
-          end
-          ip.promote_good = item[:promote_good]
-        end
         cp.based_amount = answer[:value]
         cp.promote_charge = answer[:promote_charge]
         cp.computed_amount = answer[:computed_amount]

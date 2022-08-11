@@ -10,7 +10,8 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :cart_promote, inverse_of: :item_promotes
+      belongs_to :cart
+      belongs_to :cart_promote, ->(o){ where(cart_id: o.cart_id) }, foreign_key: :promote_id, primary_key: :promote_id, inverse_of: :item_promotes
       belongs_to :trade_item, inverse_of: :item_promotes, optional: true
       belongs_to :promote_good, counter_cache: true
       belongs_to :promote
