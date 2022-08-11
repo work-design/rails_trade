@@ -37,6 +37,11 @@ module Trade
       item.good.available_promotes.find_by(metering: 'duration')
     end
 
+    def compute_amount
+      self.promote_charge = promote.compute_charge(duration, **item.extra)
+      self.amount = self.promote_charge.final_price(duration)
+    end
+
     def compute_duration(now = nil)
       return duration if duration.present?
 
