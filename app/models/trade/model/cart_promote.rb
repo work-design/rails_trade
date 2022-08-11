@@ -47,7 +47,7 @@ module Trade
     end
 
     def compute_amount
-      self.promote_charge = promote.compute_charge(value, **trade_item.extra)
+      self.promote_charge = promote.compute_charge(value, **(cart&.extra || order&.extra))
       self.computed_amount = self.promote_charge.final_price(value)
       self.amount = computed_amount unless edited?
     end
