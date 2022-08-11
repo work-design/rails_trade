@@ -8,54 +8,54 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:status) %></td>
-  <td><%= @trade_item.status_i18n %></td>
+  <td><%= @item.status_i18n %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:single_price) %></td>
   <td>
-    <span><%= @trade_item.single_price %></span>
-    <% if @trade_item.vip_code.present? %>
-      <span class="tag"><%= @trade_item.vip_code %></span>
+    <span><%= @item.single_price %></span>
+    <% if @item.vip_code.present? %>
+      <span class="tag"><%= @item.vip_code %></span>
     <% end %>
   </td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:number) %></td>
-  <td><%= @trade_item.number %></td>
+  <td><%= @item.number %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:original_amount) %></td>
-  <td><%= @trade_item.original_amount %></td>
+  <td><%= @item.original_amount %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:additional_amount) %></td>
-  <td><%= @trade_item.additional_amount %></td>
+  <td><%= @item.additional_amount %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:reduced_amount) %></td>
-  <td><%= @trade_item.reduced_amount %></td>
+  <td><%= @item.reduced_amount %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:amount) %></td>
-  <td><%= @trade_item.amount %></td>
+  <td><%= @item.amount %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:produce_on) %></td>
-  <td><%= @trade_item.produce_on %></td>
+  <td><%= @item.produce_on %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:expire_at) %></td>
-  <td><time data-controller="time"><%= @trade_item.expire_at&.to_fs(:iso8601) %></time></td>
+  <td><time data-controller="time"><%= @item.expire_at&.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:produce_on) %></td>
-  <td><%= @trade_item.produce_on %></td>
+  <td><%= @item.produce_on %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:note) %></td>
-  <td><%= @trade_item.note %></td>
+  <td><%= @item.note %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:extra) %></td>
-  <td><%= simple_format @trade_item.extra %></td>
+  <td><%= simple_format @item.extra %></td>
 </tr>
