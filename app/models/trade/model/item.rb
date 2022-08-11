@@ -73,12 +73,12 @@ module Trade
 
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
-      belongs_to :order, inverse_of: :trade_items, counter_cache: true, optional: true
+      belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o){ where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :item_promotes, inverse_of: :trade_item, dependent: :destroy_async
+      has_many :item_promotes, inverse_of: :item, dependent: :destroy_async
       has_many :rents
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
 
@@ -109,7 +109,7 @@ module Trade
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
-      after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 trade_item 的删除
+      after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 item 的删除
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
       after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_status? && ['ordered'].include?(status) }
 
@@ -247,7 +247,7 @@ module Trade
       end
 
       current_cart.item_amount += changed_amount
-      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_trade_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
+      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Summed amount: #{current_cart.checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
       current_cart.save!
     end
 
