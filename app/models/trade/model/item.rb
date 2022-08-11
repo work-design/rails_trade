@@ -216,11 +216,12 @@ module Trade
     end
 
     def available_promotes
-      unavailable_ids = unavailable_promote_goods.pluck(:promote_id)
+      unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
-      available_promote_goods.where.not(promote_id: unavailable_ids).each do |promote_good|
+      available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
         item_promote = item_promotes.find_or_initialize_by(promote_id: promote_good.promote_id)
         item_promote.promote_good = promote_good
+        item_promote
       end
     end
 
