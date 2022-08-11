@@ -35,8 +35,8 @@ module Trade
       self.amount = self.promote_charge.final_price(value)
     end
 
-    def trigger_cart_promote
-      cart_promote.recompute
+    def prune_cart_promote
+
     end
 
   end
