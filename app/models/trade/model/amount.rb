@@ -18,17 +18,13 @@ module Trade
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
-    def compute_cart_promote
+    def compute_promote
       available_item_promotes.group_by(&:promote).each do |promote, item_promotes|
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.compute_amount
-        cp
       end
-    end
 
-    def compute_promote
-      compute_cart_promote
       sequences = cart_promotes.map(&:sequence).uniq.sort!
       sequences.each do |sequence|
         x = cart_promotes.select(&->(i){ i.sequence == sequence })
@@ -39,11 +35,6 @@ module Trade
       end
       self.sum_amount
       self.changes
-    end
-
-    # for generate order with item
-    def init_promote
-
     end
 
     def reset_amount
