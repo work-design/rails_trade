@@ -1,5 +1,6 @@
 module Trade
   module Model::Item
+    PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume', 'duration']
     extend ActiveSupport::Concern
 
     included do
@@ -100,9 +101,10 @@ module Trade
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
       before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
+      before_validation :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_save :recompute_amount, if: -> { (changes.keys & ['number']).present? }
       before_save :sum_amount, if: -> { original_amount_changed? }
+      before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'paid', 'part_paid', 'pay_later', 'refund'].include?(status) }
@@ -215,7 +217,7 @@ module Trade
       self.original_amount = single_price * number
     end
 
-    def available_promotes
+    def compute_promotes
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
@@ -323,7 +325,7 @@ module Trade
     end
 
     def metering_attributes
-      attributes.slice 'original_amount', 'number', 'weight', 'volume', 'duration'
+      attributes.slice *PROMOTE_COLUMNS
     end
 
     def to_notice

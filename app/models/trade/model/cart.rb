@@ -78,7 +78,6 @@ module Trade
     end
 
     def available_promotes
-      checked_items.each(&:available_promotes)
       checked_items.map(&:item_promotes).flatten
     end
 

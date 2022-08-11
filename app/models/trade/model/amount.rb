@@ -38,6 +38,7 @@ module Trade
         end
       end
       self.sum_amount
+      binding.b
       self.changes
     end
 
