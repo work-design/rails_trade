@@ -14,7 +14,7 @@ module Trade
       attribute :unified_quantity, :decimal, default: 0
       attribute :good_type, :string, default: -> { base_class.name }
 
-      has_many :trade_items, class_name: 'Trade::TradeItem', as: :good, autosave: true
+      has_many :trade_items, class_name: 'Trade::Item', as: :good, autosave: true
       has_many :orders, through: :trade_items, source: :trade
       has_many :addresses, -> { distinct }, class_name: 'Factory::Address', through: :trade_items
 

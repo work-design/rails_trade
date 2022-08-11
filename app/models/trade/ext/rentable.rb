@@ -12,12 +12,12 @@ module Trade
       belongs_to :owned_user, class_name: 'Auth::User', optional: true
       belongs_to :owned_organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :trade_item, class_name: 'Trade::TradeItem', optional: true
+      belongs_to :item, class_name: 'Trade::Item', optional: true
 
       has_many :rents, class_name: 'Trade::Rent', as: :rentable
 
-      scope :ordered, -> { where.not(trade_item_id: nil) }
-      scope :orderable, -> { where(trade_item_id: nil) }
+      scope :ordered, -> { where.not(item_id: nil) }
+      scope :orderable, -> { where(item_id: nil) }
       scope :rentable, -> { where(rentable: true, rented: false) }
     end
 

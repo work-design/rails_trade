@@ -12,7 +12,7 @@ module Trade
       belongs_to :cart, optional: true
       belongs_to :order, optional: true
       belongs_to :cart_promote, ->(o){ where(cart_id: o.cart_id) }, foreign_key: :promote_id, primary_key: :promote_id, inverse_of: :item_promotes
-      belongs_to :trade_item, inverse_of: :item_promotes, optional: true
+      belongs_to :item, inverse_of: :item_promotes, optional: true
       belongs_to :promote_good, counter_cache: true
       belongs_to :promote
       belongs_to :promote_charge
@@ -25,7 +25,7 @@ module Trade
 
       validates :amount, presence: true
 
-      after_initialize :compute_amount, if: -> { new_record? && trade_item.present? }
+      after_initialize :compute_amount, if: -> { new_record? && item.present? }
       before_validation :sync_promote, if: -> { promote_good_id_changed? && promote_good }
     end
 
@@ -34,8 +34,8 @@ module Trade
     end
 
     def compute_amount
-      self.value = trade_item.metering_attributes[promote.metering]
-      self.promote_charge = promote.compute_charge(value, **trade_item.extra)
+      self.value = item.metering_attributes[promote.metering]
+      self.promote_charge = promote.compute_charge(value, **item.extra)
       self.amount = self.promote_charge.final_price(value)
     end
 

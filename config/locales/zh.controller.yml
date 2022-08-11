@@ -52,7 +52,7 @@ zh:
           title: 待付款订单
         refund:
           title: 申请退款
-      trade_items:
+      items:
         index:
           title: 订单明细
         carts:
@@ -220,7 +220,7 @@ zh:
       units:
         index:
           title: 单位设置
-      trade_items:
+      items:
         index:
           title: 订单明细
         carts:

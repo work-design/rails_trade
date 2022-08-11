@@ -7,12 +7,12 @@ module Trade
 
       belongs_to :user, class_name: 'Auth::User', optional: true
 
-      has_one :trade_item, as: :good, class_name: 'Trade::TradeItem', dependent: :nullify
-      has_one :order, through: :trade_item
+      has_one :item, as: :good, class_name: 'Trade::Item', dependent: :nullify
+      has_one :order, through: :item
     end
 
     def update_order
-      trade_item.update amount: self.price
+      item.update amount: self.price
     end
 
     def get_order

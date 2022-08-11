@@ -3,7 +3,7 @@
     <th><%= Trade::Cart.human_attribute_name(:good_type) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:good_type]), class: active_params(good_type: '', active: 'button is-info', item: 'button is-light') %>
-      <% Trade::TradeItem.options_i18n(:good_type).each do |text, value| %>
+      <% Trade::Item.options_i18n(:good_type).each do |text, value| %>
         <%= link_to text, filter_params(good_type: value, except: [:id]), class: active_params(good_type: value, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>

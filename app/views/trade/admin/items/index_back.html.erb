@@ -19,7 +19,7 @@
 <div class="ui segment top attached">
   <% if @user %>
     <%= link_to '生成订单', new_admin_order_path(user_id: @user.id), class: 'ui red button', id: 'new_order_top' %>
-    <%= link_to '生成文档', doc_admin_trade_items_path(user_id: @user.id), class: 'ui orange button', id: 'trade_items_doc' %>
+    <%= link_to '生成文档', doc_admin_items_path(user_id: @user.id), class: 'ui orange button', id: 'items_doc' %>
   <% end %>
 </div>
 <table class="table is-hoverable is-fullwidth">
@@ -29,7 +29,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @trade_items.each do |trade_item| %>
+  <% @items.each do |item| %>
     <tr class="<%= active_asserts join: false, active: trade_item.status_checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
 
     </tr>

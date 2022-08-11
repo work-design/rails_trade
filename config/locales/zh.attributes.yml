@@ -61,13 +61,13 @@ zh:
         created_at: 下单时间
         pay_deadline_at: 付款截止时间
         paid_at: 支付时间
-        trade_items_count: 子订单数
+        items_count: 子订单数
         pay_later: 后付款
         collectable: 代收货款
         serial_number: 序号
         from_address_id: 发货地址
         address_id: 收货地址
-      trade/trade_item:
+      trade/item:
         good_id: 商品
         good_name: 商品名称
         single_price: 单价

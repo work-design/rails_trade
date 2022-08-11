@@ -1,27 +1,27 @@
 <table class="table as-search">
   <tr>
-    <th><%= Trade::TradeItem.human_attribute_name(:status) %></th>
+    <th><%= Trade::Item.human_attribute_name(:status) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:status]), class: active_params(status: '', active: 'button is-info', item: 'button is-light') %>
-      <% Trade::TradeItem.options_i18n(:status).each do |text, value| %>
+      <% Trade::Item.options_i18n(:status).each do |text, value| %>
         <%= link_to text, filter_params(status: value, except: [:id]), class: active_params(status: value, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
   <tr>
-    <th><%= Trade::TradeItem.human_attribute_name(:good_type) %></th>
+    <th><%= Trade::Item.human_attribute_name(:good_type) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:good_type]), class: active_params(good_type: '', active: 'button is-info', item: 'button is-light') %>
-      <% Trade::TradeItem.options_i18n(:good_type).each do |text, good_type| %>
+      <% Trade::Item.options_i18n(:good_type).each do |text, good_type| %>
         <%= link_to text, filter_params(good_type: good_type), class: active_params(good_type: good_type, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
   <tr>
-    <th><%= Trade::TradeItem.human_attribute_name(:aim) %></th>
+    <th><%= Trade::Item.human_attribute_name(:aim) %></th>
     <td>
       <%= link_to t('.all'), filter_params(except: [:aim]), class: active_params(aim: '', active: 'button is-info', item: 'button is-light') %>
-      <% Trade::TradeItem.options_i18n(:aim).each do |text, aim| %>
+      <% Trade::Item.options_i18n(:aim).each do |text, aim| %>
         <%= link_to text, filter_params(aim: aim), class: active_params(aim: aim, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>

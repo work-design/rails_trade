@@ -1,6 +1,6 @@
 <table class="table is-fullwidth is-borderless as-show">
   <tbody>
-    <% unless @order.trade_items.map(&:good_type).include?('Trade::Advance') %>
+    <% unless @order.items.map(&:good_type).include?('Trade::Advance') %>
       <%= render partial: 'wallet', collection: @order.user.cards, as: :card if @order.user %>
     <% end %>
     <tr>

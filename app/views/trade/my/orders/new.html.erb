@@ -4,18 +4,18 @@
       <th>
         <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do %><% end %>
       </th>
-      <th><%= Trade::TradeItem.human_attribute_name(:good_name) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:number) %></th>
-      <th><%= Trade::TradeItem.human_attribute_name(:amount) %></th>
+      <th><%= Trade::Item.human_attribute_name(:good_name) %></th>
+      <th><%= Trade::Item.human_attribute_name(:number) %></th>
+      <th><%= Trade::Item.human_attribute_name(:amount) %></th>
     </tr>
   </thead>
   <tbody>
-  <% current_cart.trade_items.checked.each do |trade_item| %>
+  <% current_cart.items.checked.each do |item| %>
     <tr>
       <td></td>
-      <td><%= trade_item.good_name %></td>
-      <td><%= trade_item.number %></td>
-      <td><%= trade_item.amount %></td>
+      <td><%= item.good_name %></td>
+      <td><%= item.number %></td>
+      <td><%= item.amount %></td>
     </tr>
   <% end %>
   </tbody>

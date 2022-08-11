@@ -10,12 +10,12 @@ module Trade
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, class_name: 'Trade::Order'
       has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_user_id
-      has_many :trade_items, class_name: 'Trade::TradeItem'
-      has_many :rents, -> { aim_rent }, class_name: 'Trade::TradeItem'
+      has_many :items, class_name: 'Trade::Item'
+      has_many :rents, -> { aim_rent }, class_name: 'Trade::Item'
       has_many :payments, class_name: 'Trade::Payment'
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
-      has_many :cart_trade_items, ->{ carting }, class_name: 'Trade::TradeItem'
+      has_many :cart_items, ->{ carting }, class_name: 'Trade::Item'
     end
 
     def give_cash(amount, note: nil, **options)
@@ -42,13 +42,13 @@ module Trade
       end
     end
 
-    def get_trade_item(good_type:, good_id:, aim: 'use', **options)
+    def get_item(good_type:, good_id:, aim: 'use', **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
       args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
       args.reject!(&->(_, v){ v.blank? })
 
-      trade_items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'aim', 'produce_on', 'scene_id', 'fetch_oneself').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
+      items.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'aim', 'produce_on', 'scene_id', 'fetch_oneself').reject(&->(_, v){ v.blank? }) == args.stringify_keys })
     end
 
   end

@@ -2,7 +2,7 @@
   <div class="as-tooltip">
     <div class="card">
       <div class="card-content">
-        <% @trade_item.trade_promotes.each do |trade_promote| %>
+        <% @item.trade_promotes.each do |trade_promote| %>
           <p><%= trade_promote.promote.name %>: <%= trade_promote.amount %></p>
         <% end %>
       </div>

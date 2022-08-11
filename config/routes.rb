@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         end
         resources :packages
       end
-      resources :trade_items do
+      resources :items do
         collection do
           post :trial
         end
@@ -118,7 +118,7 @@ Rails.application.routes.draw do
         concerns :order_admin
         resources :exchange_rates
         resources :units
-        resources :trade_items do
+        resources :items do
           member do
             get :carts
           end
@@ -139,7 +139,7 @@ Rails.application.routes.draw do
             get 'user/:user_id' => :user_show
           end
         end
-        resources :trade_items do
+        resources :items do
           member do
             get :carts
           end
@@ -230,7 +230,7 @@ Rails.application.routes.draw do
       end
 
       namespace :in, defaults: { namespace: 'in' } do
-        resources :trade_items do
+        resources :items do
           collection do
             post :cost
           end

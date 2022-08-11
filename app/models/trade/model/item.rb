@@ -1,5 +1,5 @@
 module Trade
-  module Model::TradeItem
+  module Model::Item
     extend ActiveSupport::Concern
 
     included do
@@ -337,7 +337,7 @@ module Trade
     end
 
     def order_work_later
-      TradeItemJob.perform_later(self)
+      ItemJob.perform_later(self)
     end
 
     def order_work
@@ -379,7 +379,7 @@ module Trade
     end
 
     def clean_when_expired
-      TradeItemCleanJob.set(wait_until: expire_at).perform_later(self)
+      ItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
     def compute_continue(now = Time.current)
@@ -390,7 +390,7 @@ module Trade
       wait = now.change(min: rent_start_at.min, sec: rent_start_at.sec)
       wait += 1.hour if wait <= now
 
-      TradeItemRentJob.set(wait_until: wait).perform_later(self, wait)
+      ItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
     def compute(now = Time.current)

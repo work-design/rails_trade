@@ -25,7 +25,7 @@
 
 <div class="box">
   <%= render layout: 'item_table' do %>
-    <% form_object(@order, theme: 'inline').fields :trade_items do |ef| %>
+    <% form_object(@order, theme: 'inline').fields :items do |ef| %>
       <%= render partial: 'item_tbody', layout: 'item_tr', locals: { f: ef } %>
     <% end %>
   <% end %>

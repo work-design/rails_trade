@@ -28,19 +28,19 @@ module Trade
       "#{card_template.name}-#{price}"
     end
 
-    def order_paid(trade_item)
-      if trade_item.user_id
-        card = card_template.cards.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
-        card.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain_id)
-      elsif trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
-        card = card_template.cards.find_or_initialize_by(maintain_id: trade_item.order.maintain_id)
+    def order_paid(item)
+      if item.user_id
+        card = card_template.cards.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
+        card.maintain_id = item.order.maintain_id if item.order.respond_to?(:maintain_id)
+      elsif item.order.respond_to?(:maintain) && item.order.maintain
+        card = card_template.cards.find_or_initialize_by(maintain_id: item.order.maintain_id)
       else
         return
       end
 
       card.temporary = false
       cp = card.card_purchases.build
-      cp.trade_item = trade_item
+      cp.item = item
       cp.years = years
       cp.months = months
       cp.days = days
@@ -55,15 +55,15 @@ module Trade
       card
     end
 
-    def order_trial(trade_item)
-      card = card_template.cards.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
-      card.trade_item = trade_item
+    def order_trial(item)
+      card = card_template.cards.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
+      card.item = item
       card.temporary = true
       card.save
     end
 
-    def order_prune(trade_item)
-      card = card_template.cards.temporary.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id, trade_item_id: trade_item.id)
+    def order_prune(item)
+      card = card_template.cards.temporary.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id, item_id: item.id)
       card.destroy
     end
 

@@ -1,15 +1,15 @@
 <div class="weui-media-box weui-media-box_appmsg">
   <div class="weui-media-box__hd">
-    <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
+    <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good.logo.attached? %>
   </div>
   <div class="weui-media-box__bd">
     <h4 class="weui-media-box__title">
-      <span><%= trade_item.good.name %></span>
+      <span><%= item.good.name %></span>
     </h4>
     <p class="weui-media-box__desc">
-      <span class="has-text-danger"><%= trade_item.single_price.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="has-text-danger"><%= item.single_price.to_money.format(html_wrap: true).html_safe %></span>
       <span>x</span>
-      <span class="is-size-7"><%= trade_item.number %></span>
+      <span class="is-size-7"><%= item.number %></span>
     </p>
   </div>
 </div>

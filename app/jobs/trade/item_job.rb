@@ -1,5 +1,5 @@
 module Trade
-  class TradeItemJob < ApplicationJob
+  class ItemJob < ApplicationJob
 
     def perform(trade_item)
       trade_item.order_work

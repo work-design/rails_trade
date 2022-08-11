@@ -55,7 +55,7 @@ zh:
           weight: 总重量
           volume: 体积
           duration: 时长
-      trade/trade_item:
+      trade/item:
         good_type:
           Bench::Facilitate: 标准化服务
           Crm::Source: 客户来源

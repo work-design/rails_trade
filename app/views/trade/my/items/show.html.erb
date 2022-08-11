@@ -1,0 +1,48 @@
+<div class="weui-panel">
+  <div class="weui-panel__hd">
+    <div><%= @item.status_i18n %></div>
+  </div>
+</div>
+
+<div class="weui-panel">
+  <div class="weui-panel__hd"><%= @item.organ&.name %></div>
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_appmsg">
+      <div class="weui-media-box__hd">
+        <%= image_tag @item.good.logo, class: 'weui-media-box__thumb' %>
+      </div>
+      <div class="weui-media-box__bd">
+        <strong class="weui-media-box__title"><%= @item.good_name %></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="weui-panel">
+  <div class="weui-panel__bd p-4">
+    <p>
+      <span class="has-text-grey">订单编号：</span>
+      <span><%= @item.order.uuid %></span>
+    </p>
+    <p>
+      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:number) %>：</span>
+      <span><%= @item.number %></span>
+    </p>
+    <p>
+      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:single_price) %>：</span>
+      <span><%= @item.single_price.to_money.format(html_wrap: true).html_safe %></span>
+    </p>
+    <p>
+      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:retail_price) %>：</span>
+      <span><%= @item.retail_price.to_money.format(html_wrap: true).html_safe %></span>
+    </p>
+    <p>
+      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:wholesale_price) %>：</span>
+      <span><%= @item.wholesale_price.to_money.format(html_wrap: true).html_safe %></span>
+    </p>
+    <p>
+      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:amount) %>：</span>
+      <span><%= @item.amount.to_money.format(html_wrap: true).html_safe %></span>
+    </p>
+  </div>
+</div>

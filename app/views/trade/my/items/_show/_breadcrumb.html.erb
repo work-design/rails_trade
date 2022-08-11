@@ -1,7 +1,7 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
     <li><%= link_to t('trade.my.orders.index.title'), { controller: 'orders', action: 'index' } %></li>
-    <li><%= link_to @trade_item.order.uuid, { controller: 'orders', action: 'show', id: @trade_item.order_id } %></li>
-    <li class="is-active"><%= @trade_item.id %></li>
+    <li><%= link_to @item.order.uuid, { controller: 'orders', action: 'show', id: @item.order_id } %></li>
+    <li class="is-active"><%= @item.id %></li>
   </ul>
 </div>

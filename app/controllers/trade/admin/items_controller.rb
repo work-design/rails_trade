@@ -1,5 +1,5 @@
 module Trade
-  class Admin::TradeItemsController < Admin::BaseController
+  class Admin::ItemsController < Admin::BaseController
     before_action :set_trade_item, only: [:show, :update, :destroy, :actions, :carts]
 
     def index
@@ -7,7 +7,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
 
-      @trade_items = TradeItem.includes(:item_promotes).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @trade_items = Item.includes(:item_promotes).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def carts
@@ -23,7 +23,7 @@ module Trade
       if good.respond_to?(:user_id)
         @user = good.user
         @buyer = @user.buyer
-        @trade_items = TradeItem.where(good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
+        @trade_items = Item.where(good_type: params[:good_type], good_id: params[:good_id], user_id: good.user_id)
       end
 
       @trade_item = @trade_items.where(good_id: params[:good_id], good_type: params[:good_type]).first
@@ -58,7 +58,7 @@ module Trade
 
     private
     def set_trade_item
-      @trade_item = TradeItem.where(default_params).find params[:id]
+      @trade_item = Item.where(default_params).find params[:id]
     end
 
     def trade_item_params

@@ -1,5 +1,5 @@
 <tr class="has-background-light">
-  <td><%= check_box_tag(:trade_item_id, model.id, model.status_checked?) %></td>
+  <td><%= check_box_tag(:item_id, model.id, model.status_checked?) %></td>
   <td>
     <p><%= model.good.name %></p>
     <p class="has-text-grey"><%= model.good_type_i18n %></p>
@@ -21,7 +21,7 @@
     <p><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></p>
     <p>
       <span><%= model.additional_amount.to_money.format(html_wrap: true).html_safe %></span>
-      <%= link_to 'edit', { controller: 'item_promotes', trade_item_id: model.id }, class: '' %>
+      <%= link_to 'edit', { controller: 'item_promotes', item_id: model.id }, class: '' %>
     </p>
     <p><%= model.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
   </td>

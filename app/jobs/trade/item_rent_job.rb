@@ -1,5 +1,5 @@
 module Trade
-  class TradeItemRentJob < ApplicationJob
+  class ItemRentJob < ApplicationJob
 
     def perform(trade_item, wait)
       trade_item.compute(wait)

@@ -31,19 +31,19 @@ module Trade
       self.name = "#{wallet_template.name}-#{amount}"
     end
 
-    def order_paid(trade_item)
-      if trade_item.user_id
-        wallet = wallet_template.wallets.find_or_initialize_by(user_id: trade_item.user_id, member_id: trade_item.member_id)
-        wallet.maintain_id = trade_item.order.maintain_id if trade_item.order.respond_to?(:maintain_id)
-      elsif trade_item.order.respond_to?(:maintain) && trade_item.order.maintain
-        wallet = wallet_template.wallets.find_or_initialize_by(maintain_id: trade_item.order.maintain_id)
+    def order_paid(item)
+      if item.user_id
+        wallet = wallet_template.wallets.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
+        wallet.maintain_id = item.order.maintain_id if item.order.respond_to?(:maintain_id)
+      elsif item.order.respond_to?(:maintain) && item.order.maintain
+        wallet = wallet_template.wallets.find_or_initialize_by(maintain_id: item.order.maintain_id)
       else
         return
       end
 
       wa = wallet_advances.build
       wa.wallet = wallet
-      wa.trade_item = trade_item
+      wa.item = item
       wa.amount = amount
 
       wallet.class.transaction do

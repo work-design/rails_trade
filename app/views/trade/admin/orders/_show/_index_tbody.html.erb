@@ -1,20 +1,20 @@
 <tr>
   <td>
-    <%= link_to trade_item.good, target: '_blank' do %>
-      <span><%= trade_item.good.name %></span>
-    <% end if trade_item.good %>
+    <%= link_to item.good, target: '_blank' do %>
+      <span><%= item.good.name %></span>
+    <% end if item.good %>
   </td>
   <td>
-    <span><%= trade_item.good.price.to_money.format(html_wrap: true).html_safe if trade_item.good %></span>
+    <span><%= item.good.price.to_money.format(html_wrap: true).html_safe if item.good %></span>
     <span class="has-text-grey">x</span>
-    <span><%= trade_item.number %></span>
+    <span><%= item.number %></span>
   </td>
-  <td><%= trade_item.original_amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= item.original_amount.to_money.format(html_wrap: true).html_safe %></td>
   <td>
-    <p><%= trade_item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
-    <p><%= trade_item.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+    <p><%= item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
+    <p><%= item.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
   </td>
-  <td><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></td>
-  <td><%= link_to '订单流程', { controller: 'trade_items', action: 'show', id: trade_item.id } %></td>
+  <td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= link_to '订单流程', { controller: 'items', action: 'show', id: item.id } %></td>
 </tr>
-<%= render partial: 'promote_tbody', collection: trade_item.item_promotes, as: :item_promote %>
+<%= render partial: 'promote_tbody', collection: item.item_promotes, as: :item_promote %>
