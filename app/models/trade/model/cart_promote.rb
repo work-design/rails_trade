@@ -4,6 +4,7 @@ module Trade
 
     included do
       attribute :sequence, :integer
+      attribute :value, :decimal
       attribute :original_amount, :decimal, comment: '初始价格'
       attribute :based_amount, :decimal, default: 0, comment: '基于此价格计算，默认为 trade_item 的 amount，与sequence有关'
       attribute :computed_amount, :decimal, default: 0, comment: '计算出的价格'
@@ -43,6 +44,11 @@ module Trade
       return unless order
       order.sum_amount
       order.save
+    end
+
+    def compute_amount
+      self.promote_charge = promote.compute_charge(value, **trade_item.extra)
+      self.amount = self.promote_charge.final_price(value)
     end
 
     def sync_amount
