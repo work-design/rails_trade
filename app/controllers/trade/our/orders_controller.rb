@@ -22,7 +22,7 @@ module Trade
         :address_id,
         :invoice_address_id,
         :note,
-        trade_items_attributes: {}
+        items_attributes: {}
       )
     end
 

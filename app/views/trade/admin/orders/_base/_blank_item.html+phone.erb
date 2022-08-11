@@ -1,17 +1,17 @@
-<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= trade_item.uuid %>" data-action="click->weui-dialog#toggle">
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= item.uuid %>" data-action="click->weui-dialog#toggle">
   <div class="weui-cell__hd">
-  <% if trade_item.good_name.blank? %>
+  <% if item.good_name.blank? %>
     <span class="has-text-grey">添加物品</span>
   <% else %>
-    <span><%= trade_item.good_name %></span>
+    <span><%= item.good_name %></span>
   <% end %>
   </div>
   <div class="weui-cell__bd">
-  <% if trade_item.good_name.present? %>
+  <% if item.good_name.present? %>
     <span class="has-text-grey">x</span>
-    <span class="has-text-grey"><%= trade_item.number %></span>
+    <span class="has-text-grey"><%= item.number %></span>
     <div class="tag has-text-grey">
-      <span><%= trade_item.weight %></span>
+      <span><%= item.weight %></span>
       <span class="pl-1">千克</span>
     </div>
   <% end %>
@@ -19,7 +19,7 @@
   <div class="weui-cell__ft"></div>
 </div>
 
-<div data-controller="weui-dialog" id="fetch_dialog_<%= trade_item.uuid %>" class="weui-dialog__wrap">
+<div data-controller="weui-dialog" id="fetch_dialog_<%= item.uuid %>" class="weui-dialog__wrap">
   <div class="weui-mask" data-action="click->weui-dialog#close"></div>
   <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
     <div class="weui-half-screen-dialog__hd">
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="weui-half-screen-dialog__bd">
-      <%= form.fields :trade_items, model: trade_item do |f| %>
+      <%= form.fields :items, model: item do |f| %>
         <%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
         <%= f.hidden_field :organ_id, value: current_organ.id, form: 'new_order' %>
         <%= f.text_field :good_name, form: 'new_order' %>

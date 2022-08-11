@@ -26,7 +26,7 @@
     </div>
     <div class="weui-half-screen-dialog__bd">
       <div class="weui-cells weui-cells_radio">
-        <%= form.fields :trade_items do |f| %>
+        <%= form.fields :items do |f| %>
           <%= f.number_field :amount, placeholder: '输入货款金额', label: f.object.good_name, form: 'new_order' if f.object.good_name.present? %>
         <% end %>
       </div>

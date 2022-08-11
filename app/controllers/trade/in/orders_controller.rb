@@ -50,7 +50,7 @@ module Trade
         :address_id,
         :amount,
         :note,
-        trade_items_attributes: [:deliver_on, :number, :note],
+        items_attributes: [:deliver_on, :number, :note],
         cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params

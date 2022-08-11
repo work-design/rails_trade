@@ -26,7 +26,7 @@ module Trade
         :address_id,
         :invoice_address_id,
         :note,
-        trade_items_attributes: [:deliver_on, :advance_price, :comment],
+        items_attributes: [:deliver_on, :advance_price, :comment],
         trade_promotes_attributes: [:promote_id]
       )
     end

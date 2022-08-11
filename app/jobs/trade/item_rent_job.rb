@@ -1,8 +1,8 @@
 module Trade
   class ItemRentJob < ApplicationJob
 
-    def perform(trade_item, wait)
-      trade_item.compute(wait)
+    def perform(item, wait)
+      item.compute(wait)
     end
 
     after_perform do |job|

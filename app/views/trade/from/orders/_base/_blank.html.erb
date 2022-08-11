@@ -5,10 +5,10 @@
 <%= render 'address' %>
 
 <div class="weui-panel">
-  <%= render partial: 'blank_trade_item', collection: @order.trade_items, as: :trade_item, locals: { form: form_object(@order, theme: 'weui') } %>
+  <%= render partial: 'blank_item', collection: @order.items, as: :item, locals: { form: form_object(@order, theme: 'weui') } %>
 </div>
 
-<% if @order.trade_items.size > 1 %>
+<% if @order.items.size > 1 %>
 <div class="weui-panel">
   <%= render partial: 'collectable', locals: { form: form_object(@order, theme: 'weui') } %>
 </div>

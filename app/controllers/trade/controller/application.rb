@@ -31,7 +31,7 @@ module Trade
 
     def current_cart_count(good_type: 'Factory::Production')
       if current_cart
-        current_cart.trade_items.select(&->(i){ i.persisted? && i.good_type == good_type }).size
+        current_cart.items.select(&->(i){ i.persisted? && i.good_type == good_type }).size
       else
         0
       end

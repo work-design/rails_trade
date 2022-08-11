@@ -30,7 +30,7 @@
   </thead>
   <tbody>
   <% @items.each do |item| %>
-    <tr class="<%= active_asserts join: false, active: trade_item.status_checked?, positive: trade_item.good_id.to_s == params[:good_id] %>" id="trade_item_<%= trade_item.id %>">
+    <tr class="<%= active_asserts join: false, active: item.status_checked?, positive: item.good_id.to_s == params[:good_id] %>" id="item_<%= item.id %>">
 
     </tr>
   <% end %>
@@ -57,4 +57,4 @@
   </tfoot>
 </table>
 
-<%= paginate @trade_items %>
+<%= paginate @items %>

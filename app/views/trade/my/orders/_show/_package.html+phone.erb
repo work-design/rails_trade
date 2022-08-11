@@ -22,8 +22,8 @@
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label">包含物品：</label>
       <div class="weui-form-preview__value">
-      <% package.packageds.includes(:trade_item).each do |packaged| %>
-        <span><%= packaged.trade_item.good_name %></span>
+      <% package.packageds.includes(:item).each do |packaged| %>
+        <span><%= packaged.item.good_name %></span>
       <% end %>
       </div>
     </div>

@@ -15,7 +15,7 @@ module Trade
       q_params.merge! client_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
-      @orders = Order.includes(:payment_strategy, :trade_items, :payment_orders, address: :area, from_address: :area, maintain: :member).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = Order.includes(:payment_strategy, :items, :payment_orders, address: :area, from_address: :area, maintain: :member).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
@@ -121,7 +121,7 @@ module Trade
         :note,
         :uuid,
         :current_cart_id,
-        trade_items_attributes: {},
+        items_attributes: {},
         payment_orders_attributes: {}
       )
       p.merge! default_form_params

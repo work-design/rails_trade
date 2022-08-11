@@ -14,9 +14,9 @@ module Trade
       attribute :unified_quantity, :decimal, default: 0
       attribute :good_type, :string, default: -> { base_class.name }
 
-      has_many :trade_items, class_name: 'Trade::Item', as: :good, autosave: true
-      has_many :orders, through: :trade_items, source: :trade
-      has_many :addresses, -> { distinct }, class_name: 'Factory::Address', through: :trade_items
+      has_many :items, class_name: 'Trade::Item', as: :good, autosave: true
+      has_many :orders, through: :items, source: :trade
+      has_many :addresses, -> { distinct }, class_name: 'Factory::Address', through: :items
 
       has_many :promote_goods, class_name: 'Trade::PromoteGood', as: :good
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
@@ -52,38 +52,38 @@ module Trade
         o.organ_id ||= o.maintain&.organ_id
       end
 
-      ti = o.trade_items.build(good: self)
+      ti = o.items.build(good: self)
       ti.assign_attributes params.slice(:number)
 
       o.assign_attributes params.slice(:extra, :currency)
       o
     end
 
-    def order_done(trade_item = nil)
-      puts "order_done Should realize in good entity, #{trade_item.object_id}"
+    def order_done(item = nil)
+      puts "order_done Should realize in good entity, #{item.object_id}"
     end
 
-    def order_trial(trade_item = nil)
+    def order_trial(item = nil)
       puts 'order_trial Should realize in good entity'
     end
 
-    def order_paid(trade_item = nil)
+    def order_paid(item = nil)
       puts 'order_paid Should realize in good entity'
     end
 
-    def order_part_paid(trade_item = nil)
+    def order_part_paid(item = nil)
       puts 'order_part_paid Should realize in good entity'
     end
 
-    def order_pay_later(trade_item = nil)
+    def order_pay_later(item = nil)
       puts 'order_pay_later Should realize in good entity'
     end
 
-    def order_refund(trade_item = nil)
+    def order_refund(item = nil)
       puts 'order_refund Should realize in good entity'
     end
 
-    def order_prune(trade_item = nil)
+    def order_prune(item = nil)
       puts 'order_prune Should realize in good entity'
     end
 

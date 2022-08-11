@@ -17,7 +17,7 @@
 </div>
 
 <%= render layout: 'index_table' do %>
-  <%= render partial: 'item_tbody', layout: 'item_tr', collection: @order.trade_items, as: :model %>
+  <%= render partial: 'item_tbody', layout: 'item_tr', collection: @order.items, as: :model %>
 <% end %>
 
 <%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>

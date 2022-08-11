@@ -1,27 +1,27 @@
 <div>
   <span style="color: grey;">Item Price: </span>
-  <%= trade_item.final_price %>
+  <%= item.final_price %>
 </div>
 <div>
   <span style="color: grey;">Total Serve Price: </span>
-  <%= trade_item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <%= item.total_serve_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% trade_item.total_serve_charges.each do |charge| %>
+    <% item.total_serve_charges.each do |charge| %>
       <p><%= charge.item.name %>: <%= charge.subtotal %></p>
     <% end %>
   </div>
-  <%= link_to 'edit', total_admin_trade_item_trade_item_serves_path(trade_item), class: 'ui mini label' %>
+  <%= link_to 'edit', total_admin_item_item_serves_path(item), class: 'ui mini label' %>
 </div>
 <div>
   <span style="color: grey;">Promote Price: </span>
-  <%= trade_item.total_promote_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
+  <%= item.total_promote_price %><i class="info circle icon xx_popup" style="color: grey;"></i>
   <div class="ui popup">
-    <% trade_item.total.promote_charges.each do |charge| %>
+    <% item.total.promote_charges.each do |charge| %>
       <p><%= charge.item.name %>: <%= charge.subtotal %></p>
     <% end %>
   </div>
 </div>
 <div>
   <span style="color: grey;">Final Price: </span>
-  <%= trade_item.estimate_price %>
+  <%= item.estimate_price %>
 </div>

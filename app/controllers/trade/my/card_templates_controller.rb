@@ -33,7 +33,7 @@ module Trade
 
     def set_new_order
       @order = current_user.orders.build
-      @order.trade_items.build
+      @order.items.build
     end
 
   end

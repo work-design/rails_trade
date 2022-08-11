@@ -4,9 +4,9 @@ module Trade
 
     def index
       q_params = {}
-      q_params.merge! params.permit(:trade_item_id, :promote_good_id, :cart_id)
+      q_params.merge! params.permit(:item_id, :promote_good_id, :cart_id)
 
-      @item_promotes = ItemPromote.includes(:promote, :trade_item).default_where(q_params).page(params[:page])
+      @item_promotes = ItemPromote.includes(:promote, :item).default_where(q_params).page(params[:page])
     end
 
     def new

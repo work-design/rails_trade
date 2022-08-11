@@ -1,9 +1,9 @@
 <div class="weui-media-box weui-media-box_appmsg">
   <div class="weui-media-box__hd" data-controller="empty">
-    <%= image_tag trade_item.good.logo, class: 'weui-media-box__thumb' if trade_item.good.logo.attached? %>
+    <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good.logo.attached? %>
   </div>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title"><%= trade_item.good.name %></h4>
-    <p class="weui-media-box__desc has-text-danger"><%= trade_item.amount.to_money.format(html_wrap: true).html_safe %></p>
+    <h4 class="weui-media-box__title"><%= item.good.name %></h4>
+    <p class="weui-media-box__desc has-text-danger"><%= item.amount.to_money.format(html_wrap: true).html_safe %></p>
   </div>
 </div>

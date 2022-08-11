@@ -46,7 +46,7 @@ module Trade
     end
 
     def new
-      @order.trade_items.build
+      @order.items.build
     end
 
     def create
@@ -139,7 +139,7 @@ module Trade
         :note,
         :payment_strategy_id,
         :collectable,
-        trade_items_attributes: [:organ_id, :good_type, :good_id, :good_name, :number, :weight, :volume, :note, :image, :amount],
+        items_attributes: [:organ_id, :good_type, :good_id, :good_name, :number, :weight, :volume, :note, :image, :amount],
         cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params

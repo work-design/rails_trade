@@ -8,7 +8,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id)
 
-      @carts = Cart.includes(:user, :member, :member_organ, :payment_strategy, :trade_items).default_where(q_params).order(id: :desc).page(params[:page])
+      @carts = Cart.includes(:user, :member, :member_organ, :payment_strategy, :items).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def member_organ
@@ -23,7 +23,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:good_type, :aim)
 
-      @carts = Cart.includes(:user, :payment_strategy, :trade_items).where(member_id: nil).where.not(user_id: nil).where(q_params).order(id: :desc).page(params[:page])
+      @carts = Cart.includes(:user, :payment_strategy, :items).where(member_id: nil).where.not(user_id: nil).where(q_params).order(id: :desc).page(params[:page])
     end
 
     def user_show
@@ -34,7 +34,7 @@ module Trade
       q_params.merge! params.permit(:aim, :good_type)
 
       @user = Auth::User.find params[:user_id]
-      @carts = Cart.includes(:payment_strategy, :trade_items).where(member_id: nil).default_where(q_params)
+      @carts = Cart.includes(:payment_strategy, :items).where(member_id: nil).default_where(q_params)
     end
 
     def create

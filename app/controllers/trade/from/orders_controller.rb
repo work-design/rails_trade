@@ -8,13 +8,13 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
-      @orders = current_user.from_orders.includes(:trade_items, :payment_strategy, :payment_orders, address: :area, from_address: :area).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = current_user.from_orders.includes(:items, :payment_strategy, :payment_orders, address: :area, from_address: :area).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
       @order.address_id ||= params[:address_id]
       @order.init_uuid
-      @order.trade_items.build
+      @order.items.build
     end
 
     def create
@@ -25,7 +25,7 @@ module Trade
       if params[:commit].present? && @order.save
         render 'create'
       else
-        @order.trade_items.build
+        @order.items.build
         render 'new'
       end
     end

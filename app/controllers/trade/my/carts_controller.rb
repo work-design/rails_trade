@@ -8,8 +8,8 @@ module Trade
     def show
       q_params = {}
 
-      @trade_items = @cart.trade_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = @cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @items = @cart.items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def invest
@@ -18,8 +18,8 @@ module Trade
         aim: 'use'
       }
 
-      @trade_items = @cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = @cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @items = @cart.items.default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def rent
@@ -28,8 +28,8 @@ module Trade
         aim: 'rent'
       }
 
-      @trade_items = @cart.trade_items.default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = @cart.trade_items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @items = @cart.items.default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
     end
 
     def addresses
