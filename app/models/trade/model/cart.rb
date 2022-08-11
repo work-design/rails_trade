@@ -10,7 +10,7 @@ module Trade
       attribute :total_quantity, :decimal, default: 0
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
-      attribute :trade_items_count, :integer, default: 0
+      attribute :items_count, :integer, default: 0
 
       enum aim: {
         use: 'use',
@@ -32,12 +32,12 @@ module Trade
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
 
-      has_many :trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).carting }, primary_key: :user_id, foreign_key: :user_id
-      has_many :checked_trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
-      has_many :all_trade_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
-      has_many :organ_trade_items, ->(o){ where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
-      has_many :current_trade_items, class_name: 'Item', foreign_key: :current_cart_id
-      has_many :current_item_promotes, through: :current_trade_items, source: :item_promotes
+      has_many :items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).carting }, primary_key: :user_id, foreign_key: :user_id
+      has_many :checked_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :all_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, aim: o.aim }.compact) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :organ_items, ->(o){ where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
+      has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
+      has_many :current_item_promotes, through: :current_items, source: :item_promotes
 
       has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
@@ -70,60 +70,60 @@ module Trade
     end
 
     def compute_amount
-      self.retail_price = checked_trade_items.sum(&->(i){ i.retail_price.to_d })
-      self.discount_price = checked_trade_items.sum(&->(i){ i.discount_price.to_d })
+      self.retail_price = checked_items.sum(&->(i){ i.retail_price.to_d })
+      self.discount_price = checked_items.sum(&->(i){ i.discount_price.to_d })
       self.bulk_price = self.retail_price - self.discount_price
-      self.total_quantity = checked_trade_items.sum(&->(i){ i.original_quantity.to_d })
+      self.total_quantity = checked_items.sum(&->(i){ i.original_quantity.to_d })
       sum_amount
     end
 
     def available_promotes
-      checked_trade_items.each(&:available_promotes)
-      checked_trade_items.map(&:item_promotes).flatten
+      checked_items.each(&:available_promotes)
+      checked_items.map(&:item_promotes).flatten
     end
 
     def sum_amount
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
-      self.item_amount = checked_trade_items.sum(&->(i){ i.amount.to_d })
+      self.item_amount = checked_items.sum(&->(i){ i.amount.to_d })
       self.sync_original_amount
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.changes
     end
 
-    def get_trade_item(good_type:, good_id:, aim: 'use', number: 1, **options)
+    def get_item(good_type:, good_id:, aim: 'use', number: 1, **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
       args.reject!(&->(_, v){ v.blank? })
-      trade_item = find_trade_item(**args) || trade_items.build(args)
+      item = find_item(**args) || items.build(args)
 
-      if trade_item.persisted? && trade_item.status_checked?
-        trade_item.number += (number.present? ? number.to_i : 1)
-      elsif trade_item.persisted? && trade_item.status_init?
-        trade_item.status = 'checked'
-        trade_item.number = 1
+      if item.persisted? && item.status_checked?
+        item.number += (number.present? ? number.to_i : 1)
+      elsif item.persisted? && item.status_init?
+        item.status = 'checked'
+        item.number = 1
       else
-        trade_item.status = 'checked'
+        item.status = 'checked'
       end
 
-      trade_item
+      item
     end
 
-    def find_trade_item(good_id:, **options)
+    def find_item(good_id:, **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:fetch_oneself) }
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
       args.stringify_keys!
 
-      trade_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
+      items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def organ_trade_item(good_id:, **options)
+    def organ_item(good_id:, **options)
       args = { good_id: good_id, good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
       args.stringify_keys!
 
-      organ_trade_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
+      organ_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
   end

@@ -9,7 +9,7 @@ module Trade
       attribute :serial_number, :string
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
-      attribute :trade_items_count, :integer, default: 0
+      attribute :items_count, :integer, default: 0
       attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
       attribute :pay_later, :boolean, default: false
@@ -66,8 +66,8 @@ module Trade
       has_many :payments, through: :payment_orders, inverse_of: :orders
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
-      has_many :trade_items, inverse_of: :order
-      accepts_nested_attributes_for :trade_items, reject_if: ->(attributes){ attributes['good_name'].blank? && attributes['good_id'].blank? }
+      has_many :items, inverse_of: :order
+      accepts_nested_attributes_for :items, reject_if: ->(attributes){ attributes['good_name'].blank? && attributes['good_id'].blank? }
       has_many :cart_promotes, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :cart_promotes
 
@@ -77,7 +77,7 @@ module Trade
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      after_validation :sum_amount, if: :new_record? # 需要等 trade_items 完成计算
+      after_validation :sum_amount, if: :new_record? # 需要等 items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { !pay_later && amount.zero? }
@@ -136,25 +136,25 @@ module Trade
     end
 
     def sync_items_from_user
-      current_cart.trade_items.each do |trade_item|
-        sync_trade_item(trade_item)
+      current_cart.items.each do |item|
+        sync_item(item)
       end
     end
 
     def sync_items_from_organ
-      current_cart.organ_trade_items.each do |trade_item|
-        sync_trade_item(trade_item)
+      current_cart.organ_items.each do |item|
+        sync_item(item)
       end
     end
 
-    def sync_trade_item(trade_item)
-      trade_item.order = self
-      trade_item.address_id = address_id
+    def sync_item(item)
+      item.order = self
+      item.address_id = address_id
 
       if pay_later
-        trade_item.status = 'pay_later'
+        item.status = 'pay_later'
       else
-        trade_item.status = 'ordered'
+        item.status = 'ordered'
       end
     end
 
@@ -168,7 +168,7 @@ module Trade
     end
 
     def subject
-      r = trade_items.map { |oi| oi.good.name.presence }.join(', ')
+      r = items.map { |oi| oi.good.name.presence }.join(', ')
       r.presence || 'goods'
     end
 
@@ -189,7 +189,7 @@ module Trade
     end
 
     def should_pay_later?
-      trade_items.pluck(:aim).include?('rent')
+      items.pluck(:aim).include?('rent')
     end
 
     def can_pay?
@@ -201,12 +201,12 @@ module Trade
     end
 
     def available_promotes
-      trade_items.each(&:available_promotes)
-      trade_items.map(&:item_promotes).flatten
+      items.each(&:available_promotes)
+      items.map(&:item_promotes).flatten
     end
 
     def sum_amount
-      self.item_amount = trade_items.sum(&->(i){ i.amount.to_d })
+      self.item_amount = items.sum(&->(i){ i.amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
     end
@@ -214,7 +214,7 @@ module Trade
     def confirm_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.trade_items.each(&->(i){ i.status = 'paid'})
+      self.items.each(&->(i){ i.status = 'paid'})
       self.save
       send_notice
     end
@@ -222,12 +222,12 @@ module Trade
     def confirm_part_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.trade_items.each(&->(i){ i.status = 'part_paid'})
+      self.items.each(&->(i){ i.status = 'part_paid'})
       self.save
     end
 
     def confirm_refund!
-      self.trade_items.each(&:confirm_refund!)
+      self.items.each(&:confirm_refund!)
     end
 
     def compute_received_amount
