@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :amount, :decimal, default: 0, comment: ''
+      attribute :amount, :decimal
       attribute :promote_name, :string
       attribute :value, :decimal
 

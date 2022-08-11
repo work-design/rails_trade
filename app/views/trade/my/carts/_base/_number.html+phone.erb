@@ -38,14 +38,14 @@
           <i class="fa-solid fa-circle-minus fa-2x has-text-grey-dark"></i>
         <% end %>
       <% end if model.number > 1 %>
-      <%= button_to({ controller: 'trade/my/items', action: 'destroy', id: model.id }, method: :delete, class: 'mr-1', form: { data: { turbo_scroll: true, turbo_scroll_container: 'weui-tab__panel' } }) do %>
+      <%= button_to({ controller: 'items', action: 'destroy', id: model.id }, method: :delete, class: 'mr-1', form: { data: { turbo_scroll: true, turbo_scroll_container: 'weui-tab__panel' } }) do %>
         <i class="fa-solid fa-circle-minus fa-2x has-text-grey-dark"></i>
       <% end if model && model.number <= 1 %>
       <%= form_with(theme: nil, scope: 'item', url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input', turbo_scroll: true, turbo_scroll_container: 'weui-tab__panel' }) do |f| %>
         <%= f.hidden_field :current_cart_id, value: @cart.id %>
         <%= f.number_field :number, value: model.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px; height: 26px' %>
       <% end %>
-      <%= form_with theme: nil, scope: :item, url: { controller: 'trade_items', action: 'update', id: model.id }, method: :patch, class: 'button_to', data: { turbo_scroll: true, turbo_scroll_container: 'weui-tab__panel' } do |f| %>
+      <%= form_with theme: nil, scope: :item, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to', data: { turbo_scroll: true, turbo_scroll_container: 'weui-tab__panel' } do |f| %>
         <%= f.hidden_field :number, value: model.number + 1 %>
         <%= f.hidden_field :current_cart_id, value: @cart.id %>
         <%= button_tag class: 'ml-1' do %>
