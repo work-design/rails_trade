@@ -34,7 +34,7 @@ module Trade
     end
 
     def promote
-      item.good.available_promotes[0]
+      item.good.available_promotes.find_by(metering: 'duration')
     end
 
     def compute_duration(now = nil)
