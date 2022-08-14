@@ -18,8 +18,8 @@ module Trade
       scope :without_card, -> { where(card_template_id: nil) }
       scope :with_card, -> { where.not(card_template_id: nil) }
 
-      validates :amount, uniqueness: { scope: :card_template_id }
-      validates :price, uniqueness: { scope: :card_template_id }
+      validates :amount, uniqueness: { scope: :wallet_template_id }
+      validates :price, uniqueness: { scope: :wallet_template_id }
 
       has_one_attached :logo
       delegate :cover, :organ_id, to: :wallet_template
