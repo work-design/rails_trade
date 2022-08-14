@@ -5,7 +5,10 @@
       <%= ef.hidden_field :good_id, value: advance.id %>
     <% end %>
     <%= button_tag class: 'has-background-light py-4' do %>
-      <div class="header has-text-grey"><%= sprintf('%g', advance.amount) %></div>
+      <div class="header has-text-grey">
+        <span><%= sprintf('%g', advance.amount) %></span>
+        <span><%= @wallet_template.unit %></span>
+      </div>
       <div class="description has-text-danger"><%= advance.price.to_money.format(html_wrap: true).html_safe %></div>
     <% end %>
   <% end %>
