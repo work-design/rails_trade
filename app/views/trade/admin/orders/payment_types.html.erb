@@ -7,11 +7,6 @@
     <% unless @order.items.map(&:good_type).include?('Trade::Advance') %>
       <%= render partial: 'wallet', collection: @order.user.wallets, as: :wallet if @order.user %>
     <% end %>
-    <tr>
-      <td></td>
-      <td>
-        <button class="button is-danger is-large">立即支付</button>
-      </td>
-    </tr>
+    <%= render 'hand_payment' %>
   </tbody>
 </table>

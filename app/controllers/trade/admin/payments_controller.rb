@@ -2,7 +2,7 @@ module Trade
   class Admin::PaymentsController < Admin::BaseController
     before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
     before_action :set_order, only: [:order_new, :order_create]
-    before_action :set_new_payment, only: [:new, :create, :order_new]
+    before_action :set_new_payment, only: [:new, :create, :order_new, :order_create]
 
     def dashboard
     end
@@ -32,7 +32,7 @@ module Trade
     end
 
     def order_create
-      @payment = @order.change_to_paid! type: 'Trade::HandPayment', params: payment_params
+      @payment.save
     end
 
     def analyze
