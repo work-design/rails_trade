@@ -11,8 +11,8 @@
   <tr>
     <td rowspan="<%= @item.organ_carts.size + 1 %>">
       <span>企业级购物车</span>
-      <span class="tag"><%= @trade_item.organ_carts.size %></span>
+      <span class="tag"><%= @item.organ_carts.size %></span>
     </td>
   </tr>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @trade_item.organ_carts, as: :model %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @item.organ_carts, as: :model %>
 <% end %>
