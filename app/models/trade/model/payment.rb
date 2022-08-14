@@ -7,7 +7,7 @@ module Trade
       attribute :payment_uuid, :string
       attribute :pay_status, :string, comment: '记录来自服务商的状态'
       attribute :currency, :string, default: RailsTrade.config.default_currency
-      attribute :total_amount, :decimal, default: 0
+      attribute :total_amount, :decimal
       attribute :checked_amount, :decimal, default: 0
       attribute :adjust_amount, :decimal, default: 0
       attribute :fee_amount, :decimal, default: 0
