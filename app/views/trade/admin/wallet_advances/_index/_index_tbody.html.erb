@@ -1,4 +1,7 @@
-<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td>
+  <span><%= model.amount %></span>
+  <span><%= @wallet.wallet_template.unit %></span>
+</td>
 <td><%= model.advance&.name %></td>
 <td><%= model.state_i18n %></td>
 <td><%= model.note %></td>
