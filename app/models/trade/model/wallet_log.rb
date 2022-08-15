@@ -10,6 +10,8 @@ module Trade
       belongs_to :wallet
       belongs_to :source, polymorphic: true, optional: true
 
+      has_one :wallet_template, through: :wallet
+
       validates :title, presence: true
     end
 

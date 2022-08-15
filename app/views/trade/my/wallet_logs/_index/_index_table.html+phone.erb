@@ -1,7 +1,8 @@
 <div class="weui-panel">
   <div class="weui-panel__hd">
-    <span>余额</span>
-    <span><%= @wallet.amount.to_money.format(html_wrap: true).html_safe %></span>
+    <span>余额：</span>
+    <span><%= @wallet.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
+    <span><%= @wallet.wallet_template.unit %></span>
   </div>
   <div class="weui-panel__bd">
     <%= yield %>
