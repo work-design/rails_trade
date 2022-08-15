@@ -18,6 +18,7 @@ zh:
         client_id: 持卡人
       trade/wallet_template:
         unit: 单位
+        enabled: 启用
         wallets_count: 开通数
       trade/wallet_advance:
         amount: 金额

@@ -31,7 +31,7 @@ module Trade
         :unit,
         :unit_kind,
         :code,
-        :default,
+        :enabled,
         :logo
       )
       p.merge! default_form_params
