@@ -6,7 +6,7 @@ module Trade
     def index
       q_params = {}
       q_params.merge! default_params
-      q_params.merge! params.permit(:name)
+      q_params.merge! params.permit('name-like')
 
       @wallets = @wallet_template.wallets.default_where(q_params).order(id: :desc).page(params[:page])
     end
