@@ -12,7 +12,7 @@ module Trade
       attribute :platform, :string
       attribute :enabled, :boolean, default: true
       attribute :unit, :string
-      attribute :digit, :integer
+      attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
 
       enum unit_kind: {
         currency: 'currency',
