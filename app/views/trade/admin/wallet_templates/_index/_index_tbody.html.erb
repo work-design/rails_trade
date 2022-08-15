@@ -2,13 +2,14 @@
   <div class="is-several">
     <%= image_tag model.logo, class: 'image is-24x24' if model.logo.attached? %>
     <span><%= model.name %></span>
+    <span class="tag"><%= model.code %></span>
   </div>
 </td>
-<td><%= model.code %></td>
 <td>
   <p class="has-text-centered"><span class="tag"><%= model.unit_kind_i18n %></span></p>
   <p class="has-text-centered"><%= model.unit %></p>
 </td>
+<td><%= model.digit %></td>
 <td>
   <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
     <%= f.check_box :enabled, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
