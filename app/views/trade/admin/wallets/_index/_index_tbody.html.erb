@@ -1,22 +1,25 @@
 <td>
-<% if model.user %>
-  <span><%= model.user.name %></span>
-<% elsif model.maintain %>
-  <span><%= model.maintain.client.name %></span>
-<% end %>
+  <span><%= model.name %></span>
+  <div class="is-several">
+    <i class="fa-solid fa-user"></i>
+    <span><% model.user_id if model.user %></span>
+  </div>
+
 </td>
 <td>
   <span><%= model.amount %></span>
   <span><%= model.wallet_template.unit %></span>
 </td>
 <td>
-  <span><%= model.income_amount.to_money.format(html_wrap: true).html_safe %></span>
+  <span><%= model.income_amount %></span>
+  <span><%= model.wallet_template.unit %></span>
   <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
     <i class="fa-light fa-gem"></i>
   <% end %>
 </td>
 <td>
-  <span><%= model.expense_amount.to_money.format(html_wrap: true).html_safe %></span>
+  <span><%= model.expense_amount %></span>
+  <span><%= model.wallet_template.unit %></span>
   <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
     <i class="fa-light fa-credit-card"></i>
   <% end %>
