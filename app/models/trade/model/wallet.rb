@@ -3,6 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :name, :string
       attribute :amount, :decimal, default: 0
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
@@ -33,12 +34,17 @@ module Trade
 
       before_validation :init_from_template, if: -> { wallet_template_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
+      before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
       after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
     def init_from_template
       self.default = wallet_template.default
       self.organ_id = wallet_template.organ_id
+    end
+
+    def init_name
+      self.name ||= maintain.client.name if respond_to?(:maintain)
     end
 
     def compute_expense_amount
