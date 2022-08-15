@@ -10,7 +10,7 @@ module Trade
       attribute :wallets_count, :integer, default: 0
       attribute :code, :string
       attribute :platform, :string
-      attribute :default, :boolean
+      attribute :enabled, :boolean, default: true
       attribute :unit, :string
       attribute :digit, :integer
 
@@ -30,14 +30,6 @@ module Trade
       has_one_attached :logo
 
       validates :code, uniqueness: { scope: :organ_id }
-
-      scope :default, -> { where(default: true) }
-
-      after_save :set_default, if: -> { default? && saved_change_to_default? }
-    end
-
-    def set_default
-      self.class.where.not(id: self.id).where(organ_id: self.organ_id, default: true).update_all(default: false)
     end
 
     def set_wallets_default

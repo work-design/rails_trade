@@ -12,7 +12,6 @@ module Trade
       attribute :account_name, :string
       attribute :account_number, :string
       attribute :lock_version, :integer
-      attribute :default, :boolean
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true
@@ -26,8 +25,6 @@ module Trade
       has_many :wallet_payments, inverse_of: :wallet, dependent: :nullify  # expense
       has_many :wallet_refunds, dependent: :nullify
 
-      scope :default, -> { where(default: true) }
-
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
@@ -35,11 +32,9 @@ module Trade
       before_validation :init_from_template, if: -> { wallet_template_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
-      after_save :set_default, if: -> { default? && saved_change_to_default? }
     end
 
     def init_from_template
-      self.default = wallet_template.default
       self.organ_id = wallet_template.organ_id
     end
 
@@ -69,10 +64,6 @@ module Trade
     def reset_amount!(*args)
       self.reset_amount
       self.save(*args)
-    end
-
-    def set_default
-      self.class.where.not(id: self.id).where(user_id: user_id, member_id: member_id, default: true).update_all(default: false)
     end
 
   end
