@@ -1,10 +1,11 @@
 <td>
   <span><%= model.name %></span>
   <div class="is-several">
+  <% if model.user %>
     <i class="fa-solid fa-user"></i>
-    <span><% model.user_id if model.user %></span>
+    <span><%= model.user_id %></span>
+  <% end %>
   </div>
-
 </td>
 <td>
   <span><%= model.amount %></span>
