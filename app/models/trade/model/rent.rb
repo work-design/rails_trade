@@ -43,8 +43,8 @@ module Trade
     end
 
     def compute_amount
-      promote_charge = promote.compute_charge(duration, **item.extra)
-      self.amount = promote_charge.final_price(duration)
+      results = promote.compute_price(duration, **item.extra)
+      self.amount = results.sum
     end
 
   end
