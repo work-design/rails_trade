@@ -7,7 +7,7 @@ module Trade
     ]
     before_action :set_cart, only: [:new]
     before_action :set_new_order, only: [:blank, :trial, :add, :create]
-    before_action :set_wallet, only: [:payment_types]
+    before_action :set_wallets, only: [:payment_types]
 
     def index
       q_params = {}
@@ -101,12 +101,11 @@ module Trade
       @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
     end
 
-    def set_wallet
-      wallet_template = WalletTemplate.default_where(default_params).default.take
-      if wallet_template && current_client
-        @wallet = current_client.wallets.find_or_create_by(wallet_template_id: wallet_template.id)
-      elsif wallet_template
-        @wallet = current_user.wallets.find_or_create_by(wallet_template_id: wallet_template.id)
+    def set_wallets
+      if current_client
+        @wallets = current_client.wallets.default_where(default_params)
+      else
+        @wallets = current_user.wallets.default_where(default_params)
       end
     end
 
