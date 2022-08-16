@@ -8,6 +8,7 @@ module Trade
       attribute :finish_at, :datetime
       attribute :estimate_finish_at, :datetime
       attribute :duration, :integer, default: 0
+      attribute :invest_amount, :decimal, comment: '投资分成'
 
       belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
@@ -19,6 +20,7 @@ module Trade
       before_validation :sync_from_item, if: -> { item_id_changed? && item }
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
       before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
+      before_save :compute_invest_amount, if: -> { amount_changed? }
     end
 
     def sync_from_item
@@ -45,6 +47,10 @@ module Trade
     def compute_amount
       results = promote.compute_price(duration, **item.extra)
       self.amount = results.sum
+    end
+
+    def compute_invest_amount
+      self.invest_amount = self.amount * rentable.box_specification.invest_ratio
     end
 
   end
