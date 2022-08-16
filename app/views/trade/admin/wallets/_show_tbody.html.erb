@@ -18,3 +18,9 @@
   <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:user_id) %></td>
   <td><%= @wallet.user %></td>
 </tr>
+<p><%= Trade::Wallet.human_attribute_name(:account_bank) %></p>
+<p><%= Trade::Wallet.human_attribute_name(:account_name) %></p>
+<p><%= Trade::Wallet.human_attribute_name(:account_number) %></p>
+
+<p><%= model.account_name %></p>
+<p><%= model.account_number %></p>

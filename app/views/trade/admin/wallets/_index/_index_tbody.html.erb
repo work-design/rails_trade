@@ -29,7 +29,5 @@
   <% end %>
 </td>
 <td>
-  <p><%= model.account_bank %></p>
-  <p><%= model.account_name %></p>
-  <p><%= model.account_number %></p>
+  <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>

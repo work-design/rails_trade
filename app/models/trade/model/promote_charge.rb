@@ -45,6 +45,10 @@ module Trade
       raise 'Should Implement in Subclass'
     end
 
+    def minors
+      promote.promote_charges.default_where('min-lt': self.min).order(min: :asc)
+    end
+
     def compute_filter_value
       if contain_min
         self.filter_min = min

@@ -60,5 +60,11 @@ module Trade
       promote_charges.default_where(q_params).take
     end
 
+    def compute_price(value)
+      r = compute_charge(value)
+      r.minors.map(&:amount)
+
+    end
+
   end
 end
