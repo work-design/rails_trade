@@ -233,7 +233,7 @@ module Trade
     end
 
     def init_received_amount
-      self.payment_orders.confirmed.sum(:check_amount)
+      self.payment_orders.state_confirmed.sum(:check_amount)
     end
 
     def compute_pay_deadline_at

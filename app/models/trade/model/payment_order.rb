@@ -33,7 +33,7 @@ module Trade
 
     def init_check_amount
       self.check_amount = payment.total_amount
-      self.state = 'pending'
+      self.state = 'pending' unless state_changed?
     end
 
     def init_user_id
