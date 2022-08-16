@@ -15,6 +15,7 @@ module Trade
       belongs_to :item, class_name: 'Trade::Item', optional: true
 
       has_many :rents, class_name: 'Trade::Rent', as: :rentable
+      has_one :current_rent, ->(o){ where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, finish_at: nil) }, class_name: 'Trade::Rent', as: :rentable
 
       scope :ordered, -> { where.not(item_id: nil) }
       scope :orderable, -> { where(item_id: nil) }
