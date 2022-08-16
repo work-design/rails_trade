@@ -25,6 +25,7 @@ module Trade
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
       after_update :unchecked_to_payment, if: -> { state_init? && state_before_last_save == 'confirmed' }
+      after_save :pending_to_order, if: -> { state_pending? && (saved_changes.keys & ['state', 'check_amount']).present? }
       after_save :checked_to_order, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
       after_save :unchecked_to_order, if: -> { state_init? && state_before_last_save == 'confirmed' }
       after_destroy_commit :unchecked_to_order
@@ -51,10 +52,13 @@ module Trade
       payment.save
     end
 
-    def checked_to_order
+    def pending_to_order
       order.received_amount += self.check_amount
-      order.check_state
       order.save
+    end
+
+    def checked_to_order
+      order.check_state!
     end
 
     def unchecked_to_order
