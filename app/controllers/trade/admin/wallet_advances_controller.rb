@@ -2,6 +2,7 @@ module Trade
   class Admin::WalletAdvancesController < Admin::BaseController
     before_action :set_wallet
     before_action :set_wallet_advance, only: [:show, :edit, :update, :destroy]
+    before_action :set_maintain, if: ->{ params[:maintain_id].present? }
 
     def index
       q_params = {}
@@ -36,6 +37,20 @@ module Trade
         :amount,
         :note
       )
+    end
+
+    def set_maintain
+      @maintain = Crm::Maintain.find params[:maintain_id]
+    end
+
+    def _prefixes
+      super do |pres|
+        if params[:maintain_id]
+          pres + ['crm/admin/base']
+        else
+          pres
+        end
+      end
     end
 
   end
