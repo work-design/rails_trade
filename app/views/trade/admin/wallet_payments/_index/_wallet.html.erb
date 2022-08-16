@@ -1,6 +1,6 @@
 <div class="box mb-2 is-radiusless">
   <div>
-    <span><%= @wallet.amount %></span>
+    <span><%= @wallet.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
     <span><%= @wallet.wallet_template.unit %></span>
   </div>
 </div>

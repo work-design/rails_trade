@@ -1,5 +1,5 @@
 <td>
-  <span><%= model.amount %></span>
+  <span><%= model.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
   <span><%= @wallet.wallet_template.unit %></span>
 </td>
 <td><%= model.advance&.name %></td>

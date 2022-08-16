@@ -1,5 +1,5 @@
 <p>
-  <span class="has-text-danger"><%= model.total_amount %></span>
+  <span class="has-text-danger"><%= model.total_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
   <span class="has-text-grey"><%= model.wallet.wallet_template.unit %></span>
 </p>
 <p><%= model.comment %></p>
