@@ -4,8 +4,9 @@ module Trade
 
     included do
       attribute :amount, :decimal, comment: '价格小计'
-      attribute :rent_start_at, :datetime
-      attribute :rent_finish_at, :datetime
+      attribute :start_at, :datetime
+      attribute :finish_at, :datetime
+      attribute :estimate_finish_at, :datetime
       attribute :duration, :integer, default: 0
 
       belongs_to :user, class_name: 'Auth::User', optional: true
@@ -16,20 +17,23 @@ module Trade
       belongs_to :item
 
       before_validation :sync_from_item, if: -> { item_id_changed? && item }
-      before_save :sync_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
+      before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
       before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
-      after_create_commit :compute_later
     end
 
     def sync_from_item
       self.user_id = item.user_id
       self.member_id = item.member_id
       self.member_organ_id = item.member_organ_id
-      self.rent_start_at = item.rent_start_at
+      self.start_at = item.rent_start_at
     end
 
     def sync_duration
-      r = rent_finish_at - rent_start_at
+      if finish_at
+        r = finish_at - start_at
+      else
+        r = estimate_finish_at - start_at
+      end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[promote.unit_code]
     end
@@ -41,20 +45,6 @@ module Trade
     def compute_amount
       promote_charge = promote.compute_charge(duration, **item.extra)
       self.amount = promote_charge.final_price(duration)
-    end
-
-    def compute_duration(now = nil)
-      if now.acts_like?(:time)
-        r = now - rent_start_at
-      elsif item.rent_estimate_finish_at.acts_like?(:time)
-        r = item.rent_estimate_finish_at - rent_start_at
-      else
-        r = Time.current - rent_start_at
-      end
-
-      x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[promote.unit_code]
-      x
     end
 
   end
