@@ -109,6 +109,7 @@ module Trade
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'paid', 'part_paid', 'pay_later', 'refund'].include?(status) }
       after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
+      after_save :sync_rent_amount_to_order!, if: -> { aim_rent? && saved_change_to_amount? }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 item 的删除
@@ -405,6 +406,11 @@ module Trade
 
     def compute_rent_amount
       self.amount = rents.sum(&->(i){ i.amount.to_d })
+    end
+
+    def sync_rent_amount_to_order!
+      order.sum_amount
+      order.save
     end
 
     def compute!(now = Time.current)
