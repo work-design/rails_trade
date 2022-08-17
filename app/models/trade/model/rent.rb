@@ -27,7 +27,7 @@ module Trade
       self.user_id = item.user_id
       self.member_id = item.member_id
       self.member_organ_id = item.member_organ_id
-      self.start_at = item.rent_start_at
+      self.start_at = item.rent_start_at || Time.current
     end
 
     def sync_duration
