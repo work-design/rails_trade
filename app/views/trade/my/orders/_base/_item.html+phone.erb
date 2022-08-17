@@ -10,9 +10,13 @@
       <% end %>
     </h4>
     <p class="weui-media-box__desc">
-      <span class="has-text-danger"><%= item.single_price.to_money.format(html_wrap: true).html_safe %></span>
+    <% if item.aim_rent? %>
+      <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
+    <% else %>
+      <span><%= item.single_price.to_money.format(html_wrap: true).html_safe %></span>
       <span class="has-text-grey-lighter">x</span>
       <span class="is-size-7"><%= item.number %></span>
+    <% end %>
     </p>
     <% if item.respond_to?(:produce_plan) && item.produce_plan %>
       <p class="weui-media-box__desc">提货：<%= item.produce_plan.produce_on %></p>

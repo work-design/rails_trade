@@ -13,7 +13,7 @@
       <div class="weui-cell__ft">
         <span class="is-size-7">
           <span class="has-text-grey">总价：</span>
-          <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+          <span class="has-text-danger"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
         </span>
         <span class="pl-2 is-size-7">
           <span>共</span>
