@@ -21,6 +21,7 @@ module Trade
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
       before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
       before_save :compute_invest_amount, if: -> { amount_changed? }
+      after_save :sync_rentable_state, if: -> { saved_change_to_finish_at? }
     end
 
     def sync_from_item
@@ -51,6 +52,10 @@ module Trade
 
     def compute_invest_amount
       self.invest_amount = self.amount * rentable.box_specification.invest_ratio
+    end
+
+    def sync_rentable_state
+      rentable.update rented: false
     end
 
   end
