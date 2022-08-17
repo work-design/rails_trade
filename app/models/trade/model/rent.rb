@@ -55,7 +55,7 @@ module Trade
     end
 
     def sync_rentable_state
-      rentable.update rented: false
+      rentable.update rented: false, held_user_id: nil
     end
 
   end
