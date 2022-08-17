@@ -403,6 +403,10 @@ module Trade
       order
     end
 
+    def compute_rent_amount
+      self.amount = rents.sum(&->(i){ i.amount.to_d })
+    end
+
     def compute!(now = Time.current)
       compute(now)
       order.save

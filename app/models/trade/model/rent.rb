@@ -55,7 +55,15 @@ module Trade
     end
 
     def sync_rentable_state
-      rentable.update rented: false, held_user_id: nil
+      rentable.rented = false
+      rentable.held_user_id = nil
+
+      item.compute_rent_amount
+
+      self.class.transaction do
+        item.save!
+        rentable.save!
+      end
     end
 
   end
