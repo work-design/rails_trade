@@ -16,7 +16,6 @@ module Trade
 
       belongs_to :card_template, counter_cache: true
       belongs_to :item, optional: true # 记录开通的 item
-      belongs_to :client, optional: true
       belongs_to :agency, optional: true
 
       has_many :card_purchases, dependent: :nullify
