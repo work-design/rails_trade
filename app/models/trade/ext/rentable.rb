@@ -20,6 +20,7 @@ module Trade
       scope :ordered, -> { where.not(item_id: nil) }
       scope :orderable, -> { where(item_id: nil) }
       scope :rentable, -> { where(rentable: true) }
+      scope :rented, -> { where(rented: true) }
     end
 
   end
