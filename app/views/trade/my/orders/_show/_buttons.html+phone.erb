@@ -1,15 +1,17 @@
 <div class="weui-panel">
   <div class="weui-panel__ft">
     <div class="weui-cell weui-cell_link">
+      <% if current_js_app %>
       <button
         data-controller="wechat"
-        data-wechat-options-value="<%= current_wechat_app.js_config(request.original_url).to_json %>"
+        data-wechat-options-value="<%= current_js_app.js_config(request.original_url).to_json %>"
         data-wechat-apis-value="<%= ['closeWindow'].to_json %>"
         data-action="wechat#close"
         class="weui-btn weui-btn_mini weui-btn_default"
       >
         <span>联系客服</span>
       </button>
+      <% end %>
       <%= link_to({ action: 'payment_types', id: @order.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
         <span>支付</span>
       <% end if @order.can_pay? %>

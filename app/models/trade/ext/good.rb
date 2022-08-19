@@ -26,6 +26,8 @@ module Trade
       has_many :available_promote_goods, ->(o) { available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promotes, class_name: 'Trade::Promote', through: :available_promote_goods, source: :promote
       has_many :default_promote_goods, ->(o) { default.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+
+      has_one_attached :logo
     end
 
     def final_price
