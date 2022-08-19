@@ -15,7 +15,7 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
-      belongs_to :item
+      belongs_to :item, counter_cache: true
 
       before_validation :sync_from_item, if: -> { item_id_changed? && item }
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
@@ -39,6 +39,10 @@ module Trade
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[promote.unit_code]
+    end
+
+    def xx
+      item.status = 'done'
     end
 
     def promote

@@ -4,6 +4,7 @@
   <%= f.fields :items do |ef| %>
     <%= ef.hidden_field :good_type %>
     <%= ef.hidden_field :good_id %>
+    <%= ef.hidden_field :aim %>
     <%= ef.hidden_field :extra, value: ef.object.extra.to_json %>
   <% end %>
 <% end %>
