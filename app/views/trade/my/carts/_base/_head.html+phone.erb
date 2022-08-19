@@ -9,6 +9,9 @@
     <%= link_to({ controller: '/ship/box_specifications', action: 'rent' }, class: 'px-4') do %>
       <i class="fa-regular fa-fw fa-angle-left"></i>
     <% end if @cart.good_type == 'Ship::BoxSpecification' && @cart.aim == 'rent' %>
+    <%= link_to({ controller: '/serve/services' }, class: 'px-4') do %>
+      <i class="fa-regular fa-fw fa-angle-left"></i>
+    <% end if @cart.good_type == 'Serve::Service' %>
     <span class="weui-title">
       <span class="mr-1"><%= t('.title') %></span>
       <%= link_to(action: 'list', return_url: url_for) do %>
