@@ -12,8 +12,6 @@ module Trade
       belongs_to :owned_user, class_name: 'Auth::User', optional: true
       belongs_to :owned_organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :item, class_name: 'Trade::Item', optional: true
-
       has_many :rents, class_name: 'Trade::Rent', as: :rentable
       has_one :current_rent, ->(o){ where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, finish_at: nil) }, class_name: 'Trade::Rent', as: :rentable
       has_one :last_rent, -> { order(start_at: :desc) }, class_name: 'Trade::Rent', as: :rentable

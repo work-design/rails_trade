@@ -109,7 +109,6 @@ module Trade
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'paid', 'part_paid', 'pay_later', 'refund'].include?(status) }
-      after_save :print_later, if: -> { saved_change_to_status? && ['part_paid', 'paid'].include?(status) && (respond_to?(:produce_plan) && produce_plan.blank?) }
       after_save :sync_rent_amount_to_order!, if: -> { aim_rent? && saved_change_to_amount? }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
@@ -417,12 +416,6 @@ module Trade
     def compute!(now = Time.current)
       compute(now)
       order.save
-    end
-
-    def print_later
-    end
-
-    def print
     end
 
   end
