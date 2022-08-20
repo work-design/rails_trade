@@ -25,9 +25,9 @@
     <% end %>
   </div>
   <div class="weui-media-box__ft px-3">
-    <%= link_to({ controller: '/serve/servings' }, class: 'button is-primary') do %>
+    <%= link_to({ controller: 'serve/my/servings' }, class: 'button is-primary') do %>
       <i></i>
-      <span><%= t('serve.servings.index.title') %></span>
+      <span><%= t('serve.my.servings.index.title') %></span>
     <% end if item.good_type == 'Serve::Service' && item.respond_to?(:servings) %>
   </div>
 </div>
