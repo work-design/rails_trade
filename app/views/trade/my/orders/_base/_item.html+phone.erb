@@ -1,14 +1,16 @@
-<%= link_to(item.good, class: 'weui-media-box weui-media-box_appmsg', text: true) do %>
+<div class="weui-media-box weui-media-box_appmsg">
   <div class="weui-media-box__hd" data-controller="empty">
+  <%= link_to(item.good, text: true) do %>
     <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good && item.good.logo.attached? %>
+  <% end %>
   </div>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title">
+    <%= link_to(item.good, text: true, class: 'weui-media-box__title') do %>
       <span><%= item.good_name %></span>
       <% if ['rent', 'invest'].include?(item.aim) %>
         <span class="tag is-danger"><%= item.aim_i18n %></span>
       <% end %>
-    </h4>
+    <% end %>
     <p class="weui-media-box__desc">
     <% if item.aim_rent? %>
       <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
@@ -22,4 +24,10 @@
       <p class="weui-media-box__desc">提货：<%= item.produce_plan.produce_on %></p>
     <% end %>
   </div>
-<% end %>
+  <div class="weui-media-box__ft px-3">
+    <%= link_to({ controller: '/serve/servings' }, class: 'button is-primary') do %>
+      <i></i>
+      <span><%= t('serve.servings.index.title') %></span>
+    <% end if item.good_type == 'Serve::Service' && item.respond_to?(:servings) %>
+  </div>
+</div>
