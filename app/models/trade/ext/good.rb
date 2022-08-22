@@ -7,7 +7,8 @@ module Trade
       attribute :sku, :string, default: -> { SecureRandom.hex }
       attribute :price, :decimal, precision: 10, scale: 2, default: 0
       attribute :advance_price, :decimal, default: 0
-      attribute :vip_price, :json, default: {}
+      attribute :card_price, :json, default: {}
+      attribute :wallet_price, :json, default: {}
       attribute :extra, :json, default: {}
       attribute :unit, :string
       attribute :quantity, :decimal, default: 0

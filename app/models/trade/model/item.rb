@@ -30,6 +30,7 @@ module Trade
       attribute :rent_start_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
       attribute :rents_count, :integer, default: 0
+      attribute :renting_count, :integer, default: 0
 
       enum status: {
         init: 'init',
@@ -182,7 +183,7 @@ module Trade
 
     def compute_single_price
       return if self.single_price > 0 || aim_rent?
-      min = good.vip_price.slice(*cards.map(&->(i){ i.card_template.code })).min
+      min = good.card_price.slice(*cards.map(&->(i){ i.card_template.code })).min
       if min.present?
         self.vip_code = min[0]
         self.single_price = min[1]
