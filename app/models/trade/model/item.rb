@@ -46,6 +46,12 @@ module Trade
         expired: 'expired'
       }, _default: 'checked', _prefix: true
 
+      enum delivery: {
+        init: 'init',
+        partially: 'partially',
+        all: 'all'
+      }, _default: 'init', _prefix: true
+
       enum aim: {
         use: 'use',
         invest: 'invest',
