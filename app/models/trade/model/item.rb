@@ -178,6 +178,10 @@ module Trade
       good.wallet_price.transform_values(&->(v){ v.to_d * number })
     end
 
+    def wallet_exchange
+      good.wallet_price.transform_values(&->(v){ Rational(v, single_price.to_s) })
+    end
+
     def compute_single_price
       return if self.single_price > 0 || aim_rent?
       min = good.card_price.slice(*cards.map(&->(i){ i.card_template.code })).min
