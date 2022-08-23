@@ -48,7 +48,7 @@ module Trade
 
     def payment_types
       @order.wallets.each do |wallet|
-        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id, total_amount: @order.amount < wallet.amount ? @order.amount : wallet.amount)
+        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
       end
     end
 

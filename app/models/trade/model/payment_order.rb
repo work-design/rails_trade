@@ -59,6 +59,7 @@ module Trade
         self.payment_amount = payment.wallet.amount
         self.order_amount = wallet_amount_x[0]
       end
+      payment.total_amount = self.payment_amount
 
       self.state = 'pending' unless state_changed?
     end
