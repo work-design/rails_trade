@@ -55,10 +55,10 @@ module Trade
         self.order_amount = order.item_amount
       else
         # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
-        self.payment_amount = wallet.amount
+        self.payment_amount = payment.wallet.amount
         self.order_amount = wallet_amount_x[0]
       end
-      
+
       self.state = 'pending' unless state_changed?
     end
 
