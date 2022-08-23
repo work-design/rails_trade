@@ -1,6 +1,6 @@
 <div class="is-flex is-justify-content-space-around py-4">
   <% if @order.all_paid? %>
-    <%= link_to '查看订单', { action: 'show', id: @order.id }, class: 'weui-btn weui-btn_mini weui-btn_primary' %>
+    <%= link_to '查看订单', { action: 'show', id: @order.id }, class: 'weui-btn weui-btn_mini weui-btn_default' %>
   <% end %>
   <%= link_to '订单列表', { action: 'index' }, class: 'weui-btn weui-btn_mini weui-btn_primary' %>
 </div>
