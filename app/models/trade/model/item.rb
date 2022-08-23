@@ -29,6 +29,7 @@ module Trade
       attribute :organ_ancestor_ids, :json, default: []
       attribute :rent_start_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
+      attribute :wallet_amount, :json, default: {}
       attribute :rents_count, :integer, default: 0
       attribute :renting_count, :integer, default: 0
 
@@ -174,12 +175,10 @@ module Trade
       self.expire_at = produce_plan.book_finish_at
     end
 
-    def compute_price
-      return unless good
-      compute_single_price
-      self.original_amount = self.single_price * self.number
-      self.amount = original_amount
-      self.advance_amount = good.advance_price
+    def compute_wallet_price
+      self.wallet_price = good.wallet_price.transform_values do |v|
+        v * self.number
+      end
     end
 
     def compute_single_price
@@ -192,6 +191,14 @@ module Trade
         self.vip_code = nil
         self.single_price = good.price
       end
+    end
+
+    def compute_price
+      return unless good
+      compute_single_price
+      self.original_amount = self.single_price * self.number
+      self.amount = original_amount
+      self.advance_amount = good.advance_price
     end
 
     def compute_price!

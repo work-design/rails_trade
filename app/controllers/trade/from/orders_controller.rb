@@ -42,11 +42,11 @@ module Trade
     def init_payment_orders
       if @order.item_amount.to_d > 0
         p = @order.payment_orders.find(&->(i){ i.kind == 'item_amount' }) || @order.payment_orders.build(kind: 'item_amount')
-        p.check_amount = @order.item_amount
+        p.payment_amount = @order.item_amount
       end
       if @order.payment_strategy&.from_pay && @order.overall_additional_amount.to_d > 0
         p = @order.payment_orders.find(&->(i){ i.kind == 'overall_additional_amount' }) || @order.payment_orders.build(kind: 'overall_additional_amount')
-        p.check_amount = @order.overall_additional_amount
+        p.payment_amount = @order.overall_additional_amount
         p.user_id = @order.from_user_id
       end
     end

@@ -5,6 +5,7 @@ module Trade
     included do
       attribute :payment_amount, :decimal
       attribute :order_amount, :decimal
+      attribute :wallet_code, :string
 
       enum kind: {
         item_amount: 'item_amount',
@@ -38,7 +39,7 @@ module Trade
 
     def init_amount
       self.payment_amount = payment.total_amount
-      self.order_amount = order.xxx
+      self.order_amount = order.total
       self.state = 'pending' unless state_changed?
     end
 
