@@ -27,7 +27,7 @@ module Trade
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      after_initialize :init_amount, if: -> { new_record? && payment&.new_record? }
+      after_initialize :init_amount, :init_wallet_code, if: -> { new_record? && payment&.new_record? }
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
       after_update :unchecked_to_payment, if: -> { state_init? && state_before_last_save == 'confirmed' }
@@ -56,9 +56,7 @@ module Trade
       else
         # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
         self.payment_amount = wallet.amount
-        self.order_amount = x
-
-
+        self.order_amount = wallet_amount[0]
       end
 
       if payment.wallet
@@ -70,12 +68,28 @@ module Trade
     end
 
     def wallet_amount
+      x = 0
+      y = self.payment_amount
+      rest = 0
       result = order.items.map do |item|
         item.wallet_amount[wallet_code]
       end
-      result.sort_by! { |i| i[:rate] }
+      result.sort_by!(&->(i){ i[:rate] }).reverse!
+      result.each do |i|
+        if y > i[:amount]
+          x += i[:rate] * i[:amount]
+          y -= i[:amount]
+        elsif y == i[:amount]
+          x += i[:rate] * i[:amount]
+          break
+        else
+          x += i[:rate] * y
+          rest = i[:amount] - y
+          break
+        end
+      end
 
-
+      [x, rest]
     end
 
     def init_user_id
