@@ -27,8 +27,8 @@
     </div>
     <% end %>
     <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:check_amount) %></label>
-      <span class="weui-form-preview__value has-text-danger"><%= model.check_amount.to_money.format(html_wrap: true).html_safe %></span>
+      <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:order_amount) %></label>
+      <span class="weui-form-preview__value has-text-danger"><%= model.order_amount.to_money.format(html_wrap: true).html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:state) %></label>

@@ -125,7 +125,8 @@ zh:
         user_id: 付款人
         order_id: 订单
         state: 状态
-        check_amount: 金额
+        order_amount: 金额
+        payment_amount: 金额
       trade/promote:
         short_name: 简称
         code: 编码

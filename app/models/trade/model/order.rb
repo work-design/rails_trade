@@ -165,7 +165,7 @@ module Trade
       (saved_changes.keys & ['overall_additional_amount', 'item_amount']).each do |item|
         p = payment_orders.find(&->(i){ i.kind == item })
         next unless p
-        p.check_amount = self.send(item) if ['init'].include?(p.state)
+        p.order_amount = self.send(item) if ['init'].include?(p.state)
         p.save
       end
     end
@@ -229,13 +229,13 @@ module Trade
     end
 
     def compute_received_amount
-      _received_amount = self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:check_amount)
+      _received_amount = self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:order_amount)
       _refund_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
       _received_amount - _refund_amount
     end
 
     def init_received_amount
-      self.payment_orders.state_confirmed.sum(:check_amount)
+      self.payment_orders.state_confirmed.sum(:order_amount)
     end
 
     def compute_pay_deadline_at

@@ -73,7 +73,7 @@ module Trade
     end
 
     def unchecked_amount
-      total_amount.to_d - payment_orders.sum(:check_amount)
+      total_amount.to_d - payment_orders.sum(:payment_amount)
     end
 
     def compute_amount
@@ -82,7 +82,7 @@ module Trade
     end
 
     def compute_checked_amount
-      self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:check_amount)
+      self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:payment_amount)
     end
 
     def pending_orders
@@ -103,7 +103,7 @@ module Trade
     def check_order(order_id)
       order = Order.find order_id
       payment_order = self.payment_orders.build(order_id: order.id)
-      payment_order.check_amount = order.unreceived_amount
+      payment_order.order_amount = order.unreceived_amount
       payment_order.save
 
       payment_order
