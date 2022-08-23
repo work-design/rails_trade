@@ -1,0 +1,15 @@
+<div class="column is-one-third">
+  <%= form_with model: @order, url: { controller: 'orders', action: 'add' }, class: 'button_column' do |f| %>
+    <%= f.fields :items do |ef| %>
+      <%= ef.hidden_field :good_type, value: advance.class_name %>
+      <%= ef.hidden_field :good_id, value: advance.id %>
+    <% end %>
+    <%= button_tag class: 'has-background-light py-4' do %>
+      <div class="header has-text-grey">
+        <span><%= advance.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
+        <span><%= @wallet.wallet_template.unit %></span>
+      </div>
+      <div class="description has-text-danger"><%= advance.price.to_money.format(html_wrap: true).html_safe %></div>
+    <% end %>
+  <% end %>
+</div>
