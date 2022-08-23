@@ -63,6 +63,10 @@ module Trade
       o
     end
 
+    def wallet_exchange
+      wallet_price.transform_values(&->(v){ Rational(v, price.to_s) })
+    end
+
     def order_done(item = nil)
       puts "order_done Should realize in good entity, #{item.object_id}"
     end

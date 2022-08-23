@@ -39,7 +39,11 @@ module Trade
 
     def init_amount
       self.payment_amount = payment.total_amount
-      self.order_amount = order.total
+      if payment.wallet
+        self.order_amount = order.wallet_amount[payment.wallet_code]
+      else
+        self.order_amount = payment.total_amount
+      end
       self.state = 'pending' unless state_changed?
     end
 

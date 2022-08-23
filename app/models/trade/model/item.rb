@@ -15,6 +15,7 @@ module Trade
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
       attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
+      attribute :wallet_amount, :json, default: {}
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
       attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
@@ -29,7 +30,6 @@ module Trade
       attribute :organ_ancestor_ids, :json, default: []
       attribute :rent_start_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
-      attribute :wallet_amount, :json, default: {}
       attribute :rents_count, :integer, default: 0
       attribute :renting_count, :integer, default: 0
 
@@ -176,9 +176,7 @@ module Trade
     end
 
     def compute_wallet_price
-      self.wallet_price = good.wallet_price.transform_values do |v|
-        v * self.number
-      end
+      self.wallet_exchange = good.wallet_price.transform_values(&->(v){ v * good.price })
     end
 
     def compute_single_price
