@@ -11,7 +11,10 @@
     </span>
   </div>
   <div class="weui-cell__ft is-flex" data-controller="input">
-    <span>可抵扣<%= payment.payment_orders[0].order_amount %></span>
+    <span class="is-size-7">
+      <span>可抵扣</span>
+      <span><%= payment.payment_orders[0].order_amount.to_money.format(html_safe: true).html_safe %></span>
+    </span>
     <% if payment.persisted? %>
       <%= form_with theme: nil, url: { controller: 'my/payments', action: 'destroy', id: payment.id }, method: :delete, data: { controller: 'input' } do |f| %>
         <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
