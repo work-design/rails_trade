@@ -9,12 +9,17 @@
         <%= render partial: 'wallet', collection: @wallets, as: :wallet %>
       <% end %>
       </div>
-      <div class="weui-cells">
+    </div>
+  </div>
+</div>
+
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+    <div class="weui-cells">
       <% unless @order.all_paid? %>
         <%= render partial: 'wxpay' %>
         <%= render 'hand_payment' %>
       <% end %>
-      </div>
     </div>
   </div>
 </div>

@@ -4,7 +4,11 @@ module Trade
 
     included do
       attribute :check_amount, :decimal
-      attribute :kind, :string
+
+      enum kind: {
+        item_amount: 'item_amount',
+        overall_additional_amount: 'overall_additional_amount'
+      }
 
       enum state: {
         init: 'init',
