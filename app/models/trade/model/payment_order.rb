@@ -50,13 +50,13 @@ module Trade
         self.payment_amount = payment.total_amount
       end
 
-      if payment.wallet.amount > order.wallet_amount[wallet_code]
-        self.payment_amount = order.wallet_amount[wallet_code]
+      if payment.wallet.amount > total_order_amount
+        self.payment_amount = total_order_amount
         self.order_amount = order.item_amount
       else
         # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
         self.payment_amount = wallet.amount
-        self.order_amount = wallet_amount[0]
+        self.order_amount = wallet_amount_x[0]
       end
 
       if payment.wallet
@@ -68,12 +68,20 @@ module Trade
     end
 
     def wallet_amount
+      order.items.map do |item|
+        item.wallet_amount[wallet_code]
+      end
+    end
+
+    def total_order_amount
+      wallet_amount.sum(&->(i){ i[:amount] })
+    end
+
+    def wallet_amount_x
       x = 0
       y = self.payment_amount
       rest = 0
-      result = order.items.map do |item|
-        item.wallet_amount[wallet_code]
-      end
+      result = wallet_amount
       result.sort_by!(&->(i){ i[:rate] }).reverse!
       result.each do |i|
         if y > i[:amount]
