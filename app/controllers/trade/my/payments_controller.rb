@@ -120,7 +120,7 @@ module Trade
         :wallet_id,
         :total_amount,
         :proof,
-        payment_orders_attributes: [:order_id, :check_amount, :state]
+        payment_orders_attributes: [:order_id, :payment_amount, :state]
       )
       p.merge! default_form_params
     end
