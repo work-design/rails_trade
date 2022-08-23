@@ -3,7 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :check_amount, :decimal
+      attribute :payment_amount, :decimal
+      attribute :order_amount, :decimal
 
       enum kind: {
         item_amount: 'item_amount',
@@ -25,7 +26,7 @@ module Trade
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      after_initialize :init_check_amount, if: -> { new_record? && payment&.new_record? }
+      after_initialize :init_amount, if: -> { new_record? && payment&.new_record? }
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'check_amount']).present? }
       after_update :unchecked_to_payment, if: -> { state_init? && state_before_last_save == 'confirmed' }
@@ -35,8 +36,9 @@ module Trade
       after_destroy_commit :unchecked_to_order
     end
 
-    def init_check_amount
-      self.check_amount = payment.total_amount
+    def init_amount
+      self.payment_amount = payment.total_amount
+      self.order_amount = order.xxx
       self.state = 'pending' unless state_changed?
     end
 
@@ -45,19 +47,19 @@ module Trade
     end
 
     def checked_to_payment
-      payment.checked_amount += self.check_amount
+      payment.checked_amount += self.payment_amount
       payment.check_state
       payment.save
     end
 
     def unchecked_to_payment
-      payment.checked_amount -= self.check_amount
+      payment.checked_amount -= self.payment_amount
       payment.check_state
       payment.save
     end
 
     def pending_to_order
-      order.received_amount += self.check_amount
+      order.received_amount += self.order_amount
       order.save
     end
 
@@ -67,7 +69,7 @@ module Trade
 
     def unchecked_to_order
       return if order.blank?
-      order.received_amount -= self.check_amount
+      order.received_amount -= self.order_amount
       order.check_state
       order.save
     end
@@ -78,7 +80,7 @@ module Trade
       end
 
       refund = payment.refunds.build(order_id: order_id)
-      refund.total_amount = check_amount
+      refund.total_amount = payment_amount
       refund.currency = payment.currency
       refund.save
     end
