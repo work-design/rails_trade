@@ -27,7 +27,8 @@ module Trade
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      after_initialize :init_amount, :init_wallet_code, if: -> { new_record? && payment&.new_record? }
+      after_initialize :init_amount, if: -> { new_record? && payment&.new_record? && payment.wallet_id.blank? }
+      after_initialize :init_wallet_code, :init_wallet_amount, if: -> { new_record? && payment&.new_record? && payment.wallet_id.present? }
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
       after_update :unchecked_to_payment, if: -> { state_init? && state_before_last_save == 'confirmed' }
