@@ -37,6 +37,10 @@ module Trade
       after_destroy_commit :unchecked_to_order
     end
 
+    def init_wallet_code
+      self.wallet_code = payment.wallet.wallet_template.code
+    end
+
     def init_amount
 
     end
@@ -44,10 +48,18 @@ module Trade
     def init_wallet_amount
       if payment.total_amount
         self.payment_amount = payment.total_amount
-      else
-        self.payment_amount = order.amount < payment.wallet.amount ? order.amount : wallet.amount
       end
 
+      if payment.wallet.amount > order.wallet_amount[wallet_code]
+        self.payment_amount = order.wallet_amount[wallet_code]
+        self.order_amount = order.item_amount
+      else
+        # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
+        self.payment_amount = wallet.amount
+        self.order_amount = x
+
+
+      end
 
       if payment.wallet
         self.order_amount = order.item_amount[payment.wallet.wallet_template.code]
@@ -55,6 +67,15 @@ module Trade
         self.order_amount = payment.total_amount
       end
       self.state = 'pending' unless state_changed?
+    end
+
+    def wallet_amount
+      result = order.items.map do |item|
+        item.wallet_amount[wallet_code]
+      end
+      result.sort_by! { |i| i[:rate] }
+
+
     end
 
     def init_user_id

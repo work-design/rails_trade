@@ -175,11 +175,7 @@ module Trade
     end
 
     def wallet_amount
-      good.wallet_price.transform_values(&->(v){ v.to_d * number })
-    end
-
-    def wallet_exchange
-      good.wallet_price.transform_values(&->(v){ Rational(v, single_price.to_s) })
+      good.wallet_price.transform_values(&->(v){ { rate: Rational(v, single_price.to_s), amount: v.to_d * number } })
     end
 
     def compute_single_price
