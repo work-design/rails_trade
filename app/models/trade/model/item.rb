@@ -15,7 +15,6 @@ module Trade
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
       attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
-      attribute :wallet_amount, :json, default: {}
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
       attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
@@ -175,8 +174,8 @@ module Trade
       self.expire_at = produce_plan.book_finish_at
     end
 
-    def compute_wallet_price
-      self.wallet_exchange = good.wallet_price.transform_values(&->(v){ v * good.price })
+    def wallet_amount
+      good.wallet_price.transform_values(&->(v){ v.to_d * number })
     end
 
     def compute_single_price

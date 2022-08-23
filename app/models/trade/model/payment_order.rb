@@ -38,9 +38,19 @@ module Trade
     end
 
     def init_amount
-      self.payment_amount = payment.total_amount
+
+    end
+
+    def init_wallet_amount
+      if payment.total_amount
+        self.payment_amount = payment.total_amount
+      else
+        self.payment_amount = order.amount < payment.wallet.amount ? order.amount : wallet.amount
+      end
+
+
       if payment.wallet
-        self.order_amount = order.wallet_amount[payment.wallet_code]
+        self.order_amount = order.item_amount[payment.wallet.wallet_template.code]
       else
         self.order_amount = payment.total_amount
       end

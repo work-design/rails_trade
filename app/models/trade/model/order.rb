@@ -203,6 +203,14 @@ module Trade
       init? && ['unpaid', 'to_check'].include?(self.payment_status)
     end
 
+    def wallet_amount
+      result = {}
+      items.each do |item|
+        result.merge!(item.wallet_amount) { |_, x, y| x + y }
+      end
+      result
+    end
+
     def sum_amount
       self.item_amount = items.sum(&->(i){ i.amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
