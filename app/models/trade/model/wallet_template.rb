@@ -32,6 +32,10 @@ module Trade
       validates :code, uniqueness: { scope: :organ_id }
     end
 
+    def step
+      (10 ** -digit)
+    end
+
     def set_wallets_default
       self.wallets.update(default: true)
     end
