@@ -1,7 +1,7 @@
 <table class="table is-fullwidth is-borderless as-show">
   <tbody>
     <% unless @order.items.map(&:good_type).include?('Trade::Advance') %>
-      <%= render partial: 'wallet', collection: @order.user.cards, as: :card if @order.user %>
+      <%= render partial: 'wallet_payment', collection: @order.payments, as: :payment %>
     <% end %>
     <tr>
       <td class="has-text-right"><%= Trade::Order.human_attribute_name(:unreceived_name) %></td>

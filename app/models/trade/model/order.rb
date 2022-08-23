@@ -64,6 +64,8 @@ module Trade
       has_many :payment_orders, dependent: :destroy_async
       accepts_nested_attributes_for :payment_orders
       has_many :payments, through: :payment_orders, inverse_of: :orders
+      has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :wallets, ->(o){ includes(:wallet_template).where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :items, inverse_of: :order

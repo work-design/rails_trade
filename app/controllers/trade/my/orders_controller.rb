@@ -7,7 +7,6 @@ module Trade
     ]
     before_action :set_cart, only: [:new]
     before_action :set_new_order, only: [:blank, :trial, :add, :create]
-    before_action :set_wallets, only: [:payment_types]
 
     def index
       q_params = {}
@@ -48,6 +47,9 @@ module Trade
     end
 
     def payment_types
+      @order.wallets.each do |wallet|
+        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id, total_amount: @order.amount < wallet.amount ? @order.amount : wallet.amount)
+      end
     end
 
     # https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5
@@ -99,14 +101,6 @@ module Trade
 
     def set_payment_strategies
       @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
-    end
-
-    def set_wallets
-      if current_client
-        @wallets = current_client.wallets.default_where(default_params)
-      else
-        @wallets = current_user.wallets.default_where(default_params)
-      end
     end
 
     def order_params
