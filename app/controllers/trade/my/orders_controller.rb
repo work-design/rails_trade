@@ -47,7 +47,7 @@ module Trade
     end
 
     def payment_types
-      if @order.items.map(&:good_type).exclude?('Trade::Advance')
+      if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
         @order.wallets.each do |wallet|
           @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
         end
