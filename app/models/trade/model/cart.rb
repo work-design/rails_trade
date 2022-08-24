@@ -38,6 +38,7 @@ module Trade
       has_many :items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).carting }, primary_key: :user_id, foreign_key: :user_id
       has_many :checked_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :all_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :client_items, ->(o) { where({ organ_id: o.organ_id, good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :client_id, foreign_key: :client_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
@@ -115,7 +116,9 @@ module Trade
     end
 
     def client_item(good_id:, **options)
+      args = xx(good_id: good_id, **options)
 
+      client_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
     def find_item(good_id:, **options)
