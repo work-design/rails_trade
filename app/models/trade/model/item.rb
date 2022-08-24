@@ -119,7 +119,6 @@ module Trade
       after_save :sync_rent_amount_to_order!, if: -> { aim_rent? && saved_change_to_amount? }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
-      after_destroy :sync_amount_to_all_carts  # 正常情况下，order_id 存在的情况下，不会触发 item 的删除
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
       after_save_commit :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'paid', 'part_paid', 'pay_later', 'refund'].include?(status) }
       after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_status? && ['ordered'].include?(status) }
@@ -275,53 +274,6 @@ module Trade
           current_cart.save!
         end
       end
-    end
-
-    def sync_amount_to_all_carts
-      carts
-      organ_carts
-    end
-
-    def reset_carts
-      carts.each do |cart|
-        cart.reset_amount
-        cart.save
-      end
-      organ_carts.each do |cart|
-        cart.reset_amount
-        cart.save
-      end
-    end
-
-    # 理论上共计 24 个购物车
-    def check_carts
-      # 理论上是 2 的 4 次方 16 个
-      # organ_id 为 nil，则为平台级订单
-      [organ_id, nil].each do |org_id|
-        [member_id, nil].each do |mem_id|
-          [aim, nil].each do |_aim|
-            [good_type, nil].each do |_type|
-              r = { 'organ_id' => org_id, 'member_id' => mem_id, 'aim' => _aim, 'good_type' => _type }
-              carts.find(&->(i){ i.attributes.slice(*r.keys) == r }) || carts.build(r)
-            end
-          end
-        end
-      end
-
-      # 理论上是 2 的 3 次方 8 个
-      # 非用户级别的购物车
-      if member_organ
-        [organ_id, nil].each do |org_id|
-          [aim, nil].each do |_aim|
-            [good_type, nil].each do |_type|
-              r = { 'member_id' => nil, 'user_id' => nil, 'organ_id' => org_id, 'aim' => _aim, 'good_type' => _type }
-              organ_carts.find(&->(i){ i.attributes.slice(*r.keys) == r }) || organ_carts.build(r)
-            end
-          end
-        end
-      end
-
-      save
     end
 
     def reset_amount
