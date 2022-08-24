@@ -51,6 +51,7 @@ module Trade
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
       validates :good_type, presence: true
 
+      after_initialize :sync_from_maintain, if: -> { new_record? && maintain_id.present? }
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? || aim_rent? }
@@ -59,6 +60,13 @@ module Trade
     def sync_member_organ
       self.member_organ_id = member.organ_id
       self.user ||= member.user
+    end
+
+    def sync_from_maintain
+      return unless maintain
+      self.client_id = maintain.client_id
+      self.user_id = maintain.client_user_id
+      self.member_id = maintain.client_member_id
     end
 
     def sync_original_amount

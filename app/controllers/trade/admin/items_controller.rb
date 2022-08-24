@@ -43,16 +43,6 @@ module Trade
       render 'only'
     end
 
-    def total
-      if params[:add_id].present?
-        @add = @items.find_by(id: params[:add_id])
-        @add.update(checked: true)
-      elsif params[:remove_id].present?
-        @remove = @items.find_by(id: params[:remove_id])
-        @remove.update(checked: false)
-      end
-    end
-
     def doc
     end
 
