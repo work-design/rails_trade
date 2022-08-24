@@ -273,5 +273,10 @@ module Trade
       self.save!
     end
 
+    def wallet_codes
+      codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
+      WalletTemplate.where(code: codes).pluck(:id)
+    end
+
   end
 end
