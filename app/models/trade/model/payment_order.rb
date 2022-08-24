@@ -66,7 +66,7 @@ module Trade
 
     def wallet_amount
       order.items.map do |item|
-        item.wallet_amount[wallet_code]
+        item.wallet_amount.fetch(wallet_code, {})
       end
     end
 
