@@ -10,7 +10,7 @@
   <p>
     <time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time>
     <%= link_to({ controller: 'card_purchases', card_id: model.id }, aria: { label: t('trade.admin.card_purchases.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-light fa-gem"></i>
+      <i class="fa-regular fa-gem"></i>
     <% end %>
   </p>
 </td>

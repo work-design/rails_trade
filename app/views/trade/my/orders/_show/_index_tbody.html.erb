@@ -10,7 +10,7 @@
 <td><%= link_to '订单流程', { controller: 'items', action: 'show', order_id: @order.id, id: model.id } %></td>
 <td>
   <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
-  <i class="fa-light fa-times"></i>
+  <i class="fa-regular fa-times"></i>
   <span><%= model.number %></span>
 </td>
 <td><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></td>
