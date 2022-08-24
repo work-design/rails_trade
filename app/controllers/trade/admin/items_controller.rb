@@ -1,6 +1,7 @@
 module Trade
   class Admin::ItemsController < Admin::BaseController
     before_action :set_item, only: [:show, :update, :destroy, :actions, :carts]
+    before_action :set_new_item, only: [:create]
 
     def index
       q_params = {}
