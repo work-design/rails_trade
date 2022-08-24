@@ -1,1 +1,5 @@
-<%= render 'blank' %>
+<% if params[:current_cart_id] %>
+
+<% else %>
+  <%= render 'blank' %>
+<% end %>

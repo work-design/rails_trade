@@ -5,7 +5,7 @@ module Trade
       :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay,
       :package
     ]
-    before_action :set_cart, only: [:new]
+    before_action :set_cart, only: [:cart]
     before_action :set_new_order, only: [:blank, :trial, :add, :create]
 
     def index
@@ -18,6 +18,10 @@ module Trade
     end
 
     def new
+      @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
+    end
+
+    def cart
       @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
     end
 
