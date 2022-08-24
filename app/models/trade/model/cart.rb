@@ -26,6 +26,9 @@ module Trade
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :payment_strategy, optional: true
 
+      belongs_to :maintain, class_name: 'Crm::Maintain', optional: true
+      belongs_to :client, class_name: 'Profiled::Profile', optional: true
+
       has_many :orders, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :promote_goods, foreign_key: :user_id, primary_key: :user_id
       has_many :available_promote_goods, -> { available }, class_name: 'PromoteGood'
