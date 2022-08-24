@@ -51,6 +51,13 @@ module Trade
       @item = Item.where(default_params).find params[:id]
     end
 
+    def set_new_item
+      options = {}
+      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself, :current_cart_id)
+
+      @item = Item.new(options)
+    end
+
     def item_params
       params.fetch(:item, {}).permit(
         :number,
