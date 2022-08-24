@@ -1,6 +1,6 @@
 module Trade
   class Admin::ItemsController < Admin::BaseController
-    before_action :set_item, only: [:show, :update, :destroy, :actions, :carts]
+    before_action :set_item, only: [:show, :update, :destroy, :actions, :carts, :toggle]
     before_action :set_new_item, only: [:create]
 
     def index
@@ -45,6 +45,16 @@ module Trade
     end
 
     def doc
+    end
+
+    def toggle
+      if @item.status_init?
+        @item.status = 'checked'
+      elsif @item.status_checked?
+        @item.status = 'init'
+      end
+
+      @item.save
     end
 
     private

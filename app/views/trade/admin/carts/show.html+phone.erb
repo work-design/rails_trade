@@ -1,0 +1,9 @@
+<%= render 'head' %>
+
+<%= render 'address' unless @cart.aim == 'invest' %>
+
+<div id="cart_body">
+  <%= render partial: 'item', collection: @items, as: :model %>
+</div>
+
+<%= render 'promote' %>

@@ -2,6 +2,7 @@ module Trade
   class Admin::CartsController < Admin::BaseController
     before_action :set_cart, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_payment_strategies, only: [:new, :create, :edit, :update]
+    before_action :set_purchase, only: [:show]
 
     def index
       q_params = {}
@@ -37,12 +38,17 @@ module Trade
       @carts = Cart.includes(:payment_strategy, :items).where(member_id: nil).default_where(q_params)
     end
 
-    def create
+    def show
+      q_params = {}
 
+      @items = @cart.items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      @checked_ids = @cart.items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+    end
+
+    def create
     end
 
     def add
-
     end
 
     def orders
@@ -60,11 +66,27 @@ module Trade
       @payment_strategies = PaymentStrategy.default_where(default_params)
     end
 
+    def set_purchase
+      effective_ids = @cart.cards.effective.pluck(:card_template_id)
+      min_grade = Trade::CardTemplate.default_where(default_params).minimum(:grade)
+      @card_templates = Trade::CardTemplate.default_where(default_params).where.not(id: effective_ids).where(grade: min_grade)
+    end
+
     def cart_params
       params.fetch(:cart, {}).permit(
         :payment_strategy_id,
         :deposit_ratio
       )
+    end
+
+    def _prefixes
+      super do |pres|
+        if ['show'].include?(params[:action])
+          pres + ['trade/my/carts/_show', 'trade/my/carts/_base']
+        else
+          pres
+        end
+      end
     end
 
   end
