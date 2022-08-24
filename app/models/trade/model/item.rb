@@ -66,6 +66,7 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true
+      belongs_to :client, class_name: 'Profiled::Profile', optional: true
 
       belongs_to :from_address, class_name: 'Profiled::Address', optional: true
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
