@@ -80,8 +80,8 @@ Rails.application.routes.draw do
       resources :payments do
         collection do
           get :dashboard
-          get :order_new
-          post :order_create
+          get 'order/:order_id' => :order_new
+          post 'order/:order_id' => :order_create
         end
         member do
           patch :analyze

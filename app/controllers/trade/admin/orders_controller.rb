@@ -155,6 +155,7 @@ module Trade
         :note,
         :payment_strategy_id,
         :collectable,
+        :current_cart_id,
         items_attributes: [:organ_id, :good_type, :good_id, :good_name, :number, :weight, :volume, :note, :image, :amount],
         cart_promotes_attributes: [:promote_id]
       )
