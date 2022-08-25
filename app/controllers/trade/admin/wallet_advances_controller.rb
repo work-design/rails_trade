@@ -2,25 +2,13 @@ module Trade
   class Admin::WalletAdvancesController < Admin::BaseController
     before_action :set_wallet
     before_action :set_wallet_advance, only: [:show, :edit, :update, :destroy]
-    before_action :set_maintain, if: ->{ params[:maintain_id].present? }
+    before_action :set_new_wallet_advance, only: [:new, :create]
 
     def index
       q_params = {}
       q_params.merge! params.permit(:advance_id)
 
       @wallet_advances = @wallet.wallet_advances.default_where(q_params).order(id: :desc).page(params[:page])
-    end
-
-    def new
-      @wallet_advance = @wallet.wallet_advances.build
-    end
-
-    def create
-      @wallet_advance = @wallet.wallet_advances.build(wallet_advance_params)
-
-      unless @wallet_advance.save
-        render :new, locals: { model: @wallet_advance }, status: :unprocessable_entity
-      end
     end
 
     private
@@ -32,15 +20,16 @@ module Trade
       @wallet_advance = @wallet.wallet_advances.find(params[:id])
     end
 
+    def set_new_wallet_advance
+      @wallet_advance = @wallet.wallet_advances.build(wallet_advance_params)
+    end
+
     def wallet_advance_params
-      params.fetch(:wallet_advance, {}).permit(
+      p = params.fetch(:wallet_advance, {}).permit(
         :amount,
         :note
       )
-    end
-
-    def set_maintain
-      @maintain = Crm::Maintain.find params[:maintain_id]
+      p.merge! operator_id: current_member.id
     end
 
     def _prefixes
