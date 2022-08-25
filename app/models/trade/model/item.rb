@@ -87,8 +87,8 @@ module Trade
 
       has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o){ where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
-      has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, client_id: o.client_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :wallets, ->(o){ includes(:wallet_template).where(organ_id: o.organ_id, client_id: o.client_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o){ includes(:card_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :wallets, ->(o){ includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :item, dependent: :destroy_async
       has_many :rents
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
@@ -129,6 +129,16 @@ module Trade
         only: [:good_name, :number, :amount, :note],
         methods: [:order_uuid, :cart_organ]
       )
+    end
+
+    def filter_hash
+      if user_id
+        { organ_id: organ_id, member_id: member_id }
+      elsif client_id
+        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+      else
+        { organ_id: organ_id, member_id: member_id }
+      end
     end
 
     def init_uuid
