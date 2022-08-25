@@ -9,5 +9,5 @@
 <td><%= model.comment %></td>
 <td>
   <p><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></p>
-  <p class="has-text-grey is-size-7"><time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.notified_at&.to_fs(:iso8601) %></time></p>
+  <p class="has-text-grey is-size-7"><time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
