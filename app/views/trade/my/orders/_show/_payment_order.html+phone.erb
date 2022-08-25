@@ -28,7 +28,15 @@
     <% end %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:order_amount) %></label>
-      <span class="weui-form-preview__value has-text-danger"><%= model.order_amount.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value">
+        <% if model.payment.type == 'Trade::WalletPayment' %>
+        <span class="tag">
+          <span><%= model.payment_amount.to_fs(:rounded, precision: model.payment.wallet.wallet_template.digit) %></span>
+          <span><%= model.payment.wallet.wallet_template.unit %></span>
+        </span>
+        <% end %>
+        <span class="has-text-danger"><%= model.order_amount.to_money.format(html_wrap: true).html_safe %></span>
+      </span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:state) %></label>
