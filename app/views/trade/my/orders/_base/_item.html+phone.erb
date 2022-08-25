@@ -29,5 +29,8 @@
       <i></i>
       <span><%= t('serve.my.servings.index.title') %></span>
     <% end if item.good_type == 'Serve::Service' && item.respond_to?(:servings) %>
+    <% if item.fetch_oneself %>
+      <button class="button is-info">自取</button>
+    <% end %>
   </div>
 </div>
