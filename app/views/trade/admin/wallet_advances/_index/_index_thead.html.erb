@@ -1,5 +1,8 @@
 <th><%= Trade::WalletAdvance.human_attribute_name(:amount) %></th>
-<th><%= Trade::WalletAdvance.human_attribute_name(:advance_id) %></th>
+<th>
+  <p><%= Trade::WalletAdvance.human_attribute_name(:advance_id) %></p>
+  <p><%= Trade::WalletAdvance.human_attribute_name(:item_id) %></p>
+</th>
 <th><%= Trade::WalletAdvance.human_attribute_name(:state) %></th>
 <th><%= Trade::WalletAdvance.human_attribute_name(:note) %></th>
 <th><%= Trade::WalletAdvance.human_attribute_name(:created_at) %></th>

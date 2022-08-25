@@ -1,20 +1,15 @@
 <tr>
   <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:amount) %></td>
-  <td><%= @wallet_advance.amount %></td>
+  <td>
+    <span><%= @wallet_advance.amount %></span>
+    <span><%= @wallet.wallet_template.unit %></span>
+  </td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:user) %></td>
-  <td><%= @wallet_advance.user %></td>
-</tr>
-<tr>
-  <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:advance) %></td>
-  <td><%= @wallet_advance.advance %></td>
+  <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:advance_id) %></td>
+  <td><%= @wallet_advance.advance&.name %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:note) %></td>
   <td><%= @wallet_advance.note %></td>
-</tr>
-<tr>
-  <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:amount) %></td>
-  <td><%= @wallet_advance.amount %></td>
 </tr>

@@ -22,6 +22,8 @@ zh:
         wallets_count: 开通数
       trade/wallet_advance:
         amount: 金额
+        advance_id: 对应商品
+        item_id: 对应订单
       trade/card_log:
         tag_str: 标签
         source_type: 来源类型
