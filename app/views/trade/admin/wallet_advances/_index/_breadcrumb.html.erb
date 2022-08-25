@@ -1,7 +1,8 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
     <li><%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'wallet_templates' } %></li>
-    <li><%= link_to t('trade.admin.wallets.index.title'), { controller: 'wallets', wallet_template_id: @wallet.wallet_template_id, id: @wallet.id } %></li>
+    <li><span class="px-3"><%= @wallet.wallet_template.name %></span></li>
+    <li><%= link_to t('trade.admin.wallets.index.title'), { controller: 'wallets', wallet_template_id: @wallet.wallet_template_id, anchor: "tr_#{@wallet.id}" } %></li>
     <li class="is-active"><%= t('.title') %></li>
   </ul>
 </div>
