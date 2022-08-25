@@ -12,6 +12,8 @@ module Trade
         given: 'given'  # 系统赠送
       }
 
+      belongs_to :operator, class_name: 'Org::Member', optional: true
+
       belongs_to :wallet
       belongs_to :advance, optional: true
       belongs_to :item, optional: true
