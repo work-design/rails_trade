@@ -18,7 +18,7 @@ module Trade
     end
 
     def new
-      @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
+      @order = current_user.orders.build
     end
 
     def cart
@@ -94,7 +94,7 @@ module Trade
     end
 
     def set_cart
-      @cart = Cart.find_by id: params[:current_cart_id]
+      @cart = Cart.find params[:current_cart_id]
     end
 
     def set_order

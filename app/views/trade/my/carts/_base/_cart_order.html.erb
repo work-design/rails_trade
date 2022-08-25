@@ -1,5 +1,5 @@
 <% if @checked_ids.present? %>
-  <%= link_to({ controller: 'orders', action: 'new', current_cart_id: @cart.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
+  <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
     <span>结算</span>
     <i class="fa-solid fa-angle-right"></i>
   <% end %>

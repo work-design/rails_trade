@@ -44,7 +44,7 @@ zh:
           refund_list: 退款详情
         user:
           title: 用户订单
-        new:
+        cart:
           title: 确认订单
         payment_types:
           title: 支付
@@ -158,7 +158,7 @@ zh:
       orders:
         index:
           title: 我的订单
-        new:
+        cart:
           title: 确认订单
           confirm: 确认订单
         add:

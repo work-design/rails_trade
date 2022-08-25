@@ -6,6 +6,7 @@ module Trade
     ]
     before_action :set_new_order, only: [:new, :create]
     before_action :set_user, only: [:user]
+    before_action :set_cart, only: [:cart]
     before_action :set_payment_strategies, only: [:unpaid, :new, :create]
     skip_before_action :require_login, only: [:print_data] if whether_filter :require_login
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
@@ -47,6 +48,10 @@ module Trade
 
     def new
       @order.items.build
+    end
+
+    def cart
+      @order = Order.new(current_cart_id: params[:current_cart_id])
     end
 
     def create
@@ -110,6 +115,10 @@ module Trade
       @user = Auth::User.find params[:user_id]
     end
 
+    def set_cart
+      @cart = Cart.find params[:current_cart_id]
+    end
+
     def set_payment_strategies
       @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
     end
@@ -122,6 +131,8 @@ module Trade
           pres + ['trade/my/orders/_payment_types']
         elsif ['show'].include?(params[:action])
           pres + ['trade/my/orders/_show', 'trade/my/orders/_base']
+        elsif ['cart'].include?(params[:action])
+          pres + ['trade/my/orders/_cart', 'trade/my/orders/_base']
         else
           pres
         end

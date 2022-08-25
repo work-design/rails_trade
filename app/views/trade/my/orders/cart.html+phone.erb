@@ -1,0 +1,23 @@
+<%= render 'top_bar' %>
+
+<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :current_cart_id %>
+<% end %>
+
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+  <% if @cart.aim_rent? %>
+    <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
+  <% else %>
+    <%= render partial: 'item', collection: @cart.items.status_checked, as: :item %>
+  <% end %>
+  </div>
+</div>
+
+<%= render partial: 'cart', locals: { cart: @cart } %>
+
+<div class="weui-panel">
+  <div class="weui-panel__ft p-4">
+    <%= submit_tag t('.confirm'), class: 'weui-btn weui-btn_primary', form: 'new_order' %>
+  </div>
+</div>

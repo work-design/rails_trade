@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     concern :orderable do
       resources :orders do
         collection do
+          get 'cart/:current_cart_id' => :cart
           post :add
           post :trial
         end
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
         collection do
           get :payments
           get :refresh
+          get 'cart/:current_cart_id' => :cart
           get 'user/:user_id' => :user
           get :unpaid
         end
