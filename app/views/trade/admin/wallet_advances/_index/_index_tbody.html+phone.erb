@@ -1,0 +1,13 @@
+<p>
+  <span><%= model.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
+  <span><%= @wallet.wallet_template.unit %></span>
+</p>
+<td>
+<% if model.item %>
+  <p><%= model.advance.name %></p>
+  <p class="has-text-grey is-size-7"><%= model.item.uuid %></p>
+<% end %>
+</td>
+<td><%= model.state_i18n %></td>
+<p><%= model.note %></p>
+<p class="has-text-grey is-size-7"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
