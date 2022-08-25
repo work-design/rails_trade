@@ -25,11 +25,12 @@ module Trade
     end
 
     def wallet_payment_params
-      params.fetch(:wallet_payment, {}).permit(
+      p = params.fetch(:wallet_payment, {}).permit(
         :total_amount,
         :notified_at,
         :comment
       )
+      p.merge! operator_id: current_member.id
     end
 
   end

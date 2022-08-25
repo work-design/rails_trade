@@ -20,14 +20,6 @@ module Trade
       @payment.init_uuid
     end
 
-    def create
-      if @payment.save
-        render 'create'
-      else
-        render :new, locals: { model: @payment }, status: :unprocessable_entity
-      end
-    end
-
     def order_new
       @payment.total_amount = @order.unreceived_amount
     end
@@ -55,7 +47,6 @@ module Trade
 
     def set_new_payment_with_order
       @payment = @order.payments.build(payment_params)
-      #@payment.operator = current_member
     end
 
     def set_order
