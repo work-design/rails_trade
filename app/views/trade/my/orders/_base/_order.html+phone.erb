@@ -7,7 +7,7 @@
     <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
   <% end %>
   </div>
-  <div class="weui-panel__ft has-border-top">
+  <div class="weui-panel__ft">
     <%= link_to({ action: 'show', id: model.id }, class: 'weui-cell weui-cell_link') do %>
       <div class="weui-cell__bd"></div>
       <div class="weui-cell__ft">
