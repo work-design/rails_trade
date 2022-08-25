@@ -16,7 +16,6 @@ module Trade
       has_one :current_rent, ->(o){ where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, finish_at: nil) }, class_name: 'Trade::Rent', as: :rentable
       has_one :last_rent, -> { order(start_at: :desc) }, class_name: 'Trade::Rent', as: :rentable
 
-      scope :ordered, -> { where.not(item_id: nil) }
       scope :orderable, -> { where(item_id: nil) }
       scope :rentable, -> { where(rentable: true) }
       scope :rented, -> { where(rented: true) }
