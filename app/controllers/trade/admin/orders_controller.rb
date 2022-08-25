@@ -66,6 +66,11 @@ module Trade
     end
 
     def payment_types
+      if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
+        @order.wallets.where(wallet_template_id: @order.wallet_codes).each do |wallet|
+          @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
+        end
+      end
     end
 
     def package
@@ -128,7 +133,7 @@ module Trade
         if ['add'].include?(params[:action])
           pres + ['trade/my/orders/_add', 'trade/my/orders']
         elsif ['payment_types'].include?(params[:action])
-          pres + ['trade/my/orders/_payment_types']
+          pres + ['trade/my/orders/_payment_types', 'trade/my/orders/_base']
         elsif ['show'].include?(params[:action])
           pres + ['trade/my/orders/_show', 'trade/my/orders/_base']
         elsif ['cart'].include?(params[:action])
