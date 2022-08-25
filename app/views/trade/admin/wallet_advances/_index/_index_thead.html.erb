@@ -5,4 +5,7 @@
 </th>
 <th><%= Trade::WalletAdvance.human_attribute_name(:state) %></th>
 <th><%= Trade::WalletAdvance.human_attribute_name(:note) %></th>
-<th><%= Trade::WalletAdvance.human_attribute_name(:created_at) %></th>
+<th>
+  <p><%= Trade::WalletAdvance.human_attribute_name(:operator_id) %></p>
+  <p><%= Trade::WalletAdvance.human_attribute_name(:created_at) %></p>
+</th>
