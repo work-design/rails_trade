@@ -58,14 +58,14 @@ module Trade
       belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
 
-      has_many :carts, ->(o){ where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
+      has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, dependent: :destroy_async
       accepts_nested_attributes_for :payment_orders
       has_many :payments, through: :payment_orders, inverse_of: :orders
-      has_many :cards, ->(o){ includes(:card_template).where(organ_id: o.organ_id, client_id: o.client_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :wallets, ->(o){ includes(:wallet_template).where(organ_id: o.organ_id, client_id: o.client_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :items, inverse_of: :order
@@ -90,6 +90,16 @@ module Trade
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
+    end
+
+    def filter_hash
+      if user_id
+        { organ_id: organ_id, member_id: member_id }
+      elsif client_id
+        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+      else
+        { organ_id: organ_id, member_id: member_id }
+      end
     end
 
     def init_uuid
