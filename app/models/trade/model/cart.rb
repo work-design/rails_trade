@@ -35,10 +35,9 @@ module Trade
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
 
-      has_many :items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).carting }, primary_key: :user_id, foreign_key: :user_id
-      has_many :checked_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
-      has_many :all_items, ->(o) { where({ organ_id: o.organ_id, member_id: o.member_id, good_type: o.good_type, aim: o.aim }.compact) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
-      has_many :client_items, ->(o) { where({ organ_id: o.organ_id, good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :client_id, foreign_key: :client_id
+      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :user_id, foreign_key: :user_id
+      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
@@ -56,6 +55,14 @@ module Trade
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :compute_promote, if: -> { original_amount_changed? || aim_rent? }
+    end
+
+    def filter_hash
+      if user_id
+        { organ_id: organ_id, member_id: member_id, good_type: good_type, aim: aim }.compact
+      elsif client_id
+        { organ_id: organ_id, client_id: client_id, good_type: good_type, aim: aim }.compact
+      end
     end
 
     def sync_member_organ
@@ -113,12 +120,6 @@ module Trade
       end
 
       item
-    end
-
-    def client_item(good_id:, **options)
-      args = xx(good_id: good_id, **options)
-
-      client_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
     def find_item(good_id:, **options)
