@@ -233,11 +233,8 @@ Rails.application.routes.draw do
       end
 
       namespace :in, defaults: { namespace: 'in' } do
-        resources :items do
-          collection do
-            post :cost
-          end
-        end
+        resources :items
+        resources :orders
       end
 
       namespace :my, defaults: { namespace: 'my' } do
