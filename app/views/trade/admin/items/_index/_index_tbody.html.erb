@@ -2,8 +2,9 @@
 <% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>
 <% else %>
-  <%= model.good_name %>
+  <span><%= model.good_name %></span>
 <% end %>
+  <span class="tag"><%= model.aim_i18n %></span>
 </td>
 <td><%= model.number %></td>
 <td>
@@ -19,7 +20,6 @@
   <p><%= model.wholesale_price.to_money.format(html_wrap: true).html_safe %></p>
 </td>
 <td><%= model.status_i18n %></td>
-<td><%= model.aim_i18n %></td>
 <td>
   <% if model.user %>
   <p class="is-several">
