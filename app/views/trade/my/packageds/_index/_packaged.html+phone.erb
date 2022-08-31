@@ -18,6 +18,10 @@
       <label class="weui-form-preview__label"><%= Ship::Packaged.human_attribute_name(:good_item_id) %></label>
       <span class="weui-form-preview__value"><%= packaged.good_item_id %></span>
     </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:state) %></label>
+      <span class="weui-form-preview__value"><%= packaged.package.state_i18n %></span>
+    </div>
   </div>
   <div class="weui-form-preview__ft">
     <%= link_to({ controller: 'packageds', action: 'show',id: packaged.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
