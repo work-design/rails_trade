@@ -29,6 +29,7 @@ Rails.application.routes.draw do
           patch :toggle
           get :promote
         end
+        resources :packageds
       end
       resources :carts do
         collection do
