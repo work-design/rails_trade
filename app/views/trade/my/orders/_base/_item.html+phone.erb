@@ -29,8 +29,9 @@
       <i></i>
       <span><%= t('serve.my.servings.index.title') %></span>
     <% end if item.good_type == 'Serve::Service' && item.respond_to?(:servings) %>
-    <% if item.fetch_oneself %>
-      <button class="button is-info">自取</button>
-    <% end %>
+    <%= link_to({ controller: 'packageds', item_id: item.id }, class: 'button is-primary') do %>
+      <i></i>
+      <span><%= t('trade.my.packageds.index.title') %></span>
+    <% end if ['Ship::BoxHost'].include?(item.good_type) %>
   </div>
 </div>
