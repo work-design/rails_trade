@@ -1,0 +1,28 @@
+<div class="weui-form-preview">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:id) %></label>
+      <div class="weui-form-preview__value" data-controller="clipboard">
+        <span data-clipboard-target="source"><%= packaged.id %></span>
+        <span class="tag"><%= packaged.package.state_i18n %></span>
+        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <div data-clipboard-target="toast" class="weui-toast__wrap">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Ship::Packaged.human_attribute_name(:good_item_id) %></label>
+      <span class="weui-form-preview__value"><%= packaged.good_item_id %></span>
+    </div>
+  </div>
+  <div class="weui-form-preview__ft">
+    <%= link_to({ controller: 'packageds', action: 'show',id: packaged.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
+      <span>详情</span>
+    <% end %>
+  </div>
+</div>

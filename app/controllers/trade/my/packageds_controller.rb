@@ -4,7 +4,7 @@ module Trade
     before_action :set_packaged, only: [:show]
 
     def index
-      @packaged = @item.packageds
+      @packageds = @item.packageds
     end
 
     private
