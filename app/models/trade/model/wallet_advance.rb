@@ -33,7 +33,7 @@ module Trade
 
     def sync_log
       log = self.wallet_log || self.build_wallet_log
-      log.title = self.note || I18n.t('wallet_log.income.wallet_advance.title')
+      log.title = self.note.presence || I18n.t('wallet_log.income.wallet_advance.title')
       log.tag_str = I18n.t('wallet_log.income.wallet_advance.tag_str')
       log.amount = self.amount
       log.save
