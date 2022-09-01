@@ -7,7 +7,7 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:user_id, :wallet_id)
 
-      @wallet_logs = WalletLog.default_where(q_params).order(id: :desc).page(params[:page])
+      @wallet_logs = WalletLog.includes(wallet: :wallet_template).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def show
