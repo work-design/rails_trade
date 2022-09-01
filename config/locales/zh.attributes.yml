@@ -167,6 +167,7 @@ zh:
         order_id: 订单
         payment_id: 支付
       trade/wallet:
+        wallet_template_id: 储值类型
         user: 所属用户
         amount: 余额
         income_amount: 收入

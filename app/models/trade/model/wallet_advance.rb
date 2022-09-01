@@ -27,6 +27,7 @@ module Trade
       }
 
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
+      after_destroy :sync_amount_after_destroy
       after_create_commit :sync_log
     end
 
@@ -39,15 +40,13 @@ module Trade
     end
 
     def sync_to_wallet
-      wallet.reload
       wallet.income_amount += self.amount
-      if wallet.income_amount == wallet.compute_income_amount
-        wallet.save!
-      else
-        wallet.errors.add :income_amount, 'not equal'
-        logger.error "#{self.class.name}/Card: #{wallet.error_text}"
-        raise ActiveRecord::RecordInvalid.new(wallet)
-      end
+      wallet.save
+    end
+
+    def sync_amount_after_destroy
+      wallet.income_amount -= self.amount
+      wallet.save
     end
 
   end
