@@ -25,10 +25,10 @@
     <% end %>
   </div>
   <div class="weui-media-box__ft px-3">
-    <%= link_to({ controller: 'serve/my/servings', item_id: item.id }, class: 'button is-primary') do %>
+    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'button is-primary') do %>
       <i></i>
-      <span><%= t('serve.my.servings.index.title') %></span>
-    <% end if item.good_type == 'Serve::Service' && item.respond_to?(:servings) %>
+      <span><%= t('bench.my.facilitatings.index.title') %></span>
+    <% end if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
     <%= link_to({ controller: 'packageds', item_id: item.id }, class: 'button is-primary') do %>
       <i></i>
       <span><%= t('trade.my.packageds.index.title') %></span>
