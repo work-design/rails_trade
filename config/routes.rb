@@ -115,6 +115,11 @@ Rails.application.routes.draw do
           get :qrcode
         end
       end
+      resources :items, only: [] do
+        collection do
+          get :chart
+        end
+      end
 
       namespace :panel, defaults: { namespace: 'panel' } do
         root 'home#index'
