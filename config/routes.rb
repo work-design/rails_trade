@@ -118,6 +118,7 @@ Rails.application.routes.draw do
       resources :items, only: [] do
         collection do
           get :chart
+          get :month
         end
       end
 
