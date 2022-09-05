@@ -1,6 +1,8 @@
-
 <div class="weui-panel">
   <div class="weui-panel__bd p-4">
-    <div data-controller="antv-line" data-antv-line-url-value="<%= url_for('month') %>"></div>
+    <div data-controller="antv-line" data-antv-line-url-value="<%= url_for(action: 'month') %>"></div>
+  </div>
+  <div class="weui-panel__ft has-text-centered">
+    <strong>价格走势</strong>
   </div>
 </div>
