@@ -7,6 +7,8 @@ module Trade
       attribute :uuid, :string
       attribute :good_name, :string
       attribute :number, :integer, default: 1, comment: '数量'
+      attribute :done_number, :integer
+      attribute :rest_number, :integer, default: 1
       attribute :weight, :integer, default: 1, comment: '重量'
       attribute :duration, :integer, default: 0, comment: '占用时长'
       attribute :volume, :integer, default: 0, comment: '体积'
@@ -112,6 +114,7 @@ module Trade
       before_validation :compute_price, if: -> { new_record? || good_id_changed? }
       before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
       before_validation :recompute_amount, if: -> { (changes.keys & ['number']).present? }
+      before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
       before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
@@ -238,6 +241,10 @@ module Trade
 
     def recompute_amount
       self.original_amount = single_price * number
+    end
+
+    def compute_rest_number
+      self.rest_number = self.number - self.done_number
     end
 
     def compute_promotes
