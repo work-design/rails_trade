@@ -70,7 +70,7 @@ module Trade
       has_many :promotes, through: :promote_goods
       has_many :items, inverse_of: :order
       has_many :available_item_promotes, -> { includes(:promote) }, through: :items, source: :item_promotes
-      accepts_nested_attributes_for :items
+      accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id', 'single_price').compact.blank? }
       has_many :cart_promotes, dependent: :nullify  # overall can be blank
       accepts_nested_attributes_for :cart_promotes
 
