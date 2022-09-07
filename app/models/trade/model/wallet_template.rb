@@ -13,11 +13,7 @@ module Trade
       attribute :enabled, :boolean, default: true
       attribute :unit, :string
       attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
-
-      enum unit_kind: {
-        currency: 'currency',
-        custom: 'custom'
-      }
+      attribute :lawful, :boolean, default: false, comment: '是否法币，只支持一个法币'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
