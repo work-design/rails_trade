@@ -180,6 +180,9 @@ zh:
       promote_goods:
         index:
           title: 优惠券
+      lawful_wallets:
+        show:
+          title: 钱包
       wallet_logs:
         index:
           title: 交易记录

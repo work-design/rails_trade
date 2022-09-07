@@ -7,6 +7,8 @@ module Trade
       attribute :account_bank, :string
       attribute :account_name, :string
       attribute :account_number, :string
+
+
     end
 
   end

@@ -9,6 +9,8 @@ module Trade
       attribute :open, :boolean, default: false
       attribute :lawful, :boolean, default: false, comment: '是否法币'
 
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
+
       belongs_to :wallet_template, optional: true
       belongs_to :card_template, optional: true
 

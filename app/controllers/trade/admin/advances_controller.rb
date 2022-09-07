@@ -1,6 +1,6 @@
 module Trade
   class Admin::AdvancesController < Admin::BaseController
-    before_action :set_wallet_template
+    before_action :set_wallet_template, if: -> { params[:wallet_template_id].present? }
     before_action :set_advance, only: [:show, :edit, :update, :destroy]
     before_action :set_new_advance, only: [:new, :create]
     before_action :set_card_templates, only: [:new, :create, :edit, :update]
@@ -19,7 +19,7 @@ module Trade
     end
 
     def set_advance
-      @advance = @wallet_template.advances.find(params[:id])
+      @advance = Advance.find(params[:id])
     end
 
     def set_card_templates

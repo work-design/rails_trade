@@ -1,7 +1,6 @@
 <%= f.text_field :name, required: true %>
 <%= f.text_field :code, required: true %>
 <%= f.text_area :description %>
-<%= f.select :unit_kind, options_for_select(Trade::WalletTemplate.options_i18n(:unit_kind), f.object.unit_kind) %>
 <%= f.text_field :unit %>
 <%= f.number_field :digit %>
 <%= f.file_field :logo %>

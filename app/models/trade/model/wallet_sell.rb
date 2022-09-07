@@ -3,7 +3,6 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :price, :decimal
       attribute :amount, :decimal
       attribute :note, :string
 
@@ -16,8 +15,9 @@ module Trade
 
       belongs_to :wallet
       belongs_to :item, optional: true
+      belongs_to :selled, polymorphic: true
 
-      has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source, dependent: :destroy
+      has_one :wallet_log, ->(o) { where(wallet_id: o.wallet_id) }, as: :source, dependent: :destroy
 
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
       after_destroy :sync_amount_after_destroy
