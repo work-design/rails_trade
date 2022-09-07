@@ -43,9 +43,9 @@ module Trade
     end
 
     def compute_income_amount
-      r = self.wallet_advances.sum(:amount)
-      r1 = wallet_sells.sum(:amount)
-      r + r1
+      r1 = self.wallet_advances.sum(:amount)
+      r2 = wallet_sells.sum(:amount)
+      r1 + r2
     end
 
     def compute_amount

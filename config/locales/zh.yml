@@ -20,4 +20,6 @@ zh:
       wallet_advance:
         title: 用户充值
         tag_str: 充值
-
+      wallet_sell:
+        title: 委托卖出
+        tag_str: 委托卖出
