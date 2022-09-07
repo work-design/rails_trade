@@ -3,10 +3,28 @@ module Trade
     before_action :set_wallet_template, if: -> { params[:wallet_template_id].present? }
     before_action :set_advance, only: [:show, :edit, :update, :destroy]
     before_action :set_new_advance, only: [:new, :create]
-    before_action :set_card_templates, only: [:new, :create, :edit, :update]
+    before_action :set_new_lawful_advance, only: [:lawful_new, :lawful_create]
+    before_action :set_card_templates, only: [:new, :create, :lawful_new, :edit, :update]
 
     def index
       @advances = @wallet_template.advances.order(id: :desc).page(params[:page])
+    end
+
+    def lawful
+      q_params = {
+        lawful: true
+      }
+      q_params.merge! default_params
+
+      @advances = Advance.default_where(q_params)
+    end
+
+    def lawful_new
+    end
+
+    def lawful_create
+      @advance.lawful = true
+      @advance.save
     end
 
     private
@@ -16,6 +34,10 @@ module Trade
 
     def set_new_advance
       @advance = @wallet_template.advances.build(advance_params)
+    end
+
+    def set_new_lawful_advance
+      @advance = Advance.new(advance_params)
     end
 
     def set_advance

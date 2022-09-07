@@ -44,6 +44,7 @@
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.card_templates.index.title'), { controller: 'trade/admin/card_templates' }, class: active_helper(controllers: ['card_templates', 'cards', 'advances', 'purchases', 'privileges', 'card_promotes'], active: 'is-active') %>
     <%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'trade/admin/wallet_templates' }, class: active_helper(controllers: ['wallet_templates', 'custom_wallets'], active: 'is-active') %>
+    <%= link_to t('trade.admin.advances.lawful.title'), { controller: 'trade/admin/advances', action: 'lawful' }, class: active_helper(wallets: 'lawful', active: 'is-active') %>
     <%= link_to t('trade.admin.lawful_wallets.index.title'), { controller: 'trade/admin/lawful_wallets' }, class: active_helper(controllers: ['lawful_wallets'], active: 'is-active') %>
   </div>
 </div>

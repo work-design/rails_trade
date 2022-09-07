@@ -128,6 +128,10 @@ zh:
       advances:
         index:
           title: 充值设置
+        lawful:
+          title: 法定钱包充值
+        lawful_new:
+          title: 充值
       wallet_templates:
         index:
           title: 钱包

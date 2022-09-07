@@ -31,7 +31,11 @@ module Trade
     end
 
     def sync_name
-      self.name = "#{wallet_template.name}-#{amount}"
+      if wallet_template.present?
+        self.name = "#{wallet_template.name}-#{amount}"
+      else
+        self.name = "#{amount}"
+      end
     end
 
     def order_paid(item)

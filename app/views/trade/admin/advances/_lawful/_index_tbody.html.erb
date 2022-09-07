@@ -1,0 +1,16 @@
+<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.price.to_money.format(html_wrap: true).html_safe %></td>
+<td>
+<% if model.card_template %>
+  <div class="is-several">
+    <%= image_tag model.card_template.logo, class: 'image is-24x24' if model.card_template.logo.attached? %>
+    <span><%= model.card_template.name %></span>
+  </div>
+<% end %>
+</td>
+<td>
+  <%= form_with theme: nil, model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :open, data: { input_target: 'checkbox' }, id: nil, class: 'switch is-rounded' %>
+    <label data-action="click->input#check"></label>
+  <% end %>
+</td>
