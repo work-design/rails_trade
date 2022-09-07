@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope RailsCom.default_routes_scope do
     concern :orderable do
+      resource :lawful_wallet
       resources :orders do
         collection do
           get 'cart/:current_cart_id' => :cart
@@ -45,7 +46,7 @@ Rails.application.routes.draw do
         end
       end
       resources :wallet_templates
-      resources :wallets do
+      resources :wallets, except: [:index, :show] do
         resources :wallet_logs, only: [:index, :show]
       end
       resources :payments do

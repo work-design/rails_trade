@@ -8,12 +8,12 @@ module Trade
       has_one :lawful_wallet, class_name: 'Trade::LawfulWallet'
 
       has_many :carts, class_name: 'Trade::Cart'
-      has_many :wallets, class_name: 'Trade::Wallet'
+      has_many :wallets, class_name: 'Trade::CustomWallet'
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, class_name: 'Trade::Order'
       has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_user_id
       has_many :items, class_name: 'Trade::Item'
-      has_many :rents, -> { aim_rent }, class_name: 'Trade::Item'
+      has_many :rent_items, -> { aim_rent }, class_name: 'Trade::Item'
       has_many :payments, class_name: 'Trade::Payment'
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
