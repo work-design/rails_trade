@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :promote_goods_count, :integer, default: 0
 
-      has_one :lawful_wallet, ->{ where(lawful: true) }, class_name: 'Trade::Wallet'
+      has_one :lawful_wallet, class_name: 'Trade::LawfulWallet'
 
       has_many :carts, class_name: 'Trade::Cart'
       has_many :wallets, class_name: 'Trade::Wallet'
@@ -18,6 +18,10 @@ module Trade
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
       has_many :cart_items, ->{ carting }, class_name: 'Trade::Item'
+    end
+
+    def lawful_wallet
+      super || create_lawful_wallet
     end
 
     def give_cash(amount, note: nil, **options)

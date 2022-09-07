@@ -35,7 +35,7 @@ module Trade
     end
 
     def init_name
-      self.name ||= maintain.client.name if respond_to?(:maintain)
+      self.name ||= maintain.client.name if respond_to?(:maintain) && maintain
     end
 
     def compute_expense_amount
