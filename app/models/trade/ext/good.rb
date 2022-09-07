@@ -16,7 +16,7 @@ module Trade
       attribute :invest_ratio, :decimal, precision: 4, scale: 2, default: 0, comment: '抽成比例'
       attribute :good_type, :string, default: -> { base_class.name }
 
-      has_many :items, class_name: 'Trade::Item', as: :good, autosave: true
+      has_many :items, class_name: 'Trade::Item', as: :good
       has_many :orders, through: :items, source: :trade
       has_many :addresses, -> { distinct }, class_name: 'Factory::Address', through: :items
 
