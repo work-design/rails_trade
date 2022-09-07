@@ -36,6 +36,12 @@ module Trade
       #self.retail_price + self.promote_price
     end
 
+    def deal_rest_item
+      items.default_where('rest_number-gt': 0).each do |item|
+        self.order_paid(item)
+      end
+    end
+
     def valid_promote_goods
       PromoteGood.valid.where(good_type: self.class_name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.select(:promote_id).unavailable)
     end
