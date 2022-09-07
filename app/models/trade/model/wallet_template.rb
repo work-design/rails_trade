@@ -26,10 +26,16 @@ module Trade
       has_one_attached :logo
 
       validates :code, uniqueness: { scope: :organ_id }
+
+      after_update :set_lawful, if: -> { lawful? && saved_change_to_lawful? }
     end
 
     def step
       (10 ** -digit)
+    end
+
+    def set_lawful
+      self.class.where.not(id: self.id).where(organ_id: self.organ_id).update_all(lawful: false)
     end
 
     def set_wallets_default
