@@ -131,9 +131,12 @@ zh:
       wallet_templates:
         index:
           title: 钱包
-      wallets:
+      custom_wallets:
         index:
           title: 钱包明细
+      lawful_wallets:
+        index:
+          title: 法定钱包
       wallet_logs:
         index:
           title: 使用明细

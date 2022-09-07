@@ -13,7 +13,6 @@ module Trade
       attribute :enabled, :boolean, default: true
       attribute :unit, :string
       attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
-      attribute :lawful, :boolean, default: false, comment: '是否法币，只支持一个法币'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -26,20 +25,10 @@ module Trade
       has_one_attached :logo
 
       validates :code, uniqueness: { scope: :organ_id }
-
-      after_update :set_lawful, if: -> { lawful? && saved_change_to_lawful? }
     end
 
     def step
       (10 ** -digit)
-    end
-
-    def set_lawful
-      self.class.where.not(id: self.id).where(organ_id: self.organ_id).update_all(lawful: false)
-    end
-
-    def set_wallets_default
-      self.wallets.update(default: true)
     end
 
   end

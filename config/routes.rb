@@ -224,19 +224,21 @@ Rails.application.routes.draw do
           end
         end
         resources :wallet_templates do
-          resources :advances
-          resources :wallet_prepayments
-          resources :wallets do
-            resources :wallet_payments
-            resources :wallet_advances
-            resources :wallet_logs
-            resources :payouts do
-              member do
-                put :do_pay
-              end
+          resources :custom_wallets
+        end
+        resources :lawful_wallets
+        resources :wallets do
+          resources :wallet_payments
+          resources :wallet_advances
+          resources :wallet_logs
+          resources :payouts do
+            member do
+              put :do_pay
             end
           end
         end
+        resources :advances
+        resources :wallet_prepayments
       end
 
       namespace :in, defaults: { namespace: 'in' } do

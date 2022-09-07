@@ -3,21 +3,17 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :type, :string
       attribute :name, :string
       attribute :amount, :decimal, default: 0
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
-      attribute :withdrawable_amount, :decimal, comment: '可提现的额度'
-      attribute :account_bank, :string
-      attribute :account_name, :string
-      attribute :account_number, :string
       attribute :lock_version, :integer
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
-      belongs_to :wallet_template, counter_cache: true
 
       has_many :wallet_logs
       has_many :payouts

@@ -6,8 +6,9 @@ module Trade
       attribute :token, :string
       attribute :amount, :decimal
       attribute :expire_at, :datetime
+      attribute :lawful, :boolean, default: false
 
-      belongs_to :wallet_template
+      belongs_to :wallet_template, optional: true
 
       before_validation :update_token, if: -> { new_record? }
     end

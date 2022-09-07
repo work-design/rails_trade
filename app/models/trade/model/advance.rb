@@ -7,8 +7,9 @@ module Trade
       attribute :price, :decimal
       attribute :apple_product_id, :string, comment: 'For 苹果应用内支付'
       attribute :open, :boolean, default: false
+      attribute :lawful, :boolean, default: false, comment: '是否法币'
 
-      belongs_to :wallet_template
+      belongs_to :wallet_template, optional: true
       belongs_to :card_template, optional: true
 
       has_many :wallet_advances

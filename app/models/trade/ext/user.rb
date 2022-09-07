@@ -5,6 +5,8 @@ module Trade
     included do
       attribute :promote_goods_count, :integer, default: 0
 
+      has_one :lawful_wallet, ->{ where(lawful: true) }, class_name: 'Trade::Wallet'
+
       has_many :carts, class_name: 'Trade::Cart'
       has_many :wallets, class_name: 'Trade::Wallet'
       has_many :cards, class_name: 'Trade::Card'

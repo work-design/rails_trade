@@ -19,15 +19,3 @@
     <span><%= @wallet.wallet_template.unit %></span>
   </td>
 </tr>
-<tr>
-  <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:account_bank) %></td>
-  <td><%= @wallet.account_bank %></td>
-</tr>
-<tr>
-  <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:account_name) %></td>
-  <td><%= @wallet.account_name %></td>
-</tr>
-<tr>
-  <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:account_number) %></td>
-  <td><%= @wallet.account_number %></td>
-</tr>

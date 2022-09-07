@@ -1,5 +1,5 @@
 module Trade
-  class Admin::WalletsController < Admin::BaseController
+  class Admin::CustomWalletsController < Admin::BaseController
     before_action :set_wallet_template
     before_action :set_wallet, only: [:show, :edit, :update, :destroy, :actions]
 
