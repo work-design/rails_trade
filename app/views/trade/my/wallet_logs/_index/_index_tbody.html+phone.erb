@@ -1,6 +1,10 @@
 <p class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>">
-  <span><%= model.amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
-  <span><%= model.wallet_template.unit %></span>
+  <% if model.wallet.is_a?(Trade::LawfulWallet) %>
+    <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+  <% else %>
+    <span><%= model.amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
+    <span><%= model.wallet_template.unit %></span>
+  <% end %>
   <span class="tag"><%= model.tag_str %></span>
 </p>
 <p class="is-size-7 has-text-grey">

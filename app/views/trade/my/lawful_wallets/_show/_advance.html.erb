@@ -6,8 +6,7 @@
     <% end %>
     <%= button_tag class: 'has-background-light py-4' do %>
       <div class="header has-text-grey">
-        <span><%= advance.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-        <span><%= @wallet.wallet_template.unit %></span>
+        <span><%= advance.amount.to_money.format(html_wrap: true).html_safe %></span>
       </div>
       <div class="description has-text-danger"><%= advance.price.to_money.format(html_wrap: true).html_safe %></div>
     <% end %>

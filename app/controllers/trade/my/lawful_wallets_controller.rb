@@ -4,6 +4,10 @@ module Trade
     before_action :set_new_order, only: [:show]
 
     def show
+      q_params = { lawful: true }
+      q_params.merge! default_params
+
+      @advances = Advance.default_where(q_params)
     end
 
     private

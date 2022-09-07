@@ -49,7 +49,7 @@ module Trade
     end
 
     def advance_params
-      params.fetch(:advance, {}).permit(
+      p = params.fetch(:advance, {}).permit(
         :price,
         :amount,
         :wallet_template_id,
@@ -57,6 +57,7 @@ module Trade
         :open,
         :logo
       )
+      p.merge! default_form_params
     end
   end
 end

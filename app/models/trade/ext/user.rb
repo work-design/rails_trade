@@ -8,7 +8,8 @@ module Trade
       has_one :lawful_wallet, class_name: 'Trade::LawfulWallet'
 
       has_many :carts, class_name: 'Trade::Cart'
-      has_many :wallets, class_name: 'Trade::CustomWallet'
+      has_many :wallets, class_name: 'Trade::Wallet'
+      has_many :custom_wallets, class_name: 'Trade::CustomWallet'
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, class_name: 'Trade::Order'
       has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_user_id
