@@ -1,5 +1,5 @@
 module Trade
-  module Model::WalletAdvance
+  module Model::WalletSell
     extend ActiveSupport::Concern
 
     included do
@@ -7,9 +7,6 @@ module Trade
       attribute :amount, :decimal
       attribute :note, :string
 
-      enum kind: {
-        given: 'given'  # 系统赠送
-      }
       enum state: {
         success: 'success',
         failed: 'failed'
@@ -18,9 +15,7 @@ module Trade
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :wallet
-      belongs_to :advance, optional: true
       belongs_to :item, optional: true
-      belongs_to :card_prepayment, optional: true
 
       has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source, dependent: :destroy
 
