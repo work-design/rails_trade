@@ -18,10 +18,11 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       has_many :wallet_logs
+      has_many :wallet_sells
       has_many :payouts
       has_many :wallet_advances
-      has_many :wallet_payments, inverse_of: :wallet, dependent: :nullify  # expense
-      has_many :wallet_refunds, dependent: :nullify
+      has_many :wallet_payments, inverse_of: :wallet  # expense
+      has_many :wallet_refunds
 
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }

@@ -1,7 +1,7 @@
 module Trade
   class Admin::WalletLogsController < Admin::BaseController
     before_action :set_wallet
-    before_action :set_wallet_log, only: [:show, :edit, :update, :destroy]
+    before_action :set_wallet_log, only: [:show, :edit, :update, :destroy, :actions]
 
     def index
       q_params = {}

@@ -240,6 +240,7 @@ Rails.application.routes.draw do
           resources :wallet_payments
           resources :wallet_advances
           resources :wallet_logs
+          resources :wallet_sells
           resources :payouts do
             member do
               put :do_pay
