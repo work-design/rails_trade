@@ -293,6 +293,10 @@ Rails.application.routes.draw do
     [:trade, :my, purchase.card_template, options]
   end
   resolve 'Trade::Advance' do |advance, options|
-    [:trade, :my, advance.wallet_template, options]
+    if advance.wallet_template_id
+      [:trade, :my, advance.wallet_template, options]
+    else
+      [:trade, :my, advance, options]
+    end
   end
 end
