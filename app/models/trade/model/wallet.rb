@@ -6,6 +6,8 @@ module Trade
       attribute :type, :string
       attribute :name, :string
       attribute :amount, :decimal, default: 0
+      attribute :advances_amount, :decimal
+      attribute :sells_amount, :decimal
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
       attribute :lock_version, :integer
@@ -43,9 +45,9 @@ module Trade
     end
 
     def compute_income_amount
-      r1 = self.wallet_advances.sum(:amount)
-      r2 = wallet_sells.sum(:amount)
-      r1 + r2
+      self.advances_amount = wallet_advances.sum(:amount)
+      self.sells_amount = wallet_sells.sum(:amount)
+      self.advances_amount + self.sells_amount
     end
 
     def compute_amount
