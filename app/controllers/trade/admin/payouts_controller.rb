@@ -9,34 +9,6 @@ module Trade
       @payouts = Payout.default_where(q_params).page(params[:page])
     end
 
-    def new
-      @payout = Payout.new
-    end
-
-    def create
-      @payout = Payout.new(payout_params)
-
-      if @payout.save
-        render 'create'
-      else
-        render :new, locals: { model: @payout }, status: :unprocessable_entity
-      end
-    end
-
-    def show
-    end
-
-    def edit
-    end
-
-    def update
-      @payout.assign_attributes(payout_params)
-
-      unless @payout.save
-        render :edit, locals: { model: @payout }, status: :unprocessable_entity
-      end
-    end
-
     def do_pay
       @payout.do_pay
     end

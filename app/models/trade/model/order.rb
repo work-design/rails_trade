@@ -58,15 +58,16 @@ module Trade
       belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
 
+      has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, dependent: :destroy_async
       accepts_nested_attributes_for :payment_orders
       has_many :payments, through: :payment_orders, inverse_of: :orders
-      has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :promote_goods, -> { available }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
+      has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, class_name: 'CustomWallet', primary_key: :user_id, foreign_key: :user_id
+      has_many :promote_goods, -> { available }, primary_key: :user_id, foreign_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :items, inverse_of: :order
       has_many :available_item_promotes, -> { includes(:promote) }, through: :items, source: :item_promotes

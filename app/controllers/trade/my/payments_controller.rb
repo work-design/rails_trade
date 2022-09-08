@@ -11,14 +11,6 @@ module Trade
       @payments = current_user.payments.page(params[:page])
     end
 
-    def create
-      if @payment.save
-        render 'create'
-      else
-        render :new, locals: { model: @payment }, status: :unprocessable_entity
-      end
-    end
-
     def order_new
       @payment.total_amount = @order.unreceived_amount
     end
@@ -69,10 +61,6 @@ module Trade
       else
         render 'wxpay'
       end
-    end
-
-    def edit
-      @payment = Payment.find params[:id]
     end
 
     private

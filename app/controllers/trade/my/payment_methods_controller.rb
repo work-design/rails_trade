@@ -18,12 +18,6 @@ module Trade
       end
     end
 
-    def show
-    end
-
-    def edit
-    end
-
     def update
       @payment_method.assign_attributes(payment_method_params)
 
@@ -32,10 +26,6 @@ module Trade
       else
         render :edit
       end
-    end
-
-    def destroy
-      @payment_method.destroy
     end
 
     private

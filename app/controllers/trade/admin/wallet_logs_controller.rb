@@ -10,9 +10,6 @@ module Trade
       @wallet_logs = WalletLog.includes(wallet: :wallet_template).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
     private
     def set_wallet
       @wallet = Wallet.find params[:wallet_id]
