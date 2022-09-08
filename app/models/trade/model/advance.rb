@@ -25,7 +25,7 @@ module Trade
       validates :price, uniqueness: { scope: :wallet_template_id }
 
       has_one_attached :logo
-      delegate :cover, :organ_id, to: :wallet_template
+      delegate :cover, to: :wallet_template
 
       before_validation :sync_name, if: -> { (changes.keys & ['wallet_template_id', 'amount']).present? }
     end
