@@ -1,8 +1,12 @@
 <tr>
   <td class="has-text-right"><%= Trade::WalletAdvance.human_attribute_name(:amount) %></td>
   <td>
+  <% if @wallet.wallet_template_id %>
     <span><%= @wallet_advance.amount %></span>
     <span><%= @wallet.wallet_template.unit %></span>
+  <% else %>
+    <span><%= @wallet_advance.amount.to_money.format(html_wrap: true).html_safe %></span>
+  <% end %>
   </td>
 </tr>
 <tr>

@@ -1,6 +1,10 @@
 <td>
+<% if @wallet.wallet_template_id %>
   <span><%= model.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
   <span><%= @wallet.wallet_template.unit %></span>
+<% else %>
+  <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+<% end %>
 </td>
 <td>
 <% if model.item %>
