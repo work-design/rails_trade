@@ -1,8 +1,12 @@
 <td><%= model.title %></td>
 <td><%= model.tag_str %></td>
 <td>
+<% if model.wallet.wallet_template_id %>
   <span><%= model.amount.to_fs(:rounded, precision: model.wallet.wallet_template.digit) %></span>
   <span><%= model.wallet.wallet_template.unit %></span>
+<% else %>
+  <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+<% end %>
 </td>
 <td>
   <p><%= model.source_type %></p>
