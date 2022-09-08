@@ -3,7 +3,13 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      has_many :cards, class_name: 'Trade::Card', as: :client
+      has_one :lawful_wallet, class_name: 'Trade::LawfulWallet'
+
+      has_many :cards, class_name: 'Trade::Card'
+    end
+
+    def lawful_wallet
+      super || create_lawful_wallet
     end
 
   end
