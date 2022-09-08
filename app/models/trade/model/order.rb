@@ -289,5 +289,13 @@ module Trade
       WalletTemplate.where(code: codes).pluck(:id)
     end
 
+    def lawful_wallet_pay
+      payment_order = payment_orders.build(order_amount: amount, payment_amount: amount)
+      payment_order.state = 'confirmed'
+      payment = payment_order.build_payment(type: 'Trade::WalletPayment', total_amount: amount)
+      payment.wallet = lawful_wallet
+      payment
+    end
+
   end
 end
