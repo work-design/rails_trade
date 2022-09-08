@@ -236,7 +236,7 @@ Rails.application.routes.draw do
           resources :advances, shallow: true
         end
         resources :lawful_wallets
-        resources :wallets do
+        resources :wallets, only: [] do
           resources :wallet_payments
           resources :wallet_advances
           resources :wallet_logs

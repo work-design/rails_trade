@@ -14,7 +14,7 @@
   <% end %>
 </td>
 <td>
-  <%= link_to({ controller: 'wallets', wallet_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
+  <%= link_to({ controller: 'custom_wallets', wallet_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-rounded is-light') do %>
     <i class="fa-regular fa-bars"></i>
     <span>（<%= model.wallets_count %>）</span>
   <% end %>
