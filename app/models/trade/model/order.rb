@@ -13,6 +13,7 @@ module Trade
       attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
       attribute :pay_later, :boolean, default: false
+      attribute :pay_auto, :boolean, default: false
       attribute :amount, :decimal
       attribute :received_amount, :decimal
       attribute :unreceived_amount, :decimal
@@ -91,6 +92,7 @@ module Trade
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
+      after_save_commit :lawful_wallet_pay, if: -> { pay_auto? && saved_change_to_pay_auto? }
     end
 
     def filter_hash
@@ -290,10 +292,12 @@ module Trade
     end
 
     def lawful_wallet_pay
+      return unless can_pay?
       payment_order = payment_orders.build(order_amount: amount, payment_amount: amount)
       payment_order.state = 'confirmed'
       payment = payment_order.build_payment(type: 'Trade::WalletPayment', total_amount: amount)
       payment.wallet = lawful_wallet
+      payment.save
       payment
     end
 
