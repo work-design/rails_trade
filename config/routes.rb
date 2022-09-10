@@ -46,7 +46,7 @@ Rails.application.routes.draw do
         end
       end
       resources :wallet_templates
-      resources :wallets, except: [:index, :show] do
+      resources :wallets, only: [:index, :show] do
         resources :wallet_logs, only: [:index, :show]
       end
       resources :payments do
@@ -269,7 +269,6 @@ Rails.application.routes.draw do
           end
           resources :card_purchases
         end
-
         resources :payouts, only: [:index, :create] do
           collection do
             get :list

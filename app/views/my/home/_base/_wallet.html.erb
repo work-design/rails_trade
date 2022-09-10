@@ -1,0 +1,9 @@
+<%= link_to({ controller: 'trade/my/wallets', action: 'show', id: wallet.id, **params.permit(:global_member_id) }, class: 'column is-one-third has-block-centered') do %>
+  <div class="is-several">
+    <%= image_tag wallet.wallet_template.logo, class: 'image is-16x16' if wallet.wallet_template.logo.attached? %>
+    <span class="ml-1 has-text-grey-dark is-size-7"><%= wallet.wallet_template.name %></span>
+  </div>
+  <div class="has-text-weight-medium has-text-danger-dark is-family-zhushi is-size-5">
+    <%= wallet.amount.to_fs(:rounded, precision: wallet.wallet_template.digit) %>
+  </div>
+<% end %>
