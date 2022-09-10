@@ -30,8 +30,12 @@
     <span class="weui-form-preview__value">
       <% if model.payment.type == 'Trade::WalletPayment' %>
       <span class="tag">
+      <% if model.payment.wallet.is_a?(Trade::LawfulWallet) %>
+        <span><%= model.payment_amount.to_money.format(html_wrap: true).html_safe %></span>
+      <% else %>
         <span><%= model.payment_amount.to_fs(:rounded, precision: model.payment.wallet.wallet_template.digit) %></span>
         <span><%= model.payment.wallet.wallet_template.unit %></span>
+      <% end %>
       </span>
       <% end %>
       <span class="has-text-danger"><%= model.order_amount.to_money.format(html_wrap: true).html_safe %></span>

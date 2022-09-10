@@ -17,6 +17,8 @@ module Trade
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
+      belongs_to :wallet_template, counter_cache: true
+
       has_many :wallet_logs
       has_many :wallet_sells
       has_many :payouts
