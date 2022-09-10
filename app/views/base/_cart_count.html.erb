@@ -2,11 +2,7 @@
   <div class="level-left is-flex">
     <%= link_to({ controller: 'trade/my/carts', action: 'show', id: @cart.id }, class: 'level-item mb-0') do %>
       <i class="fa-solid fa-bag-shopping fa-2x fa-weui-badge">
-        <span class="weui-badge">
-          <span><%= @cart.items.count %></span>
-          <span>/</span>
-          <span><%= @cart.items.sum(:number) %></span>
-        </span>
+        <span class="weui-badge"><%= @cart.items.count %></span>
       </i>
     <% end %>
     <div class="level-item pl-4 is-align-items-baseline">
