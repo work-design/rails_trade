@@ -105,6 +105,10 @@ module Trade
       self.changes
     end
 
+    def need_address?
+      ['use', 'rent'].include?(aim)
+    end
+
     def get_item(good_type:, good_id:, aim: 'use', number: 1, **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
       args.reject!(&->(_, v){ v.blank? })
