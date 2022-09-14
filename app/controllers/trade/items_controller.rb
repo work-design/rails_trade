@@ -6,7 +6,7 @@ module Trade
 
     def month
       q_params = {
-        #good_type: ['Ship::BoxHost', 'Ship::BoxSell']
+        #good_type: ['Ship::BoxHost']
       }
       x = Arel.sql("date_trunc('month', created_at, '#{Time.zone.tzinfo.identifier}')")
 
