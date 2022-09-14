@@ -1,4 +1,9 @@
 <p class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>">
+  <% if model.source_type == 'Trade::WalletSell' %>
+    <span><%= model.source.selled.done_amount %></span>
+    <span>*</span>
+    <span><%= model.source.selled.price.to_money.format(html_wrap: true).html_safe %></span>
+  <% end %>
   <% if model.wallet.is_a?(Trade::LawfulWallet) %>
     <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
   <% else %>
