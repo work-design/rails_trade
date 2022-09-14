@@ -7,7 +7,7 @@ module Trade
     before_action :set_card_templates, only: [:new, :create, :lawful_new, :edit, :update]
 
     def index
-      @advances = @wallet_template.advances.order(id: :desc).page(params[:page])
+      @advances = @wallet_template.advances.order(amount: :asc).page(params[:page])
     end
 
     def lawful
@@ -16,7 +16,7 @@ module Trade
       }
       q_params.merge! default_params
 
-      @advances = Advance.default_where(q_params)
+      @advances = Advance.default_where(q_params).order(amount: :asc)
     end
 
     def lawful_new
