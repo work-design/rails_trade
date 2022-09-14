@@ -6,7 +6,11 @@
 <% end %>
   <span class="tag"><%= model.aim_i18n %></span>
 </td>
-<td><%= model.number %></td>
+<td>
+  <span><%= model.number %></span>
+  <span>/</span>
+  <span><%= model.done_number %></span>
+</td>
 <td>
   <p class="has-text-grey"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></p>
   <p><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></p>
