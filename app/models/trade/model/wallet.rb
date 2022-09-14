@@ -17,7 +17,7 @@ module Trade
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :wallet_template, counter_cache: true
+      belongs_to :wallet_template, counter_cache: true, optional: true
 
       has_many :wallet_logs
       has_many :wallet_sells
@@ -30,13 +30,8 @@ module Trade
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
-      before_validation :init_from_template, if: -> { wallet_template_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
-    end
-
-    def init_from_template
-      self.organ_id = wallet_template.organ_id
     end
 
     def init_name
