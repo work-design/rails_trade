@@ -21,5 +21,15 @@ module Trade
       scope :rented, -> { where(rented: true) }
     end
 
+    def do_rent(item)
+      self.held_user_id = item.user_id
+      self.held_organ_id = item.member_organ_id
+      self.rented = true
+      self.rents.build(item_id: item.id)
+      self
+
+      save
+    end
+
   end
 end
