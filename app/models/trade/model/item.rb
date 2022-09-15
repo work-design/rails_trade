@@ -7,7 +7,7 @@ module Trade
       attribute :uuid, :string
       attribute :good_name, :string
       attribute :number, :integer, default: 1, comment: '数量'
-      attribute :done_number, :integer, default: 0
+      attribute :done_number, :integer, default: 0, comment: '已达成交易数量'
       attribute :rest_number, :integer
       attribute :weight, :integer, default: 1, comment: '重量'
       attribute :duration, :integer, default: 0, comment: '占用时长'
@@ -31,8 +31,8 @@ module Trade
       attribute :organ_ancestor_ids, :json, default: []
       attribute :rent_start_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
-      attribute :rents_count, :integer, default: 0
-      attribute :renting_count, :integer, default: 0
+      attribute :rents_count, :integer, default: 0, comment: '已交割的数量'
+      attribute :renting_count, :integer, default: 0, comment: ''
 
       enum status: {
         init: 'init',
