@@ -33,6 +33,7 @@ module Trade
       attribute :rent_estimate_finish_at, :datetime
       attribute :rents_count, :integer, default: 0, comment: '已交割的数量'
       attribute :renting_count, :integer, default: 0, comment: ''
+      attribute :rest_rents_count, :integer, as: 'number - rents_count', virtual: true
 
       enum status: {
         init: 'init',
