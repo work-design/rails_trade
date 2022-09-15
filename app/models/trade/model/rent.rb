@@ -38,7 +38,7 @@ module Trade
         r = estimate_finish_at - start_at
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[promote.unit_code].ceil
+      self.duration = x[promote.unit_code].ceil if promote
     end
 
     def xx
