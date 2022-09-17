@@ -93,7 +93,6 @@ module Trade
       has_many :cards, ->(o){ includes(:card_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, ->(o){ includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :item, dependent: :destroy_async
-      has_many :rents
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
 
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
@@ -386,10 +385,6 @@ module Trade
       self.duration = rents.sum(&:duration)
       order.compute_promote
       order
-    end
-
-    def compute_rent_amount
-      self.amount = rents.sum(&->(i){ i.amount.to_d })
     end
 
     def sync_rent_amount_to_order!

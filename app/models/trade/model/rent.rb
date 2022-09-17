@@ -15,9 +15,7 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
-      belongs_to :item, counter_cache: true
 
-      before_validation :sync_from_item, if: -> { item_id_changed? && item }
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
       before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
       before_save :compute_invest_amount, if: -> { amount_changed? }
@@ -41,16 +39,12 @@ module Trade
       self.duration = x[promote.unit_code].ceil if promote
     end
 
-    def xx
-      item.status = 'done'
-    end
-
     def promote
-      item.good.available_promotes.find_by(metering: 'duration')
+      good.available_promotes.find_by(metering: 'duration')
     end
 
     def compute_amount
-      results = promote.compute_price(duration, **item.extra)
+      results = promote.compute_price(duration, **extra)
       self.amount = results.sum
     end
 
@@ -61,13 +55,7 @@ module Trade
     def sync_rentable_state
       rentable.rented = false
       rentable.held_user_id = nil
-
-      item.compute_rent_amount
-
-      self.class.transaction do
-        item.save!
-        rentable.save!
-      end
+      rentable.save!
     end
 
   end
