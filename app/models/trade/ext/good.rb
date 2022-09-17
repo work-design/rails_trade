@@ -83,10 +83,6 @@ module Trade
       puts 'order_part_paid Should realize in good entity'
     end
 
-    def order_pay_later(item = nil)
-      puts 'order_pay_later Should realize in good entity'
-    end
-
     def order_refund(item = nil)
       puts 'order_refund Should realize in good entity'
     end

@@ -168,7 +168,7 @@ module Trade
       item.address_id = address_id
 
       if pay_later
-        item.status = 'pay_later'
+        item.status = 'deliverable'
       else
         item.status = 'ordered'
       end
@@ -225,7 +225,7 @@ module Trade
     def confirm_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.items.each(&->(i){ i.status = 'paid'})
+      self.items.each(&->(i){ i.status = 'deliverable'})
       self.save
       send_notice
     end

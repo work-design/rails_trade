@@ -40,9 +40,8 @@ module Trade
         checked: 'checked',
         ordered: 'ordered',
         trial: 'trial',
-        paid: 'paid',
+        deliverable: 'deliverable',
         part_paid: 'part_paid',
-        pay_later: 'pay_later',
         refund: 'refund',
         packaged: 'packaged',
         done: 'done',
@@ -102,7 +101,7 @@ module Trade
 
       scope :carting, ->{ where(status: ['init', 'checked', 'trial', 'expired']) }
       scope :checked, ->{ where(status: ['checked', 'trial']) }
-      scope :deliverable, ->{ where(status: ['paid', 'packaged']) }
+      scope :deliverable, ->{ where(status: ['deliverable', 'packaged']) }
       scope :packable, ->{ where(status: ['paid']) }
       scope :packaged, ->{ where(status: ['packaged', 'done']) }
 
@@ -124,7 +123,7 @@ module Trade
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
-      after_save_commit :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'paid', 'part_paid', 'pay_later', 'refund'].include?(status) }
+      after_save_commit :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'deliverable', 'part_paid', 'refund'].include?(status) }
       after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_status? && ['ordered'].include?(status) }
 
       acts_as_notify(
@@ -336,12 +335,10 @@ module Trade
         self.good.order_done(self)
       when 'trial'
         self.good.order_trial(self)
-      when 'paid'
+      when 'deliverable'
         self.good.order_paid(self)
       when 'part_paid'
         self.good.order_part_paid(self)
-      when 'pay_later'
-        self.good.order_pay_later(self)
       when 'refund'
         self.good.order_refund(self)
       else
