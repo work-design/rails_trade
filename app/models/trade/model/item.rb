@@ -31,9 +31,6 @@ module Trade
       attribute :organ_ancestor_ids, :json, default: []
       attribute :rent_start_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
-      attribute :rents_count, :integer, default: 0, comment: '已交割的数量'
-      attribute :renting_count, :integer, default: 0, comment: ''
-      attribute :rest_rents_count, :integer, as: 'number - rents_count', virtual: true
 
       enum status: {
         init: 'init',
