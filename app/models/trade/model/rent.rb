@@ -59,9 +59,7 @@ module Trade
 
     def sync_rentable_state
       rentable.rented = nil
-      rentable.held_user_id = nil
-      rentable.held_member_id = nil
-      rentable.held_organ_id = nil
+      rentable.held = false
       rentable.save!
     end
 
