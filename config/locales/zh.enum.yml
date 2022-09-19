@@ -63,7 +63,7 @@ zh:
           init: 初始状态
           checked: 已选中
           ordered: 已下单
-          paid: 已支付
+          deliverable: 可交付
           packaged: 已打包
           done: 已完成
           canceled: 已取消
