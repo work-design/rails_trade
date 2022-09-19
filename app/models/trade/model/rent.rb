@@ -4,7 +4,7 @@ module Trade
 
     included do
       attribute :amount, :decimal, comment: '价格小计'
-      attribute :start_at, :datetime
+      attribute :start_at, :datetime, default: -> { Time.current }
       attribute :finish_at, :datetime
       attribute :estimate_finish_at, :datetime
       attribute :duration, :integer, default: 0
@@ -22,11 +22,10 @@ module Trade
       after_save :sync_rentable_state, if: -> { saved_change_to_finish_at? }
     end
 
-    def sync_from_item
-      self.user_id = item.user_id
-      self.member_id = item.member_id
-      self.member_organ_id = item.member_organ_id
-      self.start_at = item.rent_start_at || Time.current
+    def sync_from_rentable
+      self.user_id = rentable.held_user_id
+      self.member_id = rentable.held_member_id
+      self.member_organ_id = rentable.held_organ_id
     end
 
     def sync_duration
@@ -53,8 +52,10 @@ module Trade
     end
 
     def sync_rentable_state
-      rentable.rented = false
+      rentable.rented = nil
       rentable.held_user_id = nil
+      rentable.held_member_id = nil
+      rentable.held_organ_id = nil
       rentable.save!
     end
 

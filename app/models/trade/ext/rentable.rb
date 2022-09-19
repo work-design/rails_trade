@@ -7,6 +7,7 @@ module Trade
       attribute :rented, :boolean, default: false
 
       belongs_to :held_user, class_name: 'Auth::User', optional: true
+      belongs_to :held_member, class_name: 'Org::Member', optional: true
       belongs_to :held_organ, class_name: 'Org::Organ', optional: true
 
       has_many :rents, class_name: 'Trade::Rent', as: :rentable
