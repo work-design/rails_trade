@@ -16,6 +16,7 @@ module Trade
 
       belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
 
+      before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
       before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
       before_save :compute_invest_amount, if: -> { amount_changed? }
@@ -23,6 +24,7 @@ module Trade
     end
 
     def sync_from_rentable
+      return unless rentable
       self.user_id = rentable.held_user_id
       self.member_id = rentable.held_member_id
       self.member_organ_id = rentable.held_organ_id
