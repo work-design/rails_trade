@@ -15,6 +15,12 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
+      belongs_to :good, polymorphic: true, optional: true
+
+      has_many :rent_promote_goods, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :rent_promotes, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_goods, source: :promote
+      has_one :rent_promote_good, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_one :rent_promote, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_good, source: :promote
 
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }
@@ -25,6 +31,7 @@ module Trade
 
     def sync_from_rentable
       return unless rentable
+      self.good = rentable.good
       self.user_id = rentable.held_user_id
       self.member_id = rentable.held_member_id
       self.member_organ_id = rentable.held_organ_id
@@ -37,15 +44,12 @@ module Trade
         r = estimate_finish_at - start_at
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[promote.unit_code].ceil if promote
-    end
-
-    def promote
-      good.available_promotes.find_by(metering: 'duration')
+      self.duration = x[rent_promote.unit_code].ceil if rent_promote
     end
 
     def compute_amount
-      results = promote.compute_price(duration, **extra)
+      return unless rent_promote
+      results = rent_promote.compute_price(duration, **extra)
       self.amount = results.sum
     end
 

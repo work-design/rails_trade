@@ -19,6 +19,10 @@ module Trade
       scope :rented, -> { where(rented: true) }
     end
 
+    # 需在模型中定义并覆盖
+    def good
+    end
+
     def do_rent(item)
       self.held_user_id = item.user_id
       self.held_organ_id = item.member_organ_id
