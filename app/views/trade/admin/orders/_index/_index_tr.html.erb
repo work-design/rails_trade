@@ -9,10 +9,10 @@
         <span><%= t('trade.admin.orders.payment_types.title') %></span>
       <% end if ['unpaid', 'part_paid'].include?(model.payment_status) %>
       <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-circle-info"></i>
+        <i class="fa-solid fa-circle-info"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-pencil"></i>
+        <i class="fa-solid fa-pencil"></i>
       <% end %>
     </div>
   </td>
