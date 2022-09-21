@@ -25,7 +25,7 @@
     <% end %>
   </div>
   <div class="weui-media-box__ft px-3">
-    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'button is-primary') do %>
+    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
       <i></i>
       <span><%= t('bench.my.facilitatings.index.title') %></span>
     <% end if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
