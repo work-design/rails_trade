@@ -18,7 +18,7 @@
           <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_start_at.to_fs(:iso8601) if item.rent_start_at %></time>
         </p>
         <p>
-          <span class="has-text-grey ml-4">计费</span>
+          <span class="has-text-grey">计费</span>
           <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
         </p>
       <% else %>
