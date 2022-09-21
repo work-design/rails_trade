@@ -30,6 +30,7 @@ module Trade
       attribute :fetch_finish_at, :datetime
       attribute :organ_ancestor_ids, :json, default: []
       attribute :rent_start_at, :datetime
+      attribute :rent_finish_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
 
       enum status: {
@@ -93,6 +94,9 @@ module Trade
 
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+
+      has_one :rent_promote_good, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_one :rent_promote, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_good, source: :promote
 
       has_one_attached :image
 
@@ -373,20 +377,25 @@ module Trade
       ItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
-    def compute(now = Time.current)
-      rents.each(&->(i){ i.compute_duration(now) })
-      self.duration = rents.sum(&:duration)
+    def compute
+      if finish_at
+        r = finish_at - start_at
+      else
+        r = estimate_finish_at - start_at
+      end
+      x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
+      self.duration = x[rent_promote.unit_code].ceil if rent_promote
       order.compute_promote
       order
     end
 
-    def sync_rent_amount_to_order!
-      order.sum_amount
+    def compute!
+      compute
       order.save
     end
 
-    def compute!(now = Time.current)
-      compute(now)
+    def sync_rent_amount_to_order!
+      order.sum_amount
       order.save
     end
 
