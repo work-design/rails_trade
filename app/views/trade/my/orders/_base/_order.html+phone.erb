@@ -9,7 +9,12 @@
   </div>
   <div class="weui-panel__ft">
     <%= link_to({ action: 'show', id: model.id }, class: 'weui-cell weui-cell_link') do %>
-      <div class="weui-cell__bd"></div>
+      <div class="weui-cell__bd">
+      <% if model.aim_rent? %>
+        <span class="has-text-grey">起租时间：</span>
+        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.rent_start_at.to_fs(:iso8601) %></time>
+      <% end %>
+      </div>
       <div class="weui-cell__ft">
         <span class="is-size-7">
           <span class="has-text-grey">总价：</span>
