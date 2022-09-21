@@ -331,11 +331,11 @@ module Trade
       case status
       when 'ordered'
         self.item_promotes.update(status: 'ordered')
-        self.update(rent_start_at: Time.current)
         self.good.order_done(self)
       when 'trial'
         self.good.order_trial(self)
       when 'deliverable'
+        self.update(rent_start_at: Time.current)
         self.good.order_paid(self)
       when 'part_paid'
         self.good.order_part_paid(self)
