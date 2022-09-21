@@ -241,7 +241,6 @@ module Trade
 
     def compute_rest_number
       self.rest_number = self.number - self.done_number
-      self.status = 'done' if self.rest_number <= 0
     end
 
     def compute_promotes
