@@ -1,9 +1,8 @@
 module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
-      :show, :edit, :update, :refund, :payment_types, :payment_type, :wait, :destroy, :cancel,
-      :paypal_pay, :stripe_pay, :alipay_pay, :paypal_execute, :wxpay_pay, :wxpay_pc_pay,
-      :package
+      :show, :edit, :update, :destroy, :actions,
+      :refund, :finish, :payment_types, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart]
     before_action :set_new_order, only: [:blank, :trial, :add, :create]
@@ -31,14 +30,6 @@ module Trade
     def add
       @order.valid?
       @order.sum_amount
-    end
-
-    def create
-      if @order.save
-        render 'create'
-      else
-        render :new, locals: { model: @order }, status: :unprocessable_entity
-      end
     end
 
     # todo part paid case
@@ -84,15 +75,11 @@ module Trade
       @order.save
     end
 
-    private
-    def current_wechat_app
-      if params[:appid]
-        Wechat::App.find_by appid: params[:appid]
-      else
-        super
-      end
+    def finish
+
     end
 
+    private
     def set_cart
       @cart = Cart.find params[:current_cart_id]
     end
