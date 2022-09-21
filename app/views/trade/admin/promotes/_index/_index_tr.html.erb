@@ -3,10 +3,10 @@
   <td>
     <div data-show-target="item" style="visibility: hidden">
       <%= link_to({ controller: 'promote_good_types', promote_id: model.id }, aria: { label: t('trade.admin.promote_good_types.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-gift"></i>
+        <i class="fa-solid fa-gift"></i>
       <% end %>
       <%= link_to({ controller: 'promote_charges', promote_id: model.id }, aria: { label: t('trade.admin.promote_charges.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-server"></i>
+        <i class="fa-solid fa-server"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil"></i>

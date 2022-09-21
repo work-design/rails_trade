@@ -2,10 +2,6 @@ zh:
   activerecord:
     enum:
       trade/card:
-        type:
-          Trade::CounterCard: 次卡
-          Trade::VipCard: 会员
-          Trade::SvfCard: 储值卡
         temporary:
           true: 临时卡
           false: 正式卡

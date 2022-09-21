@@ -1,6 +1,6 @@
 <div class="buttons are-small mb-0">
   <%= link_to({ action: 'lawful_new', **request.query_parameters.except(:id) }, data: { turbo_frame: 'modal', turbo_scroll: true }, class: 'button is-link') do %>
-    <i class="fa-regular fa-plus"></i>
+    <i class="fa-solid fa-plus"></i>
     <span class="pl-1"><%= t('.new') %></span>
   <% end %>
 </div>
