@@ -18,13 +18,15 @@
           <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_start_at.to_fs(:iso8601) if item.rent_start_at %></time>
         </p>
         <p>
-          <span class="has-text-grey">计费</span>
+          <span class="has-text-grey">计费：</span>
           <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
         </p>
       <% else %>
-        <span><%= item.single_price.to_money.format(html_wrap: true).html_safe %></span>
-        <span class="has-text-grey-lighter">x</span>
-        <span class="is-size-7"><%= item.number %></span>
+        <p>
+          <span><%= item.single_price.to_money.format(html_wrap: true).html_safe %></span>
+          <span class="has-text-grey-lighter">x</span>
+          <span class="is-size-7"><%= item.number %></span>
+        </p>
       <% end %>
       <% if item.respond_to?(:produce_plan) && item.produce_plan %>
         <p>
