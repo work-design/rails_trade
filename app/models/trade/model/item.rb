@@ -378,10 +378,10 @@ module Trade
     end
 
     def compute
-      if finish_at
-        r = finish_at - start_at
+      if rent_finish_at
+        r = rent_finish_at - rent_start_at
       else
-        r = estimate_finish_at - start_at
+        r = rent_estimate_finish_at - rent_start_at
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
