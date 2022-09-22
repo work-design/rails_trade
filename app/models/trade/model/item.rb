@@ -120,7 +120,7 @@ module Trade
       before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
-      after_save :sync_rent_amount_to_order!, if: -> { order_id.present? && aim_rent? && saved_change_to_amount? }
+      after_save :compute_rent!, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & changes.keys).present? }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
@@ -377,7 +377,8 @@ module Trade
       ItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
-    def compute
+    def compute_rent
+      return unless order
       if rent_finish_at
         r = rent_finish_at - rent_start_at
       else
@@ -386,15 +387,11 @@ module Trade
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
       order.compute_promote
-      order
+      self
     end
 
-    def compute!
-      compute
-      order.save
-    end
-
-    def sync_rent_amount_to_order!
+    def compute_rent!
+      compute_rent
       order.sum_amount
       order.save
     end

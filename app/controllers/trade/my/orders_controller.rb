@@ -75,10 +75,6 @@ module Trade
       @order.save
     end
 
-    def finish
-
-    end
-
     private
     def set_cart
       @cart = Cart.find params[:current_cart_id]

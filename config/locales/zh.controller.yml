@@ -193,6 +193,9 @@ zh:
       card_purchases:
         index:
           title: 续费记录
+      items:
+        finish:
+          title: 结算
     our:
       orders:
         index:

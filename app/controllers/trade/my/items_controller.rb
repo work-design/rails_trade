@@ -1,19 +1,15 @@
 module Trade
   class My::ItemsController < My::BaseController
-    before_action :set_item, only: [:show, :promote, :update, :toggle, :destroy]
+    before_action :set_item, only: [:show, :update, :destroy, :actions, :promote, :toggle, :finish]
     before_action :set_new_item, only: [:create, :trial]
 
-    def create
+    def trial
+      @item.status = 'trial'
       @item.save
     end
 
     def promote
       render layout: false
-    end
-
-    def trial
-      @item.status = 'trial'
-      @item.save
     end
 
     def toggle
@@ -23,6 +19,11 @@ module Trade
         @item.status = 'init'
       end
 
+      @item.save
+    end
+
+    def finish
+      @item.rent_finish_at = Time.current
       @item.save
     end
 

@@ -27,8 +27,9 @@ Rails.application.routes.draw do
           post :trial
         end
         member do
-          patch :toggle
           get :promote
+          patch :toggle
+          post :finish
         end
         resources :packageds
       end
