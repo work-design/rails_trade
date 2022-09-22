@@ -116,11 +116,10 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_save :sum_amount, if: -> { original_amount_changed? }
+      before_save :compute_rent, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & changes.keys).present? }
       before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
-      after_save :compute_rent!, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & saved_changes.keys).present? }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
@@ -256,6 +255,8 @@ module Trade
         item_promote.save
         item_promote
       end
+
+      sum_amount
     end
 
     def sum_amount
@@ -387,15 +388,6 @@ module Trade
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
-      order.compute_promote
-      self
-    end
-
-    def compute_rent!
-      compute_rent
-      self.sum_amount
-      order.sum_amount
-      order.save
     end
 
   end

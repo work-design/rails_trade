@@ -24,7 +24,13 @@ module Trade
 
     def finish
       @item.rent_finish_at = Time.current
-      @item.save
+      @item.valid?
+      @item.order.compute_promote
+
+      @item.class.transaction do
+        @item.save!
+        @item.order.save!
+      end
     end
 
     private
