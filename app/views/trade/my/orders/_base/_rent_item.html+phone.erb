@@ -7,9 +7,7 @@
   <div class="weui-media-box__bd">
     <%= link_to(item.good, text: true, class: 'weui-media-box__title') do %>
       <span><%= item.good_name %></span>
-      <% if ['rent', 'invest'].include?(item.aim) %>
-        <span class="tag is-danger"><%= item.aim_i18n %></span>
-      <% end %>
+      <span class="tag is-danger"><%= item.aim_i18n %></span>
     <% end %>
     <div class="pt-2">
       <p>
@@ -24,7 +22,7 @@
       <% end %>
       <p>
         <span class="has-text-grey">计费：</span>
-        <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
+        <span><%= item.wholesale_price.to_money.format(html_wrap: true).html_safe %></span>
       </p>
     </div>
   </div>
