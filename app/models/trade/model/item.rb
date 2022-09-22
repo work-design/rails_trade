@@ -116,7 +116,7 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_save :compute_rent, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & changes.keys).present? }
+      before_save :compute_duration, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & changes.keys).present? }
       before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
@@ -291,6 +291,11 @@ module Trade
       end
     end
 
+    def sync_promote_to_order
+      order.compute_promote
+      order.save
+    end
+
     def reset_amount
       self.additional_amount = item_promotes.default_where('amount-gte': 0).sum(:amount)
       self.reduced_amount = item_promotes.default_where('amount-lt': 0).sum(:amount)
@@ -374,7 +379,7 @@ module Trade
       ItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
-    def compute_rent
+    def compute_duration
       return unless order
       if rent_finish_at
         r = rent_finish_at - rent_start_at
@@ -383,11 +388,6 @@ module Trade
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
-    end
-
-    def sync_promote_to_order
-      order.compute_promote
-      order.save
     end
 
   end
