@@ -12,16 +12,16 @@ module Trade
       attribute :weight, :integer, default: 1, comment: '重量'
       attribute :duration, :integer, default: 0, comment: '占用时长'
       attribute :volume, :integer, default: 0, comment: '体积'
-      attribute :amount, :decimal
       attribute :vip_code, :string
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
+      attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
       attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
-      attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
-      attribute :note, :string
+      attribute :amount, :decimal
       attribute :advance_amount, :decimal, default: 0
+      attribute :note, :string
       attribute :extra, :json, default: {}
       attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
