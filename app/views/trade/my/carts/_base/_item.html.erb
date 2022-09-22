@@ -10,7 +10,12 @@
   </td>
   <td>
     <p><%= model.retail_price %></p>
-    <p><%= model.weight_str %></p>
+    <% if model.weight > 0 %>
+    <p>
+      <span><%= model.weight %></span>
+      <span><%= model.unit %></span>
+    </p>
+    <% end %>
   </td>
   <td>
     <div class="field has-addons">

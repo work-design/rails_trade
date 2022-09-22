@@ -208,14 +208,14 @@ module Trade
       self.advance_amount = good.advance_price
     end
 
-    def compute_amount
-      self.original_amount = single_price * number
-      self.amount = original_amount
-    end
-
     def compute_price!
       compute_price
       save
+    end
+
+    def compute_amount
+      self.original_amount = single_price * number
+      self.amount = original_amount
     end
 
     def order_uuid
@@ -224,12 +224,6 @@ module Trade
 
     def cart_organ
       organ.name
-    end
-
-    def weight_str
-      if weight > 0
-        "#{weight} #{unit}"
-      end
     end
 
     def original_quantity
