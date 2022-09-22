@@ -217,7 +217,7 @@ module Trade
     end
 
     def sum_amount
-      self.item_amount = items.sum(&->(i){ i.amount.to_d })
+      self.item_amount = items.sum(&->(i){ i.original_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
     end

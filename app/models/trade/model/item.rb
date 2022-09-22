@@ -111,9 +111,9 @@ module Trade
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
-      before_validation :compute_price, if: -> { new_record? || good_id_changed? }
+      before_validation :compute_price, if: -> { good_id_changed? }
       before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
-      before_validation :recompute_amount, if: -> { (changes.keys & ['number']).present? }
+      before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :sum_amount, if: -> { original_amount_changed? }
@@ -206,9 +206,12 @@ module Trade
     def compute_price
       return unless good
       compute_single_price
-      self.original_amount = self.single_price * self.number
-      self.amount = original_amount
       self.advance_amount = good.advance_price
+    end
+
+    def compute_amount
+      self.original_amount = single_price * number
+      self.amount = original_amount
     end
 
     def compute_price!
@@ -237,10 +240,6 @@ module Trade
     # 批发价和零售价之间的差价，即批发折扣
     def discount_price
       wholesale_price - (retail_price * number)
-    end
-
-    def recompute_amount
-      self.original_amount = single_price * number
     end
 
     def compute_rest_number
