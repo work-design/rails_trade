@@ -43,7 +43,7 @@ module Trade
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
       has_many :available_item_promotes, -> { includes(:promote) }, through: :checked_items, source: :item_promotes
 
-      has_many :cart_promotes, inverse_of: :cart, autosave: true  # overall can be blank
+      has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
       has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, -> { includes(:wallet_template) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id

@@ -13,7 +13,7 @@ module Trade
 
       belongs_to :creator, optional: true
       has_many :payments, dependent: :nullify
-      has_many :payment_references, dependent: :destroy_async, autosave: true, inverse_of: :payment_method
+      has_many :payment_references, dependent: :destroy_async, inverse_of: :payment_method
       has_many :buyers, through: :payment_references
 
       default_scope -> { where(verified: true) }
