@@ -24,7 +24,7 @@ module Trade
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.compute_amount
       end
-      cart_promotes.select(&->(i){ available_item_promotes.map(&:promote_id).excluede?(i.promote_id) }).map(&:destroy)
+      cart_promotes.select(&->(i){ available_item_promotes.map(&:promote_id).exclude?(i.promote_id) }).map(&:destroy)
 
       sequences = cart_promotes.map(&:sequence).uniq.sort!
       sequences.each do |sequence|
