@@ -10,7 +10,7 @@ module Trade
       belongs_to :item, inverse_of: :item_promotes, optional: true
       belongs_to :promote_good, counter_cache: true
       belongs_to :promote
-      belongs_to :promote_charge
+      belongs_to :promote_charge, optional: true
 
       enum status: {
         init: 'init',
