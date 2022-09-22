@@ -394,6 +394,7 @@ module Trade
 
     def compute_rent!
       compute_rent
+      self.sum_amount
       order.sum_amount
       order.save
     end
