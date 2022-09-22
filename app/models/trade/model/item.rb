@@ -251,8 +251,10 @@ module Trade
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
-        item_promote = item_promotes.find_or_initialize_by(promote_id: promote_good.promote_id)
+        item_promote = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_id: promote_good.promote_id)
+        item_promote.value = metering_attributes[promote_good.promote.metering]
         item_promote.promote_good = promote_good
+        item_promote.save
         item_promote
       end
     end
