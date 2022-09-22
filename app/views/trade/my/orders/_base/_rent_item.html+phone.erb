@@ -12,48 +12,26 @@
       <% end %>
     <% end %>
     <div class="pt-2">
-      <% if item.aim_rent? %>
+      <p>
+        <span class="has-text-grey">起租：</span>
+        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_start_at.to_fs(:iso8601) if item.rent_start_at %></time>
+      </p>
+      <% if item.rent_finish_at %>
         <p>
-          <span class="has-text-grey">起租：</span>
-          <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_start_at.to_fs(:iso8601) if item.rent_start_at %></time>
-        </p>
-        <% if item.rent_finish_at %>
-          <p>
-            <span class="has-text-grey">截止：</span>
-            <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_finish_at.to_fs(:iso8601) %></time>
-          </p>
-        <% end %>
-        <p>
-          <span class="has-text-grey">计费：</span>
-          <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
-        </p>
-      <% else %>
-        <p>
-          <span><%= item.single_price.to_money.format(html_wrap: true).html_safe %></span>
-          <span class="has-text-grey-lighter">x</span>
-          <span class="is-size-7"><%= item.number %></span>
+          <span class="has-text-grey">截止：</span>
+          <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_finish_at.to_fs(:iso8601) %></time>
         </p>
       <% end %>
-      <% if item.respond_to?(:produce_plan) && item.produce_plan %>
-        <p>
-          <span class="has-text-grey">提货：</span>
-          <span><%= item.produce_plan.produce_on %></span>
-        </p>
-      <% end %>
+      <p>
+        <span class="has-text-grey">计费：</span>
+        <span><%= item.amount.to_money.format(html_wrap: true).html_safe %></span>
+      </p>
     </div>
   </div>
   <div class="weui-media-box__ft px-3">
-    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
-      <i></i>
-      <span><%= t('bench.my.facilitatings.index.title') %></span>
-    <% end if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
-    <%= link_to({ controller: 'packageds', item_id: item.id }, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
-      <i></i>
-      <span><%= t('trade.my.packageds.index.title') %></span>
-    <% end if item.aim_use? && ['Ship::BoxHost'].include?(item.good_type) %>
     <%= button_to({ controller: 'items', action: 'finish', id: item.id }, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
       <i></i>
       <span><%= t('trade.my.items.finish.title') %></span>
-    <% end if item.aim_rent? && item.rent_finish_at.blank? %>
+    <% end if item.rent_finish_at.blank? %>
   </div>
 </div>
