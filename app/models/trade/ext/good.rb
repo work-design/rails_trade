@@ -68,27 +68,31 @@ module Trade
     end
 
     def order_done(item = nil)
-      puts "order_done Should realize in good entity, #{item.object_id}"
+      logger.error "order_done Should realize in good entity, #{item.object_id}"
     end
 
     def order_trial(item = nil)
-      puts 'order_trial Should realize in good entity'
+      logger.error 'order_trial Should realize in good entity'
     end
 
-    def order_paid(item = nil)
-      puts 'order_paid Should realize in good entity'
+    def order_deliverable(item = nil)
+      logger.error 'order_deliverable Should realize in good entity'
+    end
+
+    def order_rentable(item = nil)
+      logger.error 'order_rentable Should realize in good entity'
     end
 
     def order_part_paid(item = nil)
-      puts 'order_part_paid Should realize in good entity'
+      logger.error 'order_part_paid Should realize in good entity'
     end
 
     def order_refund(item = nil)
-      puts 'order_refund Should realize in good entity'
+      logger.error 'order_refund Should realize in good entity'
     end
 
     def order_prune(item = nil)
-      puts 'order_prune Should realize in good entity'
+      logger.error 'order_prune Should realize in good entity'
     end
 
   end

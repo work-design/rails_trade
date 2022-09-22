@@ -38,7 +38,7 @@ module Trade
       end
     end
 
-    def order_paid(item)
+    def order_deliverable(item)
       if item.user_id
         if wallet_template
           wallet = wallet_template.wallets.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)

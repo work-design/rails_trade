@@ -28,7 +28,7 @@ module Trade
       "#{card_template.name}-#{price}"
     end
 
-    def order_paid(item)
+    def order_deliverable(item)
       if item.user_id
         card = card_template.cards.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
         card.maintain_id = item.order.maintain_id if item.order.respond_to?(:maintain_id)

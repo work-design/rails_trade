@@ -338,8 +338,12 @@ module Trade
       when 'trial'
         self.good.order_trial(self)
       when 'deliverable'
-        self.update(rent_start_at: Time.current)
-        self.good.order_paid(self)
+        if aim_rent?
+          self.update(rent_start_at: Time.current)
+          self.good.order_rentable(self)
+        else
+          self.good.order_deliverable(self)
+        end
       when 'part_paid'
         self.good.order_part_paid(self)
       when 'refund'
