@@ -100,11 +100,11 @@ module Trade
 
       has_one_attached :image
 
-      scope :carting, ->{ where(status: ['init', 'checked', 'trial', 'expired']) }
-      scope :checked, ->{ where(status: ['checked', 'trial']) }
-      scope :deliverable, ->{ where(status: ['deliverable', 'packaged']) }
-      scope :packable, ->{ where(status: ['paid']) }
-      scope :packaged, ->{ where(status: ['packaged', 'done']) }
+      scope :carting, -> { where(status: ['init', 'checked', 'trial', 'expired']) }
+      scope :checked, -> { where(status: ['checked', 'trial']) }
+      scope :deliverable, -> { where(status: ['deliverable', 'packaged']) }
+      scope :packable, -> { where(status: ['paid']) }
+      scope :packaged, -> { where(status: ['packaged', 'done']) }
 
       after_initialize :init_uuid, if: :new_record?
       before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
@@ -146,7 +146,6 @@ module Trade
 
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('ITEM')
-      self
     end
 
     def sync_from_organ

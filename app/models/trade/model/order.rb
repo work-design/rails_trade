@@ -18,6 +18,12 @@ module Trade
       attribute :received_amount, :decimal
       attribute :unreceived_amount, :decimal
 
+      enum aim: {
+        use: 'use',
+        invest: 'invest',
+        rent: 'rent'
+      }, _default: 'use', _prefix: true
+
       enum generate_mode: {
         myself: 'myself',
         by_from: 'by_from'
@@ -133,7 +139,7 @@ module Trade
     end
 
     def init_pay_later
-      self.pay_later = true if should_pay_later?
+      self.pay_later = true if aim_rent?
     end
 
     def sync_from_current_cart
@@ -202,10 +208,6 @@ module Trade
 
     def qrcode_enter_url
       QrcodeHelper.data_url(enter_url)
-    end
-
-    def should_pay_later?
-      items.pluck(:aim).include?('rent')
     end
 
     def can_pay?
