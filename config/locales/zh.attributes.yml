@@ -174,7 +174,7 @@ zh:
         expense_amount: 支出
         account_bank: 开户银行
         account_name: 户名
-        account_num: 账号
+        account_number: 账号
       trade/wallet_log:
         title: 摘要
         amount: 数额
