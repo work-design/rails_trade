@@ -14,12 +14,12 @@
   <td>
     <% if payment_order.state_confirmed? %>
       <%= button_to({ action: 'cancel', payment_id: @payment, id: payment_order.id }, class: 'button is-small is-warning') do %>
-        <i class="fa-regular fa-clock-rotate-left"></i>
+        <i class="fa-solid fa-clock-rotate-left"></i>
         <span class="pl-1">撤销</span>
       <% end %>
     <% else %>
       <%= button_to({ action: 'update', id: payment_order.id }, method: :patch, class: 'button is-small is-success', form: { id: "edit_payment_order_#{payment_order.id}" }) do %>
-        <i class="fa-regular fa-clock-rotate-left"></i>
+        <i class="fa-solid fa-clock-rotate-left"></i>
         <span class="pl-1">核销</span>
       <% end %>
     <% end %>
