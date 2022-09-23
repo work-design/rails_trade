@@ -347,6 +347,10 @@ module Trade
         self.good.order_part_paid(self)
       when 'refund'
         self.good.order_refund(self)
+      when 'done'
+        if aim_rent?
+          self.good.order_rented(self)
+        end
       else
         logger.debug ''
       end

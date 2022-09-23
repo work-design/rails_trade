@@ -227,7 +227,13 @@ module Trade
     def confirm_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.items.each(&->(i){ i.status = 'deliverable'})
+      self.items.each do |item|
+        if item.aim_rent?
+          item.status = 'done'
+        else
+          item.status = 'deliverable'
+        end
+      end
       self.save
       send_notice
     end
