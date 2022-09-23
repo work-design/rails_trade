@@ -2,12 +2,25 @@
 
 <div class="weui-panel">
   <div class="weui-panel__hd level is-flex">
-    <span class="level-left">充值</span>
-    <div class="level-right mt-0 pr-3 has-text-weight-normal">
-      <span><%= Trade::Wallet.human_attribute_name(:amount) %>：<%= @lawful_wallet.amount.to_money.format(html_wrap: true).html_safe %></span>
+    <span class="level-left"><%= Trade::Wallet.human_attribute_name(:amount) %></span>
+    <div class="level-right mt-0 pr-3 has-text-weight-bold">
       <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @lawful_wallet.id } if @lawful_wallet.id %>
     </div>
   </div>
+  <div class="weui-panel__bd">
+    <div class="has-text-centered">
+      <h2 class="title"><%= @lawful_wallet.amount.to_money.format(html_wrap: true).html_safe %></h2>
+    </div>
+  </div>
+  <div class="weui-panel__ft py-2">
+    <%= link_to({ action: 'edit' }, class: 'weui-btn weui-btn_primary') do %>
+      <span>提现</span>
+    <% end %>
+  </div>
+</div>
+
+<div class="weui-panel">
+  <div class="weui-panel__hd">充值</div>
   <div class="weui-panel__bd">
     <div class="columns m-4 is-flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: @advances.without_card, as: :advance %>
