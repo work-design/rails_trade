@@ -78,6 +78,7 @@ zh:
         retail_price: 零售价
         wholesale_price: 批发价
         number: 数量
+        done_number: 已交易
         weight: 总重量
         volume: 体积
         original_amount: 原价
