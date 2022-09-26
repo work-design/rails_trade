@@ -187,6 +187,10 @@ zh:
       lawful_wallets:
         show:
           title: 钱包
+        account:
+          title: 提现账号
+        edit:
+          title: 修改提现账号
       wallet_logs:
         index:
           title: 交易记录

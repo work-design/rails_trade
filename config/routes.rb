@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   scope RailsCom.default_routes_scope do
     concern :orderable do
-      resource :lawful_wallet
+      resource :lawful_wallet do
+        get :account
+      end
       resources :orders do
         collection do
           get 'cart/:current_cart_id' => :cart
