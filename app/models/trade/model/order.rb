@@ -98,7 +98,7 @@ module Trade
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
-      after_save_commit :lawful_wallet_pay, if: -> { pay_auto? && saved_change_to_pay_auto? }
+      after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
     end
 
     def filter_hash
