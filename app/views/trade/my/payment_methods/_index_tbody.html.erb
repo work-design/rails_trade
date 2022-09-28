@@ -4,6 +4,6 @@
   <td><%= payment_method.bank %></td>
   <td>
     <%= link_to 'Edit', edit_my_payment_method_path(payment_method), class: 'button is-link is-small' %>
-    <%= link_to 'Delete', my_payment_method_path(payment_method), class: 'button', method: :delete, data: { confirm: t('.confirm') } %>
+    <%= link_to 'Delete', my_payment_method_path(payment_method), class: 'button', method: :delete, data: { turbo_confirm: t('.confirm') } %>
   </td>
 </tr>

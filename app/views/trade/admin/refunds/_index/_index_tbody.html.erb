@@ -13,7 +13,7 @@
     <time data-controller="time"><%= model.refunded_at.to_fs(:iso8601) %></time>
   <% else %>
     <div class="buttons are-small">
-      <%= button_to 'Approve', { action: 'confirm', id: model.id }, method: :patch, data: { confirm: t('.confirm') }, class: 'button is-primary' %>
+      <%= button_to 'Approve', { action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-primary' %>
       <div class="or"></div>
       <%= button_to 'Deny', { action: 'deny', id: model.id }, method: :patch, data: { confirm: 'Deny model!' }, class: 'button is-danger' %>
     </div>

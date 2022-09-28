@@ -25,7 +25,7 @@
         <td><%= good.sku %></td>
         <td><%= good.price %></td>
         <td><%= link_to '编辑', edit_admin_good_path(good) %></td>
-        <td><%= link_to '删除', admin_good_path(good), method: :delete, data: { confirm: t('.confirm') } %></td>
+        <td><%= link_to '删除', admin_good_path(good), method: :delete, data: { turbo_confirm: t('.confirm') } %></td>
       </tr>
     <% end %>
   </table>
