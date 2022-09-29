@@ -1,6 +1,8 @@
 module Trade
   class Admin::RefundsController < Admin::BaseController
-    before_action :set_refund, only: [:show, :edit, :update, :confirm, :deny, :destroy]
+    before_action :set_payment
+    before_action :set_refund, only: [:show, :edit, :update, :destroy, :confirm, :deny]
+    before_action :set_new_refund, only: [:new, :create]
 
     def index
       q_params = {}
@@ -8,18 +10,6 @@ module Trade
       q_params.merge! params.permit(:order_id, :payment_id)
 
       @refunds = Refund.includes(:order, :payment).default_where(q_params).page(params[:page])
-    end
-
-    def new
-      @refund = @payment.refunds.build
-    end
-
-    def create
-      @refund = Refund.new(refund_params)
-
-      unless @refund.save
-        render :new, locals: { model: @refund }, status: :unprocessable_entity
-      end
     end
 
     def confirm
@@ -42,8 +32,18 @@ module Trade
       @refund = Refund.find(params[:id])
     end
 
+    def set_payment
+      @payment = Payment.find params[:payment_id]
+    end
+
+    def set_new_refund
+      @refund = @payment.refunds.build(refund_params)
+    end
+
     def refund_params
-      params.fetch(:refund, {})
+      params.fetch(:refund, {}).permit(
+        :total_amount
+      )
     end
 
   end
