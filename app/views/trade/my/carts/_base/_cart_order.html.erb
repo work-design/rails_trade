@@ -1,11 +1,11 @@
 <% if @checked_ids.present? %>
-  <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'weui-btn weui-btn_mini weui-btn_primary') do %>
-    <span>结算</span>
+  <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary') do %>
+    <span class="pr-1">结算</span>
     <i class="fa-solid fa-angle-right"></i>
   <% end %>
 <% else %>
-  <button class="weui-btn weui-btn_mini weui-btn_disabled">
-    <span>结算</span>
+  <button class="button is-primary" disabled>
+    <span class="pr-1">结算</span>
     <i class="fa-solid fa-angle-right"></i>
   </button>
 <% end %>
