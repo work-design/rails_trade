@@ -87,6 +87,7 @@ module Trade
       self.notified_at = params['success_time']
       self.pay_status = params['trade_state']
       self.buyer_identifier = params.dig('payer', 'openid')
+      self.seller_identifier = params['mchid']
       self.buyer_bank = params['bank_type']
       self.total_amount = params.dig('amount', 'total').to_i / 100.0
       self.extra = params
