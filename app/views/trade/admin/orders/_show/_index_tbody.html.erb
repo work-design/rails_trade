@@ -3,6 +3,7 @@
     <%= link_to item.good, target: '_blank' do %>
       <span><%= item.good.name %></span>
     <% end if item.good %>
+    <span class="tag"><%= item.aim_i18n %></span>
   </td>
   <td>
     <span><%= item.good.price.to_money.format(html_wrap: true).html_safe if item.good %></span>
