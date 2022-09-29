@@ -147,8 +147,8 @@ module Trade
         self,
         action: :update,
         target: 'order_result',
-        partial: 'factory/buy/payments/success',
-        locals: { organ_id: organ_id }
+        partial: 'success',
+        locals: { organ_id: organ_id, payment: self }
       )
     end
 
