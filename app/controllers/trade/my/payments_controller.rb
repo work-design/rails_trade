@@ -54,7 +54,6 @@ module Trade
     def wxpay
       @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: @order.uuid, total_amount: @order.amount
       @payment.user = current_user
-      binding.b
       @wxpay_order = @payment.js_pay(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?

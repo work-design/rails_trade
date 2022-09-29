@@ -40,17 +40,11 @@ module Trade
     def wxpay_notify
       encrypted_params = JSON.parse(request.body.read)
       notify_params = WxPay::Cipher.decrypt_notice encrypted_params['resource'], key: current_wechat_app.key_v3
-
       result = nil
-      if notify_params['out_trade_no'].start_with?('PAY')
-        @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
-        result = @payment.confirm!(notify_params)
-      else
-        @order = Order.find_by(uuid: notify_params['out_trade_no'])
-        if @order #&& WxPay::Sign.verify?(notify_params, key: wechat_app.key)
-          result = @order.change_to_paid! params: notify_params, payment_uuid: notify_params['transaction_id'], type: 'Trade::WxpayPayment'
-        end
-      end
+      # WxPay::Sign.verify?(notify_params, key: current_wechat_app.key)
+
+      @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
+      result = @payment.confirm!(notify_params)
 
       if result
         render json: { code: 'SUCCESS', message: '处理成功' }
