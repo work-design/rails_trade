@@ -15,7 +15,7 @@
     <div class="buttons are-small">
       <%= button_to 'Approve', { action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-primary' %>
       <div class="or"></div>
-      <%= button_to 'Deny', { action: 'deny', id: model.id }, method: :patch, data: { confirm: 'Deny model!' }, class: 'button is-danger' %>
+      <%= button_to 'Deny', { action: 'deny', id: model.id }, method: :patch, data: { turbo_confirm: 'Deny model!' }, class: 'button is-danger' %>
     </div>
   <% end %>
   <% if model.reason %>
