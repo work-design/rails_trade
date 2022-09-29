@@ -1,8 +1,0 @@
-<%= render 'logs_table' %>
-<%= form_with model: @refund, url: { action: 'create' } do |f| %>
-  <%= hidden_field_tag :order_id, @order.id %>
-  <%= f.text_field :order_amount, placeholder: '$' %>
-  <%= f.text_area :comment %>
-  <%= f.select :type, options_for_select(Refund.options_i18n(:type), @refund.type) %>
-  <%= f.submit %>
-<% end %>

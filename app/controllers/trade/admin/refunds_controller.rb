@@ -1,7 +1,7 @@
 module Trade
   class Admin::RefundsController < Admin::BaseController
-    before_action :set_payment
     before_action :set_refund, only: [:show, :edit, :update, :destroy, :confirm, :deny]
+    before_action :set_payment, only: [:new, :create]
     before_action :set_new_refund, only: [:new, :create]
 
     def index
@@ -42,7 +42,8 @@ module Trade
 
     def refund_params
       params.fetch(:refund, {}).permit(
-        :total_amount
+        :total_amount,
+        :comment
       )
     end
 

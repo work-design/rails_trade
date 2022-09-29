@@ -92,6 +92,7 @@ Rails.application.routes.draw do
           patch :analyze
           patch :adjust
         end
+        resources :refunds, only: [:new, :create]
         resources :payment_orders do
           member do
             post :confirm
@@ -206,7 +207,7 @@ Rails.application.routes.draw do
           end
         end
         resources :promote_goods
-        resources :refunds do
+        resources :refunds, except: [:new, :create] do
           member do
             patch :confirm
             patch :deny

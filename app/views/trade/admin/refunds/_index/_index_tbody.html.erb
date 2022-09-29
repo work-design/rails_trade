@@ -1,6 +1,5 @@
 <td><%= model.refund_uuid %></td>
 <td>
-  <p><%= link_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id } %></p>
   <p><%= link_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id } %></p>
 </td>
 <td><%= model.total_amount.to_money(model.currency).format %></td>

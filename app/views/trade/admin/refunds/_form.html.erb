@@ -1,0 +1,3 @@
+<%= f.number_field :total_amount %>
+<%= f.text_area :comment %>
+<%= f.select :type, options_for_select(Trade::Refund.options_i18n(:type), @refund.type) %>
