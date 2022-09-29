@@ -23,7 +23,7 @@ module Trade
       belongs_to :order, inverse_of: :payment_orders
       belongs_to :payment, inverse_of: :payment_orders, counter_cache: true, optional: true
 
-      has_one :refund, ->(o){ where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
+      has_one :refund, ->(o) { where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 

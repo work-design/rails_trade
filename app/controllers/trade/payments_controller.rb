@@ -47,9 +47,9 @@ module Trade
         @order = Order.find_by(uuid: notify_params['out_trade_no'])
         @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: notify_params['transaction_id']
       end
+      @payment.confirm(notify_params)
 
-      result = @payment.confirm!(notify_params)
-      if result
+      if @payment.save
         render json: { code: 'SUCCESS', message: '处理成功' }
       else
         render json: { code: 'FAIL', message: '签名失败' }, status: :bad_request

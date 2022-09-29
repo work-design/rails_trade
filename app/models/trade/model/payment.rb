@@ -45,14 +45,15 @@ module Trade
       accepts_nested_attributes_for :payment_orders
       has_many :refunds
 
+      has_one_attached :proof
+
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
       after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || payment_orders.present?) }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
-
-      has_one_attached :proof
+      after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
     end
 
     def sync_state_proof_uploaded
@@ -128,9 +129,17 @@ module Trade
       self.assign_detail params
       self.class.transaction do
         self.save!
-        payment_orders.each(&:confirm!)
+        payment_orders.each do |payment_order|
+          payment_order.state = 'confirmed'
+        end
       end
-      send_notice
+    end
+
+    def confirm(params = {})
+      self.assign_detail params
+      payment_orders.each do |payment_order|
+        payment_order.state = 'confirmed'
+      end
     end
 
     def send_notice
