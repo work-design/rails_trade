@@ -1,15 +1,16 @@
-<td><%= model.refund_uuid %></td>
 <td>
   <p><%= link_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id } %></p>
+  <p><%= model.refund_uuid %></p>
 </td>
 <td><%= model.total_amount.to_money(model.currency).format %></td>
 <td><%= model.type_i18n %></td>
-<td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 <td><%= model.state_i18n %></td>
 <td><%= model.comment %></td>
 <td>
-  <% if model.refunded_at %>
-    <time data-controller="time"><%= model.refunded_at.to_fs(:iso8601) %></time>
+    <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+
+<% if model.refunded_at %>
+    <p><time data-controller="time"><%= model.refunded_at.to_fs(:iso8601) %></time></p>
   <% else %>
     <div class="buttons are-small">
       <%= button_to 'Approve', { action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-primary' %>
