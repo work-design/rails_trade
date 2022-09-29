@@ -59,6 +59,7 @@ module Trade
       if @wxpay_order['code'].present? || @wxpay_order.blank?
         render 'wxpay_err', status: :unprocessable_entity
       else
+        @payment.save
         render 'wxpay'
       end
     end
