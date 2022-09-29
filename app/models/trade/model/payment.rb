@@ -47,7 +47,7 @@ module Trade
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
-      before_validation :init_uuid, if: -> { payment_uuid.blank? }
+      after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || payment_orders.present?) }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
@@ -60,7 +60,7 @@ module Trade
     end
 
     def init_uuid
-      self.payment_uuid = UidHelper.nsec_uuid('PAY')
+      self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
     end
 
     def analyze_payment_method

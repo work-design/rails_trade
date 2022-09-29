@@ -73,7 +73,7 @@ module Trade
       {
         appid: app.appid,
         mchid: app.mch_id,
-        description: "订单编号: #{payment_uuid}",
+        description: "支付编号: #{payment_uuid}",
         out_trade_no: payment_uuid,
         notify_url: Rails.application.routes.url_for(host: app.host, controller: 'trade/payments', action: 'wxpay_notify'),
         amount: {
