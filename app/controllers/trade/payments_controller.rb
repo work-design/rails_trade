@@ -40,12 +40,12 @@ module Trade
     def wxpay_notify
       encrypted_params = JSON.parse(request.body.read)
       notify_params = WxPay::Cipher.decrypt_notice encrypted_params['resource'], key: current_wechat_app.key_v3
-      # WxPay::Sign.verify?(notify_params, key: current_wechat_app.key)
+      #logger.debug WxPay::Sign.verify?(notify_params, key: current_wechat_app.key)
       if notify_params['out_trade_no'].start_with?('PAY')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
       else
         @order = Order.find_by(uuid: notify_params['out_trade_no'])
-        @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: notify_params['transaction_id']
+        @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: notify_params['transaction_id'], total_amount: notify_params.dig('amount', 'total').to_i / 100.0
       end
       @payment.confirm(notify_params)
 

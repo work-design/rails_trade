@@ -30,12 +30,12 @@ module Trade
       after_initialize :init_amount, if: -> { new_record? && payment&.new_record? && payment.wallet_id.blank? }
       after_initialize :init_wallet_code, :init_wallet_amount, if: -> { new_record? && payment&.new_record? && payment.wallet_id.present? }
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
-      after_update :checked_to_payment, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
-      after_update :unchecked_to_payment, if: -> { state_init? && state_before_last_save == 'confirmed' }
-      after_save :pending_to_order, if: -> { state_pending? && (saved_changes.keys & ['state', 'order_amount']).present? }
-      after_save :checked_to_order, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'order_amount']).present? }
-      after_save :unchecked_to_order, if: -> { state_init? && state_before_last_save == 'confirmed' }
-      after_destroy_commit :unchecked_to_order
+      after_update :checked_to_payment!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
+      after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
+      after_save :pending_to_order!, if: -> { state_pending? && (saved_changes.keys & ['state', 'order_amount']).present? }
+      after_save :checked_to_order!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'order_amount']).present? }
+      after_save :unchecked_to_order!, if: -> { state_init? && state_before_last_save == 'confirmed' }
+      after_destroy_commit :unchecked_to_order!
     end
 
     def init_wallet_code
@@ -103,28 +103,28 @@ module Trade
       self.user_id = order&.user_id || payment&.user_id
     end
 
-    def checked_to_payment
+    def checked_to_payment!
       payment.checked_amount += self.payment_amount
       payment.check_state
       payment.save
     end
 
-    def unchecked_to_payment
+    def unchecked_to_payment!
       payment.checked_amount -= self.payment_amount
       payment.check_state
       payment.save
     end
 
-    def pending_to_order
+    def pending_to_order!
       order.received_amount += self.order_amount
       order.save
     end
 
-    def checked_to_order
+    def checked_to_order!
       order.check_state!
     end
 
-    def unchecked_to_order
+    def unchecked_to_order!
       return if order.blank?
       order.received_amount -= self.order_amount
       order.check_state
