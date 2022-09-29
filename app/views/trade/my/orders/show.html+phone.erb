@@ -19,5 +19,3 @@
     <%= render partial: 'payment_order', collection: @order.payment_orders.where(user_id: current_user.id), as: :model %>
   </div>
 </div>
-
-<%= render 'buttons' %>

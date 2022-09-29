@@ -26,14 +26,14 @@
         </span>
       </div>
     <% end %>
-    <div class="is-flex is-justify-content-flex-end has-border-top py-2">
-      <%= button_to({ action: 'cancel', id: model.id }, method: :patch, class: 'weui-btn weui-btn_mini weui-btn_default mx-2', form: { class: '' }) do %>
+    <div class="buttons are-small is-flex-end has-border-top py-2">
+      <%= button_to({ action: 'cancel', id: model.id }, method: :patch, class: 'button is-default', form: { class: '' }) do %>
         <span>取消订单</span>
       <% end if model.can_cancel? %>
-      <%= link_to({ action: 'show', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_default mx-2') do %>
+      <%= link_to({ action: 'show', id: model.id }, class: 'button is-default') do %>
         <span>售后</span>
       <% end if model.all_paid? %>
-      <%= link_to({ action: 'payment_types', id: model.id }, class: 'weui-btn weui-btn_mini weui-btn_primary mx-2') do %>
+      <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-primary') do %>
         <span>去支付</span>
       <% end if model.can_pay? %>
     </div>
