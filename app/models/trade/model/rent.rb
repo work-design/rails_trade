@@ -9,6 +9,7 @@ module Trade
       attribute :estimate_finish_at, :datetime
       attribute :duration, :integer, default: 0
       attribute :invest_amount, :decimal, comment: '投资分成'
+      attribute :extra, :json, default: {}
 
       belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
@@ -54,7 +55,7 @@ module Trade
     end
 
     def compute_invest_amount
-      self.invest_amount = self.amount * rentable.box_specification.invest_ratio
+      self.invest_amount = self.amount * rentable.box_host.invest_ratio
     end
 
     def sync_rentable_state
