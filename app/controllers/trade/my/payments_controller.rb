@@ -57,9 +57,15 @@ module Trade
       @wxpay_order = @payment.js_pay(current_wechat_app)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
-        render 'wxpay_err', status: :unprocessable_entity
+        respond_to do |format|
+          format.html { render 'wxpay_err', status: :unprocessable_entity }
+          format.json { render json: @wxpay_order.as_json, status: :unprocessable_entity }
+        end
       else
-        render 'wxpay'
+        respond_to do |format|
+          format.html { render 'wxpay' }
+          format.json { render json: @wxpay_order.as_json }
+        end
       end
     end
 
