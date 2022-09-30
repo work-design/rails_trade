@@ -1,9 +1,19 @@
-<%= link_to({ controller: 'payments', action: 'wxpay', order_id: @order.id }, data: { controller: 'mini-program', action: 'mini-program#link', mini_program_url_value: "/pages/trade/my/orders/wxpay_pay?url=#{url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false)}" }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
-  <div class="weui-cell__hd">
-    <%= image_tag 'wx_pay.png', class: 'image fa-fw' %>
+<% if request.variant.any?(:mini_program) %>
+  <div
+    data-controller="mini-program"
+    data-mini-program-url-value="/pages/trade/my/orders/wxpay_pay"
+    data-mini-program-data-value="<%= { url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false) }.to_json %>"
+    data-action="click->mini-program#link"
+    class="weui-cell weui-cell_access"
+  >
+    <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
+    <div class="weui-cell__bd weui-cell_primary">微信支付</div>
+    <div class="weui-cell__ft"></div>
   </div>
-  <div class="weui-cell__bd weui-cell_primary">
-    <span>微信支付</span>
-  </div>
-  <div class="weui-cell__ft"></div>
+<% else %>
+  <%= link_to({ controller: 'payments', action: 'wxpay', order_id: @order.id }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
+    <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
+    <div class="weui-cell__bd weui-cell_primary">微信支付</div>
+    <div class="weui-cell__ft"></div>
+  <% end %>
 <% end %>
