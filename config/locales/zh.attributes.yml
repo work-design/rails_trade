@@ -166,7 +166,7 @@ zh:
         refunded_at: 退款时间
         total_amount: 金额
         order_id: 订单
-        payment_id: 支付
+        payment_id: 支付流水
       trade/wallet:
         wallet_template_id: 储值类型
         user: 所属用户

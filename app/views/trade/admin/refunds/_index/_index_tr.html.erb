@@ -1,3 +1,15 @@
 <tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
   <%= yield %>
+  <td>
+    <div data-show-target="item" style="visibility: hidden">
+    <% if model.refunded_at.blank? %>
+      <%= button_to({ action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-primary') do %>
+        <span><%= t('.approve') %></span>
+      <% end %>
+      <%= button_to({ action: 'deny', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-danger') do %>
+        <span><%= t('.deny') %></span>
+      <% end %>
+    <% end %>
+    </div>
+  </td>
 </tr>
