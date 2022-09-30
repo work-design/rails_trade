@@ -75,7 +75,7 @@ module Trade
         mchid: app.mch_id,
         description: "支付编号: #{payment_uuid}",
         out_trade_no: payment_uuid,
-        notify_url: Rails.application.routes.url_for(host: app.host, controller: 'trade/payments', action: 'wxpay_notify'),
+        notify_url: Rails.application.routes.url_for(host: app.domain, controller: 'trade/payments', action: 'wxpay_notify'),
         amount: {
           total: (self.total_amount * 100).to_i,
           currency: 'CNY'
