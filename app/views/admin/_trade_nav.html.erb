@@ -19,6 +19,7 @@
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.orders.unpaid.title'), { controller: 'trade/admin/orders', action: 'unpaid' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
     <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
+    <%= link_to t('trade.admin.refunds.index.title'), { controller: 'trade/admin/refunds' }, class: active_helper(controllers: 'refunds', active: 'is-active') %>
     <%= link_to t('trade.admin.payment_methods.index.title'), { controller: 'trade/admin/payment_methods' }, class: active_helper(controllers: 'payment_methods', active: 'is-active') %>
     <%= link_to t('trade.admin.carts.user.title'), { controller: 'trade/admin/carts', action: 'user' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
     <%= link_to t('trade.admin.carts.member_organ.title'), { controller: 'trade/admin/carts', action: 'member_organ' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
