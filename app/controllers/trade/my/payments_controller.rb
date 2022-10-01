@@ -54,7 +54,7 @@ module Trade
     def wxpay
       @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: @order.uuid, total_amount: @order.amount
       @payment.user = current_user
-      @wxpay_order = @payment.js_pay(current_wechat_app)
+      @wxpay_order = @payment.js_pay(current_payee)
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
         respond_to do |format|
@@ -66,6 +66,19 @@ module Trade
           format.html { render 'wxpay' }
           format.json { render json: @wxpay_order.as_json }
         end
+      end
+    end
+
+    # https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5
+    # 二维码有效期为2小时
+    def wxpay_pc_pay
+      @wxpay_order = @order.native_order(current_wechat_app)
+
+      if @wxpay_order['code'].present? || @wxpay_order.blank?
+        render 'wxpay_pay_err', status: :unprocessable_entity
+      else
+        @image_url = QrcodeHelper.data_url @wxpay_order['code_url']
+        render 'wxpay_pc_pay'
       end
     end
 
