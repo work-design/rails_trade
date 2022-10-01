@@ -3,19 +3,19 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :app, class_name: 'Wechat::App', foreign_key: :seller_identifier, primary_key: :appid, optional: true
+      belongs_to :payee, class_name: 'Wechat::App', foreign_key: :seller_identifier, primary_key: :appid, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
     end
 
-    def h5(app, payer_client_ip: '127.0.0.1')
+    def h5(payee, payer_client_ip: '127.0.0.1')
       options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
+        mchid: payee.mch_id,
+        serial_no: payee.serial_no,
+        key: payee.apiclient_key
       }
       params = {}
-      params.merge! common_params(app)
+      params.merge! common_params(payee)
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
@@ -23,26 +23,26 @@ module Trade
       ::WxPay::Api.h5_order params, options
     end
 
-    def native(app)
+    def native(payee)
       options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
+        mchid: payee.mch_id,
+        serial_no: payee.serial_no,
+        key: payee.apiclient_key
       }
       params = {}
-      params.merge! common_params(app)
+      params.merge! common_params(payee)
 
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       ::WxPay::Api.native_order params, options
     end
 
-    def js_pay(app)
-      prepay = common_prepay(app)
+    def js_pay(payee)
+      prepay = common_prepay(payee)
       options = {
-        appid: app.appid,
-        mchid: app.mch_id,
-        key: app.apiclient_key
+        appid: payee.appid,
+        mchid: payee.mch_id,
+        key: payee.apiclient_key
       }
 
       if prepay['prepay_id']
@@ -55,27 +55,27 @@ module Trade
       end
     end
 
-    def common_prepay(app)
+    def common_prepay(payee)
       options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
+        mchid: payee.mch_id,
+        serial_no: payee.serial_no,
+        key: payee.apiclient_key
       }
       params = {}
-      params.merge! common_params(app)
-      params.merge! payer: { openid: user.oauth_users.find_by(appid: app.appid)&.uid }
+      params.merge! common_params(payee)
+      params.merge! payer: { openid: user.oauth_users.find_by(appid: payee.appid)&.uid }
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       ::WxPay::Api.invoke_unifiedorder params, options
     end
 
-    def common_params(app)
+    def common_params(payee)
       {
-        appid: app.appid,
-        mchid: app.mch_id,
+        appid: payee.appid,
+        mchid: payee.mch_id,
         description: "支付编号: #{payment_uuid}",
         out_trade_no: payment_uuid,
-        notify_url: Rails.application.routes.url_for(host: app.domain, controller: 'trade/payments', action: 'wxpay_notify'),
+        notify_url: Rails.application.routes.url_for(host: payee.domain, controller: 'trade/payments', action: 'wxpay_notify'),
         amount: {
           total: (self.total_amount * 100).to_i,
           currency: 'CNY'
@@ -97,12 +97,12 @@ module Trade
     def result
       #return self if self.payment_status == 'all_paid'
       options = {
-        mchid: app.mch_id,
-        serial_no: app.serial_no,
-        key: app.apiclient_key
+        mchid: payee.mch_id,
+        serial_no: payee.serial_no,
+        key: payee.apiclient_key
       }
       params = {
-        mchid: app.mch_id,
+        mchid: payee.mch_id,
         out_trade_no: uuid
       }
 

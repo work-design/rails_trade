@@ -2,7 +2,7 @@ module Trade
   class My::BaseController < MyController
 
     private
-    def current_wechat_app
+    def current_payee
       if params[:appid]
         Wechat::App.find_by appid: params[:appid]
       else
