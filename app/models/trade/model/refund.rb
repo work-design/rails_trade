@@ -28,12 +28,14 @@ module Trade
       validates :payment_id, uniqueness: { scope: :order_id }
       #validate :valid_total_amount
 
-      before_validation do
-        self.refund_uuid ||= UidHelper.nsec_uuid('RD') if new_record?
-        self.organ_id = payment.organ_id
-      end
+      before_validation :init_uuid
       after_save :sync_refund_to_payment, if: -> { completed? && state_before_last_save == 'init' }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
+    end
+
+    def init_uuid
+      self.refund_uuid ||= UidHelper.nsec_uuid('RD') if new_record?
+      self.organ_id = payment.organ_id
     end
 
     def valid_total_amount
