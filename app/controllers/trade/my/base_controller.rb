@@ -4,7 +4,8 @@ module Trade
     private
     def current_payee
       if params[:appid]
-        Wechat::App.find_by appid: params[:appid]
+        return @current_payee if defined?(@current_payee)
+        @current_payee = Wechat::Payee.default_where(default_params).find_by(appid: params[:appid])
       else
         super
       end
