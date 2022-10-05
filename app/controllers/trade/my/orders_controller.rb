@@ -35,7 +35,7 @@ module Trade
     # todo part paid case
     def wait
       if @order.all_paid?
-        render 'show'
+        redirect_to action: 'show'
       else
         render 'wait'
       end
