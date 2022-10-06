@@ -1,6 +1,6 @@
 <div class="weui-media-box weui-media-box_appmsg">
   <div class="weui-media-box__hd" data-controller="empty">
-  <%= link_to(item.good, text: true) do %>
+  <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
     <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good && item.good.logo.attached? %>
   <% end %>
   </div>
