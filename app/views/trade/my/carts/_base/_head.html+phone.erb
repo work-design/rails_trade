@@ -3,12 +3,12 @@
     <%= link_to({ controller: '/factory/productions' }, class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-angle-left"></i>
     <% end if @cart.good_type == 'Factory::Production' %>
-    <%= link_to({ controller: '/ship/box_specifications' }, class: 'px-4') do %>
+    <%= link_to({ controller: '/ship/box_hosts' }, class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-angle-left"></i>
-    <% end if @cart.good_type == 'Ship::BoxSpecification' && @cart.aim == 'use' %>
-    <%= link_to({ controller: '/ship/box_specifications', action: 'rent' }, class: 'px-4') do %>
+    <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'use' %>
+    <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-angle-left"></i>
-    <% end if @cart.good_type == 'Ship::BoxSpecification' && @cart.aim == 'rent' %>
+    <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
     <%= link_to({ controller: '/serve/services' }, class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-angle-left"></i>
     <% end if @cart.good_type == 'Serve::Service' %>
