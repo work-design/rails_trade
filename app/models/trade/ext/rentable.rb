@@ -20,12 +20,12 @@ module Trade
       scope :rented, -> { where(rented: true) }
       scope :held, -> { where(held: true) }
 
-      after_save :increment_tradable_count, if: -> { saved_change_to_held? && !held }
-      after_save :decrement_tradable_count, if: -> { saved_change_to_held? && held }
+      after_save :increment_tradable_count, if: -> { !held && (saved_change_to_held?) }
+      after_save :decrement_tradable_count, if: -> { held && saved_change_to_held? }
 
       after_destroy :decrement_tradable_count, if: -> { !held }
       after_destroy :increment_tradable_count, if: -> { held }
-      after_save_commit :clear_held_later, if: -> { saved_change_to_held? && !held }
+      after_save_commit :clear_held_later, if: -> { !held && saved_change_to_held? }
     end
 
     # 需在模型中定义并覆盖

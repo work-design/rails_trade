@@ -20,17 +20,12 @@
             <i class="fa-solid fa-building-user"></i>
             <span><%= @cart.member.organ.name %></span>
           </span>
-        <% else %>
-          <span class="weui-badge">
-            <i class="fa-solid fa-user"></i>
-            <span>个人版</span>
-          </span>
         <% end %>
-        <% if @cart.aim %>
-        <span class="weui-badge">
-          <i class="fa-solid fa-hand-holding-box"></i>
-          <span><%= @cart.aim_i18n %></span>
-        </span>
+        <% if @cart.aim != 'use' %>
+          <span class="weui-badge">
+            <i class="fa-solid fa-hand-holding-box"></i>
+            <span><%= @cart.aim_i18n %></span>
+          </span>
         <% end %>
       <% end %>
     </span>
