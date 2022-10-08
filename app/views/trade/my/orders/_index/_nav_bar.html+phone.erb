@@ -1,4 +1,4 @@
-<div class="weui-navbar">
+<div class="weui-navbar is-sticky">
 <% [:init, :done, :canceled].each do |status| %>
   <%= link_to Trade::Order.enum_i18n(:state, status), { state: status }, class: active_helper(state: status, item: 'weui-navbar__item', active: 'weui-navbar__item weui-bar__item_on') %>
 <% end %>
