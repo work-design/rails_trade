@@ -1,5 +1,7 @@
 <div class="weui-panel" data-controller="empty">
-  <div class="weui-panel__hd"><%= t('trade.my.orders.index.title') %></div>
+  <div class="weui-panel__hd">
+    <span class="has-border-left-primary"><%= t('trade.my.orders.index.title') %></span>
+  </div>
   <div class="weui-panel__bd">
     <div class="columns is-4-mobile is-flex is-vcentered is-centered m-0" data-empty-target="content">
       <%= link_to({ controller: 'trade/my/orders', state: 'init' }, class: 'column has-block-centered') do %>
