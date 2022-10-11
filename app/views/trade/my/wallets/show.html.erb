@@ -11,7 +11,7 @@
     <div class="has-text-centered">
       <h2 class="title">
         <span><%= @wallet.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-        <span><%= @wallet.wallet_template.unit %></span>
+        <span class="is-size-7 has-text-grey-dark"><%= @wallet.wallet_template.unit %></span>
       </h2>
     </div>
   </div>
