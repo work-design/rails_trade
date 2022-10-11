@@ -3,6 +3,6 @@
   <td><%= @item_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::ItemPromote.human_attribute_name(:sequence) %></td>
-  <td><%= @item_promote.sequence %></td>
+  <td class="has-text-right"><%= Trade::ItemPromote.human_attribute_name(:item_id) %></td>
+  <td><%= @item_promote.item_id %></td>
 </tr>

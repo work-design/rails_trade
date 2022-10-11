@@ -161,7 +161,6 @@ Rails.application.routes.draw do
           resources :rents
         end
         resources :cart_promotes
-        resources :item_promotes
         resources :payment_strategies
         resources :payment_methods do
           collection do
@@ -206,7 +205,9 @@ Rails.application.routes.draw do
             get :options
           end
         end
-        resources :promote_goods
+        resources :promote_goods do
+          resources :item_promotes
+        end
         resources :refunds, except: [:new, :create] do
           member do
             patch :confirm

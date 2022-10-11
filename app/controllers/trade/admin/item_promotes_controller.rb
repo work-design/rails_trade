@@ -1,12 +1,13 @@
 module Trade
   class Admin::ItemPromotesController < Admin::BaseController
-    before_action :set_item_promote, only: [:show, :edit, :update, :destroy]
+    before_action :set_promote_good
+    before_action :set_item_promote, only: [:show, :edit, :update, :destroy, :actions]
 
     def index
       q_params = {}
       q_params.merge! params.permit(:item_id, :promote_good_id, :cart_id)
 
-      @item_promotes = ItemPromote.includes(:promote, :item).default_where(q_params).page(params[:page])
+      @item_promotes = @promote_good.item_promotes.includes(:promote, :item).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
@@ -22,6 +23,10 @@ module Trade
     end
 
     private
+    def set_promote_good
+      @promote_good = PromoteGood.find params[:promote_good_id]
+    end
+
     def set_item_promote
       @item_promote = ItemPromote.find(params[:id])
     end
