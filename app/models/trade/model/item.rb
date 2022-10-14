@@ -118,8 +118,8 @@ module Trade
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :compute_duration, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & changes.keys).present? }
       before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
-      before_save :sync_promote_to_order!, if: -> { order_id.present? && (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
+      after_save :sync_promote_to_order!, if: -> { order_id.present? && (saved_changes.keys & PROMOTE_COLUMNS).present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
