@@ -12,6 +12,9 @@
     <% end %>
   </div>
   <div>
+    <% if model.aim != 'use' %>
+      <span class="tag is-danger"><%= model.aim_i18n %></span>
+    <% end %>
     <span><%= model.payment_status_i18n %></span>
     <% if model.payment_strategy %>
       <span class="tag is-danger"><%= model.payment_strategy.name %></span>

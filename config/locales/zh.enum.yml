@@ -24,6 +24,10 @@ zh:
         pay_later:
           true: 后付
           false: 预付
+        aim:
+          use: 使用
+          invest: 投资
+          rent: 租用
       trade/payment:
         type:
           Trade::HandPayment: 后台支付
