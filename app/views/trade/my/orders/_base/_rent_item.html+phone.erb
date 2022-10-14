@@ -14,12 +14,17 @@
     <div class="pt-2 is-size-0_9">
       <p>
         <span class="has-text-grey">起租：</span>
-        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_start_at.to_fs(:iso8601) if item.rent_start_at %></time>
+        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_start_at&.to_fs(:iso8601) %></time>
       </p>
       <% if item.rent_finish_at %>
         <p>
           <span class="has-text-grey">截止：</span>
           <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_finish_at.to_fs(:iso8601) %></time>
+        </p>
+      <% elsif item.rent_start_at %>
+        <p>
+          <span class="has-text-grey">已租：</span>
+          <time data-controller="count-up" data-count-up-time-value="<%= item.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono"><%= exact_distance_time(item.rent_start_at, Time.current) %></time>
         </p>
       <% end %>
       <p>
