@@ -2,14 +2,14 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'item_promotes', item_id: model.id }, aria: { label: t('trade.admin.trade_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-gift"></i>
+      <%= link_to({ controller: 'item_promotes', item_id: model.id }, aria: { label: t('trade.admin.item_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-gift"></i>
       <% end %>
       <%= link_to({ controller: 'rents', item_id: model.id }, aria: { label: t('trade.admin.rents.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-face-meh"></i>
+        <i class="fa-solid fa-face-meh"></i>
       <% end if model.aim_rent? %>
       <%= link_to({ action: 'carts', id: model.id }, aria: { label: t('trade.admin.items.carts.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-cart-shopping"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
       <% end %>
       <%= link_to({ action: 'show', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-circle-info"></i>
