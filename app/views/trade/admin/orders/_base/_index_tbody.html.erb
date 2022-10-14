@@ -2,6 +2,7 @@
   <p>
     <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
     <span class="tag"><%= model.state_i18n %></span>
+    <span class="tag is-info"><%= model.aim_i18n %></span>
   </p>
   <p><%= model.serial_number %></p>
   <p class="has-text-grey"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
