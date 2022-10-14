@@ -44,19 +44,6 @@ module Trade
       render 'only'
     end
 
-    def doc
-    end
-
-    def toggle
-      if @item.status_init?
-        @item.status = 'checked'
-      elsif @item.status_checked?
-        @item.status = 'init'
-      end
-
-      @item.save
-    end
-
     private
     def set_item
       @item = Item.where(default_params).find params[:id]
@@ -72,7 +59,8 @@ module Trade
     def item_params
       params.fetch(:item, {}).permit(
         :number,
-        :current_cart_id
+        :current_cart_id,
+        :rent_estimate_finish_at
       )
     end
 

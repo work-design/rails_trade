@@ -1,0 +1,17 @@
+<tr id="tr_<%= item.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
+  <%= yield %>
+  <td>
+    <div data-show-target="item" style="visibility: hidden">
+      <%= link_to({ controller: 'items', action: 'show', id: item.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-circle-info"></i>
+      <% end %>
+      <%= link_to({ controller: 'items', action: 'edit', id: item.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-pencil"></i>
+      <% end %>
+      <%= button_to({ controller: 'items', action: 'destroy', id: item.id }, method: :delete, aria: { label: t('.destroy') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm'), turbo_scroll: true } }) do %>
+        <i class="fa-solid fa-trash"></i>
+      <% end %>
+    </div>
+  </td>
+</tr>
+<%= render partial: 'promote_tbody', collection: item.item_promotes, as: :item_promote %>

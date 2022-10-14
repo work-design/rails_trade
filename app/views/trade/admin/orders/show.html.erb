@@ -1,7 +1,7 @@
 <table class="table is-fullwidth is-hoverable">
   <% if @order.aim_rent? %>
-    <%= render 'index_thead' %>
-    <%= render partial: 'rent_index_tbody', collection: @order.items, as: :item %>
+    <%= render 'rent_thead' %>
+    <%= render partial: 'rent_tbody', layout: 'rent_tr', collection: @order.items, as: :item %>
   <% else %>
     <%= render 'index_thead' %>
     <%= render partial: 'index_tbody', collection: @order.items, as: :item %>

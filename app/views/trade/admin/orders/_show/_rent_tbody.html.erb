@@ -1,0 +1,28 @@
+<td>
+  <div class="is-several">
+    <% if item.good %>
+      <%= image_tag item.good.logo, class: 'image is-32x32' if item.good.logo.attached? %>
+      <%= link_to item.good, target: '_blank' do %>
+        <span><%= item.good.name %></span>
+      <% end %>
+    <% end %>
+    <span class="tag"><%= item.aim_i18n %></span>
+  </div>
+</td>
+<td>
+  <span><%= item.good.price.to_money.format(html_wrap: true).html_safe if item.good %></span>
+  <span class="has-text-grey">x</span>
+  <span><%= item.number %></span>
+</td>
+<td><%= item.original_amount.to_money.format(html_wrap: true).html_safe %></td>
+<td>
+  <p><%= item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= item.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+</td>
+<td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td>
+  <p><time data-controller="time" data-time-datetime-value="<%= item.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_start_at.to_fs(:human) %></time></p>
+  <% if item.rent_estimate_finish_at %>
+  <p><time data-controller="time" data-time-datetime-value="<%= item.rent_estimate_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_estimate_finish_at.to_fs(:human) %></time></p>
+  <% end %>
+</td>
