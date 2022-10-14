@@ -24,7 +24,7 @@
       <% elsif item.rent_start_at %>
         <p>
           <span class="has-text-grey">已租：</span>
-          <time data-controller="count-up" data-count-up-time-value="<%= item.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono"><%= exact_distance_time(item.rent_start_at, Time.current) %></time>
+          <time data-controller="count-up" data-count-up-time-value="<%= item.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono has-text-danger"><%= exact_distance_time(item.rent_start_at, Time.current) %></time>
         </p>
       <% end %>
       <p>
@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="weui-media-box__ft px-3">
-    <%= button_to({ controller: 'items', action: 'finish', id: item.id }, class: 'weui-btn weui-btn_mini weui-btn_default') do %>
+    <%= button_to({ controller: 'items', action: 'finish', id: item.id }, class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.my.items.finish.title') %></span>
     <% end if item.rent_finish_at.blank? %>
