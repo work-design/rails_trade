@@ -1,9 +1,14 @@
 <tr>
   <td>
-    <%= link_to item.good, target: '_blank' do %>
-      <span><%= item.good.name %></span>
-    <% end if item.good %>
-    <span class="tag"><%= item.aim_i18n %></span>
+    <div class="is-several">
+      <% if item.good %>
+        <%= image_tag item.good.logo, class: 'image is-32x32' if item.good.logo.attached? %>
+        <%= link_to item.good, target: '_blank' do %>
+          <span><%= item.good.name %></span>
+        <% end %>
+      <% end %>
+      <span class="tag"><%= item.aim_i18n %></span>
+    </div>
   </td>
   <td>
     <span><%= item.good.price.to_money.format(html_wrap: true).html_safe if item.good %></span>
