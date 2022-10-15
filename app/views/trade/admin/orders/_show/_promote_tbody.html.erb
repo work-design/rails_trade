@@ -1,6 +1,6 @@
 <tr>
   <td><%= item_promote.promote&.name %></td>
-  <td colspan="3"></td>
+  <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
   <td><%= item_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
   <td></td>
 </tr>
