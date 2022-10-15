@@ -1,8 +1,10 @@
 <%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between is-align-items-center is-size-7') do %>
   <div>
     <div>
-      <span class="has-text-grey"><%= Trade::Order.human_attribute_name(:created_at) %>：</span>
-      <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
+      <% if model.aim != 'use' %>
+        <span class="tag is-danger"><%= model.aim_i18n %></span>
+      <% end %>
+      <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
     </div>
     <% if model.maintain %>
       <div>
@@ -12,9 +14,6 @@
     <% end %>
   </div>
   <div>
-    <% if model.aim != 'use' %>
-      <span class="tag is-danger"><%= model.aim_i18n %></span>
-    <% end %>
     <span><%= model.payment_status_i18n %></span>
     <% if model.payment_strategy %>
       <span class="tag is-danger"><%= model.payment_strategy.name %></span>

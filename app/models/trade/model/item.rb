@@ -387,12 +387,14 @@ module Trade
       ItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
-    def compute_duration
+    def compute_duration(now = Time.current)
       return unless order
       if rent_finish_at
         r = rent_finish_at - rent_start_at
-      else
+      elsif rent_estimate_finish_at
         r = rent_estimate_finish_at - rent_start_at
+      else
+        r = now - rent_start_at
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
