@@ -13,12 +13,12 @@
     <div class="pt-2 is-size-0_9">
       <p>
         <span class="has-text-grey">起租：</span>
-        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss" data-time-datetime-value="<%= item.rent_start_at&.to_fs(:iso8601) %>"><%= item.rent_start_at&.to_fs(:human) %></time>
+        <time data-controller="time" data-format="human" data-value="<%= item.rent_start_at&.to_fs(:iso8601) %>"><%= item.rent_start_at&.to_fs(:human) %></time>
       </p>
       <% if item.rent_finish_at %>
         <p>
           <span class="has-text-grey">截止：</span>
-          <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= item.rent_finish_at.to_fs(:iso8601) %></time>
+          <time data-controller="time" data-format="human"><%= item.rent_finish_at.to_fs(:iso8601) %></time>
         </p>
       <% elsif item.rent_start_at %>
         <p>

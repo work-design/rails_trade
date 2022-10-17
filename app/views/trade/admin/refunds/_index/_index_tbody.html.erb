@@ -11,7 +11,7 @@
 <td><%= model.total_amount.to_money(model.currency).format(html_wrap: true).html_safe %></td>
 <td><%= model.comment %></td>
 <td>
-  <p class="has-text-grey"><time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.created_at.to_fs(:iso8601) %></time></p>
-  <p class="has-text-success"><time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.refunded_at.to_fs(:iso8601) if model.refunded_at %></time></p>
+  <p class="has-text-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p class="has-text-success"><time data-controller="time" data-format="human"><%= model.refunded_at.to_fs(:iso8601) if model.refunded_at %></time></p>
 </td>
 <td><%= model.operator&.name %></td>

@@ -4,7 +4,7 @@
     <% if model.expired? %>
       <div class="has-text-grey">
         <span>已于</span>
-        <time data-controller="time" data-format="yyyy-MM-dd HH:mm:ss"><%= model.expire_at.to_fs(:iso8601) %></time>
+        <time data-controller="time" data-format="human"><%= model.expire_at.to_fs(:iso8601) %></time>
         <span>过期</span>
       </div>
     <% elsif model.expire_at.acts_like?(:time) %>
