@@ -399,7 +399,7 @@ module Trade
     end
 
     def do_compute_duration(now = Time.current)
-      return unless order && now && rent_promote
+      return unless now && rent_promote
       r = now - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       x[rent_promote.unit_code].ceil
