@@ -33,6 +33,11 @@
     <time data-controller="time" data-value="<%= item.rent_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_finish_at.to_fs(:human) %></time>
     <span><%= item.duration %></span>
   </p>
+  <% elsif item.rent_present_finish_at %>
+  <p>
+    <time data-controller="time" data-value="<%= item.rent_present_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_present_finish_at.to_fs(:human) %></time>
+    <span><%= item.duration %></span>
+  </p>
   <% end %>
 </td>
 <td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>
