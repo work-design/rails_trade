@@ -31,6 +31,7 @@ module Trade
       attribute :organ_ancestor_ids, :json, default: []
       attribute :rent_start_at, :datetime
       attribute :rent_finish_at, :datetime
+      attribute :rent_present_finish_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
       attribute :estimate_metering, :json, default: {}
       attribute :estimate_amount, :json, default: {}
@@ -395,6 +396,11 @@ module Trade
 
     def compute_duration(now = rent_finish_at)
       self.duration = do_compute_duration(now)
+    end
+
+    def compute_present_duration(wait)
+      self.rent_present_finish_at = wait
+      self.duration = do_compute_duration(rent_present_finish_at)
     end
 
     def compute_estimate_duration

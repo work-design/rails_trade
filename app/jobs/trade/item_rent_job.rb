@@ -2,7 +2,7 @@ module Trade
   class ItemRentJob < ApplicationJob
 
     def perform(item, wait)
-      item.compute(wait)
+      item.compute_present_duration(wait)
     end
 
     after_perform do |job|
