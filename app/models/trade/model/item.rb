@@ -120,9 +120,8 @@ module Trade
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
-      before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_promote_to_order!, if: -> { order_id.present? && (saved_changes.keys & PROMOTE_COLUMNS).present? }
+      after_save :compute_promotes!, if: -> { (saved_changes.keys & PROMOTE_COLUMNS).present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
@@ -245,14 +244,16 @@ module Trade
     def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
-      ps = available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
+      available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
         item_promote = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_id: promote_good.promote_id)
         item_promote.value = metering_attributes[promote_good.promote.metering]
         item_promote.promote_good = promote_good
         item_promote.valid?
         item_promote
       end
+    end
 
+    def sum_amount
       _additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       _reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d }) # 促销价格
       {
@@ -264,9 +265,18 @@ module Trade
       }
     end
 
-    def compute_promotes
-      self.assign_attributes do_compute_promotes
-      self.changes
+    def compute_promotes!
+      result = do_compute_promotes
+      result.each(&:save!)
+
+      self.assign_attributes sum_amount
+
+      if order
+        order.compute_promote
+        order.save!
+      end
+
+      self
     end
 
     def sync_amount_to_current_cart
@@ -294,12 +304,6 @@ module Trade
           current_cart.save!
         end
       end
-    end
-
-    def sync_promote_to_order!
-      return unless order
-      order.compute_promote
-      order.save!
     end
 
     def reset_amount
@@ -397,7 +401,8 @@ module Trade
       metering_hash = attributes.slice(*PROMOTE_COLUMNS)
       metering_hash.merge! 'duration' => do_compute_duration(rent_estimate_finish_at)  # 注意 hash key 须为 string 类型
       self.estimate_metering = metering_hash
-      self.estimate_amount = do_compute_promotes(metering_hash)
+      self.do_compute_promotes(estimate_metering)
+      self.estimate_amount = self.sum_amount
     end
 
     def do_compute_duration(end_at = Time.current)
