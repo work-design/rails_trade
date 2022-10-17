@@ -57,6 +57,8 @@ zh:
           title: 订单明细
         carts:
           title: 所在购物车
+        compute:
+          title: 计算租金
       trade_promotes:
         index:
           title: 订单优惠

@@ -8,6 +8,9 @@
       <%= link_to({ controller: 'items', action: 'edit', id: item.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil"></i>
       <% end %>
+      <%= button_to({ controller: 'items', action: 'compute', id: item.id }, method: :patch, aria: { label: t('trade.admin.items.compute.title') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm'), turbo_scroll: true } }) do %>
+        <i class="fa-solid fa-sync"></i>
+      <% end %>
       <%= button_to({ controller: 'items', action: 'destroy', id: item.id }, method: :delete, aria: { label: t('.destroy') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm'), turbo_scroll: true } }) do %>
         <i class="fa-solid fa-trash"></i>
       <% end %>
