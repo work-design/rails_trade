@@ -117,7 +117,8 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_save :compute_duration, if: -> { (rent_finish_at.present? || rent_estimate_finish_at.present?) && (['rent_finish_at', 'rent_estimate_finish_at'] & changes.keys).present? }
+      before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
+      before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
       before_save :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_promote_to_order!, if: -> { order_id.present? && (saved_changes.keys & PROMOTE_COLUMNS).present? }
@@ -388,20 +389,20 @@ module Trade
     end
 
     def compute_duration(now = rent_finish_at)
+      self.duration = do_compute_duration(now)
+    end
+
+    def compute_estimate_duration
+      metering_hash = attributes.slice(*PROMOTE_COLUMNS)
+      metering_hash.merge! duration: do_compute_duration(rent_estimate_finish_at)
+      self.estimate_amount = do_compute_promotes(metering_hash)
+    end
+
+    def do_compute_duration(now = Time.current)
       return unless order && now && rent_promote
       r = now - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[rent_promote.unit_code].ceil
-    end
-
-    def compute_estimate_duration(now = rent_estimate_finish_at)
-      return unless now && rent_promote
-      r = now - rent_start_at
-      x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-
-      metering_hash = attributes.slice(*PROMOTE_COLUMNS)
-      metering_hash.merge! duration: x[rent_promote.unit_code].ceil
-      self.estimate_amount = do_compute_promotes(metering_hash)
+      x[rent_promote.unit_code].ceil
     end
 
   end
