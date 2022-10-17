@@ -32,6 +32,7 @@ module Trade
       attribute :rent_start_at, :datetime
       attribute :rent_finish_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
+      attribute :estimate_amount, :json, default: {}
 
       enum status: {
         init: 'init',
@@ -239,7 +240,7 @@ module Trade
       self.rest_number = self.number - self.done_number
     end
 
-    def compute_promotes
+    def do_compute_promotes
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
@@ -250,16 +251,19 @@ module Trade
         item_promote
       end
 
-      sum_amount
+      _additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
+      _reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d }) # 促销价格
+      {
+        additional_amount: _additional_amount,
+        reduced_amount: _reduced_amount,
+        retail_price: single_price + _additional_amount,
+        wholesale_price: original_amount + _additional_amount,
+        amount: original_amount + _additional_amount + _reduced_amount  # 最终价格
+      }
     end
 
-    def sum_amount
-      self.additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
-      self.reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
-
-      self.retail_price = single_price + additional_amount
-      self.wholesale_price = original_amount + additional_amount
-      self.amount = original_amount + additional_amount + reduced_amount  # 最终价格
+    def compute_promotes
+      self.assign_attributes do_compute_promotes
       self.changes
     end
 
@@ -391,13 +395,19 @@ module Trade
       return unless order
       if rent_finish_at
         r = rent_finish_at - rent_start_at
-      elsif rent_estimate_finish_at
-        r = rent_estimate_finish_at - rent_start_at
       else
         r = now - rent_start_at
       end
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
+    end
+
+    def compute_estimate_duration
+      return unless estimate_finish_at
+      r = rent_estimate_finish_at - rent_start_at
+      x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
+      self.duration = x[rent_promote.unit_code].ceil if rent_promote
+      self.estimate_amount = do_compute_promotes
     end
 
   end
