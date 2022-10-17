@@ -387,20 +387,16 @@ module Trade
       ItemRentJob.set(wait_until: wait).perform_later(self, wait)
     end
 
-    def compute_duration(now = Time.current)
-      return unless order
-      if rent_finish_at
-        r = rent_finish_at - rent_start_at
-      else
-        r = now - rent_start_at
-      end
+    def compute_duration(now = rent_finish_at)
+      return unless order && now && rent_promote
+      r = now - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[rent_promote.unit_code].ceil if rent_promote
+      self.duration = x[rent_promote.unit_code].ceil
     end
 
-    def compute_estimate_duration
-      return unless estimate_finish_at && rent_promote
-      r = rent_estimate_finish_at - rent_start_at
+    def compute_estimate_duration(now = rent_estimate_finish_at)
+      return unless now && rent_promote
+      r = now - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
 
       metering_hash = attributes.slice(*PROMOTE_COLUMNS)
