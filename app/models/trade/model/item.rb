@@ -240,7 +240,7 @@ module Trade
       self.rest_number = self.number - self.done_number
     end
 
-    def do_compute_promotes
+    def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
       available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
@@ -311,10 +311,6 @@ module Trade
     def reset_amount!(*args)
       self.reset_amount
       self.save(*args)
-    end
-
-    def metering_attributes
-      attributes.slice *PROMOTE_COLUMNS
     end
 
     def to_notice
@@ -403,11 +399,13 @@ module Trade
     end
 
     def compute_estimate_duration
-      return unless estimate_finish_at
+      return unless estimate_finish_at && rent_promote
       r = rent_estimate_finish_at - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      self.duration = x[rent_promote.unit_code].ceil if rent_promote
-      self.estimate_amount = do_compute_promotes
+
+      metering_hash = attributes.slice(*PROMOTE_COLUMNS)
+      metering_hash.merge! duration: x[rent_promote.unit_code].ceil
+      self.estimate_amount = do_compute_promotes(metering_hash)
     end
 
   end
