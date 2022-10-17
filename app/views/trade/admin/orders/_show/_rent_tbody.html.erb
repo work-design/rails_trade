@@ -23,9 +23,11 @@
 </td>
 <td>
   <p><time data-controller="time" data-time-datetime-value="<%= item.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_start_at.to_fs(:human) %></time></p>
-  <% if item.rent_estimate_finish_at %>
-  <p><time data-controller="time" data-time-datetime-value="<%= item.rent_estimate_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_estimate_finish_at.to_fs(:human) %></time></p>
-  <% end %>
 </td>
-<td><%= item.duration %></td>
+<td>
+  <% if item.rent_estimate_finish_at %>
+    <p><time data-controller="time" data-time-datetime-value="<%= item.rent_estimate_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_estimate_finish_at.to_fs(:human) %></time></p>
+  <% end %>
+  <p><%= item.duration %></p>
+</td>
 <td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>

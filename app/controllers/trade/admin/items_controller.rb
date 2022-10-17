@@ -1,6 +1,6 @@
 module Trade
   class Admin::ItemsController < Admin::BaseController
-    before_action :set_item, only: [:show, :update, :destroy, :actions, :carts, :toggle]
+    before_action :set_item, only: [:show, :update, :destroy, :actions, :compute, :carts, :toggle]
     before_action :set_new_item, only: [:create]
 
     def index
@@ -42,6 +42,11 @@ module Trade
       @additions = @item.total
 
       render 'only'
+    end
+
+    def compute
+      @item.compute_duration(Time.current)
+      @item.save
     end
 
     private

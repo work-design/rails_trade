@@ -32,6 +32,7 @@ module Trade
       attribute :rent_start_at, :datetime
       attribute :rent_finish_at, :datetime
       attribute :rent_estimate_finish_at, :datetime
+      attribute :estimate_metering, :json, default: {}
       attribute :estimate_amount, :json, default: {}
 
       enum status: {
@@ -395,6 +396,7 @@ module Trade
     def compute_estimate_duration
       metering_hash = attributes.slice(*PROMOTE_COLUMNS)
       metering_hash.merge! duration: do_compute_duration(rent_estimate_finish_at)
+      self.estimate_metering = metering_hash
       self.estimate_amount = do_compute_promotes(metering_hash)
     end
 

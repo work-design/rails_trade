@@ -157,6 +157,7 @@ Rails.application.routes.draw do
           member do
             get :carts
             patch :toggle
+            patch :compute
           end
           resources :rents
         end
