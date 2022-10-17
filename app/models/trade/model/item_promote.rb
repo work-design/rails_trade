@@ -21,7 +21,7 @@ module Trade
       validates :amount, presence: true
 
       before_validation :sync_promote, if: -> { promote_good_id_changed? && promote_good }
-      before_save :compute_amount, if: -> { value_changed? }
+      before_validation :compute_amount, if: -> { value_changed? }
     end
 
     def sync_promote
