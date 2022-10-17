@@ -398,9 +398,9 @@ module Trade
       self.estimate_amount = do_compute_promotes(metering_hash)
     end
 
-    def do_compute_duration(now = Time.current)
-      return unless now && rent_promote
-      r = now - rent_start_at
+    def do_compute_duration(end_at = Time.current)
+      return unless end_at && rent_promote
+      r = end_at - rent_start_at
       x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
       x[rent_promote.unit_code].ceil
     end
