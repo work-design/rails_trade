@@ -245,11 +245,11 @@ module Trade
     def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
-      available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
+      ps = available_promote_goods.where.not(promote_id: unavailable_ids).map do |promote_good|
         item_promote = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_id: promote_good.promote_id)
         item_promote.value = metering_attributes[promote_good.promote.metering]
         item_promote.promote_good = promote_good
-        item_promote.save
+        item_promote.valid?
         item_promote
       end
 
@@ -395,7 +395,7 @@ module Trade
 
     def compute_estimate_duration
       metering_hash = attributes.slice(*PROMOTE_COLUMNS)
-      metering_hash.merge! duration: do_compute_duration(rent_estimate_finish_at)
+      metering_hash.merge! 'duration' => do_compute_duration(rent_estimate_finish_at)  # 注意 hash key 须为 string 类型
       self.estimate_metering = metering_hash
       self.estimate_amount = do_compute_promotes(metering_hash)
     end
