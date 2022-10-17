@@ -121,6 +121,7 @@ module Trade
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
+      before_save :set_rent_start, if: -> { aim_rent? && status_changed? && ['deliverable'].include?(status) }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :compute_promotes!, if: -> { (saved_changes.keys & PROMOTE_COLUMNS).present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
@@ -335,6 +336,11 @@ module Trade
       ItemJob.perform_later(self)
     end
 
+    def set_rent_start
+      return unless aim_rent?
+      self.rent_start_at = Time.current
+    end
+
     def order_work
       return unless good
       case status
@@ -345,7 +351,6 @@ module Trade
         self.good.order_trial(self)
       when 'deliverable'
         if aim_rent?
-          self.update(rent_start_at: Time.current)
           self.good.order_rentable(self)
         else
           self.good.order_deliverable(self)
