@@ -9,20 +9,23 @@
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:item_amount) %></td>
     <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
-    <td class="has-text-success"><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></td>
-    <td></td>
+    <td colspan="2" class="has-text-success"><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></td>
   </tr>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:amount) %></td>
     <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
-    <td>
+    <td colspan="2">
       <span><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
       <%= link_to({ controller: 'trade/admin/order_payments', action: 'new', order_id: @order.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-regular fa-credit-card"></i>
       <% end %>
     </td>
-    <td></td>
+  </tr>
+  <tr>
+    <td><%= Trade::Order.human_attribute_name(:payment_status) %></td>
+    <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
+    <td colspan="2"><%= @order.payment_status_i18n %></td>
   </tr>
   <%= render partial: 'show_address', locals: { address: @order.address } if @order.address %>
 </table>
