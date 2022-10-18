@@ -1,0 +1,9 @@
+<% if model.promote_charge.base_price > 0 %>
+  <span><%= model.promote_charge.base_price.to_money.format(html_wrap: true).html_safe %></span>
+  <span class="has-text-grey">+</span>
+<% end %>
+<span><%= model.value %></span>
+<span class="has-text-grey">x</span>
+<span><%= model.promote_charge.parameter.to_money.format(html_wrap: true).html_safe %></span>
+<span class="has-text-grey">=</span>
+<span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
