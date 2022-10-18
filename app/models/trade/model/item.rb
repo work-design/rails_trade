@@ -2,8 +2,14 @@ module Trade
   module Model::Item
     PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume', 'duration']
     TIME_UNIT = {
-      'hours' => :hour
-    }
+      'seconds' => :sec,
+      'minutes' => :min,
+      'hours' => :hour,
+      'days' => :day,
+      'weeks' => :week,
+      'months' => :month,
+      'years' => :year
+    }.freeze
     extend ActiveSupport::Concern
 
     included do
@@ -399,7 +405,7 @@ module Trade
         if r.delete(TIME_UNIT[rent_promote.unit_code])
           next_at = rent_present_finish_at + 1.public_send(rent_promote.unit_code)
         else
-          next_at = rent_present_finish_at.change(**rent_start_at.parts.select(r))
+          next_at = rent_present_finish_at.change(rent_start_at.parts.slice(*r.keys))
         end
       else
         next_at = rent_start_at + 1.public_send(rent_promote.unit_code)
