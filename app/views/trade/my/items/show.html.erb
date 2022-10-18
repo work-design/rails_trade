@@ -1,3 +1,5 @@
+<%= render 'top_bar' %>
+
 <div class="weui-panel">
   <div class="weui-panel__hd">
     <div><%= @item.status_i18n %></div>
@@ -19,30 +21,5 @@
 </div>
 
 <div class="weui-panel">
-  <div class="weui-panel__bd p-4">
-    <p>
-      <span class="has-text-grey">订单编号：</span>
-      <span><%= @item.order.uuid %></span>
-    </p>
-    <p>
-      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:number) %>：</span>
-      <span><%= @item.number %></span>
-    </p>
-    <p>
-      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:single_price) %>：</span>
-      <span><%= @item.single_price.to_money.format(html_wrap: true).html_safe %></span>
-    </p>
-    <p>
-      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:retail_price) %>：</span>
-      <span><%= @item.retail_price.to_money.format(html_wrap: true).html_safe %></span>
-    </p>
-    <p>
-      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:wholesale_price) %>：</span>
-      <span><%= @item.wholesale_price.to_money.format(html_wrap: true).html_safe %></span>
-    </p>
-    <p>
-      <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:amount) %>：</span>
-      <span><%= @item.amount.to_money.format(html_wrap: true).html_safe %></span>
-    </p>
-  </div>
+  <%= render partial: 'item', locals: { model: @item } %>
 </div>

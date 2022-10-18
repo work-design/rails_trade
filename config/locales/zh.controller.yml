@@ -202,6 +202,8 @@ zh:
         index:
           title: 续费记录
       items:
+        show:
+          title: 详情
         finish:
           title: 结算
     our:

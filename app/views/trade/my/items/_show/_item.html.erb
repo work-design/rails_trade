@@ -1,0 +1,42 @@
+<div class="weui-form-preview">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:uuid) %></label>
+      <div class="weui-form-preview__value" data-controller="clipboard">
+        <span data-clipboard-target="source"><%= model.uuid %></span>
+        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <div data-clipboard-target="toast" class="weui-toast__wrap">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:number) %></label>
+      <span class="weui-form-preview__value"><%= model.number %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:single_price) %></label>
+      <span class="weui-form-preview__value"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:retail_price) %></label>
+      <span class="weui-form-preview__value"><%= model.retail_price.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:wholesale_price) %></label>
+      <span class="weui-form-preview__value"><%= model.wholesale_price.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:amount) %></label>
+      <span class="weui-form-preview__value"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:created_at) %></label>
+      <span class="weui-form-preview__value"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></span>
+    </div>
+  </div>
+</div>

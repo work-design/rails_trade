@@ -32,10 +32,13 @@
       </p>
     </div>
   </div>
-  <div class="weui-media-box__ft px-3">
+  <div class="weui-media-box__ft is-middle px-3">
     <%= button_to({ controller: 'items', action: 'finish', id: item.id }, class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.my.items.finish.title') %></span>
     <% end if item.rent_finish_at.blank? %>
+    <%= link_to({ controller: 'items', action: 'show', id: item.id }, class: 'button is-small is-default mt-2') do %>
+      <span><%= t('trade.my.items.show.title') %></span>
+    <% end %>
   </div>
 </div>
