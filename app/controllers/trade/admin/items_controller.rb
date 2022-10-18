@@ -45,8 +45,7 @@ module Trade
     end
 
     def compute
-      @item.compute_present_duration(Time.current)
-      @item.save
+      @item.compute_present_duration!(Time.current)
     end
 
     private

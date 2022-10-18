@@ -1,13 +1,13 @@
 module Trade
   class ItemRentJob < ApplicationJob
 
-    def perform(item, wait)
-      item.compute_present_duration(wait)
+    def perform(item, next_at)
+      item.compute_present_duration!(next_at)
     end
 
     after_perform do |job|
       args = job.arguments
-      args[0].compute_continue(args[1] + 1)
+      args[0].compute_later
     end
 
   end

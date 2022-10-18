@@ -1,6 +1,9 @@
 module Trade
   module Model::Item
     PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume', 'duration']
+    TIME_UNIT = {
+      'hours' => :hour
+    }
     extend ActiveSupport::Concern
 
     included do
@@ -388,24 +391,35 @@ module Trade
       ItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
-    def compute_continue(now = Time.current)
-      compute_later(now + 1.hour)
-    end
-
     def compute_later(now = Time.current)
-      wait = now.change(min: rent_start_at.min, sec: rent_start_at.sec)
-      wait += 1.hour if wait <= now
+      return unless rent_promote
+      if rent_present_finish_at
+        r = rent_present_finish_at.parts.difference(rent_start_at.parts)
 
-      ItemRentJob.set(wait_until: wait).perform_later(self, wait)
+        if r.delete(TIME_UNIT[rent_promote.unit_code])
+          next_at = rent_present_finish_at + 1.public_send(rent_promote.unit_code)
+        else
+          next_at = rent_present_finish_at.change(**rent_start_at.parts.select(r))
+        end
+      else
+        next_at = rent_start_at + 1.public_send(rent_promote.unit_code)
+      end
+
+      if next_at <= now
+        next_at += 1.public_send(rent_promote.unit_code)
+      end
+
+      ItemRentJob.set(wait_until: next_at).perform_later(self, next_at)
     end
 
     def compute_duration(now = rent_finish_at)
       self.duration = do_compute_duration(now)
     end
 
-    def compute_present_duration(wait)
-      self.rent_present_finish_at = wait
+    def compute_present_duration!(next_at)
+      self.rent_present_finish_at = next_at
       self.duration = do_compute_duration(rent_present_finish_at)
+      self.save!
     end
 
     def compute_estimate_duration
