@@ -94,6 +94,7 @@ zh:
         status: 状态
         rent_start_at: 起租时间
         rent_estimate_finish_at: 预计结束时间
+        rent_present_finish_at: 上次计费节点
         rent_finish_at: 结束时间
         duration: 时长
         image: 图片

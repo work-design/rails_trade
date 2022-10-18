@@ -23,3 +23,10 @@
 <div class="weui-panel">
   <%= render partial: 'item', locals: { model: @item } %>
 </div>
+
+<div class="weui-panel">
+  <div class="weui-panel__hd">租用详情</div>
+  <div class="weui-panel__bd">
+    <%= render partial: 'rent_item', locals: { model: @item } %>
+  </div>
+</div>
