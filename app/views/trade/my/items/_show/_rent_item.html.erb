@@ -12,18 +12,18 @@
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:rent_start_at) %></label>
       <span class="weui-form-preview__value has-text-mono"><time data-controller="time" data-format="human"><%= model.rent_start_at.to_fs(:iso8601) %></time></span>
     </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label">已租</label>
-      <span class="weui-form-preview__value has-text-mono has-text-danger">
-        <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
-      </span>
-    </div>
     <% if model.rent_finish_at %>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:rent_finish_at) %></label>
         <span class="weui-form-preview__value has-text-mono"><time data-controller="time" data-format="human"><%= model.rent_finish_at&.to_fs(:iso8601) %></time></span>
       </div>
     <% else %>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">已租</label>
+        <span class="weui-form-preview__value has-text-mono has-text-danger">
+        <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
+      </span>
+      </div>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:rent_present_finish_at) %></label>
         <span class="weui-form-preview__value has-text-mono"><time data-controller="time" data-format="human"><%= model.rent_present_finish_at&.to_fs(:iso8601) %></time></span>
