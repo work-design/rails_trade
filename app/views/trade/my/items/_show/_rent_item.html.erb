@@ -21,8 +21,8 @@
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label">已租</label>
         <span class="weui-form-preview__value has-text-mono has-text-danger">
-        <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
-      </span>
+          <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
+        </span>
       </div>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:rent_present_finish_at) %></label>
