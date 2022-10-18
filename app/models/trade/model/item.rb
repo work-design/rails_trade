@@ -131,14 +131,14 @@ module Trade
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
       before_save :set_rent_start, if: -> { aim_rent? && status_changed? && ['deliverable'].include?(status) }
-      before_save :compute_promotes!, if: -> { (saved_changes.keys & PROMOTE_COLUMNS).present? }
+      before_save :compute_promotes!, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
       after_save_commit :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'deliverable', 'done', 'refund'].include?(status) }
-      after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_status? && ['deliverable'].include?(status) }
+      after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_rent_start_at? }
 
       acts_as_notify(
         :default,
