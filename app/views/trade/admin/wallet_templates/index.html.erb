@@ -1,0 +1,9 @@
+<%= render 'filter_form' %>
+<%= render 'filter_table' %>
+
+<%= render 'button' %>
+
+<%= render layout: 'index_table' do %>
+  <%= render partial: 'lawful_tbody', layout: 'lawful_tr' %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @wallet_templates, as: :model %>
+<% end %>
