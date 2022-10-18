@@ -1,6 +1,14 @@
 <div class="weui-form-preview">
   <div class="weui-form-preview__bd">
     <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= model.rent_promote.name %></label>
+      <span class="weui-form-preview__value">
+        <span><%= model.rent_promote.promote_charges[0].parameter.to_money.format(html_wrap: true).html_safe %></span>
+        <span>/</span>
+        <span><%= model.rent_promote.unit&.name %></span>
+      </span>
+    </div>
+    <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:rent_start_at) %></label>
       <span class="weui-form-preview__value has-text-mono"><time data-controller="time" data-format="human"><%= model.rent_start_at.to_fs(:iso8601) %></time></span>
     </div>
