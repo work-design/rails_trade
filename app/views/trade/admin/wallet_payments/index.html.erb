@@ -1,5 +1,5 @@
 <%= render 'filter_form' %>
-<%= render 'wallet' %>
+<%= render 'wallet' if @wallet.wallet_template %>
 <%= render 'button' %>
 
 <%= render layout: 'index_table' do %>

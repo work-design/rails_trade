@@ -1,10 +1,18 @@
 <td>
+<% if @wallet.wallet_template %>
   <span><%= model.total_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
   <span><%= @wallet.wallet_template.unit %></span>
+<% else %>
+  <span><%= model.total_amount.to_money.format(html_wrap: true).html_safe %></span>
+<% end %>
 </td>
 <td>
+<% if @wallet.wallet_template %>
   <span><%= model.refunded_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
   <span><%= @wallet.wallet_template.unit %></span>
+<% else %>
+  <span><%= model.refunded_amount.to_money.format(html_wrap: true).html_safe %></span>
+<% end %>
 </td>
 <td><%= model.comment %></td>
 <td>
