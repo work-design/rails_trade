@@ -39,6 +39,7 @@ module Trade
     end
 
     def init_wallet_code
+      return unless payment.wallet.wallet_template
       self.wallet_code = payment.wallet.wallet_template.code
     end
 

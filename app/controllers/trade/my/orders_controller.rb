@@ -46,6 +46,7 @@ module Trade
         @order.wallets.where(wallet_template_id: @order.wallet_codes).each do |wallet|
           @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
         end
+        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
       end
     end
 
