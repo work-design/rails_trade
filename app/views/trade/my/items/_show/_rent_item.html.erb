@@ -33,7 +33,7 @@
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:duration) %></label>
       <span class="weui-form-preview__value">
         <span><%= model.duration %></span>
-        <span><%= model.rent_promote.unit_code_i18n %></span>
+        <span><%= model.rent_promote.unit&.name %></span>
       </span>
     </div>
     <div class="weui-form-preview__item">
