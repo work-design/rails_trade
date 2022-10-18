@@ -56,7 +56,7 @@ module Trade
 
       if payment.wallet.amount > order_wallet_amount
         self.payment_amount = order_wallet_amount
-        self.order_amount = order.item_amount
+        self.order_amount = order.amount # todo 为什么之前是 item_amount
       else
         # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
         self.payment_amount = payment.wallet.amount
@@ -74,7 +74,7 @@ module Trade
     end
 
     def order_wallet_amount
-      wallet_amount.sum(&->(i){ i[:amount] })
+      wallet_amount.sum(&->(i){ i[:amount].to_d })
     end
 
     def wallet_amount_x
