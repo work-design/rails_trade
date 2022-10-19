@@ -20,7 +20,7 @@ module Trade
 
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      ::WxPay::Api.h5_order params, options
+      payee.api.h5_order params, options
     end
 
     def native(payee)
@@ -34,7 +34,7 @@ module Trade
 
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      ::WxPay::Api.native_order params, options
+      payee.api.native_order params, options
     end
 
     def js_pay(payee)
@@ -49,7 +49,7 @@ module Trade
         params = {
           prepayid: prepay['prepay_id']
         }
-        WxPay::Api.generate_js_pay_req params, options
+        payee.api.generate_js_pay_req params, options
       else
         prepay
       end
@@ -66,7 +66,7 @@ module Trade
       params.merge! payer: { openid: user.oauth_users.find_by(appid: payee.appid)&.uid }
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      ::WxPay::Api.invoke_unifiedorder params, options
+      payee.api.invoke_unifiedorder params, options
     end
 
     def common_params(payee)
@@ -94,7 +94,7 @@ module Trade
       self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     end
 
-    def result
+    def result(payee)
       #return self if self.payment_status == 'all_paid'
       options = {
         mchid: payee.mch_id,
@@ -107,7 +107,7 @@ module Trade
       }
 
       begin
-        result = WxPay::Api.order_query params, options
+        result = payee.api.order_query params, options
       rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end
