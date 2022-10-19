@@ -95,7 +95,6 @@ module Trade
     end
 
     def result(payee)
-      #return self if self.payment_status == 'all_paid'
       options = {
         mchid: payee.mch_id,
         serial_no: payee.serial_no,
