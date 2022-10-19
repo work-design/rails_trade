@@ -5,7 +5,7 @@
     <% end %>
     <tr>
       <td class="has-text-right"><%= Trade::Order.human_attribute_name(:unreceived_name) %></td>
-      <td><%= @order.unreceived_amount.to_money.format(html_wrap: true).html_safe %></td>
+      <td><%= @order.unreceived_amount.to_money.format.html_safe %></td>
       <td></td>
     </tr>
     <tr>

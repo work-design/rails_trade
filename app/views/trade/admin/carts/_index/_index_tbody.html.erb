@@ -14,9 +14,9 @@
   <p><%= model.deposit_ratio %></p>
 </td>
 <td class="has-text-right">
-  <p><%= model.item_amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.overall_additional_amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= link_to model.overall_reduced_amount.to_money.format(html_wrap: true).html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
-  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.item_amount.to_money.format.html_safe %></p>
+  <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
+  <p><%= link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
+  <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
 <td class="has-text-centered"><%= model.items.size %></td>

@@ -1,4 +1,4 @@
-<%= payment.checked_amount.to_money.format(html_wrap: true).html_safe %>
+<%= payment.checked_amount.to_money.format.html_safe %>
 <% if payment.part_checked? %>
   <%= link_to t('.adjust'), adjust_admin_payment_path(payment), method: :patch, class: 'ui mini grey button' %>
 <% else %>

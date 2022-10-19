@@ -11,16 +11,16 @@
     </div>
   </td>
   <td>
-    <span><%= item.good.price.to_money.format(html_wrap: true).html_safe if item.good %></span>
+    <span><%= item.good.price.to_money.format.html_safe if item.good %></span>
     <span class="has-text-grey">x</span>
     <span><%= item.number %></span>
   </td>
-  <td><%= item.original_amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= item.original_amount.to_money.format.html_safe %></td>
   <td>
-    <p><%= item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
-    <p><%= item.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+    <p><%= item.additional_amount.to_money.format.html_safe %></p>
+    <p><%= item.reduced_amount.to_money.format.html_safe %></p>
   </td>
-  <td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= item.amount.to_money.format.html_safe %></td>
   <td><%= link_to '订单流程', { controller: 'items', action: 'show', id: item.id } %></td>
 </tr>
 <%= render partial: 'promote_tbody', collection: item.item_promotes, as: :item_promote %>

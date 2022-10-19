@@ -2,7 +2,7 @@
   <span><%= model.amount.to_fs(:rounded, precision: @wallet_template.digit) %></span>
   <span><%= model.wallet_template.unit %></span>
 </td>
-<td><%= model.price.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.price.to_money.format.html_safe %></td>
 <td>
 <% if model.card_template %>
   <div class="is-several">

@@ -13,7 +13,7 @@
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:single_price) %></td>
   <td>
-    <span><%= @item.single_price.to_money.format(html_wrap: true).html_safe %></span>
+    <span><%= @item.single_price.to_money.format.html_safe %></span>
     <% if @item.vip_code.present? %>
       <span class="tag"><%= @item.vip_code %></span>
     <% end %>
@@ -25,19 +25,19 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:original_amount) %></td>
-  <td><%= @item.original_amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @item.original_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:additional_amount) %></td>
-  <td><%= @item.additional_amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @item.additional_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:reduced_amount) %></td>
-  <td><%= @item.reduced_amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @item.reduced_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:amount) %></td>
-  <td><%= @item.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @item.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:produce_on) %></td>

@@ -5,7 +5,7 @@
   <span><%= model.amount.to_fs(:rounded, precision: model.wallet.wallet_template.digit) %></span>
   <span><%= model.wallet.wallet_template.unit %></span>
 <% else %>
-  <span><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+  <span><%= model.amount.to_money.format.html_safe %></span>
 <% end %>
 </td>
 <td>

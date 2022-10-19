@@ -1,7 +1,7 @@
 <td><%= model.promote.name %></td>
 <td>
-  <p><%= model.based_amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.computed_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.based_amount.to_money.format.html_safe %></p>
+  <p><%= model.computed_amount.to_money.format.html_safe %></p>
 </td>
 <td>
   <p>
@@ -10,5 +10,5 @@
   </p>
   <p><%= model.promote_charge.parameter %></p>
 </td>
-<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.amount.to_money.format.html_safe %></td>
 <td><%= model.note %></td>

@@ -1,6 +1,6 @@
 <tr>
   <td class="has-text-right"><%= Trade::ItemPromote.human_attribute_name(:amount) %></td>
-  <td><%= @item_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @item_promote.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::ItemPromote.human_attribute_name(:item_id) %></td>

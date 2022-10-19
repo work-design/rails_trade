@@ -6,7 +6,7 @@
     <% end %>
     <%= button_tag class: 'has-background-light py-4' do %>
       <div class="header has-text-grey"><%= purchase.title %></div>
-      <div class="description has-text-danger"><%= purchase.price.to_money.format(html_wrap: true).html_safe %></div>
+      <div class="description has-text-danger"><%= purchase.price.to_money.format.html_safe %></div>
     <% end %>
   <% end %>
 </div>

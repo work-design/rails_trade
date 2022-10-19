@@ -4,7 +4,7 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Advance.human_attribute_name(:price) %></td>
-  <td><%= @advance.price.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @advance.price.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Advance.human_attribute_name(:amount) %></td>

@@ -3,6 +3,6 @@
   <td colspan="<%= @order.aim_rent? ? '4' : '3' %>">
     <p>计算规则：<%= render partial: 'plus_promote_charge', locals: { model: item_promote } %></p>
   </td>
-  <td><%= item_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= item_promote.amount.to_money.format.html_safe %></td>
   <td></td>
 </tr>

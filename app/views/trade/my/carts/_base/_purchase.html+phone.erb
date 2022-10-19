@@ -7,7 +7,7 @@
       <span class="has-text-grey ml-2"><%= card_template.promote&.name %></span>
     </span>
     <span>
-      <span><%= card_template.purchase.price.to_money.format(html_wrap: true).html_safe if card_template.purchase %></span>
+      <span><%= card_template.purchase.price.to_money.format.html_safe if card_template.purchase %></span>
     </span>
   </span>
   <span class="weui-cells_checkbox">

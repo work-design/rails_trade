@@ -1,7 +1,7 @@
 <tr>
   <td><%= cart_promote.promote.name %></td>
   <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
-  <td class="has-text-danger"><%= cart_promote.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td class="has-text-danger"><%= cart_promote.amount.to_money.format.html_safe %></td>
   <td>
     <%= link_to({ controller: 'cart_promotes', action: 'edit', id: cart_promote.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
       <i class="fa-solid fa-pencil"></i>
