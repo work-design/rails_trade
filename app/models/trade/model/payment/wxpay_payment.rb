@@ -102,7 +102,7 @@ module Trade
       }
       params = {
         mchid: payee.mch_id,
-        out_trade_no: uuid
+        out_trade_no: payment_uuid
       }
 
       begin
@@ -113,8 +113,7 @@ module Trade
       logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
 
       if result['trade_state'] == 'SUCCESS'
-        self.assign_detail result
-        self.confirm!
+        self.confirm!(result)
       else
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
