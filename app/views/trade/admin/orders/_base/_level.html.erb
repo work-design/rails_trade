@@ -2,19 +2,19 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">未付总额</p>
-      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format(:html_wrap).html_safe %></p>
+      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">已收款</p>
-      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:received_amount).to_money.format(:html_wrap).html_safe %></p>
+      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:received_amount).to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">订单总额</p>
-      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:amount).to_money.format(:html_wrap).html_safe %></p>
+      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:amount).to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item has-text-centered">
