@@ -54,7 +54,8 @@ module Trade
     def wxpay
       @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: @order.uuid, total_amount: @order.amount
       @payment.user = current_user
-      @wxpay_order = @payment.js_pay(current_payee)
+      @payment.appid = params[:appid].presence || current_payee&.appid
+      @wxpay_order = @payment.js_pay
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?
         respond_to do |format|

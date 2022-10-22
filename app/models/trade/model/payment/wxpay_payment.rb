@@ -3,32 +3,29 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :payee, ->(o) { where(organ_id: o.organ_id, appid: o.extra['appid']) }, class_name: 'Wechat::Payee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
+      attribute :appid, :string
+      belongs_to :payee, ->(o) { where(organ_id: o.organ_id, appid: o.appid) }, class_name: 'Wechat::Payee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
     end
 
-    def h5(payee, payer_client_ip: '127.0.0.1')
+    def h5(payer_client_ip: '127.0.0.1')
       params = {}
-      params.merge! common_params(payee)
+      params.merge! common_params
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
-
-      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       payee.api.h5_order(params)
     end
 
-    def native(payee)
+    def native
       params = {}
-      params.merge! common_params(payee)
-
-      logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
+      params.merge! common_params
 
       payee.api.native_order(params)
     end
 
-    def js_pay(payee)
-      prepay = common_prepay(payee)
+    def js_pay
+      prepay = common_prepay
 
       if prepay['prepay_id']
         params = {
@@ -40,21 +37,21 @@ module Trade
       end
     end
 
-    def common_prepay(payee)
+    def common_prepay
       options = {
         mchid: payee.mch_id,
         serial_no: payee.serial_no,
         key: payee.apiclient_key
       }
       params = {}
-      params.merge! common_params(payee)
+      params.merge! common_params
       params.merge! payer: { openid: user.oauth_users.find_by(appid: payee.appid)&.uid }
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
       payee.api.invoke_unifiedorder params, options
     end
 
-    def common_params(payee)
+    def common_params
       {
         appid: payee.appid,
         mchid: payee.mch_id,
@@ -79,7 +76,7 @@ module Trade
       self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     end
 
-    def result(payee)
+    def result
       params = {
         mchid: payee.mch_id,
         out_trade_no: payment_uuid
