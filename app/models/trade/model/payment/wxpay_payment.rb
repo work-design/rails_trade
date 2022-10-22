@@ -9,47 +9,32 @@ module Trade
     end
 
     def h5(payee, payer_client_ip: '127.0.0.1')
-      options = {
-        mchid: payee.mch_id,
-        serial_no: payee.serial_no,
-        key: payee.apiclient_key
-      }
       params = {}
       params.merge! common_params(payee)
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      payee.api.h5_order params, options
+      payee.api.h5_order(params)
     end
 
     def native(payee)
-      options = {
-        mchid: payee.mch_id,
-        serial_no: payee.serial_no,
-        key: payee.apiclient_key
-      }
       params = {}
       params.merge! common_params(payee)
 
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      payee.api.native_order params, options
+      payee.api.native_order(params)
     end
 
     def js_pay(payee)
       prepay = common_prepay(payee)
-      options = {
-        appid: payee.appid,
-        mchid: payee.mch_id,
-        key: payee.apiclient_key
-      }
 
       if prepay['prepay_id']
         params = {
           prepayid: prepay['prepay_id']
         }
-        payee.api.generate_js_pay_req params, options
+        payee.api.generate_js_pay_req(params)
       else
         prepay
       end
@@ -95,18 +80,13 @@ module Trade
     end
 
     def result(payee)
-      options = {
-        mchid: payee.mch_id,
-        serial_no: payee.serial_no,
-        key: payee.apiclient_key
-      }
       params = {
         mchid: payee.mch_id,
         out_trade_no: payment_uuid
       }
 
       begin
-        result = payee.api.order_query params, options
+        result = payee.api.order_query(params)
       rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end

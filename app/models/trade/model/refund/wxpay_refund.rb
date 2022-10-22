@@ -21,14 +21,9 @@ module Trade
         },
         transaction_id: self.payment.payment_uuid
       }
-      options = {
-        mchid: payee.mch_id,
-        serial_no: payee.serial_no,
-        key: payee.apiclient_key
-      }
 
       begin
-        result = WxPay::Api.invoke_refund(_params, options)
+        result = payee.api.invoke_refund(_params)
       rescue StandardError => e
         result = {}
         result['return_code'] = e.message.truncate(225)
