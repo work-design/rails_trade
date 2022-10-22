@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :payee, ->(o) { where(organ_id: o.organ_id) }, class_name: 'Wechat::Payee', foreign_key: :seller_identifier, primary_key: :appid, optional: true
+      belongs_to :payee, ->(o) { where(organ_id: o.organ_id, appid: o.extra['appid']) }, class_name: 'Wechat::Payee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
     end

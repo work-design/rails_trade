@@ -1,6 +1,7 @@
 # 微信是同一个批次号未退款成功可重复申请
 module Trade
   module Model::Refund::WxpayRefund
+    extend ActiveSupport::Concern
 
     def transaction_id
       refunded_payment&.payment_uuid
@@ -10,8 +11,7 @@ module Trade
       self.origin&.payment_entity_no
     end
 
-    def do_refund(**params)
-      payee = get_payee
+    def do_refund
       _params = {
         out_refund_no: self.refund_uuid,
         amount: {
@@ -23,7 +23,7 @@ module Trade
       }
 
       begin
-        result = payee.api.invoke_refund(_params)
+        result = payment.payee.api.invoke_refund(_params)
       rescue StandardError => e
         result = {}
         result['return_code'] = e.message.truncate(225)
@@ -47,22 +47,12 @@ module Trade
 
     def refund_query
       return if state == 'completed'
-      payee = get_payee
       params = {
         out_refund_no: self.refund_uuid
       }
-      options = {
-        mchid: payee.mch_id,
-        serial_no: payee.serial_no,
-        key: payee.apiclient_key
-      }
 
-      result = WxPay::Api.refund_query(params, options)
+      result = payment.payee.api.refund_query(params)
       store_refund_result!(result)
-    end
-
-    def get_payee
-      Wechat::Payee.find_by(mch_id: payment.seller_identifier, organ_id: organ_id)
     end
 
     def refund_query!
