@@ -20,6 +20,10 @@ module Trade
       r = payee.api.profit_share(params)
     end
 
+    def profit_query
+      r = payee.api.profit_query(payment_uuid)
+    end
+
     def h5(payer_client_ip: '127.0.0.1')
       params = {}
       params.merge! common_params
