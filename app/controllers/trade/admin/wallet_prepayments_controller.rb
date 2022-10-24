@@ -1,22 +1,11 @@
 module Trade
   class Admin::WalletPrepaymentsController < Admin::BaseController
     before_action :set_wallet_template
-    before_action :set_wallet_prepayment, only: [:show, :edit, :update, :destroy]
+    before_action :set_wallet_prepayment, only: [:show, :edit, :update, :destroy, :actions]
+    before_action :set_new_wallet_prepayment, only: [:new, :create]
 
     def index
       @wallet_prepayments = @wallet_template.wallet_prepayments.page(params[:page])
-    end
-
-    def new
-      @wallet_prepayment = @wallet_template.wallet_prepayments.build
-    end
-
-    def create
-      @wallet_prepayment = @wallet_template.wallet_prepayments.build(wallet_prepayment_params)
-
-      unless @wallet_prepayment.save
-        render :new, locals: { model: @wallet_prepayment }, status: :unprocessable_entity
-      end
     end
 
     private
@@ -28,10 +17,13 @@ module Trade
       @wallet_prepayment = WalletPrepayment.find(params[:id])
     end
 
+    def set_new_wallet_prepayment
+      @wallet_prepayment = @wallet_template.wallet_prepayments.build(wallet_prepayment_params)
+    end
+
     def wallet_prepayment_params
       params.fetch(:wallet_prepayment, {}).permit(
         :amount,
-        :token,
         :expire_at
       )
     end

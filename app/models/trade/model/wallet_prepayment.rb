@@ -19,7 +19,7 @@ module Trade
     end
 
     def qrcode_url
-      url = Rails.application.routes.url_for(controller: 'trade/my/cards', action: 'token', token: token)
+      url = Rails.application.routes.url_for(controller: 'trade/my/wallets', action: 'token', token: token)
       QrcodeHelper.data_url(url)
     end
 

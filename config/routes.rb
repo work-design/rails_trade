@@ -50,6 +50,9 @@ Rails.application.routes.draw do
       end
       resources :wallet_templates
       resources :wallets, only: [:index, :show] do
+        collection do
+          get :token
+        end
         resources :wallet_logs, only: [:index, :show]
       end
       resources :payments do
@@ -240,6 +243,7 @@ Rails.application.routes.draw do
         resources :wallet_templates do
           resources :custom_wallets
           resources :advances, shallow: true
+          resources :wallet_prepayments
         end
         resources :lawful_wallets
         resources :wallets, only: [] do
@@ -253,7 +257,6 @@ Rails.application.routes.draw do
             end
           end
         end
-        resources :wallet_prepayments
       end
 
       namespace :in, defaults: { namespace: 'in' } do
