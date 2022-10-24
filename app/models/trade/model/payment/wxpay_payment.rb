@@ -10,7 +10,14 @@ module Trade
     end
 
     def block
-
+      params = {
+        appid: payee.appid,
+        transaction_id: payment_uuid,
+        out_order_no: extra['out_trade_no'],
+        receivers: [buyer.order_params],
+        unfreeze_unsplit: false
+      }
+      r = payee.api.profit_share(params)
     end
 
     def h5(payer_client_ip: '127.0.0.1')
