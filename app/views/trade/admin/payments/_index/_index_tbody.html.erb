@@ -1,5 +1,5 @@
 <td>
-  <p><%= model.payment_uuid %></p>
+  <p><%= link_to model.payment_uuid, { action: 'show', id: model.id } %></p>
   <div class="tag"><%= model.type_i18n %></div>
 </td>
 <td id="checked_amount_<%= model.id %>">
