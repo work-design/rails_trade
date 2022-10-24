@@ -82,6 +82,7 @@ module Trade
       self.buyer_bank = params['bank_type']
       self.total_amount = params.dig('amount', 'total').to_i / 100.0
       self.extra = params
+      self.payee = get_payee
       self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     end
 
@@ -103,6 +104,10 @@ module Trade
       else
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end
+    end
+
+    def get_payee
+      Wechat::Payee.find_by(organ_id: organ_id, appid: extra['appid'], mch_id: seller_identifier)
     end
 
   end
