@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :payee, ->(o) { where(organ_id: o.organ_id, appid: o.extra['appid']) }, class_name: 'Wechat::Payee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
+      belongs_to :payee, ->(o) { where(organ_id: o.organ_id) }, class_name: 'Wechat::Payee', optional: true
       belongs_to :buyer, ->(o) { where(payee_id: o.payee&.id) }, class_name: 'Wechat::Receiver', foreign_key: :buyer_identifier, primary_key: :account, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
@@ -49,11 +49,6 @@ module Trade
     end
 
     def common_prepay
-      options = {
-        mchid: payee.mch_id,
-        serial_no: payee.serial_no,
-        key: payee.apiclient_key
-      }
       params = {}
       params.merge! common_params
       params.merge!(
@@ -62,7 +57,7 @@ module Trade
       )
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      payee.api.invoke_unifiedorder params, options
+      payee.api.invoke_unifiedorder params
     end
 
     def common_params
