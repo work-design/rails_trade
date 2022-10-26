@@ -20,7 +20,7 @@ module Trade
       belongs_to :wallet
       belongs_to :advance, optional: true
       belongs_to :item, optional: true
-      belongs_to :card_prepayment, optional: true
+      belongs_to :wallet_prepayment, optional: true
 
       has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source, dependent: :destroy
 

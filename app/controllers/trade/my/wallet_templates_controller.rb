@@ -10,7 +10,9 @@ module Trade
 
     def token
       prepayment = WalletPrepayment.find_by token: params[:token]
-      @wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: prepayment.wallet_template_id)
+      @wallet = prepayment.execute(user_id: current_user.id)
+
+      redirect_to controller: 'wallets', action: 'show', id: @wallet.id
     end
 
     def show
