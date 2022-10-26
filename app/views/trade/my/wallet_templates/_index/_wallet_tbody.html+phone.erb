@@ -1,0 +1,7 @@
+<div class="is-several">
+  <%= image_tag model.wallet_template.logo, class: 'image is-48x48' if model.wallet_template.logo.attached? %>
+  <span><%= model.wallet_template.name %></span>
+</div>
+<p>
+  <span><%= model.amount %></span>
+</p>

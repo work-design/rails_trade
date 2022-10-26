@@ -1,5 +1,6 @@
 <%= render 'top_bar' %>
 
 <%= render layout: 'index_table' do %>
+  <%= render partial: 'wallet_tbody', layout: 'index_tr', collection: @wallets, as: :model %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @wallet_templates, as: :model %>
 <% end %>

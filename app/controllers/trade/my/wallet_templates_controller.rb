@@ -3,7 +3,7 @@ module Trade
     before_action :set_wallet_template, only: [:show]
 
     def index
-      @wallets = current_user.wallets.where(member_id: nil)
+      @wallets = current_user.custom_wallets.where(member_id: nil)
 
       @wallet_templates = WalletTemplate.default_where(default_params).where.not(id: @wallets.pluck(:wallet_template_id).compact)
     end

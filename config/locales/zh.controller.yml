@@ -198,6 +198,9 @@ zh:
       wallet_logs:
         index:
           title: 交易记录
+      wallet_templates:
+        index:
+          title: 钱包与卡
       card_purchases:
         index:
           title: 续费记录
