@@ -14,7 +14,7 @@ module Trade
     end
 
     def update_token
-      self.token = generate_token
+      self.token = UidHelper.nsec_uuid 'WP'
       self
     end
 
@@ -23,8 +23,13 @@ module Trade
       QrcodeHelper.data_url(url)
     end
 
-    def generate_token
-      UidHelper.nsec_uuid 'WP'
+    def to_scene!
+      return unless wallet_template.appid
+      scene = Wechat::Scene.find_or_initialize_by(appid: wallet_template.appid, match_value: "prepayment_#{id}")
+      scene.aim = 'prepayment'
+      scene.refresh if scene.expired?
+      scene.save
+      scene
     end
 
   end

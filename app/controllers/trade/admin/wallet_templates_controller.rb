@@ -33,7 +33,8 @@ module Trade
         :code,
         :enabled,
         :digit,
-        :logo
+        :logo,
+        :appid
       )
       p.merge! default_form_params
     end

@@ -13,6 +13,7 @@ module Trade
       attribute :enabled, :boolean, default: true
       attribute :unit, :string
       attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
+      attribute :appid, :string, comment: '推广微信公众号'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
