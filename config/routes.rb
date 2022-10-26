@@ -48,7 +48,6 @@ Rails.application.routes.draw do
           get :code
         end
       end
-      resources :wallet_templates
       resources :wallets, only: [:index, :show] do
         collection do
           get :token
