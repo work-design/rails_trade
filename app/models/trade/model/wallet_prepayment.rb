@@ -1,6 +1,7 @@
 module Trade
   module Model::WalletPrepayment
     extend ActiveSupport::Concern
+    include Wechat::Ext::Handle if defined?(RailsWechat)
 
     included do
       attribute :token, :string
@@ -11,6 +12,8 @@ module Trade
       belongs_to :wallet_template, optional: true
 
       before_validation :update_token, if: -> { new_record? }
+
+      delegate :appid, to: :wallet_template
     end
 
     def update_token
@@ -21,15 +24,6 @@ module Trade
     def qrcode_url
       url = Rails.application.routes.url_for(controller: 'trade/my/wallets', action: 'token', token: token)
       QrcodeHelper.data_url(url)
-    end
-
-    def to_scene!
-      return unless wallet_template.appid
-      scene = Wechat::Scene.find_or_initialize_by(appid: wallet_template.appid, aim: 'prepayment', match_value: "prepayment_#{id}")
-      scene.aim = 'prepayment'
-      scene.refresh if scene.expired?
-      scene.save
-      scene
     end
 
   end

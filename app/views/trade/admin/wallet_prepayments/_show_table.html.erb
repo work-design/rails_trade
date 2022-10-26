@@ -12,5 +12,11 @@
 </tr>
 <tr>
   <td></td>
-  <td><%= image_tag @wallet_prepayment.qrcode_url %></td>
+  <td>
+  <% if @wallet_prepayment.scene %>
+    <%= image_tag @wallet_prepayment.scene.qrcode_data_url %>
+  <% else %>
+    <%= image_tag @wallet_prepayment.qrcode_url %>
+  <% end %>
+  </td>
 </tr>
