@@ -11,7 +11,7 @@ module Trade
 
       belongs_to :wallet_template, optional: true
 
-      has_many :wallet_advances
+      has_one :wallet_advance
 
       before_validation :update_token, if: -> { new_record? }
 
@@ -31,13 +31,13 @@ module Trade
     def execute(user_id:, member_id: nil)
       wallet = wallet_template.wallets.find_or_initialize_by(user_id: user_id, member_id: member_id)
 
-      wa = wallet_advances.build
-      wa.wallet = wallet
-      wa.amount = amount
+      wallet_advance || build_wallet_advance
+      wallet_advance.wallet = wallet
+      wallet_advance.amount = amount
 
       wallet.class.transaction do
         wallet.save!
-        wa.save!
+        wallet_advance.save!
       end
 
       wallet
