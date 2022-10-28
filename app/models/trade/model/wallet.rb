@@ -32,10 +32,16 @@ module Trade
 
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
+      before_validation :sync_organ_id, if: -> { wallet_template_id && wallet_template_id_changed? }
     end
 
     def init_name
       self.name ||= maintain.client.name if respond_to?(:maintain) && maintain
+    end
+
+    def sync_organ_id
+      return unless wallet_template
+      self.organ_id = wallet_template.organ_id
     end
 
     def compute_expense_amount

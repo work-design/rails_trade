@@ -1,2 +1,6 @@
-<%= f.number_field :amount, step: 0.01 %>
+<% if @wallet.wallet_template %>
+  <%= f.number_field :amount, step: @wallet.wallet_template.step %>
+<% else %>
+  <%= f.number_field :amount, step: 0.01 %>
+<% end %>
 <%= f.text_area :note %>
