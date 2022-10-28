@@ -25,10 +25,6 @@ module Trade
     end
 
     private
-    def set_cart
-      @cart = current_cart
-    end
-
     def cart_params
       params.fetch(:cart, {}).permit(
         :address_id,
