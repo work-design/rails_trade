@@ -8,26 +8,30 @@
     </span>
     <i class="px-4" style="width: 48.75px"></i>
   </div>
-  <div class="weui-panel__bd">
-    <div class="weui-cell">
-      <div class="weui-cell__bd">
-        <% if current_organ.default_address %>
-          <p>
-            <span><%= current_organ.default_address.contact %></span>
-            <span><%= current_organ.default_address.tel %></span>
-          </p>
-          <p class="is-size-7">
-            <span><%= current_organ.default_address.area.full_name %></span>
-            <span><%= current_organ.default_address.detail %></span>
-          </p>
-        <% else %>
-          <p>联系管理员设置地址</p>
-        <% end %>
-      </div>
-      <div class="weui-cell__ft"></div>
+
+</div>
+
+
+<div class="weui-panel__bd">
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <% if current_organ.default_address %>
+        <p>
+          <span><%= current_organ.default_address.contact %></span>
+          <span><%= current_organ.default_address.tel %></span>
+        </p>
+        <p class="is-size-7">
+          <span><%= current_organ.default_address.area.full_name %></span>
+          <span><%= current_organ.default_address.detail %></span>
+        </p>
+      <% else %>
+        <p>联系管理员设置地址</p>
+      <% end %>
     </div>
+    <div class="weui-cell__ft"></div>
   </div>
 </div>
+
 
 <%= render partial: 'item', collection: @items, as: :model %>
 

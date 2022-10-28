@@ -14,19 +14,17 @@
     <% end if @cart.good_type == 'Serve::Service' %>
     <span class="weui-title">
       <span class="mr-1"><%= t('.title') %></span>
-      <%= link_to(action: 'list', return_url: url_for) do %>
-        <% if @cart.member %>
-          <span class="weui-badge weui-badge__primary">
-            <i class="fa-solid fa-building-user"></i>
-            <span><%= @cart.member.organ.name %></span>
-          </span>
-        <% end %>
-        <% if @cart.aim != 'use' %>
-          <span class="weui-badge">
-            <i class="fa-solid fa-hand-holding-box"></i>
-            <span><%= @cart.aim_i18n %></span>
-          </span>
-        <% end %>
+      <% if @cart.member %>
+        <span class="weui-badge weui-badge__primary">
+          <i class="fa-solid fa-building-user"></i>
+          <span><%= @cart.member.organ.name %></span>
+        </span>
+      <% end %>
+      <% if @cart.aim != 'use' %>
+        <span class="weui-badge">
+          <i class="fa-solid fa-hand-holding-box"></i>
+          <span><%= @cart.aim_i18n %></span>
+        </span>
       <% end %>
     </span>
     <i class="px-4" style="width: 48.75px"></i>
