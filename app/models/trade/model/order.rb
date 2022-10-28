@@ -140,7 +140,7 @@ module Trade
       self.address_id ||= current_cart.address_id
       self.aim = current_cart.aim
       self.member_id = current_cart.member_id
-      self.member_organ_id = current.member_organ_id
+      self.member_organ_id = current_cart.member_organ_id
       self.pay_later = true if current_cart.aim == 'rent'
       if current_cart.user_id.blank?
         sync_items_from_organ
