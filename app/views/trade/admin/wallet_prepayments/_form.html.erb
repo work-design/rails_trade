@@ -1,2 +1,2 @@
-<%= f.number_field :amount, step: 0.01, required: true %>
+<%= f.number_field :amount, step: @wallet_template.step, required: true %>
 <%= f.datetime_field :expire_at, required: true %>

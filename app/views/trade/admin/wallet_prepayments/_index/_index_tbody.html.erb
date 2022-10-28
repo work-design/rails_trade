@@ -1,3 +1,6 @@
-<td><%= model.amount %></td>
+<td>
+  <span><%= model.amount.to_fs(:rounded, precision: @wallet_template.digit) %></span>
+  <span><%= @wallet_template.unit %></span>
+</td>
 <td><%= model.token %></td>
 <td><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></td>
