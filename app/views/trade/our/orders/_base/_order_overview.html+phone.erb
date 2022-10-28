@@ -1,0 +1,26 @@
+<%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between is-align-items-center is-size-7') do %>
+  <div>
+    <div>
+      <% if model.aim != 'use' %>
+        <span class="tag is-danger"><%= model.aim_i18n %></span>
+      <% end %>
+      <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
+    </div>
+    <div>
+      <span class="has-text-grey">下单人：</span>
+      <span><%= model.member.name %></span>
+    </div>
+    <% if model.maintain %>
+      <div>
+        <span class="has-text-grey">下单人：</span>
+        <span><%= model.maintain.member.name %></span>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <span><%= model.payment_status_i18n %></span>
+    <% if model.payment_strategy %>
+      <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+    <% end %>
+  </div>
+<% end %>
