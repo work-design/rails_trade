@@ -12,20 +12,17 @@
   <span><%= model.wallet_template.unit %></span>
 </td>
 <td>
-  <span><%= model.income_amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
-  <span><%= model.wallet_template.unit %></span>
-  <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
-    <i class="fa-regular fa-gem"></i>
+  <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_advances.index.title') }, class: 'button is-small is-link is-light') do %>
+    <i class="fa-solid fa-gem pr-2"></i>
+    <span><%= model.income_amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
+    <span><%= model.wallet_template.unit %></span>
   <% end %>
 </td>
 <td>
-  <span><%= model.expense_amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
-  <span><%= model.wallet_template.unit %></span>
-  <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
-    <i class="fa-regular fa-credit-card"></i>
-  <% end %>
-  <%= link_to({ controller: 'payouts', wallet_id: model.id }) do %>
-    <i class="fa-regular fa-wallet"></i>
+  <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_payments.index.title') }, class: 'button is-small is-link is-light') do %>
+    <i class="fa-solid fa-credit-card pr-2"></i>
+    <span><%= model.expense_amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
+    <span><%= model.wallet_template.unit %></span>
   <% end %>
 </td>
 <td>
