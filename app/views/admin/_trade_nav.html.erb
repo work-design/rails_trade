@@ -28,10 +28,11 @@
 <div class="<%= active_helper(controllers: ['trade/admin'], active: 'menu ex-accordion is-active', item: 'menu ex-accordion is-active') %>" data-controller="menu empty">
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-gift fa-fw"></i>
-    <span>促销</span>
+    <span>增值服务/促销</span>
     <i class="fa-solid dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
+    <%= link_to t('trade.admin.additions.index.title'), { controller: 'trade/admin/additions' }, class: active_helper(controllers: ['additions', 'addition_charges'], active: 'is-active') %>
     <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, class: active_helper(controllers: ['promotes', 'promote_charges', 'promote_good_types', 'promote_good_users'], active: 'is-active') %>
     <%= link_to t('trade.admin.promote_goods.index.title'), { controller: 'trade/admin/promote_goods' }, class: active_helper(controllers: ['promote_goods'], active: 'is-active') %>
   </div>

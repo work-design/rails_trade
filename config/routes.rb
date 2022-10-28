@@ -179,6 +179,9 @@ Rails.application.routes.draw do
           resources :payment_references, as: :references
         end
         resources :produces
+        resources :additions do
+          resources :addition_charges
+        end
         resources :promotes do
           collection do
             get :search

@@ -1,0 +1,6 @@
+<%= f.number_field :min, step: f.object.min_step %>
+<%= f.check_box :contain_min %>
+<%= f.number_field :max, step: f.object.max_step %>
+<%= f.check_box :contain_max %>
+<%= f.number_field :parameter, step: 0.01 %>
+<%= f.number_field :base_price, step: 0.01 %>

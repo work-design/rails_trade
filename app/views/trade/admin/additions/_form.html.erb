@@ -1,0 +1,6 @@
+<%= f.text_field :name, required: true %>
+<%= f.text_field :short_name %>
+<%= f.text_field :code %>
+<%= f.text_area :description %>
+<%= f.select :metering, options_for_select(Trade::Addition.options_i18n(:metering), @addition.metering) %>
+<%= f.collection_select :unit_code, @units, :code, :name %>

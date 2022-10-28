@@ -90,6 +90,12 @@ zh:
       payment_strategies:
         index:
           title: 结款形式
+      additions:
+        index:
+          title: 增值服务
+      addition_charges:
+        index:
+          title: 计费规则
       promotes:
         index:
           title: 促销
