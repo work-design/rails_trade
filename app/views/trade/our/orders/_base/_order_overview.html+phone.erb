@@ -7,15 +7,17 @@
       <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
     </div>
     <div>
-      <span class="has-text-grey">下单人：</span>
-      <span><%= model.member.name %></span>
-    </div>
-    <% if model.maintain %>
-      <div>
+      <span>
         <span class="has-text-grey">下单人：</span>
+        <span><%= model.member.name %></span>
+      </span>
+      <% if model.maintain %>
+      <span>
+        <span class="has-text-grey">代下单：</span>
         <span><%= model.maintain.member.name %></span>
-      </div>
-    <% end %>
+      </span>
+      <% end %>
+    </div>
   </div>
   <div>
     <span><%= model.payment_status_i18n %></span>
