@@ -86,7 +86,6 @@ module Trade
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
-      before_validation :init_from_member, if: -> { member && member_id_changed? }
       before_validation :init_uuid, if: -> { uuid.blank? }
       after_validation :sum_amount, if: :new_record? # 需要等 items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
@@ -116,12 +115,6 @@ module Trade
       self
     end
 
-    def init_from_member
-      self.user = member.user
-      self.member_organ_id = member.organ_id
-      self
-    end
-
     def init_serial_number
       last_item = self.class.where(organ_id: self.organ_id).default_where('paid_at-gte': paid_at.beginning_of_day, 'paid_at-lte': paid_at.end_of_day).order(paid_at: :desc).first
 
@@ -146,6 +139,8 @@ module Trade
       return unless current_cart
       self.address_id ||= current_cart.address_id
       self.aim = current_cart.aim
+      self.member_id = current_cart.member_id
+      self.member_organ_id = current.member_organ_id
       self.pay_later = true if current_cart.aim == 'rent'
       if current_cart.user_id.blank?
         sync_items_from_organ
