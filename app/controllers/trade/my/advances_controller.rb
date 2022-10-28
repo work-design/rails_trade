@@ -1,6 +1,6 @@
 module Trade
   class My::AdvancesController < My::BaseController
-    skip_before_action :require_login, only: [:index]
+    skip_before_action :require_user, only: [:index]
 
     def index
       platform = request.headers['OS'].to_s.downcase

@@ -8,7 +8,7 @@ module Trade
     before_action :set_user, only: [:user]
     before_action :set_cart, only: [:cart]
     before_action :set_payment_strategies, only: [:unpaid, :new, :create]
-    skip_before_action :require_login, only: [:print_data] if whether_filter :require_login
+    skip_before_action :require_user, only: [:print_data] if whether_filter :require_user
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
 
     def index
