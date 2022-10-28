@@ -10,10 +10,9 @@ module Trade
     def index
       q_params = {}
       q_params.merge! default_params
-      q_params.merge! client_params
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state, :uuid)
 
-      @orders = Order.includes(:payment_strategy, :items, :payment_orders, address: :area, from_address: :area, maintain: :member).default_where(q_params).order(id: :desc).page(params[:page])
+      @orders = current_user.orders.includes(:payment_strategy, :items, :payment_orders, address: :area, from_address: :area, maintain: :member).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new

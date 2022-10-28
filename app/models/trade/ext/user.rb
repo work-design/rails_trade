@@ -10,14 +10,14 @@ module Trade
       has_many :custom_wallets, class_name: 'Trade::CustomWallet'
       has_many :lawful_wallets, class_name: 'Trade::LawfulWallet'
       has_many :cards, class_name: 'Trade::Card'
-      has_many :orders, class_name: 'Trade::Order'
+      has_many :orders, -> { where(member_id: nil) }, class_name: 'Trade::Order'
       has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_user_id
       has_many :items, class_name: 'Trade::Item'
       has_many :rent_items, -> { aim_rent }, class_name: 'Trade::Item'
       has_many :payments, class_name: 'Trade::Payment'
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
 
-      has_many :cart_items, ->{ carting }, class_name: 'Trade::Item'
+      has_many :cart_items, -> { carting }, class_name: 'Trade::Item'
     end
 
     def give_cash(amount, note: nil, **options)
