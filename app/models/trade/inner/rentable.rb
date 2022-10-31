@@ -9,10 +9,6 @@ module Trade
       attribute :rent_estimate_finish_at, :datetime
       attribute :estimate_metering, :json, default: {}
       attribute :estimate_amount, :json, default: {}
-
-      attribute :start_at, :datetime, default: -> { Time.current }
-      attribute :finish_at, :datetime
-      attribute :estimate_finish_at, :datetime
       attribute :duration, :integer, default: 0
 
       has_one :rent_promote_good, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
