@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      has_many :rent_charges, as: :rentable
+      has_many :rent_charges, class_name: 'Trade::RentCharge', as: :rentable
     end
 
   end

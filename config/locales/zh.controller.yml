@@ -163,6 +163,9 @@ zh:
       rents:
         index:
           title: 租用明细
+      rent_charges:
+        index:
+          title: 租金规则
     my:
       title: 订单
       carts:
