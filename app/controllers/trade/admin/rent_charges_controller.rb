@@ -22,7 +22,7 @@ module Trade
     end
 
     def set_rent_charge
-      @rent_charge = @rentable.rent_charges.find params[:id]
+      @rent_charge = RentCharge.find params[:id]
     end
 
     def set_new_rent_charge
