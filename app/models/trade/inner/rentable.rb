@@ -1,5 +1,5 @@
 module Trade
-  module Inner::Charge
+  module Inner::Rentable
     extend ActiveSupport::Concern
 
     included do
@@ -25,7 +25,6 @@ module Trade
 
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
-
     end
 
     def compute_later(now = Time.current)
