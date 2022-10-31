@@ -21,15 +21,15 @@ module Trade
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
       attribute :amount, :decimal
-      attribute :advance_amount, :decimal, default: 0
-      attribute :note, :string
-      attribute :extra, :json, default: {}
+      attribute :advance_amount, :decimal, default: 0, comment: '预付款'
       attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
       attribute :fetch_oneself, :boolean, default: false, comment: '自取'
       attribute :fetch_start_at, :datetime
       attribute :fetch_finish_at, :datetime
       attribute :organ_ancestor_ids, :json, default: []
+      attribute :note, :string
+      attribute :extra, :json, default: {}
 
       enum status: {
         init: 'init',
@@ -111,7 +111,6 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-
       before_save :compute_promotes!, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
