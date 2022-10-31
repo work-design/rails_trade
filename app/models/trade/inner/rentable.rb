@@ -15,10 +15,8 @@ module Trade
       attribute :rent_start_at, :datetime
       attribute :rent_finish_at, :datetime
       attribute :rent_present_finish_at, :datetime
-      attribute :duration, :integer, default: 0, comment: '单位统一为：秒'
       attribute :amount, :decimal
       attribute :rent_estimate_finish_at, :datetime
-      attribute :estimate_duration, :integer, default: 0, comment: '单位统一为：秒'
       attribute :estimate_amount, :json, default: {}
 
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
@@ -27,11 +25,25 @@ module Trade
     end
 
     def unit_code
-      good.unit_code
+      good.rent_unit
     end
 
     def compute_charge(duration)
       good.rent_charges.default_where('min-lte': duration, 'max-gte': duration).take
+    end
+
+    def duration
+      if rent_finish_at.present?
+        rent_finish_at - rent_start_at
+      elsif rent_present_finish_at
+        rent_present_finish_at - rent_start_at
+      else
+        Time.current - rent_start_at
+      end
+    end
+
+    def estimate_duration
+      rent_estimate_finish_at - rent_start_at
     end
 
     def compute_later(now = Time.current)
@@ -54,35 +66,27 @@ module Trade
       RentFreshJob.set(wait_until: next_at).perform_later(self, next_at)
     end
 
-    def compute_duration(now = rent_finish_at)
-      self.duration = do_compute_duration(now)
-
-      rent_charge = compute_charge(self.duration)
-      results = rent_charge.compute_price(estimate_duration, **extra)
+    def compute_duration
+      x = ActiveSupport::Duration.build(duration).in_all.stringify_keys!
+      rent_charge = compute_charge(duration)
+      x[unit_code].ceil
+      results = rent_charge.compute_price(duration, **extra)
 
       self.amount = results.sum
     end
 
     def compute_present_duration!(next_at)
       self.rent_present_finish_at = next_at
-      self.duration = do_compute_duration(rent_present_finish_at)
+      self.compute_duration
       self.save!
     end
 
     def compute_estimate_duration
-      self.estimate_duration = do_compute_duration(rent_estimate_finish_at)
-
+      x = ActiveSupport::Duration.build(estimate_duration.round).in_all.stringify_keys!
       rent_charge = compute_charge(self.estimate_duration)
-      results = rent_charge.compute_price(estimate_duration, **extra)
+      results = rent_charge.compute_price(x[unit_code].ceil, **extra)
 
       self.estimate_amount = results.sum
-    end
-
-    def do_compute_duration(end_at = Time.current)
-      return unless end_at
-      r = end_at - rent_start_at
-      x = ActiveSupport::Duration.build(r.round).in_all.stringify_keys!
-      x[unit_code].ceil
     end
 
   end
