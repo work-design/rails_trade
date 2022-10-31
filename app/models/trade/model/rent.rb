@@ -40,12 +40,6 @@ module Trade
       self.duration = x[rent_promote.unit_code].ceil if rent_promote
     end
 
-    def compute_amount
-      return unless rent_promote
-      results = rent_promote.compute_price(duration, **extra)
-      self.amount = results.sum
-    end
-
     def compute_invest_amount
       self.invest_amount = self.amount * rentable.box_host.invest_ratio
     end

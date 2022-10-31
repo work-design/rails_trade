@@ -48,6 +48,12 @@ module Trade
       ItemRentJob.set(wait_until: next_at).perform_later(self, next_at)
     end
 
+    def compute_amount
+      return unless rent_promote
+      results = rent_promote.compute_price(duration, **extra)
+      self.amount = results.sum
+    end
+
     def compute_duration(now = rent_finish_at)
       self.duration = do_compute_duration(now)
     end

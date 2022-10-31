@@ -60,14 +60,5 @@ module Trade
       promote_charges.default_where(q_params).take
     end
 
-    def compute_price(value, **extra)
-      r = compute_charge(value, **extra)
-      results = r.minors.map do |minor|
-        value -= minor.max
-        minor.final_price(minor.max)
-      end
-      results << r.final_price(value)
-    end
-
   end
 end
