@@ -5,9 +5,9 @@ module Trade
 
     included do
       attribute :min, :integer, default: 0
-      attribute :max, :integer, default: 9999999999
+      attribute :max, :integer, default: 2**31 - 1
       attribute :filter_min, :integer, default: 0
-      attribute :filter_max, :integer, default: 9999999999
+      attribute :filter_max, :integer, default: 2**31 - 1
 
       belongs_to :rentable, polymorphic: true
     end
