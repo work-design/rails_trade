@@ -112,7 +112,6 @@ module Trade
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
 
-      before_save :set_rent_start, if: -> { aim_rent? && status_changed? && ['deliverable'].include?(status) }
       before_save :compute_promotes!, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
@@ -120,7 +119,6 @@ module Trade
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
       after_save_commit :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trail', 'deliverable', 'done', 'refund'].include?(status) }
-      after_save_commit :compute_later, if: -> { aim_rent? && saved_change_to_rent_start_at? }
 
       acts_as_notify(
         :default,
@@ -325,11 +323,6 @@ module Trade
 
     def order_work_later
       ItemJob.perform_later(self)
-    end
-
-    def set_rent_start
-      return unless aim_rent?
-      self.rent_start_at = Time.current
     end
 
     def order_work
