@@ -20,11 +20,7 @@ module Trade
       attribute :estimate_amount, :json, default: {}
       attribute :duration, :integer, default: 0
 
-      has_one :rent_promote_goods, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_one :rent_promotes, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_goods, source: :promote
-
-
-
+      has_one :rent_promote, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_goods, source: :promote
 
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
