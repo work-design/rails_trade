@@ -27,6 +27,14 @@ module Trade
       base_price + (amount * parameter).round(2)
     end
 
+    def compute_price(value)
+      results = minors.map do |minor|
+        value -= minor.max
+        minor.final_price(minor.max)
+      end
+      results << final_price(value)
+    end
+
     def compute_filter_value
       if contain_min
         self.filter_min = min
