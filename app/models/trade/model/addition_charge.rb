@@ -1,7 +1,7 @@
 module Trade
   module Model::AdditionCharge
-    include Inner::Charge
     extend ActiveSupport::Concern
+    include Inner::Charge
 
     included do
       belongs_to :addition
