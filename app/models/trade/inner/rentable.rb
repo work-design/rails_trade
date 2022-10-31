@@ -1,5 +1,14 @@
 module Trade
   module Inner::Rentable
+    TIME_UNIT = {
+      'seconds' => :sec,
+      'minutes' => :min,
+      'hours' => :hour,
+      'days' => :day,
+      'weeks' => :week,
+      'months' => :month,
+      'years' => :year
+    }.freeze
     extend ActiveSupport::Concern
 
     included do
