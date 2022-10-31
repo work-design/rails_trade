@@ -27,11 +27,11 @@ module Trade
     end
 
     def unit_code
-
+      good.unit_code
     end
 
-    def rent_charge
-
+    def compute_charge(duration)
+      good.rent_charges.default_where('min-lte': duration, 'max-gte': duration).take
     end
 
     def compute_later(now = Time.current)
@@ -56,7 +56,10 @@ module Trade
 
     def compute_duration(now = rent_finish_at)
       self.duration = do_compute_duration(now)
+
+      rent_charge = compute_charge(self.duration)
       results = rent_charge.compute_price(estimate_duration, **extra)
+
       self.amount = results.sum
     end
 
@@ -68,7 +71,10 @@ module Trade
 
     def compute_estimate_duration
       self.estimate_duration = do_compute_duration(rent_estimate_finish_at)
+
+      rent_charge = compute_charge(self.estimate_duration)
       results = rent_charge.compute_price(estimate_duration, **extra)
+
       self.estimate_amount = results.sum
     end
 
