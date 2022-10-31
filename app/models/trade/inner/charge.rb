@@ -13,7 +13,7 @@ module Trade
       attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
       attribute :extra, :json
 
-      scope :filter_with, ->(amount){ default_where('filter_min-lte': amount, 'filter_max-gte': amount) }
+      scope :filter_with, ->(amount) { default_where('filter_min-lte': amount, 'filter_max-gte': amount) }
 
       validates :max, numericality: { greater_than_or_equal_to: -> (o) { o.min } }
       validates :min, numericality: { less_than_or_equal_to: -> (o) { o.max } }
