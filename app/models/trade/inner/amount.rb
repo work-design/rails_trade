@@ -1,5 +1,5 @@
 module Trade
-  module Model::Amount
+  module Inner::Amount
     extend ActiveSupport::Concern
 
     included do

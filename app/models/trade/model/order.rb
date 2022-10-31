@@ -1,6 +1,7 @@
 module Trade
   module Model::Order
     extend ActiveSupport::Concern
+    include Inner::Amount
 
     included do
       attribute :uuid, :string

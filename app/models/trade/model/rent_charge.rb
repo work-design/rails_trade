@@ -1,6 +1,6 @@
 module Trade
   module Model::RentCharge
-    include Model::Charge
+    include Inner::Charge
     extend ActiveSupport::Concern
 
     included do

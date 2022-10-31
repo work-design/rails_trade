@@ -1,6 +1,7 @@
 module Trade
   module Model::Cart
     extend ActiveSupport::Concern
+    include Inner::Amount
 
     included do
       attribute :good_type, :string

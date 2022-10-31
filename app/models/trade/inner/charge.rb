@@ -1,5 +1,5 @@
 module Trade
-  module Model::Charge
+  module Inner::Charge
     extend ActiveSupport::Concern
 
     included do

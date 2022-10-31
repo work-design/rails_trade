@@ -1,6 +1,6 @@
 module Trade
   module Model::AdditionCharge
-    include Model::Charge
+    include Inner::Charge
     extend ActiveSupport::Concern
 
     included do
