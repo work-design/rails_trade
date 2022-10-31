@@ -4,10 +4,7 @@ module Trade
 
     included do
       attribute :amount, :decimal, comment: '价格小计'
-      attribute :start_at, :datetime, default: -> { Time.current }
-      attribute :finish_at, :datetime
-      attribute :estimate_finish_at, :datetime
-      attribute :duration, :integer, default: 0
+
       attribute :invest_amount, :decimal, comment: '投资分成'
       attribute :extra, :json, default: {}
 
@@ -17,11 +14,6 @@ module Trade
 
       belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
       belongs_to :good, polymorphic: true, optional: true
-
-      has_many :rent_promote_goods, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :rent_promotes, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_goods, source: :promote
-      has_one :rent_promote_good, ->(o) { rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_one :rent_promote, -> { where(metering: 'duration') }, class_name: 'Trade::Promote', through: :rent_promote_good, source: :promote
 
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :sync_duration, if: -> { (finish_at.present? || estimate_finish_at.present?) && (['finish_at', 'estimate_finish_at'] & changes.keys).present? }

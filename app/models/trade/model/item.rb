@@ -119,8 +119,7 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
-      before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
+
       before_save :set_rent_start, if: -> { aim_rent? && status_changed? && ['deliverable'].include?(status) }
       before_save :compute_promotes!, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
