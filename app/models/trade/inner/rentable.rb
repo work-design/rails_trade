@@ -51,7 +51,7 @@ module Trade
         next_at += 1.public_send(unit_code)
       end
 
-      ItemRentJob.set(wait_until: next_at).perform_later(self, next_at)
+      RentFreshJob.set(wait_until: next_at).perform_later(self, next_at)
     end
 
     def compute_duration(now = rent_finish_at)

@@ -1,5 +1,5 @@
 module Trade
-  class ItemRentJob < ApplicationJob
+  class RentFreshJob < ApplicationJob
 
     def perform(item, next_at)
       item.compute_present_duration!(next_at)
