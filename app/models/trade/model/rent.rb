@@ -1,6 +1,7 @@
 module Trade
   module Model::Rent
     extend ActiveSupport::Concern
+    include Inner::Rentable
 
     included do
       attribute :amount, :decimal, comment: '价格小计'

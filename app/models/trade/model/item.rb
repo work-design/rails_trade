@@ -11,6 +11,7 @@ module Trade
       'years' => :year
     }.freeze
     extend ActiveSupport::Concern
+    include Inner::Rentable
 
     included do
       attribute :uuid, :string
