@@ -1,6 +1,10 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
-    <li><%# link_to t('trade.admin.additions.index.title'), { controller: 'additions', anchor: "tr_#{@addition.id}" } %></li>
+    <li>
+    <% if params[:rentable_type] == 'Ship::BoxHost' %>
+      <%= link_to t('ship.admin.box_hosts.index.title'), { controller: 'ship/admin/box_hosts', anchor: "tr_#{params[:rentable_id]}" } %>
+    <% end %>
+    </li>
     <li class="is-active"><%= t('.title') %></li>
   </ul>
 </div>
