@@ -18,7 +18,7 @@ module Trade
       attribute :duration, :integer, default: 0, comment: '单位统一为：秒'
       attribute :amount, :decimal
       attribute :rent_estimate_finish_at, :datetime
-      attribute :estimate_duration, :json, default: {}
+      attribute :estimate_duration, :integer, default: 0, comment: '单位统一为：秒'
       attribute :estimate_amount, :json, default: {}
 
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
