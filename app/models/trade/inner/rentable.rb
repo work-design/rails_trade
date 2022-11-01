@@ -70,7 +70,7 @@ module Trade
       x = ActiveSupport::Duration.build(duration).in_all.stringify_keys!
       rent_charge = compute_charge(duration)
       x[unit_code].ceil
-      results = rent_charge.compute_price(duration, **extra)
+      results = rent_charge.compute_price(x[unit_code].ceil, **extra)
 
       self.amount = results.sum
     end
