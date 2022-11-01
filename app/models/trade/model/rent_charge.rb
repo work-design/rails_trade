@@ -12,5 +12,9 @@ module Trade
       belongs_to :rentable, polymorphic: true
     end
 
+    def minors
+      rentable.rent_charges.default_where('min-lt': self.min).order(min: :asc)
+    end
+
   end
 end
