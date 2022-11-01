@@ -91,7 +91,7 @@ module Trade
       after_validation :sum_amount, if: :new_record? # 需要等 items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
-      before_save :check_state, if: -> { !pay_later && amount.zero? }
+      before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
@@ -280,9 +280,9 @@ module Trade
     end
 
     def check_state
-      if self.received_amount.to_d >= self.amount
+      if self.received_amount.to_d >= self.amount.to_d
         self.payment_status = 'all_paid'
-      elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount
+      elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
       elsif self.received_amount.to_d <= 0
         self.payment_status = 'unpaid'
