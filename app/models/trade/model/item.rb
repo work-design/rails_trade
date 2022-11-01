@@ -11,7 +11,6 @@ module Trade
       attribute :done_number, :integer, default: 0, comment: '已达成交易数量'
       attribute :rest_number, :integer
       attribute :weight, :integer, default: 1, comment: '重量'
-      attribute :duration, :integer, default: 0, comment: '占用时长'
       attribute :volume, :integer, default: 0, comment: '体积'
       attribute :vip_code, :string
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
