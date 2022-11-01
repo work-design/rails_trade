@@ -110,8 +110,8 @@ module Trade
       before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
+      before_validation :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_save :compute_promotes!, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_destroy :order_pruned!
@@ -262,18 +262,15 @@ module Trade
       }
     end
 
-    def compute_promotes!
+    def compute_promotes
       result = do_compute_promotes
-      result.each(&:save!)
-
       self.assign_attributes sum_amount
+      order.compute_promote if order
 
-      if order
-        order.compute_promote
+      if persisted?
+        result.each(&:save!)
         order.save!
       end
-
-      self
     end
 
     def sync_amount_to_current_cart

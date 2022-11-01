@@ -88,7 +88,7 @@ module Trade
 
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      after_validation :sum_amount, if: :new_record? # 需要等 items 完成计算
+      #after_validation :sum_amount, if: :new_record? # 需要等 items 完成计算
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }

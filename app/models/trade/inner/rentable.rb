@@ -42,14 +42,14 @@ module Trade
       end
 
       x = ActiveSupport::Duration.build(result.ceil).in_all.stringify_keys!
-      x[unit_code].ceil
+      x[unit_code]&.ceil
     end
 
     def estimate_duration
       result = rent_estimate_finish_at - rent_start_at
 
       x = ActiveSupport::Duration.build(result.ceil).in_all.stringify_keys!
-      x[unit_code].ceil
+      x[unit_code]&.ceil
     end
 
     def compute_later(now = Time.current)
@@ -78,6 +78,7 @@ module Trade
       results = rent_charge.compute_price(_duration, **extra)
 
       self.amount = results.sum
+      self.original_amount = self.amount if respond_to?(:original_amount)
     end
 
     def compute_estimate_duration
