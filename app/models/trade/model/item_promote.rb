@@ -20,16 +20,10 @@ module Trade
 
       validates :amount, presence: true
 
-      before_validation :sync_promote, if: -> { promote_good_id_changed? && promote_good }
-      before_validation :compute_amount, if: -> { value_changed? }
-    end
-
-    def sync_promote
-      self.promote_id = self.promote_good.promote_id
+      before_save :compute_amount, if: -> { value_changed? }
     end
 
     def compute_amount
-      self.promote_charge = promote.compute_charge(value, **item.extra)
       self.amount = self.promote_charge.final_price(value)
     end
 

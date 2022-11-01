@@ -234,13 +234,20 @@ module Trade
     def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
-      available_promote_goods.includes(:promote).where.not(promote_id: unavailable_ids).map do |promote_good|
+      r = available_promote_goods.includes(:promote).where.not(promote_id: unavailable_ids).map do |promote_good|
+        value = metering_attributes[promote_good.promote.metering]
+        promote_charge = promote_good.promote.compute_charge(value, **extra)
+        next unless promote_charge
+
         item_promote = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_id: promote_good.promote_id)
-        item_promote.value = metering_attributes[promote_good.promote.metering]
+        item_promote.value = value
         item_promote.promote_good = promote_good
-        item_promote.valid?
+        item_promote.promote_charge = promote_charge
         item_promote
       end
+
+      r.compact!
+      r
     end
 
     def sum_amount
