@@ -7,10 +7,10 @@ module Trade
       attribute :promote_name, :string
       attribute :value, :decimal
 
-      belongs_to :item, inverse_of: :item_promotes, optional: true
+      belongs_to :item, inverse_of: :item_promotes
       belongs_to :promote_good, counter_cache: true
       belongs_to :promote
-      belongs_to :promote_charge, optional: true
+      belongs_to :promote_charge
 
       enum status: {
         init: 'init',

@@ -22,8 +22,6 @@ module Trade
 
       has_many :promote_goods, class_name: 'Trade::PromoteGood', as: :good
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :rent_promote_goods, ->(o){ rent.available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :rent_promotes, class_name: 'Trade::Promote', through: :rent_promote_goods, source: :promote
       has_many :available_promote_goods, ->(o) { available.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promotes, class_name: 'Trade::Promote', through: :available_promote_goods, source: :promote
       has_many :default_promote_goods, ->(o) { default.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', foreign_key: :good_type, primary_key: :good_type
