@@ -21,23 +21,25 @@
   <p><%= item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
   <p><%= item.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
 </td>
-<td><time data-controller="time" data-value="<%= item.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_start_at.to_fs(:human) %></time></td>
 <td>
+  <p><time data-controller="time" data-value="<%= item.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_start_at.to_fs(:human) %></time></p>
   <% if item.rent_estimate_finish_at %>
   <p>
     <time data-controller="time" data-value="<%= item.rent_estimate_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_estimate_finish_at.to_fs(:human) %></time>
   </p>
   <% end %>
   <% if item.rent_finish_at %>
-  <p>
+  <p class="has-text-success">
     <time data-controller="time" data-value="<%= item.rent_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_finish_at.to_fs(:human) %></time>
-    <span><%= item.duration %></span>
   </p>
   <% elsif item.rent_present_finish_at %>
-  <p>
+  <p class="has-text-success">
     <time data-controller="time" data-value="<%= item.rent_present_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_present_finish_at.to_fs(:human) %></time>
-    <span><%= item.duration %></span>
   </p>
   <% end %>
+  <p>
+    <span><%= item.duration %></span>
+    <span><%= item.good.rent_unit_i18n %></span>
+  </p>
 </td>
 <td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>

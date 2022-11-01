@@ -7,10 +7,13 @@
   <p><%= Trade::Item.human_attribute_name(:additional_amount) %></p>
   <p><%= Trade::Item.human_attribute_name(:reduced_amount) %></p>
 </th>
-<th><%= Trade::Item.human_attribute_name(:rent_start_at) %></th>
 <th>
-  <p><%= Trade::Item.human_attribute_name(:rent_estimate_finish_at) %></p>
-  <p><%= Trade::Item.human_attribute_name(:rent_finish_at) %></p>
+  <p><%= Trade::Item.human_attribute_name(:rent_start_at) %></p>
+  <p>
+    <span class="has-text-grey"><%= Trade::Item.human_attribute_name(:rent_estimate_finish_at) %></span>
+    <span>/</span>
+    <span class="has-text-success"><%= Trade::Item.human_attribute_name(:rent_finish_at) %></span>
+  </p>
 </th>
 <th><%= Trade::Item.human_attribute_name(:amount) %></th>
 <th></th>
