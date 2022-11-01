@@ -34,16 +34,22 @@ module Trade
 
     def duration
       if rent_finish_at.present?
-        rent_finish_at - rent_start_at
+        result = rent_finish_at - rent_start_at
       elsif rent_present_finish_at
-        rent_present_finish_at - rent_start_at
+        result = rent_present_finish_at - rent_start_at
       else
-        Time.current - rent_start_at
+        result = Time.current - rent_start_at
       end
+
+      x = ActiveSupport::Duration.build(result.ceil).in_all.stringify_keys!
+      x[unit_code].ceil
     end
 
     def estimate_duration
-      rent_estimate_finish_at - rent_start_at
+      result = rent_estimate_finish_at - rent_start_at
+
+      x = ActiveSupport::Duration.build(result.ceil).in_all.stringify_keys!
+      x[unit_code].ceil
     end
 
     def compute_later(now = Time.current)
@@ -67,26 +73,25 @@ module Trade
     end
 
     def compute_duration
-      x = ActiveSupport::Duration.build(duration).in_all.stringify_keys!
-      rent_charge = compute_charge(duration)
-      x[unit_code].ceil
-      results = rent_charge.compute_price(x[unit_code].ceil, **extra)
+      _duration = duration
+      rent_charge = compute_charge(_duration)
+      results = rent_charge.compute_price(_duration, **extra)
 
       self.amount = results.sum
+    end
+
+    def compute_estimate_duration
+      _estimate_duration = estimate_duration
+      rent_charge = compute_charge(_estimate_duration)
+      results = rent_charge.compute_price(_estimate_duration, **extra)
+
+      self.estimate_amount = results.sum
     end
 
     def compute_present_duration!(next_at)
       self.rent_present_finish_at = next_at
       self.compute_duration
       self.save!
-    end
-
-    def compute_estimate_duration
-      x = ActiveSupport::Duration.build(estimate_duration.round).in_all.stringify_keys!
-      rent_charge = compute_charge(self.estimate_duration)
-      results = rent_charge.compute_price(x[unit_code].ceil, **extra)
-
-      self.estimate_amount = results.sum
     end
 
   end
