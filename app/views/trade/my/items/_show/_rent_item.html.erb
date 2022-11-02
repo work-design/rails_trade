@@ -37,6 +37,10 @@
       </span>
     </div>
     <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:amount) %></label>
+      <span class="weui-form-preview__value"><%= model.amount.to_money.format.html_safe %></span>
+    </div>
+    <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:additional_amount) %></label>
       <span class="weui-form-preview__value"><%= model.additional_amount.to_money.format.html_safe %></span>
     </div>
