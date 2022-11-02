@@ -20,6 +20,7 @@ module Trade
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
       attribute :amount, :decimal
+      attribute :wallet_amount, :json, default: {}
       attribute :advance_amount, :decimal, default: 0, comment: '预付款'
       attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
@@ -110,6 +111,7 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_validation :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
+      before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
@@ -177,8 +179,10 @@ module Trade
       self.expire_at = produce_plan.book_finish_at
     end
 
-    def wallet_amount
-      good.wallet_price.transform_values(&->(v){ { rate: Rational(single_price.to_s, v), amount: v.to_d * number } })
+    def set_wallet_amount
+      if ['use', 'invest'].include?(aim)
+        self.wallet_amount = good.wallet_price.transform_values(&->(v){ { rate: Rational(single_price.to_s, v), amount: v.to_d * number } })
+      end
     end
 
     def compute_single_price
