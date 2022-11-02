@@ -24,9 +24,6 @@ module Trade
       }, _default: 'use'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User', counter_cache: true, optional: true
-      belongs_to :member, class_name: 'Org::Member', counter_cache: true, optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :promote
       belongs_to :good, polymorphic: true, optional: true
@@ -41,8 +38,7 @@ module Trade
       validates :promote_id, uniqueness: { scope: [:type, :good_type, :good_id, :user_id, :member_id] }
 
       before_validation :sync_from_promote, if: -> { promote.present? && promote_id_changed? }
-      before_validation :sync_user, if: -> { member_id_changed? }
-      after_save_commit :compute_over_limit, if: -> {}
+      #after_save_commit :compute_over_limit, if: -> {}
     end
 
     def expired?
@@ -51,10 +47,6 @@ module Trade
 
     def sync_from_promote
       self.organ_id = promote.organ_id
-    end
-
-    def sync_user
-      self.user = self.member&.user
     end
 
     def promote_name
