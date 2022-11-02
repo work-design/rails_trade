@@ -251,9 +251,10 @@ Rails.application.routes.draw do
           end
         end
         resources :wallet_templates do
-          resources :custom_wallets
           resources :advances, shallow: true
+          resources :custom_wallets
           resources :wallet_prepayments
+          resources :wallet_goods
         end
         resources :lawful_wallets
         resources :wallets, only: [] do
