@@ -19,5 +19,20 @@
   <% end %>
 </td>
 <td><%= model.parameter.to_money.format.html_safe %></td>
+<td>
+  <div>
+    <% model.wallet_price.each do |key, value| %>
+      <div class="tags has-addons control mb-0">
+        <div class="tag is-success"><%= key %></div>
+        <div class="tag is-light">
+          <span><%= value %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to({ action: 'wallet', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('bench.admin.facilitates.wallet.title') }) do %>
+    <i class="fa-solid fa-sm fa-pencil has-text-grey"></i>
+  <% end %>
+</td>
 <td><%= model.base_price.to_money.format.html_safe %></td>
 <td><%= simple_format(model.extra) %></td>

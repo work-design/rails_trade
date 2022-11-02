@@ -1,0 +1,5 @@
+<%= form_with model: @box_host, url: { action: 'update_wallet' } do |f| %>
+  <%= render 'error_messages', target: f.object %>
+  <%= render partial: 'common_wallet_form', collection: @wallet_templates, as: :wallet_template, locals: { f: f } %>
+  <%= f.submit %>
+<% end %>
