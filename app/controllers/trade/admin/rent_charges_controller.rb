@@ -1,7 +1,10 @@
 module Trade
   class Admin::RentChargesController < Admin::BaseController
     before_action :set_rentable, except: [:options]
-    before_action :set_rent_charge, only: [:edit, :update, :destroy]
+    before_action :set_rent_charge, only: [
+      :edit, :update, :destroy,
+      :wallet, :update_wallet
+    ]
     before_action :set_new_rent_charge, only: [:new, :create]
 
     def index
@@ -11,7 +14,13 @@ module Trade
       @rent_charges = @rentable.rent_charges.default_where(q_params).order(min: :asc).page(params[:page]).per(params[:per])
     end
 
-    def options
+    def wallet
+      @wallet_templates = Trade::WalletTemplate.default_where(default_params)
+    end
+
+    def update_wallet
+      @rent_charge.wallet_price = wallet_price_params
+      @rent_charge.save
     end
 
     private
@@ -31,6 +40,16 @@ module Trade
       else
         @rent_charge = RentCharge.new(rent_charge_params)
       end
+    end
+
+    def wallet_price_params
+      r = {}
+
+      params.fetch(:rent_charge, {}).fetch(:wallet_price, {}).each do |_, v|
+        r.merge! v[:code] => v[:price]
+      end
+
+      r
     end
 
     def rent_charge_params

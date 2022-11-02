@@ -182,7 +182,12 @@ Rails.application.routes.draw do
         resources :additions do
           resources :addition_charges
         end
-        resources :rent_charges
+        resources :rent_charges do
+          member do
+            get :wallet
+            patch 'wallet' => :update_wallet
+          end
+        end
         resources :promotes do
           collection do
             get :search
