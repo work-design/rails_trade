@@ -1,11 +1,11 @@
 <div class="weui-form-preview">
   <div class="weui-form-preview__bd">
     <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= model.rent_promote.name %></label>
+      <label class="weui-form-preview__label">租金计费</label>
       <span class="weui-form-preview__value">
-        <span><%= model.rent_promote.promote_charges[0].parameter.to_money.format.html_safe %></span>
+        <span><%= model.good.rent_charges[0].parameter.to_money.format.html_safe %></span>
         <span>/</span>
-        <span><%= model.rent_promote.unit&.name %></span>
+        <span><%= model.good.rent_unit_i18n %></span>
       </span>
     </div>
     <div class="weui-form-preview__item">
@@ -33,7 +33,7 @@
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:duration) %></label>
       <span class="weui-form-preview__value">
         <span><%= model.duration %></span>
-        <span><%= model.rent_promote.unit&.name %></span>
+        <span><%= model.good.rent_unit_i18n %></span>
       </span>
     </div>
     <div class="weui-form-preview__item">
