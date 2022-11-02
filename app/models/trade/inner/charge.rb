@@ -10,6 +10,7 @@ module Trade
       attribute :contain_min, :boolean, default: true
       attribute :contain_max, :boolean, default: false
       attribute :parameter, :decimal, precision: 10, scale: 2, default: 0
+      attribute :wallet_price, :json, default: {}
       attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
       attribute :extra, :json
 
@@ -22,17 +23,28 @@ module Trade
     end
 
     # amount: 商品价格
-    # return 计算后的价格
-    def final_price(amount)
-      base_price + (amount * parameter).round(2)
+    # 注意必须定义 minors
+    def compute_price(value)
+      results = [base_price]
+      minors.each do |minor|
+        value -= minor.max
+        results << (minor.parameter * minor.max).round(2)
+      end
+      results << (parameter * value).round(2)
+
+      results.sum
     end
 
-    def compute_price(value)
-      results = minors.map do |minor|
+    def compute_wallet_price(value)
+      results = []
+
+      minors.each do |minor|
         value -= minor.max
-        minor.final_price(minor.max)
+        results << (minor.parameter * minor.max).round(2)
       end
-      results << final_price(value)
+      results << (parameter * value).round(2)
+
+      results.sum
     end
 
     def compute_filter_value

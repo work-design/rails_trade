@@ -75,18 +75,16 @@ module Trade
     def compute_duration
       _duration = duration
       rent_charge = compute_charge(_duration)
-      results = rent_charge.compute_price(_duration, **extra)
 
-      self.amount = results.sum
+      self.amount = rent_charge.compute_price(_duration, **extra)
       self.original_amount = self.amount if respond_to?(:original_amount)
     end
 
     def compute_estimate_duration
       _estimate_duration = estimate_duration
       rent_charge = compute_charge(_estimate_duration)
-      results = rent_charge.compute_price(_estimate_duration, **extra)
 
-      self.estimate_amount = results.sum
+      self.estimate_amount = rent_charge.compute_price(_estimate_duration, **extra)
     end
 
     def compute_present_duration!(next_at)
