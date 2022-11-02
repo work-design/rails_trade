@@ -30,11 +30,11 @@
               <i class="fa-solid fa-badge-check"></i>
               <span style="padding-left: 1px"><%= model.vip_code %></span>
             </div>
-            <span class="tag is-right"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+            <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
           </div>
-          <span style="text-decoration: line-through"><%= model.good.cost.to_money.format(html_wrap: true).html_safe %></span>
+          <span style="text-decoration: line-through"><%= model.good.cost.to_money.format.html_safe %></span>
         <% else %>
-          <span><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+          <span><%= model.single_price.to_money.format.html_safe %></span>
         <% end %>
         </div>
       </div>

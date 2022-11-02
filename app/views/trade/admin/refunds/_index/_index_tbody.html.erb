@@ -8,7 +8,7 @@
     <span class="tag"><%= model.state_i18n %></span>
   </p>
 </td>
-<td><%= model.total_amount.to_money(model.currency).format(html_wrap: true).html_safe %></td>
+<td><%= model.total_amount.to_money(model.currency).format.html_safe %></td>
 <td><%= model.comment %></td>
 <td>
   <p class="has-text-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>

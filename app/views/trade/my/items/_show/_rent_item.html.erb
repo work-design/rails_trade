@@ -3,7 +3,7 @@
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= model.rent_promote.name %></label>
       <span class="weui-form-preview__value">
-        <span><%= model.rent_promote.promote_charges[0].parameter.to_money.format(html_wrap: true).html_safe %></span>
+        <span><%= model.rent_promote.promote_charges[0].parameter.to_money.format.html_safe %></span>
         <span>/</span>
         <span><%= model.rent_promote.unit&.name %></span>
       </span>
@@ -38,11 +38,11 @@
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:additional_amount) %></label>
-      <span class="weui-form-preview__value"><%= model.additional_amount.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= model.additional_amount.to_money.format.html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:reduced_amount) %></label>
-      <span class="weui-form-preview__value"><%= model.reduced_amount.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= model.reduced_amount.to_money.format.html_safe %></span>
     </div>
   </div>
 </div>

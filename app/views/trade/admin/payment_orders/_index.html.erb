@@ -2,10 +2,10 @@
   <td>
     <%= link_to payment_order.order.uuid, { controller: 'orders', action: 'show', id: payment_order.order_id }, data: { turbo_frame: 'modal' } %>
   </td>
-  <td><%= payment_order.order.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= payment_order.order.amount.to_money.format.html_safe %></td>
   <td>
     <% if payment_order.state_confirmed? %>
-      <%= payment_order.order_amount.to_money.format(html_wrap: true).html_safe %>
+      <%= payment_order.order_amount.to_money.format.html_safe %>
     <% else %>
       <%= number_field_tag 'payment_order[order_amount]', payment_order.order_amount, class: 'input', step: 0.01, form: "edit_payment_order_#{payment_order.id}" %>
     <% end %>

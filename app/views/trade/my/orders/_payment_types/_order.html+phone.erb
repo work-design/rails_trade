@@ -2,24 +2,24 @@
   <div class="weui-form-preview__bd">
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
-      <span class="weui-form-preview__value"><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= @order.amount.to_money.format.html_safe %></span>
     </div>
     <div class="weui-form-preview__item" data-controller="empty">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:received_amount) %></label>
-      <span class="weui-form-preview__value" data-empty-target="text"><%= @order.received_amount.to_money.format(html_wrap: true).html_safe if @order.received_amount.to_d > 0 %></span>
+      <span class="weui-form-preview__value" data-empty-target="text"><%= @order.received_amount.to_money.format.html_safe if @order.received_amount.to_d > 0 %></span>
     </div>
     <% @order.payment_orders.select(&->(i){ i.persisted? }).each do |payment_order| %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label pl-4"><%= payment_order.payment.type_i18n %></label>
       <span class="weui-form-preview__value">
         <span class="tag"><%= payment_order.state_i18n %></span>
-        <span><%= payment_order.order_amount.to_money.format(html_wrap: true).html_safe %></span>
+        <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
       </span>
     </div>
     <% end %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
-      <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format.html_safe %></span>
     </div>
     <% if @order.payment_strategy %>
     <div class="weui-form-preview__item">

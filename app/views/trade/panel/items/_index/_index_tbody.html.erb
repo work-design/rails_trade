@@ -7,16 +7,16 @@
 </td>
 <td><%= model.number %></td>
 <td>
-  <p class="has-text-grey"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.original_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p class="has-text-grey"><%= model.single_price.to_money.format.html_safe %></p>
+  <p><%= model.original_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><%= model.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.additional_amount.to_money.format.html_safe %></p>
+  <p><%= model.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><%= model.retail_price.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.wholesale_price.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.retail_price.to_money.format.html_safe %></p>
+  <p><%= model.wholesale_price.to_money.format.html_safe %></p>
 </td>
 <td><%= model.status_i18n %></td>
 <td><%= model.aim_i18n %></td>

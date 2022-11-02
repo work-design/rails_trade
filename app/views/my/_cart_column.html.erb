@@ -6,7 +6,7 @@
       <span class="ml-1 has-text-grey-dark is-size-7"><%= t('trade.my.lawful_wallets.show.title') %></span>
     </div>
     <div class="has-text-weight-medium has-text-danger-dark is-family-zhushi is-size-5">
-      <%= @lawful_wallet.amount.to_money.format(html_wrap: true).html_safe %>
+      <%= @lawful_wallet.amount.to_money.format.html_safe %>
     </div>
   <% end %>
   <% @card_templates.each do |card_template| %>

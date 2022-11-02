@@ -20,19 +20,19 @@
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:single_price) %></label>
-      <span class="weui-form-preview__value"><%= model.single_price.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= model.single_price.to_money.format.html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:retail_price) %></label>
-      <span class="weui-form-preview__value"><%= model.retail_price.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= model.retail_price.to_money.format.html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:wholesale_price) %></label>
-      <span class="weui-form-preview__value"><%= model.wholesale_price.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= model.wholesale_price.to_money.format.html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:amount) %></label>
-      <span class="weui-form-preview__value"><%= model.amount.to_money.format(html_wrap: true).html_safe %></span>
+      <span class="weui-form-preview__value"><%= model.amount.to_money.format.html_safe %></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Item.human_attribute_name(:created_at) %></label>

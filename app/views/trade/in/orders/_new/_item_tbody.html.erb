@@ -3,5 +3,5 @@
 <td><%= model.uuid %></td>
 <td><%= model.number %></td>
 <td><%= f.text_field :note, form: 'new_order' %></td>
-<td><%= model.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.amount.to_money.format.html_safe %></td>
 <td></td>

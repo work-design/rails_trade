@@ -9,7 +9,7 @@
         <span><%= advance.amount.to_fs(:rounded, precision: @wallet_template.digit) %></span>
         <span><%= @wallet_template.unit %></span>
       </div>
-      <div class="description has-text-danger"><%= advance.price.to_money.format(html_wrap: true).html_safe %></div>
+      <div class="description has-text-danger"><%= advance.price.to_money.format.html_safe %></div>
     <% end %>
   <% end %>
 </div>

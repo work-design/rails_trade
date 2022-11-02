@@ -5,7 +5,7 @@
     <span><%= @wallet_advance.amount %></span>
     <span><%= @wallet.wallet_template.unit %></span>
   <% else %>
-    <span><%= @wallet_advance.amount.to_money.format(html_wrap: true).html_safe %></span>
+    <span><%= @wallet_advance.amount.to_money.format.html_safe %></span>
   <% end %>
   </td>
 </tr>

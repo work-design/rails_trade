@@ -3,8 +3,8 @@
     <td><%= Trade::Order.human_attribute_name(:amount) %></td>
     <td colspan="5"></td>
     <td>
-      <p><%= @order.item_amount.to_money.format(html_wrap: true).html_safe %></p>
-      <p><%= @order.amount.to_money.format(html_wrap: true).html_safe %></p>
+      <p><%= @order.item_amount.to_money.format.html_safe %></p>
+      <p><%= @order.amount.to_money.format.html_safe %></p>
     </td>
     <td></td>
   </tr>

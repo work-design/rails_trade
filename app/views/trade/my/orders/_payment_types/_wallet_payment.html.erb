@@ -5,7 +5,7 @@
   </td>
   <td>
     <div class="is-several">
-      <div><%= wallet.amount.to_money.format(html_wrap: true).html_safe %></div>
+      <div><%= wallet.amount.to_money.format.html_safe %></div>
       <% if @order.payments.pluck(:wallet_id).include?(wallet.id) %>
         <%= form_with theme: nil, url: { controller: 'my/payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
           <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>

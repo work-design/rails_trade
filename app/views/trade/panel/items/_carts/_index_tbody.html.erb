@@ -14,7 +14,7 @@
 <td><%= model.good_type_i18n %></td>
 <td><%= model.aim %></td>
 <td class="has-text-right">
-  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
 <td class="has-text-centered"><%= model.items.size %></td>
 

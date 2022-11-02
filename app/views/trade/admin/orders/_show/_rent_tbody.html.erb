@@ -11,15 +11,15 @@
 </td>
 <td>
   <p>
-    <span><%= item.good.price.to_money.format(html_wrap: true).html_safe if item.good %></span>
+    <span><%= item.good.price.to_money.format.html_safe if item.good %></span>
     <span class="has-text-grey">x</span>
     <span><%= item.number %></span>
   </p>
-  <p><%= item.original_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= item.original_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><%= item.additional_amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= item.reduced_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= item.additional_amount.to_money.format.html_safe %></p>
+  <p><%= item.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td>
   <p><time data-controller="time" data-value="<%= item.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_start_at.to_fs(:human) %></time></p>
@@ -42,4 +42,4 @@
     <span><%= item.good.rent_unit_i18n %></span>
   </p>
 </td>
-<td><%= item.amount.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= item.amount.to_money.format.html_safe %></td>
