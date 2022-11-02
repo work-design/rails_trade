@@ -18,6 +18,6 @@
     <label data-action="click->input#check"></label>
   <% end %>
 </td>
-<td><%= model.parameter %></td>
-<td><%= model.base_price.to_money.format(html_wrap: true).html_safe %></td>
+<td><%= model.parameter.to_money.format.html_safe %></td>
+<td><%= model.base_price.to_money.format.html_safe %></td>
 <td><%= simple_format(model.extra) %></td>

@@ -203,3 +203,6 @@ zh:
         duration: 租用时长
         amount: 租金
         invest_amount: 投资收益
+      trade/rent_charge:
+        parameter: 单价
+        base_price: 基础价格
