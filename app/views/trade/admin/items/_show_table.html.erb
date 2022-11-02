@@ -40,6 +40,10 @@
   <td><%= @item.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
+  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:wallet_amount) %></td>
+  <td><%= simple_format @item.wallet_amount %></td>
+</tr>
+<tr>
   <td class="has-text-right"><%= Trade::Item.human_attribute_name(:produce_on) %></td>
   <td><%= @item.produce_on %></td>
 </tr>
