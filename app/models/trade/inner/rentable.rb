@@ -80,6 +80,7 @@ module Trade
 
       self.amount = rent_charge.compute_price(_duration, **extra)
       self.original_amount = self.amount if respond_to?(:original_amount)
+      self.single_price = self.amount if respond_to?(:single_price)
       good.wallet_codes.map do |wallet_code|
         self.wallet_amount.merge! wallet_code => rent_charge.compute_wallet_price(_duration, wallet_code)
       end

@@ -69,12 +69,12 @@ module Trade
 
     def wallet_amount
       order.items.map do |item|
-        item.wallet_amount.fetch(wallet_code, {})
+        item.parsed_wallet_amount.fetch(wallet_code, {})
       end
     end
 
     def order_wallet_amount
-      wallet_amount.sum(&->(i){ i['amount'].to_d })
+      wallet_amount.sum(&->(i){ i[:amount].to_d })
     end
 
     def wallet_amount_x
@@ -82,17 +82,17 @@ module Trade
       y = self.payment_amount
       rest = 0
       result = wallet_amount
-      result.sort_by!(&->(i){ i['rate'] }).reverse!
+      result.sort_by!(&->(i){ i[:rate] }).reverse!
       result.each do |i|
-        if y > i['amount']
-          x += i['rate'] * i['amount']
-          y -= i['amount']
-        elsif y == i['amount']
-          x += i['rate'] * i['amount']
+        if y > i[:amount]
+          x += i[:rate] * i[:amount]
+          y -= i[:amount]
+        elsif y == i[:amount]
+          x += i[:rate] * i[:amount]
           break
         else
-          x += i['rate'] * y
-          rest = i['amount'] - y
+          x += i[:rate] * y
+          rest = i[:amount] - y
           break
         end
       end
