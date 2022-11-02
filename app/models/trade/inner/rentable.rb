@@ -16,8 +16,10 @@ module Trade
       attribute :rent_finish_at, :datetime
       attribute :rent_present_finish_at, :datetime
       attribute :amount, :decimal
+      attribute :wallet_amount, :json, default: {}
       attribute :rent_estimate_finish_at, :datetime
-      attribute :estimate_amount, :json, default: {}
+      attribute :estimate_amount, :decimal
+      attribute :estimate_wallet_amount, :json, default: {}
 
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
@@ -76,6 +78,9 @@ module Trade
       _duration = duration
       rent_charge = compute_charge(_duration)
 
+      good.wallet_codes.map do |wallet_code|
+        self.wallet_amount.merge! rent_charge.compute_wallet_price(_duration, wallet_code)
+      end
       self.amount = rent_charge.compute_price(_duration, **extra)
       self.original_amount = self.amount if respond_to?(:original_amount)
     end
@@ -84,6 +89,9 @@ module Trade
       _estimate_duration = estimate_duration
       rent_charge = compute_charge(_estimate_duration)
 
+      good.wallet_codes.map do |wallet_code|
+        self.estimate_wallet_amount.merge! rent_charge.compute_wallet_price(_estimate_duration, wallet_code)
+      end
       self.estimate_amount = rent_charge.compute_price(_estimate_duration, **extra)
     end
 

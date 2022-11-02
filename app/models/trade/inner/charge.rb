@@ -12,6 +12,7 @@ module Trade
       attribute :parameter, :decimal, precision: 10, scale: 2, default: 0
       attribute :wallet_price, :json, default: {}
       attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
+      attribute :wallet_base_price, :json, default: {}
       attribute :extra, :json
 
       scope :filter_with, ->(amount) { default_where('filter_min-lte': amount, 'filter_max-gte': amount) }
@@ -35,14 +36,14 @@ module Trade
       results.sum
     end
 
-    def compute_wallet_price(value)
-      results = []
+    def compute_wallet_price(value, wallet_code)
+      results = [wallet_base_price[wallet_code]]
 
       minors.each do |minor|
         value -= minor.max
-        results << (minor.parameter * minor.max).round(2)
+        results << (minor.wallet_price[wallet_code] * minor.max).round(2)
       end
-      results << (parameter * value).round(2)
+      results << (wallet_price[wallet_code] * value).round(2)
 
       results.sum
     end
