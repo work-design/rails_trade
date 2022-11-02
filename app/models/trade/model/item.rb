@@ -181,8 +181,12 @@ module Trade
 
     def set_wallet_amount
       if ['use', 'invest'].include?(aim)
-        self.wallet_amount = good.wallet_price.transform_values(&->(v){ { rate: Rational(single_price.to_s, v), amount: v.to_d * number } })
+        self.wallet_amount = good.wallet_price.transform_values(&->(v){ v.to_d * number })
       end
+    end
+
+    def wallet_amount
+      super.transform_values(&->(v){ {rate: Rational(single_price.to_s, v.to_d/number), amount: v }})
     end
 
     def compute_single_price
