@@ -8,6 +8,9 @@
       <%= link_to({ controller: 'wallet_prepayments', wallet_template_id: model.id }, aria: { label: t('trade.admin.wallet_prepayments.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-archive"></i>
       <% end %>
+      <%= link_to({ controller: 'wallet_goods', wallet_template_id: model.id }, aria: { label: t('trade.admin.wallet_goods.index.title') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-cogs"></i>
+      <% end %>
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil"></i>
       <% end %>

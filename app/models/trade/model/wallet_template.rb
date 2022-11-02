@@ -22,10 +22,15 @@ module Trade
       has_many :opened_advances, -> { includes(:card_template).opened.order(amount: :asc) }, class_name: 'Advance'
       has_many :unopened_advances, -> { includes(:card_template).unopened.order(amount: :asc) }, class_name: 'Advance'
       has_many :wallet_prepayments
+      has_many :wallet_goods
 
       has_one_attached :logo
 
       validates :code, uniqueness: { scope: :organ_id }
+    end
+
+    def existing_good_types
+      wallet_goods.where(good_id: nil).pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
     end
 
     def step

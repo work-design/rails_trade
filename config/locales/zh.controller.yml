@@ -151,6 +151,9 @@ zh:
       lawful_wallets:
         index:
           title: 法定钱包
+      wallet_goods:
+        index:
+          title: 钱包设置
       wallet_logs:
         index:
           title: 使用明细

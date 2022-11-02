@@ -30,6 +30,10 @@ module Trade
       has_one_attached :logo
     end
 
+    def wallet_codes
+      wallet_goods.pluck(:wallet_code)
+    end
+
     def final_price
       compute_amount
       #self.retail_price + self.promote_price

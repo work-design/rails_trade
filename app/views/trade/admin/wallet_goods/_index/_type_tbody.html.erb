@@ -1,0 +1,10 @@
+<td><%= model[0] %></td>
+<td colspan="2">
+  <div class="buttons are-small">
+    <%= link_to({ action: 'new', good_type: model[1] }, data: { turbo_frame: 'modal' }, class: 'button is-small is-link') do %>
+      <i class="fa-solid fa-plus"></i>
+      <span><%= t('.new') %></span>
+    <% end %>
+  </div>
+</td>
+<td></td>
