@@ -15,7 +15,7 @@ module Trade
     end
 
     def wallet
-      @wallet_templates = Trade::WalletTemplate.default_where(default_params)
+      @wallet_templates = @rentable.wallet_templates
     end
 
     def update_wallet

@@ -26,6 +26,7 @@ module Trade
       has_many :available_promotes, class_name: 'Trade::Promote', through: :available_promote_goods, source: :promote
       has_many :default_promote_goods, ->(o) { default.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', primary_key: :good_type, foreign_key: :good_type
       has_many :wallet_goods, ->(o) { where(good_id: [o.id, nil]) }, class_name: 'Trade::WalletGood', primary_key: :good_type, foreign_key: :good_type
+      has_many :wallet_templates, class_name: 'Trade::WalletTemplate', through: :wallet_goods
 
       has_one_attached :logo
     end
