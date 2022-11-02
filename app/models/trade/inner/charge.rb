@@ -37,13 +37,13 @@ module Trade
     end
 
     def compute_wallet_price(value, wallet_code)
-      results = [wallet_base_price[wallet_code]]
+      results = [wallet_base_price[wallet_code].to_d]
 
       minors.each do |minor|
         value -= minor.max
-        results << (minor.wallet_price[wallet_code] * minor.max).round(2)
+        results << (minor.wallet_price[wallet_code].to_d * minor.max).round(2)
       end
-      results << (wallet_price[wallet_code] * value).round(2)
+      results << (wallet_price[wallet_code].to_d * value).round(2)
 
       results.sum
     end

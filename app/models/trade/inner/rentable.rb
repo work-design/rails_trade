@@ -79,7 +79,7 @@ module Trade
       rent_charge = compute_charge(_duration)
 
       good.wallet_codes.map do |wallet_code|
-        self.wallet_amount.merge! rent_charge.compute_wallet_price(_duration, wallet_code)
+        self.wallet_amount.merge! wallet_code => rent_charge.compute_wallet_price(_duration, wallet_code)
       end
       self.amount = rent_charge.compute_price(_duration, **extra)
       self.original_amount = self.amount if respond_to?(:original_amount)
@@ -90,7 +90,7 @@ module Trade
       rent_charge = compute_charge(_estimate_duration)
 
       good.wallet_codes.map do |wallet_code|
-        self.estimate_wallet_amount.merge! rent_charge.compute_wallet_price(_estimate_duration, wallet_code)
+        self.estimate_wallet_amount.merge! wallet_code => rent_charge.compute_wallet_price(_estimate_duration, wallet_code)
       end
       self.estimate_amount = rent_charge.compute_price(_estimate_duration, **extra)
     end
