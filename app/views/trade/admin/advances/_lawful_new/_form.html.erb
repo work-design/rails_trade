@@ -1,0 +1,4 @@
+<%= f.number_field :amount, step: 0.01, required: true %>
+<%= f.number_field :price, required: true %>
+<%= f.file_field :logo %>
+<%= f.collection_select :card_template_id, @card_templates, :id, :name, include_blank: true %>

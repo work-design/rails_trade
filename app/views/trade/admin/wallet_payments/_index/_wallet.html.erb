@@ -1,6 +1,10 @@
 <div class="box mb-2 is-radiusless">
   <div>
+  <% if @wallet.wallet_template %>
     <span><%= @wallet.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
     <span><%= @wallet.wallet_template.unit %></span>
+  <% else %>
+    <span><%= @wallet.amount.to_money.format.html_safe %></span>
+  <% end %>
   </div>
 </div>

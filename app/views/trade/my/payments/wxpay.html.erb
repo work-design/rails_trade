@@ -1,10 +1,8 @@
 <%= turbo_stream_from @order %>
 <div
   data-controller="wxpay"
-  data-wxpay-options-value="<%= current_wechat_app.js_config(request.original_url).to_json %>"
-  data-wxpay-apis-value="<%= ['chooseWXPay'].to_json %>"
+  data-wxpay-options-value="<%= @payment.payee.app.js_config(session[:enter_url]).to_json %>"
   data-wxpay-params-value="<%= { timestamp: @wxpay_order[:timeStamp], nonceStr: @wxpay_order[:nonceStr], package: @wxpay_order[:package], signType: @wxpay_order[:signType], paySign: @wxpay_order[:paySign] }.to_json %>"
-  data-wxpay-debug-value="false"
 >
   <div class="hero is-medium" id="order_result">
     <div data-wxpay-target="load" class="weui-loadmore" style="display: none">

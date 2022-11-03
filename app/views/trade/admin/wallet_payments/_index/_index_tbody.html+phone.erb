@@ -1,6 +1,10 @@
 <p>
+<% if @wallet.wallet_template %>
   <span class="has-text-danger"><%= model.total_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
   <span class="has-text-grey"><%= model.wallet.wallet_template.unit %></span>
+<% else %>
+  <span><%= model.total_amount.to_money.format.html_safe %></span>
+<% end %>
 </p>
 <p><%= model.comment %></p>
 <p class="is-size-7 has-text-grey"><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></p>
