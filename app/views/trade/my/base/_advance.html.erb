@@ -4,10 +4,10 @@
       <%= ef.hidden_field :good_type, value: advance.class_name %>
       <%= ef.hidden_field :good_id, value: advance.id %>
     <% end %>
-    <%= button_tag class: 'has-background-light py-4' do %>
-      <div class="header has-text-grey">
-        <span><%= advance.amount.to_fs(:rounded, precision: @wallet_template.digit) %></span>
-        <span><%= @wallet_template.unit %></span>
+    <%= button_tag class: 'button is-outlined is-success is-block' do %>
+      <div class="header has-text-grey has-text-weight-semibold">
+        <span><%= advance.amount.to_fs(:rounded, precision: wallet_template.digit) %></span>
+        <span><%= wallet_template.unit %></span>
       </div>
       <div class="description has-text-danger"><%= advance.price.to_money.format.html_safe %></div>
     <% end %>
