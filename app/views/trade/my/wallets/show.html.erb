@@ -23,14 +23,14 @@
   <div class="weui-panel__hd">充值</div>
   <div class="weui-panel__bd">
     <div class="columns m-4 is-flex is-multiline is-mobile">
-      <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances.without_card, as: :advance %>
+      <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances.without_card, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
     </div>
     <% @wallet.wallet_template.unopened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mx-4">
       <strong><%= card_template.name %>专享</strong>
     </div>
     <div class="columns m-4 is-flex is-multiline is-mobile">
-      <%= render partial: 'advance', collection: advances, as: :advance %>
+      <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
     </div>
     <% end %>
   </div>
