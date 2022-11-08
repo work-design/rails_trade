@@ -3,8 +3,6 @@ module Trade
     before_action :set_wallet, only: [:show]
     before_action :set_new_order, only: [:show]
 
-
-
     private
     def set_wallet
       @wallet = current_user.wallets.find params[:id]

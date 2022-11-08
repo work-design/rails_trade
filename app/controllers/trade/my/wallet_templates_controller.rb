@@ -1,6 +1,7 @@
 module Trade
   class My::WalletTemplatesController < My::BaseController
     before_action :set_wallet_template, only: [:show]
+    before_action :set_new_order, only: [:show]
 
     def index
       @wallets = current_user.custom_wallets.where(member_id: nil)
@@ -22,6 +23,11 @@ module Trade
     private
     def set_wallet_template
       @wallet_template = WalletTemplate.default_where(default_params).find(params[:id])
+    end
+
+    def set_new_order
+      @order = current_user.orders.build
+      @order.items.build
     end
 
   end
