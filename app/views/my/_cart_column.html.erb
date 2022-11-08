@@ -1,5 +1,6 @@
 <div class="columns is-multiline is-mobile is-flex is-vcentered is-centered m-0 is-shadow">
   <%= render partial: 'wallet', collection: @wallets, as: :wallet %>
+  <%= render partial: 'wallet_template', collection: @wallet_templates, as: :wallet_template %>
   <%= link_to({ controller: 'trade/my/lawful_wallets', action: 'show', **params.permit(:global_member_id) }, class: 'column is-one-third has-block-centered') do %>
     <div class="is-several">
       <%= image_tag 'wallet.png', class: 'image is-16x16' %>
