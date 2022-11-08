@@ -1,4 +1,6 @@
 <div class="is-several">
   <%= image_tag model.logo, class: 'image is-48x48' if model.logo.attached? %>
-  <span><%= model.name %></span>
+  <%= link_to({ action: 'show', id: model.id }) do %>
+    <span><%= model.name %></span>
+  <% end %>
 </div>
