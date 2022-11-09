@@ -17,7 +17,7 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      has_many :wallets, dependent: :nullify
+      has_many :wallets, class_name: 'CustomWallet', dependent: :nullify
       has_many :advances, dependent: :destroy_async
       has_many :opened_advances, -> { includes(:card_template).opened.order(amount: :asc) }, class_name: 'Advance'
       has_many :unopened_advances, -> { includes(:card_template).unopened.order(amount: :asc) }, class_name: 'Advance'
