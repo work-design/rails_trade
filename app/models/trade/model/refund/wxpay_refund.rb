@@ -23,7 +23,7 @@ module Trade
       }
 
       begin
-        result = payment.payee.api.invoke_refund(_params)
+        result = payment.payee.api.invoke_refund(**_params)
       rescue StandardError => e
         result = {}
         result['return_code'] = e.message.truncate(225)

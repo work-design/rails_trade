@@ -3,25 +3,25 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :payee, ->(o) { where(organ_id: o.organ_id) }, class_name: 'Wechat::Payee', optional: true
-      belongs_to :buyer, ->(o) { where(payee_id: o.payee&.id) }, class_name: 'Wechat::Receiver', foreign_key: :buyer_identifier, primary_key: :account, optional: true
+      belongs_to :app_payee, class_name: 'Wechat::AppPayee', optional: true
+      belongs_to :buyer, ->(o) { where(app_payee_id: o.app_payee_id) }, class_name: 'Wechat::Receiver', foreign_key: :buyer_identifier, primary_key: :account, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
     end
 
     def block
       params = {
-        appid: payee.appid,
+        appid: app_payee.appid,
         transaction_id: payment_uuid,
         out_order_no: extra['out_trade_no'],
         receivers: [buyer.order_params],
         unfreeze_unsplit: false
       }
-      r = payee.api.profit_share(params)
+      r = app_payee.api.profit_share(params)
     end
 
     def profit_query
-      r = payee.api.profit_query(payment_uuid)
+      r = app_payee.api.profit_query(payment_uuid)
     end
 
     def h5(payer_client_ip: '127.0.0.1')
@@ -29,14 +29,14 @@ module Trade
       params.merge! common_params
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
-      payee.api.h5_order(params)
+      app_payee.api.h5_order(**params)
     end
 
     def native
       params = {}
       params.merge! common_params
 
-      payee.api.native_order(params)
+      app_payee.api.native_order(**params)
     end
 
     def js_pay
@@ -46,7 +46,7 @@ module Trade
         params = {
           prepayid: prepay['prepay_id']
         }
-        payee.api.generate_js_pay_req(params)
+        app_payee.api.generate_js_pay_req(params)
       else
         prepay
       end
@@ -56,21 +56,19 @@ module Trade
       params = {}
       params.merge! common_params
       params.merge!(
-        payer: { openid: user.oauth_users.find_by(appid: payee.appid)&.uid },
+        payer: { openid: user.oauth_users.find_by(appid: app_payee.appid)&.uid },
         settle_info: { profit_sharing: extra_params['profit_sharing'].present? }
       )
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      payee.api.invoke_unifiedorder params
+      app_payee.api.jsapi_order(**params)
     end
 
     def common_params
       {
-        appid: payee.appid,
-        mchid: payee.mch_id,
         description: "支付编号: #{payment_uuid}",
         out_trade_no: payment_uuid,
-        notify_url: Rails.application.routes.url_for(host: payee.domain, controller: 'trade/payments', action: 'wxpay_notify'),
+        notify_url: Rails.application.routes.url_for(host: app_payee.domain, controller: 'trade/payments', action: 'wxpay_notify'),
         amount: {
           total: (self.total_amount * 100).to_i,
           currency: 'CNY'
@@ -86,18 +84,18 @@ module Trade
       self.buyer_bank = params['bank_type']
       self.total_amount = params.dig('amount', 'total').to_i / 100.0
       self.extra = params
-      self.payee = get_payee
+      #self.app_payee = get_app_payee
       self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     end
 
     def result
       params = {
-        mchid: payee.mch_id,
+        mchid: app_payee.payee.mch_id,
         out_trade_no: payment_uuid
       }
 
       begin
-        result = payee.api.order_query(params)
+        result = app_payee.api.order_query(params)
       rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end
@@ -110,7 +108,7 @@ module Trade
       end
     end
 
-    def get_payee
+    def get_app_payee
       Wechat::Payee.find_by(organ_id: organ_id, appid: extra['appid'], mch_id: seller_identifier)
     end
 
