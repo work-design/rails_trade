@@ -52,7 +52,7 @@ module Trade
     end
 
     def wxpay
-      @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: @order.uuid, total_amount: @order.amount
+      @payment = @order.to_payment
       #@payment.extra_params.merge! 'profit_sharing' => true
       @payment.user = current_user
       @payment.app_payee = current_payee

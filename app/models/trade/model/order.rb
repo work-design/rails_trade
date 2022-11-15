@@ -309,5 +309,11 @@ module Trade
       payment
     end
 
+    def to_payment(type: 'Trade::WxpayPayment')
+      payment = payments.build type: type, payment_uuid: uuid, total_amount: amount
+      payment.user = user
+      payment
+    end
+
   end
 end
