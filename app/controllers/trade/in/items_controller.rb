@@ -11,7 +11,6 @@ module Trade
     private
     def set_new_item
       options = {
-        user_id: current_user.id,
         member_id: current_member.id
       }
       options.merge! params.permit(:good_type, :good_id, :current_cart_id, :number, :produce_on, :scene_id)
