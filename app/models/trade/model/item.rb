@@ -160,7 +160,6 @@ module Trade
 
     def sync_from_member
       return unless member
-      self.user = member.user
       self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
     end
 
