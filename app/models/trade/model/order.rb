@@ -60,7 +60,6 @@ module Trade
       belongs_to :from_address, class_name: 'Profiled::Address', optional: true
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
 
-      belongs_to :agent, class_name: 'Org::Member', optional: true
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
 
       belongs_to :current_cart, class_name: 'Cart', optional: true
