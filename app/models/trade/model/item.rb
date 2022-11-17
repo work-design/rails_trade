@@ -275,7 +275,7 @@ module Trade
 
       if persisted?
         result.each(&:save!)
-        order.save!
+        order.save! if order
       end
     end
 
