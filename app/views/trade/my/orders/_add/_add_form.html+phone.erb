@@ -16,7 +16,7 @@
       <ul class="weui-media-box__info m-0">
         <li class="weui-media-box__info__meta">
           <span>总价：</span>
-          <span><%= @order.amount.to_money.format(html_wrap: true).html_safe %></span>
+          <span><%= @order.amount.to_money.format.html_safe %></span>
         </li>
       </ul>
     </div>

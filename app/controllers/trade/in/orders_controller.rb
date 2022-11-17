@@ -1,7 +1,7 @@
 module Trade
   class In::OrdersController < In::BaseController
     before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
-    skip_before_action :verify_authenticity_token, only: [:refresh]
+    before_action :set_new_order, only: [:new, :create]
 
     def index
       q_params = {}
@@ -22,16 +22,6 @@ module Trade
       @order = Order.new(current_cart_id: params[:current_cart_id])
     end
 
-    def create
-      @order = Order.new(order_params)
-
-      if @order.save
-        render 'create'
-      else
-        render 'new', locals: { model: @order }, status: :unprocessable_entity
-      end
-    end
-
     def refund
       @order.apply_for_refund
     end
@@ -41,19 +31,25 @@ module Trade
       @order = Order.find(params[:id])
     end
 
+    def set_new_order
+      @order = Order.new(order_params)
+    end
+
     def order_params
       p = params.fetch(:order, {}).permit(
         :weight,
-        :state,
+        :quantity,
         :payment_id,
         :payment_type,
         :address_id,
-        :amount,
+        :invoice_address_id,
         :note,
-        items_attributes: [:deliver_on, :number, :note],
-        cart_promotes_attributes: [:promote_id]
+        :current_cart_id,
+        items_attributes: {},
+        item_promotes_attributes: {}
       )
-      p.merge! default_form_params
+      p.merge! current_cart_id: params[:current_cart_id] if params[:current_cart_id]
+      p
     end
 
   end

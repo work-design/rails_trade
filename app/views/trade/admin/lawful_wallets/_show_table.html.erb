@@ -1,6 +1,6 @@
 <tr>
   <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:amount) %></td>
-  <td><%= @lawful_wallet.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @lawful_wallet.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:income_amount) %></td>

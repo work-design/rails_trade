@@ -4,7 +4,7 @@
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:amount) %></td>
-  <td><%= @wallet_log.amount.to_money.format(html_wrap: true).html_safe %></td>
+  <td><%= @wallet_log.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:source_type) %></td>

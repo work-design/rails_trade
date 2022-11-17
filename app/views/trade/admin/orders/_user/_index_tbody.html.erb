@@ -3,9 +3,9 @@
   <p><%= model.serial_number %></p>
 </td>
 <td class="has-text-right">
-  <p><%= model.amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.received_amount.to_money.format(html_wrap: true).html_safe %></p>
-  <p><%= model.unreceived_amount.to_money.format(html_wrap: true).html_safe %></p>
+  <p><%= model.amount.to_money.format.html_safe %></p>
+  <p><%= model.received_amount.to_money.format.html_safe %></p>
+  <p><%= model.unreceived_amount.to_money.format.html_safe %></p>
 </td>
 <td>
   <span><%= model.payment_status_i18n %></span>

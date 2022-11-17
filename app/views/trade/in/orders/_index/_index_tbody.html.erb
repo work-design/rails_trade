@@ -1,0 +1,18 @@
+<td>
+  <%= link_to model.uuid, { action: 'show', id: model.id } %>
+</td>
+<td>
+  <%= model.amount %>
+</td>
+<td>
+  <span><%= model.payment_status_i18n %></span>
+  <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small') do %>
+    <span>支付</span>
+  <% end if model.can_pay? %>
+</td>
+<td>
+  <span><%= model.note %></span>
+  <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'pl-1') do %>
+    <i class="fa-solid fa-pencil has-text-grey"></i>
+  <% end %>
+</td>
