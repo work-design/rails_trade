@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: cc430346c255a2cf7e468f221408aff186898da6
+  revision: 51c1b6b757601d8dafb1e3dcdd3ce8f3c74d27dd
   specs:
     rails_com (1.3.0)
       acme-client
@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 040bd58620a3c1f7c1ab4f6aaa70f27ebd6c0e11
+  revision: 1ec585b28030911e8a5c34ec5e515636733fca66
   specs:
     rails_design (0.0.1)
       rails
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_notice.git
-  revision: a501538484eadf71f4b37605d00e74f19d6b242e
+  revision: 34c4caa6b3c5726ab1c6da955f4d0f456e04cd58
   specs:
     rails_notice (1.0.3)
       rails_extend
@@ -137,7 +137,7 @@ GEM
     default_where (2.2.0)
       activerecord (>= 4.0.0)
     erubi (1.11.0)
-    faraday (2.6.0)
+    faraday (2.7.0)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
