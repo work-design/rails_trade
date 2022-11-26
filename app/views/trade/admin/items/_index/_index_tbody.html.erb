@@ -20,8 +20,8 @@
   <p><%= model.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><%= model.retail_price.to_money.format.html_safe %></p>
-  <p><%= model.wholesale_price.to_money.format.html_safe %></p>
+  <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
 </td>
 <td><%= model.status_i18n %></td>
 <td>
