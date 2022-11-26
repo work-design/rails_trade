@@ -6,19 +6,19 @@
         <i class="fa-solid fa-gift"></i>
       <% end %>
       <%= link_to({ controller: 'rents', item_id: model.id }, aria: { label: t('trade.admin.rents.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-face-meh"></i>
+        <i class="fa-solid fa-face-meh has-text-success"></i>
       <% end if model.aim_rent? %>
       <%= link_to({ action: 'carts', id: model.id }, aria: { label: t('trade.admin.items.carts.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-cart-shopping"></i>
+        <i class="fa-solid fa-cart-shopping has-text-info"></i>
       <% end %>
       <%= link_to({ action: 'show', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-circle-info"></i>
+        <i class="fa-solid fa-circle-info has-text-primary"></i>
       <% end %>
       <%= link_to({ action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil"></i>
+        <i class="fa-solid fa-pencil has-text-link"></i>
       <% end %>
       <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm'), turbo_scroll: true } }) do %>
-        <i class="fa-solid fa-trash"></i>
+        <i class="fa-solid fa-trash has-text-danger"></i>
       <% end %>
     </div>
   </td>

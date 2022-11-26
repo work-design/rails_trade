@@ -2,27 +2,27 @@
   <tr>
     <th><%= Trade::Order.human_attribute_name(:payment_status) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_helper(payment_status: '', active: 'button is-info', item: 'button is-light') %>
       <% Trade::Order.options_i18n(:payment_status).each do |text, value| %>
-        <%= link_to text, filter_params(payment_status: value, except: [:id]), class: active_params(payment_status: value, active: 'button is-info', item: 'button is-light') %>
+        <%= link_to text, filter_params(payment_status: value, except: [:id]), class: active_helper(payment_status: value, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
   <tr>
     <th><%= Trade::Order.human_attribute_name(:state) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:state]), class: active_params(state: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:state]), class: active_helper(state: '', active: 'button is-info', item: 'button is-light') %>
       <% Trade::Order.options_i18n(:state).each do |text, value| %>
-        <%= link_to text, filter_params(state: value, except: [:id]), class: active_params(state: value, active: 'button is-info', item: 'button is-light') %>
+        <%= link_to text, filter_params(state: value, except: [:id]), class: active_helper(state: value, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>
   <tr>
     <th><%= Trade::Order.human_attribute_name(:payment_type) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:payment_type]), class: active_params(payment_type: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:payment_type]), class: active_helper(payment_type: '', active: 'button is-info', item: 'button is-light') %>
       <% Trade::Order.options_i18n(:payment_type).each do |text, value| %>
-        <%= link_to text, filter_params(payment_type: value), class: active_params(payment_type: value, active: 'button is-info', item: 'button is-light') %>
+        <%= link_to text, filter_params(payment_type: value), class: active_helper(payment_type: value, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>

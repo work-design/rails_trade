@@ -1,6 +1,6 @@
 <div class="weui-navbar">
 <% Trade::PromoteGood.options_i18n(:state).each do |text, state| %>
-  <%= link_to({ action: 'index', state: state }, class: active_params(state: state, active: 'weui-navbar__item weui-bar__item_on', item: 'weui-navbar__item')) do %>
+  <%= link_to({ action: 'index', state: state }, class: active_helper(state: state, active: 'weui-navbar__item weui-bar__item_on', item: 'weui-navbar__item')) do %>
     <span class="is-size-6 has-text-grey-darker"><%= text %></span>
   <% end %>
 <% end %>

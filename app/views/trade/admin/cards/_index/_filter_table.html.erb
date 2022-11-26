@@ -2,9 +2,9 @@
   <tr>
     <th><%= Trade::Card.human_attribute_name(:card_template_id) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:card_template_id]), class: active_params(card_template_id: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:card_template_id]), class: active_helper(card_template_id: '', active: 'button is-info', item: 'button is-light') %>
       <% @card_templates.each do |card_template| %>
-        <%= link_to card_template.name, filter_params(card_template_id: card_template.id), class: active_params(card_template_id: card_template.id, active: 'button is-info', item: 'button is-light') %>
+        <%= link_to card_template.name, filter_params(card_template_id: card_template.id), class: active_helper(card_template_id: card_template.id, active: 'button is-info', item: 'button is-light') %>
       <% end %>
     </td>
   </tr>

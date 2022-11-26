@@ -11,11 +11,11 @@
   <div class="ui segment top attached">
     <p>
       <span>State:</span>
-      <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_params(payment_status: '', active: 'button is-info', item: 'button is-light') %>
-      <%= link_to '未支付', filter_params(payment_status: 'unpaid'), class: active_params(payment_status: 'unpaid', active: 'button is-info', item: 'button is-light') %>
-      <%= link_to '部分支付', filter_params(payment_status: 'part_paid'), class: active_params(payment_status: 'part_paid', active: 'button is-info', item: 'button is-light') %>
-      <%= link_to '全部支付', filter_params(payment_status: 'all_paid'), class: active_params(payment_status: 'all_paid', active: 'button is-info', item: 'button is-light') %>
-      <%= link_to '已退款', filter_params(payment_status: 'refunded'), class: active_params(payment_status: 'refunded', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:payment_status]), class: active_helper(payment_status: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to '未支付', filter_params(payment_status: 'unpaid'), class: active_helper(payment_status: 'unpaid', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to '部分支付', filter_params(payment_status: 'part_paid'), class: active_helper(payment_status: 'part_paid', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to '全部支付', filter_params(payment_status: 'all_paid'), class: active_helper(payment_status: 'all_paid', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to '已退款', filter_params(payment_status: 'refunded'), class: active_helper(payment_status: 'refunded', active: 'button is-info', item: 'button is-light') %>
     </p>
   </div>
 
