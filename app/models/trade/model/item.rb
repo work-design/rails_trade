@@ -93,7 +93,7 @@ module Trade
 
       has_one_attached :image
 
-      scope :carting, -> { where(status: ['init', 'checked', 'trial', 'expired']) }
+      scope :carting, -> { where(status: ['init', 'checked', 'trial']) }
       scope :checked, -> { where(status: ['checked', 'trial']) }
       scope :deliverable, -> { where(status: ['deliverable', 'packaged']) }
       scope :packable, -> { where(status: ['paid']) }
