@@ -3,7 +3,12 @@
 <%= render 'address' if @cart.need_address? %>
 
 <div id="cart_body">
-  <%= render partial: 'item', collection: @items, as: :model %>
+  <% @items.group_by(&:produce_plan).each do |produce_plan, items| %>
+    <div class="weui-panel">
+    <%= render partial: 'fetch', locals: { model: produce_plan } %>
+    </div>
+    <%= render partial: 'item', collection: items, as: :model %>
+  <% end %>
 </div>
 
 <%= render 'promote' %>
