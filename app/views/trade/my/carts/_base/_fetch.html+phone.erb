@@ -34,7 +34,7 @@
   </div>
   <div class="weui-cell__bd"></div>
   <div class="weui-cell__ft">
-    <time data-controller="time"><%# cart.fetch_start_at&.to_fs(:iso8601) %></time>
+    <time data-controller="time"><%= model.fetch_start_at&.to_fs(:iso8601) %></time>
   </div>
 </div>
 
