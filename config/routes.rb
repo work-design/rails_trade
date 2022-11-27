@@ -35,6 +35,7 @@ Rails.application.routes.draw do
         end
         resources :packageds
       end
+      resources :deliveries
       resources :carts do
         collection do
           get :list

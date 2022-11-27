@@ -56,7 +56,7 @@
       <%= render partial: 'fetch_time', locals: { model: model } %>
     </div>
     <div class="weui-half-screen-dialog__ft">
-      <%= form_with(model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch) do |f| %>
+      <%= form_with(model: model, url: { controller: 'deliveries', action: 'update', id: model.id }, method: :patch) do |f| %>
         <%= f.hidden_field :fetch_start_at, data: { time_range_target: 'start' } %>
         <%= f.hidden_field :fetch_finish_at, data: { time_range_target: 'finish' } %>
         <%= f.submit '确认' %>

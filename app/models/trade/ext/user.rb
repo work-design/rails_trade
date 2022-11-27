@@ -12,6 +12,7 @@ module Trade
       has_many :cards, class_name: 'Trade::Card'
       has_many :orders, -> { where(member_id: nil) }, class_name: 'Trade::Order'
       has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_user_id
+      has_many :deliveries, class_name: 'Trade::Delivery'
       has_many :items, class_name: 'Trade::Item'
       has_many :rent_items, -> { aim_rent }, class_name: 'Trade::Item'
       has_many :payments, class_name: 'Trade::Payment'
