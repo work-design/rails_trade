@@ -1,6 +1,7 @@
 module Trade
   module Model::Delivery
     extend ActiveSupport::Concern
+    include Inner::User
 
     included do
       attribute :fetch_oneself, :boolean, default: false, comment: '自取'
@@ -13,11 +14,6 @@ module Trade
       }
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
-
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
-      belongs_to :client, class_name: 'Profiled::Profile', optional: true
 
       belongs_to :scene, class_name: 'Factory::Scene'
       belongs_to :produce_plan, ->(o){ where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
