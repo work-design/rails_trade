@@ -79,7 +79,7 @@ module Trade
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
 
-      has_one :delivery, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
+      has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
@@ -134,6 +134,10 @@ module Trade
       else
         { organ_id: organ_id, member_id: member_id }
       end
+    end
+
+    def scene_filter_hash
+      filter_hash.merge! produce_on: produce_on, scene_id: scene_id
     end
 
     def init_uuid

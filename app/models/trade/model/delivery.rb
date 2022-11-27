@@ -19,20 +19,27 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :client, class_name: 'Profiled::Profile', optional: true
 
-      belongs_to :scene, class_name: 'Factory::Scene', optional: true
+      belongs_to :scene, class_name: 'Factory::Scene'
+      belongs_to :produce_plan, ->(o){ where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
 
       belongs_to :order, optional: true
 
       has_many :items, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
+
+    end
+
+    def xx
+
     end
 
     def filter_hash
+      r = { organ_id: organ_id, member_id: member_id, produce_on: produce_on, scene_id: scene_id }
       if user_id
-        { organ_id: organ_id, member_id: member_id }
+        r
       elsif client_id
-        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+        r.merge! client_id: client_id
       else
-        { organ_id: organ_id, member_id: member_id }
+        r
       end
     end
 
