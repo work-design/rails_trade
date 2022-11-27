@@ -36,6 +36,7 @@ module Trade
       has_many :payment_references, dependent: :destroy_async
       has_many :payment_methods, through: :payment_references
 
+      has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :user_id, foreign_key: :user_id
       has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
@@ -65,6 +66,16 @@ module Trade
         { organ_id: organ_id, client_id: client_id, good_type: good_type, aim: aim }.compact
       else
         { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
+      end
+    end
+
+    def simple_filter_hash
+      if user_id
+        { organ_id: organ_id, member_id: member_id }
+      elsif client_id
+        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+      else
+        { organ_id: organ_id, member_id: member_id }
       end
     end
 

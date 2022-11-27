@@ -24,9 +24,6 @@ module Trade
       attribute :advance_amount, :decimal, default: 0, comment: '预付款'
       attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
-      attribute :fetch_oneself, :boolean, default: false, comment: '自取'
-      attribute :fetch_start_at, :datetime
-      attribute :fetch_finish_at, :datetime
       attribute :organ_ancestor_ids, :json, default: []
       attribute :note, :string
       attribute :extra, :json, default: {}
@@ -62,6 +59,7 @@ module Trade
       belongs_to :user, class_name: 'Auth::User', optional: true
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
+
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :client, class_name: 'Profiled::Profile', optional: true
@@ -80,6 +78,8 @@ module Trade
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
+
+      has_one :delivery, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
@@ -109,6 +109,7 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_validation :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
+      before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
@@ -137,6 +138,10 @@ module Trade
 
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('ITEM')
+    end
+
+    def init_delivery
+      delivery || build_delivery
     end
 
     def sync_from_organ
@@ -361,14 +366,6 @@ module Trade
 
     def order_pruned!
       self.good.order_prune(self) if good
-    end
-
-    def fetch_include?(start_time, finish_time)
-      return nil if fetch_start_at.blank?
-      start = fetch_start_at.to_fs(:time)
-      finish = fetch_finish_at.to_fs(:time)
-
-      start <= start_time && finish >= finish_time
     end
 
     def expired?
