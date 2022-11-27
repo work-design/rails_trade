@@ -22,7 +22,6 @@ module Trade
       attribute :amount, :decimal
       attribute :wallet_amount, :json, default: {}
       attribute :advance_amount, :decimal, default: 0, comment: '预付款'
-      attribute :produce_on, :date, comment: '对接生产管理'
       attribute :expire_at, :datetime
       attribute :organ_ancestor_ids, :json, default: []
       attribute :note, :string
@@ -69,12 +68,6 @@ module Trade
 
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
-      if defined?(RailsFactory)
-      belongs_to :scene, class_name: 'Factory::Scene', optional: true
-      belongs_to :produce_plan, ->(o){ where(organ_id: o.organ_id, produce_on: o.produce_on) }, class_name: 'Factory::ProducePlan', foreign_key: :scene_id, primary_key: :scene_id, optional: true  # 产品对应批次号
-      belongs_to :production_plan, ->(o){ where(produce_on: o.produce_on, scene_id: o.scene_id) }, class_name: 'Factory::ProductionPlan', foreign_key: :good_id, primary_key: :production_id, counter_cache: :trade_items_count, optional: true
-      end
-
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
@@ -100,7 +93,6 @@ module Trade
       scope :packaged, -> { where(status: ['packaged', 'done']) }
 
       after_initialize :init_uuid, if: :new_record?
-      before_validation :sync_from_produce_plan, if: -> { respond_to?(:produce_plan) && produce_plan }
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
@@ -178,11 +170,6 @@ module Trade
       self.station_id = order.station_id
       self.from_address_id = order.from_address_id
       self.from_station_id = order.from_station_id
-    end
-
-    def sync_from_produce_plan
-      self.produce_on = produce_plan.produce_on
-      self.expire_at = produce_plan.book_finish_at
     end
 
     def set_wallet_amount
