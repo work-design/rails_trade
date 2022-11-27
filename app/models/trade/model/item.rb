@@ -56,11 +56,13 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
-      belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true
+      belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :desk, class_name: 'Space::Desk', optional: true
 
-      belongs_to :from_address, class_name: 'Profiled::Address', optional: true
+      # 仅物流订单，发货方信息
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
+      belongs_to :from_address, class_name: 'Profiled::Address', optional: true
 
       has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
 
