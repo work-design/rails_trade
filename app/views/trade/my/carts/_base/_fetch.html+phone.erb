@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog" data-action="click->weui-dialog#toggle">
+<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= model.id %>" data-action="click->weui-dialog#toggle">
   <div class="weui-cell__hd">
   <% if model.fetch_oneself %>
     <span>自取</span>
@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<div data-controller="weui-dialog time-range" id="fetch_dialog" class="weui-dialog__wrap">
+<div data-controller="weui-dialog time-range" id="fetch_dialog_<%= model.id %>" class="weui-dialog__wrap">
   <div class="weui-mask" data-action="click->weui-dialog#close"></div>
   <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
     <div class="weui-half-screen-dialog__hd">
@@ -56,7 +56,7 @@
       <%= render partial: 'fetch_time', locals: { model: model } %>
     </div>
     <div class="weui-half-screen-dialog__ft">
-      <%= form_with(model: model, url: { controller: 'deliveries', action: 'update', id: model.id }, method: :patch) do |f| %>
+      <%= form_with(model: model, url: { controller: 'deliveries', action: 'update', id: model.id }, method: :patch, skip_default_ids: true) do |f| %>
         <%= f.hidden_field :fetch_start_at, data: { time_range_target: 'start' } %>
         <%= f.hidden_field :fetch_finish_at, data: { time_range_target: 'finish' } %>
         <%= f.submit '确认' %>
