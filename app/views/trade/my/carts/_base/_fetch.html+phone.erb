@@ -1,15 +1,9 @@
 <div class="weui-cell">
   <div class="weui-cell__bd">
-    <% if model.expired? %>
-      <div class="has-text-grey">
-        <span>已于</span>
-        <time data-controller="time" data-format="human"><%= model.book_finish_at.to_fs(:iso8601) %></time>
-        <span>过期</span>
-      </div>
-    <% elsif model.book_finish_at.acts_like?(:time) %>
+    <% if model.fetch_finish_at.acts_like?(:time) %>
       <div class="is-flex is-align-items-center has-background-danger-light is-size-0_9" style="border-radius: 18px">
         <span class="has-text-grey ml-2">
-          <time data-controller="time-count" data-time-count-time-value="<%= model.book_finish_at.to_fs(:iso8601) %>" class="has-text-danger" style="font-family: monospace"><%= exact_distance_time(model.book_finish_at) %></time>
+          <time data-controller="time-count" data-time-count-time-value="<%= model.fetch_finish_at.to_fs(:iso8601) %>" class="has-text-danger" style="font-family: monospace"><%= exact_distance_time(model.fetch_finish_at) %></time>
           <span>后截止下单</span>
         </span>
       </div>
@@ -32,7 +26,7 @@
 
 <div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog" data-action="click->weui-dialog#toggle">
   <div class="weui-cell__hd">
-  <% if session[:fetch_oneself] %>
+  <% if model.fetch_oneself %>
     <span>自取</span>
   <% else %>
     <span>配送</span>
@@ -59,7 +53,7 @@
       </div>
     </div>
     <div class="weui-half-screen-dialog__bd">
-      <%# render partial: 'fetch_time', locals: { model: model } %>
+      <%= render partial: 'fetch_time', locals: { model: model } %>
     </div>
     <div class="weui-half-screen-dialog__ft">
       <%= form_with(model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch) do |f| %>

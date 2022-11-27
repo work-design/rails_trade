@@ -42,7 +42,7 @@ module Trade
         expired: 'expired'
       }, _default: 'checked', _prefix: true
 
-      enum delivery: {
+      enum delivery_status: {
         init: 'init',
         partially: 'partially',
         all: 'all'
