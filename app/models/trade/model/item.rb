@@ -58,7 +58,6 @@ module Trade
 
       belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
-      belongs_to :desk, class_name: 'Space::Desk', optional: true
 
       # 仅物流订单，发货方信息
       belongs_to :from_station, class_name: 'Ship::Station', optional: true

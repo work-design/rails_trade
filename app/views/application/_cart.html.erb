@@ -1,4 +1,5 @@
 <% item = current_cart.items.find(&->(i){ i.good_type == model.class_name && i.good_id == model.id }) %>
+
 <%= button_to({ controller: 'trade/my/items', action: 'update', id: item.id }, method: :patch, params: { '[item]number': item.number - 1 }, class: 'mr-1', form: { data: { turbo_scroll: true, turbo_scroll_container: 'production_body' } }) do %>
   <i class="fa-solid fa-circle-minus fa-xl has-text-dark-grey"></i>
 <% end if item && item.number > 1 %>
