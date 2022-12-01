@@ -35,7 +35,7 @@ module Trade
     def set_new_item
       options = {}
       options.merge! client_params
-      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :current_cart_id)
+      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :desk_id, :current_cart_id)
 
       @item = Item.new(options)
     end
@@ -43,6 +43,7 @@ module Trade
     def item_params
       params.fetch(:item, {}).permit(
         :number,
+        :desk_id,
         :current_cart_id
       )
     end
