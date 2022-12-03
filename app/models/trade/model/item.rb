@@ -176,7 +176,7 @@ module Trade
     end
 
     def parsed_wallet_amount
-      wallet_amount.transform_values(&->(v){ {rate: Rational(original_amount.to_s, v), amount: v.to_d }})
+      wallet_amount.transform_values(&->(v){ { rate: Rational(original_amount.to_s, v), amount: v.to_d }})
     end
 
     def compute_single_price

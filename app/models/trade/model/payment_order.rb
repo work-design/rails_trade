@@ -68,9 +68,11 @@ module Trade
     end
 
     def wallet_amount
-      order.items.map do |item|
+      r = order.items.map do |item|
         item.parsed_wallet_amount.fetch(wallet_code, {})
       end
+      r.compact_blank!
+      r
     end
 
     def order_wallet_amount

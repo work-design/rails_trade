@@ -28,7 +28,7 @@ module Trade
 
     def add
       @order.valid?
-      @order.sum_amount
+      @order.sum_item_amount
     end
 
     # todo part paid case
