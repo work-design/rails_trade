@@ -63,8 +63,6 @@ module Trade
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
       belongs_to :from_address, class_name: 'Profiled::Address', optional: true
 
-      has_one :device, class_name: 'JiaBo::Device', foreign_key: :organ_id, primary_key: :organ_id
-
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
