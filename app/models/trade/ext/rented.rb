@@ -12,8 +12,8 @@ module Trade
       belongs_to :held_organ, class_name: 'Org::Organ', optional: true
 
       has_many :rents, class_name: 'Trade::Rent', as: :rentable
-      has_one :current_rent, ->(o) { where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, finish_at: nil) }, class_name: 'Trade::Rent', as: :rentable
-      has_one :last_rent, -> { order(start_at: :desc) }, class_name: 'Trade::Rent', as: :rentable
+      has_one :current_rent, ->(o) { where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, rent_finish_at: nil) }, class_name: 'Trade::Rent', as: :rentable
+      has_one :last_rent, -> { order(rent_start_at: :desc) }, class_name: 'Trade::Rent', as: :rentable
 
       scope :tradable, -> { where(held_user_id: nil, held_organ_id: nil) }
       scope :traded, -> { where.not(held_user_id: nil).or(where.not(held_organ_id: nil)) }
