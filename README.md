@@ -4,7 +4,7 @@
 [![Docker构建](https://github.com/work-design/rails_trade/actions/workflows/cd.yml/badge.svg)](https://github.com/work-design/rails_trade/actions/workflows/cd.yml)
 [![Gem](https://github.com/work-design/rails_trade/actions/workflows/gempush.yml/badge.svg)](https://github.com/work-design/rails_trade/actions/workflows/gempush.yml)
 
-处理订单、支付（退款）、促销策略、附加服务策略；
+处理订单、支付（退款）、促销、附加服务（运费）策略；
 
 ## 特性
 * 在购物车环节就可以查看完整的优惠券策略，不必首先生成订单才能知晓全部优惠，能进一步提升转化率，降低系统取消订单数。
