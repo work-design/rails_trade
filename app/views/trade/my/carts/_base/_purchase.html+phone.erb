@@ -21,6 +21,7 @@
       <%= f.hidden_field :member_id, value: current_member&.id %>
       <%= f.hidden_field :good_type, value: card_template.purchase.class_name %>
       <%= f.hidden_field :good_id, value: card_template.purchase.id %>
+      <%= f.hidden_field :current_cart_id, value: @cart.id %>
       <%= check_box_tag 'xx', 'x', false, class: 'weui-check', data: { action: 'input#form' } %>
       <span class="weui-icon-checked"></span>
     <% end if card_template.purchase %>
