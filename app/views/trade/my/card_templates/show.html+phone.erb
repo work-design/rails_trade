@@ -1,13 +1,11 @@
 <%= render 'top_bar' %>
 <%= render 'menu' %>
 
-<div>
 <% if @card %>
   <%= render partial: 'card', locals: { model: @card } %>
 <% else %>
   <%= render partial: 'card_template', locals: { model: @card_template } %>
 <% end %>
-</div>
 
 <div class="weui-panel" data-controller="empty">
   <div class="weui-panel__hd">
