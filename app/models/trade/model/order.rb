@@ -19,6 +19,12 @@ module Trade
       attribute :received_amount, :decimal
       attribute :unreceived_amount, :decimal
 
+      enum aim: {
+        use: 'use',
+        invest: 'invest',
+        rent: 'rent'
+      }, _default: 'use', _prefix: true
+
       enum generate_mode: {
         myself: 'myself',
         by_from: 'by_from'
