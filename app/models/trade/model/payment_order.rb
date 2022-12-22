@@ -50,8 +50,9 @@ module Trade
     end
 
     def init_wallet_amount
-      if payment.total_amount
-        self.payment_amount = payment.total_amount
+      if payment.total_amount.to_d > 0
+        init_amount
+        return
       end
 
       if payment.wallet.amount > order_wallet_amount
@@ -76,7 +77,11 @@ module Trade
     end
 
     def order_wallet_amount
-      wallet_amount.sum(&->(i){ i[:amount].to_d })
+      if payment.wallet.is_a?(LawfulWallet)
+        order.items.sum(&->(i){ i.amount.to_d })
+      else
+        wallet_amount.sum(&->(i){ i[:amount].to_d })
+      end
     end
 
     def wallet_amount_x
