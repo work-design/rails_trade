@@ -201,11 +201,11 @@ module Trade
     end
 
     def can_pay?
-      if aim_rent?
-        items.all?(&->(i){ i.rent_finish_at.present? }) && ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status)
-      else
-        ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
-      end
+      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
+    end
+
+    def last_pay?
+      items.aim_rent.all?(&->(i){ i.rent_finish_at.present? })
     end
 
     def can_cancel?

@@ -3,10 +3,14 @@
   <div class="weui-panel__bd">
   <% if model.from_address.present? %>
     <%= render partial: 'ship_info', locals: { model: model } %>
-  <% elsif model.current_cart&.aim_rent? %>
-    <%= render partial: 'rent_item', collection: model.items, as: :item, locals: { model: model } %>
   <% else %>
-    <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
+  <% model.items.each do |item| %>
+    <% if item.aim_rent? %>
+      <%= render partial: 'rent_item', locals: { item: item, model: model } %>
+    <% else %>
+      <%= render partial: 'item', locals: { item: item, model: model } %>
+    <% end %>
+  <% end %>
   <% end %>
   </div>
   <div class="weui-panel__ft">
