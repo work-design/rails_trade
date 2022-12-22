@@ -13,7 +13,6 @@ module Trade
       attribute :items_count, :integer, default: 0
       attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
-      attribute :pay_later, :boolean, default: false
       attribute :pay_auto, :boolean, default: false
       attribute :amount, :decimal
       attribute :received_amount, :decimal
@@ -131,17 +130,12 @@ module Trade
       self.generate_mode = 'by_from'
     end
 
-    def init_pay_later
-      self.pay_later = true if aim_rent?
-    end
-
     def sync_from_current_cart
       return unless current_cart
       self.address_id ||= current_cart.address_id
       self.aim = current_cart.aim
       self.member_id = current_cart.member_id
       self.member_organ_id = current_cart.member_organ_id
-      self.pay_later = true if current_cart.aim == 'rent'
       if current_cart.user_id.blank?
         sync_items_from_organ
       else
@@ -169,7 +163,7 @@ module Trade
       item.order = self
       item.address_id = address_id
 
-      if pay_later
+      if item.aim_rent?
         item.status = 'deliverable'
       else
         item.status = 'ordered'
