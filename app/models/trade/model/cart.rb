@@ -4,7 +4,6 @@ module Trade
     include Inner::Amount
 
     included do
-      attribute :good_type, :string
       attribute :retail_price, :decimal, default: 0, comment: '汇总：原价'
       attribute :discount_price, :decimal, default: 0, comment: '汇总：优惠'
       attribute :bulk_price, :decimal, default: 0
@@ -12,12 +11,6 @@ module Trade
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
       attribute :items_count, :integer, default: 0
-
-      enum aim: {
-        use: 'use',
-        invest: 'invest',
-        rent: 'rent'
-      }, _default: 'use', _prefix: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -40,7 +33,7 @@ module Trade
       has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :user_id, foreign_key: :user_id
       has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
-      has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
+      has_many :organ_items, -> { carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
       has_many :available_item_promotes, -> { includes(:promote) }, through: :checked_items, source: :item_promotes
@@ -51,7 +44,6 @@ module Trade
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
-      validates :good_type, presence: true
 
       after_initialize :sync_from_maintain, if: -> { new_record? && maintain_id.present? }
       before_validation :sync_member_organ, if: -> { member_id_changed? && member }
@@ -61,11 +53,11 @@ module Trade
 
     def filter_hash
       if user_id
-        { organ_id: organ_id, member_id: member_id, good_type: good_type, aim: aim }.compact
+        { organ_id: organ_id, member_id: member_id }.compact
       elsif client_id
-        { organ_id: organ_id, client_id: client_id, good_type: good_type, aim: aim }.compact
+        { organ_id: organ_id, client_id: client_id }.compact
       else
-        { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
+        { member_organ_id: member_organ_id }.compact
       end
     end
 
@@ -123,8 +115,8 @@ module Trade
       ['use', 'rent'].include?(aim)
     end
 
-    def get_item(good_type:, good_id:, aim: 'use', number: 1, **options)
-      args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
+    def get_item(good_id:, number: 1, **options)
+      args = { good_id: good_id, **options.slice(:produce_on, :scene_id, :fetch_oneself) }
       args.reject!(&->(_, v){ v.blank? })
       item = find_item(**args) || items.build(args)
 
@@ -153,7 +145,7 @@ module Trade
     end
 
     def xx(good_id:, **options)
-      args = { good_id: good_id, good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
+      args = { good_id: good_id, **options.slice(:fetch_oneself) }
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
       args.stringify_keys!
