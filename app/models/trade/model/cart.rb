@@ -47,8 +47,8 @@ module Trade
       has_many :available_item_promotes, -> { includes(:promote) }, through: :checked_items, source: :item_promotes
 
       has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
-      has_many :cards, -> { includes(:card_template) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :wallets, -> { includes(:wallet_template) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o) { includes(:card_template).where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :wallets, -> { includes(:wallet_template).where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true

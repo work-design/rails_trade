@@ -1,4 +1,4 @@
-<label class="level is-flex" for="xx">
+<label class="level is-flex px-4 my-4 has-border-bottom" for="xx_<%= card_template.id %>">
   <span class="level-left is-flex is-justify-content-space-between">
     <span>
       <span><%= card_template.name %></span>
@@ -9,9 +9,9 @@
     </span>
   </span>
   <span class="weui-cells_checkbox">
-  <% if current_cart.temp_owned?(card_template) %>
-    <%= form_with theme: nil, url: { controller: 'items', action: 'destroy', id: current_cart.temp_owned?(card_template).item_id }, method: :delete, data: { controller: 'input' } do |f| %>
-      <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
+  <% if @cart.temp_owned?(card_template) %>
+    <%= form_with theme: nil, url: { controller: 'items', action: 'destroy', id: @cart.temp_owned?(card_template).item_id }, method: :delete, data: { controller: 'input' } do |f| %>
+      <%= f.check_box 'xx', checked: true, data: { action: 'input#form' }, id: "xx_#{card_template.id}", class: 'weui-check' %>
       <span class="weui-icon-checked"></span>
     <% end %>
   <% else %>
@@ -20,7 +20,7 @@
       <%= f.hidden_field :good_type, value: card_template.purchase.class_name %>
       <%= f.hidden_field :good_id, value: card_template.purchase.id %>
       <%= f.hidden_field :current_cart_id, value: @cart.id %>
-      <%= check_box_tag 'xx', 'x', false, class: 'weui-check', data: { action: 'input#form' } %>
+      <%= check_box_tag 'xx', 'x', false, data: { action: 'input#form' }, id: "xx_#{card_template.id}", class: 'weui-check' %>
       <span class="weui-icon-checked"></span>
     <% end if card_template.purchase %>
   <% end %>
