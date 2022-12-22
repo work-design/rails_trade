@@ -34,13 +34,18 @@ module Trade
         ordered: 'ordered',
         trial: 'trial',
         deliverable: 'deliverable',
-        part_paid: 'part_paid',
-        refund: 'refund',
         packaged: 'packaged',
         done: 'done',
         canceled: 'canceled',
         expired: 'expired'
       }, _default: 'checked', _prefix: true
+
+      enum payment_status: {
+        init: 'init',
+        paid: 'paid',
+        part_paid: 'part_paid',
+        refund: 'refund'
+      }
 
       enum delivery_status: {
         init: 'init',
