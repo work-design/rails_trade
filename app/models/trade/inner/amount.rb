@@ -40,7 +40,7 @@ module Trade
     end
 
     def reset_amount
-      self.sum_amount
+      self.compute_amount
       self.valid?
       self.changes
     end

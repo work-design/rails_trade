@@ -104,18 +104,17 @@ module Trade
     end
 
     def compute_amount
+      self.total_quantity = checked_items.sum(&->(i){ i.original_quantity.to_d })
+
       self.retail_price = checked_items.sum(&->(i){ i.retail_price.to_d })
       self.discount_price = checked_items.sum(&->(i){ i.discount_price.to_d })
       self.bulk_price = self.retail_price - self.discount_price
-      self.total_quantity = checked_items.sum(&->(i){ i.original_quantity.to_d })
-      sum_amount
-    end
 
-    def sum_amount
+      self.item_amount = checked_items.sum(&->(i){ i.original_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
-      self.item_amount = checked_items.sum(&->(i){ i.original_amount.to_d })
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+
       self.changes
     end
 

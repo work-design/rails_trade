@@ -4,6 +4,7 @@ module Trade
     before_action :set_new_item, only: [:create, :trial]
 
     def trial
+      @item.aim = 'use'
       @item.status = 'trial'
       @item.save
     end
