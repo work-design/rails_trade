@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <% @card_templates.each do |card_template| %>
-    <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'column is-one-third has-block-centered') do %>
+    <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, state: 'enter', class: 'column is-one-third has-block-centered') do %>
       <div class="is-several">
         <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
         <span class="ml-1 has-text-grey-dark is-size-7"><%= card_template.name %></span>
