@@ -6,11 +6,12 @@
 
 <div class="weui-panel">
   <div class="weui-panel__bd">
-  <% if @cart.aim_rent? %>
-    <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
-  <% else %>
-    <%= render partial: 'item', collection: @cart.items.status_checked, as: :item %>
-  <% end %>
+    <% if @cart.aim_rent? %>
+      <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
+    <% else %>
+      <%= render partial: 'item', collection: @cart.items.status_checked, as: :item %>
+    <% end %>
+    <%= render partial: 'item', collection: @cart.checked_card_items, as: :item %>
   </div>
 </div>
 

@@ -154,7 +154,7 @@ module Trade
     end
 
     def sync_items_from_user
-      current_cart.items.each do |item|
+      current_cart.checked_all_items.each do |item|
         sync_item(item)
       end
     end

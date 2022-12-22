@@ -148,6 +148,7 @@ module Trade
     end
 
     def sync_from_current_cart
+      self.aim = current_cart.aim if good_type != 'Trade::Purchase'
       self.good_type ||= current_cart.good_type
     end
 

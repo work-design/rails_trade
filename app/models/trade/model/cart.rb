@@ -37,11 +37,12 @@ module Trade
       has_many :payment_methods, through: :payment_references
 
       has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
-      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :user_id, foreign_key: :user_id
-      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :user_id, foreign_key: :user_id  # 用于购物车展示
+      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id  # 用于计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
+      has_many :checked_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
       has_many :available_item_promotes, -> { includes(:promote) }, through: :checked_items, source: :item_promotes
 
@@ -103,14 +104,18 @@ module Trade
       cards.temporary.find_by(card_template_id: card_template.id)
     end
 
+    def checked_all_items
+      checked_items + checked_card_items
+    end
+
     def compute_amount
       self.total_quantity = checked_items.sum(&->(i){ i.original_quantity.to_d })
 
-      self.retail_price = checked_items.sum(&->(i){ i.retail_price.to_d })
-      self.discount_price = checked_items.sum(&->(i){ i.discount_price.to_d })
+      self.retail_price = checked_all_items.sum(&->(i){ i.retail_price.to_d })
+      self.discount_price = checked_all_items.sum(&->(i){ i.discount_price.to_d })
       self.bulk_price = self.retail_price - self.discount_price
 
-      self.item_amount = checked_items.sum(&->(i){ i.original_amount.to_d })
+      self.item_amount = checked_all_items.sum(&->(i){ i.original_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
