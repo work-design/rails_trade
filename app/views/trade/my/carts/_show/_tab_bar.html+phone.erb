@@ -1,5 +1,5 @@
 <div class="has-border-top has-background-light">
-  <%= render 'purchase' %>
+  <%= render partial: 'purchase', collection: @card_templates, as: :card_template %>
   <div class="level is-flex py-2 pl-4 mb-2">
     <%= render 'cart_item' %>
   </div>
