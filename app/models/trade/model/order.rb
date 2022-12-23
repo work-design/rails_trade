@@ -91,7 +91,6 @@ module Trade
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
-      after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
@@ -210,7 +209,7 @@ module Trade
     end
 
     def remaining_pay?
-      items.aim_rent.any?(&->(i){ i.rent_finish_at.blank? })
+      items.any?(&->(i){ i.aim_rent? && i.rent_finish_at.blank? })
     end
 
     def can_cancel?
@@ -218,8 +217,6 @@ module Trade
     end
 
     def confirm_paid!
-      self.expire_at = nil
-      self.paid_at = Time.current
       self.items.each do |item|
         if item.aim_rent?
           item.status = 'done'
@@ -227,7 +224,6 @@ module Trade
           item.status = 'deliverable'
         end
       end
-      self.save
       send_notice
     end
 
@@ -270,6 +266,8 @@ module Trade
       elsif self.received_amount.to_d <= 0
         self.payment_status = 'unpaid'
       end
+      self.expire_at = nil
+      self.paid_at = Time.current
     end
 
     def check_state!
