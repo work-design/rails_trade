@@ -15,6 +15,9 @@ module Trade
     end
 
     def compute_amount
+      self.item_amount = items.sum(&->(i){ i.original_amount.to_d })
+      self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
+      self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
@@ -34,8 +37,6 @@ module Trade
           cart_promotes.destroy(cart_promote)
         end
       end
-      self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
-      self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
       self.changes
     end
 
