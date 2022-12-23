@@ -92,7 +92,6 @@ module Trade
       before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
-      after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
@@ -230,15 +229,6 @@ module Trade
       end
       self.save
       send_notice
-    end
-
-    def confirm_part_paid!
-      self.expire_at = nil
-      self.paid_at = Time.current
-      self.items.each do |item|
-        item.payment_status = 'part_paid'
-      end
-      self.save
     end
 
     def confirm_refund!
