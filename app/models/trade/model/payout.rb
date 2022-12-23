@@ -13,26 +13,28 @@ module Trade
       attribute :account_name, :string
       attribute :account_num, :string
 
-      belongs_to :wallet
-      belongs_to :operator, class_name: 'User', optional: true
-      belongs_to :payable, polymorphic: true, optional: true
-
-      has_one :wallet_log, ->(o) { where(wallet_id: o.wallet_id) }, as: :source
-
-      has_one_attached :proof
-
       enum state: {
         pending: 'pending',
         done: 'done',
         failed: 'failed'
       }, _default: 'pending'
 
-      before_validation do
-        self.payout_uuid ||= UidHelper.nsec_uuid('POT')
-      end
+      belongs_to :wallet
+      belongs_to :operator, class_name: 'Auth::User', optional: true
+      belongs_to :payable, polymorphic: true, optional: true
+
+      has_one :wallet_log, ->(o) { where(wallet_id: o.wallet_id) }, as: :source
+
+      has_one_attached :proof
+
+      before_validation :init_uuid, if: -> { payout_uuid.blank? }
       #before_save :sync_state
       after_save :sync_to_wallet, if: -> { saved_change_to_requested_amount? }
       after_create_commit :sync_wallet_log
+    end
+
+    def init_uuid
+      self.payout_uuid ||= UidHelper.nsec_uuid('POT')
     end
 
     def sync_state
