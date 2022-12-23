@@ -204,8 +204,8 @@ module Trade
       ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
-    def last_pay?
-      items.aim_rent.all?(&->(i){ i.rent_finish_at.present? })
+    def remaining_pay?
+      items.aim_rent.any?(&->(i){ i.rent_finish_at.blank? })
     end
 
     def can_cancel?
@@ -271,7 +271,9 @@ module Trade
     end
 
     def check_state
-      if self.received_amount.to_d >= self.amount.to_d
+      if remaining_pay?
+        self.payment_status = 'part_paid'
+      elsif self.received_amount.to_d >= self.amount.to_d
         self.payment_status = 'all_paid'
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
