@@ -22,7 +22,6 @@ module Trade
 
       belongs_to :order, inverse_of: :payment_orders
       belongs_to :payment, inverse_of: :payment_orders, counter_cache: true, optional: true
-      belongs_to :item, optional: true
 
       has_one :refund, ->(o) { where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
