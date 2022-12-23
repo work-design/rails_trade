@@ -37,15 +37,10 @@ module Trade
         packaged: 'packaged',
         done: 'done',
         canceled: 'canceled',
-        expired: 'expired'
-      }, _default: 'checked', _prefix: true
-
-      enum payment_status: {
-        init: 'init',
+        expired: 'expired',
         paid: 'paid',
-        part_paid: 'part_paid',
         refund: 'refund'
-      }
+      }, _default: 'checked', _prefix: true
 
       enum delivery_status: {
         init: 'init',
@@ -359,10 +354,6 @@ module Trade
       else
         logger.debug ''
       end
-    end
-
-    def xx
-
     end
 
     def order_pruned!

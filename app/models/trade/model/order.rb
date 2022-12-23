@@ -16,7 +16,7 @@ module Trade
       attribute :pay_auto, :boolean, default: false
       attribute :amount, :decimal
       attribute :received_amount, :decimal
-      attribute :unreceived_amount, :decimal
+      attribute :unreceived_amount, :decimal, as: 'amount - received_amount', virtual: true
 
       enum aim: {
         use: 'use',
@@ -91,7 +91,6 @@ module Trade
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
-      before_save :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       after_save :confirm_paid!, if: -> { all_paid? && saved_change_to_payment_status? }
       after_save :confirm_part_paid!, if: -> { part_paid? && saved_change_to_payment_status? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
@@ -259,10 +258,6 @@ module Trade
     def compute_pay_deadline_at
       return unless payment_strategy
       self.pay_deadline_at = (Date.today + payment_strategy.period).end_of_day
-    end
-
-    def compute_unreceived_amount
-      self.unreceived_amount = self.amount.to_d - self.received_amount.to_d
     end
 
     def send_notice
