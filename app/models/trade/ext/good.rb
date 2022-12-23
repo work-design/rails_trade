@@ -91,10 +91,6 @@ module Trade
       logger.error 'order_rented Should realize in good entity'
     end
 
-    def order_part_paid(item = nil)
-      logger.error 'order_part_paid Should realize in good entity'
-    end
-
     def order_refund(item = nil)
       logger.error 'order_refund Should realize in good entity'
     end

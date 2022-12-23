@@ -350,8 +350,6 @@ module Trade
         else
           self.good.order_deliverable(self)
         end
-      when 'part_paid'
-        self.good.order_part_paid(self)
       when 'refund'
         self.good.order_refund(self)
       when 'done'
@@ -361,6 +359,10 @@ module Trade
       else
         logger.debug ''
       end
+    end
+
+    def xx
+
     end
 
     def order_pruned!
