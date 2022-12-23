@@ -265,11 +265,19 @@ module Trade
     def compute_promotes
       result = do_compute_promotes
       self.assign_attributes sum_amount
-      order.compute_promote if order
+      if order
+        order.compute_promote
+      else
+        current_cart.compute_promote
+      end
 
       if persisted?
         result.each(&:save!)
-        order.save! if order
+        if order
+          order.save!
+        else
+          current_cart.save!
+        end
       end
     end
 

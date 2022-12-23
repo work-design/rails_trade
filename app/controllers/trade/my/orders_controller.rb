@@ -28,7 +28,6 @@ module Trade
 
     def add
       @order.valid?
-      binding.b
     end
 
     # todo part paid case

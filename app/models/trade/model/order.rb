@@ -86,7 +86,7 @@ module Trade
 
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      after_validation :sum_item_amount, if: :new_record?, prepend: true
+      after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }
@@ -179,6 +179,13 @@ module Trade
       end
     end
 
+    def compute_amount
+      self.item_amount = items.sum(&->(i){ i.original_amount.to_d })
+      self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
+      self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
+      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+    end
+
     def subject
       r = items.map { |oi| oi.good.name.presence }.join(', ')
       r.presence || 'goods'
@@ -210,10 +217,6 @@ module Trade
 
     def can_cancel?
       init? && ['unpaid', 'to_check'].include?(self.payment_status)
-    end
-
-    def sum_item_amount
-      binding.b
     end
 
     def confirm_paid!

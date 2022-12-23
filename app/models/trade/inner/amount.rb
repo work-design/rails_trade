@@ -10,15 +10,6 @@ module Trade
       attribute :amount, :decimal, default: 0
       attribute :lock_version, :integer
       attribute :extra, :json, default: {}
-
-      after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
-    end
-
-    def compute_amount
-      self.item_amount = items.sum(&->(i){ i.original_amount.to_d })
-      self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
-      self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
-      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
     def compute_promote
