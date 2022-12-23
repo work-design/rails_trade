@@ -236,7 +236,9 @@ module Trade
     def confirm_part_paid!
       self.expire_at = nil
       self.paid_at = Time.current
-      self.items.each(&->(i){ i.payment_status = 'part_paid'})
+      self.items.each do |item|
+        item.payment_status = 'part_paid'
+      end
       self.save
     end
 
