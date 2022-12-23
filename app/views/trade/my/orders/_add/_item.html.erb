@@ -1,6 +1,6 @@
 <div class="weui-media-box weui-media-box_appmsg">
   <div class="weui-media-box__hd" data-controller="empty">
-    <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good.logo.attached? %>
+    <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good.logo&.attached? %>
   </div>
   <div class="weui-media-box__bd">
     <h4 class="weui-media-box__title"><%= item.good.name %></h4>
