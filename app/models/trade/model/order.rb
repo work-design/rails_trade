@@ -231,14 +231,10 @@ module Trade
       self.items.each(&:confirm_refund!)
     end
 
-    def compute_received_amount
-      _received_amount = self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:order_amount)
+    def reset_received_amount
+      _received_amount = self.payment_orders.select(&->(o){ o.state_confirmed? }).sum(&->(i){ i.order_amount.to_d })
       _refund_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
-      _received_amount - _refund_amount
-    end
-
-    def init_received_amount
-      self.payment_orders.state_confirmed.sum(:order_amount)
+      self.received_amount = _received_amount - _refund_amount
     end
 
     def compute_pay_deadline_at
@@ -271,7 +267,7 @@ module Trade
     end
 
     def check_state!
-      self.received_amount = init_received_amount
+      self.reset_received_amount
       self.check_state
       self.save!
     end
