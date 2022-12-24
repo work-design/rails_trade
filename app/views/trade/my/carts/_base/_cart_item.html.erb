@@ -17,5 +17,15 @@
   </div>
 </div>
 <div class="level-right mt-0 p-2">
-  <%= render 'cart_order' %>
+<% if @checked_ids.present? %>
+  <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary') do %>
+    <span class="pr-1">结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  <% end %>
+<% else %>
+  <button class="button is-primary" disabled>
+    <span class="pr-1">结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+<% end %>
 </div>
