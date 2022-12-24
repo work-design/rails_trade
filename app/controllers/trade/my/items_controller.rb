@@ -3,6 +3,11 @@ module Trade
     before_action :set_item, only: [:show, :update, :destroy, :actions, :promote, :toggle, :finish]
     before_action :set_new_item, only: [:create, :trial]
 
+
+    def create
+      @item.save
+    end
+
     def trial
       @item.aim = 'use'
       @item.status = 'trial'

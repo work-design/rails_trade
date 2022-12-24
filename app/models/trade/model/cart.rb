@@ -100,6 +100,21 @@ module Trade
       cards.where(card_template_id: card_template.id, temporary: false).take
     end
 
+    def card_templates
+      effective_ids = cards.effective.pluck(:card_template_id)
+      min_grade = CardTemplate.where(organ_id: organ_id).minimum(:grade)
+      CardTemplate.where(organ_id: organ_id, grade: min_grade).where.not(id: effective_ids)
+    end
+
+    def set_new_x_item(purchase)
+      Item.new(
+        good_type: purchase.class_name,
+        good_id: purchase.id,
+        current_cart_id: self.id,
+        **simple_filter_hash
+      )
+    end
+
     def temp_owned?(card_template)
       cards.temporary.find_by(card_template_id: card_template.id)
     end
