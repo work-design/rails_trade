@@ -89,7 +89,7 @@ module Trade
       after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
-      before_save :check_state, if: -> { !pay_later && amount.to_d.zero? }
+      before_save :check_state, if: -> { amount.to_d.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
@@ -217,7 +217,7 @@ module Trade
     end
 
     def confirm_paid!
-      self.items.each do |item|
+      items.each do |item|
         if item.aim_rent?
           item.status = 'done'
         else
@@ -225,6 +225,16 @@ module Trade
         end
       end
       send_notice
+    end
+
+    def remaining_paid!
+      items.each do |item|
+        if item.aim_rent?
+          item.status = 'deliverable'
+        else
+          item.status = 'deliverable'
+        end
+      end
     end
 
     def confirm_refund!
@@ -253,10 +263,14 @@ module Trade
     end
 
     def check_state
-      if remaining_pay?
-        self.payment_status = 'part_paid'
-      elsif self.received_amount.to_d >= self.amount.to_d
-        self.payment_status = 'all_paid'
+      if self.received_amount.to_d >= self.amount.to_d
+        if remaining_pay?
+          self.payment_status = 'part_paid'
+          self.remaining_paid!
+        else
+          self.payment_status = 'all_paid'
+          confirm_paid!
+        end
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
       elsif self.received_amount.to_d <= 0
