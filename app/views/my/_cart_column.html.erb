@@ -16,7 +16,7 @@
         <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
         <span class="ml-1 has-text-grey-dark is-size-7"><%= card_template.name %></span>
       </div>
-      <div class="has-text-weight-medium has-text-danger-dark is-family-zhushi is-size-5"><%= current_cart.owned?(card_template) ? '已开通' : '立即开通' %></div>
+      <div class="has-text-weight-medium has-text-danger-dark is-family-zhushi is-size-5"><%= @cart.owned?(card_template) ? '已开通' : '立即开通' %></div>
     <% end %>
   <% end %>
   <%= link_to({ controller: 'trade/my/promote_goods' }, class: 'column is-one-third has-block-centered') do %>

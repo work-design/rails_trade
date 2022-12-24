@@ -1,5 +1,6 @@
 module Trade
   class My::CardTemplatesController < My::BaseController
+    before_action :set_cart
     before_action :set_card_template, only: [:show]
     before_action :set_card_templates
     before_action :set_new_order, only: [:show]
@@ -12,12 +13,12 @@ module Trade
     end
 
     def show
-      @card = current_cart.cards.formal.find_by(card_template_id: @card_template.id)
+      @card = @cart.cards.formal.find_by(card_template_id: @card_template.id)
     end
 
     def code
       @card_template = CardTemplate.default_where(default_params).find_by(code: params[:id])
-      @card = current_cart.cards.find_by(card_template_id: @card_template.id)
+      @card = @cart.cards.find_by(card_template_id: @card_template.id)
 
       render :show
     end
