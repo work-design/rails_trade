@@ -97,7 +97,11 @@ module Trade
     end
 
     def owned?(card_template)
-      cards.where(card_template_id: card_template.id, temporary: false).take
+      cards.find_by(card_template_id: card_template.id, temporary: false)
+    end
+
+    def temp_owned?(card_template)
+      cards.find_by(card_template_id: card_template.id, temporary: true)
     end
 
     def card_templates
@@ -114,10 +118,6 @@ module Trade
         current_cart_id: self.id,
         **simple_filter_hash
       )
-    end
-
-    def temp_owned?(card_template)
-      cards.temporary.find_by(card_template_id: card_template.id)
     end
 
     def checked_all_items
