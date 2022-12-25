@@ -110,14 +110,20 @@ module Trade
       CardTemplate.where(organ_id: organ_id, grade: min_grade).where.not(id: effective_ids)
     end
 
-    def set_new_x_item(purchase)
+    def add_purchase_item
+      purchase = card_templates.take&.purchase
+      return unless purchase
 
-      Item.new(
+      item = Item.new(
         good_type: purchase.class_name,
         good_id: purchase.id,
         current_cart_id: self.id,
-        **simple_filter_hash
+        status: 'trial',
+        aim: 'use',
+        user_id: user_id,
+        member_id: member_id
       )
+      item.save
     end
 
     def checked_all_items
