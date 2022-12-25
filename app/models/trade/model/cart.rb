@@ -107,6 +107,7 @@ module Trade
     end
 
     def set_new_x_item(purchase)
+
       Item.new(
         good_type: purchase.class_name,
         good_id: purchase.id,
