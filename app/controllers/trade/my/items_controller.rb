@@ -5,7 +5,15 @@ module Trade
 
 
     def create
-      @item.save
+      if @item.save
+        if @item.aim_rent?
+          @item.current_cart.add_purchase_item
+        end
+
+        render :create, status: :created
+      else
+        render :new, locals: { model: @item }, status: :unprocessable_entity
+      end
     end
 
     def trial

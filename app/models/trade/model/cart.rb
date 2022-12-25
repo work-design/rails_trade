@@ -111,12 +111,12 @@ module Trade
     end
 
     def add_purchase_item
-      purchase = card_templates.take&.purchase
-      return unless purchase
+      card_template = card_templates.take
+      return if card_template.purchase.blank? || cards.find_by(card_template_id: card_template.id)
 
       item = Item.new(
-        good_type: purchase.class_name,
-        good_id: purchase.id,
+        good_type: card_template.purchase.class_name,
+        good_id: card_template.purchase.id,
         current_cart_id: self.id,
         status: 'trial',
         aim: 'use',
