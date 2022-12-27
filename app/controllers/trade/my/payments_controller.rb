@@ -56,6 +56,7 @@ module Trade
       #@payment.extra_params.merge! 'profit_sharing' => true
       @payment.user = current_user
       @payment.app_payee = current_payee
+      @payment.buyer_identifier = current_authorized_token.uid
       @wxpay_order = @payment.js_pay
 
       if @wxpay_order['code'].present? || @wxpay_order.blank?

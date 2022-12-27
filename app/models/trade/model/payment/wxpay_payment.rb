@@ -56,7 +56,7 @@ module Trade
       params = {}
       params.merge! common_params
       params.merge!(
-        payer: { openid: user.oauth_users.find_by(appid: app_payee.appid)&.uid },
+        payer: { openid: buyer_identifier.presence || user.oauth_users.find_by(appid: app_payee.appid)&.uid },
         settle_info: { profit_sharing: extra_params['profit_sharing'].present? }
       )
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
