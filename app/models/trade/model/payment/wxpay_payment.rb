@@ -113,5 +113,15 @@ module Trade
       Wechat::Payee.find_by(organ_id: organ_id, appid: extra['appid'], mch_id: seller_identifier)
     end
 
+    def send_verify_notice
+      broadcast_action_to(
+        self,
+        action: :update,
+        target: 'order_result',
+        partial: 'wxpay_success',
+        locals: { organ_id: organ_id, payment: self }
+      )
+    end
+
   end
 end
