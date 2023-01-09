@@ -40,6 +40,7 @@ module Trade
     end
 
     def js_pay
+      return unless app_payee
       prepay = common_prepay
 
       if prepay['prepay_id']

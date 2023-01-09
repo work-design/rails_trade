@@ -13,14 +13,16 @@ module Trade
       @payment.buyer_identifier = current_authorized_token.uid
       @wxpay_order = @payment.js_pay
 
-      if @wxpay_order['code'].present? || @wxpay_order.blank?
+      if @wxpay_order.blank? || @wxpay_order['code'].present?
         respond_to do |format|
-          format.html { render 'wxpay_err', status: :unprocessable_entity }
+          format.turbo_stream { render 'create_err' }
+          format.html { render 'create_err' }
           format.json { render json: @wxpay_order.as_json, status: :unprocessable_entity }
         end
       else
         respond_to do |format|
-          format.html { render 'wxpay' }
+          format.turbo_stream { render 'create_err' }
+          format.html { render 'create' }
           format.json { render json: @wxpay_order.as_json }
         end
       end
