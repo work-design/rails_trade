@@ -55,6 +55,7 @@ module Trade
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
       after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
+      after_save_commit :send_verify_notice, if: -> { verified? && saved_change_to_verified? }
     end
 
     def sync_state_proof_uploaded
@@ -144,6 +145,16 @@ module Trade
     end
 
     def send_notice
+      broadcast_action_to(
+        self,
+        action: :update,
+        target: 'order_result',
+        partial: 'success',
+        locals: { organ_id: organ_id, payment: self }
+      )
+    end
+
+    def send_verify_notice
       broadcast_action_to(
         self,
         action: :update,
