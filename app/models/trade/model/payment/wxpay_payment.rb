@@ -80,12 +80,12 @@ module Trade
     def assign_detail(params)
       self.notified_at = params['success_time']
       self.pay_status = params['trade_state']
+      self.verified = true if self.pay_status == 'SUCCESS'
       self.buyer_identifier = params.dig('payer', 'openid')
       self.seller_identifier = params['mchid']
       self.buyer_bank = params['bank_type']
       self.total_amount = params.dig('amount', 'total').to_i / 100.0
       self.extra = params
-      #self.app_payee = get_app_payee
       self.fee_amount = (self.total_amount * 0.60 / 100).round(2)
     end
 

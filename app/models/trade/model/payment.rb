@@ -20,7 +20,7 @@ module Trade
       attribute :buyer_name, :string
       attribute :buyer_bank, :string
       attribute :comment, :string
-      attribute :verified, :boolean, default: true
+      attribute :verified, :boolean, default: false, comment: '是否已确认收款'
       attribute :lock_version, :integer
       attribute :extra, :json, default: {}
       attribute :extra_params, :json, default: {}
