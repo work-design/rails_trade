@@ -20,6 +20,7 @@ module Trade
           format.json { render json: @wxpay_order.as_json, status: :unprocessable_entity }
         end
       else
+        @payment.save
         respond_to do |format|
           format.turbo_stream { render 'create_err' }
           format.html { render 'create' }
