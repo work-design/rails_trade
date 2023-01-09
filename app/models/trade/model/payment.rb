@@ -80,7 +80,7 @@ module Trade
     end
 
     def compute_amount
-      self.income_amount = self.total_amount - self.fee_amount
+      self.income_amount = self.total_amount.to_d - self.fee_amount.to_d
       self.check_state
     end
 

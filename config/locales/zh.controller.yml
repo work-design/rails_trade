@@ -197,6 +197,9 @@ zh:
       payments:
         index:
           title: 支付
+      wxpay_payments:
+        new:
+          title: 微信付款
       packageds:
         index:
           title: 溯源

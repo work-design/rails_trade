@@ -8,13 +8,7 @@ module Trade
     end
 
     def create
-      @payment.save
-    end
-
-    def wxpay
-      @payment = @order.to_payment
       #@payment.extra_params.merge! 'profit_sharing' => true
-      @payment.user = current_user
       @payment.app_payee = current_payee
       @payment.buyer_identifier = current_authorized_token.uid
       @wxpay_order = @payment.js_pay
@@ -50,7 +44,7 @@ module Trade
     end
 
     def set_new_payment
-      @payment = WxpayPayment.new(payment_params)
+      @payment = current_user.payments.build(payment_params)
     end
 
     def set_new_payment_with_order
@@ -58,28 +52,15 @@ module Trade
       @payment.user = current_user
     end
 
-    def set_new_payment_with_payment_order
-      @payment = @payment_order.build_payment(payment_params)
-      @payment.user = current_user
-    end
-
-    def set_payment_order
-      @payment_order = PaymentOrder.find params[:payment_order_id]
-    end
-
-    def set_order
-      @order = Order.default_where(default_params).find params[:order_id]
-    end
-
     def payment_params
-      p = params.fetch(:payment, {}).permit(
+      p = params.fetch(:wxpay_payment, {}).permit(
         :type,
         :wallet_id,
         :total_amount,
-        :proof,
-        payment_orders_attributes: [:order_id, :payment_amount, :state]
+        :proof
       )
       p.merge! default_form_params
+      p.merge! type: 'Trade::WxpayPayment'
     end
 
   end

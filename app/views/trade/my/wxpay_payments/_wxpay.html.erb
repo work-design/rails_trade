@@ -1,0 +1,13 @@
+<%= turbo_stream_from @payment %>
+<div
+  data-controller="wxpay"
+  data-wxpay-options-value="<%= @payment.app_payee.app.js_config(session[:enter_url]).to_json %>"
+  data-wxpay-params-value="<%= { timestamp: @wxpay_order[:timeStamp], nonceStr: @wxpay_order[:nonceStr], package: @wxpay_order[:package], signType: @wxpay_order[:signType], paySign: @wxpay_order[:paySign] }.to_json %>"
+>
+  <div class="hero is-medium" id="order_result">
+    <div data-wxpay-target="load" class="weui-loadmore" style="display: none">
+      <i class="weui-loading"></i>
+      <span class="weui-loadmore__tips">等待支付结果确认</span>
+    </div>
+  </div>
+</div>

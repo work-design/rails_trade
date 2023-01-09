@@ -1,1 +1,4 @@
-<%= f.number_field :total_amount %>
+<div class="weui-cell">
+  <%= f.number_field :total_amount, all: { normal: nil }, class: 'weui-input has-text-right', autofocus: true %>
+  <div class="weui-cell__ft">元</div>
+</div>
