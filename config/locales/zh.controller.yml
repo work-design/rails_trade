@@ -198,6 +198,8 @@ zh:
         index:
           title: 支付
       wxpay_payments:
+        index:
+          title: 近期支付流水
         new:
           title: 微信付款
       packageds:

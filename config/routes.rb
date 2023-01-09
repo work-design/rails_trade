@@ -280,7 +280,7 @@ Rails.application.routes.draw do
 
       namespace :my, defaults: { namespace: 'my' } do
         concerns :orderable
-        resources :wxpay_payments
+        resources :wxpay_payments, only: [:index, :new, :create, :show]
         resources :payment_methods
         resources :advances do
           member do
