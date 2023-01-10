@@ -7,5 +7,29 @@
       </div>
     </div>
   </div>
-  <%= f.submit %>
+  <div class="weui-form__opr-area">
+    <div class="number_keyboard">
+      <div class="keyboard-left">
+        <div class="keyboard-item width-1x"><div>1</div></div>
+        <div class="keyboard-item width-1x"><div>2</div></div>
+        <div class="keyboard-item width-1x"><div>3</div></div>
+        <div class="keyboard-item width-1x"><div>4</div></div>
+        <div class="keyboard-item width-1x"><div>5</div></div>
+        <div class="keyboard-item width-1x"><div>6</div></div>
+        <div class="keyboard-item width-1x"><div>7</div></div>
+        <div class="keyboard-item width-1x"><div>8</div></div>
+        <div class="keyboard-item width-1x"><div>9</div></div>
+        <div class="keyboard-item width-2x"><div>0</div></div>
+        <div class="keyboard-item width-1x"><div>.</div></div>
+      </div>
+      <div class="keyboard-right">
+        <div class="keyboard-item height-1x"><div><i class="fa-solid fa-arrow-left"></i></div></div>
+        <div class="keyboard-item height-3x">
+          <div>
+            <%= f.submit '付款', all: { submit: nil }, class: 'button is-borderless' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
