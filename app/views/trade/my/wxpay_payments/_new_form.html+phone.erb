@@ -8,24 +8,48 @@
     </div>
   </div>
   <div class="weui-form__opr-area">
-    <div class="number_keyboard">
+    <div data-controller="keyboard" data-keyboard-id-value="wxpay_payment_total_amount" class="number_keyboard">
       <div class="keyboard-left">
-        <div class="keyboard-item width-1x"><div>1</div></div>
-        <div class="keyboard-item width-1x"><div>2</div></div>
-        <div class="keyboard-item width-1x"><div>3</div></div>
-        <div class="keyboard-item width-1x"><div>4</div></div>
-        <div class="keyboard-item width-1x"><div>5</div></div>
-        <div class="keyboard-item width-1x"><div>6</div></div>
-        <div class="keyboard-item width-1x"><div>7</div></div>
-        <div class="keyboard-item width-1x"><div>8</div></div>
-        <div class="keyboard-item width-1x"><div>9</div></div>
-        <div class="keyboard-item width-2x"><div>0</div></div>
-        <div class="keyboard-item width-1x"><div>.</div></div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">1</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">2</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">3</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">4</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">5</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">6</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">7</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">8</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#enter">9</div>
+        </div>
+        <div class="keyboard-item width-2x">
+          <div data-action="click->keyboard#enter">0</div>
+        </div>
+        <div class="keyboard-item width-1x">
+          <div data-action="click->keyboard#dot">.</div>
+        </div>
       </div>
       <div class="keyboard-right">
-        <div class="keyboard-item height-1x"><div><i class="fa-solid fa-arrow-left"></i></div></div>
+        <div class="keyboard-item height-1x">
+          <div data-action="click->keyboard#backspace"><i class="fa-solid fa-arrow-left"></i></div>
+        </div>
         <div class="keyboard-item height-3x">
-          <div>
+          <div class="keyboard-button">
             <%= f.submit '付款', all: { submit: nil }, class: 'button is-borderless' %>
           </div>
         </div>
