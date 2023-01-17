@@ -110,8 +110,12 @@ module Trade
 
     def card_templates
       effective_ids = cards.effective.pluck(:card_template_id)
-      min_grade = CardTemplate.where(organ_id: organ_id).minimum(:grade)
-      CardTemplate.where(organ_id: organ_id, grade: min_grade).where.not(id: effective_ids)
+
+      if effective_ids.blank?
+        CardTemplate.where(organ_id: [organ_id, nil], parent_id: nil)
+      else
+        CardTemplate.where(organ_id: [organ_id, nil], parent_id: nil).where.not(id: effective_ids)
+      end
     end
 
     def add_purchase_item

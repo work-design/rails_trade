@@ -12,6 +12,7 @@ module Trade
 
       belongs_to :organ, optional: true
       belongs_to :promote, optional: true
+      belongs_to :parent, class_name: self.name
 
       has_one :purchase, -> { where(default: true) }
       has_many :cards, dependent: :nullify
@@ -27,7 +28,7 @@ module Trade
       has_one_attached :cover
       has_one_attached :logo
 
-      scope :default, -> { where(grade: 1) }
+      scope :default, -> { where(parent_id: nil) }
 
       validates :code, uniqueness: { scope: :organ_id }
     end
