@@ -42,7 +42,7 @@ module Trade
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
-      has_many :checked_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').status_trial }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
       has_many :current_item_promotes, through: :current_items, source: :item_promotes
       has_many :available_item_promotes, -> { includes(:promote) }, through: :checked_items, source: :item_promotes
 
@@ -135,7 +135,7 @@ module Trade
     end
 
     def checked_all_items
-      checked_items + checked_card_items
+      checked_items + trial_card_items
     end
 
     def compute_amount
