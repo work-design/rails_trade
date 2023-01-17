@@ -101,10 +101,10 @@ module Trade
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
+      after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
-      after_save_commit :order_work_later, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
 
       acts_as_notify(
         :default,
@@ -325,10 +325,6 @@ module Trade
         verbose: true,
         organ_id: organ_id
       )
-    end
-
-    def order_work_later
-      ItemJob.perform_later(self)
     end
 
     def order_work

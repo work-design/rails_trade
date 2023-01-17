@@ -57,7 +57,6 @@ module Trade
 
     def order_trial(item)
       card = card_template.cards.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
-      card.item = item
       card.temporary = true
       card.save
     end
