@@ -9,7 +9,7 @@
     </span>
   </span>
   <span class="weui-cells_checkbox">
-  <% if @cart.trial_card_items %>
+  <% if @cart.trial_card_items.present? %>
     <%= form_with theme: nil, url: { controller: 'items', action: 'destroy', id: @cart.trial_card_items[0].id }, method: :delete, data: { controller: 'input' } do |f| %>
       <%= f.check_box 'xx', checked: true, disabled: @cart.any_rent?, data: { action: 'input#form' }, id: "xx_#{card_template.id}", class: 'weui-check' %>
       <span class="weui-icon-checked"></span>
