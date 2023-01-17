@@ -353,7 +353,7 @@ module Trade
     end
 
     def order_pruned!
-      self.good.order_prune(self) if good
+      good&.order_prune(self)
     end
 
     def expired?

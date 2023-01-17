@@ -62,8 +62,8 @@ module Trade
     end
 
     def order_prune(item)
-      card = card_template.cards.temporary.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id, item_id: item.id)
-      card.destroy
+      card = card_template.cards.temporary.find_by(user_id: item.user_id, member_id: item.member_id)
+      card&.destroy
     end
 
     def set_default
