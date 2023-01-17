@@ -12,9 +12,6 @@ module Trade
       @card_templates = CardTemplate.includes(:promote).default_where(q_params).order(id: :asc).page(params[:page])
     end
 
-    def new
-    end
-
     def advance_options
       @advances = @card_template.advances
     end
@@ -39,6 +36,7 @@ module Trade
         :cover,
         :logo,
         :grade,
+        :enabled,
         :text_color,
         :currency,
         :code,

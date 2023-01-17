@@ -9,10 +9,11 @@ module Trade
       attribute :cards_count, :integer, default: 0
       attribute :code, :string
       attribute :grade, :integer, default: 1, comment: '会员级别'
+      attribute :enabled, :boolean, default: true
 
       belongs_to :organ, optional: true
       belongs_to :promote, optional: true
-      belongs_to :parent, class_name: self.name
+      belongs_to :parent, class_name: self.name, optional: true
 
       has_one :purchase, -> { where(default: true) }
       has_many :cards, dependent: :nullify
@@ -29,6 +30,7 @@ module Trade
       has_one_attached :logo
 
       scope :default, -> { where(parent_id: nil) }
+      scope :enabled, -> { where(enabled: true) }
 
       validates :code, uniqueness: { scope: :organ_id }
     end
