@@ -118,8 +118,7 @@ module Trade
       end
     end
 
-    def add_purchase_item
-      card_template = card_templates.take
+    def add_purchase_item(card_template: card_templates.take)
       return if card_template.purchase.blank? || cards.find_by(card_template_id: card_template.id)
 
       item = Item.new(
@@ -132,6 +131,7 @@ module Trade
         member_id: member_id
       )
       item.save
+      current_cart.items.each(&:compute_price!)
     end
 
     def checked_all_items

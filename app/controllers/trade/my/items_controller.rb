@@ -17,11 +17,8 @@ module Trade
     end
 
     def trial
-      @item.aim = 'use'
-      @item.status = 'trial'
-      @item.save
 
-      @item.current_cart.items.each(&:compute_price!)
+      @item.current_cart.add_purchase_item()
     end
 
     def promote
