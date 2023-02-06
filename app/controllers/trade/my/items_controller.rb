@@ -1,7 +1,8 @@
 module Trade
   class My::ItemsController < My::BaseController
-    before_action :set_item, only: [:show, :update, :destroy, :actions, :promote, :toggle, :finish]
-    before_action :set_new_item, only: [:create, :trial]
+    before_action :set_item, only: [:show, :update, :destroy, :actions, :untrial, :promote, :toggle, :finish]
+    before_action :set_new_item, only: [:create]
+    before_action :set_cart, :set_card_template, only: [:trial]
 
 
     def create
@@ -17,8 +18,11 @@ module Trade
     end
 
     def trial
+      @cart.add_purchase_item(card_template: @card_template)
+    end
 
-      @item.current_cart.add_purchase_item()
+    def untrial
+      @item.untrial
     end
 
     def promote
@@ -51,6 +55,14 @@ module Trade
       options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :station_id, :desk_id, :current_cart_id)
 
       @item = Item.new(options)
+    end
+
+    def set_cart
+      @cart = Cart.find params[:current_cart_id]
+    end
+
+    def set_card_template
+      @card_template = CardTemplate.find params[:card_template_id]
     end
 
     def item_params

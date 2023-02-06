@@ -32,6 +32,7 @@ Rails.application.routes.draw do
           get :promote
           patch :toggle
           post :finish
+          post :untrial
         end
         resources :packageds
       end

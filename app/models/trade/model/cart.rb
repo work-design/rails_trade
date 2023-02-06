@@ -131,7 +131,7 @@ module Trade
         member_id: member_id
       )
       item.save
-      current_cart.items.each(&:compute_price!)
+      items.each(&:compute_price!)
     end
 
     def checked_all_items

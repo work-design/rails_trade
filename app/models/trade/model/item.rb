@@ -189,6 +189,11 @@ module Trade
       end
     end
 
+    def untrial
+      destroy
+      current_cart.items.each(&:compute_price!)
+    end
+
     def compute_price
       return unless good
       compute_single_price
