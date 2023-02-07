@@ -308,7 +308,7 @@ module Trade
       end
 
       current_cart.item_amount += changed_amount
-      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Items: #{current_cart.checked_items.map(&:id)}, Summed amount: #{current_cart.checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
+      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Items: #{current_cart.checked_items.map(&:amount)}, Summed amount: #{current_cart.checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
       current_cart.save!
     end
 
