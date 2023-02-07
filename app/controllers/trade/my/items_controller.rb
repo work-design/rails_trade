@@ -44,6 +44,10 @@ module Trade
       @item.save
     end
 
+    def destroy
+      @item.current_cart.checked_items.destroy(params[:id])
+    end
+
     private
     def set_item
       @item = current_user.items.find params[:id]
