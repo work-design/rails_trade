@@ -11,7 +11,7 @@
     <% else %>
       <%= render partial: 'item', collection: @cart.items.status_checked, as: :item %>
     <% end %>
-    <%= render partial: 'item', collection: @cart.checked_card_items, as: :item %>
+    <%= render partial: 'item', collection: @cart.trial_card_items, as: :item %>
   </div>
 </div>
 
