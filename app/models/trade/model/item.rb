@@ -95,10 +95,11 @@ module Trade
       before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
-      before_validation :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
+      before_create :add_promotes
+      before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
@@ -273,7 +274,13 @@ module Trade
       end
     end
 
-    def compute_promotes
+    def add_promotes
+      do_compute_promotes
+      self.assign_attributes sum_amount
+      current_cart.compute_promote
+    end
+
+    def reset_promotes
       result = do_compute_promotes
       self.assign_attributes sum_amount
       if order

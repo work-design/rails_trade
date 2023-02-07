@@ -13,12 +13,14 @@ module Trade
     end
 
     def compute_promote
-      available_item_promotes.group_by(&:promote).each do |promote, item_promotes|
+      _avail = available_item_promotes
+
+      _avail.group_by(&:promote).each do |promote, item_promotes|
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.compute_amount
       end
-      cart_promotes.select(&->(i){ available_item_promotes.map(&:promote_id).exclude?(i.promote_id) }).map(&:destroy)
+      cart_promotes.select(&->(i){ _avail.map(&:promote_id).exclude?(i.promote_id) }).map(&:destroy)
 
       sequences = cart_promotes.map(&:sequence).uniq.sort!
       sequences.each do |sequence|
@@ -29,6 +31,15 @@ module Trade
         end
       end
       self.changes
+    end
+
+    def available_item_promotes
+      r = []
+      checked_items.each do |checked_item|
+        r += checked_item.item_promotes.includes(:promote)
+      end
+
+      r
     end
 
     def reset_amount
