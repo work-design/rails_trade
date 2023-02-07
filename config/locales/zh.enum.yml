@@ -5,6 +5,10 @@ zh:
         temporary:
           true: 临时卡
           false: 正式卡
+      trade/delivery:
+        fetch_oneself:
+          true: 自提
+          false: 外卖
       trade/wallet_log:
         source_type:
           Trade::WalletAdvance: 充值
