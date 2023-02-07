@@ -96,6 +96,7 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_validation :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
+      before_destroy :compute_promotes
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
@@ -271,7 +272,7 @@ module Trade
         current_cart.compute_promote
       end
 
-      if persisted?
+      if persisted? || destroyed?
         result.each(&:save!)
         if order
           order.save!
