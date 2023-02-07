@@ -1,9 +1,9 @@
 module Trade
   class My::ItemsController < My::BaseController
     before_action :set_item, only: [:show, :update, :destroy, :actions, :untrial, :promote, :toggle, :finish]
+    before_action :set_cart, only: [:create, :trial]
     before_action :set_new_item, only: [:create]
-    before_action :set_cart, :set_card_template, only: [:trial]
-
+    before_action :set_card_template, only: [:trial]
 
     def create
       if @item.save
@@ -54,7 +54,7 @@ module Trade
       options.merge! client_params
       options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :station_id, :desk_id, :current_cart_id)
 
-      @item = Item.new(options)
+      @item = @cart.checked_items.build(options)
     end
 
     def set_cart

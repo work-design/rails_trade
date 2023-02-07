@@ -19,6 +19,7 @@ module Trade
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.compute_amount
+        cp.save
       end
       cart_promotes.select(&->(i){ _avail.map(&:promote_id).exclude?(i.promote_id) }).map(&:destroy)
 
@@ -36,7 +37,7 @@ module Trade
     def available_item_promotes
       r = []
       checked_items.each do |checked_item|
-        r += checked_item.item_promotes.includes(:promote)
+        r += checked_item.item_promotes
       end
 
       r

@@ -20,10 +20,11 @@ module Trade
 
       validates :amount, presence: true
 
-      before_save :compute_amount, if: -> { value_changed? }
+      after_initialize :compute_amount, if: -> { value_changed? }
     end
 
     def compute_amount
+      self.promote = promote_good.promote
       self.amount = self.promote_charge.final_price(value)
     end
 
