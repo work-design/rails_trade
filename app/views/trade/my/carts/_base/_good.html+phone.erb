@@ -32,23 +32,21 @@
     </ul>
     <div class="weui-media-box__info is-flex is-justify-content-space-between">
       <div class="is-flex is-align-items-center">
-        <div class="weui-media-box__info__meta">
-        <% if model.vip_code.present? %>
-          <div class="tags has-addons is-price control m-0 ml-2" style="display: inline-flex">
-            <div class="tag is-danger">
-              <i class="fa-solid fa-badge-check"></i>
-              <span style="padding-left: 1px"><%= model.vip_code %></span>
-            </div>
-            <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
+      <% if model.vip_code.present? %>
+        <div class="tags has-addons is-price control m-0" style="display: inline-flex">
+          <div class="tag is-danger">
+            <i class="fa-solid fa-badge-check"></i>
+            <span style="padding-left: 1px"><%= model.vip_code %></span>
           </div>
-          <span style="text-decoration: line-through"><%= model.good.price.to_money.format.html_safe %></span>
-        <% elsif model.rent_start_at.present? %>
-          <span><%= Trade::Item.human_attribute_name(:rent_start_at) %>：</span>
-          <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
-        <% else %>
-          <span><%= model.single_price.to_money.format.html_safe %></span>
-        <% end %>
+          <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
         </div>
+        <span class="has-text-through"><%= model.good.price.to_money.format.html_safe %></span>
+      <% elsif model.rent_start_at.present? %>
+        <span><%= Trade::Item.human_attribute_name(:rent_start_at) %>：</span>
+        <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
+      <% else %>
+        <span><%= model.single_price.to_money.format.html_safe %></span>
+      <% end %>
       </div>
       <%= render partial: 'number', locals: { model: model } %>
     </div>
