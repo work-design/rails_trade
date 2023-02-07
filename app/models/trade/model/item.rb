@@ -73,7 +73,7 @@ module Trade
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :item_promotes, inverse_of: :item, dependent: :destroy_async
+      has_many :item_promotes, inverse_of: :item, dependent: :destroy
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
 
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
@@ -96,13 +96,13 @@ module Trade
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_validation :compute_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
-      before_destroy :compute_promotes
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
+      after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
       after_save_commit :sync_ordered_to_current_cart, if: -> { current_cart_id.present? && (saved_change_to_status? && status == 'ordered') }
@@ -263,6 +263,16 @@ module Trade
       }
     end
 
+    def remove_promotes
+      if order
+        order.compute_promote
+        order.save
+      else
+        current_cart.compute_promote
+        current_cart.save
+      end
+    end
+
     def compute_promotes
       result = do_compute_promotes
       self.assign_attributes sum_amount
@@ -272,7 +282,7 @@ module Trade
         current_cart.compute_promote
       end
 
-      if persisted? || destroyed?
+      if persisted?
         result.each(&:save!)
         if order
           order.save!
