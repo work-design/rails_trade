@@ -17,10 +17,10 @@
         <span class="has-text-grey-lighter">x</span>
         <span class="is-size-7"><%= item.number %></span>
       </p>
-      <% if item.respond_to?(:produce_plan) && item.produce_plan %>
+      <% if item.delivery %>
         <p>
-          <span class="has-text-grey">提货：</span>
-          <span><%= item.produce_plan.produce_on %></span>
+          <span class="tag"><%= item.delivery.fetch_oneself_i18n %></span>
+          <span><%= item.delivery.produce_on %></span>
         </p>
       <% end %>
     </div>
