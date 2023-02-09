@@ -1,5 +1,5 @@
 module Trade
-  class In::OrdersController < Admin::OrdersController
+  class In::OrdersController < My::OrdersController
     before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
     before_action :set_new_order, only: [:new, :create]
 
