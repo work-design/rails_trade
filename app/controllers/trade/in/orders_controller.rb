@@ -1,14 +1,13 @@
 module Trade
-  class In::OrdersController < In::BaseController
+  class In::OrdersController < Admin::OrdersController
     before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
     before_action :set_new_order, only: [:new, :create]
 
     def index
       q_params = {}
-      q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = Order.includes(:user, :member, :member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @orders = current_organ.member_orders.includes(:user, :member, :member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def payments
@@ -28,7 +27,7 @@ module Trade
 
     private
     def set_order
-      @order = Order.find(params[:id])
+      @order = current_organ.member_orders.find(params[:id])
     end
 
     def set_new_order
