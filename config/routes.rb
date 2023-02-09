@@ -277,6 +277,7 @@ Rails.application.routes.draw do
       namespace :in, defaults: { namespace: 'in' } do
         resources :items
         resources :orders
+        resources :carts
       end
 
       namespace :my, defaults: { namespace: 'my' } do
