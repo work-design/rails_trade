@@ -248,6 +248,10 @@ zh:
       orders:
         index:
           title: 平台订单
+    in:
+      orders:
+        index:
+          title: 企业采购
     me:
       promote_goods:
         index:
