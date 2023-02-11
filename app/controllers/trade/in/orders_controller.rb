@@ -1,7 +1,5 @@
 module Trade
   class In::OrdersController < My::OrdersController
-    before_action :set_order, only: [:show, :edit, :update, :refund, :destroy]
-    before_action :set_new_order, only: [:new, :create]
 
     def index
       q_params = {}
@@ -31,7 +29,7 @@ module Trade
     end
 
     def set_new_order
-      @order = Order.new(order_params)
+      @order = current_organ.member_orders.build(order_params)
     end
 
     def order_params
