@@ -46,6 +46,10 @@ module Trade
         end
         @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
       end
+
+      if request.variant.include?(:work_wechat)
+        @url = current_payee.h5
+      end
     end
 
     def refund
