@@ -29,7 +29,8 @@ module Trade
       params.merge! common_params
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
-      app_payee.api.h5_order(**params)
+      r = app_payee.api.h5_order(**params)
+      r['h5_url']
     end
 
     def native

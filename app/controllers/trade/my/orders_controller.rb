@@ -51,6 +51,7 @@ module Trade
         @payment = @order.to_payment
         @payment.app_payee = current_payee
         @url = @payment.h5
+        logger.debug "\e[35m  H5 order: #{@url}  \e[0m"
       end
     end
 
