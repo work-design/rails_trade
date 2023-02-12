@@ -3,6 +3,7 @@
     <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good && item.good.logo&.attached? %>
     <% end %>
+    <span class="tag"><%= item.member.name %></span>
   </div>
   <div class="weui-media-box__bd">
     <%= link_to(item.good, text: true, class: 'weui-media-box__title') do %>
