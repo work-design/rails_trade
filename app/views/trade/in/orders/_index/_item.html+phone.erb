@@ -3,15 +3,15 @@
     <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good && item.good.logo&.attached? %>
     <% end %>
-    <% if item.member %>
-      <span class="tag"><%= item.member.name %></span>
-    <% end %>
   </div>
   <div class="weui-media-box__bd">
     <%= link_to(item.good, text: true, class: 'weui-media-box__title') do %>
       <span><%= item.good_name %></span>
       <% if ['rent', 'invest'].include?(item.aim) %>
         <span class="tag is-danger"><%= item.aim_i18n %></span>
+      <% end %>
+      <% if item.member %>
+        <span class="tag"><%= item.member.name %></span>
       <% end %>
     <% end %>
     <div>
