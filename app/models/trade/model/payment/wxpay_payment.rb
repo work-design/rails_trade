@@ -30,6 +30,7 @@ module Trade
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
       r = app_payee.api.h5_order(**params)
+      logger.debug "\e[35m  h5: #{r}  \e[0m"
       r['h5_url']
     end
 
