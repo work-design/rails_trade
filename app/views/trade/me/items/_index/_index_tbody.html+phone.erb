@@ -1,0 +1,38 @@
+<div class="weui-media-box weui-media-box_appmsg">
+  <div class="weui-media-box__hd" data-controller="empty">
+    <%= link_to(model.good, text: true, data: { empty_target: 'content' }) do %>
+      <%= image_tag model.good.logo, class: 'weui-media-box__thumb' if model.good && model.good.logo&.attached? %>
+    <% end %>
+  </div>
+  <div class="weui-media-box__bd">
+    <%= link_to(model.good, text: true, class: 'weui-media-box__title') do %>
+      <span><%= model.good_name %></span>
+      <% if ['rent', 'invest'].include?(model.aim) %>
+        <span class="tag is-danger"><%= model.aim_i18n %></span>
+      <% end %>
+    <% end %>
+    <div>
+      <p>
+        <span><%= model.single_price.to_money.format.html_safe %></span>
+        <span class="has-text-grey-lighter">x</span>
+        <span class="is-size-7"><%= model.number %></span>
+      </p>
+      <% if model.delivery %>
+        <p>
+          <span class="tag"><%= model.delivery.fetch_oneself_i18n %></span>
+          <span><%= model.delivery.produce_on %></span>
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="weui-media-box__ft px-3">
+    <%= link_to({ controller: 'bench/my/facilitatings', item_id: model.id }, class: 'button is-small is-primary') do %>
+      <i></i>
+      <span><%= t('bench.my.facilitatings.index.title') %></span>
+    <% end if model.good_type == 'Bench::Facilitate' && model.respond_to?(:facilitatings) %>
+    <%= link_to({ controller: 'packageds', item_id: model.id }, class: 'button is-small is-default') do %>
+      <i></i>
+      <span><%= t('trade.my.packageds.index.title') %></span>
+    <% end if model.aim_use? && ['Ship::BoxHost'].include?(model.good_type) %>
+  </div>
+</div>
