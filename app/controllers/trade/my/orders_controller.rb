@@ -48,7 +48,9 @@ module Trade
       end
 
       if request.variant.include?(:work_wechat)
-        @url = current_payee.h5
+        @payment = @order.to_payment
+        @payment.app_payee = current_payee
+        @url = @payment.h5
       end
     end
 

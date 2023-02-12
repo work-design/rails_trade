@@ -10,6 +10,12 @@
     <div class="weui-cell__bd weui-cell_primary">微信支付</div>
     <div class="weui-cell__ft"></div>
   </div>
+<% elsif request.variant.any?(:work_wechat) %>
+  <%= link_to(@url, class: 'weui-cell weui-cell_active weui-cell_access') do %>
+    <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
+    <div class="weui-cell__bd weui-cell_primary has-text-link">微信支付</div>
+    <div class="weui-cell__ft"></div>
+  <% end %>
 <% else %>
   <%= link_to({ controller: 'payments', action: 'wxpay', order_id: @order.id }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
     <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
