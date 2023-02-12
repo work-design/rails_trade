@@ -259,6 +259,9 @@ zh:
       carts:
         show:
           title: 我的购物车
+      items:
+        index:
+          title: 我的订单
     panel:
       title: 电商设置
       exchange_rates:
