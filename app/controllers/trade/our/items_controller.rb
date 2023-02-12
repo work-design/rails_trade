@@ -3,11 +3,6 @@ module Trade
     before_action :set_item, only: [:show, :promote, :update, :toggle, :destroy]
     before_action :set_new_item, only: [:create]
 
-    def create
-      @item.agent_id = params[:agent_id]
-      @item.save
-    end
-
     def promote
       render layout: false
     end

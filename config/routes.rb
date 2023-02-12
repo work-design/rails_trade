@@ -300,6 +300,10 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace :me, defaults: { namespace: 'me' } do
+        resources :items
+      end
+
       namespace :our, defaults: { namespace: 'our' } do
         concerns :orderable
       end
