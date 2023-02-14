@@ -14,6 +14,7 @@ module Trade
       @wxpay_order = @payment.js_pay
 
       if @wxpay_order.blank? || @wxpay_order['code'].present?
+        logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
         respond_to do |format|
           format.turbo_stream { render 'create_err' }
           format.html { render 'create_err' }
