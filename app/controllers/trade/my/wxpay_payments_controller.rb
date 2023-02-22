@@ -7,10 +7,14 @@ module Trade
       @payments = current_user.payments.where(type: 'Trade::WxpayPayment').page(params[:page])
     end
 
+    def new
+    end
+
     def create
+      wechat_user = current_user.wechat_users.unscope(where: :type).find_by(type: 'Wechat::WechatUser')
       #@payment.extra_params.merge! 'profit_sharing' => true
-      @payment.app_payee = current_payee
-      @payment.buyer_identifier = current_authorized_token.uid
+      @payment.app_payee = wechat_user.app
+      @payment.buyer_identifier = wechat_user.uid
       @wxpay_order = @payment.js_pay
 
       if @wxpay_order.blank? || @wxpay_order['code'].present?
