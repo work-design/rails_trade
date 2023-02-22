@@ -14,7 +14,7 @@
       <% end %>
       <%= link_to({ controller: 'trade/my/orders', state: 'done' }, class: 'column has-block-centered') do %>
         <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
+          <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
         </div>
         <div class="has-text-grey-dark">
           <span><%= Trade::Order.enum_i18n(:state, 'done') %></span>
