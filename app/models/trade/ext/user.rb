@@ -21,6 +21,10 @@ module Trade
       has_many :cart_items, -> { carting }, class_name: 'Trade::Item'
     end
 
+    def migrate_from(user)
+
+    end
+
     def give_cash(amount, note: nil, **options)
       raise ArgumentError if amount <= 0
       cash.cash_givens.create!(amount: amount, note: note, **options)

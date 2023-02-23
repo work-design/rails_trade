@@ -13,7 +13,7 @@ module Trade
     def create
       wechat_user = current_user.wechat_users.unscope(where: :type).find_by(type: 'Wechat::WechatUser')
       #@payment.extra_params.merge! 'profit_sharing' => true
-      @payment.app_payee = wechat_user.app
+      @payment.app_payee = wechat_user.app.app_payees.take
       @payment.buyer_identifier = wechat_user.uid
       @wxpay_order = @payment.js_pay
 
