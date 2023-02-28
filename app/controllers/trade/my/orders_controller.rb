@@ -30,15 +30,6 @@ module Trade
       @order.valid?
     end
 
-    # todo part paid case
-    def wait
-      if @order.all_paid?
-        redirect_to action: 'show'
-      else
-        render 'wait'
-      end
-    end
-
     def payment_types
       if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
         @order.wallets.where(wallet_template_id: @order.wallet_codes).each do |wallet|
