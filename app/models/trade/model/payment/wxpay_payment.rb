@@ -52,7 +52,7 @@ module Trade
         params.merge! scene_info: { payer_client_ip: payer_client_ip }
 
         r = app_payee.api.generate_js_pay_req(params)
-        logger.debug "\e[35m  h5: #{r}  \e[0m"
+        logger.debug "\e[35m  js pay: #{r}  \e[0m"
         r
       else
         prepay

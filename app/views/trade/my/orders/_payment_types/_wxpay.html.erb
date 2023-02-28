@@ -16,7 +16,7 @@
     <div class="weui-cell__bd weui-cell_primary has-text-link">微信支付</div>
     <div class="weui-cell__ft"></div>
   <% end %>
-<% elsif @wxpay_order['code'].present? %>
+<% elsif @wxpay_order[:package].present? %>
   <div
     data-controller="wxpay"
     data-wxpay-options-value="<%= @payment.app_payee.app.js_config(session[:enter_url]).to_json %>"
