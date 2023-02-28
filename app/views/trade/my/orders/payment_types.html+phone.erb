@@ -28,5 +28,5 @@
   </div>
 </div>
 
-<%= turbo_stream_from @order, channel: Com::ModelChannel %>
+<%= turbo_stream_from @order, channel: Trade::OrderChannel %>
 <div id="order_result"></div>
