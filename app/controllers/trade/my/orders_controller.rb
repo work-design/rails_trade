@@ -50,7 +50,7 @@ module Trade
       if request.variant.include?(:work_wechat)
         @payment = @order.to_payment
         @payment.app_payee = current_payee
-        @url = @payment.h5
+        @url = @payment.h5(payer_client_ip: request.remote_ip)
       end
     end
 
