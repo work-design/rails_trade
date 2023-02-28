@@ -41,7 +41,7 @@ module Trade
       app_payee.api.native_order(**params)
     end
 
-    def js_pay
+    def js_pay(payer_client_ip: '127.0.0.1')
       return unless app_payee
       prepay = common_prepay
 
@@ -49,7 +49,11 @@ module Trade
         params = {
           prepayid: prepay['prepay_id']
         }
-        app_payee.api.generate_js_pay_req(params)
+        params.merge! scene_info: { payer_client_ip: payer_client_ip }
+
+        r = app_payee.api.generate_js_pay_req(params)
+        logger.debug "\e[35m  h5: #{r}  \e[0m"
+        r
       else
         prepay
       end

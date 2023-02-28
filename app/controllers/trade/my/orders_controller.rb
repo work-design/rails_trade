@@ -38,9 +38,15 @@ module Trade
         @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
       end
 
-      if request.variant.include?(:work_wechat)
-        @payment = @order.to_payment
-        @payment.app_payee = current_payee
+      @payment = @order.to_payment
+      #@payment.extra_params.merge! 'profit_sharing' => true
+      @payment.user = current_user
+      @payment.app_payee = current_payee
+
+      if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
+        @payment.buyer_identifier = current_authorized_token.uid
+        @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
+      else
         @url = @payment.h5(payer_client_ip: request.remote_ip)
       end
     end
