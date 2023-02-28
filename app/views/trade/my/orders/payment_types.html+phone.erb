@@ -20,7 +20,9 @@
 <div class="weui-panel">
   <div class="weui-panel__bd">
     <div class="weui-cells">
-      <% unless @order.all_paid? %>
+      <% if @order.all_paid? %>
+        <p>订单已完成支付</p>
+      <% else %>
         <%= render partial: 'wxpay' %>
         <%= render 'hand_payment' %>
       <% end %>
@@ -29,4 +31,3 @@
 </div>
 
 <%= turbo_stream_from @order, channel: Trade::OrderChannel %>
-<div id="order_result"></div>

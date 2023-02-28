@@ -255,9 +255,9 @@ module Trade
     def send_notice
       broadcast_action_to(
         self,
-        action: :update,
-        target: 'order_result',
-        partial: 'trade/my/orders/success',
+        action: :append,
+        target: 'body',
+        partial: 'visit',
         locals: { model: self }
       )
     end
