@@ -26,7 +26,7 @@ module Trade
       else
         @payment.save!
         respond_to do |format|
-          format.turbo_stream { render 'create_err' }
+          format.turbo_stream { render 'create' }
           format.html { render 'create' }
           format.json { render json: @wxpay_order.as_json }
         end
