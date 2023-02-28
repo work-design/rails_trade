@@ -30,4 +30,4 @@
   </div>
 </div>
 
-<%= turbo_stream_from @order, channel: Trade::OrderChannel %>
+<%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>
