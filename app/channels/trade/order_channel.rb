@@ -4,8 +4,8 @@ module Trade
     def subscribed
       super
 
-      streams.each do |stream|
-        model = GlobalID.find stream
+      streams.each_key do |key|
+        model = GlobalID.find key
         if model.is_a?(Trade::Order) && model.all_paid?
           model.send_notice
         end
