@@ -1,5 +1,6 @@
 <p>
   <%= link_to model.payment_uuid, { action: 'show', id: model.id } %>
+  <span class="tag"><%= model.state_i18n %></span>
 </p>
 <p>
   <span class="has-text-danger pr-4"><%= model.total_amount.to_money.format.html_safe %></span>

@@ -4,7 +4,7 @@ module Trade
     before_action :set_new_payment, only: [:new, :create]
 
     def index
-      @payments = current_user.payments.where(type: 'Trade::WxpayPayment').page(params[:page])
+      @payments = current_user.payments.where(type: 'Trade::WxpayPayment').order(id: :desc).page(params[:page])
     end
 
     def new
