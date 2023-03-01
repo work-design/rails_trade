@@ -1,4 +1,4 @@
-<%= form_with theme: 'weui', model: model, scope: model_name, url: { action: 'create' }, state: 'return', id: 'payment' do |f| %>
+<%= form_with theme: 'weui', model: model, scope: model_name, url: { action: 'create' }, state: 'return' do |f| %>
   <div class="weui-form__control-area">
     <div class="weui-cells__group weui-cells__group_form">
       <div class="weui-cells__title"><%= t('.title') %></div>
@@ -8,7 +8,12 @@
     </div>
   </div>
   <div class="weui-form__opr-area">
-    <div data-controller="keyboard" data-keyboard-id-value="wxpay_payment_total_amount" class="number_keyboard">
+    <div
+      data-controller="keyboard"
+      data-keyboard-id-value="wxpay_payment_total_amount"
+      data-keyboard-digit-value="2"
+      class="number_keyboard"
+    >
       <div class="keyboard-left">
         <div class="keyboard-item width-1x">
           <div data-action="click->keyboard#enter">1</div>

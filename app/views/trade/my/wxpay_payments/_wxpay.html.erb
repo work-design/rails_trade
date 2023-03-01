@@ -5,8 +5,4 @@
   data-wxpay-params-value="<%= { timestamp: @wxpay_order[:timeStamp], nonceStr: @wxpay_order[:nonceStr], package: @wxpay_order[:package], signType: @wxpay_order[:signType], paySign: @wxpay_order[:paySign] }.to_json %>"
   data-wxpay-auto-value="true"
 >
-  <div class="hero is-medium" id="order_result">
-    <div data-wxpay-target="load" class="weui-loadmore" style="display: none">
-    </div>
-  </div>
 </div>
