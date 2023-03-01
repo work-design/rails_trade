@@ -10,7 +10,7 @@ module Trade
       }
       x = Arel.sql("date_trunc('month', created_at, '#{Time.zone.tzinfo.identifier}')")
 
-      r =  Trade::Item.where(q_params).group(x).order(x).average(:single_price)
+      r = Trade::Item.where(q_params).group(x).order(x).average(:single_price)
 
       result = []
       r.each do |key, v|

@@ -122,10 +122,10 @@ module Trade
     def send_verify_notice
       broadcast_action_to(
         self,
-        action: :update,
-        target: 'order_result',
-        partial: 'wxpay_success',
-        locals: { organ_id: organ_id, payment: self }
+        action: :append,
+        target: 'body',
+        partial: 'visit',
+        locals: { url: Rails.application.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id) }
       )
     end
 

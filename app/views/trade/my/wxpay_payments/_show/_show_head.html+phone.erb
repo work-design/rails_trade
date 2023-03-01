@@ -1,0 +1,12 @@
+<div class="weui-panel is-borderless">
+  <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
+    <%= link_to({ action: 'index' }, state: 'return', class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <span><%= t('trade.my.wxpay_payments.index.title') %></span>
+    <% end %>
+    <div class="weui-title"></div>
+    <%= button_to({ action: 'actions' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-ellipsis-h"></i>
+    <% end %>
+  </div>
+</div>
