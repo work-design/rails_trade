@@ -1,0 +1,24 @@
+<div data-controller="empty" class="weui-panel is-box is-borderless">
+  <div class="weui-panel__hd is-flex is-justify-content-space-between">
+    <div>
+      <i class="fa-solid fa-fw fa-store"></i>
+      <span><%= t('trade.admin.title') %></span>
+    </div>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="columns is-4-mobile is-flex is-vcentered is-centered m-0 is-shadow" data-empty-target="content">
+      <%= link_to({ controller: 'trade/admin/orders' }, class: 'column has-block-centered') do %>
+        <div class="has-text-grey-dark">
+          <i class="fa-solid fa-fw fa-xl fa-folder-tree"></i>
+        </div>
+        <div class="has-text-dark"><%= t('trade.admin.orders.index.title') %></div>
+      <% end %>
+      <%= link_to({ controller: 'trade/admin/payments' }, class: 'column has-block-centered') do %>
+        <div class="has-text-grey-dark">
+          <i class="fa-solid fa-fw fa-xl fa-lightbulb"></i>
+        </div>
+        <div class="has-text-dark"><%= t('trade.admin.payments.index.title') %></div>
+      <% end %>
+    </div>
+  </div>
+</div>
