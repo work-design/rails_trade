@@ -11,7 +11,6 @@ module Trade
     end
 
     def create
-      #@payment.extra_params.merge! 'profit_sharing' => true
       @payment.app_payee = current_wechat_user.app.app_payees.take
       @payment.buyer_identifier = current_wechat_user.uid
       @wxpay_order = @payment.js_pay
