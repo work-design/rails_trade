@@ -7,11 +7,11 @@
   <span><%= t('.edit') %></span>
 <% end %>
 <%= link_to({ action: 'show', id: model.id }, class: 'weui-actionsheet__cell') do %>
-  <i class="fa-regular fa-info"></i>
+  <i class="fa-solid fa-info"></i>
   <span><%= t('.show') %></span>
 <% end %>
 <%= link_to({ action: 'payment_types', id: model.id }, class: 'weui-actionsheet__cell') do %>
-  <i class="fa-regular fa-credit-card"></i>
+  <i class="fa-solid fa-credit-card"></i>
   <span><%= t('trade.admin.orders.payment_types.title') %></span>
 <% end %>
 <div
@@ -22,7 +22,7 @@
   class="weui-actionsheet__cell"
 >
   <button>
-    <i class="fa-regular fa-print"></i>
+    <i class="fa-solid fa-print"></i>
     <span>打印订单</span>
   </button>
 </div>
