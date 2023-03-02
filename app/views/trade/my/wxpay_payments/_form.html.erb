@@ -1,4 +1,7 @@
 <div class="weui-cell">
-  <%= f.text_field :total_amount, all: { normal: nil }, readonly: true, min: 0.01, class: 'weui-input has-text-right' %>
-  <div class="weui-cell__ft">元</div>
+  <%= f.number_field :total_amount, all: { normal: nil }, min: 0.01, inputmode: 'none', class: 'weui-input has-text-right' %>
+  <div class="weui-cell__ft pl-0">
+    <span id="dot" hidden>.</span>
+    <span class="pl-2">元</span>
+  </div>
 </div>
