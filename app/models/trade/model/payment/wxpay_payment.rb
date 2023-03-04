@@ -57,7 +57,7 @@ module Trade
 
     def micro_pay(auth_code:, spbill_create_ip:)
       opts = {
-        out_trade_no: extra['out_trade_no'].presence || payment_uuid,
+        out_trade_no: payment_uuid,
         auth_code: auth_code,
         total_fee: (self.total_amount * 100).to_i,
         body: "一餐之计-餐饮服务",
