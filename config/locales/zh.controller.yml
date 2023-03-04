@@ -52,6 +52,8 @@ zh:
           title: 待付款订单
         refund:
           title: 申请退款
+        micro:
+          title: 微信收款
       items:
         index:
           title: 订单明细
