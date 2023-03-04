@@ -42,9 +42,9 @@ module Trade
       app_payee.api.native_order(**params)
     end
 
-    def js_pay
+    def js_pay(**options)
       return unless app_payee
-      prepay = common_prepay
+      prepay = common_prepay(**options)
 
       if prepay['prepay_id']
         r = app_payee.api.generate_js_pay_req(prepay_id: prepay['prepay_id'])
@@ -66,7 +66,7 @@ module Trade
       app_payee.api.pay_micropay(**opts)
     end
 
-    def common_prepay
+    def common_prepay(**options)
       params = {}
       params.merge! common_params
       params.merge!(
