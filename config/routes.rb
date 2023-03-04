@@ -81,6 +81,7 @@ Rails.application.routes.draw do
         member do
           get :payment_types
           post :package
+          post :micro
           get :print_data
           get :payment_orders
           get :payment_new

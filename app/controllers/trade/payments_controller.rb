@@ -40,7 +40,7 @@ module Trade
     def wxpay_notify
       encrypted_params = JSON.parse(request.body.read)
       notify_params = WxPay::Cipher.decrypt_notice encrypted_params['resource'], key: current_payee.payee.key_v3
-      #logger.debug WxPay::Sign.verify?(notify_params, key: current_payee.key)
+
       if notify_params['out_trade_no'].start_with?('PAY')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
       else

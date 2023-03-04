@@ -2,7 +2,7 @@ module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
       :show, :payment_types, :edit, :update, :refund, :destroy,
-      :payment_orders, :print_data, :package
+      :payment_orders, :print_data, :package, :micro
     ]
     before_action :set_new_order, only: [:new, :create]
     before_action :set_user, only: [:user]
@@ -71,6 +71,12 @@ module Trade
           @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
         end
       end
+    end
+
+    def micro
+      @payment = @order.to_payment
+      @payment.app_payee = current_payee
+      @payment.save
     end
 
     def package

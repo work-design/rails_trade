@@ -17,6 +17,7 @@ module Trade
         receivers: [buyer.order_params],
         unfreeze_unsplit: false
       }
+
       r = app_payee.api.profit_share(params)
     end
 
@@ -41,22 +42,28 @@ module Trade
       app_payee.api.native_order(**params)
     end
 
-    def js_pay(payer_client_ip: '127.0.0.1')
+    def js_pay
       return unless app_payee
       prepay = common_prepay
 
       if prepay['prepay_id']
-        params = {
-          prepayid: prepay['prepay_id']
-        }
-        params.merge! scene_info: { payer_client_ip: payer_client_ip }
-
-        r = app_payee.api.generate_js_pay_req(params)
+        r = app_payee.api.generate_js_pay_req(prepay_id: prepay['prepay_id'])
         logger.debug "\e[35m  js pay: #{r}  \e[0m"
         r
       else
         prepay
       end
+    end
+
+    def micro_pay(auth_code:, spbill_create_ip:)
+      opts = {
+        out_order_no: extra['out_trade_no'],
+        auth_code: auth_code,
+        total_fee: (self.total_amount * 100).to_i,
+        body: "一餐之计-餐饮服务",
+        spbill_create_ip: spbill_create_ip
+      }
+      app_payee.api.pay_micropay(**opts)
     end
 
     def common_prepay
