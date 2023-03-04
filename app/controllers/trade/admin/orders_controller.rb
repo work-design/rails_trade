@@ -76,6 +76,7 @@ module Trade
     def micro
       @payment = @order.to_payment
       @payment.app_payee = current_payee
+      @payment.micro_pay(auth_code: params[:result], spbill_create_ip: request.remote_ip)
       @payment.save
     end
 

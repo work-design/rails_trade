@@ -14,10 +14,15 @@
   <i class="fa-solid fa-credit-card"></i>
   <span><%= t('trade.admin.orders.payment_types.title') %></span>
 <% end %>
-<%= button_to({ action: 'micro', id: model.id }, form: { class: 'weui-actionsheet__cell weui-actionsheet__cell_warn' }) do %>
+<div
+  data-controller="scan"
+  data-action="click->scan#report"
+  class="weui-actionsheet__cell weui-actionsheet__cell_warn"
+  data-report-url="<%= url_for(action: 'micro', id: model.id) %>"
+>
   <i class="fa-solid fa-credit-card"></i>
   <span><%= t('trade.admin.orders.micro.title') %></span>
-<% end %>
+</div>
 <% if request.variant.include?(:mini_program) %>
 <div
   data-controller="mini-program"
