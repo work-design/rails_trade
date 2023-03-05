@@ -13,6 +13,8 @@ module Trade
       r = app_payee.api.pay_micropay(**opts)
       if r['result_code'] == 'SUCCESS'
         confirm!(r)
+      else
+        logger.debug "\e[35m  scan pay result: #{r}  \e[0m"
       end
     end
 
