@@ -12,7 +12,7 @@ module Trade
 
       r = app_payee.api.pay_micropay(**opts)
       if r['result_code'] == 'SUCCESS'
-        assign_detail!(r)
+        confirm!(r)
       end
     end
 
@@ -27,11 +27,6 @@ module Trade
       self.total_amount = params['total_fee'].to_i / 100.0
       self.currency = params['cash_fee_type']
       self.extra = params
-    end
-
-    def assign_detail!(params)
-      self.assign_detail(params)
-      self.save!
     end
 
   end
