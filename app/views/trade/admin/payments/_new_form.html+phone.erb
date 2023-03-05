@@ -1,0 +1,6 @@
+<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'create' } do |f| %>
+  <%= f.select :type, options_for_select(Trade::Payment.options_i18n(:type), @payment.type) %>
+  <%= f.text_field :payment_uuid %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit %>
+<% end %>
