@@ -7,6 +7,8 @@ module Trade
       has_many :wallet_logs, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
       has_many :refunds, class_name: 'WalletRefund'
 
+      validates :payment_uuid, presence: true, uniqueness: { scope: :type }
+
       before_validation :init_amount, if: -> { checked_amount_changed? }
       after_save :sync_amount, if: -> { saved_change_to_total_amount? }
       after_destroy :sync_amount_after_destroy

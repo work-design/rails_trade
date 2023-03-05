@@ -6,6 +6,8 @@ module Trade
       attribute :payment_id, :integer, comment: 'for paypal'
 
       has_many :refunds, class_name: 'PaypalRefund'
+
+      validates :payment_uuid, presence: true, uniqueness: { scope: :type }
     end
 
     def assign_detail(trans)

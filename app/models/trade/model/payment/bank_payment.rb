@@ -5,6 +5,7 @@ module Trade
     included do
       has_many :refunds, class_name: 'BankRefund'
 
+      validates :payment_uuid, presence: true, uniqueness: { scope: :type }
       validates :buyer_name, presence: true
       validates :buyer_identifier, presence: true
     end

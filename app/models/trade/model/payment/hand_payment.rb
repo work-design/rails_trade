@@ -4,6 +4,8 @@ module Trade
 
     included do
       has_many :refunds, class_name: 'HandRefund'
+
+      validates :payment_uuid, presence: true, uniqueness: { scope: :type }
     end
 
     def assign_detail(params)

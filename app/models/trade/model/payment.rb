@@ -48,8 +48,6 @@ module Trade
 
       has_one_attached :proof
 
-      validates :payment_uuid, presence: true, uniqueness: { scope: :type }
-
       after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || payment_orders.present?) }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
       before_create :analyze_payment_method
