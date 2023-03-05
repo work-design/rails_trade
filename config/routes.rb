@@ -108,6 +108,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :scan_payments
     end
 
     namespace :trade, defaults: { business: 'trade' } do
