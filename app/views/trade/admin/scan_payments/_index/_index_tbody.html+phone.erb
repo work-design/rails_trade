@@ -1,0 +1,5 @@
+<p class="has-text-danger">
+  <strong><%= model.total_amount.to_money.format.html_safe %></strong>
+</p>
+<p><time data-controller="time" data-format="human"><%= model.notified_at.to_fs(:iso8601) %></time></p>
+<p class="has-text-grey"><%= model.buyer_identifier %></p>
