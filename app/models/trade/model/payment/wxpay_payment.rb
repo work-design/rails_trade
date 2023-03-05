@@ -55,17 +55,6 @@ module Trade
       end
     end
 
-    def micro_pay(auth_code:, spbill_create_ip:)
-      opts = {
-        out_trade_no: payment_uuid,
-        auth_code: auth_code,
-        total_fee: (self.total_amount * 100).to_i,
-        body: "一餐之计-餐饮服务",
-        spbill_create_ip: spbill_create_ip
-      }
-      app_payee.api.pay_micropay(**opts)
-    end
-
     def common_prepay(**options)
       params = {}
       params.merge! common_params
