@@ -3,8 +3,10 @@ module Trade
     before_action :set_new_scan_payment, only: [:new, :create]
 
     def create
+      auth_code = params[:result].split(',')[-1]
+
       @scan_payment.app_payee = current_payee
-      @scan_payment.micro_pay!(auth_code: params[:result], spbill_create_ip: request.remote_ip)
+      @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
     end
 
     private

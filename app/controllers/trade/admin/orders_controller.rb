@@ -74,9 +74,11 @@ module Trade
     end
 
     def micro
+      auth_code = params[:result].split(',')[-1]
+
       @payment = @order.to_payment(type: 'Trade::ScanPayment')
       @payment.app_payee = current_payee
-      @payment.micro_pay!(auth_code: params[:result], spbill_create_ip: request.remote_ip)
+      @payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
     end
 
     def package
