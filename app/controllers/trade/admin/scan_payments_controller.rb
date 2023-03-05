@@ -1,3 +1,5 @@
-class Trade::Admin::ScanPaymentsController < Trade::Admin::BaseController
+module Trade
+  class Admin::ScanPaymentsController < Admin::BaseController
 
+  end
 end
