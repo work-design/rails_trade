@@ -77,6 +77,11 @@ zh:
           adjust: 平账
         order_new:
           title: 后台支付
+      scan_payments:
+        index:
+          title: 收款记录
+        new:
+          title: 收款
       payment_orders:
         new:
           title: 核销
