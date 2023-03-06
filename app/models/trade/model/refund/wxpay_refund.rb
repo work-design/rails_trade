@@ -42,6 +42,7 @@ module Trade
         self.state = 'failed'
         self.comment = result['return_code']
       end
+      self.response = result
       self.save
     end
 
