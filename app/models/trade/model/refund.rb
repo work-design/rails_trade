@@ -56,7 +56,6 @@ module Trade
     end
 
     def sync_refund_to_payment
-      payment.total_amount -= total_amount
       payment.refunded_amount = total_amount
       payment.save
 

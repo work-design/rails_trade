@@ -49,7 +49,7 @@ module Trade
       has_one_attached :proof
 
       after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || payment_orders.present?) }
-      before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount']).present? }
+      before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
       after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
@@ -79,7 +79,7 @@ module Trade
     end
 
     def compute_amount
-      self.income_amount = self.total_amount.to_d - self.fee_amount.to_d
+      self.income_amount = self.total_amount.to_d - self.fee_amount.to_d - self.refunded_amount.to_d
       self.check_state
     end
 
