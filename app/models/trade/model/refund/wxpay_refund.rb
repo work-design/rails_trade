@@ -47,11 +47,8 @@ module Trade
 
     def refund_query
       return if state == 'completed'
-      params = {
-        out_refund_no: self.refund_uuid
-      }
 
-      result = payment.app_payee.payee.api.refund_query(params)
+      result = payment.app_payee.payee.api.refund_query(self.refund_uuid)
       store_refund_result!(result)
     end
 
