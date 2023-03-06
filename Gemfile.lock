@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 11af10d425592370d8da83d2dbeb04cd5b6c7c03
+  revision: d413d619b7cf8ed3d7e637e865e1939b5e8e3907
   specs:
     rails_design (0.0.1)
       rails
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_org.git
-  revision: 7e32b69b4476b9242bc62adae1b9f3e9bec585d8
+  revision: a3543493b68a34f8a426de85bb09ccde68e7cceb
   specs:
     rails_org (0.0.1)
       rails_com (~> 1.2)
@@ -198,8 +198,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.1)
       mini_portile2 (~> 2.8.0)
-      racc (~> 1.4)
-    nokogiri (1.14.1-x86_64-linux)
       racc (~> 1.4)
     pg (1.4.5)
     propshaft (0.6.4)
