@@ -50,6 +50,7 @@ module Trade
 
       result = payment.app_payee.payee.api.refund_query(self.refund_uuid)
       store_refund_result!(result)
+      result
     end
 
     def refund_query!
