@@ -170,6 +170,7 @@ zh:
         total_amount: 金额
         order_id: 订单
         payment_id: 支付流水
+        comment: 备注
       trade/wallet:
         wallet_template_id: 储值类型
         user: 所属用户
