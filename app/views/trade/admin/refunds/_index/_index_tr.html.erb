@@ -2,14 +2,17 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-    <% if model.refunded_at.blank? %>
-      <%= button_to({ action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-primary') do %>
-        <span><%= t('.approve') %></span>
+      <% if model.refunded_at.blank? %>
+        <%= button_to({ action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-primary') do %>
+          <span><%= t('.approve') %></span>
+        <% end %>
+        <%= button_to({ action: 'deny', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-danger') do %>
+          <span><%= t('.deny') %></span>
+        <% end %>
       <% end %>
-      <%= button_to({ action: 'deny', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-danger') do %>
-        <span><%= t('.deny') %></span>
+      <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-info"></i>
       <% end %>
-    <% end %>
     </div>
   </td>
 </tr>
