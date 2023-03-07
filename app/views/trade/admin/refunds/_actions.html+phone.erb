@@ -10,3 +10,11 @@
   <i class="fa-solid fa-circle-info"></i>
   <span><%= t('.show') %></span>
 <% end %>
+<% if model.refunded_at.blank? %>
+  <%= button_to({ action: 'confirm', id: model.id }, method: :patch, form: { class: 'weui-actionsheet__cell' }) do %>
+    <span><%= t('.approve') %></span>
+  <% end %>
+  <%= button_to({ action: 'deny', id: model.id }, method: :patch, form: { class: 'weui-actionsheet__cell' }) do %>
+    <span><%= t('.deny') %></span>
+  <% end %>
+<% end %>
