@@ -120,7 +120,7 @@ zh:
           failed: 退款失败
           denied: 拒绝退款
         type:
-          Trade::CardRefund: 会员卡
+          Trade::WalletRefund: 钱包退款
           Trade::WxpayRefund: 微信退款
           Trade::HandRefund: 后台退款
       trade/unit:
