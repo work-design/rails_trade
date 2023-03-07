@@ -6,11 +6,12 @@
   <%= render partial: 'checked_amount', locals: { payment: model } %>
 </td>
 <td>
-  <%= model.total_amount.to_money.format.html_safe %>
+  <p><%= model.total_amount.to_money.format.html_safe %></p>
+  <p class="has-text-success"><%= model.income_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><%= model.income_amount.to_money.format.html_safe %></p>
   <p><%= model.fee_amount.to_money.format.html_safe %></p>
+  <p class="has-text-danger-dark"><%= model.refunded_amount.to_money.format.html_safe %></p>
 </td>
 <td><%= model.adjust_amount.to_money.format.html_safe %></td>
 <td>

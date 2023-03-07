@@ -23,7 +23,7 @@ module Trade
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
       belongs_to :order, inverse_of: :refunds, optional: true
-      belongs_to :payment
+      belongs_to :payment, counter_cache: true
 
       validates :payment_id, uniqueness: { scope: :order_id }
       #validate :valid_total_amount

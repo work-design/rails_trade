@@ -22,6 +22,7 @@
     <div data-show-target="item" class="mt-2" style="visibility: hidden">
       <%= link_to({ controller: 'refunds', action: 'new', payment_id: model.id }, aria: { label: t('trade.admin.refunds.new.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-thumbs-down"></i>
+        <span class="pl-1"><%= model.refunds_count %></span>
       <% end %>
     </div>
   </td>

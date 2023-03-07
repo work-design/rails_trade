@@ -25,6 +25,7 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :extra_params, :json, default: {}
       attribute :payment_orders_count, :integer, default: 0
+      attribute :refunds_count, :integer, default: 0
 
       enum state: {
         init: 'init',

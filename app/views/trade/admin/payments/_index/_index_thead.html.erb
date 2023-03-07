@@ -1,9 +1,12 @@
 <th><%= Trade::Payment.human_attribute_name(:payment_uuid) %></th>
 <th><%= Trade::Payment.human_attribute_name(:checked_amount) %></th>
-<th><%= Trade::Payment.human_attribute_name(:total_amount) %></th>
 <th>
-  <p><%= Trade::Payment.human_attribute_name(:income_amount) %></p>
+  <p><%= Trade::Payment.human_attribute_name(:total_amount) %></p>
+  <p class="has-text-success"><%= Trade::Payment.human_attribute_name(:income_amount) %></p>
+</th>
+<th>
   <p><%= Trade::Payment.human_attribute_name(:fee_amount) %></p>
+  <p class="has-text-danger-dark"><%= Trade::Payment.human_attribute_name(:refunded_amount) %></p>
 </th>
 <th><%= Trade::Payment.human_attribute_name(:adjust_amount) %></th>
 <th>
