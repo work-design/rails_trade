@@ -2,6 +2,13 @@ module Trade
   class Admin::ScanPaymentsController < Admin::BaseController
     before_action :set_new_scan_payment, only: [:new, :create]
 
+    def index
+      q_params = {}
+      q_params.merge! default_params
+
+      @scan_payments = ScanPayment.default_where(q_params).order(id: :desc).page(params[:page])
+    end
+
     def create
       auth_code = params[:result].split(',')[-1]
 
