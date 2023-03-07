@@ -13,4 +13,5 @@
 <%= link_to({ controller: 'refunds', action: 'new', payment_id: @scan_payment.id }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-thumbs-down"></i>
   <span><%= t('trade.admin.refunds.new.title') %></span>
+  <span class="pl-1"><%= @scan_payment.refunds_count %></span>
 <% end %>
