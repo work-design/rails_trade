@@ -1,0 +1,8 @@
+<%= render 'top_bar' %>
+
+<div class="is-flex-grow-1 mt-4" id="form_wrapper">
+  <%= render layout: 'index_table' do %>
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: @refund.payment.refunds, as: :model %>
+  <% end %>
+  <%= render partial: 'new_form', locals: { model: @refund } if @refund.payment.income_amount > 0 %>
+</div>
