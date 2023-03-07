@@ -1,5 +1,5 @@
 <p>
-  <span><%= link_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id } %></span>
+  <span><%= link_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id }, state: 'enter' %></span>
   <span class="tag is-info"><%= model.type_i18n %></span>
 </p>
 <p>
