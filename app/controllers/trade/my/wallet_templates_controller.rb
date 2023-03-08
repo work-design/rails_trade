@@ -1,6 +1,6 @@
 module Trade
   class My::WalletTemplatesController < My::BaseController
-    before_action :set_wallet_template, only: [:show]
+    before_action :set_wallet_template, only: [:show, :actions]
     before_action :set_new_order, only: [:show]
 
     def index
