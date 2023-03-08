@@ -28,18 +28,11 @@ module Trade
       "#{card_template.name}-#{price}"
     end
 
-    def order_deliverable(item)
-      if item.user_id
-        card = card_template.cards.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
-        card.maintain_id = item.order.maintain_id if item.order.respond_to?(:maintain_id)
-      elsif item.order.respond_to?(:maintain) && item.order.maintain
-        card = card_template.cards.find_or_initialize_by(maintain_id: item.order.maintain_id)
-      else
-        return
-      end
+    def order_deliverable(item, temporary: false)
+      card = card_template.cards.find_or_initialize_by(item.full_filter_hash)
+      card.temporary = temporary
 
-      card.temporary = false
-      cp = card.card_purchases.build
+      cp = card.card_purchases.build(temporary: temporary)
       cp.item = item
       cp.years = years
       cp.months = months
@@ -55,15 +48,10 @@ module Trade
       card
     end
 
-    def order_trial(item)
-      card = card_template.cards.find_or_initialize_by(item.full_filter_hash)
-      card.temporary = true
-      card.save
-    end
-
-    def order_prune(item)
+    def order_prune(item, temporary: true)
       card = card_template.cards.temporary.find_by(item.full_filter_hash)
-      card&.destroy
+      cp = card.card_purchases.find_by(temporary: temporary)
+      cp&.destroy
     end
 
     def set_default

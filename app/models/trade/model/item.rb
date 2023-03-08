@@ -71,7 +71,7 @@ module Trade
 
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
-      has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o) { where(o.filter_hash).effective }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :item_promotes, inverse_of: :item, dependent: :destroy
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
@@ -191,7 +191,7 @@ module Trade
 
     def compute_single_price
       return if aim_rent?
-      min = good.card_price.slice(*cards.map(&->(i){ i.card_template.code })).min
+      min = good.card_price.slice(*cards.includes(:card_template).map(&->(i){ i.card_template.code })).min
       if min.present?
         self.vip_code = min[0]
         self.single_price = min[1]
@@ -364,7 +364,7 @@ module Trade
         self.item_promotes.update(status: 'ordered')
         self.good.order_done(self)
       when 'trial'
-        self.good.order_trial(self)
+        self.good.order_deliverable(self, temporary: true)
       when 'deliverable'
         if aim_rent?
           self.good.order_rentable(self)

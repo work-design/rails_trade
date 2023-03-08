@@ -10,6 +10,7 @@ module Trade
       attribute :state, :string
       attribute :note, :string
       attribute :last_expire_on, :date
+      attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
 
       enum kind: {
         given: 'given'  # 系统赠送
@@ -28,6 +29,7 @@ module Trade
 
       before_create :sync_from_card
       after_save :sync_to_card, if: -> { (saved_changes.keys & ['years', 'months', 'days']).present? }
+      after_destroy :prune_to_card
     end
 
     def duration
@@ -41,6 +43,10 @@ module Trade
     def sync_to_card
       card.expire_at = self.last_expire_on.since(duration).end_of_day
       card.save!
+    end
+
+    def prune_to_card
+      card
     end
 
   end
