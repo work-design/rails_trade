@@ -44,6 +44,11 @@ module Trade
       self.effect_at ||= Time.current
     end
 
+    def expired?(now = Time.current)
+      return true if self.expire_at.blank?
+      self.expire_at < now
+    end
+
     def recompute_price
       items.each(&:compute_price!)
     end

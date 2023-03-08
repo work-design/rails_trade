@@ -45,7 +45,7 @@ module Trade
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').status_trial }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
 
       has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
-      has_many :cards, ->(o) { includes(:card_template).where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o) { where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, -> { includes(:wallet_template).where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
@@ -102,8 +102,15 @@ module Trade
       cards.find_by(card_template_id: card_template.id, temporary: false)
     end
 
-    def temp_owned?(card_template)
-      cards.find_by(card_template_id: card_template.id, temporary: true)
+    def owned_text(card_template)
+      r = cards.find_by(card_template_id: card_template.id, temporary: false)
+      if r.nil?
+        '立即开通'
+      elsif r.expired?
+        '已过期'
+      else
+        '已开通'
+      end
     end
 
     def card_templates
