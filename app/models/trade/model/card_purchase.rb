@@ -35,8 +35,12 @@ module Trade
       years.years + months.months + days.days
     end
 
-    def last_expire_on
-      last_expire_at&.to_date || Date.today
+    def last_expire_on(today = Date.today)
+      if last_expire_at && last_expire_at.to_date > today
+        last_expire_at.to_date
+      else
+        today
+      end
     end
 
     def sync_from_card
