@@ -283,7 +283,7 @@ module Trade
     def add_promotes
       do_compute_promotes
       self.assign_attributes sum_amount
-      current_cart.compute_promote
+      current_cart.compute_promote if current_cart
     end
 
     def reset_promotes
