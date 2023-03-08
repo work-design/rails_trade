@@ -57,7 +57,7 @@ module Trade
     end
 
     def set_purchase
-      @card_templates = @cart.card_templates
+      @card_templates = @cart.available_card_templates
     end
 
     def cart_params

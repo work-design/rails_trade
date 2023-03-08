@@ -113,7 +113,7 @@ module Trade
       end
     end
 
-    def card_templates
+    def available_card_templates
       effective_ids = cards.effective.pluck(:card_template_id)
 
       if effective_ids.blank?
@@ -123,8 +123,8 @@ module Trade
       end
     end
 
-    def add_purchase_item(card_template: card_templates.take)
-      return if card_template.purchase.blank? || cards.find_by(card_template_id: card_template.id)
+    def add_purchase_item(card_template: available_card_templates.take)
+      return if card_template.purchase.blank? || cards.effective.find_by(card_template_id: card_template.id)
 
       item = Item.new(
         good_type: card_template.purchase.class_name,
