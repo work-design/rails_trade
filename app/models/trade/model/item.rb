@@ -125,6 +125,16 @@ module Trade
       end
     end
 
+    def full_filter_hash
+      if user_id
+        { organ_id: organ_id, user_id: user_id, member_id: member_id }
+      elsif client_id
+        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+      else
+        { organ_id: organ_id, member_id: member_id }
+      end
+    end
+
     def scene_filter_hash
       filter_hash.merge! produce_on: produce_on, scene_id: scene_id
     end

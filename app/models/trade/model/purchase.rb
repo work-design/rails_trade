@@ -56,13 +56,13 @@ module Trade
     end
 
     def order_trial(item)
-      card = card_template.cards.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
+      card = card_template.cards.find_or_initialize_by(item.full_filter_hash)
       card.temporary = true
       card.save
     end
 
     def order_prune(item)
-      card = card_template.cards.temporary.find_by(user_id: item.user_id, member_id: item.member_id)
+      card = card_template.cards.temporary.find_by(item.full_filter_hash)
       card&.destroy
     end
 
