@@ -34,9 +34,6 @@ module Trade
 
       cp = card.card_purchases.build(temporary: temporary)
       cp.item = item
-      cp.years = years
-      cp.months = months
-      cp.days = days
       cp.purchase = self
       cp.price = price
 
@@ -48,9 +45,9 @@ module Trade
       card
     end
 
-    def order_prune(item, temporary: true)
+    def order_prune(item)
       card = card_template.cards.temporary.find_by(item.full_filter_hash)
-      cp = card.card_purchases.find_by(temporary: temporary)
+      cp = card.card_purchases.find_by(item_id: item.id)
       cp&.destroy
     end
 

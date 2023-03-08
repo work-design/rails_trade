@@ -9,7 +9,7 @@ module Trade
       attribute :years, :integer, default: 0
       attribute :state, :string
       attribute :note, :string
-      attribute :last_expire_on, :date
+      attribute :last_expire_at, :date
       attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
 
       enum kind: {
@@ -17,8 +17,8 @@ module Trade
       }
 
       belongs_to :card
+      belongs_to :purchase
       belongs_to :item, optional: true
-      belongs_to :purchase, optional: true
 
       has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
@@ -36,8 +36,15 @@ module Trade
       years.years + months.months + days.days
     end
 
+    def last_expire_on
+      last_expire_at&.to_date || Date.today
+    end
+
     def sync_from_card
-      self.last_expire_on = card.expire_at&.to_date || Date.today
+      self.last_expire_at = card.expire_at
+      self.years = purchase.years
+      self.months = purchase.months
+      self.days = purchase.days
     end
 
     def sync_to_card
@@ -46,7 +53,8 @@ module Trade
     end
 
     def prune_to_card
-      card
+      card.expire_at = self.last_expire_at
+      card.save!
     end
 
   end
