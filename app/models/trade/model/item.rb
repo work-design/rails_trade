@@ -364,7 +364,7 @@ module Trade
         self.item_promotes.update(status: 'ordered')
         self.good.order_done(self)
       when 'trial'
-        self.good.order_deliverable(self, temporary: true)
+        self.good.order_trial(self)
       when 'deliverable'
         if aim_rent?
           self.good.order_rentable(self)

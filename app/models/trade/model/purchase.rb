@@ -45,6 +45,10 @@ module Trade
       card
     end
 
+    def order_trial(item)
+      order_deliverable(item, temporary: true)
+    end
+
     def order_prune(item)
       card = card_template.cards.temporary.find_by(item.full_filter_hash)
       cp = card.card_purchases.find_by(item_id: item.id)
