@@ -9,8 +9,7 @@ module Trade
       attribute :years, :integer, default: 0
       attribute :state, :string
       attribute :note, :string
-      attribute :last_expire_at, :date
-      attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
+      attribute :last_expire_at, :datetime
 
       enum kind: {
         given: 'given'  # 系统赠送

@@ -32,8 +32,7 @@ module Trade
       card = card_template.cards.find_or_initialize_by(item.full_filter_hash)
       card.temporary = temporary
 
-      cp = card.card_purchases.build(temporary: temporary)
-      cp.item = item
+      cp = card.card_purchases.find_or_initialize_by(item_id: item.id)
       cp.purchase = self
       cp.price = price
 

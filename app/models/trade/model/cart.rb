@@ -116,7 +116,7 @@ module Trade
     def available_card_templates
       effective_ids = cards.effective.pluck(:card_template_id)
 
-      if effective_ids.blank?
+      if true
         CardTemplate.enabled.where(organ_id: [organ_id, nil], parent_id: nil)
       else
         CardTemplate.enabled.where(organ_id: [organ_id, nil], parent_id: nil).where.not(id: effective_ids)
