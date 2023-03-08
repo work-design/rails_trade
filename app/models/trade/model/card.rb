@@ -45,8 +45,8 @@ module Trade
     end
 
     def expired?(now = Time.current)
-      return true if self.expire_at.blank?
-      self.expire_at < now
+      return true if self.expire_at.blank? || effect_at.blank?
+      self.expire_at < now && now > effect_at
     end
 
     def recompute_price
