@@ -1,5 +1,5 @@
 module Trade
-  class Our::WalletTemplatesController < My::WalletTemplatesController
+  class In::WalletTemplatesController < My::WalletTemplatesController
     before_action :set_wallet_template, only: [:show]
 
     def show
