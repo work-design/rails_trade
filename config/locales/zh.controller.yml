@@ -236,13 +236,6 @@ zh:
           title: 详情
         finish:
           title: 结算
-    our:
-      orders:
-        index:
-          title: 企业订单
-      promote_goods:
-        index:
-          title: 优惠券
     from:
       orders:
         index:
@@ -258,7 +251,10 @@ zh:
     in:
       orders:
         index:
-          title: 企业采购
+          title: 企业订单
+      promote_goods:
+        index:
+          title: 优惠券
     me:
       promote_goods:
         index:

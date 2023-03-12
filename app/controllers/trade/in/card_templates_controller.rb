@@ -1,5 +1,5 @@
 module Trade
-  class Our::CardTemplatesController < My::CardTemplatesController
+  class In::CardTemplatesController < My::CardTemplatesController
     before_action :set_card_template, only: [:show]
 
     def show
