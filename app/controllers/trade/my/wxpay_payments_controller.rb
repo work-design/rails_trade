@@ -13,7 +13,6 @@ module Trade
     def create
       @payment.app_payee = current_wechat_user.app.app_payees.enabled.take
       @payment.buyer_identifier = current_wechat_user.uid
-      @payment.save
       @wxpay_order = @payment.js_pay
 
       if @wxpay_order.blank? || @wxpay_order['code'].present?
