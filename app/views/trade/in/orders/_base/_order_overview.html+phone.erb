@@ -7,10 +7,12 @@
       <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
     </div>
     <div>
+      <% if model.member %>
       <span>
         <span class="has-text-grey">下单人：</span>
         <span><%= model.member.name %></span>
       </span>
+      <% end %>
       <% if model.maintain %>
       <span>
         <span class="has-text-grey">代下单：</span>
