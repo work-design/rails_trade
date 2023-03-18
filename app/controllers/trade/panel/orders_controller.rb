@@ -18,6 +18,12 @@ module Trade
       @order = Order.find(params[:id])
     end
 
+    def _prefixes
+      super do |pres|
+        pres + ["trade/admin/orders/_#{params[:action]}", 'trade/admin/orders/_base']
+      end
+    end
+
     def order_params
       params.fetch(:order, {}).permit(
         :state,
