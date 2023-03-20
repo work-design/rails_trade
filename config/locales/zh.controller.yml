@@ -251,7 +251,7 @@ zh:
     in:
       orders:
         index:
-          title: 企业订单
+          title: 订单
       promote_goods:
         index:
           title: 优惠券
