@@ -255,6 +255,10 @@ zh:
       promote_goods:
         index:
           title: 优惠券
+    our:
+      orders:
+        index:
+          title: 订单
     me:
       promote_goods:
         index:
