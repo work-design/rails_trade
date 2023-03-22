@@ -1,7 +1,7 @@
 <%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal is-flex is-justify-content-space-between is-align-items-center is-size-7') do %>
   <div>
     <div>
-      <% if model.aim != 'use' %>
+      <% if model.aim.present? && model.aim != 'use' %>
         <span class="tag is-danger"><%= model.aim_i18n %></span>
       <% end %>
       <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>

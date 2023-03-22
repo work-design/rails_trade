@@ -2,7 +2,7 @@ module Trade
   class In::OrdersController < My::OrdersController
 
     def index
-      q_params = {}
+      q_params = { organ_id: current_organ.id }
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
       @orders = current_organ.member_orders.includes(:user, :member, :member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
