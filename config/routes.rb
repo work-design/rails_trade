@@ -303,7 +303,7 @@ Rails.application.routes.draw do
       end
 
       namespace :me, defaults: { namespace: 'me' } do
-        resources :items
+        concerns :orderable
       end
 
       namespace :from, defaults: { namespace: 'from' } do
