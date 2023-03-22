@@ -1,0 +1,24 @@
+<%= turbo_stream_from @order %>
+<div class="hero is-medium is-light" id="order_result">
+  <div class="hero-body container">
+    <div class="level">
+      <div class="level-left">
+        <p class="level-item"><%= t('.tip') %></p>
+        <p class="level-item">订单编号：<%= @order.uuid %></p>
+      </div>
+      <div class="level-right">
+        <p class="level-item">付款金额：<span class="has-text-danger"><%= @order.amount %></span></p>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <div class="tile is-child is-flex is-align-items-center">
+        <figure class="image">
+          <%= image_tag @image_url %>
+        </figure>
+      </div>
+      <div class="tile is-child">
+        <%= image_tag 'wx.png', class: 'image' %>
+      </div>
+    </div>
+  </div>
+</div>
