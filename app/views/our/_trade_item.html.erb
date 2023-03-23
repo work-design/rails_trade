@@ -1,0 +1,14 @@
+<%= link_to({ controller: 'trade/our/promote_goods' }, class: 'weui-cell weui-cell_access') do %>
+  <div class="weui-cell__bd">
+    <i class="fa-solid fa-fw fa-tags has-text-primary"></i>
+    <span><%= t('trade.our.promote_goods.index.title') %></span>
+  </div>
+  <div class="weui-cell__ft"></div>
+<% end %>
+<%= link_to({ controller: 'trade/our/orders' }, state: 'enter', class: 'weui-cell weui-cell_access') do %>
+  <div class="weui-cell__bd">
+    <i class="fa-solid fa-fw fa-list has-text-primary"></i>
+    <span><%= t('trade.our.orders.index.title') %></span>
+  </div>
+  <div class="weui-cell__ft"></div>
+<% end %>
