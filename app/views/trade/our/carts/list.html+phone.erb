@@ -1,0 +1,16 @@
+<div class="weui-panel is-box is-borderless mt-3">
+  <div class="weui-panel__bd">
+    <%= render 'profile_item' %>
+  </div>
+</div>
+
+<div class="weui-panel is-box is-borderless">
+  <div class="weui-panel__hd">企业用餐</div>
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_small-appmsg">
+      <div class="weui-cells weui-cells_radio">
+        <%= render partial: 'organs_cart', collection: @members, as: :model %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,8 @@
 module Trade
   class Our::CartsController < My::CartsController
+    if whether_filter :require_client
+      skip_before_action :require_client, only: [:list]
+    end
 
     def show
       q_params = {
