@@ -14,7 +14,7 @@ module Trade
         response.headers['Access-Control-Allow-Origin'] = request.origin
         response.headers['Access-Control-Allow-Credentials'] = true
 
-        state = Com::State.find(params[:state_uuid])
+        state = Com::State.find_by(id: params[:state_uuid])
         if state.present? && state.referer.present?
           render :create, status: :created, locals: { url: state.referer }
         else
