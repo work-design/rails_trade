@@ -13,7 +13,13 @@ module Trade
 
         response.headers['Access-Control-Allow-Origin'] = request.origin
         response.headers['Access-Control-Allow-Credentials'] = true
-        render :create, status: :created
+
+        state = Com::State.find(params[:state_uuid])
+        if state.present? && state.referer.present?
+          render :create, status: :created, locals: { url: state.referer }
+        else
+          render :create, status: :created
+        end
       else
         render :new, locals: { model: @item }, status: :unprocessable_entity
       end
