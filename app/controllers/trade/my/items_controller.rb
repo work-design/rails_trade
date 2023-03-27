@@ -11,6 +11,7 @@ module Trade
           @item.current_cart.add_purchase_item
         end
 
+        response.headers['Access-Control-Allow-Origin'] = request.origin
         render :create, status: :created
       else
         render :new, locals: { model: @item }, status: :unprocessable_entity
