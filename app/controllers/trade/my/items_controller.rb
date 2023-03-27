@@ -12,6 +12,7 @@ module Trade
         end
 
         response.headers['Access-Control-Allow-Origin'] = request.origin
+        response.headers['Access-Control-Allow-Credentials'] = true
         render :create, status: :created
       else
         render :new, locals: { model: @item }, status: :unprocessable_entity
