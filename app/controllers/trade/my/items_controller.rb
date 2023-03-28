@@ -70,7 +70,14 @@ module Trade
     end
 
     def set_cart
-      @cart = Cart.find params[:current_cart_id]
+      if params[:current_cart_id]
+        @cart = Cart.find params[:current_cart_id]
+      else
+        options = {}
+        options.merge! default_form_params
+        options.merge! client_params
+        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim])
+      end
     end
 
     def set_card_template
