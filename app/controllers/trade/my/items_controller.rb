@@ -76,7 +76,7 @@ module Trade
         options = {}
         options.merge! default_form_params
         options.merge! client_params
-        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim])
+        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
       end
     end
 
