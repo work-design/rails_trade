@@ -1,8 +1,8 @@
 <div class="buttons are-small is-space-around">
-  <a class="button is-primary" href="https://work.weixin.qq.com/kfid/kfc07cf8e100d86863e" rel="nofollow">
+  <%= link_to current_organ.service_url, rel: 'nofollow', class: 'button is-primary' do %>
     <i class="fa-solid fa-headset"></i>
     <span class="pl-1">联系客服</span>
-  </a>
+  <% end if current_organ.service_url.present? %>
   <%= link_to({ action: 'payment_types', id: @order.id }, class: 'button is-danger') do %>
     <i class="fa-solid fa-credit-card"></i>
     <span class="pl-1">支付</span>
