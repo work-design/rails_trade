@@ -15,6 +15,7 @@ module Trade
       attribute :pay_deadline_at, :datetime
       attribute :pay_auto, :boolean, default: false
       attribute :amount, :decimal
+      attribute :adjust_amount, :decimal
       attribute :received_amount, :decimal
       attribute :unreceived_amount, :decimal, as: 'amount - received_amount', virtual: true
 
@@ -86,7 +87,7 @@ module Trade
 
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :init_uuid, if: -> { uuid.blank? }
-      after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
+      after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { amount.to_d.zero? }
@@ -180,7 +181,7 @@ module Trade
       self.item_amount = items.sum(&->(i){ i.original_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
-      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
+      self.amount = item_amount + overall_additional_amount + overall_reduced_amount + adjust_amount
     end
 
     def subject
