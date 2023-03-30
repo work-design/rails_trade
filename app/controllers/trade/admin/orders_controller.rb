@@ -119,10 +119,8 @@ module Trade
     end
 
     def adjust_update
-      @order.assign_attributes order_adjust_params
-
-      if @order.changes['amount']
-        @order.adjust_amount = @order.amount - @order.amount_was
+      if order_adjust_params['amount']
+        @order.adjust_amount = @order.adjust_amount + order_adjust_params['amount'].to_d - @order.amount
       end
 
       @order.save
