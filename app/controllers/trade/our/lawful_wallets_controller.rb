@@ -1,5 +1,6 @@
 module Trade
   class Our::LawfulWalletsController < My::LawfulWalletsController
+    include Controller::Our
     before_action :set_lawful_wallet, only: [:show, :account, :edit, :update]
 
     def show

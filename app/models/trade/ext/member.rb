@@ -8,6 +8,8 @@ module Trade
       #has_many :payment_references, class_name: 'Trade::PaymentReference', dependent: :destroy_async
       #has_many :payment_methods, through: :payment_references
       has_many :wallets, class_name: 'Trade::Wallet'
+      has_many :custom_wallets, class_name: 'Trade::CustomWallet'
+      has_many :lawful_wallets, class_name: 'Trade::LawfulWallet'
       has_many :cards, class_name: 'Trade::Card'
       has_many :carts, ->{ where(organ_id: nil) }, class_name: 'Trade::Cart'
       has_many :items, class_name: 'Trade::Item'
