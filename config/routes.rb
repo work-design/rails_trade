@@ -87,6 +87,8 @@ Rails.application.routes.draw do
           get :payment_new
           patch :payment_create
           delete :payment_destroy
+          get :adjust_edit
+          patch :adjust_update
         end
       end
       resources :payments do

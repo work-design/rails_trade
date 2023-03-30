@@ -1,8 +1,8 @@
 module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
-      :show, :payment_types, :edit, :update, :refund, :destroy,
-      :payment_orders, :print_data, :package, :micro
+      :show, :edit, :update, :destroy,
+      :refund, :payment_types, :payment_orders, :print_data, :package, :micro, :adjust_edit, :adjust_update
     ]
     before_action :set_new_order, only: [:new, :create]
     before_action :set_user, only: [:user]
@@ -115,6 +115,19 @@ module Trade
       render json: @order.to_cpcl.bytes
     end
 
+    def adjust_edit
+    end
+
+    def adjust_update
+      @order.assign_attributes order_adjust_params
+
+      if @order.changes['amount']
+        @order.adjust_amount = @order.amount - @order.amount_was
+      end
+
+      @order.save
+    end
+
     private
     def set_order
       @order = Order.find(params[:id])
@@ -168,6 +181,10 @@ module Trade
         cart_promotes_attributes: [:promote_id]
       )
       p.merge! default_form_params
+    end
+
+    def order_adjust_params
+      params.fetch(:order, {}).permit(:amount)
     end
 
   end

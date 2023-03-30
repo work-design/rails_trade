@@ -54,6 +54,8 @@ zh:
           title: 申请退款
         micro:
           title: 微信收款
+        adjust_edit:
+          title: 调价
       items:
         index:
           title: 订单明细
