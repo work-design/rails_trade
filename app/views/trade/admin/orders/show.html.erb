@@ -13,6 +13,11 @@
   </tr>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
   <tr class="has-background-light">
+    <td><%= Trade::Order.human_attribute_name(:adjust_amount) %></td>
+    <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
+    <td colspan="2" class="has-text-success"><%= @order.adjust_amount.to_money.format.html_safe %></td>
+  </tr>
+  <tr>
     <td><%= Trade::Order.human_attribute_name(:amount) %></td>
     <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
     <td colspan="2">

@@ -6,6 +6,10 @@
   <i class="fa-solid fa-pencil"></i>
   <span><%= t('.edit') %></span>
 <% end %>
+<%= link_to({ action: 'adjust_edit', id: model.id }, class: 'weui-actionsheet__cell has-text-primary') do %>
+  <i class="fa-solid fa-pen-clip"></i>
+  <span><%= t('trade.admin.orders.adjust_edit.title') %></span>
+<% end %>
 <%= link_to({ action: 'show', id: model.id }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-info"></i>
   <span><%= t('.show') %></span>

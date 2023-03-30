@@ -56,6 +56,7 @@ zh:
         overall_additional_amount: 附加费用（运费、保险等）
         overall_reduced_amount: 优惠金额
         amount: 金额
+        adjust_amount: 调价
         received_amount: 已收金额
         unreceived_amount: 待支付
         currency: 币种
