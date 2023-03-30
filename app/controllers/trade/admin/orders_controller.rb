@@ -120,7 +120,7 @@ module Trade
 
     def adjust_update
       if order_adjust_params['amount']
-        @order.adjust_amount = @order.adjust_amount + order_adjust_params['amount'].to_d - @order.amount
+        @order.adjust_amount = @order.adjust_amount.to_d + order_adjust_params['amount'].to_d - @order.amount
       end
 
       @order.save
