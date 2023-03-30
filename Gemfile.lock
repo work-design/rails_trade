@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_org.git
-  revision: 01ddf3b36ab52e28e978725f484ca247f495dc80
+  revision: 0ac26541a449f57136ab6731a57eee257d05f9d0
   specs:
     rails_org (0.0.1)
       rails_com (~> 1.2)
@@ -132,7 +132,9 @@ GEM
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
-    debug (1.7.1)
+    debug (1.7.2)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
     default_where (2.2.0)
       activerecord (>= 4.0.0)
     erubi (1.12.0)
@@ -146,10 +148,13 @@ GEM
       activesupport (>= 5.0)
     http-2-next (0.5.1)
     http-form_data (2.3.0)
-    httpx (0.22.4)
+    httpx (0.22.5)
       http-2-next (>= 0.4.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    io-console (0.6.0)
+    irb (1.6.3)
+      reline (>= 0.3.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -199,6 +204,8 @@ GEM
     nokogiri (1.14.2)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nokogiri (1.14.2-x86_64-linux)
+      racc (~> 1.4)
     pg (1.4.6)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
@@ -240,6 +247,8 @@ GEM
     rake (13.0.6)
     rdoc (6.5.0)
       psych (>= 4.0.0)
+    reline (0.3.3)
+      io-console (~> 0.5)
     ruby2_keywords (0.0.5)
     sdoc (2.6.1)
       rdoc (>= 5.0)
