@@ -303,7 +303,7 @@ module Trade
     end
 
     def to_payment(type: 'Trade::WxpayPayment')
-      payment = payments.build type: type, payment_uuid: uuid, total_amount: amount
+      payment = payments.build type: type, payment_uuid: [uuid, UidHelper.rand_string].join('~'), total_amount: amount
       payment.user = user
       payment
     end
