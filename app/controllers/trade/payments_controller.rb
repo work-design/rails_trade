@@ -45,7 +45,7 @@ module Trade
       if notify_params['out_trade_no'].start_with?('PAY')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
       else
-        uuid = notify_params['out_trade_no'].split('~')[0] || notify_params['out_trade_no']
+        uuid = notify_params['out_trade_no'].split('_')[0] || notify_params['out_trade_no']
         @order = Order.find_by(uuid: uuid)
         @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: notify_params['transaction_id'], total_amount: notify_params.dig('amount', 'total').to_i / 100.0
         @payment.checked_amount = @payment.total_amount
