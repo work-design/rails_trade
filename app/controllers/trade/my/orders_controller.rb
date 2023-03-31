@@ -47,6 +47,7 @@ module Trade
         if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
           @payment.buyer_identifier = current_authorized_token.uid
           @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
+          logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
         else
           @url = @payment.h5(payer_client_ip: request.remote_ip)
         end
