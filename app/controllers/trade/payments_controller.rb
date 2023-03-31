@@ -49,7 +49,6 @@ module Trade
         @order = Order.find_by(uuid: uuid)
         @payment = @order.payments.build type: 'Trade::WxpayPayment', payment_uuid: notify_params['transaction_id'], total_amount: notify_params.dig('amount', 'total').to_i / 100.0
         @payment.checked_amount = @payment.total_amount
-        @payment.app_payee = current_payee
         @payment.organ_id = @order.organ_id
       end
       @payment.confirm(notify_params)
