@@ -64,9 +64,10 @@ module Trade
     def set_new_item
       options = {}
       options.merge! client_params
-      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :station_id, :desk_id, :current_cart_id)
+      options.merge! params.permit(:good_type, :good_id, :aim, :produce_on, :scene_id)
 
-      @item = @cart.checked_items.build(options)
+      @item = @cart.checked_items.find_or_initialize_by(options)
+      @item.assign_attributes params.permit(:number, :station_id, :desk_id, :current_cart_id)
     end
 
     def set_cart
