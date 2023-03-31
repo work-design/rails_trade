@@ -67,7 +67,8 @@ module Trade
       options.merge! params.permit(:good_type, :good_id, :aim, :produce_on, :scene_id)
 
       @item = @cart.checked_items.find_or_initialize_by(options)
-      @item.assign_attributes params.permit(:number, :station_id, :desk_id, :current_cart_id)
+      @item.assign_attributes params.permit(:station_id, :desk_id, :current_cart_id)
+      @item.number = @item.number.to_i + params[:number].to_i if @item.persisted?
     end
 
     def set_cart
