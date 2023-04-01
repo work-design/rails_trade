@@ -65,7 +65,7 @@ module Trade
       options = {}
       options.merge! params.permit(:good_id, :produce_on, :scene_id)
 
-      @item = @cart.checked_items.find_or_initialize_by(options)
+      @item = @cart.checked_items.find(&->(i){ i.attributes.slice('good_id', 'produce_on', 'scene_id').transform_values(&:to_s) == options }) || @cart.checked_items.build(options)
       @item.assign_attributes params.permit(:station_id, :desk_id, :current_cart_id)
       @item.number = @item.number.to_i + (params[:number].presence || 1).to_i if @item.persisted?
     end

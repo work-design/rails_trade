@@ -60,11 +60,11 @@ module Trade
 
     def filter_hash
       if user_id
-        { organ_id: organ_id, member_id: member_id, good_type: good_type, aim: aim }
+        { organ_id: organ_id, member_id: member_id, good_type: good_type, aim: aim }.compact
       elsif client_id
-        { organ_id: organ_id, client_id: client_id, good_type: good_type, aim: aim }
+        { organ_id: organ_id, client_id: client_id, good_type: good_type, aim: aim }.compact
       else
-        { member_organ_id: member_organ_id, good_type: good_type, aim: aim }
+        { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
       end
     end
 
