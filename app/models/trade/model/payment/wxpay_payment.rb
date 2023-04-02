@@ -3,7 +3,9 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :app_payee, class_name: 'Wechat::AppPayee', optional: true
+      attribute :appid, :string
+
+      belongs_to :app_payee, ->(o) { where(appid: o.appid) }, class_name: 'Wechat::AppPayee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
       belongs_to :buyer, ->(o) { where(app_payee_id: o.app_payee_id) }, class_name: 'Wechat::Receiver', foreign_key: :buyer_identifier, primary_key: :account, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
@@ -11,7 +13,7 @@ module Trade
 
     def block
       params = {
-        appid: app_payee.appid,
+        appid: appid,
         transaction_id: payment_uuid,
         out_order_no: extra['out_trade_no'],
         receivers: [buyer.order_params],
@@ -59,7 +61,7 @@ module Trade
       params = {}
       params.merge! common_params
       params.merge!(
-        payer: { openid: buyer_identifier.presence || user.oauth_users.find_by(appid: app_payee.appid)&.uid },
+        payer: { openid: buyer_identifier.presence || user.oauth_users.find_by(appid: appid)&.uid },
         settle_info: { profit_sharing: extra_params['profit_sharing'].present? }
       )
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
@@ -85,6 +87,7 @@ module Trade
       self.verified = true if self.pay_status == 'SUCCESS'
       self.buyer_identifier = params.dig('payer', 'openid') || params.dig('payer', 'sub_openid')
       self.seller_identifier = params['mchid'] || params['sub_mchid']
+      self.appid = params['appid'] || params['sub_appid']
       self.buyer_bank = params['bank_type']
       self.total_amount = params.dig('amount', 'total').to_i / 100.0
       self.extra = params
@@ -93,7 +96,7 @@ module Trade
 
     def result
       params = {
-        mchid: app_payee.payee.mch_id,
+        mchid: mch_id,
         out_trade_no: payment_uuid
       }
 
