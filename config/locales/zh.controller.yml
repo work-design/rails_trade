@@ -132,6 +132,10 @@ zh:
           title: 退款列表
         new:
           title: 退款
+        confirm:
+          title: 确认退款
+        deny:
+          title: 拒绝退款
       card_templates:
         index:
           title: 会员卡

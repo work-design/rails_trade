@@ -3,11 +3,11 @@
   <td>
     <div data-show-target="item" style="visibility: hidden">
       <% if model.refunded_at.blank? %>
-        <%= button_to({ action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-primary') do %>
-          <span><%= t('.approve') %></span>
+        <%= button_to({ action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('trade.admin.refunds.confirm.title') }, class: 'button is-small is-primary') do %>
+          <span><%= t('trade.admin.refunds.confirm.title') %></span>
         <% end %>
-        <%= button_to({ action: 'deny', id: model.id }, method: :patch, data: { turbo_confirm: t('.confirm') }, class: 'button is-small is-danger') do %>
-          <span><%= t('.deny') %></span>
+        <%= button_to({ action: 'deny', id: model.id }, method: :patch, data: { turbo_confirm: t('trade.admin.refunds.deny.title') }, class: 'button is-small is-danger') do %>
+          <span><%= t('trade.admin.refunds.deny.title') %></span>
         <% end %>
       <% end %>
       <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
