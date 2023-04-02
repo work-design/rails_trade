@@ -10,7 +10,7 @@
   <i class="fa-solid fa-circle-info"></i>
   <span><%= t('.show') %></span>
 <% end %>
-<% if model.refunded_at.blank? %>
+<% if model.state != 'completed' %>
   <%= button_to({ action: 'confirm', id: model.id }, method: :patch, form: { class: 'weui-actionsheet__cell' }) do %>
     <span><%= t('trade.admin.refunds.confirm.title') %></span>
   <% end %>
