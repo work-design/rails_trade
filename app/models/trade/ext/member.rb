@@ -12,6 +12,7 @@ module Trade
       has_many :lawful_wallets, class_name: 'Trade::LawfulWallet'
       has_many :cards, class_name: 'Trade::Card'
       has_many :carts, ->{ where(organ_id: nil) }, class_name: 'Trade::Cart'
+      has_many :deliveries, class_name: 'Trade::Delivery'
       has_many :items, class_name: 'Trade::Item'
       has_many :cart_items, ->{ carting }, class_name: 'Trade::Item'
       has_many :agent_items, class_name: 'Trade::Item', foreign_key: :agent_id
