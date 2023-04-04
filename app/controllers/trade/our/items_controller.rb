@@ -11,7 +11,7 @@ module Trade
     def set_new_item
       options = {}
       options.merge! client_params
-      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
+      options.merge! params.permit(:good_type, :good_id, :member_id, :aim, :number, :produce_on, :scene_id, :fetch_oneself)
 
       @item = Item.new(**options.to_h.symbolize_keys)
     end
