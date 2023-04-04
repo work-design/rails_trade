@@ -4,6 +4,7 @@ module Trade
     before_action :set_purchase, only: [:show, :invest, :rent]
     before_action :set_invest_cart, only: [:invest]
     before_action :set_rent_cart, only: [:rent]
+    before_action :set_roles, only: [:list]
 
     def show
       q_params = {}
@@ -58,6 +59,14 @@ module Trade
 
     def set_purchase
       @card_templates = @cart.available_card_templates
+    end
+
+    def set_roles
+      if params[:role_id].present?
+        @roles = Roled::OrganRole.visible.where(id: params[:role_id])
+      else
+        @roles = Roled::OrganRole.visible
+      end
     end
 
     def cart_params
