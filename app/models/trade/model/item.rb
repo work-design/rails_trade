@@ -274,7 +274,7 @@ module Trade
       if order
         order.compute_promote
         order.save
-      else
+      elsif current_cart
         current_cart.compute_promote
         current_cart.save
       end
@@ -291,7 +291,7 @@ module Trade
       self.assign_attributes sum_amount
       if order
         order.compute_promote
-      else
+      elsif current_cart
         current_cart.compute_promote
       end
 
@@ -299,7 +299,7 @@ module Trade
         result.each(&:save!)
         if order
           order.save!
-        else
+        elsif current_cart
           current_cart.save!
         end
       end
