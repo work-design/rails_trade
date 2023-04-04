@@ -192,6 +192,7 @@ module Trade
     end
 
     def xx(**options)
+      options.symbolize_keys!
       args = { good_id: options[:good_id], good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?

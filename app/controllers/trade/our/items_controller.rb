@@ -10,6 +10,7 @@ module Trade
       options = {}
       options.merge! client_params
       options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id, :fetch_oneself)
+      options.compact_blank!
 
       @item = @cart.find_item(**options) || @cart.checked_items.build(options)
     end
