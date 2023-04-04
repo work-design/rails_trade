@@ -17,7 +17,7 @@ module Trade
     end
 
     def set_item
-      @item = current_client.items.find(params[:id])
+      @item = current_client.organ.member_items.find(params[:id])
     end
 
     def item_params
