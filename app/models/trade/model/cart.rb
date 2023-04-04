@@ -179,20 +179,20 @@ module Trade
       item
     end
 
-    def find_item(good_id:, **options)
-      args = xx(good_id: good_id, **options)
+    def find_item(**options)
+      args = xx(**options)
 
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def organ_item(good_id:, **options)
-      args = xx(good_id: good_id, **options)
+    def organ_item(**options)
+      args = xx(**options)
 
       organ_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def xx(good_id:, **options)
-      args = { good_id: good_id, good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
+    def xx(**options)
+      args = { good_id: options[:good_id], good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
       args.stringify_keys!
