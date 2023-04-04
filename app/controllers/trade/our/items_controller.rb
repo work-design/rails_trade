@@ -11,7 +11,7 @@ module Trade
       options.merge! client_params
       options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id, :fetch_oneself)
 
-      @item = @cart.items.find(**options.to_h.symbolize_keys) || @cart.checked_items.build(options)
+      @item = @cart.find_item(**options) || @cart.checked_items.build(options)
     end
 
     def set_cart
