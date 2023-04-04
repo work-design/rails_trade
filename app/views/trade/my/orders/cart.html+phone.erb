@@ -9,7 +9,7 @@
     <% if @cart.aim_rent? %>
       <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
     <% else %>
-      <%= render partial: 'item', collection: @cart.items.status_checked, as: :item %>
+      <%= render partial: 'item', collection: @cart.items.includes(:member, good: { logo_attachment: :blob }).status_checked, as: :item %>
     <% end %>
     <%= render partial: 'item', collection: @cart.trial_card_items, as: :item %>
   </div>
