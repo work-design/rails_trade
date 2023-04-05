@@ -29,7 +29,7 @@ module Trade
     end
 
     def set_new_order
-      @order = current_organ.member_orders.build(order_params)
+      @order = current_client.organ.member_orders.build(order_params)
     end
 
     def order_params
