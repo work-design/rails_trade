@@ -46,6 +46,7 @@ module Trade
         item_promotes_attributes: {}
       )
       p.merge! current_cart_id: params[:current_cart_id] if params[:current_cart_id]
+      p.merge! default_form_params
       p
     end
 
