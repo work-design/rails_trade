@@ -6,11 +6,12 @@
       <span class="is-size-7 has-text-grey"><%= model.organ.name %></span>
     </span>
   </span>
-  <span class="weui-cell__ft" data-controller="input">
+  <span class="weui-cell__ft has-inline-centered" data-controller="input">
     <%= form_with theme: nil, url: { controller: 'org/my/authorized_tokens', action: 'update' }, method: :patch do |f| %>
       <%= f.hidden_field :return_url, value: params[:return_url] %>
       <%= f.radio_button :member_id, model.id, checked: model == current_client, class: 'weui-check', data: { action: 'click->input#form' } %>
       <span class="weui-icon-checked"></span>
     <% end %>
+    <i class="fa-solid fa-chevron-right has-text-grey is-size-6 pl-2"></i>
   </span>
 </label>
