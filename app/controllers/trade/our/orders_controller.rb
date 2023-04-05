@@ -5,7 +5,7 @@ module Trade
       q_params = { organ_id: current_organ.id }
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = current_client.orders.includes(:member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @orders = current_client.organ.member_orders.includes(:member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def payments
