@@ -13,12 +13,12 @@
       <span><%= payment_order.order_amount.to_money.format(html_safe: true).html_safe %></span>
     </span>
     <% if payment_order.payment.persisted? %>
-      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: payment_order.payment_id }, method: :delete, data: { controller: 'input' } do |f| %>
+      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: payment_order.payment_id }, method: :delete, state: 'redirect', data: { controller: 'input' } do |f| %>
         <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
         <span class="weui-icon-checked"></span>
       <% end %>
     <% else %>
-      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { controller: 'payments', action: 'create' } do |f| %>
+      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { controller: 'payments', action: 'create' }, state: 'redirect' do |f| %>
         <%= f.hidden_field :wallet_id %>
         <%= f.hidden_field :type %>
         <%= f.hidden_field :total_amount  %>
