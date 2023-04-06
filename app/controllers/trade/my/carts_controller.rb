@@ -46,7 +46,11 @@ module Trade
 
     private
     def set_cart
-      @cart = current_carts.unscope(where: :organ_id).find params[:id]
+      options = {}
+      options.merge! default_form_params
+      options.merge! user_id: current_user.id
+
+      @cart = Cart.where(options).unscope(where: :organ_id).find params[:id]
     end
 
     def set_invest_cart
