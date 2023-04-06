@@ -15,7 +15,7 @@
       <span class="weui-icon-checked"></span>
     <% end %>
   <% else %>
-    <%= form_with theme: nil, url: { controller: 'items', action: 'trial' }, data: { controller: 'input', turbo_scroll: true, turbo_scroll_container: 'production_body' }, class: 'ml-1 button_to' do |f| %>
+    <%= form_with theme: nil, url: { controller: 'items', action: 'trial' }, data: { controller: 'input', turbo_scroll: true }, class: 'ml-1 button_to' do |f| %>
       <%= f.hidden_field :current_cart_id, value: @cart.id %>
       <%= f.hidden_field :card_template_id, value: card_template.id %>
       <%= check_box_tag 'xx', 'x', false, data: { action: 'input#form' }, id: "xx_#{card_template.id}", class: 'weui-check' %>
