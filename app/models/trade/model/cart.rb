@@ -140,7 +140,7 @@ module Trade
     end
 
     def checked_all_items
-      checked_items + trial_card_items
+      checked_items.select(&->(i){ !i.destroyed? }) + trial_card_items
     end
 
     def compute_amount
