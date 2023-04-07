@@ -7,7 +7,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit('name-like')
 
-      @lawful_wallets = LawfulWallet.default_where(q_params).order(id: :desc).page(params[:page])
+      @lawful_wallets = LawfulWallet.includes(:member, :user).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     private

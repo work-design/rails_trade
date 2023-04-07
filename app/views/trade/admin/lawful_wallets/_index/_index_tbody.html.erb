@@ -1,8 +1,11 @@
 <td>
   <span><%= model.name %></span>
   <div class="is-several">
-  <% if model.user %>
-    <i class="fa-solid fa-user"></i>
+  <% if model.member %>
+    <i class="fa-solid fa-user-tie has-text-primary"></i>
+    <span><%= model.member.name %></span>
+  <% elsif model.user %>
+    <i class="fa-solid fa-user has-text-info"></i>
     <span><%= model.user.name %></span>
   <% end %>
   </div>
