@@ -17,16 +17,20 @@
   </div>
 </div>
 
+<% if @order.all_paid? %>
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+    <p class="p-4 has-text-centered">订单已完成支付</p>
+  </div>
+</div>
+<% else %>
 <div class="weui-panel">
   <div class="weui-panel__bd">
     <div class="weui-cells">
-      <% if @order.all_paid? %>
-        <p>订单已完成支付</p>
-      <% else %>
-        <%= render partial: 'wxpay' %>
-      <% end %>
+      <%= render partial: 'wxpay' %>
     </div>
   </div>
 </div>
+<% end %>
 
 <%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>
