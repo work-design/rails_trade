@@ -114,13 +114,9 @@ module Trade
     end
 
     def available_card_templates
-      effective_ids = cards.effective.pluck(:card_template_id)
+      effective_ids = cards.effective.where(temporary: false).pluck(:card_template_id)
 
-      if true
-        CardTemplate.enabled.where(organ_id: [organ_id, nil], parent_id: nil)
-      else
-        CardTemplate.enabled.where(organ_id: [organ_id, nil], parent_id: nil).where.not(id: effective_ids)
-      end
+      CardTemplate.enabled.where(organ_id: [organ_id, nil], parent_id: nil).where.not(id: effective_ids)
     end
 
     def add_purchase_item(card_template: available_card_templates.take)
