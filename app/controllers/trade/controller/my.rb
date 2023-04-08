@@ -4,7 +4,11 @@ module Trade
 
     private
     def set_cart
-      @cart = current_carts.find_or_initialize_by(good_type: nil)
+      options = {}
+      options.merge! default_form_params
+      options.merge! user_id: current_user.id, member_id: nil
+
+      @cart = Cart.where(options).find_or_initialize_by(good_type: nil)
     end
 
     def set_lawful_wallet
