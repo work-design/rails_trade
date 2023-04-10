@@ -119,7 +119,7 @@ Rails.application.routes.draw do
           get :result
           match :notify, via: [:get, :post]
           match :alipay_notify, via: [:get, :post]
-          match :wxpay_notify, via: [:get, :post]
+          match 'wxpay_notify/:mch_id' => :wxpay_notify, via: [:get, :post]
         end
       end
       resources :card_templates do
