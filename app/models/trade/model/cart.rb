@@ -156,6 +156,11 @@ module Trade
       self.changes
     end
 
+    def compute_amount!
+      compute_amount
+      save
+    end
+
     def need_address?
       ['use', 'rent'].include?(aim)
     end
