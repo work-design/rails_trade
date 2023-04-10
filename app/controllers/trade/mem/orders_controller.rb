@@ -1,5 +1,5 @@
 module Trade
-  class Our::OrdersController < My::OrdersController
+  class Mem::OrdersController < My::OrdersController
 
     def index
       q_params = { organ_id: current_organ.id }
@@ -25,11 +25,11 @@ module Trade
 
     private
     def set_order
-      @order = current_client.organ.member_orders.find(params[:id])
+      @order = current_client.orders.find(params[:id])
     end
 
     def set_new_order
-      @order = current_client.organ.member_orders.build(order_params)
+      @order = current_client.orders.build(order_params)
     end
 
     def order_params
