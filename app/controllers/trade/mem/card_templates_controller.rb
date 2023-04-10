@@ -1,6 +1,6 @@
 module Trade
-  class Our::CardTemplatesController < My::CardTemplatesController
-    include Controller::Our
+  class Mem::CardTemplatesController < My::CardTemplatesController
+    include Controller::Mem
 
     def index
       q_params = {}

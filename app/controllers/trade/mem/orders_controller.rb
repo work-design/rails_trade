@@ -32,24 +32,6 @@ module Trade
       @order = current_client.orders.build(order_params)
     end
 
-    def order_params
-      p = params.fetch(:order, {}).permit(
-        :weight,
-        :quantity,
-        :payment_id,
-        :payment_type,
-        :address_id,
-        :invoice_address_id,
-        :note,
-        :current_cart_id,
-        items_attributes: {},
-        item_promotes_attributes: {}
-      )
-      p.merge! current_cart_id: params[:current_cart_id] if params[:current_cart_id]
-      p.merge! default_form_params
-      p
-    end
-
     def current_payee
       return @current_payee if defined?(@current_payee)
 
