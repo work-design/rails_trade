@@ -4,7 +4,7 @@ module Trade
 
     private
     def set_wallet
-      @wallet = current_client.wallets.find params[:wallet_id]
+      @wallet = current_client.organ.wallets.find params[:wallet_id]
     end
 
   end
