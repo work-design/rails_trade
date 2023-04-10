@@ -37,12 +37,12 @@ module Trade
       has_many :payment_methods, through: :payment_references
 
       has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
-      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :user_id, foreign_key: :user_id  # 用于购物车展示
-      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id, inverse_of: :current_cart  # 用于计算
-      has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id  # 用于购物车展示
+      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
+      has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
-      has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').status_trial }, class_name: 'Item', primary_key: :user_id, foreign_key: :user_id
+      has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').status_trial }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
 
       has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
       has_many :cards, ->(o) { where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
@@ -60,9 +60,9 @@ module Trade
 
     def filter_hash
       if user_id
-        { organ_id: organ_id, member_id: member_id, good_type: good_type, aim: aim }.compact
+        { user_id: user_id, member_id: member_id, good_type: good_type, aim: aim }.compact
       elsif client_id
-        { organ_id: organ_id, client_id: client_id, good_type: good_type, aim: aim }.compact
+        { client_id: client_id, good_type: good_type, aim: aim }.compact
       else
         { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
       end
