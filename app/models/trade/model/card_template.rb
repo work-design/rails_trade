@@ -16,7 +16,7 @@ module Trade
       belongs_to :parent, class_name: self.name, optional: true
 
       has_one :purchase, -> { where(default: true) }
-      has_many :cards, dependent: :nullify
+      has_many :cards
       has_many :advances, dependent: :destroy_async
       has_many :purchases, dependent: :destroy_async
       has_many :privileges, dependent: :destroy_async
