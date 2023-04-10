@@ -1,9 +1,5 @@
 module Trade
   class Our::CardTemplatesController < My::CardTemplatesController
-    before_action :set_cart
-    before_action :set_card_template, only: [:show]
-    before_action :set_card_templates
-    before_action :set_new_order, only: [:show]
 
     def index
       q_params = {}
