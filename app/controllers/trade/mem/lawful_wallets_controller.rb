@@ -1,6 +1,6 @@
 module Trade
-  class Our::LawfulWalletsController < My::LawfulWalletsController
-    include Controller::Our
+  class Mem::LawfulWalletsController < My::LawfulWalletsController
+    include Controller::Mem
     before_action :set_lawful_wallet, only: [:show, :account, :edit, :update]
 
     def show
@@ -12,7 +12,7 @@ module Trade
 
     private
     def set_new_order
-      @order = current_client.organ.member_orders.build
+      @order = current_client.orders.build
       @order.items.build
     end
 

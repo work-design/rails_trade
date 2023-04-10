@@ -312,6 +312,10 @@ Rails.application.routes.draw do
         concerns :orderable
       end
 
+      namespace :mem, defaults: { namespace: 'mem' } do
+        concerns :orderable
+      end
+
       namespace :from, defaults: { namespace: 'from' } do
         concerns :orderable
       end
