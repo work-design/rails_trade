@@ -12,6 +12,7 @@ module Trade
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
       attribute :items_count, :integer, default: 0
+      attribute :fresh, :boolean, default: false
 
       enum aim: {
         use: 'use',
