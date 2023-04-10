@@ -5,7 +5,7 @@ module Trade
       :refund, :finish, :payment_types, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart]
-    before_action :set_new_order, only: [:blank, :trial, :add, :create]
+    before_action :set_new_order, only: [:new, :create, :blank, :trial, :add, :create]
 
     def index
       q_params = {}
@@ -13,10 +13,6 @@ module Trade
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state, :uuid)
 
       @orders = current_user.orders.includes(:payment_strategy, :items, :payment_orders, address: :area, from_address: :area, maintain: :member).default_where(q_params).order(id: :desc).page(params[:page])
-    end
-
-    def new
-      @order = current_user.orders.build
     end
 
     def cart
