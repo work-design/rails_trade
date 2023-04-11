@@ -403,17 +403,5 @@ module Trade
       ItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
-    class_methods do
-      def find_item(good, **options)
-        options.symbolize_keys!
-        args = { good_type: good.class_name, good_id: good.id, **options.slice(:member_id, :user_id) }
-        args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
-        args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
-        args.stringify_keys!
-
-        find(&->(i){ i.attributes.slice(*args.keys) == args })
-      end
-    end
-
   end
 end

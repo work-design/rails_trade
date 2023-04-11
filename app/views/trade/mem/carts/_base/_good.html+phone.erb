@@ -1,0 +1,55 @@
+<div class="weui-media-box weui-media-box_appmsg pl-2" data-controller="swipe" data-action="touchmove->swipe#move:passive touchstart->swipe#start:passive touchend->swipe#end:passive">
+  <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input', turbo_scroll: true }, class: 'pr-2' do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart.id %>
+    <label class="weui-cells_checkbox">
+      <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
+      <i class="weui-icon-checked"></i>
+    </label>
+  <% end %>
+  <div class="weui-media-box__hd">
+  <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
+    <%= image_tag model.good.logo, class: 'weui-media-box__thumb' %>
+  <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>
+    <%= image_tag model.good.cover, class: 'weui-media-box__thumb' %>
+  <% end %>
+  </div>
+  <div class="weui-media-box__bd">
+    <h4 class="weui-media-box__title">
+      <span><%= model.good_name %></span>
+      <% unless @cart.aim %>
+      <span class="weui-badge">
+        <i class="fa-solid fa-hand-holding-box"></i>
+        <span><%= model.aim_i18n %></span>
+      </span>
+      <% end %>
+      <span class="tag"><%= model.member.name %></span>
+    </h4>
+    <ul class="weui-media-box__info">
+    <% if model.good.respond_to?(:parts) %>
+      <% model.good.parts.each do |part| %>
+        <li><%= part.name %></li>
+      <% end %>
+    <% end %>
+    </ul>
+    <div class="weui-media-box__info is-flex is-justify-content-space-between">
+      <div class="is-flex is-align-items-center">
+      <% if model.vip_code.present? %>
+        <div class="tags has-addons is-price control m-0" style="display: inline-flex">
+          <div class="tag is-danger">
+            <i class="fa-solid fa-badge-check"></i>
+            <span style="padding-left: 1px"><%= model.vip_code %></span>
+          </div>
+          <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
+        </div>
+        <span class="has-text-through"><%= model.good.price.to_money.format.html_safe %></span>
+      <% elsif model.rent_start_at.present? %>
+        <span><%= Trade::Item.human_attribute_name(:rent_start_at) %>：</span>
+        <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
+      <% else %>
+        <span><%= model.single_price.to_money.format.html_safe %></span>
+      <% end %>
+      </div>
+      <%= render partial: 'number', locals: { model: model } %>
+    </div>
+  </div>
+</div>
