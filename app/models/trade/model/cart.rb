@@ -46,7 +46,7 @@ module Trade
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').status_trial }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
 
       has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
-      has_many :cards, ->(o) { where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
+      has_many :cards, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :wallets, -> { includes(:wallet_template).where(o.simple_filter_hash) }, foreign_key: :user_id, primary_key: :user_id
       has_one :wallet, -> { where(default: true) }, foreign_key: :user_id, primary_key: :user_id
 
@@ -72,12 +72,14 @@ module Trade
     end
 
     def simple_filter_hash
-      if user_id
-        { organ_id: organ_id, member_id: member_id }
+      if member_id
+        { member_id: member_id }
       elsif client_id
-        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+        { client_id: client_id }
+      elsif user_id
+        { user_id: user_id }
       else
-        { organ_id: organ_id, member_id: member_id }
+        { member_organ_id: member_organ_id, member_id: member_id }
       end
     end
 
