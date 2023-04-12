@@ -120,11 +120,9 @@ module Trade
     def cart_filter_hash
       options = { good_type: [good_type, nil], aim: [aim, nil] }
       if member_id
-        options.merge! member_id: [member_id, nil]
+        options.merge! member_id: [member_id, nil], member_organ_id: member_organ_id
       elsif user_id
         options.merge! user_id: [user_id, nil]
-      else
-        options.merge! member_organ_id: member_organ_id
       end
     end
 
