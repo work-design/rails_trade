@@ -70,7 +70,7 @@ module Trade
       has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_one :organ_delivery, ->(o) { where(o.organ_scene_filter_hash) }, class_name: 'Delivery', primary_key: :organ_id, foreign_key: :organ_id
 
-      has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
+      has_many :carts, ->(o) { where(o.cart_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o) { where(o.filter_hash).effective }, foreign_key: :user_id, primary_key: :user_id
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :user_id, primary_key: :user_id
@@ -115,6 +115,17 @@ module Trade
         only: [:good_name, :number, :amount, :note],
         methods: [:order_uuid, :cart_organ]
       )
+    end
+
+    def cart_filter_hash
+      options = { good_type: [good_type, nil], aim: [aim, nil] }
+      if member_id
+        options.merge! member_id: [member_id, nil]
+      elsif user_id
+        options.merge! user_id: [user_id, nil]
+      else
+        options.merge! member_organ_id: member_organ_id
+      end
     end
 
     def filter_hash
