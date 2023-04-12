@@ -2,13 +2,11 @@
 
 <%= render 'address' if @cart.need_address? %>
 
-<div id="cart_body">
-  <% @items.group_by(&:delivery).each do |delivery, items| %>
-    <div class="weui-panel">
-      <%= render partial: 'fetch', locals: { model: delivery } if delivery %>
-    </div>
-    <%= render partial: 'item', collection: items, as: :model %>
-  <% end %>
+<% @items.group_by(&:delivery).each do |delivery, items| %>
+<div class="weui-panel">
+  <%= render partial: 'fetch', locals: { model: delivery } if delivery %>
 </div>
+<%= render partial: 'item', collection: items, as: :model %>
+<% end %>
 
 <%= render 'promote' %>
