@@ -68,6 +68,7 @@ module Trade
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
 
       has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
+      has_one :organ_delivery, ->(o) { where(o.organ_scene_filter_hash) }, class_name: 'Delivery', primary_key: :organ_id, foreign_key: :organ_id
 
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, primary_key: :user_id, foreign_key: :user_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
@@ -95,7 +96,8 @@ module Trade
       before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
-      before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'member_organ_id', 'organ_id']).present? }
+      before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
+      before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_create :add_promotes
@@ -139,6 +141,11 @@ module Trade
       filter_hash.merge! produce_on: produce_on, scene_id: scene_id
     end
 
+    def organ_scene_filter_hash
+      o = { member_organ_id: member_organ_id }
+      o.merge! produce_on: produce_on, scene_id: scene_id
+    end
+
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('ITEM')
     end
@@ -146,6 +153,11 @@ module Trade
     def init_delivery
       return if produce_on.blank? && scene_id.blank?
       delivery || build_delivery
+    end
+
+    def init_organ_delivery
+      return if produce_on.blank? && scene_id.blank?
+      organ_delivery || build_organ_delivery
     end
 
     def sync_from_organ
