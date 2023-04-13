@@ -1,4 +1,4 @@
-<%= link_to({ controller: 'trade/mem/wallets', action: 'show', id: wallet.id, **params.permit(:global_member_id) }, state: 'enter', class: 'column is-one-third has-block-centered') do %>
+<%= link_to({ controller: 'trade/mem/wallets', action: 'show', id: wallet.id }, state: 'enter', class: 'column is-one-third has-block-centered') do %>
   <div class="is-several">
     <%= image_tag wallet.wallet_template.logo, class: 'image is-16x16' if wallet.wallet_template.logo.attached? %>
     <span class="ml-1 has-text-grey-dark is-size-7"><%= wallet.wallet_template.name %></span>

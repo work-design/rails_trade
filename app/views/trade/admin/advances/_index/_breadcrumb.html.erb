@@ -1,6 +1,6 @@
 <div class="breadcrumb has-succeeds-separator">
   <ul>
-    <li><%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'wallet_templates' } %></li>
+    <li><%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'wallet_templates', anchor: "tr_#{params[:wallet_template_id]}" } %></li>
     <li><span class="px-3"><%= @wallet_template.name %></span></li>
     <li class="is-active"><%= t('.title') %></li>
   </ul>

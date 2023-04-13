@@ -1,9 +1,9 @@
 module Trade
-  class Our::WalletTemplatesController < My::WalletTemplatesController
+  class Mem::WalletTemplatesController < My::WalletTemplatesController
     before_action :set_wallet_template, only: [:show, :actions]
 
     def index
-      @wallets = current_client.organ.custom_wallets
+      @wallets = current_client.custom_wallets.where(default_params)
 
       @wallet_templates = WalletTemplate.default_where(default_params).where.not(id: @wallets.pluck(:wallet_template_id).compact)
     end
@@ -16,7 +16,7 @@ module Trade
     end
 
     def show
-      @wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: @wallet_template.id)
+      @wallet = current_client.wallets.where(default_params).find_or_initialize_by(wallet_template_id: @wallet_template.id)
     end
 
     private
