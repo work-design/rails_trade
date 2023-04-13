@@ -11,6 +11,12 @@ module Trade
       has_many :cards, -> { includes(:card_template) }, class_name: 'Trade::Card', foreign_key: :member_organ_id
       has_many :wallets, -> { includes(:wallet_template) }, class_name: 'Trade::Wallet', foreign_key: :member_organ_id
       has_many :lawful_wallets, -> { where(member_id: nil) }, class_name: 'Trade::LawfulWallet', foreign_key: :member_organ_id
+      has_many :promote_goods, class_name: 'Trade::PromoteGood', foreign_key: :member_organ_id
+    end
+
+    def promotes_count
+      r = PromoteGood.effective.where(member_id: nil).count
+      r + promote_goods.count
     end
 
     def get_item(good_type:, good_id:, aim: 'use', **options)
