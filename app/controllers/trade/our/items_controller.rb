@@ -7,7 +7,9 @@ module Trade
 
     private
     def set_new_item
-      options = {}
+      options = {
+        operator_id: current_client.id
+      }
       options.merge! client_params
       options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id, :fetch_oneself)
       options.compact_blank!
