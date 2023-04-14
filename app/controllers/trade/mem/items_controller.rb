@@ -2,6 +2,10 @@ module Trade
   class Mem::ItemsController < My::ItemsController
     include Controller::Mem
 
+    def index
+      @items = current_client.items.page(params[:page])
+    end
+
     private
     def set_new_item
       options = {}
