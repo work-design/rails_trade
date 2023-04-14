@@ -1,1 +1,5 @@
-<p><%= model.good_name %></p>
+<p>
+  <span><%= model.good_name %></span>
+  <span class="has-text-grey"><%= model.number %></span>
+  <span class="pl-2"><%= model.original_amount.to_money.format.html_safe %></span>
+</p>
