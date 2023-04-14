@@ -5,6 +5,10 @@ module Trade
     before_action :set_new_item, only: [:create]
     before_action :set_card_template, only: [:trial]
 
+    def index
+      @items = current_user.items.page(params[:page])
+    end
+
     def create
       if @item.save
         if @item.aim_rent?

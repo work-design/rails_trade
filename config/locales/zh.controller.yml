@@ -238,6 +238,8 @@ zh:
         index:
           title: 续费记录
       items:
+        index:
+          title: 我的订单
         show:
           title: 详情
         finish:
