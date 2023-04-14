@@ -2,6 +2,7 @@ module Trade
   module Model::Cart
     extend ActiveSupport::Concern
     include Inner::Amount
+    include Inner::User
 
     included do
       attribute :good_type, :string
@@ -20,16 +21,11 @@ module Trade
         rent: 'rent'
       }, _default: 'use', _prefix: true
 
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
-
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
-      belongs_to :payment_strategy, optional: true
 
       belongs_to :maintain, class_name: 'Crm::Maintain', optional: true
-      belongs_to :client, class_name: 'Profiled::Profile', optional: true
+
+      belongs_to :payment_strategy, optional: true
 
       has_many :orders, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :promote_goods, foreign_key: :user_id, primary_key: :user_id

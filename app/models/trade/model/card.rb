@@ -1,6 +1,7 @@
 module Trade
   module Model::Card
     extend ActiveSupport::Concern
+    include Inner::User
 
     included do
       attribute :lock_version, :integer
@@ -8,11 +9,6 @@ module Trade
       attribute :effect_at, :datetime
       attribute :expire_at, :datetime
       attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
-
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :card_template, counter_cache: true
       belongs_to :agency, optional: true

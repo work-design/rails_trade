@@ -1,6 +1,7 @@
 module Trade
   module Model::Wallet
     extend ActiveSupport::Concern
+    include Inner::User
 
     included do
       attribute :type, :string
@@ -11,11 +12,6 @@ module Trade
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
       attribute :lock_version, :integer
-
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :wallet_template, counter_cache: true, optional: true
 

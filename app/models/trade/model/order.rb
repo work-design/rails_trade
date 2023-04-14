@@ -2,6 +2,7 @@ module Trade
   module Model::Order
     extend ActiveSupport::Concern
     include Inner::Amount
+    include Inner::User
 
     included do
       attribute :uuid, :string
@@ -46,13 +47,9 @@ module Trade
         denied: 'denied'
       }, _default: 'unpaid'
 
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
-
-      belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :member, class_name: 'Org::Member', optional: true
-      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true
+      belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :from_user, class_name: 'Auth::User', optional: true
       belongs_to :from_member, class_name: 'Org::Member', optional: true

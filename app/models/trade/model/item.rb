@@ -54,10 +54,9 @@ module Trade
         rent: 'rent'
       }, _default: 'use', _prefix: true
 
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
-
       belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :operator, class_name: 'Org::Member', optional: true
 
       # 仅物流订单，发货方信息
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
