@@ -20,13 +20,14 @@
     data-weui-dialog-id-value="fetch_dialog_<%= model.id %>"
     data-action="click->weui-dialog#toggle"
   >
-    <div class="weui-cell__hd">
-    <% if model.fetch_oneself %>
-      <span>自取</span>
-    <% else %>
-      <span>配送</span>
-    <% end %>
+  <% if model.fetch_oneself %>
+    <div class="weui-cell__hd">自取</div>
+    <div class="weui-cell__bd"></div>
+    <div class="weui-cell__ft">
+      <time data-controller="time"><%= model.fetch_start_at&.to_fs(:iso8601) %></time>
     </div>
+  <% else %>
+    <div class="weui-cell__hd">配送</div>
     <div class="weui-cell__bd">
       <span class="has-text-grey ml-2">
         <span><%= model.produce_on.to_fs(:month_day) %></span>
@@ -35,9 +36,8 @@
         <span><%= model.produce_plan.scene.deliver_finish_at.to_fs(:time) %></span>
       </span>
     </div>
-    <div class="weui-cell__ft">
-      <time data-controller="time"><%= model.fetch_start_at&.to_fs(:iso8601) %></time>
-    </div>
+    <div class="weui-cell__ft"></div>
+  <% end %>
   </div>
 
 <div data-controller="weui-dialog time-range" id="fetch_dialog_<%= model.id %>" class="weui-dialog__wrap">
