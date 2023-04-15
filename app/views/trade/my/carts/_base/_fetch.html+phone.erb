@@ -37,32 +37,4 @@
     </div>
   <% end %>
   </div>
-
-<div data-controller="weui-dialog time-range" id="fetch_dialog_<%= model.id %>" class="weui-dialog__wrap">
-  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
-  <div class="weui-half-screen-dialog" data-weui-dialog-target="dialog">
-    <div class="weui-half-screen-dialog__hd">
-      <div class="weui-half-screen-dialog__hd__side"></div>
-      <div class="weui-half-screen-dialog__hd__main">
-        <div class="weui-half-screen-dialog__title">选择时间</div>
-      </div>
-      <div class="weui-half-screen-dialog__hd__side">
-        <button class="weui-icon-btn" data-action="weui-dialog#close">
-          <i class="weui-icon-close-thin"></i>
-        </button>
-      </div>
-    </div>
-    <div class="weui-half-screen-dialog__bd">
-      <%= render partial: 'fetch_time', locals: { model: model } %>
-    </div>
-    <div class="weui-half-screen-dialog__ft">
-      <%= form_with(model: model, url: { controller: 'deliveries', action: 'update', id: model.id }, method: :patch, skip_default_ids: true, state: 'redirect_return') do |f| %>
-        <%= f.hidden_field :fetch_start_at, data: { time_range_target: 'start' } %>
-        <%= f.hidden_field :fetch_finish_at, data: { time_range_target: 'finish' } %>
-        <%= f.submit '确认' %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
 </div>

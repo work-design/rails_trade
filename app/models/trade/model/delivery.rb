@@ -21,7 +21,6 @@ module Trade
       belongs_to :order, optional: true
 
       has_many :items, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
-
     end
 
     def xx
