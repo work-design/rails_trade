@@ -8,7 +8,7 @@
           <span><%= model.produce_plan.scene.title %></span>
         </div>
         <span class="has-text-grey ml-2">
-          <span><%= model.produce_on.to_s(:month_and_day) %></span>
+          <span><%= model.produce_on.to_fs(:month_day) %></span>
           <span><%= model.produce_plan.scene.deliver_start_at.to_fs(:time) %></span>
           <span>~</span>
           <span><%= model.produce_plan.scene.deliver_finish_at.to_fs(:time) %></span>
@@ -34,7 +34,9 @@
     <span>配送</span>
   <% end %>
   </div>
-  <div class="weui-cell__bd"></div>
+  <div class="weui-cell__bd">
+
+  </div>
   <div class="weui-cell__ft">
     <time data-controller="time"><%= model.fetch_start_at&.to_fs(:iso8601) %></time>
   </div>
@@ -42,7 +44,7 @@
 
 <div data-controller="weui-dialog time-range" id="fetch_dialog_<%= model.id %>" class="weui-dialog__wrap">
   <div class="weui-mask" data-action="click->weui-dialog#close"></div>
-  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+  <div class="weui-half-screen-dialog" data-weui-dialog-target="dialog">
     <div class="weui-half-screen-dialog__hd">
       <div class="weui-half-screen-dialog__hd__side"></div>
       <div class="weui-half-screen-dialog__hd__main">
@@ -58,7 +60,7 @@
       <%= render partial: 'fetch_time', locals: { model: model } %>
     </div>
     <div class="weui-half-screen-dialog__ft">
-      <%= form_with(model: model, url: { controller: 'deliveries', action: 'update', id: model.id }, method: :patch, skip_default_ids: true) do |f| %>
+      <%= form_with(model: model, url: { controller: 'deliveries', action: 'update', id: model.id }, method: :patch, skip_default_ids: true, state: 'redirect_return') do |f| %>
         <%= f.hidden_field :fetch_start_at, data: { time_range_target: 'start' } %>
         <%= f.hidden_field :fetch_finish_at, data: { time_range_target: 'finish' } %>
         <%= f.submit '确认' %>
