@@ -1,6 +1,7 @@
 module Trade
   class My::PromoteGoodsController < My::BaseController
     before_action :set_global_promotes, only: [:index]
+    before_action :set_cart, only: [:index]
 
     def index
       q_params = {
@@ -8,7 +9,7 @@ module Trade
       }
       q_params.merge! params.permit(:state)
 
-      @promote_goods = current_cart.promote_goods.includes(:promote).default_where(q_params).page(params[:page])
+      @promote_goods = @cart.promote_goods.includes(:promote).default_where(q_params).page(params[:page])
     end
 
     private

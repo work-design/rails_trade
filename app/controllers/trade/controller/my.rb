@@ -9,6 +9,7 @@ module Trade
       options.merge! user_id: current_user.id, member_id: nil
 
       @cart = Cart.where(options).find_or_initialize_by(good_type: nil)
+      logger.debug "my cart #{@cart.id}"
     end
 
     def set_lawful_wallet
