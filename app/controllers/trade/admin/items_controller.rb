@@ -1,6 +1,6 @@
 module Trade
   class Admin::ItemsController < Admin::BaseController
-    before_action :set_item, only: [:show, :update, :destroy, :actions, :compute, :carts, :toggle]
+    before_action :set_item, only: [:show, :update, :destroy, :actions, :print, :compute, :carts, :toggle]
     before_action :set_new_item, only: [:create]
 
     def index
@@ -46,6 +46,10 @@ module Trade
 
     def compute
       @item.compute_present_duration!(Time.current)
+    end
+
+    def print
+      @item.print
     end
 
     private

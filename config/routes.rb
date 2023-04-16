@@ -168,6 +168,7 @@ Rails.application.routes.draw do
             get :carts
             patch :toggle
             patch :compute
+            post :print
           end
           resources :rents
         end
