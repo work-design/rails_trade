@@ -13,6 +13,12 @@
         </div>
         <div class="has-text-dark"><%= t('trade.admin.orders.index.title') %></div>
       <% end %>
+      <%= link_to({ controller: 'trade/admin/items' }, class: 'column has-block-centered') do %>
+        <div class="has-text-grey-dark">
+          <i class="fa-solid fa-fw fa-xl fa-list"></i>
+        </div>
+        <div class="has-text-dark"><%= t('trade.admin.items.index.title') %></div>
+      <% end %>
       <%= link_to({ controller: 'trade/admin/payments' }, class: 'column has-block-centered') do %>
         <div class="has-text-grey-dark">
           <i class="fa-solid fa-fw fa-xl fa-receipt"></i>
