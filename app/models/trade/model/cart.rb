@@ -30,7 +30,7 @@ module Trade
       has_many :orders, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
       has_many :promote_goods, foreign_key: :user_id, primary_key: :user_id
       has_many :available_promote_goods, -> { available }, class_name: 'PromoteGood'
-      has_many :payment_references, dependent: :destroy_async
+      has_many :payment_references, ->(o) { where(o.filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :payment_methods, through: :payment_references
 
       has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
