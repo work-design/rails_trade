@@ -1,0 +1,13 @@
+<p>
+<% if model.good %>
+  <%= link_to model.good.name, { action: 'show', id: model.id } %>
+<% else %>
+  <span><%= model.good_name %></span>
+<% end %>
+  <span class="tag"><%= model.aim_i18n %></span>
+</p>
+<p class="has-text-grey">
+  <span><%= model.single_price.to_money.format.html_safe %></span>
+  <span><%= model.original_amount.to_money.format.html_safe %></span>
+</p>
+<p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
