@@ -108,7 +108,7 @@ module Trade
       before_create :add_promotes
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial'].include?(status) }
+      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial', 'expired'].include?(status) }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_destroy :remove_promotes
       after_destroy :order_pruned!
@@ -328,7 +328,7 @@ module Trade
 
     def sync_amount_to_current_cart
       return unless current_cart
-      if (destroyed? && ['checked', 'trial'].include?(status)) || (['init'].include?(status) && ['checked', 'trial'].include?(status_previously_was))
+      if (destroyed? && ['checked', 'trial'].include?(status)) || (['init', 'expired'].include?(status) && ['checked', 'trial'].include?(status_previously_was))
         changed_amount = -amount
       elsif ['checked', 'trial'].include?(status) && ['init', nil].include?(status_previously_was)
         changed_amount = amount
