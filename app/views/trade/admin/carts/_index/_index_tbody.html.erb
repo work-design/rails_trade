@@ -1,7 +1,7 @@
 <td>
   <% if model.user %>
   <p>
-    <span><%= link_to model.user.name, { action: 'show', id: model.id } %></span>
+    <span><%= link_to model.user.name.presence || "user_#{model.user_id}", { action: 'show', id: model.id } %></span>
     <span class="has-text-grey">（<%= model.user_id %>）</span>
   </p>
   <% end %>
