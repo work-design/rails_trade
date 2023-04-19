@@ -114,10 +114,6 @@ module Trade
       end
     end
 
-    def get_app_payee
-      Wechat::Payee.find_by(organ_id: organ_id, appid: extra['appid'], mch_id: seller_identifier)
-    end
-
     def send_verify_notice
       broadcast_action_to(
         self,
