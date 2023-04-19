@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :appid, :string
 
-      belongs_to :payee_app, ->(o) { where(appid: o.appid) }, class_name: 'Wechat::AppPayee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
+      belongs_to :payee_app, ->(o) { where(appid: o.appid) }, class_name: 'Wechat::PayeeApp', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
       belongs_to :buyer, ->(o) { where(app_payee_id: o.app_payee_id) }, class_name: 'Wechat::Receiver', foreign_key: :buyer_identifier, primary_key: :account, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
