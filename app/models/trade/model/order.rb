@@ -301,6 +301,7 @@ module Trade
 
     def to_payment(type: 'Trade::WxpayPayment')
       payment = payments.build type: type, payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: amount
+      payment.organ_id = organ_id
       payment.user = user
       payment
     end
