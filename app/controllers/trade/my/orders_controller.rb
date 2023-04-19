@@ -39,7 +39,7 @@ module Trade
         #@payment.extra_params.merge! 'profit_sharing' => true
         @payment.user = current_user
         @payment.seller_identifier = current_payee&.mch_id
-        @payment.appid = current_wechat_user&.uid
+        @payment.appid = current_wechat_user&.appid
 
         if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
           @payment.buyer_identifier = current_wechat_user&.uid
