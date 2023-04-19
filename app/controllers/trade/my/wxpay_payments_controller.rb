@@ -11,7 +11,7 @@ module Trade
     end
 
     def create
-      @payment.app_payee = current_wechat_user.app.app_payees.enabled.take
+      @payment.payee_app = current_wechat_user.app.app_payees.enabled.take
       @payment.buyer_identifier = current_wechat_user.uid
       @wxpay_order = @payment.js_pay
 

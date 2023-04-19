@@ -10,7 +10,7 @@ module Trade
         spbill_create_ip: spbill_create_ip
       }
 
-      r = app_payee.api.pay_micropay(**opts)
+      r = payee_app.api.pay_micropay(**opts)
       if r['result_code'] == 'SUCCESS'
         confirm!(r)
       else

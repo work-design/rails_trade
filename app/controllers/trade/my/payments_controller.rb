@@ -55,7 +55,7 @@ module Trade
       @payment = @order.to_payment
       #@payment.extra_params.merge! 'profit_sharing' => true
       @payment.user = current_user
-      @payment.app_payee = current_payee
+      @payment.payee_app = current_payee
       @payment.buyer_identifier = current_authorized_token.uid
       @wxpay_order = @payment.js_pay
 

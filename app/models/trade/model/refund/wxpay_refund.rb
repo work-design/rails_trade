@@ -23,7 +23,7 @@ module Trade
       }
 
       begin
-        result = payment.app_payee.payee.api.invoke_refund(**_params)
+        result = payment.payee_app.payee.api.invoke_refund(**_params)
       rescue StandardError => e
         result = {}
         result['return_code'] = e.message.truncate(225)
@@ -49,7 +49,7 @@ module Trade
     def refund_query
       return if state == 'completed'
 
-      result = payment.app_payee.payee.api.refund_query(self.refund_uuid)
+      result = payment.payee_app.payee.api.refund_query(self.refund_uuid)
       store_refund_result!(result)
       result
     end

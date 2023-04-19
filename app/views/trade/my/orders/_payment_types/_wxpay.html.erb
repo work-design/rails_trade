@@ -13,7 +13,7 @@
 <% elsif @wxpay_order && @wxpay_order[:package].present? %>
   <div
     data-controller="wxpay"
-    data-wxpay-options-value="<%= @payment.app_payee.app.js_config(session[:enter_url]).to_json %>"
+    data-wxpay-options-value="<%= @payment.payee_app.app.js_config(session[:enter_url]).to_json %>"
     data-wxpay-params-value="<%= { timestamp: @wxpay_order[:timeStamp], nonceStr: @wxpay_order[:nonceStr], package: @wxpay_order[:package], signType: @wxpay_order[:signType], paySign: @wxpay_order[:paySign] }.to_json %>"
     data-action="click->wxpay#chooseWXPay"
     class="weui-cell weui-cell_active weui-cell_access"

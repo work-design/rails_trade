@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :appid, :string
 
-      belongs_to :app_payee, ->(o) { where(appid: o.appid) }, class_name: 'Wechat::AppPayee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
+      belongs_to :payee_app, ->(o) { where(appid: o.appid) }, class_name: 'Wechat::AppPayee', foreign_key: :seller_identifier, primary_key: :mch_id, optional: true
       belongs_to :buyer, ->(o) { where(app_payee_id: o.app_payee_id) }, class_name: 'Wechat::Receiver', foreign_key: :buyer_identifier, primary_key: :account, optional: true
 
       has_many :refunds, class_name: 'WxpayRefund', foreign_key: :payment_id
@@ -20,11 +20,11 @@ module Trade
         unfreeze_unsplit: false
       }
 
-      r = app_payee.api.profit_share(params)
+      payee_app.api.profit_share(params)
     end
 
     def profit_query
-      r = app_payee.api.profit_query(payment_uuid)
+      payee_app.api.profit_query(payment_uuid)
     end
 
     def h5(payer_client_ip: '127.0.0.1')
@@ -32,7 +32,7 @@ module Trade
       params.merge! common_params
       params.merge! scene_info: { payer_client_ip: payer_client_ip, h5_info: { type: 'Wap' } }
 
-      r = app_payee.api.h5_order(debug: true, **params)
+      r = payee_app.api.h5_order(debug: true, **params)
       logger.debug "\e[35m  h5: #{r}  \e[0m"
       r['h5_url']
     end
@@ -41,15 +41,15 @@ module Trade
       params = {}
       params.merge! common_params
 
-      app_payee.api.native_order(**params)
+      payee_app.api.native_order(**params)
     end
 
     def js_pay(**options)
-      return unless app_payee
+      return unless payee_app
       prepay = common_prepay(**options)
 
       if prepay['prepay_id']
-        r = app_payee.api.generate_js_pay_req(prepay_id: prepay['prepay_id'])
+        r = payee_app.api.generate_js_pay_req(prepay_id: prepay['prepay_id'])
         logger.debug "\e[35m  js pay: #{r}  \e[0m"
         r
       else
@@ -66,14 +66,14 @@ module Trade
       )
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      app_payee.api.jsapi_order(**params)
+      payee_app.api.jsapi_order(**params)
     end
 
     def common_params
       {
         description: "支付编号: #{payment_uuid}",
         out_trade_no: payment_uuid,
-        notify_url: Rails.application.routes.url_for(host: app_payee.domain, controller: 'trade/payments', action: 'wxpay_notify', mch_id: app_payee.mch_id),
+        notify_url: Rails.application.routes.url_for(host: payee_app.domain, controller: 'trade/payments', action: 'wxpay_notify', mch_id: payee_app.mch_id),
         amount: {
           total: (self.total_amount * 100).to_i,
           currency: 'CNY'
@@ -101,7 +101,7 @@ module Trade
       }
 
       begin
-        result = app_payee.api.order_query(params)
+        result = payee_app.api.order_query(params)
       rescue #todo only net errr
         result = { 'err_code_des' => 'network error' }
       end
