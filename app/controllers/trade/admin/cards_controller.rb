@@ -3,7 +3,7 @@ module Trade
     before_action :set_card_templates, only: [:index]
     before_action :set_card_template
     before_action :set_new_card, only: [:new, :create]
-    before_action :set_card, only: [:show, :edit, :update, :destroy]
+    before_action :set_card, only: [:show, :edit, :update, :destroy, :actions]
 
     def index
       q_params = {}
