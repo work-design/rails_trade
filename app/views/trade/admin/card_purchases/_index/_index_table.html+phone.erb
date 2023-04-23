@@ -2,7 +2,7 @@
   <div class="weui-panel__hd">
     <p>
       <span>有效期至：</span>
-      <time data-controller="time"><%= @card.expire_at.to_fs(:iso8601) %></time>
+      <time data-controller="time"><%= @card.expire_at&.to_fs(:iso8601) %></time>
     </p>
   </div>
   <div class="weui-panel__bd">
