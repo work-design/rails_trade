@@ -15,7 +15,7 @@ module Trade
 
     private
     def set_card
-      @card = Card.find(params[:id])
+      @card = @card_template.cards.find(params[:id])
     end
 
     def set_new_card
