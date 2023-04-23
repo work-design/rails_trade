@@ -4,11 +4,11 @@ module Trade
     include Inner::User
 
     included do
-      attribute :lock_version, :integer
       attribute :card_uuid, :string
       attribute :effect_at, :datetime
       attribute :expire_at, :datetime
       attribute :temporary, :boolean, default: false, comment: '在购物车勾选临时生效'
+      attribute :lock_version, :integer
 
       belongs_to :card_template, counter_cache: true
       belongs_to :agency, optional: true
