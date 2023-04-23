@@ -1,9 +1,9 @@
 <p>
   <span>本次有效期至</span>
-  <span class="has-text-success"><%= model.last_expire_on + model.duration %></span>
+  <span class="has-text-success"><%= model.last_expire_at + model.duration %></span>
 </p>
 <p class="is-flex">
-  <span class="has-text-grey pr-1"><%= model.last_expire_on %></span>
+  <span class="has-text-grey pr-1"><%= model.last_expire_at %></span>
   <span class="tags has-addons">
     <span class="tag has-text-success pr-1"><i class="fa-solid fa-plus fa-sm"></i></span>
     <span class="tag pl-0"><%= model.duration.inspect %></span>
