@@ -8,7 +8,7 @@
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
         </div>
-        <div class="has-text-grey-dark">
+        <div class="has-text-grey is-size-7 mt-1">
           <span><%= Trade::Order.enum_i18n(:state, 'init') %></span>
         </div>
       <% end %>
@@ -16,7 +16,7 @@
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
         </div>
-        <div class="has-text-grey-dark">
+        <div class="has-text-grey is-size-7 mt-1">
           <span><%= Trade::Order.enum_i18n(:state, 'done') %></span>
         </div>
       <% end %>
