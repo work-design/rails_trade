@@ -1,8 +1,21 @@
 <div class="buttons are-small is-space-around">
-  <%= link_to current_organ.service_url, rel: 'nofollow', class: 'button is-primary' do %>
-    <i class="fa-solid fa-headset"></i>
-    <span class="pl-1">联系客服</span>
-  <% end if current_organ.service_url.present? %>
+  <% if request.variant.include?(:mini_program) %>
+    <div
+      data-controller="mini-program"
+      data-mini-program-url-value="/pages/service/index"
+      data-mini-program-data-value="<%= { url: url_for(only_path: false) }.to_json %>"
+      data-action="click->mini-program#link"
+      class="button is-primary"
+    >
+      <i class="fa-solid fa-headset"></i>
+      <span class="pl-1">联系客服</span>
+    </div>
+  <% else %>
+    <%= link_to current_organ.service_url, rel: 'nofollow', class: 'button is-primary' do %>
+      <i class="fa-solid fa-headset"></i>
+      <span class="pl-1">联系客服</span>
+    <% end if current_organ.service_url.present? %>
+  <% end %>
   <%= link_to({ action: 'payment_types', id: @order.id }, class: 'button is-danger') do %>
     <i class="fa-solid fa-credit-card"></i>
     <span class="pl-1">支付</span>
