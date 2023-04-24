@@ -1,5 +1,5 @@
 <div class="weui-navbar is-sticky">
 <% [:init, :done, :canceled].each do |status| %>
-  <%= link_to Trade::Order.enum_i18n(:state, status), { state: status }, class: active_helper(state: status, item: 'weui-navbar__item has-text-grey-dark', active: 'weui-navbar__item weui-bar__item_on') %>
+  <%= link_to Trade::Order.enum_i18n(:state, status), { state: status }, class: active_helper(state: status, item: 'weui-navbar__item has-text-grey-dark is-size-7', active: 'weui-navbar__item weui-bar__item_on is-size-7') %>
 <% end %>
 </div>
