@@ -1,7 +1,7 @@
 module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
-      :show, :edit, :update, :destroy,
+      :show, :edit, :update, :destroy, :actions,
       :refund, :payment_types, :payment_orders, :print_data, :package, :micro, :adjust_edit, :adjust_update
     ]
     before_action :set_new_order, only: [:new, :create]
