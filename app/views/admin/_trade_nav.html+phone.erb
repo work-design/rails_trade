@@ -15,7 +15,7 @@
       <% end %>
       <%= link_to({ controller: 'trade/admin/items' }, state: 'enter', class: 'column has-block-centered') do %>
         <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-list"></i>
+          <i class="fa-solid fa-fw fa-xl fa-list-ol"></i>
         </div>
         <div class="has-text-grey is-size-7 mt-1"><%= t('trade.admin.items.index.title') %></div>
       <% end %>
@@ -27,7 +27,7 @@
       <% end %>
       <%= link_to({ controller: 'trade/admin/scan_payments', action: 'new' }, state: 'enter', class: 'column has-block-centered') do %>
         <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-receipt"></i>
+          <i class="fa-solid fa-fw fa-xl fa-cash-register"></i>
         </div>
         <div class="has-text-grey is-size-7 mt-1"><%= t('trade.admin.scan_payments.new.title') %></div>
       <% end %>
