@@ -277,6 +277,7 @@ zh:
         index:
           title: 订单
     me:
+      title: 订单管理
       promote_goods:
         index:
           title: 优惠券
