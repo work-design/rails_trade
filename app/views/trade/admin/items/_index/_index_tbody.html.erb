@@ -28,7 +28,7 @@
   <% if model.user %>
   <p class="is-several">
     <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
-    <span><%= model.user.name %></span>
+    <span><%= model.user.name.presence || model.user_id %></span>
   </p>
   <% end %>
   <p>
