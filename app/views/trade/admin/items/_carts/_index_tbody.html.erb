@@ -1,13 +1,15 @@
 <td>
 <% if model.user %>
-  <span><%= link_to model.user.name, { action: 'show', id: model.id } %></span>
-  <span class="has-text-grey">（<%= model.user_id %>）</span>
+  <p>
+    <span><%= link_to model.user.name, { action: 'show', id: model.id } %></span>
+    <span class="has-text-grey">（<%= model.user_id %>）</span>
+  </p>
 <% end %>
-</td>
-<td>
-  <% if model.member %>
+<% if model.member %>
+  <p>
     <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
-  <% end %>
+  </p>
+<% end %>
 </td>
 <td><%= model.aim %></td>
 <td><%= model.good_type %></td>
