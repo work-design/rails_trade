@@ -1,0 +1,21 @@
+<div class="media" data-controller="empty">
+  <figure class="media-left">
+    <%# image_tag meta[0].logo, class: 'image is-64x64' if meta[0].logo.present? %>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <strong><%= t('trade.admin.title') %></strong>
+    </div>
+    <div data-empty-target="content">
+      <%= link_to({ controller: 'trade/admin/orders' }, class: 'tag') do %>
+        <span><%= t('trade.admin.orders.index.title') %></span>
+      <% end %>
+      <%= link_to({ controller: 'trade/admin/payments' }, class: 'tag') do %>
+        <span><%= t('trade.admin.payments.index.title') %></span>
+      <% end %>
+      <%= link_to({ controller: 'trade/admin/promotes' }, class: 'tag') do %>
+        <span><%= t('trade.admin.promotes.index.title') %></span>
+      <% end %>
+    </div>
+  </div>
+</div>
