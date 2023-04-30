@@ -26,8 +26,7 @@ module Trade
 
     def card_purchase_params
       params.fetch(:card_purchase, {}).permit(
-        :amount,
-        :note
+        :last_expire_at
       )
     end
 
