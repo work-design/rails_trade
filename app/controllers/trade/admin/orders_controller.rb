@@ -54,17 +54,6 @@ module Trade
       @order = Order.new(current_cart_id: params[:current_cart_id])
     end
 
-    def create
-      @order.agent_id = current_member.id
-      @order.compute_promote
-
-      if params[:commit].present? && @order.save
-        render 'create'
-      else
-        render 'new'
-      end
-    end
-
     def payment_types
       if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
         @order.wallets.where(wallet_template_id: @order.wallet_codes).each do |wallet|
@@ -132,7 +121,7 @@ module Trade
     end
 
     def set_new_order
-      @order = Order.new order_params
+      @order = Order.new(order_params)
     end
 
     def set_user
