@@ -3,7 +3,7 @@
   <%= link_to({ action: 'show', id: card_template.id }, class: active_helper(action: 'show', id: card_template.id, active: 'weui-navbar__item weui-bar__item_on', item: 'weui-navbar__item')) do %>
     <div class="is-several is-justify-content-center">
       <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
-      <span class="ml-1 is-size-6 has-text-grey-darker"><%= card_template.name %></span>
+      <span class="ml-1 is-size-7 has-text-grey"><%= card_template.name %></span>
     </div>
   <% end %>
 <% end %>
