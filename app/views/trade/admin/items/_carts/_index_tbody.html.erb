@@ -1,8 +1,10 @@
 <td>
 <% if model.user %>
   <p>
-    <span><%= link_to model.user.name, { action: 'show', id: model.id } %></span>
-    <span class="has-text-grey">（<%= model.user_id %>）</span>
+    <%= link_to({ action: 'show', id: model.id }) do %>
+      <span><%= model.user.name %></span>
+      <span class="has-text-grey">（<%= model.user_id %>）</span>
+    <% end %>
   </p>
 <% end %>
 <% if model.member %>
