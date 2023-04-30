@@ -2,5 +2,5 @@
 <td><%= model.years %></td>
 <td><%= model.months %></td>
 <td><%= model.days %></td>
-<td><time data-controller="time"><%= model.last_expired_at.to_fs(:iso8601) %></time></td>
+<td><time data-controller="time"><%= model.last_expire_at.to_fs(:iso8601) %></time></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
