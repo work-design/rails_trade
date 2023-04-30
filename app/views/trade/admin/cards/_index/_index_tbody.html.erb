@@ -8,10 +8,11 @@
 <td>
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p>
-    <time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time>
-    <%= link_to({ controller: 'card_purchases', card_id: model.id }, aria: { label: t('trade.admin.card_purchases.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-gem"></i>
-    <% end %>
+  <% if model.expire_at && model.expire_at > Date.today %>
+    <time data-controller="time" class="has-text-success"><%= model.expire_at.to_fs(:iso8601) %></time>
+  <% else %>
+    <time data-controller="time" class="has-text-danger"><%= model.expire_at&.to_fs(:iso8601) %></time>
+  <% end %>
   </p>
 </td>
 <td><%= model.temporary_i18n %></td>
