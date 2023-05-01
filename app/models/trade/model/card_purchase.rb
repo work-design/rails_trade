@@ -35,6 +35,10 @@ module Trade
       years.years + months.months + days.days
     end
 
+    def expire_at
+      (last_expire_at || Date.today.end_of_day).since(duration)
+    end
+
     def sync_from_card
       if card.expire_at && card.expire_at.to_date > Date.today
         self.last_expire_at = card.expire_at
