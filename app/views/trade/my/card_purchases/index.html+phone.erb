@@ -1,6 +1,6 @@
 <%= render 'top_bar' %>
 
-<div class="has-text-centered my-2">
+<div class="has-text-centered mt-2">
   <span>有效期至：</span>
   <time data-controller="time" data-format="human"><%= @card.expire_at.to_fs(:iso8601) %></time>
 </div>
