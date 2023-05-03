@@ -3,15 +3,18 @@
     <%= link_to({ controller: '/factory/productions' }, state: 'return', class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end if @cart.good_type == 'Factory::Production' %>
-    <%= link_to({ controller: '/ship/box_hosts' }, class: 'px-4') do %>
+    <%= link_to({ controller: '/ship/box_hosts' }, state: 'return', class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'use' %>
-    <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, class: 'px-4') do %>
+    <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, state: 'return', class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
-    <%= link_to({ controller: '/serve/services' }, class: 'px-4') do %>
+    <%= link_to({ controller: '/serve/services' }, state: 'return', class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end if @cart.good_type == 'Serve::Service' %>
+    <%= link_to({ controller: '/bench/facilitates' }, state: 'return', class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end if @cart.good_type == 'Bench::Facilitate' %>
     <span class="weui-title">
       <span class="mr-1"><%= t('.title') %></span>
       <% if @cart.member %>
