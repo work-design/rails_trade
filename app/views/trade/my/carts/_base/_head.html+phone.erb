@@ -9,9 +9,6 @@
     <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, state: 'return', class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
-    <%= link_to({ controller: '/serve/services' }, state: 'return', class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-    <% end if @cart.good_type == 'Serve::Service' %>
     <%= link_to({ controller: '/bench/facilitates' }, state: 'return', class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end if @cart.good_type == 'Bench::Facilitate' %>
