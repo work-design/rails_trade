@@ -3,6 +3,8 @@
     <li>
     <% if params[:rentable_type] == 'Ship::BoxHost' %>
       <%= link_to t('ship.admin.box_hosts.index.title'), { controller: 'ship/admin/box_hosts', anchor: "tr_#{params[:rentable_id]}" } %>
+    <% else %>
+      <%= link_to '返回', { action: 'index' }, state: 'return' %>
     <% end %>
     </li>
     <li class="is-active"><%= t('.title') %></li>
