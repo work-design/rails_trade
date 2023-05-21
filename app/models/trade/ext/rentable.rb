@@ -3,6 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :rent_charges_count, :integer
+
       enum :rent_unit, {
         seconds: 'seconds',
         minutes: 'minutes',

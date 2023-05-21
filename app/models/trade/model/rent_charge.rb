@@ -9,7 +9,7 @@ module Trade
       attribute :filter_min, :integer, default: 0
       attribute :filter_max, :integer, default: 2**31 - 1
 
-      belongs_to :rentable, polymorphic: true
+      belongs_to :rentable, polymorphic: true, counter_cache: true
     end
 
     def minors
