@@ -44,7 +44,7 @@
       <% elsif model.rent_start_at.present? %>
         <span><%= Trade::Item.human_attribute_name(:rent_start_at) %>：</span>
         <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
-      <% else %>
+      <% elsif ['use', 'invest'].include?(model.aim) %>
         <span><%= model.single_price.to_money.format.html_safe %></span>
       <% end %>
       </div>
