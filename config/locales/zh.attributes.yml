@@ -208,3 +208,7 @@ zh:
       trade/rent_charge:
         parameter: 单价
         base_price: 基础价格
+        min: 最小值
+        max: 最大值
+        contain_min: 包含最小值
+        contain_max: 包含最大值
