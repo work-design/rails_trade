@@ -190,6 +190,7 @@ Rails.application.routes.draw do
           resources :addition_charges
         end
         scope path: ':rentable_type/:rentable_id' do
+          resource :rentable
           resources :rent_charges do
             member do
               get :wallet

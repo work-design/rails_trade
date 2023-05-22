@@ -25,9 +25,7 @@ module Trade
 
     private
     def set_rentable
-      if params[:rentable_type] && params[:rentable_id]
-        @rentable = params[:rentable_type].constantize.find params[:rentable_id]
-      end
+      @rentable = params[:rentable_type].constantize.find params[:rentable_id]
     end
 
     def set_rent_charge

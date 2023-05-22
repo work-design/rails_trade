@@ -1,6 +1,14 @@
 <%= render 'filter_form' %>
 <%= render 'button' %>
 
+<div>
+  <%= @rentable.rent_unit %>
+  <%= link_to({ controller: 'rentables', action: 'edit' }, data: { turbo_frame: 'modal' }) do %>
+    <i class="fa-solid fa-pencil"></i>
+    <span><%= t('trade.admin.rentables.edit.title') %></span>
+  <% end %>
+</div>
+
 <%= render layout: 'index_table' do %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @rent_charges, as: :model %>
 <% end %>
