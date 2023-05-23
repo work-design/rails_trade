@@ -6,6 +6,10 @@ module Trade
       mark_audits(instance: :@payment, include: [:payment_orders])
     end
 
+    def index
+      @payment_orders = @payment.payment_orders
+    end
+
     def new
       @payment_order = PaymentOrder.new
       @orders = @payment.pending_orders
