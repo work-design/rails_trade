@@ -121,6 +121,7 @@ module Trade
     end
 
     def add_purchase_item(card_template: available_card_templates.take)
+      return unless card_template
       return if card_template.purchase.blank? || cards.effective.find_by(card_template_id: card_template.id)
 
       item = Item.new(
