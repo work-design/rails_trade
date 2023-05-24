@@ -1,0 +1,25 @@
+<td>
+  <%= link_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id }, data: { turbo_frame: 'modal' } %>
+</td>
+<td><%= model.order.amount.to_money.format.html_safe %></td>
+<td>
+  <% if model.state_confirmed? %>
+    <%= model.order_amount.to_money.format.html_safe %>
+  <% else %>
+    <%= number_field_tag 'model[order_amount]', model.order_amount, class: 'input', step: 0.01, form: "edit_payment_order_#{model.id}" %>
+  <% end %>
+</td>
+<td><%= Trade::PaymentOrder.enum_i18n(:state, model.state) %></td>
+<td>
+  <% if model.state_confirmed? %>
+    <%= button_to({ action: 'cancel', payment_id: @payment, id: model.id }, class: 'button is-small is-warning') do %>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span class="pl-1">撤销</span>
+    <% end %>
+  <% else %>
+    <%= button_to({ action: 'update', id: model.id }, method: :patch, class: 'button is-small is-success', form: { id: "edit_payment_order_#{model.id}" }) do %>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span class="pl-1">核销</span>
+    <% end %>
+  <% end %>
+</td>

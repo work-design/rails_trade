@@ -1,0 +1,7 @@
+<div class="breadcrumb has-succeeds-separator">
+  <ul>
+    <li><%= link_to t('trade.admin.payments.index.title'), { controller: 'payments' } %></li>
+    <li><span class="px-3"><%= @payment.payment_uuid %></span></li>
+    <li class="is-active"><%= t('.title') %></li>
+  </ul>
+</div>
