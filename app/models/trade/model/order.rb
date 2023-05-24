@@ -299,9 +299,8 @@ module Trade
       payment
     end
 
-    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'))
-      payment = payments.build type: type, payment_uuid: payment_uuid
-      payment.total_amount = amount
+    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: amount)
+      payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid, total_amount: total_amount)
       payment.organ_id = organ_id
       payment.user = user
       payment
