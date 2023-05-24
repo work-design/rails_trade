@@ -77,7 +77,7 @@ module Trade
       else
         options = {}
         options.merge! default_form_params
-        options.merge! client_params
+        options.merge! user_id: current_user.id
         @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
       end
     end
