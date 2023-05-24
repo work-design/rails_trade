@@ -184,6 +184,7 @@ module Trade
 
     def find_item(**options)
       args = xx(**options)
+      logger.debug "\e[35m  #{args}  \e[0m"
 
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
