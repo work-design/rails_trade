@@ -58,7 +58,11 @@ module Trade
 
     def prune_to_card!
       card.expire_at = self.last_expire_at
-      card.save!
+      if card.expire_at.to_date == card.effect_at.to_date && card.temporary
+        card.destroy
+      else
+        card.save!
+      end
     end
 
   end

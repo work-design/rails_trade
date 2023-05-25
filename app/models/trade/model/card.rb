@@ -21,7 +21,7 @@ module Trade
 
       has_many :wallets, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, primary_key: :user_id, foreign_key: :user_id
 
-      scope :effective, ->{ t = Time.current; default_where('expire_at-gte': t, 'effect_at-lte': t) }
+      scope :effective, ->{ t = Time.current; default_where('expire_at-gt': t, 'effect_at-lte': t) }
       scope :temporary, ->{ where(temporary: true) }
       scope :formal, ->{ where.not(temporary: true) }
 
