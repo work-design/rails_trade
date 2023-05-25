@@ -51,8 +51,10 @@ module Trade
 
     def do_rent(item)
       self.held_user_id = item.user_id
+      self.held_member_id = item.member_id
       self.held_organ_id = item.member_organ_id
       self.rented = true if item.aim_rent?
+      self.held = true
       #self.status = 'free' todo 考虑初始化状态
       self.rents.build(item_id: item.id)
       self

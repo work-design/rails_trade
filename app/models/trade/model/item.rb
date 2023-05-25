@@ -75,6 +75,7 @@ module Trade
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :item_promotes, inverse_of: :item, dependent: :destroy
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
+      has_many :rents
 
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type

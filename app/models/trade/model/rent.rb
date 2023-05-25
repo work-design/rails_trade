@@ -13,6 +13,7 @@ module Trade
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
+      belongs_to :item
       belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
       belongs_to :good, polymorphic: true, optional: true
 
