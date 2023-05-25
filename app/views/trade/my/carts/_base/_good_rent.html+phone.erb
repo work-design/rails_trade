@@ -41,7 +41,10 @@
           <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
         </div>
         <span class="has-text-through"><%= model.good.price.to_money.format.html_safe %></span>
-      <% else %>
+      <% elsif model.rent_start_at.present? %>
+        <span><%= Trade::Item.human_attribute_name(:rent_start_at) %>：</span>
+        <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
+      <% elsif ['use', 'invest'].include?(model.aim) %>
         <span><%= model.single_price.to_money.format.html_safe %></span>
       <% end %>
       </div>

@@ -1,3 +1,7 @@
 <div class="<%= model.status_expired? ? 'weui-panel has-background-light' : 'weui-panel' %>">
+<% if model.aim_rent? %>
+  <%= render partial: 'good_rent', locals: { model: model } %>
+<% else %>
   <%= render partial: 'good', locals: { model: model } %>
+<% end %>
 </div>
