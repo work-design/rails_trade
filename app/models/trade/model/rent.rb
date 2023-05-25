@@ -14,7 +14,7 @@ module Trade
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
       belongs_to :item
-      belongs_to :rentable, polymorphic: true, counter_cache: true, optional: true
+      belongs_to :rentable, polymorphic: true, optional: true
       belongs_to :good, polymorphic: true, optional: true
 
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }

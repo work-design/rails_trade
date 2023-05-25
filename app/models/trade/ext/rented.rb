@@ -3,7 +3,6 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :rents_count, :integer, default: 0
       attribute :rented, :boolean, default: false
       attribute :held, :boolean, comment: '是否被占有'
 
