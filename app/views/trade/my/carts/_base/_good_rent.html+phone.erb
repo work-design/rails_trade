@@ -14,22 +14,14 @@
   <% end %>
   </div>
   <div class="weui-media-box__bd">
-    <h4 class="weui-media-box__title">
-      <span><%= model.good_name %></span>
-      <% unless @cart.aim %>
-      <span class="weui-badge">
-        <i class="fa-solid fa-hand-holding-box"></i>
-        <span><%= model.aim_i18n %></span>
-      </span>
-      <% end %>
-    </h4>
+    <h4 class="weui-media-box__title"><%= model.good_name %></h4>
+    <% if model.good.respond_to?(:parts) && model.good.parts.present? %>
     <ul class="weui-media-box__info">
-    <% if model.good.respond_to?(:parts) %>
       <% model.good.parts.each do |part| %>
         <li><%= part.name %></li>
       <% end %>
-    <% end %>
     </ul>
+    <% end %>
     <div class="weui-media-box__info is-flex is-justify-content-space-between">
       <div class="has-v-centered">
       <% if model.vip_code.present? %>
