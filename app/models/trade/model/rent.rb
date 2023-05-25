@@ -18,9 +18,9 @@ module Trade
       belongs_to :good, polymorphic: true, optional: true
 
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
-      before_save :compute_amount, if: -> { duration_changed? && duration.to_i > 0 }
+      before_save :compute_amount, if: -> { rent_duration_changed? && rent_duration.to_i > 0 }
       before_save :compute_invest_amount, if: -> { amount_changed? }
-      after_save :sync_rentable_state, if: -> { saved_change_to_finish_at? }
+      after_save :sync_rentable_state, if: -> { saved_change_to_rent_finish_at? }
     end
 
     def sync_from_rentable

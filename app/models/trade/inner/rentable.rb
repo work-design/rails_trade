@@ -30,7 +30,7 @@ module Trade
 
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
-      after_save_commit :compute_later, if: -> { aim_rent? && rent_start_at? && saved_change_to_rent_start_at? }
+      after_save_commit :compute_later, if: -> { rent_start_at.present? && saved_change_to_rent_start_at? }
     end
 
     def unit_code
