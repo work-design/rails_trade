@@ -12,10 +12,17 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      # 时间
       attribute :rent_start_at, :datetime
       attribute :rent_finish_at, :datetime, comment: '实际结束时间'
       attribute :rent_present_finish_at, :datetime, comment: '周期性计费时间'
       attribute :rent_estimate_finish_at, :datetime, comment: '预估结束时间'
+
+      # 计时
+      attribute :rent_duration, :integer
+      attribute :rent_estimate_duration, :integer
+
+      # 费用
       attribute :amount, :decimal
       attribute :wallet_amount, :json, default: {}
       attribute :estimate_amount, :decimal
@@ -44,14 +51,14 @@ module Trade
       end
 
       x = ActiveSupport::Duration.build(result.ceil).in_all.stringify_keys!
-      x[unit_code]&.ceil
+      self.rent_duration = x[unit_code]&.ceil
     end
 
     def estimate_duration
       result = rent_estimate_finish_at - rent_start_at
 
       x = ActiveSupport::Duration.build(result.ceil).in_all.stringify_keys!
-      x[unit_code]&.ceil
+      self.rent_estimate_duration = x[unit_code]&.ceil
     end
 
     def compute_later(now = Time.current)
