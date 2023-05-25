@@ -35,11 +35,11 @@ module Trade
 
       has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id  # 用于购物车展示
-      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
+      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id  # 用于计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
-      has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use').status_trial }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
+      has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use', status: 'trial') }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
 
       has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
       has_many :cards, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
@@ -120,8 +120,7 @@ module Trade
       return unless card_template
       return if card_template.purchase.blank? || cards.effective.find_by(card_template_id: card_template.id)
 
-      item = Item.new(
-        good_type: card_template.purchase.class_name,
+      item = trial_card_items.build(
         good_id: card_template.purchase.id,
         current_cart_id: self.id,
         status: 'trial',
@@ -134,7 +133,9 @@ module Trade
     end
 
     def checked_all_items
-      checked_items.select(&->(i){ !i.destroyed? }) + trial_card_items
+      r = checked_items.select(&->(i){ !i.destroyed? }) + trial_card_items
+      logger.debug "\e[33m  Item amount: #{item_amount}, Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Summed amount: #{checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{id})  \e[0m"
+      r
     end
 
     def compute_amount

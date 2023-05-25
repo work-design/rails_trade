@@ -63,7 +63,7 @@ module Trade
       belongs_to :from_address, class_name: 'Profiled::Address', optional: true
 
       belongs_to :good, polymorphic: true, optional: true
-      belongs_to :current_cart, class_name: 'Cart', optional: true, inverse_of: :checked_items  # 下单时的购物车
+      belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
 
       has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
@@ -329,24 +329,10 @@ module Trade
 
     def sync_amount_to_current_cart
       return unless current_cart
-      if (destroyed? && ['checked', 'trial'].include?(status)) || (['init', 'expired'].include?(status) && ['checked', 'trial'].include?(status_previously_was))
-        changed_amount = -amount
-      elsif ['checked', 'trial'].include?(status) && ['init', nil].include?(status_previously_was)
-        changed_amount = amount
-      elsif ['checked', 'trial'].include?(status) && amount_previously_was
-        changed_amount = amount - amount_previously_was.to_d
-      else
-        return
-      end
 
-      if current_cart.fresh
-        current_cart.item_amount += changed_amount
-      else
-        current_cart.compute_amount
-        current_cart.fresh = true
-      end
-      logger.debug "\e[33m  Self id #{object_id}"
-      logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Items: #{current_cart.checked_items.map(&:object_id)}, Summed amount: #{current_cart.checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
+      current_cart.compute_amount
+      current_cart.fresh = true
+      logger.debug "\e[33m  Self Object id: #{object_id}"
 
       current_cart.save!
     end
