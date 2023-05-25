@@ -4,6 +4,7 @@ module Trade
     before_action :set_cart, only: [:create, :trial]
     before_action :set_new_item, only: [:create]
     before_action :set_card_template, only: [:trial]
+    after_action :support_cors, only: [:create]
 
     def index
       @items = current_user.items.page(params[:page])
@@ -11,13 +12,6 @@ module Trade
 
     def create
       if @item.save
-        if @item.aim_rent?
-          @item.current_cart.add_purchase_item
-        end
-
-        response.headers['Access-Control-Allow-Origin'] = request.origin
-        response.headers['Access-Control-Allow-Credentials'] = true
-
         state = Com::State.find_by(id: params[:state_uuid])
         if state.present? && state.referer.present?
           render :create, status: :created, locals: { url: state.referer }
