@@ -13,11 +13,11 @@ module Trade
 
     included do
       attribute :rent_start_at, :datetime
-      attribute :rent_finish_at, :datetime
-      attribute :rent_present_finish_at, :datetime
+      attribute :rent_finish_at, :datetime, comment: '实际结束时间'
+      attribute :rent_present_finish_at, :datetime, comment: '周期性计费时间'
+      attribute :rent_estimate_finish_at, :datetime, comment: '预估结束时间'
       attribute :amount, :decimal
       attribute :wallet_amount, :json, default: {}
-      attribute :rent_estimate_finish_at, :datetime
       attribute :estimate_amount, :decimal
       attribute :estimate_wallet_amount, :json, default: {}
 
