@@ -1,4 +1,4 @@
-<div class="is-flex is-align-items-center">
+<div class="has-v-centered">
   <%= form_with theme: nil, scope: :item, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, state: 'redirect_return', class: 'button_to', data: { turbo_scroll: true } do |f| %>
     <%= f.hidden_field :number, value: model.number - 1 %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
