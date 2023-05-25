@@ -1,5 +1,5 @@
 <% if @item.good_type == 'Factory::Production' %>
-  <%= link_to({ controlller: 'factory/admin/production_items', action: 'delivery', production_id: @item.good_id, item_id: @item.id }, class: 'button is-small is-primary mb-2') do %>
+  <%= link_to({ controller: 'factory/admin/production_items', action: 'delivery', production_id: @item.good_id, item_id: @item.id }, class: 'button is-small is-primary mb-2') do %>
     <span>去发货</span>
   <% end %>
 <% end %>
