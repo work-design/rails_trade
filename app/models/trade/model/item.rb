@@ -110,6 +110,7 @@ module Trade
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial', 'expired'].include?(status) }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
+      after_save :set_not_fresh, if: -> { current_cart_id.blank? || saved_change_to_current_cart_id? }
       after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
@@ -347,10 +348,11 @@ module Trade
       logger.debug "\e[33m  Self id #{object_id}"
       logger.debug "\e[33m  Item amount: #{current_cart.item_amount}, Items: #{current_cart.checked_items.map(&:object_id)}, Summed amount: #{current_cart.checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{current_cart.id})  \e[0m"
 
-      current_cart.class.transaction do
-        current_cart.save!
-        carts.where.not(id: current_cart.id).update_all(fresh: false)
-      end
+      current_cart.save!
+    end
+
+    def set_not_fresh
+      carts.where.not(id: current_cart_id).update_all(fresh: false)
     end
 
     def sync_ordered_to_current_cart
