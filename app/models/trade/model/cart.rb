@@ -95,10 +95,6 @@ module Trade
       self.original_amount = item_amount + overall_additional_amount
     end
 
-    def any_rent?
-      items.any?(&->(i){ i.aim_rent? })
-    end
-
     def owned?(card_template)
       cards.find_by(card_template_id: card_template.id, temporary: false)
     end

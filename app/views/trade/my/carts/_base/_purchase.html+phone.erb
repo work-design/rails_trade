@@ -11,7 +11,7 @@
   <span class="weui-cells_checkbox">
   <% if @cart.trial_card_items.present? %>
     <%= form_with theme: nil, url: { controller: 'items', action: 'untrial', id: @cart.trial_card_items[0].id }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box 'xx', checked: true, disabled: @cart.any_rent?, data: { action: 'input#form' }, id: "xx_#{card_template.id}", class: 'weui-check' %>
+      <%= f.check_box 'xx', checked: true, data: { action: 'input#form' }, id: "xx_#{card_template.id}", class: 'weui-check' %>
       <span class="weui-icon-checked"></span>
     <% end %>
   <% else %>
