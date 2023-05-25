@@ -212,7 +212,6 @@ module Trade
     end
 
     def compute_single_price
-      return if aim_rent?
       min = good.card_price.slice(*cards.includes(:card_template).map(&->(i){ i.card_template.code })).min
       if min.present?
         self.vip_code = min[0]
