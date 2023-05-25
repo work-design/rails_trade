@@ -73,7 +73,7 @@ module Trade
       elsif client_id
         { client_id: client_id }
       elsif user_id
-        { user_id: user_id }
+        { user_id: user_id, member_id: nil, client_id: nil }
       else
         { member_organ_id: member_organ_id, member_id: member_id }
       end
