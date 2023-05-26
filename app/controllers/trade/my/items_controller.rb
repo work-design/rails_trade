@@ -1,7 +1,7 @@
 module Trade
   class My::ItemsController < My::BaseController
+    before_action :set_cart, only: [:create, :update, :destroy, :trial]
     before_action :set_item, only: [:show, :update, :destroy, :actions, :untrial, :promote, :toggle, :finish]
-    before_action :set_cart, only: [:create, :trial]
     before_action :set_new_item, only: [:create]
     before_action :set_card_template, only: [:trial]
     after_action :support_cors, only: [:create]
@@ -51,8 +51,21 @@ module Trade
     end
 
     private
+    def set_cart
+      if params[:current_cart_id].present?
+        @cart = Cart.find params[:current_cart_id]
+      elsif item_params[:current_cart_id].present?
+        @cart = Cart.find item_params[:current_cart_id]
+      else
+        options = {}
+        options.merge! default_form_params
+        options.merge! user_id: current_user.id, member_id: nil, client_id: nil
+        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
+      end
+    end
+
     def set_item
-      @item = current_user.items.find params[:id]
+      @item = @cart.checked_items.find params[:id]
     end
 
     def set_new_item
@@ -64,17 +77,6 @@ module Trade
       @item.status = 'checked'
       @item.assign_attributes params.permit(:station_id, :desk_id, :current_cart_id)
       @item.number = @item.number.to_i + (params[:number].presence || 1).to_i if @item.persisted?
-    end
-
-    def set_cart
-      if params[:current_cart_id]
-        @cart = Cart.find params[:current_cart_id]
-      else
-        options = {}
-        options.merge! default_form_params
-        options.merge! user_id: current_user.id, member_id: nil, client_id: nil
-        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
-      end
     end
 
     def set_card_template
