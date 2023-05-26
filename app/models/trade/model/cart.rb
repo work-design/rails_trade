@@ -129,7 +129,7 @@ module Trade
         member_id: member_id
       )
       item.save
-      items.each(&:compute_price!)
+      checked_items.each(&:compute_price!)
     end
 
     def checked_all_items

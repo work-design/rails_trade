@@ -225,7 +225,7 @@ module Trade
 
     def untrial
       destroy
-      current_cart.items.each(&:compute_price!)
+      current_cart.checked_items.each(&:compute_price!)
     end
 
     def compute_price
