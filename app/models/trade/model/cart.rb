@@ -34,7 +34,7 @@ module Trade
       has_many :payment_methods, through: :payment_references
 
       has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
-      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id  # 用于购物车展示
+      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示
       has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
