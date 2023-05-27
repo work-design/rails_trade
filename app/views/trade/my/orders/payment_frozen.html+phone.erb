@@ -1,0 +1,36 @@
+<%= render 'top_bar' %>
+<%= render 'order' %>
+
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_small-appmsg">
+      <div class="weui-cells weui-cells_checkbox">
+      <% @order.payment_orders.each do |payment_order| %>
+        <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
+          <%= render partial: 'wallet_payment', locals: { payment_order: payment_order } %>
+        <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
+          <%= render partial: 'lawful_wallet_payment', locals: { payment_order: payment_order } %>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @order.all_paid? %>
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+    <p class="p-4 has-text-centered">订单已完成支付</p>
+  </div>
+</div>
+<% else %>
+<div class="weui-panel">
+  <div class="weui-panel__bd">
+    <div class="weui-cells">
+      <%= render partial: 'wxpay' %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>

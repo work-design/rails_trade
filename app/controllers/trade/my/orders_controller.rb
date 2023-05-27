@@ -2,7 +2,7 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add, :create]
@@ -28,7 +28,32 @@ module Trade
 
     def payment_types
       if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
-        @order.wallets.where(wallet_template_id: @order.wallet_codes).each do |wallet|
+        @order.wallets.includes(:wallet_template).where(wallet_template_id: @order.wallet_codes).each do |wallet|
+          @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
+        end
+        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
+      end
+
+      unless @order.all_paid?
+        @payment = @order.to_payment
+        #@payment.extra_params.merge! 'profit_sharing' => true
+        @payment.user = current_user
+        @payment.seller_identifier = current_payee&.mch_id
+        @payment.appid = current_wechat_user&.appid
+
+        if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
+          @payment.buyer_identifier = current_wechat_user&.uid
+          @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
+          logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
+        elsif current_payee
+          @url = @payment.h5(payer_client_ip: request.remote_ip)
+        end
+      end
+    end
+
+    def payment_frozen
+      if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
+        @order.wallets.includes(:wallet_template).where(wallet_template_id: @order.wallet_codes).each do |wallet|
           @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
         end
         @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet

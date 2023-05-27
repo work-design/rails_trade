@@ -22,6 +22,7 @@ module Trade
       has_many :wallet_advances
       has_many :wallet_payments, inverse_of: :wallet  # expense
       has_many :wallet_refunds
+      has_many :wallet_frozens
 
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
@@ -51,6 +52,10 @@ module Trade
       self.advances_amount + self.sells_amount
     end
 
+    def compute_frozen_amount
+      wallet_frozens.sum(:amount)
+    end
+
     def compute_amount
       self.amount = self.income_amount - self.expense_amount
     end
@@ -58,6 +63,7 @@ module Trade
     def reset_amount
       self.income_amount = compute_income_amount
       self.expense_amount = compute_expense_amount
+      self.frozen_amount = compute_frozen_amount
       self.valid?
       self.changes
     end
