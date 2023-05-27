@@ -7,8 +7,9 @@ module Trade
       attribute :type, :string
       attribute :name, :string
       attribute :amount, :decimal, default: 0
-      attribute :advances_amount, :decimal
-      attribute :sells_amount, :decimal
+      attribute :frozen_amount, :decimal, comment: '冻结金额'
+      attribute :advances_amount, :decimal, comment: '主动充值'
+      attribute :sells_amount, :decimal, comment: '交易入账'
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
       attribute :lock_version, :integer
