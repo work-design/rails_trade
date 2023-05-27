@@ -2,7 +2,6 @@ module Trade
   module Model::Item
     PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume', 'duration']
     extend ActiveSupport::Concern
-    include Inner::Rentable
     include Inner::User
 
     included do
@@ -68,14 +67,15 @@ module Trade
 
       has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_one :organ_delivery, ->(o) { where(o.organ_scene_filter_hash) }, class_name: 'Delivery', primary_key: :organ_id, foreign_key: :organ_id
+      has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
 
       has_many :carts, ->(o) { where(o.cart_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o) { where(o.filter_hash).effective }, foreign_key: :organ_id, primary_key: :organ_id
-      has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
+      has_many :wallets, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :item_promotes, inverse_of: :item, dependent: :destroy
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
-      has_many :rents
+      has_many :holds
 
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
       has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type

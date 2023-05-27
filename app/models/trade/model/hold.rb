@@ -1,5 +1,6 @@
 module Trade
-  module Inner::Rentable
+  module Model::Hold
+    extend ActiveSupport::Concern
     TIME_UNIT = {
       'seconds' => :sec,
       'minutes' => :min,
@@ -9,9 +10,9 @@ module Trade
       'months' => :month,
       'years' => :year
     }.freeze
-    extend ActiveSupport::Concern
 
     included do
+      attribute :amount, :decimal, comment: '价格小计'
       # 时间
       attribute :rent_start_at, :datetime
       attribute :rent_finish_at, :datetime, comment: '实际结束时间'
@@ -28,9 +29,33 @@ module Trade
       attribute :estimate_amount, :decimal
       attribute :estimate_wallet_amount, :json, default: {}
 
+
+      attribute :invest_amount, :decimal, comment: '投资分成'
+      attribute :extra, :json, default: {}
+
+      belongs_to :user, class_name: 'Auth::User', optional: true
+      belongs_to :member, class_name: 'Org::Member', optional: true
+      belongs_to :member_organ, class_name: 'Org::Organ', optional: true
+
+      belongs_to :item
+      belongs_to :rentable, polymorphic: true, optional: true
+      belongs_to :good, polymorphic: true, optional: true
+
+      before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
+      before_save :compute_amount, if: -> { rent_duration_changed? && rent_duration.to_i > 0 }
+      before_save :compute_invest_amount, if: -> { amount_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
+      after_save :sync_rentable_state, if: -> { saved_change_to_rent_finish_at? }
       after_save_commit :compute_later, if: -> { rent_start_at.present? && saved_change_to_rent_start_at? }
+    end
+
+    def sync_from_rentable
+      return unless rentable
+      self.good = rentable.good
+      self.user_id = rentable.held_user_id
+      self.member_id = rentable.held_member_id
+      self.member_organ_id = rentable.held_organ_id
     end
 
     def unit_code
@@ -110,6 +135,15 @@ module Trade
       self.save!
     end
 
+    def compute_invest_amount
+      self.invest_amount = self.amount * rentable.box_host.invest_ratio
+    end
+
+    def sync_rentable_state
+      rentable.rented = nil
+      rentable.held = false
+      rentable.save!
+    end
+
   end
 end
-
