@@ -7,6 +7,8 @@ module Trade
       attribute :account_bank, :string
       attribute :account_name, :string
       attribute :account_number, :string
+
+      has_many :advances, -> { where(lawful: true) }, primary_key: :organ_id, foreign_key: :organ_id
     end
 
   end
