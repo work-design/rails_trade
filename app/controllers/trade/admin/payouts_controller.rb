@@ -1,23 +1,24 @@
 module Trade
   class Admin::PayoutsController < Admin::BaseController
+    before_action :set_wallet
     before_action :set_payout, only: [:show, :edit, :update, :do_pay, :destroy]
 
     def index
       q_params = {}
-      q_params.merge! params.permit(:id, :cash_id, :payout_uuid)
+      q_params.merge! params.permit(:id, :payout_uuid)
 
-      @payouts = Payout.default_where(q_params).page(params[:page])
+      @payouts = @wallet.payouts.default_where(q_params).page(params[:page])
     end
 
     def do_pay
       @payout.do_pay
     end
 
-    def destroy
-      @payout.destroy
+    private
+    def set_wallet
+      @wallet = Wallet.find params[:wallet_id]
     end
 
-    private
     def set_payout
       @payout = Payout.find(params[:id])
     end
