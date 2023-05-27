@@ -45,7 +45,7 @@ module Trade
           @payment.buyer_identifier = current_wechat_user&.uid
           @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
           logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
-        else
+        elsif current_payee
           @url = @payment.h5(payer_client_ip: request.remote_ip)
         end
       end
