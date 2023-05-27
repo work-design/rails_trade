@@ -10,7 +10,10 @@
   <% end %>
   </div>
 </td>
-<td><%= model.amount.to_money.format.html_safe %></td>
+<td>
+  <p><%= model.amount.to_money.format.html_safe %></p>
+  <p class="has-text-grey"><%= model.frozen_amount.to_money.format.html_safe %></p>
+</td>
 <td>
   <p>
     <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
