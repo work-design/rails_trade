@@ -32,6 +32,8 @@ module Trade
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
+      before_validation :compute_expense_amount, if: -> { (changes.keys & ['frozen_amount', 'payout_amount', 'payment_amount']).present? }
+      before_validation :compute_income_amount, if: -> { (changes.keys & ['advances_amount', 'sells_amount']).present? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
       before_validation :sync_organ_id, if: -> { wallet_template_id && wallet_template_id_changed? }
@@ -46,17 +48,25 @@ module Trade
       self.organ_id = wallet_template.organ_id
     end
 
-    def compute_expense_amount
+    def reset_expense_amount
       self.frozen_amount = wallet_frozens.sum(:amount)
       self.payout_amount = payouts.sum(:requested_amount)
       self.payment_amount = wallet_payments.sum(:total_amount)
-      self.frozen_amount + self.payout_amount + self.payment_amount
+      compute_expense_amount
+    end
+
+    def compute_expense_amount
+      self.expense_amount = self.frozen_amount + self.payout_amount + self.payment_amount
+    end
+
+    def reset_income_amount
+      self.advances_amount = wallet_advances.sum(:amount)
+      self.sells_amount = wallet_sells.sum(:amount)
+      compute_income_amount
     end
 
     def compute_income_amount
-      self.advances_amount = wallet_advances.sum(:amount)
-      self.sells_amount = wallet_sells.sum(:amount)
-      self.advances_amount + self.sells_amount
+      self.income_amount = self.advances_amount + self.sells_amount
     end
 
     def compute_amount
@@ -64,14 +74,15 @@ module Trade
     end
 
     def reset_amount
-      self.income_amount = compute_income_amount
-      self.expense_amount = compute_expense_amount
+      self.compute_income_amount
+      self.compute_expense_amount
       self.valid?
       self.changes
     end
 
     def reset_amount!(*args)
-      self.reset_amount
+      self.reset_income_amount
+      self.reset_expense_amount
       self.save(*args)
     end
 
