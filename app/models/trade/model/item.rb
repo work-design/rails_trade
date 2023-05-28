@@ -402,9 +402,8 @@ module Trade
     end
 
     def advance_and_block
-      lawful_wallet.wallet_advances.find_or_initialize_by(item_id: id, amount: amount)
-      lawful_wallet.wallet_frozens.find_or_initialize_by(item_id: id, amount: amount)
-      lawful_wallet.save!
+      lawful_wallet.wallet_advances.find_or_create_by(item_id: id, amount: amount)
+      lawful_wallet.wallet_frozens.find_or_create_by(item_id: id, amount: amount)
     end
 
     def order_pruned!
