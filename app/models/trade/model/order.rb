@@ -216,23 +216,16 @@ module Trade
 
     def confirm_paid!
       items.each do |item|
-        if item.aim_rent?
-          item.status = 'done'
-        else
-          item.status = 'deliverable'
-        end
+        item.status = 'deliverable'
       end
       send_notice
     end
 
     def remaining_paid!
       items.each do |item|
-        if item.aim_rent?
-          item.status = 'deliverable'
-        else
-          item.status = 'deliverable'
-        end
+        item.status = 'deliverable'
       end
+      send_notice
     end
 
     def confirm_refund!
@@ -267,7 +260,7 @@ module Trade
           self.remaining_paid!
         else
           self.payment_status = 'all_paid'
-          confirm_paid!
+          self.confirm_paid!
         end
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
