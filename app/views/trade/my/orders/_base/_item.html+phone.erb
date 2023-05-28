@@ -33,6 +33,6 @@
     <%= link_to({ controller: 'packageds', item_id: item.id }, class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.my.packageds.index.title') %></span>
-    <% end if item.aim_use? && ['Ship::BoxHost'].include?(item.good_type) %>
+    <% end %>
   </div>
 </div>
