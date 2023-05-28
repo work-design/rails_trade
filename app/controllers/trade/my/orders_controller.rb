@@ -56,9 +56,11 @@ module Trade
         @order.wallets.includes(:wallet_template).where(wallet_template_id: @order.wallet_codes).each do |wallet|
           @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
         end
-        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
+        if @order.lawful_wallet && @order.lawful_wallet.amount > @order.amount
+          @order.lawful_wallet.wallet_frozens.build
+          @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id)
+        end
       end
-      @order.lawful_wallet.wallet_frozens.build
 
       unless @order.all_paid?
         @payment = @order.to_payment
