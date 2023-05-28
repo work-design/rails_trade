@@ -22,12 +22,6 @@
       <% end %>
     </ul>
     <% end %>
-    <% if model.rent_start_at.present? %>
-    <div>
-      <span><%= Trade::Item.human_attribute_name(:rent_start_at) %>：</span>
-      <time data-controller="time"><%= model.rent_start_at.to_fs(:iso8601) %></time>
-    </div>
-    <% end %>
     <div class="weui-media-box__info is-flex is-justify-content-space-between">
       <div class="has-v-centered">
       <% if model.vip_code.present? %>
