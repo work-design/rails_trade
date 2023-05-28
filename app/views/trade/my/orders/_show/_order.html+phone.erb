@@ -9,12 +9,6 @@
     <% end %>
   </div>
   <div class="weui-panel__bd">
-  <% model.items.each do |item| %>
-    <% if item.aim_rent? %>
-      <%= render partial: 'rent_item', locals: { item: item } %>
-    <% else %>
-      <%= render partial: 'item', locals: { item: item } %>
-    <% end %>
-  <% end %>
+    <%= render partial: 'item', collection: model.items, as: :item %>
   </div>
 </div>
