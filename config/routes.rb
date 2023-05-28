@@ -171,7 +171,7 @@ Rails.application.routes.draw do
             patch :compute
             post :print
           end
-          resources :rents
+          resources :holds
         end
         resources :cart_promotes
         resources :payment_strategies
