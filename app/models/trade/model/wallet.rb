@@ -7,9 +7,11 @@ module Trade
       attribute :type, :string
       attribute :name, :string
       attribute :amount, :decimal, default: 0
-      attribute :frozen_amount, :decimal, default: 0, comment: '冻结金额'
-      attribute :advances_amount, :decimal, default: 0, comment: '主动充值'
-      attribute :sells_amount, :decimal, comment: '交易入账'
+      attribute :frozen_amount, :decimal, default: 0, comment: '支出：冻结金额'
+      attribute :payout_amount, :decimal, default: 0, comment: '支出：提现'
+      attribute :payment_amount, :decimal, default: 0, comment: '支出：钱包支付'
+      attribute :advances_amount, :decimal, default: 0, comment: '收入：主动充值'
+      attribute :sells_amount, :decimal, default: 0, comment: '收入：交易入账'
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
       attribute :lock_version, :integer
@@ -45,17 +47,16 @@ module Trade
     end
 
     def compute_expense_amount
-      self.payouts.sum(:requested_amount) + wallet_payments.sum(:total_amount)
+      self.frozen_amount = wallet_frozens.sum(:amount)
+      self.payout_amount = payouts.sum(:requested_amount)
+      self.payment_amount = wallet_payments.sum(:total_amount)
+      self.frozen_amount + self.payout_amount + self.payment_amount
     end
 
     def compute_income_amount
       self.advances_amount = wallet_advances.sum(:amount)
       self.sells_amount = wallet_sells.sum(:amount)
       self.advances_amount + self.sells_amount
-    end
-
-    def compute_frozen_amount
-      wallet_frozens.sum(:amount)
     end
 
     def compute_amount
@@ -65,7 +66,6 @@ module Trade
     def reset_amount
       self.income_amount = compute_income_amount
       self.expense_amount = compute_expense_amount
-      self.frozen_amount = compute_frozen_amount
       self.valid?
       self.changes
     end

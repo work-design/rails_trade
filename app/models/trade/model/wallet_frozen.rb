@@ -27,20 +27,20 @@ module Trade
       log = self.wallet_log || self.build_wallet_log
       log.title = self.note.presence || I18n.t('wallet_log.income.wallet_frozen.title')
       log.tag_str = I18n.t('wallet_log.income.wallet_frozen.tag_str')
-      log.amount = self.amount
+      log.amount = -self.amount
       log.save
     end
 
     def sync_to_wallet
       wallet.with_lock do
-        wallet.frozen_amount += self.amount
+        wallet.frozen_amount = wallet.frozen_amount.to_d + self.amount
         wallet.save
       end
     end
 
     def sync_amount_after_destroy
       wallet.with_lock do
-        wallet.frozen_amount -= self.amount
+        wallet.frozen_amount = wallet.frozen_amount.to_d - self.amount
         wallet.save
       end
     end

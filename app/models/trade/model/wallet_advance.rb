@@ -39,14 +39,14 @@ module Trade
 
     def sync_to_wallet
       wallet.with_lock do
-        wallet.income_amount += self.amount
+        wallet.advances_amount = wallet.advances_amount.to_d + self.amount
         wallet.save
       end
     end
 
     def sync_amount_after_destroy
       wallet.with_lock do
-        wallet.income_amount -= self.amount
+        wallet.advances_amount = wallet.advances_amount.to_d - self.amount
         wallet.save
       end
     end

@@ -30,13 +30,17 @@ module Trade
     end
 
     def sync_amount
-      wallet.expense_amount += self.total_amount
-      wallet.save!
+      wallet.with_lock do
+        wallet.payment_amount = wallet.payment_amount.to_d + self.total_amount
+        wallet.save!
+      end
     end
 
     def sync_amount_after_destroy
-      wallet.expense_amount -= self.total_amount
-      wallet.save!
+      wallet.with_lock do
+        wallet.payment_amount = wallet.payment_amount.to_d - self.total_amount
+        wallet.save!
+      end
     end
 
     def sync_wallet_log
