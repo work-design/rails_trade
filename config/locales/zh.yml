@@ -23,3 +23,6 @@ zh:
       wallet_sell:
         title: 委托卖出
         tag_str: 委托卖出
+      wallet_frozen:
+        title: 冻结
+        tag_str: 冻结
