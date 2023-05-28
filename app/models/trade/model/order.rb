@@ -206,22 +206,11 @@ module Trade
       ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
-    def remaining_pay?
-      items.any?(&->(i){ i.aim_rent? && i.rent_finish_at.blank? })
-    end
-
     def can_cancel?
       init? && ['unpaid', 'to_check'].include?(self.payment_status)
     end
 
     def confirm_paid!
-      items.each do |item|
-        item.status = 'deliverable'
-      end
-      send_notice
-    end
-
-    def remaining_paid!
       items.each do |item|
         item.status = 'deliverable'
       end
@@ -255,13 +244,8 @@ module Trade
 
     def check_state
       if self.received_amount.to_d >= self.amount.to_d
-        if remaining_pay?
-          self.payment_status = 'part_paid'
-          self.remaining_paid!
-        else
-          self.payment_status = 'all_paid'
-          self.confirm_paid!
-        end
+        self.payment_status = 'all_paid'
+        self.confirm_paid!
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
       elsif self.received_amount.to_d <= 0
