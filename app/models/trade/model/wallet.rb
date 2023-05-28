@@ -24,6 +24,8 @@ module Trade
       has_many :wallet_refunds
       has_many :wallet_frozens
 
+      accepts_nested_attributes_for :wallet_frozens
+
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }

@@ -4,7 +4,7 @@
 <div class="weui-panel">
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
-      <div class="weui-cells weui-cells_checkbox">
+      <div class="weui-cells">
       <% @order.payment_orders.each do |payment_order| %>
         <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
           <%= render partial: 'wallet_payment', locals: { payment_order: payment_order } %>

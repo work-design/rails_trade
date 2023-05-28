@@ -3,33 +3,23 @@
     <span class="is-several">
       <span>钱包</span>
     </span>
-    <span class="has-text-grey is-size-7">
+    <span class="has-text-grey is-size-7 pl-2">
       <span>余</span>
-      <span><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
+      <span><%= @order.lawful_wallet.amount.to_money.format.html_safe %></span>
+    </span>
+    <span class="has-text-grey is-size-7 pl-2">
+      <span>已冻结</span>
+      <span><%= @order.lawful_wallet.frozen_amount.to_money.format.html_safe %></span>
     </span>
   </span>
-  <span class="weui-cell__ft is-flex" data-controller="input">
+  <span class="weui-cell__ft is-flex">
     <span class="is-size-7">
-      <span><%= payment_order.order_amount.to_money.format(html_safe: true).html_safe %></span>
+      <span><%= @order.amount.to_money.format(html_safe: true).html_safe %></span>
     </span>
-    <% if payment_order.payment.persisted? %>
-      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: payment_order.payment_id }, method: :delete, state: 'redirect', data: { controller: 'input' } do |f| %>
-        <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
-        <span class="weui-icon-checked"></span>
-      <% end %>
-    <% else %>
-      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { controller: 'payments', action: 'create' }, state: 'redirect' do |f| %>
-        <%= f.hidden_field :wallet_id %>
-        <%= f.hidden_field :type %>
-        <%= f.hidden_field :total_amount  %>
-        <%= f.fields :payment_orders do |ef| %>
-          <%= ef.hidden_field :order_id %>
-          <%= ef.hidden_field :state, value: 'confirmed' %>
-          <%= ef.hidden_field :payment_amount %>
+      <%= form_with theme: nil, model: @order.lawful_wallet, url: { controller: 'lawful_wallets', action: 'update' }, state: 'redirect' do |f| %>
+        <%= f.fields :wallet_frozens do |ef| %>
+          <%= ef.hidden_field :amount, value: @order.amount %>
         <% end %>
-        <%= f.check_box 'xx', checked: false, class: 'weui-check', data: { action: 'input#form' } %>
-        <span class="weui-icon-checked"></span>
       <% end %>
-    <% end %>
   </span>
 </label>

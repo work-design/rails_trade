@@ -58,6 +58,7 @@ module Trade
         end
         @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
       end
+      @order.lawful_wallet.wallet_frozens.build
 
       unless @order.all_paid?
         @payment = @order.to_payment
