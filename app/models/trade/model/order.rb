@@ -157,12 +157,7 @@ module Trade
     def sync_item(item)
       item.order = self
       item.address_id = address_id
-
-      if item.aim_rent?
-        item.status = 'deliverable'
-      else
-        item.status = 'ordered'
-      end
+      item.status = 'ordered'
     end
 
     def sync_to_unpaid_payment_orders
