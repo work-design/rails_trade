@@ -386,6 +386,7 @@ module Trade
       when 'deliverable'
         if aim_rent?
           self.good.order_rentable(self)
+          self.advance_and_block
         else
           self.good.order_deliverable(self)
         end
@@ -398,6 +399,12 @@ module Trade
       else
         logger.debug ''
       end
+    end
+
+    def advance_and_block
+      lawful_wallet.wallet_advances.find_or_initialize_by(item_id: id, amount: amount)
+      lawful_wallet.wallet_frozens.find_or_initialize_by(item_id: id, amount: amount)
+      lawful_wallet.save
     end
 
     def order_pruned!
