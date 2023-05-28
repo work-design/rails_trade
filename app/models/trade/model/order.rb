@@ -218,6 +218,9 @@ module Trade
       items.each do |item|
         item.status = 'deliverable'
       end
+      if aim_rent?
+
+      end
       send_notice
     end
 
@@ -290,6 +293,12 @@ module Trade
       payment.wallet = lawful_wallet
       payment.save
       payment
+    end
+
+    def advance_and_block
+      lawful_wallet.wallet_advances.build(amount: amount)
+      lawful_wallet.wallet_frozens.build(amount: amount)
+      lawful_wallet.save
     end
 
     def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: amount)
