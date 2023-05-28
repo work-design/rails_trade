@@ -219,7 +219,7 @@ module Trade
         item.status = 'deliverable'
       end
       if aim_rent?
-
+        self.advance_and_block
       end
       send_notice
     end
