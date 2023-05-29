@@ -16,7 +16,7 @@
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:rent_start_at) %></label>
-      <span class="weui-form-preview__value"><%= model.rent_start_at&.to_fs(:iso8601) %></span>
+      <span class="weui-form-preview__value"><time data-controller="time" data-format="human"><%= model.rent_start_at&.to_fs(:iso8601) %></time></span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:amount) %></label>
