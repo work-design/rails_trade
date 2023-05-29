@@ -1,24 +1,24 @@
 <tr>
-  <td class="has-text-right"><%= Trade::Rent.human_attribute_name(:rent_start_at) %></td>
-  <td><%= @rent.rent_start_at %></td>
+  <td class="has-text-right"><%= Trade::Hold.human_attribute_name(:rent_start_at) %></td>
+  <td><%= @hold.rent_start_at %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Rent.human_attribute_name(:rent_finish_at) %></td>
-  <td><%= @rent.rent_finish_at %></td>
+  <td class="has-text-right"><%= Trade::Hold.human_attribute_name(:rent_finish_at) %></td>
+  <td><%= @hold.rent_finish_at %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Rent.human_attribute_name(:duration) %></td>
-  <td><%= @rent.duration %></td>
+  <td class="has-text-right"><%= Trade::Hold.human_attribute_name(:rent_duration) %></td>
+  <td><%= @hold.rent_duration %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Rent.human_attribute_name(:amount) %></td>
-  <td><%= @rent.amount %></td>
+  <td class="has-text-right"><%= Trade::Hold.human_attribute_name(:amount) %></td>
+  <td><%= @hold.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Rent.human_attribute_name(:rentable_type) %></td>
-  <td><%= @rent.rentable_type %></td>
+  <td class="has-text-right"><%= Trade::Hold.human_attribute_name(:rentable_type) %></td>
+  <td><%= @hold.rentable_type %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Rent.human_attribute_name(:rentable_id) %></td>
-  <td><%= @rent.rentable_id %></td>
+  <td class="has-text-right"><%= Trade::Hold.human_attribute_name(:rentable_id) %></td>
+  <td><%= @hold.rentable_id %></td>
 </tr>

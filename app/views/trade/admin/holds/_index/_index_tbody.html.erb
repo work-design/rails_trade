@@ -7,4 +7,4 @@
   <p><time data-controller="time"><%= model.rent_finish_at&.to_fs(:iso8601) %></time></p>
 </td>
 <td><%= model.rent_duration %></td>
-<td><%= model.amount %></td>
+<td><%= model.amount.to_money.format.html_safe %></td>
