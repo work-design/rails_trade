@@ -56,7 +56,7 @@ module Trade
     end
 
     def compute_expense_amount
-      self.expense_amount = self.frozen_amount + self.payout_amount + self.payment_amount
+      self.expense_amount = self.frozen_amount.to_d + self.payout_amount.to_d + self.payment_amount.to_d
     end
 
     def reset_income_amount
@@ -66,7 +66,7 @@ module Trade
     end
 
     def compute_income_amount
-      self.income_amount = self.advances_amount + self.sells_amount
+      self.income_amount = self.advances_amount.to_d + self.sells_amount.to_d
     end
 
     def compute_amount
