@@ -32,8 +32,11 @@
         <span>售后</span>
       <% end if model.all_paid? %>
       <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-outlined is-danger') do %>
-        <span>去支付</span>
-      <% end if model.can_pay? %>
+        <span>支付</span>
+      <% end if model.aim_use? && model.can_pay? %>
+      <%= link_to({ action: 'payment_frozen', id: model.id }, class: 'button is-outlined is-danger') do %>
+        <span>支付</span>
+      <% end if model.aim_rent? && model.can_pay? %>
     </div>
   </div>
 </div>
