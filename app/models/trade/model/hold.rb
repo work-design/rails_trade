@@ -39,7 +39,6 @@ module Trade
 
       belongs_to :item
       belongs_to :rentable, polymorphic: true, optional: true
-      belongs_to :good, polymorphic: true, optional: true
 
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
@@ -52,18 +51,17 @@ module Trade
 
     def sync_from_rentable
       return unless rentable
-      self.good = rentable.good
       self.user_id = rentable.held_user_id
       self.member_id = rentable.held_member_id
       self.member_organ_id = rentable.held_organ_id
     end
 
     def unit_code
-      good.rent_unit
+      item.good.rent_unit
     end
 
     def compute_charge(duration)
-      good.rent_charges.default_where('min-lte': duration, 'max-gte': duration).take
+      item.good.rent_charges.default_where('min-lte': duration, 'max-gte': duration).take
     end
 
     def duration

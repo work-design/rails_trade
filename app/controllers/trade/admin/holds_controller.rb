@@ -11,5 +11,12 @@ module Trade
       @item = Item.find params[:item_id]
     end
 
+    def hold_params
+      params.fetch(:hold, {}).permit(
+        :rent_start_at,
+        :rent_finish_at
+      )
+    end
+
   end
 end
