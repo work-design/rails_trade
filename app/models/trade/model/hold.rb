@@ -43,7 +43,7 @@ module Trade
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
       #before_save :compute_amount, if: -> { rent_duration_changed? && rent_duration.to_i > 0 }
-      before_save :compute_invest_amount, if: -> { amount_changed? }
+      #before_save :compute_invest_amount, if: -> { amount_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
       after_save :sync_rentable_state, if: -> { saved_change_to_rent_finish_at? }
       after_save_commit :compute_later, if: -> { rent_start_at.present? && saved_change_to_rent_start_at? }
