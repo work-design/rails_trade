@@ -42,7 +42,7 @@ module Trade
 
       before_validation :sync_from_rentable, if: -> { rentable_id_changed? && rentable_id.present? }
       before_save :compute_duration, if: -> { rent_finish_at.present? && rent_finish_at_changed? }
-      before_save :compute_amount, if: -> { rent_duration_changed? && rent_duration.to_i > 0 }
+      #before_save :compute_amount, if: -> { rent_duration_changed? && rent_duration.to_i > 0 }
       before_save :compute_invest_amount, if: -> { amount_changed? }
       before_save :compute_estimate_duration, if: -> { rent_estimate_finish_at.present? && rent_estimate_finish_at_changed? }
       after_save :sync_rentable_state, if: -> { saved_change_to_rent_finish_at? }
@@ -110,9 +110,7 @@ module Trade
       rent_charge = compute_charge(_duration)
 
       self.amount = rent_charge.compute_price(_duration, **extra)
-      self.original_amount = self.amount if respond_to?(:original_amount)
-      self.single_price = self.amount if respond_to?(:single_price)
-      good.wallet_codes.map do |wallet_code|
+      item.good.wallet_codes.map do |wallet_code|
         self.wallet_amount.merge! wallet_code => rent_charge.compute_wallet_price(_duration, wallet_code)
       end
     end
@@ -121,7 +119,7 @@ module Trade
       _estimate_duration = estimate_duration
       rent_charge = compute_charge(_estimate_duration)
 
-      good.wallet_codes.map do |wallet_code|
+      item.good.wallet_codes.map do |wallet_code|
         self.estimate_wallet_amount.merge! wallet_code => rent_charge.compute_wallet_price(_estimate_duration, wallet_code)
       end
       self.estimate_amount = rent_charge.compute_price(_estimate_duration, **extra)
