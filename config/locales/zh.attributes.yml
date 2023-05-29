@@ -93,10 +93,6 @@ zh:
         from_address_id: 发货地址
         produce_plan_id: 生产计划
         status: 状态
-        rent_start_at: 起租时间
-        rent_estimate_finish_at: 预计结束时间
-        rent_present_finish_at: 上次计费节点
-        rent_finish_at: 结束时间
         duration: 时长
         image: 图片
       trade/trade_promote:
@@ -198,7 +194,11 @@ zh:
         days: 有效天数
       trade/privilege:
         amount: 额度
-      trade/rent:
+      trade/hold:
+        rent_start_at: 起租时间
+        rent_estimate_finish_at: 预计结束时间
+        rent_present_finish_at: 上次计费节点
+        rent_finish_at: 结束时间
         start_at: 起租时间
         finish_at: 实际结束时间
         estimate_finish_at: 预计结束时间

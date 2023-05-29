@@ -1,10 +1,10 @@
 <th>
-  <p><%= Trade::Rent.human_attribute_name(:rentable_type) %></p>
-  <p><%= Trade::Rent.human_attribute_name(:rentable_id) %></p>
+  <p><%= Trade::Hold.human_attribute_name(:rentable_type) %></p>
+  <p><%= Trade::Hold.human_attribute_name(:rentable_id) %></p>
 </th>
 <th>
-  <p><%= Trade::Rent.human_attribute_name(:rent_start_at) %></p>
-  <p><%= Trade::Rent.human_attribute_name(:rent_finish_at) %></p>
+  <p><%= Trade::Hold.human_attribute_name(:rent_start_at) %></p>
+  <p><%= Trade::Hold.human_attribute_name(:rent_finish_at) %></p>
 </th>
-<th><%= Trade::Rent.human_attribute_name(:rent_duration) %></th>
-<th><%= Trade::Rent.human_attribute_name(:amount) %></th>
+<th><%= Trade::Hold.human_attribute_name(:rent_duration) %></th>
+<th><%= Trade::Hold.human_attribute_name(:amount) %></th>

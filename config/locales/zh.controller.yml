@@ -181,9 +181,9 @@ zh:
       item_promotes:
         index:
           title: 优惠明细
-      rents:
+      holds:
         index:
-          title: 租用明细
+          title: 持有明细
       rent_charges:
         index:
           title: 租金规则

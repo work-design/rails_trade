@@ -10,9 +10,9 @@ module Trade
       belongs_to :held_member, class_name: 'Org::Member', optional: true
       belongs_to :held_organ, class_name: 'Org::Organ', optional: true
 
-      has_many :rents, class_name: 'Trade::Rent', as: :rentable
-      has_one :current_rent, ->(o) { where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, rent_finish_at: nil) }, class_name: 'Trade::Rent', as: :rentable
-      has_one :last_rent, -> { order(rent_start_at: :desc) }, class_name: 'Trade::Rent', as: :rentable
+      has_many :holds, class_name: 'Trade::Hold', as: :rentable
+      has_one :current_rent, ->(o) { where(user_id: o.held_user_id, member_organ_id: o.held_organ_id, rent_finish_at: nil) }, class_name: 'Trade::Hold', as: :rentable
+      has_one :last_rent, -> { order(rent_start_at: :desc) }, class_name: 'Trade::Hold', as: :rentable
 
       scope :tradable, -> { where(held_user_id: nil, held_organ_id: nil) }
       scope :traded, -> { where.not(held_user_id: nil).or(where.not(held_organ_id: nil)) }
@@ -48,14 +48,14 @@ module Trade
       self.save
     end
 
-    def do_rent(item)
+    def do_hold(item)
       self.held_user_id = item.user_id
       self.held_member_id = item.member_id
       self.held_organ_id = item.member_organ_id
       self.rented = true if item.aim_rent?
       self.held = true
       #self.status = 'free' todo 考虑初始化状态
-      self.rents.build(item_id: item.id)
+      self.holds.build(item_id: item.id)
       self
 
       save
