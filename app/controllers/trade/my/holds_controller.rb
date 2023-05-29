@@ -1,10 +1,10 @@
 module Trade
   class My::HoldsController < My::BaseController
     before_action :set_item
-    before_action :set_packaged, only: [:show]
+    before_action :set_hold, only: [:show]
 
     def index
-      @packageds = @item.packageds
+      @holds = @item.holds
     end
 
     private
@@ -12,8 +12,8 @@ module Trade
       @item = Item.find params[:item_id]
     end
 
-    def set_packaged
-      @packaged = @item.packages.find params[:id]
+    def set_hold
+      @hold = @item.holds.find params[:id]
     end
 
   end

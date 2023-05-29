@@ -1,0 +1,31 @@
+<div class="weui-form-preview">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:rentable_id) %></label>
+      <div class="weui-form-preview__value" data-controller="clipboard">
+        <span data-clipboard-target="source"><%= model.rentable.code %></span>
+        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <div data-clipboard-target="toast" class="weui-toast__wrap">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:rent_start_at) %></label>
+      <span class="weui-form-preview__value"><%= model.rent_start_at&.to_fs(:iso8601) %></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:amount) %></label>
+      <span class="weui-form-preview__value"><%= model.amount.to_money.format.html_safe %></span>
+    </div>
+  </div>
+  <div class="weui-form-preview__ft">
+    <%= link_to({ action: 'show',id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
+      <span>详情</span>
+    <% end %>
+  </div>
+</div>

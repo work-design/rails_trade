@@ -36,6 +36,7 @@ Rails.application.routes.draw do
           post :untrial
         end
         resources :packageds
+        resources :holds
       end
       resources :deliveries
       resources :carts do
