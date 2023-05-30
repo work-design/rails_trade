@@ -199,10 +199,7 @@ zh:
         rent_estimate_finish_at: 预计结束时间
         rent_present_finish_at: 上次计费节点
         rent_finish_at: 结束时间
-        start_at: 起租时间
-        finish_at: 实际结束时间
-        estimate_finish_at: 预计结束时间
-        duration: 租用时长
+        rent_duration: 租用时长
         amount: 租金
         invest_amount: 投资收益
       trade/rent_charge:
