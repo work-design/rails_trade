@@ -1,15 +1,21 @@
 <%= render 'top_bar' %>
 
 <div class="weui-panel">
-  <div class="weui-panel__hd level is-flex">
-    <span class="level-left"><%= Trade::Wallet.human_attribute_name(:amount) %></span>
-    <div class="level-right mt-0 pr-3 has-text-weight-bold">
+  <div class="weui-panel__hd has-block-space-between">
+    <span><%= Trade::Wallet.human_attribute_name(:amount) %></span>
+    <div class="has-text-weight-bold">
       <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @lawful_wallet.id } if @lawful_wallet.id %>
     </div>
   </div>
   <div class="weui-panel__bd">
     <div class="has-text-centered">
-      <h2 class="title"><%= @lawful_wallet.amount.to_money.format.html_safe %></h2>
+      <h2 class="title mb-0"><%= @lawful_wallet.amount.to_money.format.html_safe %></h2>
+      <% if @lawful_wallet.frozen_amount.to_d > 0 %>
+      <h3 class="title has-text-grey is-size-5">
+        <span class="tag">已冻结</span>
+        <span><%= @lawful_wallet.frozen_amount.to_money.format.html_safe %></span>
+      </h3>
+      <% end %>
     </div>
   </div>
   <div class="weui-panel__ft py-2">
