@@ -228,6 +228,7 @@ module Trade
     end
 
     def send_notice
+      return unless id
       broadcast_action_to(
         self,
         action: :append,
