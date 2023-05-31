@@ -1,0 +1,9 @@
+<div class="buttons are-small is-space-around">
+  <% if @order.all_paid? %>
+    <%= link_to '查看订单', { action: 'show', id: @order.id }, class: 'button is-default' %>
+  <% end %>
+  <%= link_to({ action: 'index' }, class: 'button is-primary') do %>
+    <i class="fa-solid fa-list"></i>
+    <span class="pl-1"><%= t('trade.my.orders.index.title') %></span>
+  <% end %>
+</div>
