@@ -17,10 +17,18 @@
       </span>
     </div>
     <% end %>
+    <% if @order.unreceived_amount.to_d > 0 %>
     <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label has-text-danger">充值并冻结</label>
+      <label class="weui-form-preview__label has-text-danger">将充值并冻结</label>
       <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format.html_safe %></span>
     </div>
+    <% end %>
+    <% if @order.received_amount.to_d > 0 %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label has-text-danger">已充值并冻结</label>
+      <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.received_amount.to_money.format.html_safe %></span>
+    </div>
+    <% end %>
     <% if @order.payment_strategy %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></label>
