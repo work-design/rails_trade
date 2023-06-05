@@ -1,0 +1,11 @@
+<div class="weui-panel is-box is-borderless">
+  <div class="weui-panel__hd">会员</div>
+  <div class="weui-panel__bd">
+    <div class="columns is-mobile p-3">
+      <div class="column is-half"></div>
+      <%= link_to({ controller: 'trade/my/card_templates' }, class: 'column is-half') do %>
+        <%= image_tag 'card.png', class: 'image' %>
+      <% end %>
+    </div>
+  </div>
+</div>
