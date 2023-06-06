@@ -1,4 +1,4 @@
-<div class="weui-panel is-borderless mt-0">
+<div class="weui-panel is-box is-borderless">
   <div class="weui-panel__bd">
     <div class="card is-wallet is-radiusless" style="background-image: url(<%= rails_blob_url(model.cover) %>)">
       <div class="card-header">
@@ -13,13 +13,10 @@
       <div class="card-footer"></div>
     </div>
   </div>
-</div>
-
-<div class="weui-panel" data-controller="empty">
-  <div class="weui-panel__hd">开通</div>
-  <div class="weui-panel__bd">
+  <div class="weui-panel__ft" data-controller="empty">
     <div class="columns m-4 is-flex is-multiline is-mobile" data-empty-target="content">
       <%= render partial: 'purchase', collection: model.purchases %>
     </div>
   </div>
 </div>
+
