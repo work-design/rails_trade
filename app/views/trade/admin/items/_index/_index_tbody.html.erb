@@ -4,7 +4,9 @@
 <% else %>
   <span><%= model.good_name %></span>
 <% end %>
-  <span class="tag"><%= model.aim_i18n %></span>
+<% if ['rent', 'invest'].include?(model.aim) %>
+  <span class="tag is-danger"><%= model.aim_i18n %></span>
+<% end %>
 </td>
 <td>
   <span><%= model.number %></span>
