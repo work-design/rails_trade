@@ -1,6 +1,6 @@
 <%= render 'top_bar' %>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <div class="weui-panel__hd level is-flex">
     <span class="level-left"><%= Trade::Wallet.human_attribute_name(:amount) %></span>
     <div class="level-right mt-0 pr-3 has-text-weight-bold">
@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <div class="weui-panel__hd">充值</div>
   <div class="weui-panel__bd">
     <div class="columns m-4 is-flex is-multiline is-mobile">
