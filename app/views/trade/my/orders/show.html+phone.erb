@@ -13,7 +13,7 @@
 
 <%= render partial: 'items', locals: { model: @order } %>
 
-<div class="weui-panel" data-controller="empty">
+<div class="weui-panel is-box" data-controller="empty">
   <div class="weui-panel__hd">支付</div>
   <div class="weui-panel__bd" data-empty-target="content">
     <%= render partial: 'payment_order', collection: @order.payment_orders.where(user_id: current_user.id), as: :model %>
