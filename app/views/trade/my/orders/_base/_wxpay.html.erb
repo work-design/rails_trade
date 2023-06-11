@@ -1,6 +1,7 @@
 <% if request.variant.any?(:mini_program) %>
   <div
     data-controller="mini-program"
+    data-mini-program-lanuch-value="true"
     data-mini-program-url-value="/pages/trade/wxpay_pay/index"
     data-mini-program-data-value="<%= { url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false), path: url_for }.to_json %>"
     data-action="click->mini-program#link"
