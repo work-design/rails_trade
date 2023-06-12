@@ -20,6 +20,14 @@
           <span><%= Trade::Order.enum_i18n(:state, 'done') %></span>
         </div>
       <% end %>
+      <%= link_to({ controller: 'trade/my/orders', state: 'canceled' }, class: 'column has-block-centered') do %>
+        <div class="has-text-primary">
+          <i class="fa-solid fa-fw fa-xl fa-trash"></i>
+        </div>
+        <div class="has-text-grey is-size-7 mt-1">
+          <span><%= Trade::Order.enum_i18n(:state, 'canceled') %></span>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

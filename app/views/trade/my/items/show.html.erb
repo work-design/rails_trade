@@ -23,3 +23,6 @@
 <div class="weui-panel is-box">
   <%= render partial: 'item', locals: { model: @item } %>
 </div>
+
+<%= render partial: 'hold', collection: @item.holds, as: :model %>
+
