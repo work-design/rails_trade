@@ -178,6 +178,7 @@ module Trade
     def sync_from_good
       return unless good
       self.good_name = good.name
+      self.extra = Hash(self.extra).merge good.item_extra
       self.organ_id = (good.respond_to?(:organ_id) && good.organ_id) || current_cart&.organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on
     end
