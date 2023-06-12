@@ -32,7 +32,7 @@
     <% end %>
   </div>
   <div class="weui-form-preview__ft">
-    <%= link_to({ action: 'show',id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
+    <%= link_to({ controller: 'holds', action: 'show', item_id: model.item_id, id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary', text: true) do %>
       <span>详情</span>
     <% end %>
   </div>
