@@ -9,7 +9,7 @@ module Trade
 
     def index
       q_params = {}
-      q_params.merge! params.permit('extra/product_taxon_id')
+      q_params.merge! params.permit('extra/product_taxon_id', 'holds_count', 'holds_count-gt')
 
       @items = current_user.items.default_where(q_params).page(params[:page])
     end
