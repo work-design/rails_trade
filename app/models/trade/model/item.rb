@@ -253,6 +253,7 @@ module Trade
     end
 
     def original_quantity
+      return unless good
       good.unified_quantity * self.number
     end
 
