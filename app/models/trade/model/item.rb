@@ -26,6 +26,7 @@ module Trade
       attribute :organ_ancestor_ids, :json, default: []
       attribute :note, :string
       attribute :extra, :json, default: {}
+      attribute :holds_count, :integer, default: 0
 
       enum status: {
         init: 'init',
