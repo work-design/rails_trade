@@ -1,0 +1,5 @@
+<%= render 'top_bar' %>
+
+<div class="weui-panel">
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
+</div>
