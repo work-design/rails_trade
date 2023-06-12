@@ -1,12 +1,12 @@
 <%= render 'top_bar' %>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <div class="weui-panel__hd">
     <div><%= @item.status_i18n %></div>
   </div>
 </div>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <div class="weui-panel__hd"><%= @item.organ&.name %></div>
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_appmsg">
@@ -20,13 +20,6 @@
   </div>
 </div>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <%= render partial: 'item', locals: { model: @item } %>
-</div>
-
-<div class="weui-panel">
-  <div class="weui-panel__hd">租用详情</div>
-  <div class="weui-panel__bd">
-    <%= render partial: 'rent_item', locals: { model: @item } %>
-  </div>
 </div>
