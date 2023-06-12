@@ -1,0 +1,22 @@
+<%= render 'top_bar' %>
+
+<div class="weui-panel is-box">
+  <div class="weui-panel__hd"><%= @item.organ&.name %></div>
+  <div class="weui-panel__bd">
+    <div class="weui-media-box weui-media-box_appmsg">
+      <div class="weui-media-box__hd">
+        <%= image_tag @item.good.logo, class: 'weui-media-box__thumb' %>
+      </div>
+      <div class="weui-media-box__bd">
+        <strong class="weui-media-box__title"><%= @item.good_name %></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="weui-panel is-box">
+  <%= render partial: 'item', locals: { model: @item } %>
+</div>
+
+<%= render partial: 'hold', collection: @item.holds, as: :model %>
+
