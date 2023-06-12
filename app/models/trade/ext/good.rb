@@ -31,6 +31,10 @@ module Trade
       has_one_attached :logo
     end
 
+    def item_extra
+      {}
+    end
+
     def wallet_codes
       wallet_goods.pluck(:wallet_code)
     end
