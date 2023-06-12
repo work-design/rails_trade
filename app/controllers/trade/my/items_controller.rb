@@ -8,7 +8,10 @@ module Trade
     after_action :support_cors, only: [:create]
 
     def index
-      @items = current_user.items.page(params[:page])
+      q_params = {}
+      q_params.merge! params.permit('extra/product_taxon_id')
+
+      @items = current_user.items.default_where(q_params).page(params[:page])
     end
 
     def create
