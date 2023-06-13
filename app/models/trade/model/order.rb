@@ -104,6 +104,15 @@ module Trade
       end
     end
 
+    def available_item_promotes
+      r = []
+      items.each do |item|
+        r += item.item_promotes
+      end
+
+      r
+    end
+
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('OD')
       self
