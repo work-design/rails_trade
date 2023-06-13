@@ -1,4 +1,4 @@
 <div class="weui-navbar">
-  <%= link_to '待交付', { 'holds_count': 0 }, class: active_helper(holds_count: 0, item: 'weui-navbar__item has-text-grey-dark is-size-7', active: 'weui-navbar__item weui-bar__item_on is-size-7') %>
-  <%= link_to '已交付', { 'holds_count-gt': 0 }, class: active_helper('holds_count-gt': 0, item: 'weui-navbar__item has-text-grey-dark is-size-7', active: 'weui-navbar__item weui-bar__item_on is-size-7') %>
+  <%= link_to '待交付', { 'holds_count': 0, **params.permit('extra/product_taxon_id') }, class: active_helper(holds_count: 0, item: 'weui-navbar__item has-text-grey-dark is-size-7', active: 'weui-navbar__item weui-bar__item_on is-size-7') %>
+  <%= link_to '已交付', { 'holds_count-gt': 0, **params.permit('extra/product_taxon_id') }, class: active_helper('holds_count-gt': 0, item: 'weui-navbar__item has-text-grey-dark is-size-7', active: 'weui-navbar__item weui-bar__item_on is-size-7') %>
 </div>
