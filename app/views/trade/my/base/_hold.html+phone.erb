@@ -18,12 +18,14 @@
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:rent_start_at) %></label>
       <div class="weui-form-preview__value">
-        <div class="has-text-grey"><time data-controller="time" data-format="human"><%= model.rent_start_at&.to_fs(:iso8601) %></time></div>
-        <div>
-          <span class="has-text-grey">已租：</span>
-          <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono has-text-danger"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
-        </div>
+        <time data-controller="time" data-format="human"><%= model.rent_start_at&.to_fs(:iso8601) %></time>
       </div>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:rent_duration) %></label>
+      <span class="weui-form-preview__value">
+        <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono has-text-danger"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
+      </span>
     </div>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:amount) %></label>
