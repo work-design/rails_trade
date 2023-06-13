@@ -9,7 +9,8 @@ module Trade
       q_params = {}
       q_params.merge! default_params
 
-      @card_templates = CardTemplate.default_where(q_params).order(grade: :asc)
+      @cards = @cart.cards.formal
+      @card_templates = CardTemplate.default_where(q_params).where.not(id: @cards.pluck(:card_template_id)).order(grade: :asc)
     end
 
     def show

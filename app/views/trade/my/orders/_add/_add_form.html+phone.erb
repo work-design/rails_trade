@@ -5,11 +5,11 @@
     <%= ef.hidden_field :good_type %>
     <%= ef.hidden_field :good_id %>
     <%= ef.hidden_field :aim %>
-    <%= ef.hidden_field :extra, value: ef.object.extra.to_json %>
+    <%# ef.hidden_field :extra, value: ef.object.extra.to_json %>
   <% end %>
 <% end %>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <div class="weui-panel__bd">
     <%= render partial: 'item', collection: @order.items, as: :item %>
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
