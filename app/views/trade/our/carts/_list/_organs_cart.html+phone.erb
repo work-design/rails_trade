@@ -12,6 +12,8 @@
       <%= f.radio_button :member_id, model.id, checked: model == current_client, class: 'weui-check', data: { action: 'click->input#form' } %>
       <span class="weui-icon-checked"></span>
     <% end %>
+    <% unless model == current_client %>
     <i class="fa-solid fa-chevron-right has-text-grey is-size-6 pl-2"></i>
+    <% end %>
   </span>
 </label>
