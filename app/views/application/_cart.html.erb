@@ -1,4 +1,4 @@
-<% item = current_cart.items.find(&->(i){ i.good_type == model.class_name && i.good_id == model.id }) %>
+<% item = @cart && @cart.items.find(&->(i){ i.good_type == model.class_name && i.good_id == model.id }) %>
 
 <%= form_with theme: nil, scope: :item, url: { controller: 'trade/my/items', action: 'update', id: item.id }, method: :patch, class: 'button_to', data: { turbo_scroll: true } do |f| %>
   <%= f.hidden_field :number, value: item.number - 1 %>
