@@ -35,10 +35,6 @@ module Trade
       promote.promote_charges.default_where('min-lt': self.min).order(min: :asc)
     end
 
-    def extra
-      self.attributes.slice(*PromoteCharge.extra_columns)
-    end
-
     class_methods do
       def extra_columns
         self.column_names - COLUMN_NAMES

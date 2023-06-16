@@ -2,7 +2,7 @@
   <div class="field-body">
     <%= f.text_field :value %>
     <% Trade::PromoteCharge.extra_columns.each do |extra| %>
-      <%= f.text_field extra, placeholder: extra %>
+      <%= f.text_field extra, placeholder: f.object.attributes[extra] %>
     <% end %>
     <div class="field is-narrow">
       <%= f.submit %>
