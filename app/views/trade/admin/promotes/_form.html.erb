@@ -4,4 +4,4 @@
 <%= f.text_area :description %>
 <%= f.number_field :sequence %>
 <%= f.select :metering, options_for_select(Trade::Promote.options_i18n(:metering), @promote.metering) %>
-<%= f.collection_select :unit_code, @units, :code, :name %>
+<%= f.collection_select :unit_code, @units, :code, :name if @units.present? %>
