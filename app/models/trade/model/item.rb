@@ -23,7 +23,6 @@ module Trade
       attribute :wallet_amount, :json, default: {}
       attribute :advance_amount, :decimal, default: 0, comment: '预付款'
       attribute :expire_at, :datetime
-      attribute :organ_ancestor_ids, :json, default: []
       attribute :note, :string
       attribute :extra, :json, default: {}
       attribute :holds_count, :integer, default: 0
@@ -100,7 +99,6 @@ module Trade
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { good_id_changed? }
-      before_validation :sync_from_organ, if: -> { organ_id.present? && organ_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
@@ -171,9 +169,9 @@ module Trade
       organ_delivery || build_organ_delivery
     end
 
-    def sync_from_organ
-      return unless organ
-      self.organ_ancestor_ids = organ.self_and_ancestor_ids
+    def organ_ancestor_ids
+      return [] unless organ
+      organ.self_and_ancestor_ids
     end
 
     def sync_from_good
