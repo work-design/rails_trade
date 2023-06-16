@@ -1,8 +1,8 @@
 <%= render 'top_bar' %>
 
-<% if @promote_goods.blank? %>
-<div class="box is-radiusless">
-  <p class="has-text-centered has-text-grey">暂无优惠券</p>
+<% if @promote_goods.blank? && @global_promote_goods.blank? %>
+<div class="has-block-centered">
+  <p class="has-text-centered has-text-grey is-flex-grow-1">暂无优惠券</p>
 </div>
 <% else %>
 <table class="table is-striped is-borderless is-fullwidth">

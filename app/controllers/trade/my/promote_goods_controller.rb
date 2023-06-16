@@ -14,7 +14,7 @@ module Trade
 
     private
     def set_global_promotes
-      @global_promote_goods = PromoteGood.effective.where(user_id: nil)
+      @global_promote_goods = PromoteGood.effective.default_where(default_params).where(user_id: nil)
     end
 
   end
