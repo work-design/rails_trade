@@ -74,7 +74,7 @@ module Trade
     end
 
     def set_cart_item
-      @item = @cart.checked_items.load.find params[:id]
+      @item = @cart.items.load.find params[:id]
     end
 
     def set_new_item
