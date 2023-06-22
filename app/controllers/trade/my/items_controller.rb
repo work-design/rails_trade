@@ -1,6 +1,6 @@
 module Trade
   class My::ItemsController < My::BaseController
-    before_action :set_cart, only: [:create, :update, :destroy, :trial, :untrial]
+    before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
     before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]
     before_action :set_new_item, only: [:create]
     before_action :set_item, only: [:show, :actions]
