@@ -7,12 +7,16 @@ module Trade
       attribute :days, :integer, default: 0
       attribute :months, :integer, default: 0
       attribute :years, :integer, default: 0
-      attribute :state, :string
       attribute :note, :string
       attribute :last_expire_at, :datetime
 
       enum kind: {
         given: 'given'  # 系统赠送
+      }
+      enum state: {
+        continue: 'continue',
+        fresh: 'fresh',
+        renew: 'renew'
       }
 
       belongs_to :card
@@ -20,11 +24,6 @@ module Trade
       belongs_to :item, optional: true
 
       has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
-
-      enum state: {
-        success: :success,
-        failed: :failed
-      }
 
       before_create :sync_from_card
       after_save :sync_to_card!, if: -> { (saved_changes.keys & ['years', 'months', 'days', 'last_expire_at']).present? }
@@ -36,23 +35,28 @@ module Trade
     end
 
     def expire_at
-      (last_expire_at || Date.today.end_of_day).since(duration)
+      (last_expire_at || Data.today).since(duration).end_of_day
     end
 
     def sync_from_card
-      if card.expire_at && card.expire_at.to_date > Date.today
-        self.last_expire_at = card.expire_at
+      if card.expire_at && card.expire_at.to_date >= Date.today
+        self.state = 'continue'
+      elsif card.expire_at && card.expire_at < Date.today
+        self.state = 'renew'
       else
-        self.last_expire_at = Date.today.end_of_day
+        self.state = 'refresh'
       end
+      self.last_expire_at = card.expire_at
       self.years = purchase.years
       self.months = purchase.months
       self.days = purchase.days
     end
 
     def sync_to_card!
-      expire = self.last_expire_at.since(duration).end_of_day
-      card.expire_at = expire if (card.expire_at && card.expire_at < expire) || card.expire_at.blank?
+      if ['refresh', 'renew'].include? self.state
+        card.effect_at = Time.current
+      end
+      card.expire_at = expire_at if (card.expire_at && card.expire_at < expire_at) || card.expire_at.blank?
       card.save!
     end
 
