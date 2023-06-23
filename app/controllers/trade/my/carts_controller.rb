@@ -6,6 +6,10 @@ module Trade
     before_action :set_rent_cart, only: [:rent]
     before_action :set_roles, only: [:list]
 
+    def index
+      @carts = current_user.carts.page(params[:page])
+    end
+
     def show
       q_params = {}
 
