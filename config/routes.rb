@@ -39,7 +39,7 @@ Rails.application.routes.draw do
         resources :holds
       end
       resources :deliveries
-      resources :carts do
+      resources :carts, except: [:new, :create] do
         collection do
           get :list
           get :addresses
