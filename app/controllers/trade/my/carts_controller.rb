@@ -7,7 +7,9 @@ module Trade
     before_action :set_roles, only: [:list]
 
     def index
-      @carts = current_user.carts.order(updated_at: :desc).page(params[:page])
+      q_params = { member_id: nil }
+
+      @carts = current_user.carts.where(q_params).order(updated_at: :desc).page(params[:page])
     end
 
     def show
