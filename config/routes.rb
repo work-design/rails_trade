@@ -330,13 +330,13 @@ Rails.application.routes.draw do
     end
   end
   resolve 'Trade::Purchase' do |purchase, options|
-    [:trade, :my, purchase.card_template, options]
+    url_for(controller: 'trade/my/card_templates', action: 'show', id: purchase.card_template, **options)
   end
   resolve 'Trade::Advance' do |advance, options|
     if advance.wallet_template_id
-      [:trade, :my, advance.wallet_template, options]
+      url_for(controller: 'trade/my/wallet_templates', action: 'show', id: advance.wallet_template, **options)
     else
-      [:trade, :my, advance, options]
+      url_for(controller: 'trade/my/lawful_wallets', action: 'show', **options)
     end
   end
 end
