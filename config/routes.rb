@@ -329,14 +329,14 @@ Rails.application.routes.draw do
       end
     end
   end
-  resolve 'Trade::Purchase' do |purchase, options|
-    url_for(controller: 'trade/my/card_templates', action: 'show', id: purchase.card_template, **options)
+  resolve 'Trade::Purchase' do |purchase|
+    url_for(controller: 'trade/my/card_templates', action: 'show', id: purchase.card_template, return_state: StateUtil.encode(request))
   end
-  resolve 'Trade::Advance' do |advance, options|
+  resolve 'Trade::Advance' do |advance|
     if advance.wallet_template_id
-      url_for(controller: 'trade/my/wallet_templates', action: 'show', id: advance.wallet_template, **options)
+      url_for(controller: 'trade/my/wallet_templates', action: 'show', id: advance.wallet_template, return_state: StateUtil.encode(request))
     else
-      url_for(controller: 'trade/my/lawful_wallets', action: 'show', **options)
+      url_for(controller: 'trade/my/lawful_wallets', action: 'show', return_state: StateUtil.encode(request))
     end
   end
 end
