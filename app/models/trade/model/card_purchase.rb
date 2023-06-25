@@ -35,7 +35,7 @@ module Trade
     end
 
     def expire_at
-      (last_expire_at || Data.today).since(duration).end_of_day
+      (last_expire_at || Date.today).since(duration).end_of_day
     end
 
     def sync_from_card
