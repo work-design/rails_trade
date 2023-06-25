@@ -129,11 +129,11 @@ module Trade
         member_id: member_id
       )
       item.save
-      checked_items.each(&:compute_price!)
+      items.each(&:compute_price!)
     end
 
     def checked_all_items
-      r = checked_items.select(&->(i){ !i.destroyed? }) + trial_card_items.select(&->(i){ !i.destroyed? })
+      r = items.select(&->(i){ ['checked', 'trial'].include?(i.status) && !i.destroyed? }) + trial_card_items.select(&->(i){ !i.destroyed? })
       logger.debug "\e[33m  Item amount: #{item_amount}, Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Summed amount: #{checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{id})  \e[0m"
       r
     end
