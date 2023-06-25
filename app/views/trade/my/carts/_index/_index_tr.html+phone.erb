@@ -1,0 +1,10 @@
+<div class="weui-media-box weui-media-box_appmsg">
+  <div class="weui-media-box__bd">
+    <%= yield %>
+  </div>
+  <div class="weui-media-box__ft">
+    <%= link_to({ controller: '/factory/productions', host: model.organ.host }, state: 'enter', class: 'button is-borderless') do %>
+      <i class="fa-solid fa-lg fa-cart-shopping has-text-primary"></i>
+    <% end %>
+  </div>
+</div>
