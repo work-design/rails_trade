@@ -1,3 +1,2 @@
-<p><%= model.organ_id %></p>
-<p><%= model.good_type %></p>
-<p><%= model.aim %></p>
+<p><%= model.organ.name %></p>
+<p><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></p>
