@@ -44,7 +44,7 @@ module Trade
       elsif card.expire_at && card.expire_at < Date.today
         self.state = 'renew'
       else
-        self.state = 'refresh'
+        self.state = 'fresh'
       end
       self.last_expire_at = card.expire_at
       self.years = purchase.years
@@ -53,7 +53,7 @@ module Trade
     end
 
     def sync_to_card!
-      if ['refresh', 'renew'].include? self.state
+      if ['fresh', 'renew'].include? self.state
         card.effect_at = Time.current
       end
       card.expire_at = expire_at if (card.expire_at && card.expire_at < expire_at) || card.expire_at.blank?
