@@ -14,6 +14,7 @@ module Trade
       auth_code = params[:result].split(',')[-1]
 
       if current_payee
+        @scan_payment.operator = current_user
         @scan_payment.seller_identifier = current_payee.mch_id
         @scan_payment.appid = current_payee.payee_apps[0]&.appid
         @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)

@@ -39,7 +39,7 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true
-      belongs_to :operator, class_name: 'Org::Member', optional: true
+      belongs_to :operator, polymorphic: true, optional: true
 
       belongs_to :payment_method, optional: true
       has_many :payment_orders, inverse_of: :payment, dependent: :destroy
