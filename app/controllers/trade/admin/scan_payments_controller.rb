@@ -12,8 +12,13 @@ module Trade
     def create
       auth_code = params[:result].split(',')[-1]
 
-      @scan_payment.payee_app = current_payee
-      @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
+      if current_payee
+        @scan_payment.seller_identifier = current_payee.mch_id
+        @scan_payment.appid = current_payee.payee_apps[0]&.appid
+        @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
+      else
+        head :ok
+      end
     end
 
     private
