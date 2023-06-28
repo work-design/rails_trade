@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :payment_id, :integer, comment: 'for paypal'
 
-      has_many :refunds, class_name: 'PaypalRefund'
+      has_many :refunds, class_name: 'PaypalRefund', foreign_key: :payment_id
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
     end

@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      has_many :refunds, class_name: 'StripeRefund'
+      has_many :refunds, class_name: 'StripeRefund', foreign_key: :payment_id
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
     end

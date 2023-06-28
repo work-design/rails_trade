@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      has_many :refunds, class_name: 'HandRefund'
+      has_many :refunds, class_name: 'HandRefund', foreign_key: :payment_id
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
     end

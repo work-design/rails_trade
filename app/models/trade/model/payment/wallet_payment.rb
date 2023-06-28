@@ -5,7 +5,7 @@ module Trade
     included do
       belongs_to :wallet
       has_many :wallet_logs, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
-      has_many :refunds, class_name: 'WalletRefund'
+      has_many :refunds, class_name: 'WalletRefund', foreign_key: :payment_id
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
