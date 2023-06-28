@@ -3,7 +3,7 @@
     <%= link_to({ controller: @payment.is_a?(Trade::ScanPayment) ? 'scan_payments' : 'payments', action: 'index' }, class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end %>
-    <div class="weui-title"></div>
+    <div class="weui-title"><%= t('.title') %></div>
     <i style="width: 3rem"></i>
   </div>
 </div>
