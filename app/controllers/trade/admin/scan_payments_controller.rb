@@ -1,7 +1,8 @@
 module Trade
   class Admin::ScanPaymentsController < Admin::BaseController
     before_action :set_new_scan_payment, only: [:new, :create]
-    skip_before_action :require_org_member, :require_role, only: [:new, :create]
+    skip_before_action :require_org_member, only: [:new, :create] if whether_filter(:require_org_member)
+    skip_before_action :require_role, only: [:new, :create] if whether_filter(:require_role)
 
     def index
       q_params = {}
