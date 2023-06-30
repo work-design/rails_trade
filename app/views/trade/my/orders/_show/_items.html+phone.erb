@@ -22,12 +22,6 @@
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:item_amount) %></label>
       <span class="weui-form-preview__value"><%= model.item_amount.to_money.format.html_safe %></span>
     </div>
-    <% if model.desk.present? %>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:desk_id) %></label>
-      <span class="weui-form-preview__value"><%= model.desk.name %></span>
-    </div>
-    <% end %>
     <% if model.overall_additional_amount > 0 %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:overall_additional_amount) %></label>

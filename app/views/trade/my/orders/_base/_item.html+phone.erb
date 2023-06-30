@@ -13,15 +13,20 @@
     <% end %>
     <div>
       <p>
-        <span><%= item.single_price.to_money.format.html_safe %></span>
+        <span class="has-text-danger"><%= item.single_price.to_money.format.html_safe %></span>
         <span class="has-text-grey-lighter">x</span>
         <span class="is-size-7"><%= item.number %></span>
       </p>
       <% if item.delivery %>
-        <p>
-          <span class="tag"><%= item.delivery.fetch_oneself_i18n %></span>
-          <span><%= item.delivery.produce_on %></span>
-        </p>
+      <p>
+        <span class="tag"><%= item.delivery.fetch_oneself_i18n %></span>
+        <span><%= item.delivery.produce_on %></span>
+      </p>
+      <% end %>
+      <% if item.desk.present? %>
+      <p>
+        <strong><%= item.desk.name %></strong>
+      </p>
       <% end %>
     </div>
   </div>
