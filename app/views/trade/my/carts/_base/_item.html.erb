@@ -20,18 +20,27 @@
   <td>
     <div class="field has-addons">
       <div class="control">
-        <%= button_to({ controller: 'items', action: 'update', id: model.id }, method: :patch, params: { '[item]number': model.number - 1 }, class: 'button') do %>
-          <i class="fa-solid fa-minus fa-xl"></i>
+        <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
+          <%= f.hidden_field :current_cart_id, value: @cart.id %>
+          <%= f.hidden_field :number, value: model.number - 1 %>
+          <%= button_tag class: 'button ml-1' do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
         <% end %>
       </div>
       <div class="control">
         <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+          <%= f.hidden_field :current_cart_id, value: @cart.id %>
           <%= f.number_field :number, step: 1, data: { action: 'input#form' }, class: 'input', id: nil %>
         <% end %>
       </div>
       <div class="control">
-        <%= button_to({ controller: 'items', action: 'update', id: model.id }, method: :patch, params: { '[item]number': model.number + 1 }, class: 'button is-link') do %>
-          <i class="fa-solid fa-plus fa-xl"></i>
+        <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
+          <%= f.hidden_field :number, value: model.number + 1 %>
+          <%= f.hidden_field :current_cart_id, value: @cart.id %>
+          <%= button_tag class: 'button is-link ml-1' do %>
+            <i class="fa-solid fa-plus"></i>
+          <% end %>
         <% end %>
       </div>
     </div>
