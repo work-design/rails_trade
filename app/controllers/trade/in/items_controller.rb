@@ -10,12 +10,14 @@ module Trade
 
     private
     def set_new_item
-      options = {
-        member_id: current_member.id
-      }
-      options.merge! params.permit(:good_type, :good_id, :current_cart_id, :number, :produce_on, :scene_id, :member_id)
+      options = {}
+      options.merge! params.permit(:good_id, :produce_on, :scene_id)
+      options.compact_blank!
 
-      @item = Item.new(options)
+      @item = @cart.organ_item(**options) || @cart.organ_items.build(options)
+      @item.status = 'checked'
+      @item.assign_attributes params.permit(:station_id, :desk_id, :current_cart_id)
+      @item.number = @item.number.to_i + (params[:number].presence || 1).to_i if @item.persisted?
     end
 
     def set_cart_item
