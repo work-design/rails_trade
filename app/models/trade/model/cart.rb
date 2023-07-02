@@ -37,7 +37,7 @@ module Trade
       has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示
       has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
-      has_many :organ_items, ->(o) { where({ good_type: o.good_type, aim: o.aim }.compact).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id
+      has_many :organ_items, ->(o) { where(o.in_filter_hash).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use', status: 'trial') }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart
 
@@ -77,6 +77,17 @@ module Trade
       else
         { member_organ_id: member_organ_id, member_id: member_id }
       end
+    end
+
+    def in_filter_hash
+      {
+        good_type: good_type,
+        aim: aim
+      }
+    end
+
+    def in_cart?
+      organ_id.blank? && member_organ.present?
     end
 
     def sync_member_organ
@@ -133,7 +144,11 @@ module Trade
     end
 
     def checked_all_items
-      r = items.select(&->(i){ ['checked', 'trial'].include?(i.status) && !i.destroyed? }) + trial_card_items.select(&->(i){ !i.destroyed? })
+      if in_cart?
+        r = organ_items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
+      else
+        r = items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
+      end
       logger.debug "\e[33m  Item amount: #{item_amount}, Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Summed amount: #{checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{id})  \e[0m"
       r
     end

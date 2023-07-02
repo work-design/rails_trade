@@ -155,6 +155,10 @@ module Trade
       o.merge! produce_on: produce_on, scene_id: scene_id
     end
 
+    def effective?
+      ['checked', 'trial'].include?(status) && !destroyed?
+    end
+
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('ITEM')
     end

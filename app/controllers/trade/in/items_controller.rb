@@ -1,6 +1,6 @@
 module Trade
-  class In::ItemsController < Admin::ItemsController
-    before_action :set_item, only: [:show, :update, :destroy]
+  class In::ItemsController < My::ItemsController
+    before_action :set_item, only: [:show]
     before_action :set_new_item, only: [:create, :cost]
 
     def cost
@@ -18,12 +18,8 @@ module Trade
       @item = Item.new(options)
     end
 
-    def set_item
-      q_params = {
-        member_organ_id: current_organ.id
-      }
-
-      @item = Item.default_where(q_params).find params[:id]
+    def set_cart_item
+      @item = @cart.organ_items.load.find params[:id]
     end
 
   end
