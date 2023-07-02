@@ -1,23 +1,23 @@
 <tr>
   <td class="has-text-right">
-    <span><%= wallet.wallet_template.name %></span>
+    <span><%= payment_order.payment.wallet.wallet_template.name %></span>
     <span>余额</span>
   </td>
   <td>
     <div class="is-several">
-      <div><%= wallet.amount.to_money.format.html_safe %></div>
-      <% if @order.payments.pluck(:wallet_id).include?(wallet.id) %>
-        <%= form_with theme: nil, url: { controller: 'my/payments', action: 'destroy', id: @order.payments.find_by(wallet_id: wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
+      <div><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></div>
+      <% if @order.payments.pluck(:wallet_id).include?(payment_order.payment.wallet.id) %>
+        <%= form_with theme: nil, url: { controller: 'my/payments', action: 'destroy', id: @order.payments.find_by(wallet_id: payment_order.payment.wallet.id).id }, method: :delete, data: { controller: 'input' } do |f| %>
           <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
         <% end %>
       <% else %>
         <%= form_with theme: nil, model: Trade::Payment.new, scope: 'payment', url: { controller: 'my/payments', action: 'create' }, data: { controller: 'input' } do |f| %>
           <%= f.hidden_field :type, value: 'Trade::WalletPayment' %>
-          <%= f.hidden_field :wallet_id, value: wallet.id %>
+          <%= f.hidden_field :wallet_id, value: payment_order.payment.wallet.id %>
           <%= f.fields :payment_orders, model: f.object.payment_orders.build do |ef| %>
             <%= ef.hidden_field :order_id, value: @order.id %>
             <%= ef.hidden_field :state, value: 'confirmed' %>
-            <%= ef.hidden_field :check_amount, value: @order.amount < wallet.amount ? @order.amount : wallet.amount %>
+            <%= ef.hidden_field :check_amount, value: @order.amount < payment_order.payment.wallet.amount ? @order.amount : payment_order.payment.wallet.amount %>
           <% end %>
           <%= check_box_tag 'xx', 'x', false, class: 'weui-check', data: { action: 'input#form' } %>
         <% end %>

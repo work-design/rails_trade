@@ -1,8 +1,12 @@
 <table class="table is-fullwidth is-borderless as-show">
   <tbody>
-    <% unless @order.items.map(&:good_type).include?('Trade::Advance') %>
-      <%= render partial: 'wallet_payment', collection: @order.payments, as: :payment %>
+    <% @order.payment_orders.each do |payment_order| %>
+    <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
+      <%= render partial: 'wallet_payment', locals: { payment_order: payment_order } %>
+    <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
+      <%= render partial: 'lawful_wallet_payment', locals: { payment_order: payment_order } %>
     <% end %>
+  <% end %>
     <tr>
       <td class="has-text-right"><%= Trade::Order.human_attribute_name(:unreceived_name) %></td>
       <td><%= @order.unreceived_amount.to_money.format.html_safe %></td>
