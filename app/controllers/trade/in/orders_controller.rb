@@ -1,5 +1,6 @@
 module Trade
   class In::OrdersController < My::OrdersController
+    include Controller::In
 
     def index
       q_params = {}
