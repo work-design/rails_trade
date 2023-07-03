@@ -1,7 +1,12 @@
 <tr>
   <td>
     <div class="is-several">
-      <% if item.good %>
+      <% if item.good_type == 'Factory::Production' %>
+        <%= image_tag item.good.logo, class: 'image is-32x32' if item.good && item.good.logo&.attached? %>
+        <%= link_to({ controller: 'factory/admin/productions', product_id: item.good.product_id }, target: '_blank') do %>
+          <span><%= item.good.name %></span>
+        <% end %>
+      <% elsif item.good %>
         <%= image_tag item.good.logo, class: 'image is-32x32' if item.good && item.good.logo&.attached? %>
         <%= link_to item.good, target: '_blank' do %>
           <span><%= item.good.name %></span>
