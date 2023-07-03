@@ -33,4 +33,5 @@
     <td colspan="2"><%= @order.payment_status_i18n %></td>
   </tr>
   <%= render partial: 'show_address', locals: { address: @order.address } if @order.address %>
+  <%= render partial: 'show_payment', collection: @order.payments, as: :model %>
 </table>

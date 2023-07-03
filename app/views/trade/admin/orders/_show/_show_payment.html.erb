@@ -1,0 +1,10 @@
+<tr>
+  <td>
+    <span class="tag"><%= model.type_i18n %></span>
+    <span><%= model.payment_uuid %></span>
+  </td>
+  <td colspan="4">
+    <%= model.total_amount.to_money.format.html_safe %>
+  </td>
+  <td></td>
+</tr>
