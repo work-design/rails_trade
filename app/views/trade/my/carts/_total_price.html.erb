@@ -4,41 +4,35 @@
     <td><%= Trade::Cart.human_attribute_name(:retail_price) %></td>
     <td colspan="2"></td>
     <td><%= current_cart.retail_price %></td>
-    <td></td>
   </tr>
   <tr class="has-text-danger">
     <td></td>
     <td><%= Trade::Cart.human_attribute_name(:discount_price) %></td>
     <td colspan="2"></td>
     <td><%= current_cart.discount_price %></td>
-    <td></td>
   </tr>
   <tr>
     <td></td>
     <td><%= Trade::Cart.human_attribute_name(:bulk_price) %></td>
     <td colspan="2"></td>
     <td><%= current_cart.bulk_price %></td>
-    <td></td>
   </tr>
   <tr class="has-text-danger">
     <td></td>
     <td><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></td>
     <td colspan="2"></td>
     <td><%= current_cart.overall_reduced_amount %></td>
-    <td></td>
   </tr>
   <tr>
     <td></td>
     <td><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></td>
     <td colspan="2"></td>
     <td><%= current_cart.overall_additional_amount %></td>
-    <td></td>
   </tr>
   <tr>
     <td></td>
     <td><%= Trade::Cart.human_attribute_name(:amount) %></td>
-    <td colspan="2"></td>
-    <td><%= current_cart.amount %></td>
     <td></td>
+    <td><%= current_cart.amount %></td>
   </tr>
 </tbody>

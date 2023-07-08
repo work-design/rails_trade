@@ -11,7 +11,7 @@
   <%= render 'total_price' %>
   <tfoot>
     <tr>
-      <th colspan="5"></th>
+      <th colspan="4"></th>
       <th>
       <% if @checked_ids.present? %>
         <%= link_to '结算', { controller: 'orders', action: 'new' }, class: 'button is-primary', id: 'new_order' %>
