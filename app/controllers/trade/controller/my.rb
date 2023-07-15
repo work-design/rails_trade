@@ -16,5 +16,15 @@ module Trade
       @lawful_wallet = current_user.lawful_wallets.find_by(default_params) || current_user.lawful_wallets.create(default_params)
     end
 
+    def set_card_templates
+      min_grade = Trade::CardTemplate.default_where(default_params).minimum(:grade)
+      @card_templates = Trade::CardTemplate.default_where(default_params).where(grade: min_grade)
+    end
+
+    def set_wallet_template
+      @wallets = current_user.custom_wallets.default_where(default_params)
+      @wallet_templates = Trade::WalletTemplate.default_where(default_params).where.not(id: @wallets.pluck(:wallet_template_id))
+    end
+
   end
 end
