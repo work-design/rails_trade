@@ -22,7 +22,6 @@ module Trade
       }, _default: 'use', _prefix: true
 
       belongs_to :address, class_name: 'Profiled::Address', optional: true
-
       belongs_to :maintain, class_name: 'Crm::Maintain', optional: true
 
       belongs_to :payment_strategy, optional: true
