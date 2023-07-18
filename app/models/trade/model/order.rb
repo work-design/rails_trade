@@ -138,6 +138,7 @@ module Trade
       return unless current_cart
       self.address_id ||= current_cart.address_id
       self.aim = current_cart.aim
+      self.payment_strategy_id = current_cart.payment_strategy_id
       self.member_id = current_cart.member_id
       self.member_organ_id = current_cart.member_organ_id
       if current_cart.user_id.blank?
@@ -282,7 +283,12 @@ module Trade
     end
 
     def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: amount)
-      payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid, total_amount: total_amount)
+      payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid)
+      if current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
+        payment.total_amount = total_amount * current_cart.deposit_ratio / 100
+      else
+        payment.total_amount = total_amount
+      end
       payment.organ_id = organ_id
       payment.user = user
       payment
