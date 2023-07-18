@@ -283,12 +283,12 @@ module Trade
     end
 
     def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: amount)
-      payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid)
       if current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
-        payment.total_amount = total_amount * current_cart.deposit_ratio / 100
+        deposit_amount = total_amount * current_cart.deposit_ratio / 100
       else
-        payment.total_amount = total_amount
+        deposit_amount = total_amount
       end
+      payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid, total_amount: deposit_amount)
       payment.organ_id = organ_id
       payment.user = user
       payment
