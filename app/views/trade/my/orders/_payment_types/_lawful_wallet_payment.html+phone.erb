@@ -1,5 +1,5 @@
-<label class="weui-cell weui-cell_active">
-  <span class="weui-cell__bd is-flex is-align-items-center">
+<label class="weui-cell weui-cell_active weui-cells_checkbox">
+  <span class="weui-cell__bd has-v-centered">
     <span class="is-several">
       <span>钱包</span>
     </span>
@@ -8,7 +8,7 @@
       <span><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
     </span>
   </span>
-  <span class="weui-cell__ft is-flex" data-controller="input">
+  <span class="weui-cell__ft has-v-centered" data-controller="input">
     <span class="is-size-7">
       <span><%= payment_order.order_amount.to_money.format(html_safe: true).html_safe %></span>
     </span>
