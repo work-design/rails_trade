@@ -31,13 +31,16 @@
     </div>
   </div>
   <div class="weui-media-box__ft px-3">
-    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'button is-small is-primary') do %>
+  <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
+    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, state: 'enter', class: 'button is-small is-primary') do %>
       <i></i>
       <span><%= t('bench.my.facilitatings.index.title') %></span>
-    <% end if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
-    <%= link_to({ controller: 'holds', item_id: item.id }, state: 'enter', class: 'button is-small is-rounded is-default') do %>
+    <% end %>
+  <% else %>
+    <%= link_to({ controller: 'holds', item_id: item.id }, state: 'enter', class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.my.holds.index.title') %></span>
     <% end %>
+  <% end %>
   </div>
 </div>
