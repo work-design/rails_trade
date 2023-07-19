@@ -3,7 +3,7 @@ module Trade
     before_action :set_card
 
     def index
-      @card_purchases = @card.card_purchases.order(last_expire_at: :desc).page(params[:page])
+      @card_purchases = @card.card_purchases.where.not(last_expire_at: nil).order(last_expire_at: :desc).page(params[:page])
     end
 
     private
