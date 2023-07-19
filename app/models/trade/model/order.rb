@@ -284,10 +284,12 @@ module Trade
 
     def deposit_amount
       if current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
-        amount * current_cart.deposit_ratio / 100
+        r = amount * current_cart.deposit_ratio / 100
       else
-        amount
+        return amount
       end
+
+      r >= 0.01 ? r : amount
     end
 
     def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: deposit_amount)
