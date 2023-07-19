@@ -291,7 +291,7 @@ module Trade
     end
 
     def deposit_amount
-      if current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
+      if current_cart && current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
         r = amount * current_cart.deposit_ratio / 100
       else
         return amount
