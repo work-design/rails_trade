@@ -3,9 +3,9 @@
     <span class="is-several">
       <span>钱包</span>
     </span>
-    <span class="has-text-grey is-size-7">
-      <span>余</span>
-      <span><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
+    <span class="tags has-addons pl-2">
+      <span class="tag">余</span>
+      <span class="tag is-success"><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
     </span>
   </span>
   <span class="weui-cell__ft has-v-centered" data-controller="input">
