@@ -9,7 +9,7 @@
     </span>
   </span>
   <span class="weui-cell__ft has-v-centered" data-controller="input">
-    <span class="is-size-7 has-text-danger"><%= payment_order.order_amount.to_money.format(html_safe: true).html_safe %></span>
+    <span class="has-text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
     <% if payment_order.payment.persisted? %>
       <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: payment_order.payment_id }, method: :delete, state: 'redirect', data: { controller: 'input' } do |f| %>
         <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
