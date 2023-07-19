@@ -53,7 +53,7 @@ module Trade
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
-      after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
+      #after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
       after_save_commit :send_verify_notice, if: -> { verified? && saved_change_to_verified? }
     end
 
