@@ -34,7 +34,7 @@ module Trade
         @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
       end
 
-      unless @order.all_paid?
+      if @order.can_pay?
         @payment = @order.to_payment
         #@payment.extra_params.merge! 'profit_sharing' => true
         @payment.user = current_user

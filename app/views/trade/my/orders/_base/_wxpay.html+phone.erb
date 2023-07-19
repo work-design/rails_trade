@@ -9,7 +9,7 @@
   >
     <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
     <div class="weui-cell__bd weui-cell_primary">微信支付</div>
-    <div class="weui-cell__ft"></div>
+    <div class="weui-cell__ft"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   </div>
 <% elsif @wxpay_order && @wxpay_order[:package].present? %>
   <div
@@ -21,12 +21,12 @@
   >
     <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
     <div class="weui-cell__bd weui-cell_primary">微信支付</div>
-    <div class="weui-cell__ft"></div>
+    <div class="weui-cell__ft"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   </div>
 <% elsif @url %>
   <%= link_to(@url, class: 'weui-cell weui-cell_active weui-cell_access') do %>
     <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
     <div class="weui-cell__bd weui-cell_primary has-text-link">微信支付</div>
-    <div class="weui-cell__ft"></div>
+    <div class="weui-cell__ft"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   <% end %>
 <% end %>

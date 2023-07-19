@@ -21,15 +21,6 @@
       <label class="weui-form-preview__label has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
       <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format.html_safe %></span>
     </div>
-    <% @order.payment_orders.select(&->(i){ i.new_record? }).each do |payment_order| %>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label pl-4"><%= payment_order.payment.type_i18n %></label>
-        <span class="weui-form-preview__value">
-          <span class="tag"><%= payment_order.state_i18n %></span>
-          <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
-        </span>
-      </div>
-    <% end %>
     <% if @order.payment_strategy %>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></label>
