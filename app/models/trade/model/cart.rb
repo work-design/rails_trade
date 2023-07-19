@@ -110,7 +110,7 @@ module Trade
     end
 
     def deposit_ratio_str
-      desosit_ratio.to_fs(:percentage, precision: 0)
+      deposit_ratio.to_fs(:percentage, precision: 0)
     end
 
     def owned_text(card_template)
