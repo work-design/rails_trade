@@ -222,6 +222,13 @@ module Trade
       send_notice
     end
 
+    def confirm_part_paid!
+      items.each do |item|
+        item.status = 'deliverable'
+      end
+      send_notice
+    end
+
     def confirm_refund!
       self.items.each(&:confirm_refund!)
     end
@@ -254,6 +261,7 @@ module Trade
         self.confirm_paid!
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
+        self.confirm_part_paid!
       elsif self.received_amount.to_d <= 0
         self.payment_status = 'unpaid'
       end
