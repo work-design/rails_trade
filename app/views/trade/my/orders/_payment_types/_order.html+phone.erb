@@ -28,7 +28,7 @@
       </div>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:deposit_ratio) %></label>
-        <span class="weui-form-preview__value"><%= @order.current_cart.deposit_ratio %></span>
+        <span class="weui-form-preview__value"><%= @order.current_cart.deposit_ratio_str %></span>
       </div>
     <% end %>
   </div>
