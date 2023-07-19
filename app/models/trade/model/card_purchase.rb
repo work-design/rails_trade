@@ -35,7 +35,13 @@ module Trade
     end
 
     def expire_at
-      (last_expire_at || Date.today).since(duration).end_of_day
+      if last_expire_at.blank?
+        start_date = Date.today
+      else
+        start_date = Date.today > last_expire_at ? Date.today : last_expire_at
+      end
+
+      start_date.since(duration).end_of_day
     end
 
     def sync_from_card
