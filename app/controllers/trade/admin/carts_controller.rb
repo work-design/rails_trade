@@ -60,6 +60,7 @@ module Trade
     private
     def set_cart
       @cart = Cart.find params[:id]
+      @cart.compute_amount! unless @cart.fresh
     end
 
     def set_payment_strategies
