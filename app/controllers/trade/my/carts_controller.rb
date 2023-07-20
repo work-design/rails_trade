@@ -61,6 +61,7 @@ module Trade
       options.merge! user_id: current_user.id
 
       @cart = Cart.where(options).unscope(where: :organ_id).find params[:id]
+      @cart.compute_amount! unless @cart.fresh
     end
 
     def set_invest_cart
