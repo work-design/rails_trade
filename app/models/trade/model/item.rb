@@ -122,7 +122,7 @@ module Trade
       if member_id
         options.merge! member_id: [member_id, nil], member_organ_id: member_organ_id
       elsif user_id
-        options.merge! user_id: [user_id, nil], client_id: nil
+        options.merge! user_id: [user_id, nil]
       elsif client_id
         options.merge! client_id: client_id
       else
