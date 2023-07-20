@@ -29,9 +29,8 @@ module Trade
 
     def filter_hash
       r = { organ_id: organ_id, member_id: member_id, produce_on: produce_on, scene_id: scene_id }
-      if user_id
-        r
-      elsif client_id
+
+      if client_id
         r.merge! client_id: client_id
       else
         r
