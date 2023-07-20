@@ -166,11 +166,17 @@ Rails.application.routes.draw do
           end
         end
         resources :items do
+          collection do
+            post :trial
+          end
           member do
             get :carts
             patch :toggle
             patch :compute
             post :print
+            get :promote
+            post :finish
+            post :untrial
           end
           resources :holds
         end

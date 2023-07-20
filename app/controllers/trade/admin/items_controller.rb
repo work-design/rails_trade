@@ -1,6 +1,9 @@
 module Trade
   class Admin::ItemsController < Admin::BaseController
-    before_action :set_item, only: [:show, :update, :destroy, :actions, :print, :compute, :carts, :toggle]
+    before_action :set_item, only: [
+      :show, :update, :destroy, :actions,
+      :print, :compute, :carts, :toggle, :untrial
+    ]
     before_action :set_new_item, only: [:create]
 
     def index
@@ -50,6 +53,15 @@ module Trade
 
     def print
       @item.print
+    end
+
+    def trial
+      @cart.add_purchase_item(card_template: @card_template)
+    end
+
+    def untrial
+      @item = @cart.trial_card_items.load.find params[:id]
+      @item.untrial
     end
 
     private
