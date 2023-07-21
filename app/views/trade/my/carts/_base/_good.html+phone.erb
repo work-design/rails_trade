@@ -6,7 +6,7 @@
       <i class="weui-icon-checked"></i>
     </label>
   <% end %>
-  <div class="weui-media-box__hd">
+  <div data-controller="empty" class="weui-media-box__hd">
   <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
     <%= image_tag model.good.logo, class: 'weui-media-box__thumb' %>
   <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>
