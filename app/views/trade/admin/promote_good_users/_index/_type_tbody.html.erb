@@ -2,7 +2,7 @@
 <td><%= model.promote.name %></td>
 <td colspan="2">
   <div class="buttons are-small">
-    <%= button_to({ action: 'create' }, class: 'button is-small is-link') do %>
+    <%= button_to({ action: 'create' }, params: { '[promote_good_user]promote_id': model.promote_id }, class: 'button is-small is-link') do %>
       <i class="fa-solid fa-plus"></i>
       <span class="pl-1"><%= t('.new') %></span>
     <% end %>

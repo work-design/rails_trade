@@ -21,7 +21,7 @@ module Trade
     end
 
     def create
-      binding.b
+      @promote_good_user.expire_at = Time.current.since(1.year)
       if @promote_good_user.save
         render :create, locals: { model: @promote_good_user }
       else
@@ -55,14 +55,14 @@ module Trade
     end
 
     def set_new_promote_good_user
-      @promote_good_user = @cart.promote_good_users.build(promote_good_params)
+      @promote_good_user = @cart.promote_good_users.build(promote_good_user_params)
     end
 
     def set_promote_good_user
       @promote_good_user = PromoteGoodUser.find(params[:id])
     end
 
-    def promote_good_params
+    def promote_good_user_params
       params.fetch(:promote_good_user, {}).permit(
         :promote_id,
         :good_id,
