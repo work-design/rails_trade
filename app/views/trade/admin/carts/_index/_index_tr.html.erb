@@ -2,7 +2,7 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'trade/admin/promote_goods', action: 'new', cart_id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.promote') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'trade/admin/promote_good_users', cart_id: model.id }, aria: { label: t('trade.admin.promote_good_users.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-gift has-text-success"></i>
       <% end %>
       <%= link_to({ action: 'show', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.show') }, class: 'button is-small is-rounded is-light') do %>

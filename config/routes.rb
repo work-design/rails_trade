@@ -164,6 +164,13 @@ Rails.application.routes.draw do
             get :user
             get 'user/:user_id' => :user_show
           end
+          resources :promote_good_users do
+            collection do
+              post :user_search
+              post :good_search
+              get :user
+            end
+          end
         end
         resources :items do
           collection do
@@ -222,13 +229,6 @@ Rails.application.routes.draw do
               get :blacklist
               get :blacklist_new
               post :blacklist_create
-            end
-          end
-          resources :promote_good_users do
-            collection do
-              post :user_search
-              post :good_search
-              get :user
             end
           end
         end
