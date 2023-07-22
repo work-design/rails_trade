@@ -119,6 +119,8 @@ zh:
       promote_goods:
         index:
           title: 优惠券
+        new:
+          title: 优惠券派发
       promote_good_users:
         index:
           title: 优惠券发放
