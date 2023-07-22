@@ -56,6 +56,10 @@ module Trade
       @promotes = PromoteGoodType.verified.default_where(default_params)
     end
 
+    def set_new_promote_good_user
+      @promote_good_user = @cart.promote_good_users.build(promote_good_params)
+    end
+
     def set_promote_good
       @promote_good = PromoteGood.find(params[:id])
     end
@@ -63,10 +67,7 @@ module Trade
     def promote_good_params
       params.fetch(:promote_good, {}).permit(
         :promote_id,
-        :good_type,
         :good_id,
-        :member_id,
-        :user_id,
         :effect_at,
         :expire_at,
         :use_limit,
