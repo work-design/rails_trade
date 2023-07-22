@@ -11,8 +11,10 @@
 </td>
 <td><%= model.promote.name %></td>
 <td>
-  <p class="has-text-success"><%# model.user&.name %></p>
+<% if model.is_a?(Trade::PromoteGoodUser) %>
+  <p class="has-text-success"><%= model.user&.name %></p>
   <p><%# model.member&.name %></p>
+<% end %>
 </td>
 <td>
   <p><%= model.status_i18n %></p>
