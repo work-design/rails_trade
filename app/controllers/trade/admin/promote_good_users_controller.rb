@@ -1,14 +1,15 @@
 module Trade
   class Admin::PromoteGoodUsersController < Admin::BaseController
     before_action :set_cart
-    before_action :set_promotes, only: [:index]
-    before_action :set_promote_good, only: [:show, :edit, :update, :destroy]
+    before_action :set_promote_good_types, only: [:index]
+    before_action :set_promote_good_user, only: [:show, :edit, :update, :destroy, :actions]
+    before_action :set_new_promote_good_user, only: [:new, :create]
 
     def index
       q_params = {}
       q_params.merge! params.permit(:good_type, :good_id)
 
-      @promote_goods = @cart.promote_goods.where.not(user_id: nil).default_where(q_params).page(params[:page])
+      @promote_good_users = @cart.promote_good_users.default_where(q_params).page(params[:page])
     end
 
     def goods
@@ -17,15 +18,12 @@ module Trade
     end
 
     def new
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodUser', good_type: params[:good_type])
     end
 
     def create
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodUser')
-      @promote_good.assign_attributes promote_good_params
-
-      if @promote_good.save
-        render :create, locals: { model: @promote_good }
+      binding.b
+      if @promote_good_user.save
+        render :create, locals: { model: @promote_good_user }
       else
         render :new, status: :unprocessable_entity
       end
@@ -52,20 +50,20 @@ module Trade
       @cart = Cart.find params[:cart_id]
     end
 
-    def set_promotes
-      @promotes = PromoteGoodType.verified.default_where(default_params)
+    def set_promote_good_types
+      @promote_good_types = PromoteGoodType.verified.default_where(default_params)
     end
 
     def set_new_promote_good_user
       @promote_good_user = @cart.promote_good_users.build(promote_good_params)
     end
 
-    def set_promote_good
-      @promote_good = PromoteGood.find(params[:id])
+    def set_promote_good_user
+      @promote_good_user = PromoteGoodUser.find(params[:id])
     end
 
     def promote_good_params
-      params.fetch(:promote_good, {}).permit(
+      params.fetch(:promote_good_user, {}).permit(
         :promote_id,
         :good_id,
         :effect_at,
