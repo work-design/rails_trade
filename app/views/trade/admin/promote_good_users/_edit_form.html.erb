@@ -1,4 +1,4 @@
-<%= form_with model: @promote_good, url: { action: 'update' } do |f| %>
+<%= form_with model: @promote_good_user, url: { action: 'update' } do |f| %>
   <%= render 'error_messages', target: f.object  %>
   <%= f.datetime_field :effect_at, step: 1 %>
   <%= f.datetime_field :expire_at, step: 1 %>

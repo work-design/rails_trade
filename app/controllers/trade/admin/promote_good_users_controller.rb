@@ -59,7 +59,7 @@ module Trade
     end
 
     def set_promote_good_user
-      @promote_good_user = PromoteGoodUser.find(params[:id])
+      @promote_good_user = @cart.promote_good_users.find(params[:id])
     end
 
     def promote_good_user_params
