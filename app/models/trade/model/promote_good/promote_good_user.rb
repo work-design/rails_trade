@@ -3,6 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :use_limit, :integer, default: 1
+
       belongs_to :user, class_name: 'Auth::User', counter_cache: :promote_goods_count, optional: true
       belongs_to :member, class_name: 'Org::Member', counter_cache: :promote_goods_count, optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
