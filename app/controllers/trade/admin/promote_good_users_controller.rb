@@ -1,6 +1,7 @@
 module Trade
   class Admin::PromoteGoodUsersController < Admin::BaseController
     before_action :set_cart
+    before_action :set_promotes, only: [:index]
     before_action :set_promote_good, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -52,7 +53,7 @@ module Trade
     end
 
     def set_promotes
-      @promotes = Promote.default_where(default_params)
+      @promotes = PromoteGoodType.verified.default_where(default_params)
     end
 
     def set_promote_good

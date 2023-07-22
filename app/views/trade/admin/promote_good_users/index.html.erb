@@ -1,5 +1,5 @@
 
 <%= render layout: 'index_table' do %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @promote_goods, as: :model %>
-  <%= render partial: 'type_tbody', layout: 'type_tr', collection: Trade::PromoteGood.options_i18n(:good_type).except(*@promote.existing_good_types), as: :model %>
+  <%= render partial: 'type_tbody', layout: 'type_tr', collection: @promotes, as: :model %>
 <% end %>

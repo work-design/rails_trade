@@ -25,13 +25,10 @@ module Trade
 
       belongs_to :payment_strategy, optional: true
 
-      has_many :orders, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id) }, foreign_key: :user_id, primary_key: :user_id
-      has_many :promote_goods, foreign_key: :user_id, primary_key: :user_id
       has_many :available_promote_goods, -> { available }, class_name: 'PromoteGood'
       has_many :payment_references, ->(o) { where(o.filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :payment_methods, through: :payment_references
 
-      has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示
       has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
@@ -40,6 +37,9 @@ module Trade
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use', status: 'trial') }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart
 
       has_many :cart_promotes, -> { where(order_id: nil) }, inverse_of: :cart
+      has_many :promote_good_users, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
+      has_many :deliveries, ->(o) { where(o.simple_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
+      has_many :orders, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :cards, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :wallets, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_one :lawful_wallet, ->(o) { where(o.simple_filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
