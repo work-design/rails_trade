@@ -1,0 +1,24 @@
+<td>
+  <p><%= model.good_type_i18n %></p>
+  <p>
+  <% if model.good_id %>
+    <span><%= model.good.name %></span>
+    <span class="has-text-grey">(<%= model.good_id %>)</span>
+  <% else %>
+    <span class="has-text-success">不限商品</span>
+  <% end %>
+  </p>
+</td>
+<td><%= model.promote.name %></td>
+<td>
+  <p class="has-text-success"><%= model.user&.name %></p>
+  <p><%= model.member&.name %></p>
+</td>
+<td>
+  <p><%= model.status_i18n %></p>
+  <p><%= model.use_limit %></p>
+</td>
+<td>
+  <p><time data-controller="time"><%= model.effect_at&.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
+</td>
