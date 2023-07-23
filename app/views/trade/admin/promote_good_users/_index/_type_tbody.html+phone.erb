@@ -1,0 +1,10 @@
+<p><%= model.good_type_i18n %></p>
+<p><%= model.promote.name %></p>
+<td colspan="2">
+  <div class="buttons are-small">
+    <%= button_to({ action: 'create' }, params: { '[promote_good_user]promote_id': model.promote_id }, class: 'button is-small is-link') do %>
+      <i class="fa-solid fa-plus"></i>
+      <span class="pl-1"><%= t('.new') %></span>
+    <% end %>
+  </div>
+</td>
