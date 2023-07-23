@@ -51,6 +51,7 @@ module Trade
     end
 
     def set_promote_good_types
+      @cart.promote_good_users
       @promote_good_types = PromoteGoodType.verified.default_where(default_params)
     end
 
