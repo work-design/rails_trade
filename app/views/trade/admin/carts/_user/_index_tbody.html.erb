@@ -1,6 +1,7 @@
 <td>
-  <span><%= model.user.name %></span>
-  <span class="tag"><%= model.user_id %></span>
+  <%= link_to({ action: 'user_show', user_id: model.user_id }) do %>
+    <span><%= model.user.name %></span>
+  <% end %>
 </td>
 <td><%= model.aim %></td>
 <td><%= model.good_type %></td>
