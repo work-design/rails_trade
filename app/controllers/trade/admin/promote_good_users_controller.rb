@@ -51,8 +51,8 @@ module Trade
     end
 
     def set_promote_good_types
-      @cart.promote_good_users.pluck(:good_type, :aim)
-      @promote_good_types = PromoteGoodType.verified.default_where(default_params)
+      ids = @cart.promote_good_types.pluck(:id)
+      @promote_good_types = PromoteGoodType.verified.where.not(id: ids).default_where(default_params)
     end
 
     def set_new_promote_good_user
