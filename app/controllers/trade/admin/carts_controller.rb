@@ -17,10 +17,7 @@ module Trade
     end
 
     def user
-      q_params = {
-        good_type: nil,
-        aim: nil
-      }
+      q_params = {}
       q_params.merge! default_params
       q_params.merge! params.permit(:good_type, :aim)
 
