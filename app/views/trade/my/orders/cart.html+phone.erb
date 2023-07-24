@@ -4,7 +4,7 @@
   <%= f.hidden_field :current_cart_id %>
 <% end %>
 
-<div class="weui-panel">
+<div class="weui-panel is-box">
   <div class="weui-panel__bd">
     <% if @cart.aim_rent? %>
       <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
