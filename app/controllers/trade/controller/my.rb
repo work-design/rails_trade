@@ -18,7 +18,7 @@ module Trade
 
     def set_card_templates
       min_grade = Trade::CardTemplate.default_where(default_params).minimum(:grade)
-      @card_templates = Trade::CardTemplate.default_where(default_params).where(grade: min_grade)
+      @card_templates = Trade::CardTemplate.default_where(default_params).where(grade: min_grade).limit(3)
     end
 
     def set_wallet_template
