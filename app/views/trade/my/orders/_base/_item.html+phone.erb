@@ -30,7 +30,7 @@
       <% end %>
     </div>
   </div>
-  <div class="weui-media-box__ft px-3">
+  <div class="weui-media-box__ft has-block-centered px-3">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
     <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, state: 'enter', class: 'button is-small is-primary') do %>
       <i></i>
@@ -40,6 +40,10 @@
     <%= link_to({ controller: 'holds', item_id: item.id }, state: 'enter', class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.my.holds.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'items', action: 'edit', id: item.id }, state: 'enter', class: 'button is-small is-danger mt-2') do %>
+      <i></i>
+      <span><%= t('trade.my.items.edit.title') %></span>
     <% end %>
   <% end %>
   </div>

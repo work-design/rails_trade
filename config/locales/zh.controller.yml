@@ -256,6 +256,8 @@ zh:
           title: 详情
         finish:
           title: 结算
+        edit:
+          title: 修改数量
     from:
       orders:
         index:

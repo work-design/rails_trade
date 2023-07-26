@@ -7,9 +7,9 @@ module Trade
     included do
       attribute :uuid, :string
       attribute :good_name, :string
-      attribute :number, :integer, default: 1, comment: '数量'
-      attribute :done_number, :integer, default: 0, comment: '已达成交易数量'
-      attribute :rest_number, :integer
+      attribute :number, :decimal, default: 1, comment: '数量'
+      attribute :done_number, :decimal, default: 0, comment: '已达成交易数量'
+      attribute :rest_number, :decimal, as: 'number - done_number', virtual: true
       attribute :weight, :integer, default: 1, comment: '重量'
       attribute :volume, :integer, default: 0, comment: '体积'
       attribute :vip_code, :string
@@ -100,7 +100,6 @@ module Trade
       before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { good_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
-      before_validation :compute_rest_number, if: -> { (changes.keys & ['number', 'done_number']).present? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
@@ -268,10 +267,6 @@ module Trade
     # 批发价和零售价之间的差价，即批发折扣
     def discount_price
       wholesale_price - (retail_price * number)
-    end
-
-    def compute_rest_number
-      self.rest_number = self.number - self.done_number
     end
 
     def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
