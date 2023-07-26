@@ -294,7 +294,11 @@ Rails.application.routes.draw do
 
       namespace :my, defaults: { namespace: 'my' } do
         concerns :orderable
-        resources :wxpay_payments, only: [:index, :new, :create, :show]
+        resources :wxpay_payments, only: [:index, :new, :create, :show] do
+          collection do
+            get :qrcode
+          end
+        end
         resources :payment_methods
         resources :advances do
           member do
