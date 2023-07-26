@@ -44,7 +44,7 @@
     <%= link_to({ controller: 'items', action: 'edit', id: item.id }, state: 'enter', class: 'button is-small is-danger mt-2') do %>
       <i></i>
       <span><%= t('trade.my.items.edit.title') %></span>
-    <% end %>
+    <% end if item.order.unpaid? %>
   <% end %>
   </div>
 </div>
