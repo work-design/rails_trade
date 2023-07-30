@@ -1,8 +1,10 @@
 <p>
   <%= link_to model.payment_uuid, { action: 'show', id: model.id } %>
+</p>
+<p>
+  <span class="has-text-danger"><%= model.total_amount.to_money.format.html_safe %></span>
   <span class="tag"><%= model.state_i18n %></span>
 </p>
 <p>
-  <span class="has-text-danger pr-4"><%= model.total_amount.to_money.format.html_safe %></span>
   <time data-controller="time" data-format="human" class="has-text-grey"><%= model.created_at.to_fs(:iso8601) %></time>
 </p>
