@@ -9,7 +9,7 @@ module Trade
       }
       q_params.merge! params.permit(:state)
 
-      @promote_goods = @cart.promote_goods.includes(:promote).default_where(q_params).page(params[:page])
+      @promote_goods = @cart.promote_good_users.includes(:promote).default_where(q_params).page(params[:page])
     end
 
     private
