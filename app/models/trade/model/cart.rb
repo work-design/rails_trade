@@ -177,7 +177,15 @@ module Trade
     end
 
     def need_address?
-      ['use', 'rent'].include?(aim)
+      ['Factory::Production'].include?(good_type) && ['use', 'rent'].include?(aim)
+    end
+
+    def has_address?
+      if need_address?
+        address.present?
+      else
+        true
+      end
     end
 
     def get_item(good_type:, good_id:, aim: 'use', number: 1, **options)
