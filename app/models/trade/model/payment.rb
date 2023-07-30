@@ -138,8 +138,12 @@ module Trade
 
     def confirm(params = {})
       self.assign_detail params
-      payment_orders.each do |payment_order|
-        payment_order.state = 'confirmed'
+      if payment_orders.blank?
+        self.checked_amount = total_amount
+      else
+        payment_orders.each do |payment_order|
+          payment_order.state = 'confirmed'
+        end
       end
     end
 
