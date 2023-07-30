@@ -140,6 +140,7 @@ module Trade
       self.assign_detail params
       if payment_orders.blank?
         self.checked_amount = total_amount
+        self.check_state
       else
         payment_orders.each do |payment_order|
           payment_order.state = 'confirmed'
