@@ -16,6 +16,7 @@ module Trade
       attribute :pay_deadline_at, :datetime
       attribute :pay_auto, :boolean, default: false
       attribute :amount, :decimal
+      attribute :advance_amount, :decimal
       attribute :adjust_amount, :decimal
       attribute :received_amount, :decimal, default: 0
       attribute :unreceived_amount, :decimal, as: 'amount - received_amount', virtual: true
@@ -183,6 +184,7 @@ module Trade
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount + adjust_amount.to_d
+      self.advance_amount = items.sum(&->(i){ i.advance_amount.to_d })
     end
 
     def subject
@@ -293,6 +295,8 @@ module Trade
       return unreceived_amount if unreceived_amount.to_d > 0 && unreceived_amount.to_d < amount
       if current_cart && current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
         r = amount * current_cart.deposit_ratio / 100
+      elsif advance_amount.to_d > 0
+        return advance_amount
       else
         return amount
       end

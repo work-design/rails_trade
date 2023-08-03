@@ -52,10 +52,11 @@ zh:
         payment_type: 支付方式
         payment_strategy_id: 付款方式
         original_amount: 原价
-        item_amount: 货物价格
+        item_amount: 合计价格
         overall_additional_amount: 附加费用（运费、保险等）
         overall_reduced_amount: 优惠金额
         amount: 金额
+        advance_amount: 预付款
         adjust_amount: 调价
         received_amount: 已收金额
         unreceived_amount: 待支付
@@ -86,6 +87,7 @@ zh:
         additional_amount: 附加费
         reduced_amount: 优惠金额
         amount: 总价
+        advance_amount: 预付款
         user_id: 用户
         station_id: 收货网点
         address_id: 收货地址
