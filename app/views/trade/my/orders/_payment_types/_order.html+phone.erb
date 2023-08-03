@@ -4,6 +4,12 @@
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
       <span class="weui-form-preview__value"><%= @order.amount.to_money.format.html_safe %></span>
     </div>
+    <% if @order.advance_amount.to_d > 0 %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:advance_amount) %></label>
+      <span class="weui-form-preview__value"><%= @order.advance_amount.to_money.format.html_safe %></span>
+    </div>
+    <% end %>
     <div class="weui-form-preview__item" data-controller="empty">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:received_amount) %></label>
       <span class="weui-form-preview__value" data-empty-target="text"><%= @order.received_amount.to_money.format.html_safe if @order.received_amount.to_d > 0 %></span>
