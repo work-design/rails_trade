@@ -213,7 +213,8 @@ module Trade
       wallet_amount.transform_values(&->(v){ { rate: Rational(original_amount.to_s, v), amount: v.to_d }})
     end
 
-    def compute_single_price
+    def compute_price
+      return unless good
       min = good.card_price.slice(*cards.includes(:card_template).map(&->(i){ i.card_template.code })).min
       if min.present?
         self.vip_code = min[0]
@@ -224,24 +225,19 @@ module Trade
       end
     end
 
-    def untrial
-      destroy
-      current_cart.checked_items.each(&:compute_price!)
-    end
-
-    def compute_price
-      return unless good
-      compute_single_price
-      self.advance_amount = good.advance_price
-    end
-
     def compute_price!
       compute_price
       save
     end
 
+    def untrial
+      destroy
+      current_cart.checked_items.each(&:compute_price!)
+    end
+
     def compute_amount
       self.original_amount = single_price * number
+      self.advance_amount = good.advance_price * number
       self.amount = original_amount
     end
 
