@@ -12,6 +12,10 @@
       <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
       <span class="weui-form-preview__value"><%= cart.overall_reduced_amount.to_money.format.html_safe %></span>
     </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:advance_amount) %></label>
+      <span class="weui-form-preview__value"><%= cart.advance_amount.to_money.format.html_safe %></span>
+    </div>
   </div>
   <div class="weui-form-preview__ft is-justify-content-flex-end">
     <div class="px-4">

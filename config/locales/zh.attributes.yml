@@ -43,6 +43,7 @@ zh:
         overall_additional_amount: 附加费用
         overall_reduced_amount: 已优惠
         amount: 总金额
+        advance_amount: 预付款
         deposit_ratio: 预付款比例
         payment_strategy_id: 结款方式
         address_id: 收货地址

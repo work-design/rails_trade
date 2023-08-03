@@ -8,6 +8,7 @@ module Trade
       attribute :overall_reduced_amount, :decimal, default: 0
       attribute :original_amount, :decimal, default: 0, comment: '原价，应用优惠之前的价格'
       attribute :amount, :decimal, default: 0
+      attribute :advance_amount, :decimal, default: 0
       attribute :lock_version, :integer
       attribute :extra, :json, default: {}
     end

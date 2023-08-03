@@ -37,12 +37,12 @@
     <% if model.advance_amount > 0 %>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:advance_amount) %></label>
-        <span class="weui-form-preview__value"><%= model.advance_amount.to_money.format.html_safe %></span>
+        <span class="weui-form-preview__value has-text-danger"><%= model.advance_amount.to_money.format.html_safe %></span>
       </div>
     <% end %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
-      <span class="weui-form-preview__value"><%= model.amount.to_money.format.html_safe %></span>
+      <span class="weui-form-preview__value has-text-danger"><%= model.amount.to_money.format.html_safe %></span>
     </div>
   </div>
 </div>
