@@ -49,7 +49,6 @@ module Trade
       validates :good_type, presence: true
 
       after_initialize :sync_from_maintain, if: -> { new_record? && maintain_id.present? }
-      before_validation :sync_member_organ, if: -> { member_id_changed? && member }
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
     end
@@ -87,11 +86,6 @@ module Trade
 
     def in_cart?
       organ_id.blank? && member_organ.present?
-    end
-
-    def sync_member_organ
-      self.member_organ_id = member.organ_id
-      self.user ||= member.user
     end
 
     def sync_from_maintain

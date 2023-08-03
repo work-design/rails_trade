@@ -140,7 +140,6 @@ module Trade
       self.aim = current_cart.aim
       self.payment_strategy_id = current_cart.payment_strategy_id
       self.member_id = current_cart.member_id
-      self.member_organ_id = current_cart.member_organ_id
       if current_cart.user_id.blank?
         sync_items_from_organ
       else

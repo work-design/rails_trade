@@ -97,7 +97,6 @@ module Trade
       after_initialize :init_uuid, if: :new_record?
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
-      before_validation :sync_from_member, if: -> { member_id.present? && member_id_changed? }
       before_validation :compute_price, if: -> { good_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
@@ -192,11 +191,6 @@ module Trade
     def sync_from_current_cart
       self.aim = current_cart.aim if good_type != 'Trade::Purchase'
       self.good_type ||= current_cart.good_type
-    end
-
-    def sync_from_member
-      return unless member
-      self.member_organ_id = member.organ_id  # 数据冗余，方便订单搜索和筛选
     end
 
     def sync_from_order
