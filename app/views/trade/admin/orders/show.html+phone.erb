@@ -13,16 +13,16 @@
 
 <%= render partial: 'items', locals: { model: @order } %>
 
-<div class="weui-panel" data-controller="empty">
+<div data-controller="empty" class="weui-panel is-box">
   <div class="weui-panel__hd">服务/促销</div>
-  <div class="weui-panel__bd" data-empty-target="content">
+  <div data-empty-target="content" class="weui-panel__bd">
     <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
   </div>
 </div>
 
-<div class="weui-panel" data-controller="empty">
+<div data-controller="empty" class="weui-panel is-box">
   <div class="weui-panel__hd">支付</div>
-  <div class="weui-panel__bd" data-empty-target="content">
+  <div data-empty-target="content" class="weui-panel__bd">
     <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
   </div>
 </div>
