@@ -218,14 +218,14 @@ module Trade
       items.each do |item|
         item.status = 'deliverable'
       end
-      send_notice
+      send_paid_notice
     end
 
     def confirm_part_paid!
       items.each do |item|
         item.status = 'deliverable'
       end
-      send_notice
+      send_part_paid_notice
     end
 
     def confirm_refund!
@@ -241,6 +241,15 @@ module Trade
     def compute_pay_deadline_at
       return unless payment_strategy
       self.pay_deadline_at = (Date.today + payment_strategy.period).end_of_day
+    end
+
+    # 在 model 中覆写
+    def send_part_paid_notice
+      send_notice
+    end
+
+    def send_paid_notice
+      send_notice
     end
 
     def send_notice
