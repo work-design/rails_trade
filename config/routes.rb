@@ -85,7 +85,7 @@ Rails.application.routes.draw do
           post :package
           post :micro
           get :print_data
-          get :print
+          post :print
           get :payment_orders
           get :payment_new
           patch :payment_create
