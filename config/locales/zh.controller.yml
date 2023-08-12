@@ -58,6 +58,8 @@ zh:
           title: 微信收款
         adjust_edit:
           title: 调价
+        print:
+          title: 打印订单
       items:
         index:
           title: 订单明细
