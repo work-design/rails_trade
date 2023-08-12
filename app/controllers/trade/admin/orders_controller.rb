@@ -105,7 +105,11 @@ module Trade
     end
 
     def print
-      @order.print
+      if @order.organ.device
+        @order.print
+      else
+        redirect_to controller: 'jia_bo/admin/device_organs' and return
+      end
       head :no_content
     end
 
