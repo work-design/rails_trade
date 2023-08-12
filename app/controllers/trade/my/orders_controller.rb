@@ -98,7 +98,7 @@ module Trade
     end
 
     def set_order
-      @order = Order.find(params[:id])
+      @order = current_user.orders.find(params[:id])
     end
 
     def set_new_order
