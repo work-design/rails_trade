@@ -194,11 +194,11 @@ zh:
       title: 订单
       carts:
         show:
-          title: 我的购物车
+          title: 购物车
         invest:
           title: 投资意向单
         rent:
-          title: 我的购物车
+          title: 购物车
       orders:
         index:
           title: 我的订单
