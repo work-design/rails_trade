@@ -36,18 +36,18 @@ module Trade
 
     def expire_at
       if last_expire_at.blank?
-        start_date = Date.today
+        start_date = created_at.to_date
       else
-        start_date = Date.today > last_expire_at ? Date.today : last_expire_at
+        start_date = created_at > last_expire_at ? created_at : last_expire_at
       end
 
       start_date.since(duration).end_of_day
     end
 
     def sync_from_card
-      if card.expire_at && card.expire_at.to_date >= Date.today
+      if card.expire_at && card.expire_at.to_date >= created_at.to_date
         self.state = 'continue'
-      elsif card.expire_at && card.expire_at < Date.today
+      elsif card.expire_at && card.expire_at < created_at
         self.state = 'renew'
       else
         self.state = 'fresh'
