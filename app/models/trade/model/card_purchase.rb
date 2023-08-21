@@ -60,7 +60,7 @@ module Trade
 
     def sync_to_card!
       if ['fresh', 'renew'].include? self.state
-        card.effect_at = Time.current
+        card.effect_at = created_at
       end
       card.expire_at = expire_at if (card.expire_at && card.expire_at < expire_at) || card.expire_at.blank?
       card.save!
