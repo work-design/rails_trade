@@ -5,7 +5,7 @@ module Trade
       :refund, :finish, :payment_types, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart]
-    before_action :set_new_order, only: [:new, :create, :blank, :trial, :add, :create]
+    before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
 
     def index
       q_params = {}
