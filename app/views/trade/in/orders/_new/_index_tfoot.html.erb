@@ -2,7 +2,10 @@
   <tr>
     <td colspan="4"></td>
     <td>
-      <%= submit_tag '确认订单', class: 'button is-success', form: 'new_order' %>
+      <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+        <%= f.hidden_field :current_cart_id %>
+        <%= f.submit '确认订单', class: 'button is-success' %>
+      <% end %>
     </td>
   </tr>
 </tfoot>

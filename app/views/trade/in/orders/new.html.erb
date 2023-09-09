@@ -1,23 +1,20 @@
-<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
-  <%= f.hidden_field :current_cart_id %>
-<% end %>
-
 <div class="box">
   <p><%= @order.member&.name %></p>
   <p><%= @order.user&.name %></p>
   <p>
-    <span class="ui blue label"><%= @order.current_cart.payment_strategy&.name %></span>
+    <span class="tag"><%= @order.current_cart.payment_strategy&.name %></span>
     <% if @order.current_cart.deposit_ratio %>
-      <span class="ui orange label">
-        Deposit Ratio:
-        <%= @order.current_cart.deposit_ratio %>%
+      <span class="tag">
+        Deposit Ratio:<%= @order.current_cart.deposit_ratio %>%
       </span>
     <% end %>
   </p>
 </div>
 
 <%= render layout: 'index_table' do %>
-  <%= render partial: 'item_tbody', layout: 'item_tr', collection: @order.items, as: :model, locals: { f: form_object(@order, theme: 'inline') } %>
+  <% form_object(@order, theme: 'inline').fields :items, include_id: true do |ef| %>
+    <%= render partial: 'item_tbody', layout: 'item_tr', locals: { ef: ef } %>
+  <% end %>
 <% end %>
 
 <%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
