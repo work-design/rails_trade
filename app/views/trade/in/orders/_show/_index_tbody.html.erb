@@ -7,7 +7,7 @@
   <%= model.aim_i18n %>
 <% end %>
 </td>
-<td><%= link_to '订单流程', { controller: 'items', action: 'show', order_id: @order.id, id: model.id } %></td>
+<td><%= link_to '订单流程', { controller: 'items', action: 'show', id: model.id } %></td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
   <i class="fa-solid fa-times has-text-grey"></i>
