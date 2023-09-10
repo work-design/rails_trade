@@ -2,8 +2,9 @@
 <td><%= model.uuid %></td>
 <td><%= model.number %></td>
 <td>
-  <%= form_with(theme: 'inline', scope: 'item', url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input', turbo_scroll: true }) do |f| %>
-    <%= f.text_field :note, data: { action: 'blur->input#form' }, class: 'has-background-light has-text-centered' %>
+  <%= form_with(theme: 'inline', model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input', turbo_scroll: true }) do |f| %>
+    <%= f.hidden_field :current_cart_id, value: params[:current_cart_id] %>
+    <%= f.text_field :note, data: { action: 'input->input#form' }, class: 'has-background-light has-text-centered' %>
   <% end %>
 </td>
 <td><%= model.amount.to_money.format.html_safe %></td>
