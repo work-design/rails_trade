@@ -2,7 +2,9 @@
 <td><%= model.uuid %></td>
 <td><%= model.number %></td>
 <td>
-  <%# ef.text_field :note, form: 'new_order' %>
+  <%= form_with(theme: 'inline', scope: 'item', url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input', turbo_scroll: true }) do |f| %>
+    <%= f.text_field :note, data: { action: 'blur->input#form' }, class: 'has-background-light has-text-centered' %>
+  <% end %>
 </td>
 <td><%= model.amount.to_money.format.html_safe %></td>
 <td></td>

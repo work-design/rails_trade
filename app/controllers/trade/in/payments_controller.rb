@@ -3,7 +3,7 @@ module Trade
 
     private
     def set_order
-      @order = current_organ.member_orders.find params[:order_id]
+      @order = current_organ.organ_orders.find params[:order_id]
     end
   end
 end

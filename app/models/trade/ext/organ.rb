@@ -8,8 +8,8 @@ module Trade
       has_many :member_carts, class_name: 'Trade::Cart', foreign_key: :member_organ_id
       has_many :organ_carts, ->{ where(member_id: nil, user_id: nil) }, class_name: 'Trade::Cart', foreign_key: :member_organ_id
       has_many :organ_items, class_name: 'Trade::Item', foreign_key: :member_organ_id
-      has_many :member_orders, class_name: 'Trade::Order', foreign_key: :member_organ_id
-      has_many :member_ordered_items, class_name: 'Trade::Item', through: :member_orders, source: :items
+      has_many :organ_orders, class_name: 'Trade::Order', foreign_key: :member_organ_id
+      has_many :member_ordered_items, class_name: 'Trade::Item', through: :organ_orders, source: :items
       has_many :cards, -> { includes(:card_template) }, class_name: 'Trade::Card', foreign_key: :member_organ_id
       has_many :wallets, -> { includes(:wallet_template) }, class_name: 'Trade::Wallet', foreign_key: :member_organ_id
       has_many :lawful_wallets, -> { where(member_id: nil) }, class_name: 'Trade::LawfulWallet', foreign_key: :member_organ_id

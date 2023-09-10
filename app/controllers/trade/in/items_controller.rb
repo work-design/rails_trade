@@ -9,6 +9,10 @@ module Trade
     end
 
     private
+    def set_item
+      @item = current_organ.organ_items.find params[:id]
+    end
+
     def set_new_item
       options = {}
       options.merge! params.permit(:good_id, :produce_on, :scene_id)

@@ -6,7 +6,7 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = current_organ.member_orders.includes(:user, :member, :member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @orders = current_organ.organ_orders.includes(:user, :member, :member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def payments
@@ -26,11 +26,11 @@ module Trade
 
     private
     def set_order
-      @order = current_organ.member_orders.find(params[:id])
+      @order = current_organ.organ_orders.find(params[:id])
     end
 
     def set_new_order
-      @order = current_organ.member_orders.build(order_params)
+      @order = current_organ.organ_orders.build(order_params)
     end
 
     def order_params
