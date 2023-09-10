@@ -24,18 +24,15 @@ module Trade
         invest: 'invest',
         rent: 'rent'
       }, _default: 'use', _prefix: true
-
       enum generate_mode: {
         myself: 'myself',
         by_from: 'by_from'
       }, _default: 'myself'
-
       enum state: {
         init: 'init',
         done: 'done',
         canceled: 'canceled'
       }, _default: 'init'
-
       enum payment_status: {
         unpaid: 'unpaid',
         to_check: 'to_check',
@@ -178,7 +175,7 @@ module Trade
     end
 
     def compute_amount
-      self.item_amount = items.sum(&->(i){ i.original_amount.to_d })
+      self.item_amount = items.sum(&->(i){ i.amount.to_d })
       self.advance_amount = items.sum(&->(i){ i.advance_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
