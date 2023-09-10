@@ -273,6 +273,7 @@ zh:
         index:
           title: 平台订单
     in:
+      title: 订单管理
       orders:
         index:
           title: 订单
