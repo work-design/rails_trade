@@ -4,7 +4,7 @@ module Trade
     include Org::Controller::In
 
     included do
-      layout 'in'
+      layout 'admin'
       before_action :require_member
     end
 
