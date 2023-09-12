@@ -201,23 +201,24 @@ module Trade
     end
 
     def find_item(**options)
-      args = xx(**options)
-      logger.debug "\e[35m  #{args}  \e[0m"
-
+      args = attr_options(**options)
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
     def organ_item(**options)
-      args = xx(**options)
-
+      args = attr_options(**options)
       organ_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def xx(**options)
+    def attr_options(**options)
+      options.compact_blank!
       options.symbolize_keys!
-      args = { good_id: options[:good_id].to_i, good_type: good_type, aim: aim, **options.slice(:fetch_oneself) }
-      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
-      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
+      args = { good_type: good_type, aim: aim }
+      args.merge! options.slice(:good_type, :aim)
+      args.merge! good_id: options[:good_id].to_i if options[:good_id]
+      args.merge! purchase_id: options[:purchase_id].to_i if options[:purchase_id]
+      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id]
+      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on]
       args.stringify_keys!
     end
 

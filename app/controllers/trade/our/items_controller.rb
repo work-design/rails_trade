@@ -11,10 +11,10 @@ module Trade
         operator_id: current_client.id
       }
       options.merge! client_params
-      options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id, :fetch_oneself)
+      options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id)
       options.compact_blank!
 
-      @item = @cart.find_item(**options) || @cart.checked_items.build(options)
+      @item = @cart.find_item(**options) || @cart.items.build(options)
     end
 
     def set_cart
