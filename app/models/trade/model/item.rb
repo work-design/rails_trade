@@ -204,6 +204,7 @@ module Trade
     end
 
     def set_wallet_amount
+      return unless good
       if ['use', 'invest'].include?(aim)
         self.wallet_amount = good.wallet_price.transform_values(&->(v){ v.to_d * number })
       end
@@ -237,7 +238,7 @@ module Trade
 
     def compute_amount
       self.original_amount = single_price * number
-      self.advance_amount = good.advance_price * number
+      self.advance_amount = good.advance_price * number if good
       self.amount = original_amount
     end
 
