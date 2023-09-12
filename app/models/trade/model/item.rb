@@ -97,7 +97,7 @@ module Trade
       after_initialize :init_uuid, if: :new_record?
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
-      before_validation :compute_price, if: -> { good_id_changed? }
+      before_validation :compute_price, if: -> { good_id_changed? || purchase_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
@@ -215,14 +215,17 @@ module Trade
     end
 
     def compute_price
-      return unless good
-      min = good.card_price.slice(*cards.includes(:card_template).map(&->(i){ i.card_template.code })).min
-      if min.present?
-        self.vip_code = min[0]
-        self.single_price = min[1]
-      else
-        self.vip_code = nil
-        self.single_price = good.price
+      if good
+        min = good.card_price.slice(*cards.includes(:card_template).map(&->(i){ i.card_template.code })).min
+        if min.present?
+          self.vip_code = min[0]
+          self.single_price = min[1]
+        else
+          self.vip_code = nil
+          self.single_price = good.price
+        end
+      elsif purchase
+        self.single_price = purchase.cost_price
       end
     end
 
