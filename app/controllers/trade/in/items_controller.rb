@@ -28,6 +28,16 @@ module Trade
       @item = @cart.organ_items.load.find params[:id]
     end
 
+    def item_params
+      params.fetch(:item, {}).permit(
+        :number,
+        :note,
+        :desk_id,
+        :organ_id,
+        :current_cart_id
+      )
+    end
+
   end
 end
 
