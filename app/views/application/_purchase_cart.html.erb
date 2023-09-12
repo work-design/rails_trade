@@ -16,10 +16,10 @@
   <%= f.hidden_field :current_cart_id, value: @cart&.id %>
   <%= f.number_field :number, value: item.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
 <% end %>
-<%= form_with theme: nil, url: { controller: 'trade/in/items', action: 'update', id: item.id }, method: :patch, class: 'ml-1', data: { turbo_scroll: true } do |f| %>
+<%= form_with theme: nil, url: { controller: 'trade/in/items', action: 'update', id: item.id }, method: :patch, class: 'ml-1 button_to', data: { turbo_scroll: true } do |f| %>
   <%= f.hidden_field :current_cart_id, value: @cart&.id %>
   <%= f.hidden_field :number, value: item.number + 1 %>
-  <% button_tag class: '' do %>
+  <%= button_tag do %>
     <i class="fa-solid fa-circle-plus fa-xl has-text-dark-grey"></i>
   <% end %>
 <% end %>
