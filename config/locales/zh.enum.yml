@@ -79,6 +79,7 @@ zh:
           invest: 投资
           rent: 租用
         purchase_status:
+          init: 待收货
           received: 已收货
       trade/trade_promote:
         scope:
