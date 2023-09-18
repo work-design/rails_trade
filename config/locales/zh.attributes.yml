@@ -96,6 +96,7 @@ zh:
         from_address_id: 发货地址
         produce_plan_id: 生产计划
         status: 状态
+        purchase_status: 采购状态
         duration: 时长
         image: 图片
         created_at: 下单时间

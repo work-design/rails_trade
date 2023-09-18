@@ -78,6 +78,8 @@ zh:
           use: 使用
           invest: 投资
           rent: 租用
+        purchase_status:
+          received: 已收货
       trade/trade_promote:
         scope:
           overall: 全体商品
