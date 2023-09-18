@@ -39,7 +39,7 @@ module Trade
 
     def wxpay_notify
       encrypted_params = JSON.parse(request.body.read)
-      payee = Wechat::PartnerPayee.find_by(mch_id: params[:mch_id]) || Wechat::MchPayee.find_by(mch_id: params[:mch_id])
+      payee = Wechat::Payee.find_by(mch_id: params[:mch_id])
       notify_params = WxPay::Cipher.decrypt_notice encrypted_params['resource'], key: payee.key_v3
       logger.debug "\e[35m  #{notify_params}  \e[0m"
 
