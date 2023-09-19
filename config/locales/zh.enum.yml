@@ -130,7 +130,7 @@ zh:
           Trade::HandRefund: 后台退款
       trade/unit:
         metering:
-          weight: 总重量
+          weight: 重量
           volume: 体积
           duration: 时长
       trade/cart:
