@@ -1,0 +1,11 @@
+<%= form_with theme: 'search', model: Trade::Item.new do |f| %>
+  <div class="field-body">
+    <%= f.text_field :uuid, style: 'width: 240px' %>
+    <%= f.date_field 'created_at-gte' %>
+    <%= f.date_field 'created_at-lte' %>
+    <div class="field is-narrow">
+      <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(except: [:uuid, :user_id, 'created_at-gte', 'created_at-lte']), class: 'button is-light' %>
+    </div>
+  </div>
+<% end %>

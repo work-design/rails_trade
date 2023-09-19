@@ -94,7 +94,7 @@ module Trade
         methods: [:order_uuid, :cart_organ]
       )
 
-      after_initialize :init_uuid, if: :new_record?
+      before_validation :init_uuid, if: :new_record?
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :compute_price, if: -> { good_id_changed? || purchase_id_changed? }
