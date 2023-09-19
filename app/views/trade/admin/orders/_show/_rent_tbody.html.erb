@@ -22,24 +22,28 @@
   <p><%= item.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><time data-controller="time" data-value="<%= item.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_start_at.to_fs(:human) %></time></p>
-  <% if item.rent_estimate_finish_at %>
+  <% item.holds.each do |hold| %>
+    <% if hold.rent_start_at %>
+     <p><time data-controller="time" data-value="<%= hold.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_start_at.to_fs(:human) %></time></p>
+    <% end %>
+  <% if hold.rent_estimate_finish_at %>
   <p>
-    <time data-controller="time" data-value="<%= item.rent_estimate_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_estimate_finish_at.to_fs(:human) %></time>
+    <time data-controller="time" data-value="<%= hold.rent_estimate_finish_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_estimate_finish_at.to_fs(:human) %></time>
   </p>
   <% end %>
-  <% if item.rent_finish_at %>
+  <% if hold.rent_finish_at %>
   <p class="has-text-success">
-    <time data-controller="time" data-value="<%= item.rent_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_finish_at.to_fs(:human) %></time>
+    <time data-controller="time" data-value="<%= hold.rent_finish_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_finish_at.to_fs(:human) %></time>
   </p>
-  <% elsif item.rent_present_finish_at %>
+  <% elsif hold.rent_present_finish_at %>
   <p class="has-text-success">
-    <time data-controller="time" data-value="<%= item.rent_present_finish_at.to_fs(:iso8601) %>" data-format="human"><%= item.rent_present_finish_at.to_fs(:human) %></time>
+    <time data-controller="time" data-value="<%= hold.rent_present_finish_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_present_finish_at.to_fs(:human) %></time>
   </p>
   <% end %>
   <p>
-    <span><%= item.duration %></span>
+    <span><%= hold.duration %></span>
     <span><%= item.good.rent_unit_i18n %></span>
   </p>
+  <% end %>
 </td>
 <td><%= item.amount.to_money.format.html_safe %></td>

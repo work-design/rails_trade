@@ -1,6 +1,6 @@
 module Trade
   module Model::Item
-    PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume', 'duration']
+    PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume']
     extend ActiveSupport::Concern
     include Inner::User
 

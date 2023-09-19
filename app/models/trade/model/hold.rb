@@ -65,6 +65,7 @@ module Trade
     end
 
     def duration
+      return 0 unless rent_start_at
       if rent_finish_at.present?
         result = rent_finish_at - rent_start_at
       elsif rent_present_finish_at
