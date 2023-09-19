@@ -2,7 +2,7 @@
   <tr>
     <th><%= Trade::Payment.human_attribute_name(:type) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:type]), class: active_helper(type: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:type]), class: active_helper(type: nil, active: 'button is-info', item: 'button is-light') %>
       <% Trade::Payment.options_i18n(:type).each do |text, type| %>
         <%= link_to text, filter_params(type: type), class: active_helper(type: type, active: 'button is-info', item: 'button is-light') %>
       <% end %>
@@ -11,7 +11,7 @@
   <tr>
     <th><%= Trade::Payment.human_attribute_name(:state) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:state]), class: active_helper(state: '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:state]), class: active_helper(state: nil, active: 'button is-info', item: 'button is-light') %>
       <% Trade::Payment.options_i18n(:state).each do |text, state| %>
         <%= link_to text, filter_params(state: state), class: active_helper(state: state, active: 'button is-info', item: 'button is-light') %>
       <% end %>
@@ -20,7 +20,7 @@
   <tr>
     <th><%= Trade::PaymentOrder.human_attribute_name(:state) %></th>
     <td>
-      <%= link_to t('.all'), filter_params(except: [:'payment_orders.state']), class: active_helper('payment_orders.state': '', active: 'button is-info', item: 'button is-light') %>
+      <%= link_to t('.all'), filter_params(except: [:'payment_orders.state']), class: active_helper('payment_orders.state': nil, active: 'button is-info', item: 'button is-light') %>
       <% Trade::PaymentOrder.options_i18n(:state).each do |text, state| %>
         <%= link_to text, filter_params('payment_orders.state': state), class: active_helper('payment_orders.state': state, active: 'button is-info', item: 'button is-light') %>
       <% end %>
