@@ -11,7 +11,7 @@ module Trade
       attribute :grade, :integer, default: 1, comment: '会员级别'
       attribute :enabled, :boolean, default: true
 
-      belongs_to :organ, optional: true
+      belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :promote, optional: true
       belongs_to :parent, class_name: self.name, optional: true
 
