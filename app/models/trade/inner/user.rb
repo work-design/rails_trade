@@ -14,7 +14,6 @@ module Trade
 
     def sync_member_organ
       self.member_organ_id = member&.organ_id
-      self.user ||= member.user
     end
 
   end
