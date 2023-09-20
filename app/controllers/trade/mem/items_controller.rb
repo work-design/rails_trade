@@ -10,7 +10,7 @@ module Trade
     def set_new_item
       options = {}
       options.merge! client_params
-      options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id, :fetch_oneself)
+      options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id)
       options.compact_blank!
 
       @item = @cart.find_item(**options) || @cart.checked_items.build(options)
@@ -19,6 +19,8 @@ module Trade
     def set_cart
       if params[:current_cart_id]
         @cart = Cart.find params[:current_cart_id]
+      elsif item_params[:current_cart_id].present?
+        @cart = Cart.find item_params[:current_cart_id]
       else
         options = {}
         options.merge! default_form_params

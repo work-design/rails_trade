@@ -2,27 +2,27 @@
 
 <% if item %>
 <div class="is-flex is-justify-content-center">
-<%= form_with theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, class: 'button_to', data: { turbo_scroll: true } do |f| %>
-  <%= f.hidden_field :number, value: item.number - 1 %>
-  <%= f.hidden_field :current_cart_id, value: @cart&.id %>
-  <%= button_tag class: 'mr-1' do %>
+  <%= form_with theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, class: 'button_to', data: { turbo_scroll: true } do |f| %>
+    <%= f.hidden_field :number, value: item.number - 1 %>
+    <%= f.hidden_field :current_cart_id, value: @cart&.id %>
+    <%= button_tag class: 'mr-1' do %>
+      <i class="fa-solid fa-circle-minus fa-xl has-text-dark-grey"></i>
+    <% end %>
+  <% end if item.number > 1 %>
+  <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, class: 'mr-1', form: { data: { turbo_scroll: true } }) do %>
     <i class="fa-solid fa-circle-minus fa-xl has-text-dark-grey"></i>
+  <% end if item.number <= 1 %>
+  <%= form_with(theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input', turbo_scroll: true }) do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart&.id %>
+    <%= f.number_field :number, value: item.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
   <% end %>
-<% end if item.number > 1 %>
-<%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, class: 'mr-1', form: { data: { turbo_scroll: true } }) do %>
-  <i class="fa-solid fa-circle-minus fa-xl has-text-dark-grey"></i>
-<% end if item.number <= 1 %>
-<%= form_with(theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input', turbo_scroll: true }) do |f| %>
-  <%= f.hidden_field :current_cart_id, value: @cart&.id %>
-  <%= f.number_field :number, value: item.number, data: { action: 'change->input#form' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
-<% end %>
-<%= form_with theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, class: 'ml-1 button_to', data: { turbo_scroll: true } do |f| %>
-  <%= f.hidden_field :current_cart_id, value: @cart&.id %>
-  <%= f.hidden_field :number, value: item.number + 1 %>
-  <%= button_tag do %>
-    <i class="fa-solid fa-circle-plus fa-xl has-text-dark-grey"></i>
+  <%= form_with theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, class: 'ml-1 button_to', data: { turbo_scroll: true } do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart&.id %>
+    <%= f.hidden_field :number, value: item.number + 1 %>
+    <%= button_tag do %>
+      <i class="fa-solid fa-circle-plus fa-xl has-text-dark-grey"></i>
+    <% end %>
   <% end %>
-<% end %>
 </div>
 <% end %>
 
