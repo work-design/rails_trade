@@ -9,6 +9,15 @@ module Trade
     end
 
     private
+    def set_cart
+      options = {}
+      options.merge! default_form_params
+      options.merge! member_id: current_user.id
+
+      @cart = Cart.where(options).unscope(where: :organ_id).find params[:id]
+      @cart.compute_amount! unless @cart.fresh
+    end
+
     def cart_params
       params.fetch(:cart, {}).permit(
         :address_id,
