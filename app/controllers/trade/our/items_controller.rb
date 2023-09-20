@@ -20,6 +20,8 @@ module Trade
     def set_cart
       if params[:current_cart_id]
         @cart = Cart.find params[:current_cart_id]
+      elsif item_params[:current_cart_id]
+        @cart = Cart.find item_params[:current_cart_id]
       else
         options = {}
         options.merge! default_form_params
@@ -34,7 +36,8 @@ module Trade
 
     def item_params
       params.fetch(:item, {}).permit(
-        :number
+        :number,
+        :current_cart_id
       )
     end
 
