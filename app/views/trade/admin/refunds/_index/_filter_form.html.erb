@@ -8,6 +8,7 @@
     <%= f.date_field 'created_at-lte' %>
     <div class="field is-narrow">
       <%= f.submit %>
+      <%= link_to t('.clear'), filter_params(except: [:payment_status, :uuid, :payment_method, 'created_at-gte', 'created_at-lte']), class: 'button is-light' %>
     </div>
   </div>
 <% end %>
