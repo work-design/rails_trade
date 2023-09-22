@@ -24,9 +24,9 @@ module Trade
 
       has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source, dependent: :destroy
 
+      after_create :sync_log
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
       after_destroy :sync_amount_after_destroy
-      after_create_commit :sync_log
     end
 
     def sync_log
