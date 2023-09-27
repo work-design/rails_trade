@@ -10,7 +10,7 @@ module Trade
 
     def assign_detail(params)
       self.notified_at = Time.current
-      self.total_amount = params[:total_amount]
+      self.assign_attributes params.slice(:total_amount, :payment_uuid)
     end
 
   end
