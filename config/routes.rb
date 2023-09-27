@@ -93,12 +93,11 @@ Rails.application.routes.draw do
           get :adjust_edit
           patch :adjust_update
         end
+        resources :order_payments
       end
       resources :payments do
         collection do
           get :dashboard
-          get 'order/:order_id' => :order_new
-          post 'order/:order_id' => :order_create
         end
         member do
           patch :analyze

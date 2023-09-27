@@ -1,6 +1,0 @@
-<%= form_with model: @payment, scope: :payment, url: { action: 'order_create' } do |f| %>
-  <%= hidden_field_tag :order_id, params[:order_id] %>
-  <%= f.hidden_field :type, value: 'Trade::HandPayment' %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <%= f.submit %>
-<% end %>

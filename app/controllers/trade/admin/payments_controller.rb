@@ -1,9 +1,10 @@
 module Trade
   class Admin::PaymentsController < Admin::BaseController
-    before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
-    before_action :set_order, only: [:order_new, :order_create]
+    before_action :set_payment, only: [
+      :show, :edit, :update, :destroy, :actions,
+      :analyze, :adjust
+    ]
     before_action :set_new_payment, only: [:new, :create, :order_new, :order_create]
-    before_action :set_new_payment_with_order, only: [:order_new, :order_create]
 
     def dashboard
     end
@@ -18,14 +19,6 @@ module Trade
 
     def new
       @payment.init_uuid
-    end
-
-    def order_new
-      @payment.total_amount = @order.unreceived_amount
-    end
-
-    def order_create
-      @payment.save
     end
 
     def analyze
@@ -43,14 +36,6 @@ module Trade
 
     def set_new_payment
       @payment = Payment.new(payment_params)
-    end
-
-    def set_new_payment_with_order
-      @payment = @order.payments.build(payment_params)
-    end
-
-    def set_order
-      @order = Order.find params[:order_id]
     end
 
     def payment_params

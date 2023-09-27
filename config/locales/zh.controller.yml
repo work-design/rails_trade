@@ -83,7 +83,8 @@ zh:
           show: 支付方式
           analyze: 分析支付方式
           adjust: 平账
-        order_new:
+      order_payments:
+        new:
           title: 后台支付
       scan_payments:
         index:
