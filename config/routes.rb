@@ -262,15 +262,13 @@ Rails.application.routes.draw do
             resources :card_purchases
           end
         end
-        resources :advances, only: [] do
+        resources :lawful_advances do
           collection do
             get :lawful
-            get :lawful_new
-            post :lawful_create
           end
         end
         resources :wallet_templates do
-          resources :advances, shallow: true
+          resources :advances
           resources :custom_wallets
           resources :wallet_prepayments
           resources :wallet_goods

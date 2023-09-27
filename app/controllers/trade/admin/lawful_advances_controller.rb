@@ -1,29 +1,34 @@
 module Trade
-  class Admin::AdvancesController < Admin::BaseController
-    before_action :set_wallet_template
+  class Admin::LawfulAdvancesController < Admin::BaseController
     before_action :set_advance, only: [:show, :edit, :update, :destroy, :actions]
-    before_action :set_new_advance, only: [:new, :create]
+    before_action :set_new_lawful_advance, only: [:lawful_new, :lawful_create]
     before_action :set_card_templates, only: [:new, :create, :lawful_new, :edit, :update]
 
     def index
-      @advances = @wallet_template.advances.order(amount: :asc).page(params[:page])
+      q_params = {
+        lawful: true
+      }
+      q_params.merge! default_params
+
+      @advances = Advance.default_where(q_params).order(amount: :asc).page(params[:page])
     end
 
     private
-    def set_wallet_template
-      @wallet_template = WalletTemplate.find params[:wallet_template_id]
-    end
-
-    def set_new_advance
-      @advance = @wallet_template.advances.build(advance_params)
+    def set_new_lawful_advance
+      @advance = Advance.new(advance_params)
+      @advance.lawful = true
     end
 
     def set_advance
-      @advance = @wallet_template.advances.find(params[:id])
+      @advance = Advance.find(params[:id])
     end
 
     def set_card_templates
       @card_templates = CardTemplate.default_where(default_params)
+    end
+
+    def model_name
+      'advance'
     end
 
     def advance_params

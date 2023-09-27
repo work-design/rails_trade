@@ -2,8 +2,8 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'advances', action: 'lawful' }, aria: { label: t('trade.admin.advances.lawful.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-donate"></i>
+      <%= link_to({ controller: 'lawful_advances' }, aria: { label: t('trade.admin.lawful_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-donate has-text-primary"></i>
       <% end %>
     </div>
   </td>
