@@ -105,6 +105,9 @@ Rails.application.routes.draw do
         end
         resources :refunds, only: [:new, :create]
         resources :payment_orders do
+          collection do
+            post :confirmable
+          end
           member do
             post :confirm
             post :cancel

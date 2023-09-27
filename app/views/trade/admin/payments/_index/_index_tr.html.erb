@@ -5,7 +5,7 @@
       <% if model.payment_method.present? %>
         <%= link_to t('.show'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light', target: '_blank' %>
       <% end %>
-      <%= link_to({ controller: 'payment_orders', payment_id: model.id }, data: { action: 'common#link' }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-check-double"></i>
         <span class="pl-1"><%= t('trade.admin.payment_orders.new.title') %></span>
       <% end if model.payment_orders_count > 0 %>

@@ -10,26 +10,19 @@ module Trade
       @payment_orders = @payment.payment_orders
     end
 
+    def confirmable
+      @payment_orders = @payment.payment_orders
+    end
+
     def new
       @payment_order = PaymentOrder.new
       @orders = @payment.pending_orders
     end
 
     def create
-      @payment_order = @payment.payment_orders.build(payment_order_params)
 
       if @payment_order.confirm!
         render 'create'
-      else
-        render 'create_fail'
-      end
-    end
-
-    def update
-      @payment_order.assign_attributes payment_order_params
-
-      if @payment_order.save
-        render 'update'
       else
         render 'create_fail'
       end
@@ -50,12 +43,16 @@ module Trade
     end
 
     private
+    def set_payment
+      @payment = Payment.find(params[:payment_id])
+    end
+
     def set_payment_order
       @payment_order = PaymentOrder.find(params[:id])
     end
 
-    def set_payment
-      @payment = Payment.find(params[:payment_id])
+    def set_new_payment_order
+      @payment_order = @payment.payment_orders.build(payment_order_params)
     end
 
     def payment_order_params
