@@ -1,31 +1,11 @@
 module Trade
   class My::PaymentsController < My::BaseController
-    before_action :set_order, only: [:order_new, :order_create, :wxpay]
-    before_action :set_new_payment_with_order, only: [:order_new, :order_create]
-    before_action :set_payment_order, only: [:payment_order_new, :payment_order_create]
-    before_action :set_new_payment_with_payment_order, only: [:payment_order_new, :payment_order_create]
+    before_action :set_order, only: [:wxpay]
     before_action :set_payment, only: [:show, :edit, :update, :destroy]
     before_action :set_new_payment, only: [:new, :create]
 
     def index
       @payments = current_user.payments.page(params[:page])
-    end
-
-    def order_new
-      @payment.total_amount = @order.unreceived_amount
-    end
-
-    def order_create
-      @payment.save
-    end
-
-    def payment_order_new
-      @payment.total_amount = @payment_order.check_amount
-    end
-
-    def payment_order_create
-      @payment_order.state = 'pending'
-      @payment.save
     end
 
     def next
@@ -104,11 +84,6 @@ module Trade
 
     def set_new_payment
       @payment = Payment.new(payment_params)
-    end
-
-    def set_new_payment_with_order
-      @payment = @order.payments.build(payment_params)
-      @payment.user = current_user
     end
 
     def set_new_payment_with_payment_order
