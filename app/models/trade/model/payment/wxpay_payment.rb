@@ -114,7 +114,7 @@ module Trade
       logger.debug "\e[35m  wxpay result: #{result}  \e[0m"
 
       if result['trade_state'] == 'SUCCESS'
-        self.confirm!(result)
+        self.confirm(result)
       else
         self.errors.add :base, result['trade_state_desc'] || result['err_code_des']
       end

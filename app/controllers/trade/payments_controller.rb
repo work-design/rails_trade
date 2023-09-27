@@ -51,8 +51,8 @@ module Trade
         @payment = @order.to_payment(type: 'Trade::WxpayPayment', payment_uuid: notify_params['transaction_id'], total_amount: notify_params.dig('amount', 'total').to_i / 100.0)
         @payment.checked_amount = @payment.total_amount
       end
-      @payment.confirm(notify_params)
 
+      @payment.confirm(notify_params)
       if @payment.save
         render json: { code: 'SUCCESS', message: '处理成功' }
       else

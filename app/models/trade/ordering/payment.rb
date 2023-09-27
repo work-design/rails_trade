@@ -18,11 +18,9 @@ module Trade
       else
         payment = Payment.build(payment_uuid: payment_uuid)
         payment.organ_id = organ_id
-        payment.assign_detail params
+        # payment_order.check_amount = payment.total_amount
 
-        payment_order = self.payment_orders.find(&:new_record?)
-        payment_order.check_amount = payment.total_amount
-        payment_order.state = 'confirmed'
+        payment.confirm params
         begin
           self.save
         rescue ActiveRecord::RecordInvalid => e

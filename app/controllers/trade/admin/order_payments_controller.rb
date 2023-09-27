@@ -10,6 +10,10 @@ module Trade
       @payment.total_amount = @order.unreceived_amount
     end
 
+    def create
+      @payment.save
+    end
+
     private
     def set_order
       @order = Order.find params[:order_id]
