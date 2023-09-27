@@ -22,18 +22,27 @@ module Trade
       belongs_to :item, optional: true
       belongs_to :wallet_prepayment, optional: true
 
-      has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source, dependent: :destroy
+      has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
 
       after_create :sync_log
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
       after_destroy :sync_amount_after_destroy
+      after_destroy :sync_destroy_log
     end
 
     def sync_log
-      log = self.wallet_log || self.build_wallet_log
+      log = self.build_wallet_log
       log.title = self.note.presence || I18n.t('wallet_log.income.wallet_advance.title')
       log.tag_str = I18n.t('wallet_log.income.wallet_advance.tag_str')
       log.amount = self.amount
+      log.save
+    end
+
+    def sync_destroy_log
+      log = self.build_wallet_log
+      log.title = self.note.presence || I18n.t('wallet_log.expense.wallet_advance.title')
+      log.tag_str = I18n.t('wallet_log.expense.wallet_advance.tag_str')
+      log.amount = -self.amount
       log.save
     end
 

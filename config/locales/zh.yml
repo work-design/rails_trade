@@ -26,3 +26,7 @@ zh:
       wallet_frozen:
         title: 冻结
         tag_str: 冻结
+    expense:
+      wallet_advance:
+        title: 删除充值记录
+        tag_str: 删除充值记录

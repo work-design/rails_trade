@@ -21,7 +21,7 @@ module Trade
       has_many :wallet_logs
       has_many :wallet_sells
       has_many :payouts
-      has_many :wallet_advances
+      has_many :wallet_advances, inverse_of: :wallet
       has_many :wallet_payments, inverse_of: :wallet  # expense
       has_many :wallet_refunds
       has_many :wallet_frozens
