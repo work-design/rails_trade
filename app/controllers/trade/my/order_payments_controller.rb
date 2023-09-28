@@ -1,5 +1,5 @@
 module Trade
-  class Admin::OrderPaymentsController < Admin::BaseController
+  class My::OrderPaymentsController < My::BaseController
     before_action :set_order
     before_action :set_new_payment, only: [:new, :create]
     after_action only: [:create] do
