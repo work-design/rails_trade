@@ -4,7 +4,7 @@
       <td class="has-text-right"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></td>
       <td class="has-text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></td>
     </tr>
-    <%= render partial: 'wallet_payment', collection: @order.payment_orders, as: :payment_order %>
+    <%# render partial: 'wallet_payment', collection: @order.payment_orders, as: :payment_order %>
     <%= render 'hand_payment' %>
   </tbody>
 </table>

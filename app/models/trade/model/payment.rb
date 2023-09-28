@@ -130,6 +130,7 @@ module Trade
       self.assign_detail params
       payment_orders.each do |payment_order|
         payment_order.state = 'confirmed'
+        self.checked_amount += payment_order.payment_amount
       end
     end
 
