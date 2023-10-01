@@ -331,6 +331,10 @@ Rails.application.routes.draw do
         concerns :orderable
       end
 
+      namespace :agent, defaults: { namespace: 'agent' } do
+        concerns :orderable
+      end
+
       namespace :from, defaults: { namespace: 'from' } do
         concerns :orderable
       end

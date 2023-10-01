@@ -3,6 +3,7 @@ module Trade
     extend ActiveSupport::Concern
     include Inner::Amount
     include Inner::User
+    include Inner::Agent
 
     included do
       attribute :good_type, :string
@@ -55,14 +56,16 @@ module Trade
 
     def filter_hash
       if member_id
-        { member_id: member_id, good_type: good_type, aim: aim }.compact
+        p = { member_id: member_id, good_type: good_type, aim: aim }.compact
       elsif client_id
-        { client_id: client_id, good_type: good_type, aim: aim }.compact
+        p = { client_id: client_id, good_type: good_type, aim: aim }.compact
       elsif user_id
-        { user_id: user_id, good_type: good_type, aim: aim }.compact
+        p = { user_id: user_id, good_type: good_type, aim: aim }.compact
       else
-        { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
+        p = { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
       end
+      p.merge! agent_id: agent_id if respond_to? :agent_id
+      p
     end
 
     def simple_filter_hash
@@ -220,6 +223,10 @@ module Trade
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id]
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on]
       args.stringify_keys!
+    end
+
+    def xx
+      items
     end
 
   end

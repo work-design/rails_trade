@@ -15,10 +15,12 @@ module Trade
       has_many :deliveries, class_name: 'Trade::Delivery'
       has_many :items, class_name: 'Trade::Item'
       has_many :cart_items, ->{ carting }, class_name: 'Trade::Item'
-      has_many :agent_items, class_name: 'Trade::Item', foreign_key: :agent_id
       has_many :orders, class_name: 'Trade::Order'
       has_many :from_orders, class_name: 'Trade::Order', foreign_key: :from_member_id
       has_many :promote_goods, class_name: 'Trade::PromoteGood'
+
+      has_many :agent_carts, class_name: 'Trade::Cart', foreign_key: :agent_id
+      has_many :agent_items, class_name: 'Trade::Item', foreign_key: :agent_id
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
     end
