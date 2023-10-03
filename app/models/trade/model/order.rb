@@ -89,6 +89,7 @@ module Trade
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
+      after_save_commit :send_notice_after_commit
     end
 
     def filter_hash
@@ -205,14 +206,12 @@ module Trade
       items.each do |item|
         item.status = 'deliverable'
       end
-      send_paid_notice
     end
 
     def confirm_part_paid!
       items.each do |item|
         item.status = 'deliverable'
       end
-      send_part_paid_notice
     end
 
     def confirm_refund!
@@ -237,6 +236,14 @@ module Trade
 
     def send_paid_notice
       send_notice
+    end
+
+    def send_notice_after_commit
+      if payment_status == 'all_paid'
+        send_paid_notice
+      elsif payment_status == 'part_paid'
+        send_part_paid_notice
+      end
     end
 
     def send_notice
