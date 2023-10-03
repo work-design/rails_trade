@@ -1,0 +1,21 @@
+<td>
+  <p>
+    <span><%= link_to model.client&.identity, { action: 'show', id: model.id } %></span>
+    <span class="has-text-grey">（<%= model.client_id %>）</span>
+  </p>
+</td>
+<td>
+  <p><%= model.good_type_i18n %></p>
+  <p><%= model.aim_i18n %></p>
+</td>
+<td>
+  <p><%= model.payment_strategy&.name %></p>
+  <p><%= model.deposit_ratio %></p>
+</td>
+<td class="has-text-right">
+  <p><%= model.item_amount.to_money.format.html_safe %></p>
+  <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
+  <p><%= link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
+  <p><%= model.amount.to_money.format.html_safe %></p>
+</td>
+<td class="has-text-centered"><%= model.items.size %></td>

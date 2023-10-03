@@ -1,0 +1,19 @@
+<th>
+  <p><%= Trade::Cart.human_attribute_name(:user_id) %></p>
+  <p><%= Trade::Cart.human_attribute_name(:member_id) %></p>
+</th>
+<th>
+  <p><%= Trade::Cart.human_attribute_name(:good_type) %></p>
+  <p><%= Trade::Cart.human_attribute_name(:aim) %></p>
+</th>
+<th>
+  <p><%= Trade::Cart.human_attribute_name(:payment_strategy_id) %></p>
+  <p><%= Trade::Cart.human_attribute_name(:deposit_ratio) %></p>
+</th>
+<th class="has-text-right">
+  <p><%= Trade::Cart.human_attribute_name(:item_amount) %></p>
+  <p><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></p>
+  <p><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></p>
+  <p><%= Trade::Cart.human_attribute_name(:amount) %></p>
+</th>
+<th class="has-text-centered"><%= Trade::Cart.human_attribute_name(:items_count) %></th>

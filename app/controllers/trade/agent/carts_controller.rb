@@ -2,6 +2,10 @@ module Trade
   class Agent::CartsController < My::CartsController
     before_action :set_client, only: [:show]
 
+    def index
+      @carts = current_member.agent_carts.order(id: :desc).page(params[:page])
+    end
+
     private
     def set_cart
       @cart = current_member.agent_carts.find(params[:id])
