@@ -62,9 +62,8 @@ module Trade
       elsif item_params[:current_cart_id].present?
         @cart = Cart.find item_params[:current_cart_id]
       else
-        options = {}
+        options = { user_id: current_user.id, member_id: nil, client_id: nil }
         options.merge! default_form_params
-        options.merge! user_id: current_user.id, member_id: nil, client_id: nil
         @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
       end
     end
