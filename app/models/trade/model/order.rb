@@ -139,11 +139,9 @@ module Trade
       current_cart.checked_all_items.each do |item|
         item.order = self
         item.address_id = address_id
-        item.status = 'ordered'
       end
       current_cart.cart_promotes.each do |cart_promote|
         cart_promote.order = self
-        cart_promote.status = 'ordered'
       end
     end
 
@@ -191,6 +189,15 @@ module Trade
 
     def can_cancel?
       init? && ['unpaid', 'to_check'].include?(self.payment_status)
+    end
+
+    def confirm_ordered!
+      items.each do |item|
+        item.status = 'ordered'
+      end
+      cart_promotes.each do |cart_promote|
+        cart_promote.status = 'ordered'
+      end
     end
 
     def confirm_paid!
