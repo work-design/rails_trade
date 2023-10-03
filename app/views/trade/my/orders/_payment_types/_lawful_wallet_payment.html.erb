@@ -1,0 +1,33 @@
+<label class="weui-cell weui-cell_active weui-cells_checkbox">
+  <span class="weui-cell__bd has-v-centered">
+    <span class="is-several">
+      <span>钱包</span>
+    </span>
+    <span class="tags has-addons pl-2">
+      <span class="tag">余</span>
+      <span class="tag is-success"><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
+    </span>
+  </span>
+  <span class="weui-cell__ft has-v-centered" data-controller="input">
+    <span class="has-text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
+    <% if payment_order.payment.persisted? %>
+      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: payment_order.payment_id }, method: :delete, state: 'redirect', data: { controller: 'input' } do |f| %>
+        <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
+        <span class="weui-icon-checked"></span>
+      <% end %>
+    <% else %>
+      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { controller: 'payments', action: 'create' }, state: 'redirect' do |f| %>
+        <%= f.hidden_field :wallet_id %>
+        <%= f.hidden_field :type %>
+        <%= f.hidden_field :total_amount  %>
+        <%= f.fields :payment_orders do |ef| %>
+          <%= ef.hidden_field :order_id %>
+          <%= ef.hidden_field :state, value: 'confirmed' %>
+          <%= ef.hidden_field :payment_amount %>
+        <% end %>
+        <%= f.check_box 'xx', checked: false, class: 'weui-check', data: { action: 'input#form' } %>
+        <span class="weui-icon-checked"></span>
+      <% end %>
+    <% end %>
+  </span>
+</label>

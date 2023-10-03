@@ -6,6 +6,10 @@ module Trade
       #@order = current_member.agent_orders.build(order_params)
     end
 
+    def set_order
+      @order = Order.find(params[:id])
+    end
+
   end
 end
 
