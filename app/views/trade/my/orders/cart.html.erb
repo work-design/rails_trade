@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: 'item', collection: @cart.items.checked, as: :model %>
+    <%= render partial: 'item', collection: @cart.checked_all_items, as: :model %>
   </tbody>
   <tfoot>
     <tr>
