@@ -159,6 +159,12 @@ module Trade
       end
     end
 
+    def sync_items_from_agent
+      current_cart.agent_items.each do |item|
+        sync_item(item)
+      end
+    end
+
     def sync_item(item)
       item.order = self
       item.address_id = address_id

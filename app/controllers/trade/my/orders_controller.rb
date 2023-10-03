@@ -16,7 +16,7 @@ module Trade
     end
 
     def cart
-      @order = current_user.orders.build(current_cart_id: params[:current_cart_id])
+      @order = @cart.orders.build
     end
 
     def trial

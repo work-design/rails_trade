@@ -10,14 +10,7 @@
     </tr>
   </thead>
   <tbody>
-  <% current_cart.items.checked.each do |item| %>
-    <tr>
-      <td></td>
-      <td><%= item.good_name %></td>
-      <td><%= item.number %></td>
-      <td><%= item.amount %></td>
-    </tr>
-  <% end %>
+    <%= render partial: 'item', collection: @cart.items.checked, as: :model %>
   </tbody>
   <tfoot>
     <tr>
