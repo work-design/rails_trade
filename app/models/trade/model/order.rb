@@ -136,39 +136,15 @@ module Trade
       self.aim = current_cart.aim
       self.payment_strategy_id = current_cart.payment_strategy_id
       self.member_id = current_cart.member_id
-      if current_cart.user_id.blank?
-        sync_items_from_organ
-      else
-        sync_items_from_user
+      current_cart.checked_all_items.each do |item|
+        item.order = self
+        item.address_id = address_id
+        item.status = 'ordered'
       end
       current_cart.cart_promotes.each do |cart_promote|
         cart_promote.order = self
         cart_promote.status = 'ordered'
       end
-    end
-
-    def sync_items_from_user
-      current_cart.checked_all_items.each do |item|
-        sync_item(item)
-      end
-    end
-
-    def sync_items_from_organ
-      current_cart.organ_items.each do |item|
-        sync_item(item)
-      end
-    end
-
-    def sync_items_from_agent
-      current_cart.agent_items.each do |item|
-        sync_item(item)
-      end
-    end
-
-    def sync_item(item)
-      item.order = self
-      item.address_id = address_id
-      item.status = 'ordered'
     end
 
     def sync_to_unpaid_payment_orders

@@ -100,6 +100,10 @@ module Trade
       organ_id.blank? && member_organ.present?
     end
 
+    def agent_cart?
+
+    end
+
     def sync_from_maintain
       return unless maintain
       self.client_id = maintain.client_id
