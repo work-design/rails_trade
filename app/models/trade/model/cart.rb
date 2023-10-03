@@ -36,6 +36,7 @@ module Trade
       has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where(o.in_filter_hash).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
+      has_many :agent_items, ->(o) { where(o.agent_filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use', status: 'trial') }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart
 
@@ -52,20 +53,28 @@ module Trade
       after_initialize :sync_from_maintain, if: -> { new_record? && maintain_id.present? }
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
+      after_save :sync_client_to_items, if: -> { agent_id.present? && saved_change_to_client_id? }
     end
 
     def filter_hash
+      p = { good_type: good_type, aim: aim }.compact
       if member_id
-        p = { member_id: member_id, good_type: good_type, aim: aim }.compact
+        p.merge! member_id: member_id
       elsif client_id
-        p = { client_id: client_id, good_type: good_type, aim: aim }.compact
+        p.merge! client_id: client_id
       elsif user_id
-        p = { user_id: user_id, good_type: good_type, aim: aim }.compact
+        p.merge! user_id: user_id
       else
-        p = { member_organ_id: member_organ_id, good_type: good_type, aim: aim }.compact
+        p.merge!({ member_organ_id: member_organ_id }.compact)
       end
-      p.merge! agent_id: agent_id if respond_to? :agent_id
+      p.merge! agent_id: agent_id, client_id: client_id if respond_to? :agent_id
       p
+    end
+
+    def agent_filter_hash
+      {
+        good_type: good_type, aim: aim, agent_id: agent_id, client_id: nil
+      }
     end
 
     def simple_filter_hash
@@ -225,8 +234,8 @@ module Trade
       args.stringify_keys!
     end
 
-    def xx
-      items
+    def sync_client_to_items
+      agent_items.update_all(client_id: client_id)
     end
 
   end

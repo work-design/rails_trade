@@ -254,6 +254,8 @@ zh:
       items:
         index:
           title: 我的订单
+        create:
+          title: 加入购物车
         show:
           title: 详情
         finish:
