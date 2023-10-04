@@ -262,6 +262,10 @@ zh:
           title: 结算
         edit:
           title: 修改数量
+    agent:
+      carts:
+        index:
+          title: 最近下单
     from:
       orders:
         index:
