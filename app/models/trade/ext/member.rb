@@ -21,6 +21,7 @@ module Trade
 
       has_many :agent_carts, class_name: 'Trade::Cart', foreign_key: :agent_id
       has_many :agent_items, class_name: 'Trade::Item', foreign_key: :agent_id
+      has_many :agent_orders, class_name: 'Trade::Order', foreign_key: :agent_id
 
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
     end
