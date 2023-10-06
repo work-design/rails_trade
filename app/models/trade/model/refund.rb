@@ -49,6 +49,7 @@ module Trade
     end
 
     def sync_refund_to_order
+      order.refunded_amount += self.total_amount
       order.received_amount -= self.total_amount
       order.payment_status = 'refunding'
       self.confirm_refund!

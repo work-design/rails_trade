@@ -18,6 +18,7 @@ module Trade
       attribute :pay_auto, :boolean, default: false
       attribute :adjust_amount, :decimal
       attribute :received_amount, :decimal, default: 0
+      attribute :refunded_amount, :decimal, default: 0
       attribute :unreceived_amount, :decimal, as: 'amount - received_amount', virtual: true
 
       enum aim: {
