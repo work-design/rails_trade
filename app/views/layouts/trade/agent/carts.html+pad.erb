@@ -1,0 +1,13 @@
+<%= render layout: 'layouts/application_head' do %>
+  <%= render 'nav_bar' %>
+  <div id="alert"></div>
+  <main class="columns container">
+    <div class="column">
+      <%= render 'breadcrumb' %>
+      <%= yield %>
+    </div>
+    <div class="column is-narrow" style="width: 300px">
+      <%= render 'cart_nav' %>
+    </div>
+  </main>
+<% end %>
