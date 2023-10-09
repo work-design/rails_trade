@@ -5,7 +5,7 @@ module Trade
     included do
       has_many :card_templates, class_name: 'Trade::CardTemplate'
 
-      has_many :member_carts, class_name: 'Trade::Cart', foreign_key: :member_organ_id
+      has_many :member_carts, class_name: 'Trade::Cart', foreign_key: :member_organ_id, dependent: :destroy_async
       has_many :organ_carts, ->{ where(member_id: nil, user_id: nil) }, class_name: 'Trade::Cart', foreign_key: :member_organ_id
       has_many :organ_items, class_name: 'Trade::Item', foreign_key: :member_organ_id
       has_many :organ_orders, class_name: 'Trade::Order', foreign_key: :member_organ_id
