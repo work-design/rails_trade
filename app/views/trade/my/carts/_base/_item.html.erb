@@ -23,7 +23,7 @@
         <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
           <%= f.hidden_field :current_cart_id, value: @cart.id %>
           <%= f.hidden_field :number, value: model.number - 1 %>
-          <%= button_tag class: 'button ml-1' do %>
+          <%= button_tag class: 'button' do %>
             <i class="fa-solid fa-minus"></i>
           <% end %>
         <% end %>
@@ -38,7 +38,7 @@
         <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
           <%= f.hidden_field :number, value: model.number + 1 %>
           <%= f.hidden_field :current_cart_id, value: @cart.id %>
-          <%= button_tag class: 'button is-link ml-1' do %>
+          <%= button_tag class: 'button is-link' do %>
             <i class="fa-solid fa-plus"></i>
           <% end %>
         <% end %>
