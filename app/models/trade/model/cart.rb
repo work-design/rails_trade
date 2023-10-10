@@ -240,6 +240,9 @@ module Trade
 
     def sync_client_to_items
       agent_items.update_all(client_id: client_id)
+      maintain = agent.maintains.find_or_initialize_by(client_id: client_id)
+      maintain.state = 'carted'
+      maintain.save
     end
 
   end
