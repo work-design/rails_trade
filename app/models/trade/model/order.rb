@@ -3,7 +3,6 @@ module Trade
     extend ActiveSupport::Concern
     include Inner::Amount
     include Inner::User
-    include Inner::Agent
 
     included do
       attribute :uuid, :string
@@ -139,7 +138,7 @@ module Trade
       self.aim = current_cart.aim
       self.payment_strategy_id = current_cart.payment_strategy_id
       self.member_id = current_cart.member_id
-      self.agent_id = current_cart.agent_id
+      self.agent_id = current_cart.agent_id if respond_to? :agent_id
       current_cart.checked_all_items.each do |item|
         item.order = self
         item.address_id = address_id

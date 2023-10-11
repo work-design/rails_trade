@@ -3,7 +3,6 @@ module Trade
     PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume']
     extend ActiveSupport::Concern
     include Inner::User
-    include Inner::Agent
 
     included do
       attribute :uuid, :string

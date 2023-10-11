@@ -3,7 +3,6 @@ module Trade
     extend ActiveSupport::Concern
     include Inner::Amount
     include Inner::User
-    include Inner::Agent
 
     included do
       attribute :good_type, :string
