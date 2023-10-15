@@ -13,10 +13,6 @@
 <th>
   <%= Trade::Item.human_attribute_name(:additional_amount) %>
 </th>
-<th>
-  <p><%= Trade::Item.human_attribute_name(:retail_price) %></p>
-  <p><%= Trade::Item.human_attribute_name(:wholesale_price) %></p>
-</th>
 <th><%= Trade::Item.human_attribute_name(:status) %></th>
 <th><%= Trade::Item.human_attribute_name(:aim) %></th>
 <th>
@@ -25,4 +21,7 @@
     <span><%= Trade::Item.human_attribute_name(:member_id) %></span>
     <span class="has-text-grey">（<%= Trade::Item.human_attribute_name(:member_organ_id) %>）</span>
   </p>
+</th>
+<th>
+  <p><%= Trade::Item.human_attribute_name(:created_at) %></p>
 </th>
