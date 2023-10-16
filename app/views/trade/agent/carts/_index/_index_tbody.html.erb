@@ -1,6 +1,6 @@
 <td>
   <p>
-    <span><%= link_to model.client&.identity, { action: 'show', id: model.id } %></span>
+    <span><%= link_to model.client&.identity || model.id, { action: 'show', id: model.id }, state: 'enter' %></span>
     <span class="has-text-grey">（<%= model.client_id %>）</span>
   </p>
 </td>
@@ -15,7 +15,7 @@
 <td class="has-text-right">
   <p><%= model.item_amount.to_money.format.html_safe %></p>
   <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
-  <p><%= link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
+  <p><%= model.overall_reduced_amount.to_money.format.html_safe %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
 <td class="has-text-centered"><%= model.items.size %></td>
