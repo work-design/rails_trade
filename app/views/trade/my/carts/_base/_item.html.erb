@@ -1,7 +1,8 @@
 <tr class="<%= 'active' if model.status_checked? %>" id="item_<%= model.id %>">
   <td>
     <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :status, value: model.status_checked? ? 'checked' : 'init', checked: model.status_checked?, data: { action: 'click->input#form' }, id: nil %>
+      <%= f.hidden_field :current_cart_id, value: @cart.id %>
+      <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: model.id %>
     <% end %>
   </td>
   <td>
