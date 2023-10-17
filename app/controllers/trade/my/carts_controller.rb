@@ -12,6 +12,7 @@ module Trade
         aim: 'use',
         good_type: 'Factory::Production'
       }
+      q_params.merge! default_params
 
       @carts = current_user.carts.where(q_params).order(updated_at: :desc).page(params[:page])
     end

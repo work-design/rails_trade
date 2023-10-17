@@ -1,17 +1,4 @@
 <td>
-  <% if model.user %>
-  <p>
-    <span><%= link_to model.user.name.presence || "user_#{model.user_id}", { action: 'show', id: model.id } %></span>
-    <span class="has-text-grey">（<%= model.user_id %>）</span>
-  </p>
-  <% end %>
-  <% if model.member %>
-  <p>
-    <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
-  </p>
-  <% end %>
-</td>
-<td>
   <p><%= model.good_type_i18n %></p>
   <p><%= model.aim_i18n %></p>
 </td>
@@ -22,7 +9,7 @@
 <td class="has-text-right">
   <p><%= model.item_amount.to_money.format.html_safe %></p>
   <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
-  <p><%= link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
+  <p><%# link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
 <td class="has-text-centered"><%= model.items.size %></td>

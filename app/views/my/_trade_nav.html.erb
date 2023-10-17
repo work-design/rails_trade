@@ -1,5 +1,5 @@
 <span class="menu-label"><%= t('trade.my.title') %></span>
 <div class="menu-list">
-  <%= link_to t('trade.my.carts.show.title'), { controller: 'trade/my/carts', action: 'show' }, class: active_helper(controllers: ['carts'], active: 'is-active') %>
+  <%= link_to t('trade.my.carts.index.title'), { controller: 'trade/my/carts' }, class: active_helper(controllers: ['carts'], active: 'is-active') %>
   <%= link_to t('trade.my.orders.index.title'), { controller: 'trade/my/orders' }, class: active_helper(controllers: ['orders', 'items'], active: 'is-active') %>
 </div>
