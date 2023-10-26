@@ -8,10 +8,10 @@
       <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-link') do %>
         <span><%= t('trade.admin.orders.payment_types.title') %></span>
       <% end if ['unpaid', 'part_paid'].include?(model.payment_status) %>
-      <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-circle-info"></i>
       <% end %>
-      <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil"></i>
       <% end %>
     </div>

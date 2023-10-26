@@ -3,7 +3,7 @@
   <td>
     <div data-show-target="item" style="visibility: hidden">
       <% if model.payment_method.present? %>
-        <%= link_to t('.show'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light', target: '_blank' %>
+        <%= link_to t('.show.title'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light', target: '_blank' %>
       <% end %>
       <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-check-double"></i>
@@ -12,10 +12,10 @@
       <%= link_to({ controller: 'auditor/admin/audits', audited_type: 'Payment', audited_id: model.id }, aria: { label: t('.log') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-comments"></i>
       <% end %>
-      <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-info"></i>
       <% end %>
-      <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil"></i>
       <% end %>
     </div>

@@ -13,8 +13,8 @@
   <% end %>
 </td>
 <td>
-  <%= link_to t('.edit'), edit_admin_payment_method_path(model), class: 'button is-link is-small' %>
-  <%= link_to t('.destroy'), admin_payment_method_path(model), class: 'ui mini red button', method: :delete, data: { turbo_confirm: t('.confirm') } %>
+  <%= link_to t('.edit.title'), edit_admin_payment_method_path(model), class: 'button is-link is-small' %>
+  <%= link_to t('.destroy.title'), admin_payment_method_path(model), class: 'ui mini red button', method: :delete, data: { turbo_confirm: t('.confirm') } %>
 </td>
 </tr>
 <% model.repeat_results.each do |result| %>

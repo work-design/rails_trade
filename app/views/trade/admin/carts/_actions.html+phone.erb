@@ -1,10 +1,10 @@
 <%= link_to({ action: 'edit' }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-pencil"></i>
-  <span><%= t('.edit') %></span>
+  <span><%= t('.edit.title') %></span>
 <% end %>
 <%= link_to({ action: 'show' }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-circle-info"></i>
-  <span><%= t('.show') %></span>
+  <span><%= t('.show.title') %></span>
 <% end %>
 <%= link_to({ controller: 'trade/admin/promote_good_users', cart_id: model.id }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-gift has-text-success"></i>
