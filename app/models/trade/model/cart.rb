@@ -49,7 +49,6 @@ module Trade
       validates :deposit_ratio, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }, allow_nil: true
       validates :good_type, presence: true
 
-      after_initialize :sync_from_maintain, if: -> { new_record? && maintain_id.present? }
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_save :sync_client_to_items, if: -> { agent_id.present? && saved_change_to_client_id? }
@@ -101,13 +100,6 @@ module Trade
 
     def agent_cart?
 
-    end
-
-    def sync_from_maintain
-      return unless maintain
-      self.client_id = maintain.client_id
-      self.user_id = maintain.client_user_id
-      self.member_id = maintain.client_member_id
     end
 
     def sync_original_amount
