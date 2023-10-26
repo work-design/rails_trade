@@ -51,14 +51,14 @@ module Trade
 
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
-      after_save :sync_client_to_items, if: -> { agent_id.present? && saved_change_to_client_id? }
+      after_save :sync_client_to_items, if: -> { respond_to?(:agent_id) && agent_id.present? && saved_change_to_client_id? }
     end
 
     def filter_hash
       p = { good_type: good_type, aim: aim }.compact
       if member_id
         p.merge! member_id: member_id
-      elsif client_id
+      elsif respond_to?(:client_id) && client_id
         p.merge! client_id: client_id
       elsif user_id
         p.merge! user_id: user_id
