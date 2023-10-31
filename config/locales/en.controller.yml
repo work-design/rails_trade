@@ -63,11 +63,13 @@ en:
     my:
       title: Orders
       carts:
+        index:
+          title: My Carts
         show:
           title: Cart
       orders:
         index:
-          title: Order list
+          title: My Orders
         new:
           title: Confirm Order
           confirm: Confirm
@@ -76,3 +78,6 @@ en:
         success:
           title: Your payment is successful!
           tip: We will ship out your order and update you with dispatch detail!
+      items:
+        create:
+          title: Add To Cart
