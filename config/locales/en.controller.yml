@@ -55,6 +55,11 @@ en:
       payouts:
         index:
           title: Payouts
+    in:
+      title: Purchase Orders
+      orders:
+        index:
+          title: Purchase Orders
     my:
       title: Orders
       carts:
