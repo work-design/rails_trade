@@ -5,7 +5,6 @@ module Trade
 
     included do
       layout 'admin'
-      before_action :require_member
     end
 
     class_methods do
