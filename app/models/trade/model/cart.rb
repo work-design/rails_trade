@@ -31,8 +31,7 @@ module Trade
 
       has_many :promote_good_users, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :promote_good_types, through: :promote_good_users
-      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示
-      has_many :checked_items, ->(o) { where(o.filter_hash).checked }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于计算
+      has_many :items, ->(o) { where(o.filter_hash).carting }, primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where(o.in_filter_hash).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
       has_many :agent_items, ->(o) { where(o.agent_filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
@@ -155,6 +154,10 @@ module Trade
       end
       logger.debug "\e[33m  Item amount: #{item_amount}, Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Summed amount: #{checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{id})  \e[0m"
       r
+    end
+
+    def checked_items
+      items.select(&:effective?)
     end
 
     def compute_amount
