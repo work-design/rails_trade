@@ -10,7 +10,7 @@
     <p style="color: grey;"><%= model.good_type_i18n %></p>
   </td>
   <td>
-    <p><%= model.retail_price %></p>
+    <p><%= model.retail_price.to_money.format.html_safe %></p>
     <% if model.weight > 0 %>
     <p>
       <span><%= model.weight %></span>
@@ -58,7 +58,7 @@
     </div>
     <% end %>
     <p>
-      <strong><%= model.amount %></strong>
+      <strong><%= model.amount.to_money.format.html_safe %></strong>
     </p>
   </td>
 </tr>
