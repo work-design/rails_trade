@@ -47,6 +47,9 @@ Rails.application.routes.draw do
           get :addresses
           get :promote
         end
+        member do
+          patch :toggle_all
+        end
       end
       resources :promote_goods, only: [:index, :show]
       resources :card_templates do

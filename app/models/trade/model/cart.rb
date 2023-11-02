@@ -197,8 +197,12 @@ module Trade
       end
     end
 
+    def all_checked?
+      items.all?(&:status_checked?)
+    end
+
     def toggle_all
-      if items.all?(&:status_checked?)
+      if all_checked?
         items.each do |item|
           item.update_columns status: 'init'
         end

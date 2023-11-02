@@ -1,6 +1,6 @@
 module Trade
   class My::CartsController < My::BaseController
-    before_action :set_cart, only: [:show, :update]
+    before_action :set_cart, only: [:show, :update, :toggle_all]
     before_action :set_purchase, only: [:show, :invest, :rent]
     before_action :set_invest_cart, only: [:invest]
     before_action :set_rent_cart, only: [:rent]
@@ -56,7 +56,7 @@ module Trade
     end
 
     def toggle_all
-
+      @cart.toggle_all
     end
 
     private

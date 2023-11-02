@@ -1,7 +1,7 @@
 <th>
-  <div data-controller="check" data-check-name-value="xx" class="is-flex is-align-items-center">
-    <%= check_box_tag 'xxd', 'xx', false, id: nil, data: { action: 'check#toggleAll' } %>
-  </div>
+  <%= form_with theme: nil, model: @cart, url: { action: 'toggle_all', id: @cart.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :status, { checked: @cart.all_checked?, data: { action: 'click->input#form' }, id: nil }, id: @cart.id %>
+  <% end %>
 </th>
 <th><%= Trade::Item.human_attribute_name(:good_name) %></th>
 <th><%= Trade::Item.human_attribute_name(:single_price) %></th>
