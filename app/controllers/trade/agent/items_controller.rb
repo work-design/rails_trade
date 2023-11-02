@@ -2,6 +2,7 @@ module Trade
   class Agent::ItemsController < Trade::Admin::ItemsController
     include Controller::Agent
     before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
+    before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]
     before_action :set_new_item, only: [:new, :create]
 
     def index
@@ -29,8 +30,12 @@ module Trade
       end
     end
 
+    def set_cart_item
+      @item = @cart.items.load.find params[:id]
+    end
+
     def set_item
-      @item = Trade::Item.find(params[:id])
+      @item = current_member.agent_items.find(params[:id])
     end
 
   end
