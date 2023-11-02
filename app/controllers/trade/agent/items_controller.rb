@@ -1,5 +1,7 @@
 module Trade
-  class Agent::ItemsController < Trade::My::ItemsController
+  class Agent::ItemsController < Trade::Admin::ItemsController
+    include Controller::Agent
+    before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
     before_action :set_new_item, only: [:new, :create]
 
     def index
@@ -25,13 +27,6 @@ module Trade
         options.merge! user_id: nil, member_id: nil, client_id: nil
         @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
       end
-    end
-
-    def set_new_item
-      options = { member_id: current_member.id }
-      options.merge! params.permit(:good_type, :good_id, :member_id, :number, :produce_on, :scene_id)
-
-      @item = Item.new(**options.to_h.symbolize_keys)
     end
 
     def set_item

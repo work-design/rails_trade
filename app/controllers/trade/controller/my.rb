@@ -1,6 +1,7 @@
 module Trade
   module Controller::My
     extend ActiveSupport::Concern
+    include Controller::Application
 
     private
     def set_cart
