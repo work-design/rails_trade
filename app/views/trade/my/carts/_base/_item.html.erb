@@ -32,7 +32,7 @@
       <div class="control">
         <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
           <%= f.hidden_field :current_cart_id, value: @cart.id %>
-          <%= f.number_field :number, step: 1, data: { action: 'input#form' }, class: 'input has-text-centered', id: nil %>
+          <%= f.number_field :number, value: model.number.to_human, step: 1, data: { action: 'input#form' }, class: 'input has-text-centered', id: nil %>
         <% end %>
       </div>
       <div class="control">
