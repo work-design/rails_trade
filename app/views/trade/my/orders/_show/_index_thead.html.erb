@@ -1,5 +1,7 @@
-<th><%= Trade::Item.human_attribute_name(:good_id) %></th>
-<th><%= Trade::Item.human_attribute_name(:aim) %></th>
+<th>
+  <p><%= Trade::Item.human_attribute_name(:good_id) %></p>
+  <p><%= Trade::Item.human_attribute_name(:aim) %></p>
+</th>
 <th></th>
 <th>
   <p><%= Trade::Item.human_attribute_name(:single_price) %></p>
@@ -10,3 +12,4 @@
   <p><%= Trade::Item.human_attribute_name(:reduced_amount) %></p>
 </th>
 <th><%= Trade::Item.human_attribute_name(:amount) %></th>
+<th><%= Trade::Item.human_attribute_name(:note) %></th>

@@ -34,6 +34,8 @@ Rails.application.routes.draw do
           patch :toggle
           post :finish
           post :untrial
+          get :order_edit
+          patch :order_update
         end
         resources :packageds
         resources :holds

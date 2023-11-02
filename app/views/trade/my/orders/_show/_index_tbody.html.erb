@@ -1,11 +1,11 @@
 <td>
-  <%= model.good_name %>
+  <p><%= model.good_name %></p>
   <%# link_to model.good&.name, model, action: 'show', id: model.good_id %>
-</td>
-<td>
-<% if model.aim == 'rent' %>
-  <%= model.aim_i18n %>
-<% end %>
+  <p>
+    <% if model.aim == 'rent' %>
+      <%= model.aim_i18n %>
+    <% end %>
+  </p>
 </td>
 <td><%= link_to '订单流程', { controller: 'items', action: 'show', order_id: @order.id, id: model.id } %></td>
 <td>
@@ -19,3 +19,4 @@
   <p><%= model.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td class="has-text-danger"><%= model.amount.to_money.format.html_safe %></td>
+<td><%= model.note %></td>

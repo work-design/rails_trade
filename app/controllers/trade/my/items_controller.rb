@@ -3,7 +3,7 @@ module Trade
     before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
     before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]
     before_action :set_new_item, only: [:create]
-    before_action :set_item, only: [:show, :actions]
+    before_action :set_item, only: [:show, :edit, :order_edit, :order_update, :actions]
     before_action :set_card_template, only: [:trial]
     after_action :support_cors, only: [:create]
 
@@ -47,6 +47,11 @@ module Trade
         @item.status = 'init'
       end
 
+      @item.save
+    end
+
+    def order_update
+      @item.assign_attributes ordered_item_params
       @item.save
     end
 
@@ -97,6 +102,12 @@ module Trade
         :note,
         :desk_id,
         :current_cart_id
+      )
+    end
+
+    def ordered_item_params
+      params.fetch(:item, {}).permit(
+        :note
       )
     end
 

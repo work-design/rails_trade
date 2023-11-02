@@ -83,3 +83,5 @@ en:
       items:
         create:
           title: Add To Cart
+        order_edit:
+          title: Edit
