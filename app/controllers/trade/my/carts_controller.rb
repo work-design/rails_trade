@@ -55,6 +55,10 @@ module Trade
     def promote
     end
 
+    def toggle_all
+
+    end
+
     private
     def set_cart
       options = {}

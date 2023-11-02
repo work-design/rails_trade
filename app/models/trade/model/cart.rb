@@ -197,6 +197,19 @@ module Trade
       end
     end
 
+    def toggle_all
+      if items.all?(&:status_checked?)
+        items.each do |item|
+          item.update_columns status: 'init'
+        end
+      else
+        items.select(&:status_init?).each do |item|
+          item.update_columns status: 'checked'
+        end
+      end
+      compute_amount!
+    end
+
     def get_item(good_type:, good_id:, aim: 'use', number: 1, **options)
       args = { good_type: good_type, good_id: good_id, aim: aim, **options.slice(:produce_on, :scene_id) }
       args.reject!(&->(_, v){ v.blank? })
