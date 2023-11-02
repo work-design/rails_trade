@@ -38,14 +38,16 @@ module Trade
         @payment = @order.to_payment
         #@payment.extra_params.merge! 'profit_sharing' => true
         @payment.user = current_user
+        if defined? RailsWechat
         @payment.seller_identifier = current_payee&.mch_id
         @payment.appid = current_wechat_user&.appid
+        end
 
         if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
           @payment.buyer_identifier = current_wechat_user&.uid
           @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
           logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
-        elsif current_payee
+        elsif defined?(current_payee) && current_payee
           @url = @payment.h5(payer_client_ip: request.remote_ip)
         end
       end

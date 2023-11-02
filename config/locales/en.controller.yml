@@ -73,6 +73,8 @@ en:
         new:
           title: Confirm Order
           confirm: Confirm
+        cart:
+          confirm: Confirm
         payment_types:
           title: Check
         success:
