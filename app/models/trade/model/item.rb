@@ -330,7 +330,7 @@ module Trade
 
       current_cart.compute_amount
       current_cart.fresh = true
-      logger.debug "\e[33m  Self Object id: #{object_id}"
+      logger.debug "\e[33m  Item Object id: #{object_id}"
 
       current_cart.save!
     end

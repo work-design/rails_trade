@@ -49,7 +49,7 @@ module Trade
       validates :good_type, presence: true
 
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
-      after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
+      after_validation :sum_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_save :sync_client_to_items, if: -> { respond_to?(:agent_id) && agent_id.present? && saved_change_to_client_id? }
     end
 
@@ -152,7 +152,7 @@ module Trade
       else
         r = items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
       end
-      logger.debug "\e[33m  Item amount: #{item_amount}, Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Summed amount: #{checked_items.sum(&->(i){ i.amount.to_d })}, Cart id: #{id})  \e[0m"
+      logger.debug "\e[33m  Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Cart id: #{id})  \e[0m"
       r
     end
 
@@ -162,18 +162,22 @@ module Trade
 
     def compute_amount
       self.total_quantity = checked_items.sum(&->(i){ i.original_quantity.to_d })
+      _checked_all_items = checked_all_items
 
-      self.retail_price = checked_all_items.sum(&->(i){ i.retail_price.to_d })
-      self.discount_price = checked_all_items.sum(&->(i){ i.discount_price.to_d })
+      self.retail_price = _checked_all_items.sum(&->(i){ i.retail_price.to_d })
+      self.discount_price = _checked_all_items.sum(&->(i){ i.discount_price.to_d })
       self.bulk_price = self.retail_price - self.discount_price
 
-      self.item_amount = checked_all_items.sum(&->(i){ i.original_amount.to_d })
-      self.advance_amount = checked_all_items.sum(&->(i){ i.advance_amount.to_d })
+      self.item_amount = _checked_all_items.sum(&->(i){ i.original_amount.to_d })
+      self.advance_amount = _checked_all_items.sum(&->(i){ i.advance_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
-      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
       self.fresh = true
       self.changes
+    end
+
+    def sum_amount
+      self.amount = item_amount + overall_additional_amount + overall_reduced_amount
     end
 
     def compute_amount!
