@@ -1,5 +1,6 @@
 module Trade
   class Agent::OrdersController < My::OrdersController
+    include Controller::Agent
 
     def index
       @orders = current_member.agent_orders.order(id: :desc).page(params[:page])
