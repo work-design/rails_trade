@@ -13,7 +13,8 @@ module Trade
     end
 
     def member_organ
-      @carts = Cart.select(:member_organ_id).distinct.where.not(member_organ_id: nil).includes(:member_organ).page(params[:page])
+      member_organ_ids = Trade::Cart.select(:member_organ_id).distinct.where.not(member_organ_id: nil).pluck(:member_organ_id)
+      @carts = Cart.where(member_organ_id: member_organ_ids).includes(:member_organ).page(params[:page])
     end
 
     def user
