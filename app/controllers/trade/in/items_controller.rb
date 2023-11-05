@@ -1,5 +1,5 @@
 module Trade
-  class In::ItemsController < My::ItemsController
+  class In::ItemsController < Admin::ItemsController
     before_action :set_item, only: [:show]
     before_action :set_new_item, only: [:create, :cost]
 
