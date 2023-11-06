@@ -141,7 +141,6 @@ module Trade
       self.agent_id = current_cart.agent_id if respond_to? :agent_id
       current_cart.checked_all_items.each do |item|
         item.order = self
-        item.address_id = address_id
       end
       current_cart.cart_promotes.each do |cart_promote|
         cart_promote.order = self
