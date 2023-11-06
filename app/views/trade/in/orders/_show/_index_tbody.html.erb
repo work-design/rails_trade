@@ -1,17 +1,17 @@
 <td>
   <p><%= model.good_name %></p>
-  <p class="has-text-grey"><%= model.organ.name %></p>
+  <p class="has-text-grey"><%= model.organ&.name %></p>
 </td>
 <td>
 <% if model.aim == 'rent' %>
   <%= model.aim_i18n %>
 <% end %>
 </td>
-<td><%= link_to '订单流程', { controller: 'items', action: 'show', id: model.id } %></td>
+<td><%= link_to t('.show.title'), { controller: 'items', action: 'show', id: model.id } %></td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
   <i class="fa-solid fa-times has-text-grey"></i>
-  <span><%= model.number %></span>
+  <span><%= model.number.to_human %></span>
 </td>
 <td><%= model.original_amount.to_money.format.html_safe %></td>
 <td>
