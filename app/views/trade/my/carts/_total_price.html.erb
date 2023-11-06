@@ -33,6 +33,6 @@
     <td></td>
     <td><%= Trade::Cart.human_attribute_name(:amount) %></td>
     <td colspan="2"></td>
-    <td><%= @cart.amount.to_money.format.html_safe %></td>
+    <td><strong><%= @cart.amount.to_money.format.html_safe %></strong></td>
   </tr>
 </tbody>

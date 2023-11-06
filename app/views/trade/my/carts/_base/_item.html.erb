@@ -57,8 +57,6 @@
       <% end %>
     </div>
     <% end %>
-    <p>
-      <strong><%= model.amount.to_money.format.html_safe %></strong>
-    </p>
+    <p><%= model.amount.to_money.format.html_safe %></p>
   </td>
 </tr>
