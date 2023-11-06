@@ -7,10 +7,9 @@
     <p><%= model.good.quantity %></p>
     <p><%= model.good.unit %></p>
   </td>
-  <td><%= model.status_i18n %></td>
   <td>
     <p><%= model.single_price.to_money.format.html_safe %></p>
-    <p class="has-text-grey"><%= model.number %></p>
+    <p class="has-text-grey"><%= model.number.to_human %></p>
   </td>
   <td>
     <p><%= model.retail_price.to_money.format.html_safe %></p>

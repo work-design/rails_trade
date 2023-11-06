@@ -1,5 +1,5 @@
 module Trade
-  class Agent::ItemsController < Trade::Admin::ItemsController
+  class Agent::ItemsController < Admin::ItemsController
     include Controller::Agent
     before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
     before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]

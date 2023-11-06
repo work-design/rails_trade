@@ -1,5 +1,5 @@
 module Trade
-  class In::PaymentsController < My::PaymentsController
+  class In::PaymentsController < Admin::PaymentsController
 
     private
     def set_order

@@ -1,5 +1,5 @@
 module Trade
-  class In::CartsController < My::CartsController
+  class In::CartsController < Admin::CartsController
 
     def index
       @carts = current_organ.organ_carts.page(params[:page])

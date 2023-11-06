@@ -1,5 +1,5 @@
 module Trade
-  class Agent::OrdersController < My::OrdersController
+  class Agent::OrdersController < Admin::OrdersController
     include Controller::Agent
 
     def index
