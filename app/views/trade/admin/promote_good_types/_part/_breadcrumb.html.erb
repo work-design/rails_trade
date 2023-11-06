@@ -1,9 +1,5 @@
-<div class="breadcrumb has-succeeds-separator">
-  <ul>
-    <li><%= link_to t('trade.admin.promotes.index.title'), { controller: 'promotes' } %></li>
-    <li><%= link_to @promote.name, { controller: 'promotes', id: @promote.id } %></li>
-    <li><%= link_to t('trade.admin.promote_good_types.index.title'), { action: 'index' } %></li>
-    <li><span class="px-3"><%= Trade::PromoteGood.enum_i18n(:good_type, params[:good_type]) %></span></li>
-    <li class="is-active"><%= t('.title') %></li>
-  </ul>
-</div>
+<li><%= link_to t('.promotes.index.title'), { controller: 'promotes' } %></li>
+<li><%= link_to @promote.name, { controller: 'promotes', id: @promote.id } %></li>
+<li><%= link_to t('.promote_good_types.index.title'), { action: 'index' } %></li>
+<li><span class="px-3"><%= Trade::PromoteGood.enum_i18n(:good_type, params[:good_type]) %></span></li>
+<li class="is-active"><%= t('.title') %></li>

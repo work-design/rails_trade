@@ -1,6 +1,2 @@
-<div class="breadcrumb has-succeeds-separator">
-  <ul>
-    <li><%= link_to t('trade.agent.carts.index.title'), { controller: 'carts', anchor: "tr_#{@cart.id}" }, state: 'return' %></li>
-    <li class="is-active"><%= @cart.agent.name %></li>
-  </ul>
-</div>
+<li><%= link_to t('.carts.index.title'), { controller: 'carts', anchor: "tr_#{@cart.id}" }, state: 'return' %></li>
+<li class="is-active"><%= @cart.agent.name %></li>

@@ -1,6 +1,2 @@
-<div class="breadcrumb has-succeeds-separator">
-  <ul>
-    <li><%= link_to t('trade.my.orders.index.title'), { action: 'index' } %></li>
-    <li class="is-active"><%= @order.uuid %></li>
-  </ul>
-</div>
+<li><%= link_to t('.orders.index.title'), { action: 'index' } %></li>
+<li class="is-active"><%= @order.uuid %></li>
