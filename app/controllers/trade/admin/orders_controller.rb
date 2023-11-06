@@ -126,7 +126,7 @@ module Trade
 
     private
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.where(default_params).find(params[:id])
     end
 
     def set_new_order
