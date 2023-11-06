@@ -27,7 +27,8 @@ module Trade
       }, _default: 'use', _prefix: true
       enum generate_mode: {
         myself: 'myself',
-        by_from: 'by_from'
+        by_from: 'by_from',
+        purchase: 'purchase'
       }, _default: 'myself'
       enum state: {
         init: 'init',
