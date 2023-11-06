@@ -1,28 +1,28 @@
 <td>
   <div class="is-several">
-    <% if item.good %>
-      <%= image_tag item.good.logo, class: 'image is-32x32' if item.good.logo.attached? %>
-      <%= link_to item.good, target: '_blank' do %>
-        <span><%= item.good.name %></span>
+    <% if model.good %>
+      <%= image_tag model.good.logo, class: 'image is-32x32' if model.good.logo.attached? %>
+      <%= link_to model.good, target: '_blank' do %>
+        <span><%= model.good.name %></span>
       <% end %>
     <% end %>
-    <span class="tag"><%= item.aim_i18n %></span>
+    <span class="tag"><%= model.aim_i18n %></span>
   </div>
 </td>
 <td>
   <p>
-    <span><%= item.good.price.to_money.format.html_safe if item.good %></span>
+    <span><%= model.good.price.to_money.format.html_safe if model.good %></span>
     <span class="has-text-grey">x</span>
-    <span><%= item.number %></span>
+    <span><%= model.number %></span>
   </p>
-  <p><%= item.original_amount.to_money.format.html_safe %></p>
+  <p><%= model.original_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <p><%= item.additional_amount.to_money.format.html_safe %></p>
-  <p><%= item.reduced_amount.to_money.format.html_safe %></p>
+  <p><%= model.additional_amount.to_money.format.html_safe %></p>
+  <p><%= model.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td>
-  <% item.holds.each do |hold| %>
+  <% model.holds.each do |hold| %>
     <% if hold.rent_start_at %>
      <p><time data-controller="time" data-value="<%= hold.rent_start_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_start_at.to_fs(:human) %></time></p>
     <% end %>
@@ -42,8 +42,8 @@
   <% end %>
   <p>
     <span><%= hold.duration %></span>
-    <span><%= item.good.rent_unit_i18n %></span>
+    <span><%= model.good.rent_unit_i18n %></span>
   </p>
   <% end %>
 </td>
-<td><%= item.amount.to_money.format.html_safe %></td>
+<td><%= model.amount.to_money.format.html_safe %></td>
