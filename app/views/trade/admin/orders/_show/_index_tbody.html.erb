@@ -1,38 +1,35 @@
-<tr>
-  <td>
-    <div class="is-several">
-      <% if model.good_type == 'Factory::Production' %>
-        <%= image_tag model.good.logo, class: 'image is-32x32' if model.good && model.good.logo&.attached? %>
-        <%= link_to({ controller: 'factory/admin/productions', product_id: model.good.product_id }, target: '_blank') do %>
-          <span><%= model.good.name %></span>
-        <% end %>
-      <% elsif model.good %>
-        <%= image_tag model.good.logo, class: 'image is-32x32' if model.good && model.good.logo&.attached? %>
-        <%= link_to model.good, target: '_blank' do %>
-          <span><%= model.good.name %></span>
-        <% end %>
+<td>
+  <div class="is-several">
+    <% if model.good_type == 'Factory::Production' %>
+      <%= image_tag model.good.logo, class: 'image is-32x32' if model.good && model.good.logo&.attached? %>
+      <%= link_to({ controller: 'factory/admin/productions', product_id: model.good.product_id }, target: '_blank') do %>
+        <span><%= model.good.name %></span>
       <% end %>
-      <span class="tag"><%= model.aim_i18n %></span>
-    </div>
-  </td>
-  <td>
-    <span><%= model.good.price.to_money.format.html_safe if model.good %></span>
-    <span class="has-text-grey">x</span>
-    <span><%= model.number %></span>
-  </td>
-  <td><%= model.original_amount.to_money.format.html_safe %></td>
-  <td>
-    <p><%= model.additional_amount.to_money.format.html_safe %></p>
-    <p><%= model.reduced_amount.to_money.format.html_safe %></p>
-  </td>
-  <td><%= model.amount.to_money.format.html_safe %></td>
-  <td>
-    <p><%= link_to '订单流程', { controller: 'items', action: 'show', id: model.id } %></p>
-    <p>
-      <%= link_to({ controller: 'holds', item_id: model.id }, state: 'enter', aria: { label: t('trade.admin.holds.index.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-face-meh has-text-success"></i>
+    <% elsif model.good %>
+      <%= image_tag model.good.logo, class: 'image is-32x32' if model.good && model.good.logo&.attached? %>
+      <%= link_to model.good, target: '_blank' do %>
+        <span><%= model.good.name %></span>
       <% end %>
-    </p>
-  </td>
-</tr>
-<%= render partial: 'promote_tbody', collection: model.item_promotes, as: :item_promote %>
+    <% end %>
+    <span class="tag"><%= model.aim_i18n %></span>
+  </div>
+</td>
+<td>
+  <span><%= model.good.price.to_money.format.html_safe if model.good %></span>
+  <span class="has-text-grey">x</span>
+  <span><%= model.number %></span>
+</td>
+<td><%= model.original_amount.to_money.format.html_safe %></td>
+<td>
+  <p><%= model.additional_amount.to_money.format.html_safe %></p>
+  <p><%= model.reduced_amount.to_money.format.html_safe %></p>
+</td>
+<td><%= model.amount.to_money.format.html_safe %></td>
+<td>
+  <p><%= link_to '订单流程', { controller: 'items', action: 'show', id: model.id } %></p>
+  <p>
+    <%= link_to({ controller: 'holds', item_id: model.id }, state: 'enter', aria: { label: t('trade.admin.holds.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-face-meh has-text-success"></i>
+    <% end %>
+  </p>
+</td>
