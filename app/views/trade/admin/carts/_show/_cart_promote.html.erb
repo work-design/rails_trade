@@ -1,11 +1,9 @@
-<tr class="has-background-warning">
-  <td></td>
-  <td>
-    <span><%= model.promote&.name %></span>
-    <span class="has-text-grey">（<%= model.promote_id %>）</span>
-  </td>
-  <td></td>
-  <td><%= model.status_i18n %></td>
-  <td colspan="3"></td>
-  <td><%= model.amount.to_money.format.html_safe %></td>
-</tr>
+<td></td>
+<td>
+  <span><%= model.promote&.name %></span>
+  <span class="has-text-grey">（<%= model.promote_id %>）</span>
+</td>
+<td></td>
+<td><%= model.status_i18n %></td>
+<td colspan="3"></td>
+<td><%= model.amount.to_money.format.html_safe %></td>
