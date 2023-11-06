@@ -296,6 +296,9 @@ Rails.application.routes.draw do
 
       namespace :in, defaults: { namespace: 'in' } do
         concerns :orderable
+        resources :orders, only: [] do
+          resources :order_payments
+        end
       end
 
       namespace :my, defaults: { namespace: 'my' } do

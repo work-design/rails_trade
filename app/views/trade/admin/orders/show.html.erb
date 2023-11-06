@@ -22,7 +22,7 @@
     <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
     <td colspan="2">
       <span><%= @order.amount.to_money.format.html_safe %></span>
-      <%= link_to({ controller: 'admin/order_payments', action: 'new', order_id: @order.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-credit-card"></i>
       <% end %>
     </td>
