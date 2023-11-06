@@ -1,16 +1,12 @@
 <td>
-  <p><%= model.good_name %></p>
-  <p class="has-text-grey"><%= model.organ&.name %></p>
+  <%= link_to({ controller: 'items', action: 'show', id: model.id }) do %>
+    <p><%= model.good_name %></p>
+    <p class="has-text-grey"><%= model.organ&.name %></p>
+  <% end %>
 </td>
-<td>
-<% if model.aim == 'rent' %>
-  <%= model.aim_i18n %>
-<% end %>
-</td>
-<td><%= link_to t('.show.title'), { controller: 'items', action: 'show', id: model.id } %></td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
-  <i class="fa-solid fa-times has-text-grey"></i>
+  <i class="fa-solid fa-xmark has-text-grey"></i>
   <span><%= model.number.to_human %></span>
 </td>
 <td><%= model.original_amount.to_money.format.html_safe %></td>
