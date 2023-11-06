@@ -47,6 +47,16 @@ module Trade
       render 'only'
     end
 
+    def toggle
+      if @item.status_init?
+        @item.status = 'checked'
+      elsif @item.status_checked?
+        @item.status = 'init'
+      end
+
+      @item.save
+    end
+
     def compute
       @item.compute_present_duration!(Time.current)
     end

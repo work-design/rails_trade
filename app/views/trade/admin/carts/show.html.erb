@@ -1,6 +1,6 @@
 <table class="table is-fullwidth is-hoverable">
   <%= render 'index_thead' %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @cart.items, as: :model %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
   <%= render partial: 'cart_promote', layout: 'cart_promote_tr', collection: @cart.cart_promotes, as: :model %>
   <tr>
     <td></td>

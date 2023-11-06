@@ -1,4 +1,9 @@
-<td><%= check_box_tag(:item_id, model.id, model.status_checked?) %></td>
+<td>
+  <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart.id %>
+    <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: model.id %>
+  <% end %>
+</td>
 <td>
   <p><%= model.good.name %></p>
 </td>
