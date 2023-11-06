@@ -1,5 +1,5 @@
 <tr>
   <td><%= model.good_name %></td>
-  <td><%= model.number %></td>
+  <td><%= model.number.to_human %></td>
   <td><%= model.amount.to_money.format.html_safe %></td>
 </tr>

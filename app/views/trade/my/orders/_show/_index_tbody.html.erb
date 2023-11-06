@@ -11,7 +11,7 @@
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
   <i class="fa-solid fa-times has-text-grey"></i>
-  <span><%= model.number %></span>
+  <span><%= model.number.to_human %></span>
 </td>
 <td><%= model.original_amount.to_money.format.html_safe %></td>
 <td>
