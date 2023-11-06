@@ -2,6 +2,9 @@ en:
   trade:
     admin:
       title: Orders & Payments
+      additions:
+        index:
+          title: Additions
       advances:
         index:
           title: Advances
@@ -20,12 +23,24 @@ en:
       carts:
         index:
           title: Carts
+        user:
+          title: User Carts
+        member_organ:
+          title: Organ Carts
       cashes:
         index:
           title: Cashes
+      refunds:
+        index:
+          title: Refunds
+      items:
+        index:
+          title: Items
       orders:
         index:
           title: Orders
+        unpaid:
+          title: Unpaid Orders
       payments:
         index:
           title: Payments
@@ -52,9 +67,18 @@ en:
       promotes:
         index:
           title: Promotes
+      promote_goods:
+        index:
+          title: Promote Goods
       payouts:
         index:
           title: Payouts
+      payment_strategies:
+        index:
+          title: Payment Strategies
+      wallet_templates:
+        index:
+          title: Wallet Templates
     in:
       title: Purchase Orders
       orders:

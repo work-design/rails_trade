@@ -9,9 +9,9 @@
 <% end %>
 </td>
 <td>
-  <span><%= model.number %></span>
+  <span><%= model.number.to_human %></span>
   <span>/</span>
-  <span><%= model.done_number %></span>
+  <span><%= model.done_number.to_human %></span>
 </td>
 <td>
   <p class="has-text-grey"><%= model.single_price.to_money.format.html_safe %></p>

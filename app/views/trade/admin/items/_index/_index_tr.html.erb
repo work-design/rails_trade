@@ -4,7 +4,7 @@
     <div data-show-target="item" style="visibility: hidden">
       <%= link_to({ controller: 'item_promotes', item_id: model.id }, aria: { label: t('trade.admin.item_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-gift"></i>
-      <% end %>
+      <% end if false %>
       <%= link_to({ controller: 'holds', item_id: model.id }, aria: { label: t('trade.admin.holds.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-face-meh has-text-success"></i>
       <% end %>
