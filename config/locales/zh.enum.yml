@@ -30,6 +30,7 @@ zh:
           false: 预付
         aim:
           use: 使用
+          purchase: 采购
           invest: 投资
           rent: 租用
       trade/payment:
@@ -137,6 +138,7 @@ zh:
         aim:
           rent: 租用
           use: 买入
+          purchase: 采购
           invest: 投资
       trade/wallet_template:
         unit_kind:

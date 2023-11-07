@@ -7,7 +7,7 @@
       <i class="fa-solid fa-circle-minus fa-xl has-text-dark-grey"></i>
     <% end %>
   <% end if item.number > 1 %>
-  <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, class: 'mr-1', form: { data: { turbo_scroll: true } }) do %>
+  <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: @cart&.id }, state: 'redirect', class: 'mr-1', form: { data: { turbo_scroll: true } }) do %>
     <i class="fa-solid fa-circle-minus fa-xl has-text-dark-grey"></i>
   <% end if item.number <= 1 %>
   <%= form_with(theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input', turbo_scroll: true }) do |f| %>
