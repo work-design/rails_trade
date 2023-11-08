@@ -2,7 +2,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-fw fa-shopping-cart"></i>
     <span><%= t('trade.admin.title') %></span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
@@ -13,7 +13,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-fw fa-coins"></i>
     <span>财务管理</span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.orders.unpaid.title'), { controller: 'trade/admin/orders', action: 'unpaid' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
@@ -25,7 +25,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-fw fa-users"></i>
     <span>消费者管理</span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
@@ -38,7 +38,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-gift fa-fw"></i>
     <span>增值服务/促销</span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.additions.index.title'), { controller: 'trade/admin/additions' }, class: active_helper(controllers: ['additions', 'addition_charges'], active: 'is-active') %>
@@ -50,7 +50,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-fw fa-tags"></i>
     <span>会员</span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.card_templates.index.title'), { controller: 'trade/admin/card_templates' }, class: active_helper(controllers: ['card_templates', 'cards', 'advances', 'purchases', 'privileges', 'card_promotes'], active: 'is-active') %>
@@ -61,7 +61,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-fw fa-gears"></i>
     <span>配置</span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.admin.payment_strategies.index.title'), { controller: 'trade/admin/payment_strategies' }, class: active_helper(controllers: ['payment_strategies'], active: 'is-active') %>

@@ -2,7 +2,7 @@
   <a class="menu-label" data-action="menu#toggle">
     <i class="fa-solid fa-fw fa-shopping-cart"></i>
     <span><%= t('trade.in.title') %></span>
-    <i class="fa-solid dropdown"></i>
+    <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
     <%= link_to t('trade.in.orders.index.title'), { controller: 'trade/in/orders' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
