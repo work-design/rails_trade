@@ -1,0 +1,3 @@
+<%= turbo_stream.update 'cart_amount' do %>
+  <%= @item.current_cart.amount.to_money.format.html_safe %>
+<% end %>
