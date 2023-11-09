@@ -15,9 +15,9 @@
   </div>
 </td>
 <td>
-  <span><%= model.good.price.to_money.format.html_safe if model.good %></span>
-  <span class="has-text-grey">x</span>
-  <span><%= model.number %></span>
+  <span><%= model.purchase.price.to_money.format.html_safe %></span>
+  <i class="fa-solid fa-xmark has-text-grey"></i>
+  <span><%= model.number.to_human %></span>
 </td>
 <td><%= model.original_amount.to_money.format.html_safe %></td>
 <td>
