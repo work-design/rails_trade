@@ -10,7 +10,7 @@
           <span><%= t('trade.admin.refunds.deny.title') %></span>
         <% end %>
       <% end %>
-      <%= link_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-info"></i>
       <% end %>
     </div>

@@ -2,9 +2,6 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <%= link_to({ controller: 'payment_references', action: 'new', payment_method_id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.relate') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-regular fa-images-user"></i>
-      <% end %>
       <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil"></i>
       <% end %>

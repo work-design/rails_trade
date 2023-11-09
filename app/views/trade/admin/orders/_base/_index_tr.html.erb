@@ -1,0 +1,22 @@
+<tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
+  <%= yield %>
+  <td>
+    <div data-show-target="item" style="visibility: hidden">
+      <%= link_to({ controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
+        <span><%= t('trade.admin.refunds.index.title') %></span>
+      <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+      <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-link') do %>
+        <span><%= t('trade.admin.orders.payment_types.title') %></span>
+      <% end if ['unpaid', 'part_paid'].include?(model.payment_status) %>
+      <%= link_to({ action: 'adjust_edit', id: model.id }, aria: { label: t('trade.admin.orders.adjust_edit.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-pen-clip has-text-primary"></i>
+      <% end if ['unpaid'].include?(model.payment_status) %>
+      <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, data: { turbo_frame: 'modal' }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-pencil has-text-link"></i>
+      <% end %>
+      <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm'), turbo_scroll: true } }) do %>
+        <i class="fa-solid fa-trash has-text-danger"></i>
+      <% end %>
+    </div>
+  </td>
+</tr>
