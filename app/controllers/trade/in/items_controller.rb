@@ -56,16 +56,6 @@ module Trade
       )
     end
 
-    def _prefixes
-      super do |pres|
-        if ['create', 'update', 'destroy'].include?(params[:action])
-          pres + ["trade/my/items/_#{params[:action]}", 'trade/my/items/_base', 'trade/my/items']
-        else
-          pres
-        end
-      end
-    end
-
   end
 end
 
