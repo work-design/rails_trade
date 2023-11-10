@@ -18,7 +18,7 @@
     </button>
   </div>
 <% else %>
-  <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, data: { turbo_scroll: true } do |f| %>
+  <%= form_with theme: nil, url: { controller: item_con, action: 'create' } do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart&.id %>
     <%= f.hidden_field :good_type, value: model.class_name %>
     <%= f.hidden_field :good_id, value: model.id %>
