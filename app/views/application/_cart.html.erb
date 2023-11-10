@@ -18,7 +18,7 @@
     </button>
   </div>
 <% else %>
-  <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, state: 'redirect_return', data: { turbo_scroll: true }, class: 'ml-1 button_to' do |f| %>
+  <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, data: { turbo_scroll: true } do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <%= f.hidden_field :good_type, value: model.class_name %>
     <%= f.hidden_field :good_id, value: model.id %>
