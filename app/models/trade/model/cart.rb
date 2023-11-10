@@ -259,7 +259,6 @@ module Trade
     end
 
     def attr_options(**options)
-      options.compact_blank!
       options.symbolize_keys!
       args = { good_type: good_type, aim: aim }
       args.merge! options.slice(:good_type, :aim)
@@ -267,6 +266,7 @@ module Trade
       args.merge! purchase_id: options[:purchase_id].try(:to_i) if options.key?(:purchase_id)
       args.merge! scene_id: options[:scene_id].to_i if options[:scene_id]
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on]
+      options.compact_blank!
       args.stringify_keys!
     end
 
