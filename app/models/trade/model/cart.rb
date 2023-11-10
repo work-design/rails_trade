@@ -270,7 +270,7 @@ module Trade
         end
       end
       if options.key?(:purchase_id)
-        if [nil, ''].include? options[:good_id]
+        if [nil, ''].include? options[:purchase_id]
           args.merge! purchase_id: nil
         else
           args.merge! purchase_id: options[:purchase_id].to_i
