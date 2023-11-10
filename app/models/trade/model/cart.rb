@@ -236,7 +236,7 @@ module Trade
       args = attr_options(**options)
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
-  
+
     def find_items(*good_ids, **options)
       args = attr_options(**options)
       items.select do |i|

@@ -1,0 +1,12 @@
+<%= form_with theme: nil, url: { controller: item_con, action: 'create' }, class: 'button_to' do |f| %>
+  <%= f.hidden_field :current_cart_id, value: @cart.id %>
+  <%= f.hidden_field :good_type, value: model.class_name %>
+  <%= f.hidden_field :good_id, value: model.id %>
+  <%= f.hidden_field :produce_on, value: params[:produce_on] %>
+  <%= f.hidden_field :scene_id, value: params[:scene_id] %>
+  <%= f.hidden_field :station_id, value: params[:station_id] %>
+  <%= f.hidden_field :desk_id, value: params[:desk_id] %>
+  <%= button_tag do %>
+    <i class="fa-solid fa-xl fa-circle-plus has-text-grey"></i>
+  <% end %>
+<% end %>
