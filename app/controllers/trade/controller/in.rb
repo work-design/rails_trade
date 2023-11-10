@@ -8,11 +8,5 @@ module Trade
       layout 'admin'
     end
 
-    class_methods do
-      def local_prefixes
-        [controller_path, 'trade/in/base', 'in', 'admin']
-      end
-    end
-
   end
 end

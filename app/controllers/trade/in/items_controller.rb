@@ -10,6 +10,10 @@ module Trade
       @item.save
     end
 
+    def destroy
+      @cart.items.destroy(@item)
+    end
+
     private
     def set_item
       @item = current_organ.organ_items.find params[:id]
@@ -51,6 +55,16 @@ module Trade
         :organ_id,
         :current_cart_id
       )
+    end
+
+    def _prefixes
+      super do |pres|
+        if ['create', 'update', 'destroy'].include?(params[:action])
+          pres + ["trade/my/items/_#{params[:action]}", 'trade/my/items/_base', 'trade/my/items']
+        else
+          pres
+        end
+      end
     end
 
   end
