@@ -60,6 +60,10 @@ module Trade
       @item.save
     end
 
+    def destroy
+      @cart.items.destroy(@item)
+    end
+
     private
     def set_cart
       if params[:current_cart_id].present?
