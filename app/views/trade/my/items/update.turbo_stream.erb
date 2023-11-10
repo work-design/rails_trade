@@ -1,3 +1,1 @@
-<%= turbo_stream.update 'cart_amount' do %>
-  <%= @item.current_cart.amount.to_money.format.html_safe %>
-<% end %>
+<%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: 'trade/my/carts' } %>
