@@ -237,7 +237,7 @@ module Trade
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def find_items(*goods, **options)
+    def find_items(goods, **options)
       result = {}
       goods.each do |good|
         item = find_item(good_id: good.id, **options)
