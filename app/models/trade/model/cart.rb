@@ -240,7 +240,14 @@ module Trade
     def find_items(*good_ids, **options)
       args = attr_options(**options)
       items.select do |i|
-        i.attributes.slice(*args.keys) == args && good_ids.include(i.good_id)
+        good_ids.include(i.good_id) && i.attributes.slice(*args.keys) == args
+      end
+    end
+
+    def find_purchase_items(*purchase_ids, **options)
+      args = attr_options(**options)
+      items.select do |i|
+        i.attributes.slice(*args.keys) == args && purchase_ids.include(i.purchase_id)
       end
     end
 
