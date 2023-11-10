@@ -1,0 +1,23 @@
+<div class="is-sticky" style="padding-top: 4rem">
+  <div>
+    <i class="fa-solid fa-bag-shopping"></i>
+    <span class="pl-1"><%= @cart.items.count %></span>
+  </div>
+  <% @cart.items.each do |item| %>
+    <div>
+      <div class="is-several">
+        <%= image_tag item.good.logo, class: 'image is-32x32' if item.good.logo.attached? %>
+      </div>
+      <span><%= item.good_name %></span>
+      <span>*</span>
+      <span><%= item.number.to_human %></span>
+    </div>
+  <% end %>
+  <div><%= @cart.item_amount.to_money.format.html_safe %></div>
+  <div>
+    <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, state: 'enter', class: 'button is-small is-primary is-radius') do %>
+      <span class="pr-1">去购物车</span>
+      <i class="fa-solid fa-angle-right"></i>
+    <% end %>
+  </div>
+</div>
