@@ -1,5 +1,3 @@
-<% item = @cart && @cart.find_item(good_type: model.class_name, good_id: model.id) %>
-
 <% if item %>
 <div class="is-flex is-justify-content-center">
   <%= form_with theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, class: 'button_to', data: { turbo_scroll: true } do |f| %>
