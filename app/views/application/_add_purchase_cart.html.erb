@@ -1,7 +1,8 @@
-<%= form_with theme: nil, url: { controller: item_con, action: 'create' }, id: "cart_#{model.id}" do |f| %>
+<%= form_with theme: nil, url: { controller: item_con, action: 'create' }, id: "cart_#{model.id}", class: 'button_to' do |f| %>
   <%= f.hidden_field :current_cart_id, value: @cart&.id %>
   <%= f.hidden_field :good_type, value: model.class_name %>
   <%= f.hidden_field :purchase_id, value: model.id %>
+  <%= f.hidden_field :good_id, value: good_id %>
   <%= button_tag do %>
     <i class="fa-solid fa-circle-plus fa-xl has-text-dark-grey"></i>
   <% end %>
