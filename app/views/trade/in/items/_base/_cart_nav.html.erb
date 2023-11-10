@@ -1,3 +1,3 @@
-<%= turbo_stream.update 'cart_amount' do %>
+<div id="cart_nav">
   <%= @item.current_cart.amount.to_money.format.html_safe %>
-<% end %>
+</div>
