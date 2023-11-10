@@ -52,7 +52,6 @@ module Trade
         :number,
         :note,
         :desk_id,
-        :organ_id,
         :current_cart_id
       )
     end
