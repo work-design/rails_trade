@@ -1,6 +1,6 @@
 <div data-controller="modify" data-modify-submit-value="true" id="cart_<%= item.good_id %>" class="is-flex is-justify-content-center">
   <% if item.number > 1 %>
-    <button data-action="modify#minus" class="button_to">
+    <button data-action="modify#minus" class="button_to mr-1">
       <i class="fa-solid fa-xl fa-circle-minus has-text-dark-grey"></i>
     </button>
   <% else %>
@@ -12,7 +12,7 @@
     <%= f.hidden_field :current_cart_id, value: cart.id %>
     <%= f.number_field :number, value: item.number.to_human, data: { action: 'change->input#form', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
   <% end %>
-  <button data-action="modify#plus" class="button_to">
+  <button data-action="modify#plus" class="button_to ml-1">
     <i class="fa-solid fa-xl fa-circle-plus has-text-dark-grey"></i>
   </button>
 </div>
