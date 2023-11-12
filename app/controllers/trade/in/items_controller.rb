@@ -1,5 +1,6 @@
 module Trade
   class In::ItemsController < Admin::ItemsController
+    include Controller::In
     before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
     before_action :set_item, only: [:show]
     before_action :set_new_item, only: [:create, :cost]
@@ -30,17 +31,6 @@ module Trade
         options.merge! user_id: nil, member_id: nil, client_id: nil
         @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
       end
-    end
-
-    def set_new_item
-      options = {}
-      options.merge! params.permit(:good_id, :purchase_id, :produce_on, :scene_id)
-      options.compact_blank!
-
-      @item = @cart.organ_item(**options) || @cart.organ_items.build(options)
-      @item.status = 'checked'
-      @item.assign_attributes params.permit(['station_id', 'desk_id', 'current_cart_id'] & Item.column_names)
-      @item.number = @item.number.to_i + (params[:number].presence || 1).to_i if @item.persisted?
     end
 
     def set_cart_item
