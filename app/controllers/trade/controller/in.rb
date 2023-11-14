@@ -5,7 +5,7 @@ module Trade
     include Org::Controller::In
 
     included do
-      layout 'admin'
+      layout -> { turbo_frame_body? ? 'frame/body' : 'admin' }
     end
 
     def set_new_item
