@@ -5,11 +5,11 @@
     <i class="fa-solid fa-fw dropdown"></i>
   </a>
   <div class="menu-list" data-empty-target="content">
-    <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
-    <%= link_to t('trade.admin.items.index.title'), { controller: 'trade/admin/items' }, class: active_helper(controllers: 'items', active: 'is-active') %>
-    <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
-    <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
-    <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, class: active_helper(controllers: ['promotes', 'promote_charges', 'promote_good_types', 'promote_good_users'], active: 'is-active') %>
-    <%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'trade/admin/wallet_templates' }, class: active_helper(controllers: ['wallet_templates', 'custom_wallets'], active: 'is-active') %>
+    <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
+    <%= link_to t('trade.admin.items.index.title'), { controller: 'trade/admin/items' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'items', active: 'is-active') %>
+    <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
+    <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
+    <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['promotes', 'promote_charges', 'promote_good_types', 'promote_good_users'], active: 'is-active') %>
+    <%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'trade/admin/wallet_templates' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['wallet_templates', 'custom_wallets'], active: 'is-active') %>
   </div>
 </div>
