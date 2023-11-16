@@ -16,10 +16,6 @@ module Trade
       @orders = Order.default_where(q_params).page(params[:page])
     end
 
-    def new
-      @order = Order.new(current_cart_id: params[:current_cart_id])
-    end
-
     def refund
       @order.apply_for_refund
     end
