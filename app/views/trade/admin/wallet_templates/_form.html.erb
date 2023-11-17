@@ -3,5 +3,8 @@
 <%= f.text_area :description %>
 <%= f.text_field :unit %>
 <%= f.number_field :digit %>
+<%= f.fields :advances do |ef| %>
+  <%= render partial: 'item_form', locals: { ef: ef } %>
+<% end %>
 <%= f.file_field :logo %>
 <%= f.text_field :appid %>
