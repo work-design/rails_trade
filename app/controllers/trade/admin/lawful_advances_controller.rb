@@ -1,8 +1,8 @@
 module Trade
   class Admin::LawfulAdvancesController < Admin::BaseController
     before_action :set_advance, only: [:show, :edit, :update, :destroy, :actions]
-    before_action :set_new_lawful_advance, only: [:lawful_new, :lawful_create]
-    before_action :set_card_templates, only: [:new, :create, :lawful_new, :edit, :update]
+    before_action :set_new_advance, only: [:new, :create]
+    before_action :set_card_templates, only: [:new, :create, :edit, :update]
 
     def index
       q_params = {
@@ -14,7 +14,7 @@ module Trade
     end
 
     private
-    def set_new_lawful_advance
+    def set_new_advance
       @advance = Advance.new(advance_params)
       @advance.lawful = true
     end
