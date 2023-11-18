@@ -25,11 +25,11 @@ module Trade
 
     private
     def set_order
-      @order = current_organ.organ_orders.find(params[:id])
+      @order = current_organ.orders.find(params[:id])
     end
 
     def set_new_order
-      @order = current_organ.organ_orders.build(order_params)
+      @order = current_organ.orders.build(order_params)
     end
 
     def order_params
