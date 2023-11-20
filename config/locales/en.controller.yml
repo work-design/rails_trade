@@ -36,6 +36,9 @@ en:
       items:
         index:
           title: Items
+      holds:
+        index:
+          title: Holds
       orders:
         index:
           title: Orders
