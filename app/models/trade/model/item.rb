@@ -330,7 +330,7 @@ module Trade
       return unless current_cart
 
       current_cart.compute_amount
-      logger.debug "\e[33m  Item Object id: #{object_id}"
+      logger.debug "\e[33m  Item Object id: #{id}/#{object_id}"
       current_cart.save!
     end
 
