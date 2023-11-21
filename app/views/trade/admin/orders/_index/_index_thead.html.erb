@@ -9,7 +9,7 @@
 </th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:amount) %></p>
-  <p><%= Trade::Order.human_attribute_name(:unreceived_amount) %></p>
+  <p class="has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></p>
 </th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:received_amount) %></p>

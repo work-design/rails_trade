@@ -8,6 +8,6 @@
   <%= f.hidden_field :desk_id, value: params[:desk_id] %>
   <%= button_tag class: 'button is-small is-danger' do %>
     <i class="fa-solid fa-cart-plus"></i>
-    <span class="pl-1"><%= t("#{item_con.tr('/', '.')}.create.title") %></span>
+    <span class="pl-1"><%= t(".#{item_con.tr('/', '.')}.create.title") %></span>
   <% end %>
 <% end %>
