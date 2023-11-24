@@ -254,6 +254,20 @@ module Trade
       organ.name
     end
 
+    def cart_identity
+      if aim_purchase?
+        "#{purchase_id}_#{good_id}"
+      else
+        if member_id
+          "#{good_id}_#{member_id}"
+        elsif contact_id
+          "#{good_id}_#{contact_id}"
+        else
+          "#{good_id}"
+        end
+      end
+    end
+
     def original_quantity
       return unless good
       good.unified_quantity * self.number

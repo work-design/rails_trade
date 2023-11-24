@@ -1,4 +1,4 @@
-<div id="cart_<%= item.purchase_id %>_<%= item.good_id %>" data-controller="modify" data-modify-submit-value="true" class="has-inline-centered">
+<div id="cart_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" class="has-inline-centered">
   <% if item.number > 1 %>
     <button data-action="modify#minus" class="button_to mr-1">
       <i class="fa-solid fa-xl fa-circle-minus has-text-dark-grey"></i>

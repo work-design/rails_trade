@@ -192,6 +192,14 @@ module Trade
       ['Factory::Production'].include?(good_type) && ['use', 'rent'].include?(aim)
     end
 
+    def identity
+      if member_id
+        "_#{member_id}"
+      elsif contact_id
+        "_#{contact_id}"
+      end
+    end
+
     def has_address?
       if need_address?
         address.present?
