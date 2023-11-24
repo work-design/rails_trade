@@ -263,7 +263,7 @@ module Trade
     def attr_options(**options)
       options.symbolize_keys!
       args = { good_type: good_type, aim: aim }
-      args.merge! options.slice(:good_type, :aim)
+      args.merge! options.slice(:good_type, :aim, :contact_id, :member_id)
       if options.key?(:good_id)
         if [nil, ''].include? options[:good_id]
           args.merge! good_id: nil
