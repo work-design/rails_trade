@@ -34,5 +34,10 @@ module Trade
       @item.number = @item.number.to_i + (params[:number].presence || 1).to_i if @item.persisted?
     end
 
+    def set_cart_item
+      @item = @cart.items.load.find params[:id]
+      @item.current_cart = @cart
+    end
+
   end
 end

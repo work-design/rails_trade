@@ -66,10 +66,8 @@ module Trade
 
     private
     def set_cart
-      if params[:current_cart_id].present?
-        @cart = Cart.find params[:current_cart_id]
-      elsif item_params[:current_cart_id].present?
-        @cart = Cart.find item_params[:current_cart_id]
+      if current_cart
+        @cart = current_cart
       else
         options = { user_id: current_user.id, member_id: nil, client_id: nil }
         options.merge! default_form_params
@@ -81,10 +79,6 @@ module Trade
       @item = current_user.items.find params[:id]
     end
 
-    def set_cart_item
-      @item = @cart.items.load.find params[:id]
-    end
-
     def set_card_template
       @card_template = CardTemplate.find params[:card_template_id]
     end
@@ -93,8 +87,7 @@ module Trade
       params.fetch(:item, {}).permit(
         :number,
         :note,
-        :desk_id,
-        :current_cart_id
+        :desk_id
       )
     end
 
