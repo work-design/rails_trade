@@ -58,6 +58,8 @@ module Trade
       p = { good_type: good_type, aim: aim }.compact
       if member_id
         p.merge! member_id: member_id
+      elsif respond_to?(:contact_id) && contact_id
+        p.merge! contact_id: contact_id, client_id: client_id
       elsif respond_to?(:client_id) && client_id
         p.merge! client_id: client_id
       elsif user_id
