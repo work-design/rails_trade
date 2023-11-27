@@ -1,0 +1,13 @@
+<tr id="cart_<%= model.id %>">
+  <td>
+    <%= form_with theme: nil, url: { controller: 'trade/in/items', action: 'create' }, class: 'button_to' do |f| %>
+      <%= f.hidden_field :current_cart_id, value: @cart.id %>
+      <%= f.hidden_field :good_type, value: model.class_name %>
+      <%= f.hidden_field :purchase_id, value: model.id %>
+      <%= button_tag do %>
+        <i class="fa-solid fa-circle-plus fa-xl has-text-dark-grey"></i>
+      <% end %>
+    <% end %>
+  </td>
+  <td></td>
+</tr>
