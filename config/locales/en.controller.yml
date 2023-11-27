@@ -84,6 +84,9 @@ en:
           title: Wallet Templates
     in:
       title: Purchase Orders
+      carts:
+        index:
+          title: Pending Carts
       orders:
         index:
           title: Purchase Orders
