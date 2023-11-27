@@ -114,11 +114,14 @@ module Trade
       after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
+      after_destroy :set_not_fresh
     end
 
     def cart_filter_hash
       options = { good_type: [good_type, nil], aim: [aim, nil] }
-      if member_id
+      if contact_id
+        options.merge! contact_id: [contact_id, nil], client_id: client_id
+      elsif member_id
         options.merge! member_id: [member_id, nil], member_organ_id: member_organ_id
       elsif user_id
         options.merge! user_id: [user_id, nil]
