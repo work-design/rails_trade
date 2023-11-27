@@ -11,7 +11,6 @@ module Trade
     def set_new_item
       options = {}
       options.merge! params.permit(:good_id, :purchase_id, :produce_on, :scene_id)
-      options.compact_blank!
 
       @item = @cart.organ_item(**options) || @cart.organ_items.build(options)
       @item.status = 'checked'
