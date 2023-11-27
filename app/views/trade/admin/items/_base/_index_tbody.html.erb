@@ -1,6 +1,8 @@
 <td>
 <% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>
+<% elsif model.purchase %>
+  <span><%= model.purchase.name %></span>
 <% else %>
   <span><%= model.good_name %></span>
 <% end %>
