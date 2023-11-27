@@ -258,10 +258,10 @@ module Trade
       if aim_purchase?
         "#{purchase_id}_#{good_id}"
       else
-        if member_id
-          "#{good_id}_#{member_id}"
-        elsif contact_id
+        if contact_id
           "#{good_id}_#{contact_id}"
+        elsif member_id
+          "#{good_id}_#{member_id}"
         else
           "#{good_id}"
         end
