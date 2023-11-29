@@ -23,7 +23,7 @@ module Trade
           render :create, status: :created
         end
       else
-        render :new, status: :unprocessable_entity, locals: { model: @item }
+        render :new, locals: { model: @item }, status: :unprocessable_entity
       end
     end
 
