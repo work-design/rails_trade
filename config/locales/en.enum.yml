@@ -34,3 +34,13 @@ en:
           FinalPromoteCharge: Final
           MinusPromoteCharge: Minus
           CashPromoteCharge: Cash
+      trade/refund:
+        state:
+          init: init
+          completed: Completed
+          failed: Failed
+          denied: Denied
+        type:
+          Trade::WalletRefund: Wallet
+          Trade::WxpayRefund: Wx Payment
+          Trade::HandRefund: Hand Refund
