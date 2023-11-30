@@ -66,7 +66,6 @@ module Trade
 
       has_many :refunds, inverse_of: :order, dependent: :nullify
       has_many :payment_orders, dependent: :destroy_async
-      accepts_nested_attributes_for :payment_orders
       has_many :payments, through: :payment_orders, inverse_of: :orders
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, class_name: 'CustomWallet', primary_key: :user_id, foreign_key: :user_id
@@ -74,8 +73,10 @@ module Trade
       has_many :promotes, through: :promote_goods
       has_many :items, inverse_of: :order
       has_many :available_item_promotes, -> { includes(:promote) }, through: :items, source: :item_promotes
-      accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id', 'single_price').compact.blank? }
       has_many :cart_promotes, dependent: :nullify  # overall can be blank
+
+      accepts_nested_attributes_for :payment_orders
+      accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id', 'single_price').compact.blank? }
       accepts_nested_attributes_for :cart_promotes
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
@@ -84,7 +85,7 @@ module Trade
       after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
       before_validation :init_uuid, if: -> { uuid.blank? }
       after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
-      before_save :init_serial_number, if: -> { paid_at.present? && paid_at_changed? }
+      before_save :init_serial_number, if: -> { paid_at.present? && paid_at_was.blank? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { amount.to_d.zero? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }

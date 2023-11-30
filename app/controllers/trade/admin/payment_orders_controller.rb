@@ -20,7 +20,6 @@ module Trade
     end
 
     def create
-
       if @payment_order.confirm!
         render 'create'
       else
