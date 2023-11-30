@@ -33,6 +33,10 @@ en:
       refunds:
         index:
           title: Refunds
+        confirm:
+          title: Confirm
+        deny:
+          title: Deny
       items:
         index:
           title: Items
