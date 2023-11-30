@@ -1,3 +1,3 @@
-<li><%= link_to t('.items.index.title'), { controller: 'items', aim: 'rent' }, state: 'return' %></li>
+<li><%= link_to t('.items.index.title'), { controller: 'items', aim: @item.aim }, state: 'return' %></li>
 <li><span class="px-3"><%= @item.uuid %></span></li>
 <li class="is-active"><%= t('.title') %></li>
