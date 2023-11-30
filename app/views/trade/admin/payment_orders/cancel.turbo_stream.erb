@@ -1,2 +1,1 @@
-<%= turbo_stream.remove 'add_payment_order' %>
-<%= turbo_stream.after "tr_#{@payment.id}", partial: 'new' %>
+<%= turbo_stream.replace "payment_order_#{@payment.id}", partial: 'index_tbody', layout: 'index_tr', locals: { model: @payment_order } %>

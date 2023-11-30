@@ -6,7 +6,7 @@
   <% if model.state_confirmed? %>
     <%= model.order_amount.to_money.format.html_safe %>
   <% else %>
-    <%= number_field_tag 'model[order_amount]', model.order_amount, class: 'input', step: 0.01, form: "edit_payment_order_#{model.id}" %>
+    <%= number_field_tag 'payment_order[order_amount]', model.order_amount, class: 'input', step: 0.01, form: "edit_payment_order_#{model.id}" %>
   <% end %>
 </td>
 <td><%= Trade::PaymentOrder.enum_i18n(:state, model.state) %></td>
