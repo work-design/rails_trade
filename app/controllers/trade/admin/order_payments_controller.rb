@@ -6,6 +6,10 @@ module Trade
       mark_audits(instance: :@order, include: [:payment_orders])
     end
 
+    def index
+      @payments = @order.payments
+    end
+
     def new
       @payment.total_amount = @order.unreceived_amount
     end
@@ -27,6 +31,10 @@ module Trade
 
     def model_name
       'payment'
+    end
+
+    def pluralize_model_name
+      'payments'
     end
 
     def payment_params
