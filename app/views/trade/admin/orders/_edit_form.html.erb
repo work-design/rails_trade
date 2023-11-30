@@ -1,4 +1,12 @@
-<%= form_with model: @order, url: { action: 'update' } do |f| %>
-  <%= f.text_area :note %>
-  <%= f.submit %>
+<%= form_with model: @order, url: { action: 'update' }, class: 'modal-card' do |f| %>
+  <header class="modal-card-head">
+    <p class="modal-card-title"><%= t('.title') %></p>
+    <button type="button" data-action="modal#close" class="delete"></button>
+  </header>
+  <section class="modal-card-body">
+    <%= f.text_area :note %>
+  </section>
+  <footer class="modal-card-foot">
+    <%= f.submit %>
+  </footer>
 <% end %>
