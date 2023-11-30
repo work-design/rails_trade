@@ -5,12 +5,20 @@
       <%= link_to({ controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
         <span><%= t('trade.admin.refunds.index.title') %></span>
       <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
-      <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-link') do %>
-        <span><%= t('trade.admin.orders.payment_types.title') %></span>
-      <% end if ['unpaid', 'part_paid'].include?(model.payment_status) %>
-      <%= button_to({ action: 'adjust_edit', id: model.id }, aria: { label: t('.adjust_edit.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pen-clip has-text-primary"></i>
-      <% end if ['unpaid'].include?(model.payment_status) %>
+      <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
+        <%= button_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-link') do %>
+          <span><%= t('.payment_types.title') %></span>
+        <% end %>
+        <%= button_to({ controller: 'order_payments', action: 'new', order_id: model.id }, class: 'button is-small is-rounded is-danger') do %>
+          <i class="fa-solid fa-receipt"></i>
+          <span class="pl-1">立即支付</span>
+        <% end %>
+      <% end %>
+      <% if ['unpaid'].include?(model.payment_status) %>
+        <%= button_to({ action: 'adjust_edit', id: model.id }, aria: { label: t('.adjust_edit.title') }, class: 'button is-small is-rounded is-light') do %>
+          <i class="fa-solid fa-pen-clip has-text-primary"></i>
+        <% end %>
+      <% end %>
       <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil has-text-link"></i>
       <% end %>

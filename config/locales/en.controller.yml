@@ -46,6 +46,8 @@ en:
           title: Unpaid Orders
         adjust_edit:
           title: Adjust Amount
+        payment_types:
+          title: Payment Methods
       payments:
         index:
           title: Payments

@@ -86,7 +86,7 @@ Rails.application.routes.draw do
           get :unpaid
         end
         member do
-          get :payment_types
+          match :payment_types, via: [:get, :post]
           post :package
           post :micro
           get :print_data
