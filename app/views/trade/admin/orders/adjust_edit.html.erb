@@ -1,6 +1,0 @@
-<%= turbo_frame_tagged 'modal', data: { title: t('.title') } do %>
-  <%= form_with model: @order, url: { action: 'adjust_update' } do |f| %>
-    <%= f.number_field :amount %>
-    <%= f.submit %>
-  <% end %>
-<% end %>

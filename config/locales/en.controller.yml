@@ -44,6 +44,8 @@ en:
           title: Orders
         unpaid:
           title: Unpaid Orders
+        adjust_edit:
+          title: Adjust Amount
       payments:
         index:
           title: Payments

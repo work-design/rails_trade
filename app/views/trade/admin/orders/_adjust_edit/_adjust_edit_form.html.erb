@@ -1,0 +1,4 @@
+<%= form_with model: @order, url: { action: 'adjust_update' } do |f| %>
+  <%= f.number_field :amount %>
+  <%= f.submit %>
+<% end %>

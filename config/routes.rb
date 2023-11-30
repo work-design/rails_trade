@@ -95,7 +95,7 @@ Rails.application.routes.draw do
           get :payment_new
           patch :payment_create
           delete :payment_destroy
-          get :adjust_edit
+          match :adjust_edit, via: [:get, :post]
           patch :adjust_update
         end
         resources :order_payments
