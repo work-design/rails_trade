@@ -1,6 +1,0 @@
-<%= payment.checked_amount.to_money.format.html_safe %>
-<% if payment.part_checked? %>
-  <%= button_to t('.adjust'), { action: 'adjust', id: payment.id }, method: :patch, class: 'ui mini grey button' %>
-<% else %>
-  <span class="tag <%= active_asserts(false, grey: ['init', 'part_checked'].include?(payment.state), teal: payment.adjust_checked?, green: payment.all_checked?) %>"><%= payment.state_i18n %></span>
-<% end %>

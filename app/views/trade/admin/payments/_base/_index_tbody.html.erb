@@ -3,7 +3,12 @@
   <div class="tag"><%= model.type_i18n %></div>
 </td>
 <td id="checked_amount_<%= model.id %>">
-  <%= render partial: 'checked_amount', locals: { payment: model } %>
+  <%= model.checked_amount.to_money.format.html_safe %>
+  <% if model.part_checked? %>
+    <%= button_to t('.adjust'), { action: 'adjust', id: model.id }, method: :patch, class: 'button' %>
+  <% else %>
+    <span class="tag <%= active_asserts(false, grey: ['init', 'part_checked'].include?(model.state), teal: model.adjust_checked?, green: model.all_checked?) %>"><%= model.state_i18n %></span>
+  <% end %>
 </td>
 <td>
   <p><%= model.total_amount.to_money.format.html_safe %></p>
