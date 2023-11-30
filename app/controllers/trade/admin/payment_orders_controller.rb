@@ -2,8 +2,8 @@ module Trade
   class Admin::PaymentOrdersController < Admin::BaseController
     before_action :set_payment
     before_action :set_payment_order, only: [:update, :refund, :confirm, :cancel]
-    after_action only: [:create] do
-      mark_audits(instance: :@payment, include: [:payment_orders])
+    after_action only: [:create, :cancel, :update] do
+      mark_audits(instance: :@payment_order, include: [:payment, :order])
     end
 
     def index
