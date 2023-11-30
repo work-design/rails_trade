@@ -1,0 +1,6 @@
+<% if referer_controller == 'trade/admin/orders' %>
+  <%= turbo_stream.replace "tr_#{@order.id}", partial: 'trade/admin/orders/_base/index_tbody', layout: 'trade/admin/orders/_base/index_tr', locals: { model: @order } %>
+  <%= turbo_stream.remove 'modal' %>
+<% else %>
+  <%= turbo_stream.append 'body', partial: 'visit', locals: { url: url_for(action: 'index') } %>
+<% end %>
