@@ -49,7 +49,6 @@ module Trade
 
       enum aim: {
         use: 'use',
-        purchase: 'purchase',
         invest: 'invest',
         rent: 'rent'
       }, _default: 'use', _prefix: true
@@ -258,7 +257,7 @@ module Trade
     end
 
     def cart_identity
-      if aim_purchase?
+      if purchase_id.present?
         "#{purchase_id}_#{good_id}"
       else
         if contact_id

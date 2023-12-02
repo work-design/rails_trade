@@ -24,10 +24,10 @@ module Trade
       if current_cart
         @cart = current_cart
       else
-        options = { agent_id: current_member.id }
-        options.merge! default_form_params
-        options.merge! user_id: nil, member_id: nil, client_id: nil
-        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
+        options = { member_organ_id: current_organ.id }
+        options.merge! user_id: nil, member_id: nil
+        options.merge! client_id: nil, contact_id: nil
+        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: 'use')
       end
     end
 

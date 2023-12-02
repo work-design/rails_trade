@@ -17,7 +17,6 @@ module Trade
 
       enum aim: {
         use: 'use',
-        purchase: 'purchase',
         invest: 'invest',
         rent: 'rent'
       }, _default: 'use', _prefix: true
