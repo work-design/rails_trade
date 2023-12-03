@@ -3,7 +3,11 @@
   <div id="alert"></div>
   <main class="columns container">
     <div class="column">
-      <%= render 'breadcrumb' %>
+      <div class="breadcrumb has-succeeds-separator">
+        <ul>
+          <%= render 'breadcrumb' %>
+        </ul>
+      </div>
       <%= yield %>
     </div>
     <div class="column is-narrow" style="width: 300px">
