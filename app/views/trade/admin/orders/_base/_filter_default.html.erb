@@ -1,0 +1,6 @@
+<div data-switch-target="src" class="buttons are-small">
+  <%= link_to t('.all'), filter_params(except: [:state]), class: active_helper(state: nil, active: 'button is-info', item: 'button is-light') %>
+  <% Trade::Order.options_i18n(:state).each do |text, value| %>
+    <%= link_to text, filter_params(state: value, except: [:id]), class: active_helper(state: value, active: 'button is-info', item: 'button is-light') %>
+  <% end %>
+</div>
