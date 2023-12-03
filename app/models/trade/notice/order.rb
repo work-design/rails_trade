@@ -21,6 +21,7 @@ module Trade
     end
 
     def to_provider_notice
+      return unless organ.creator
       to_notification(
         user: organ.creator,
         title: '收到新订单',
