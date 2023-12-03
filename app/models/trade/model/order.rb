@@ -260,6 +260,12 @@ module Trade
       )
     end
 
+    def direct_paid!
+      self.received_amount = self.amount
+      self.check_state
+      self.save!
+    end
+
     def check_state
       if self.received_amount.to_d >= self.amount.to_d
         self.payment_status = 'all_paid'
