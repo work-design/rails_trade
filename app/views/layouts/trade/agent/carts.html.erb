@@ -7,7 +7,7 @@
       <%= yield %>
     </div>
     <div class="column is-narrow" style="width: 300px">
-      <%= render 'cart_nav' %>
+      <%= render partial: 'cart_nav', locals: { cart: @cart } if @cart %>
     </div>
   </main>
   <%= render 'footer' %>

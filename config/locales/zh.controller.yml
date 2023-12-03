@@ -266,6 +266,9 @@ zh:
       carts:
         index:
           title: 最近下单
+      items:
+        create:
+          title: 加入购物车
     from:
       orders:
         index:

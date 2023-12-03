@@ -1,6 +1,6 @@
 <td>
   <p>
-    <span><%= link_to model.client&.identity || model.id, { action: 'show', id: model.id }, state: 'enter' %></span>
+    <span><%= link_to model.contact&.identity || model.id, { action: 'show', id: model.id }, state: 'enter' %></span>
     <span class="has-text-grey">（<%= model.client_id %>）</span>
   </p>
 </td>
