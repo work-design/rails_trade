@@ -297,7 +297,6 @@ Rails.application.routes.draw do
       end
 
       namespace :in, defaults: { namespace: 'in' } do
-        concerns :orderable
         resources :orders, only: [] do
           collection do
             delete :batch_destroy
@@ -305,6 +304,7 @@ Rails.application.routes.draw do
           end
           resources :order_payments
         end
+        concerns :orderable
       end
 
       namespace :my, defaults: { namespace: 'my' } do
