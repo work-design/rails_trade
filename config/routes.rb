@@ -85,6 +85,7 @@ Rails.application.routes.draw do
           get 'user/:user_id' => :user
           get :unpaid
           delete :batch_destroy
+          post :batch_paid
         end
         member do
           match :payment_types, via: [:get, :post]
@@ -300,6 +301,7 @@ Rails.application.routes.draw do
         resources :orders, only: [] do
           collection do
             delete :batch_destroy
+            post :batch_paid
           end
           resources :order_payments
         end

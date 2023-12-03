@@ -46,6 +46,12 @@ module Trade
       @orders = Order.default_where(q_params).page(params[:page])
     end
 
+    def batch_paid
+      Order.where(id: params[:ids].split(',')).each do |i|
+        i.direct_paid!
+      end
+    end
+
     def new
       @order.items.build
     end

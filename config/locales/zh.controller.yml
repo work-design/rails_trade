@@ -60,6 +60,8 @@ zh:
           title: 调价
         print:
           title: 打印订单
+        batch_paid:
+          title: 支付
       items:
         index:
           title: 订单明细
@@ -286,6 +288,8 @@ zh:
       orders:
         index:
           title: 订单
+        batch_paid:
+          title: 支付
       promote_goods:
         index:
           title: 优惠券
