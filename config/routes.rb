@@ -84,6 +84,7 @@ Rails.application.routes.draw do
           get 'cart/:current_cart_id' => :cart
           get 'user/:user_id' => :user
           get :unpaid
+          delete :batch_destroy
         end
         member do
           match :payment_types, via: [:get, :post]
@@ -297,6 +298,9 @@ Rails.application.routes.draw do
       namespace :in, defaults: { namespace: 'in' } do
         concerns :orderable
         resources :orders, only: [] do
+          collection do
+            delete :batch_destroy
+          end
           resources :order_payments
         end
       end

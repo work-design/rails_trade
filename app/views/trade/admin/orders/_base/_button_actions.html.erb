@@ -1,0 +1,8 @@
+<div class="buttons are-small">
+  <%= form_with url: { action: 'batch_destroy' }, method: :delete, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to ml-2 is-hidden' do |f| %>
+    <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
+    <%= button_tag data: { action: 'check-commit#doSubmit' }, aria: { label: t('.batch_destroy.title') }, class: 'button is-small has-text-danger' do %>
+      <i class="fa-solid fa-trash-can"></i>
+    <% end %>
+  <% end %>
+</div>
