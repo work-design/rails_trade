@@ -175,6 +175,10 @@ module Trade
       user&.name.presence || "#{user_id}"
     end
 
+    def all_purchase?
+      items.all?(->(i){ i.purchase_id.present? })
+    end
+
     def enter_url
       Rails.application.routes.url_for(controller: 'trade/orders', action: 'qrcode', id: self.id)
     end

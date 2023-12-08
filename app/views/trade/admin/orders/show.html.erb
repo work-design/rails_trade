@@ -2,7 +2,7 @@
   <% if @order.aim_rent? %>
     <%= render 'rent_thead' %>
     <%= render partial: 'rent_tbody', layout: 'rent_tr', collection: @order.items, as: :model %>
-  <% elsif @order.aim_purchase? %>
+  <% elsif @order.all_purchase? %>
     <%= render 'purchase_thead' %>
     <%= render partial: 'purchase_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
   <% else %>
