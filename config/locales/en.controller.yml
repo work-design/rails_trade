@@ -124,6 +124,9 @@ en:
         order_edit:
           title: Edit
     agent:
+      carts:
+        index:
+          title: Carts
       items:
         create:
           title: Proxy Add
