@@ -11,7 +11,9 @@
         <span><%= model.purchase.name %></span>
       <% end %>
     <% end %>
-    <span class="tag"><%= model.aim_i18n %></span>
+    <% if ['rent', 'invest'].include?(aim) %>
+      <span class="tag"><%= model.aim_i18n %></span>
+    <% end %>
   </div>
 </td>
 <td>
