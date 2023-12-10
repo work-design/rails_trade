@@ -123,3 +123,7 @@ en:
           title: Add To Cart
         order_edit:
           title: Edit
+    agent:
+      items:
+        create:
+          title: Proxy Add
