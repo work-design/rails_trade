@@ -3,7 +3,7 @@
   <%= f.hidden_field :good_type, value: model.class_name %>
   <%= f.hidden_field :purchase_id, value: model.id %>
   <%= f.hidden_field :good_id, value: good_id %>
-  <%= button_tag do %>
+  <button type="submit">
     <i class="fa-solid fa-circle-plus fa-xl has-text-dark-grey"></i>
-  <% end %>
+  </button>
 <% end %>

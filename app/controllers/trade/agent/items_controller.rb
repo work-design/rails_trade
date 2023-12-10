@@ -18,10 +18,8 @@ module Trade
     end
 
     def set_cart
-      if params[:current_cart_id].present?
-        @cart = Cart.find params[:current_cart_id]
-      elsif item_params[:current_cart_id].present?
-        @cart = Cart.find item_params[:current_cart_id]
+      if current_cart
+        @cart = current_cart
       else
         options = { agent_id: current_member.id }
         options.merge! default_form_params
