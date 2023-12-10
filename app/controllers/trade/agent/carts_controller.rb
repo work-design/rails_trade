@@ -21,7 +21,7 @@ module Trade
       params.fetch(:cart, {}).permit(
         :address_id,
         :auto,
-        client_attributes: [:id, :identity, :nick_name, :extra]
+        contact_attributes: [:id, :identity, :name, :extra]
       )
     end
 

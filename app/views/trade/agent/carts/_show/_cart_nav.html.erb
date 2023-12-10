@@ -1,8 +1,8 @@
 <%= form_with theme: 'line', model: @cart, url: { action: 'update' } do |f| %>
   <%= render 'error_messages', target: @cart %>
-  <%= f.fields :client do |ef| %>
+  <%= f.fields :contact do |ef| %>
     <%= ef.text_field :identity %>
-    <%= ef.text_field :nick_name %>
+    <%= ef.text_field :name %>
     <%= ef.text_area :detail %>
   <% end %>
   <%= f.submit %>
