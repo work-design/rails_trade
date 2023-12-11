@@ -1,6 +1,6 @@
 <th>
   <%= form_with theme: nil, model: @cart, url: { action: 'toggle_all', id: @cart.id }, data: { controller: 'input' } do |f| %>
-    <%= f.check_box :status, { checked: @cart.all_checked?, data: { action: 'click->input#form' }, id: nil }, id: @cart.id %>
+    <%= f.check_box :status, { checked: @cart.all_checked?, data: { controller: 'indeterminate', indeterminate_partial_value: @cart.partly_checked?, action: 'click->input#form' }, id: nil }, id: @cart.id %>
   <% end %>
 </th>
 <th><%= Trade::Item.human_attribute_name(:good_name) %></th>

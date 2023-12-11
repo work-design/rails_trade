@@ -211,6 +211,10 @@ module Trade
       items.all?(&:status_checked?)
     end
 
+    def partly_checked?
+      items.any?(&:status_checked?) && !all_checked?
+    end
+
     def toggle_all
       if all_checked?
         items.each do |item|
