@@ -91,6 +91,8 @@ module Trade
       before_create :confirm_ordered!
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
+      after_create :sync_ordered_to_current_cart, if: -> { current_cart_id.present? }
+      after_create :set_not_fresh, if: -> { current_cart_id.present? }
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
     end
@@ -146,6 +148,21 @@ module Trade
       end
       current_cart.cart_promotes.each do |cart_promote|
         cart_promote.order = self
+      end
+    end
+
+    def sync_ordered_to_current_cart
+      return unless current_cart
+      current_cart.with_lock do
+        current_cart.compute_amount!
+      end
+    end
+
+    def set_not_fresh
+      if current_cart_id
+        carts.where.not(id: current_cart_id).update_all(fresh: false)
+      else
+        carts.update_all(fresh: false)
       end
     end
 
