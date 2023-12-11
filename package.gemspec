@@ -17,5 +17,4 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails_extend'
   s.add_dependency 'rails_notice'
-  s.add_dependency 'money-rails', '~> 1.14'
 end
