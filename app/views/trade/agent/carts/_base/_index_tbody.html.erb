@@ -1,6 +1,8 @@
 <td>
-  <p><%= link_to model.contact&.identity || model.id, { action: 'show', id: model.id }, state: 'enter' %></p>
-  <p><span class="has-text-grey"><%= model.client_id %></span></p>
+<% if model.contact %>
+  <p><%= link_to model.contact.identity, { action: 'show', id: model.id }, state: 'enter' %></p>
+  <p><span class="has-text-grey"><%= model.contact.name %></span></p>
+<% end %>
 </td>
 <td>
   <p><%= model.good_type_i18n %></p>
