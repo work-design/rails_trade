@@ -93,7 +93,8 @@ module Trade
     def in_filter_hash
       {
         good_type: good_type,
-        aim: aim
+        aim: aim,
+        purchase_id: nil
       }
     end
 
