@@ -5,11 +5,11 @@
   <% end %>
 </td>
 <td>
-  <p><%= model.purchase.name %></p>
+  <p><%= model.purchase&.name %></p>
 </td>
 <td>
-  <p><%= model.purchase.quantity %></p>
-  <p><%= model.purchase.unit %></p>
+  <p><%= model.purchase&.quantity %></p>
+  <p><%= model.purchase&.unit %></p>
 </td>
 <td>
   <p><%= model.single_price.to_money.format.html_safe %></p>
