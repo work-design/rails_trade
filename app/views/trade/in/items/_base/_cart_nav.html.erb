@@ -1,3 +1,6 @@
 <div id="cart_nav">
+  <%= link_to({ controller: 'trade/in/carts', action: 'show', id: @cart.id }) do %>
+    <i class="fa-solid fa-cart-shopping"></i>
+  <% end %>
   <%= @item.current_cart.amount.to_money.format.html_safe %>
 </div>
