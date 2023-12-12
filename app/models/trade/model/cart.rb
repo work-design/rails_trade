@@ -253,6 +253,7 @@ module Trade
       item
     end
 
+
     def find_item(**options)
       args = attr_options(**options)
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
@@ -274,10 +275,6 @@ module Trade
       end
     end
 
-    def organ_item(**options)
-      args = attr_options(**options)
-      organ_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
-    end
 
     def attr_options(**options)
       options.symbolize_keys!
