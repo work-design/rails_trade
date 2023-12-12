@@ -39,7 +39,8 @@ module Trade
       params.fetch(:item, {}).permit(
         :number,
         :note,
-        :desk_id
+        :desk_id,
+        :current_cart_id
       )
     end
 

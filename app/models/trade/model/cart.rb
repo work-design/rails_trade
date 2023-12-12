@@ -100,7 +100,7 @@ module Trade
     def items
       if purchasable
         purchase_items
-      elsif member_organ_id.present? && member_id.blank?
+      elsif in_cart?
         organ_items
       else
         real_items
@@ -177,11 +177,7 @@ module Trade
     end
 
     def checked_all_items
-      if in_cart?
-        r = organ_items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
-      else
-        r = items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
-      end
+      r = items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
       logger.debug "\e[33m  Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Cart id: #{id})  \e[0m"
       r
     end
