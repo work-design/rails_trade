@@ -177,7 +177,7 @@ module Trade
     end
 
     def checked_all_items
-      r = items.select(&:effective?) + trial_card_items.select(&->(i){ !i.destroyed? })
+      r = checked_items + trial_card_items.select(&->(i){ !i.destroyed? })
       logger.debug "\e[33m  Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Cart id: #{id})  \e[0m"
       r
     end
