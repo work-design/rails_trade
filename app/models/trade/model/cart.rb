@@ -12,8 +12,9 @@ module Trade
       attribute :total_quantity, :decimal, default: 0
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :auto, :boolean, default: false, comment: '自动下单'
-      attribute :items_count, :integer, default: 0
       attribute :fresh, :boolean, default: false
+      attribute :purchasable, :boolean, default: false
+      attribute :items_count, :integer, default: 0
 
       enum aim: {
         use: 'use',
@@ -31,9 +32,10 @@ module Trade
 
       has_many :promote_good_users, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :promote_good_types, through: :promote_good_users
-      has_many :items, ->(o) { where(o.filter_hash).carting.order(id: :asc) }, primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
+      has_many :real_items, ->(o) { where(o.filter_hash).carting.order(id: :asc) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where(o.in_filter_hash).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
+      has_many :purchase_items, ->(o) { where(o.in_filter_hash).where.not(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
       has_many :agent_items, ->(o) { where(o.agent_filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use', status: 'trial') }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart
@@ -95,6 +97,16 @@ module Trade
       }
     end
 
+    def items
+      if purchasable
+        purchase_items
+      elsif member_organ_id.present? && member_id.blank?
+        organ_items
+      else
+        real_items
+      end
+    end
+
     def in_cart?
       organ_id.blank? && member_organ.present?
     end
@@ -103,8 +115,24 @@ module Trade
 
     end
 
-    def sync_original_amount
-      self.original_amount = item_amount + overall_additional_amount
+    def need_address?
+      ['Factory::Production'].include?(good_type) && ['use', 'rent'].include?(aim)
+    end
+
+    def has_address?
+      if need_address?
+        address.present?
+      else
+        true
+      end
+    end
+
+    def all_checked?
+      items.all?(&:status_checked?)
+    end
+
+    def partly_checked?
+      items.any?(&:status_checked?) && !all_checked?
     end
 
     def owned?(card_template)
@@ -187,32 +215,12 @@ module Trade
       save
     end
 
-    def need_address?
-      ['Factory::Production'].include?(good_type) && ['use', 'rent'].include?(aim)
-    end
-
     def identity
       if member_id
         "_#{member_id}"
       elsif contact_id
         "_#{contact_id}"
       end
-    end
-
-    def has_address?
-      if need_address?
-        address.present?
-      else
-        true
-      end
-    end
-
-    def all_checked?
-      items.all?(&:status_checked?)
-    end
-
-    def partly_checked?
-      items.any?(&:status_checked?) && !all_checked?
     end
 
     def toggle_all
@@ -299,6 +307,10 @@ module Trade
       maintain = agent.maintains.find_or_initialize_by(client_id: client_id)
       maintain.state = 'carted'
       maintain.save
+    end
+
+    def sync_original_amount
+      self.original_amount = item_amount + overall_additional_amount
     end
 
   end
