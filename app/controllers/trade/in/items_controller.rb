@@ -32,7 +32,7 @@ module Trade
     end
 
     def set_cart_item
-      @item = @cart.organ_items.load.find params[:id]
+      @item = @cart.items.load.find params[:id]
     end
 
     def item_params

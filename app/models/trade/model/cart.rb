@@ -253,7 +253,6 @@ module Trade
       item
     end
 
-
     def find_item(**options)
       args = attr_options(**options)
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
@@ -274,7 +273,6 @@ module Trade
         i.attributes.slice(*args.keys) == args && purchase_ids.include(i.purchase_id)
       end
     end
-
 
     def attr_options(**options)
       options.symbolize_keys!
