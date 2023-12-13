@@ -1,6 +1,5 @@
 module Trade
   class Admin::RentChargesController < Admin::BaseController
-    before_action :set_rentable, except: [:options]
     before_action :set_rent_charge, only: [
       :edit, :update, :destroy,
       :wallet, :update_wallet
