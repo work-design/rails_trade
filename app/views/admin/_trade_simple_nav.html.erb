@@ -1,10 +1,9 @@
 <div data-controller="menu empty" class="<%= active_helper(modules: ['trade/admin'], active: 'menu ex-accordion is-active', item: 'menu ex-accordion is-active') %>">
-  <a class="menu-label" data-action="menu#toggle">
+  <div class="menu-label">
     <i class="fa-solid fa-fw fa-shopping-cart"></i>
     <span><%= t('trade.admin.title') %></span>
-    <i class="fa-solid fa-fw dropdown"></i>
-  </a>
-  <div class="menu-list" data-empty-target="content">
+  </div>
+  <div data-empty-target="content" class="menu-list">
     <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
     <%= link_to t('trade.admin.items.index.title'), { controller: 'trade/admin/items' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'items', active: 'is-active') %>
     <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
