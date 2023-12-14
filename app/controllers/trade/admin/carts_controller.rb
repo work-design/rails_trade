@@ -9,7 +9,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id)
 
-      @carts = Cart.includes(:user, :member, :member_organ, :payment_strategy, :items).where.not(user_id: nil).default_where(q_params).order(id: :desc).page(params[:page])
+      @carts = Cart.includes(:user, :member, :member_organ, :payment_strategy, :real_items, :organ_items).where.not(user_id: nil).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def member_organ
