@@ -6,10 +6,10 @@
       <% end %>
       <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
     </div>
-    <% if model.maintain %>
+    <% if model.agent %>
       <div>
         <span class="has-text-grey">下单人：</span>
-        <span><%= model.maintain.member.name %></span>
+        <span><%= model.agent.name %></span>
       </div>
     <% end %>
   </div>
