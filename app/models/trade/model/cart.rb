@@ -186,6 +186,10 @@ module Trade
       items.select(&:effective?)
     end
 
+    def checked_item_ids
+      checked_items.pluck(:id)
+    end
+
     def compute_amount
       self.total_quantity = checked_items.sum(&->(i){ i.original_quantity.to_d })
       _checked_all_items = checked_all_items

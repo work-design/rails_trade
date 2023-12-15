@@ -18,10 +18,7 @@ module Trade
     end
 
     def show
-      q_params = {}
-
-      @items = @cart.items.includes(:delivery, produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
-      @checked_ids = @cart.items.default_where(q_params).unscope(where: :status).status_checked.pluck(:id)
+      @items = @cart.items.includes(:delivery, produce_plan: :scene).order(id: :asc).page(params[:page])
     end
 
     def invest
