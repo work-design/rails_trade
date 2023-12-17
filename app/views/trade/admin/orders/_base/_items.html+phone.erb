@@ -1,0 +1,48 @@
+<div class="weui-form-preview is-box">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:uuid) %></label>
+      <div class="weui-form-preview__value" data-controller="clipboard">
+        <span data-clipboard-target="source"><%= model.uuid %></span>
+        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <div data-clipboard-target="toast" class="weui-toast__wrap">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:created_at) %></label>
+      <span class="weui-form-preview__value"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></span>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:item_amount) %></label>
+      <span class="weui-form-preview__value"><%= model.item_amount.to_money.format.html_safe %></span>
+    </div>
+    <% if model.overall_additional_amount > 0 %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:overall_additional_amount) %></label>
+      <span class="weui-form-preview__value"><%= model.overall_additional_amount.to_money.format.html_safe %></span>
+    </div>
+    <% end %>
+    <% if model.overall_reduced_amount > 0 %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:overall_reduced_amount) %></label>
+      <span class="weui-form-preview__value"><%= model.overall_reduced_amount.to_money.format.html_safe %></span>
+    </div>
+    <% end %>
+    <% if model.advance_amount.to_d > 0 %>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:advance_amount) %></label>
+        <span class="weui-form-preview__value has-text-danger"><%= model.advance_amount.to_money.format.html_safe %></span>
+      </div>
+    <% end %>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
+      <span class="weui-form-preview__value has-text-danger"><%= model.amount.to_money.format.html_safe %></span>
+    </div>
+  </div>
+</div>

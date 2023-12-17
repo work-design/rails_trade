@@ -1,0 +1,14 @@
+<div class="weui-panel is-box">
+  <div class="weui-panel__hd">
+    <% if model.aim != 'use' %>
+      <span class="tag is-danger"><%= model.aim_i18n %></span>
+    <% end %>
+    <span><%= model.payment_status_i18n %></span>
+    <% if model.payment_strategy %>
+      <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+    <% end %>
+  </div>
+  <div class="weui-panel__bd">
+    <%= render partial: 'item', collection: model.items, as: :item %>
+  </div>
+</div>
