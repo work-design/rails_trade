@@ -120,7 +120,9 @@ module Trade
     end
 
     def has_address?
-      if need_address?
+      if agent_id.present?
+        true
+      elsif need_address?
         address.present?
       else
         true

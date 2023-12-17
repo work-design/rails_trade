@@ -77,6 +77,9 @@ zh:
       carts:
         index:
           title: 最近下单
+      orders:
+        create:
+          title: 确认下单
       items:
         create:
           title: 加入购物车
