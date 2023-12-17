@@ -1,4 +1,4 @@
-<table class="table is-fullwidth is-hoverable">
+<table class="table is-fullwidth is-striped is-boxed">
   <% if @order.aim_rent? %>
     <%= render 'rent_thead' %>
     <%= render partial: 'rent_tbody', layout: 'rent_tr', collection: @order.items, as: :model %>
