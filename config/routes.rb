@@ -123,6 +123,7 @@ Rails.application.routes.draw do
         end
       end
       resources :scan_payments
+      resources :items
     end
 
     namespace :trade, defaults: { business: 'trade' } do
@@ -335,6 +336,7 @@ Rails.application.routes.draw do
 
       namespace :agent, defaults: { namespace: 'agent' } do
         concerns :order_admin
+        resources :carts
       end
 
       namespace :me, defaults: { namespace: 'me' } do
