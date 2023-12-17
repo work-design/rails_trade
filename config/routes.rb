@@ -333,6 +333,10 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace :agent, defaults: { namespace: 'agent' } do
+        concerns :order_admin
+      end
+
       namespace :me, defaults: { namespace: 'me' } do
         concerns :orderable
       end
@@ -342,10 +346,6 @@ Rails.application.routes.draw do
       end
 
       namespace :mem, defaults: { namespace: 'mem' } do
-        concerns :orderable
-      end
-
-      namespace :agent, defaults: { namespace: 'agent' } do
         concerns :orderable
       end
 
