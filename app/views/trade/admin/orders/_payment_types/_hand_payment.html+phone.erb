@@ -1,4 +1,4 @@
-<%= link_to({ controller: 'payments', action: 'order_new', order_id: @order.id }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
+<%= link_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
   <div class="weui-cell__hd">
     <i class="fa-solid fa-fw fa-receipt"></i>
   </div>

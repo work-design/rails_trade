@@ -1,5 +1,4 @@
-<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'order_create' } do |f| %>
-  <%= hidden_field_tag :order_id, params[:order_id] %>
+<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'create' } do |f| %>
   <%= f.hidden_field :type, value: 'Trade::HandPayment' %>
   <%= f.number_field :total_amount, step: Trade::Payment.total_amount_step, required: true %>
   <%= f.text_area :comment %>
