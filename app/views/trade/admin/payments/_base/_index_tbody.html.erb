@@ -23,9 +23,6 @@
   <p><%= model.buyer_name %></p>
   <p><%= model.buyer_identifier %></p>
   <p><%= model.buyer_bank %></p>
-  <% if model.payment_method %>
-    <p><%= button_to 'Payment Method', { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'tag' %></p>
-  <% end %>
 </td>
 <td>
   <time data-controller="time">

@@ -3,7 +3,9 @@
   <td>
     <div data-show-target="item" style="visibility: hidden">
       <% if model.payment_method.present? %>
-        <%= button_to t('.payment_methods.show.title'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light' %>
+        <%= button_to({ controller: 'payment_methods', action: 'show', id: model.payment_method_id }, aria: { label: t('.payment_methods.show.title') }, class: 'button is-small is-rounded is-light') do %>
+          <i class="fa-solid fa-cash-register"></i>
+        <% end %>
       <% end %>
       <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-check-double"></i>
@@ -13,15 +15,15 @@
         <i class="fa-solid fa-comments"></i>
       <% end %>
       <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-info"></i>
+        <i class="fa-solid fa-info has-text-info"></i>
       <% end %>
       <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil"></i>
+        <i class="fa-solid fa-pencil has-text-link"></i>
       <% end %>
     </div>
     <div data-show-target="item" class="mt-2" style="visibility: hidden">
       <%= button_to({ controller: 'refunds', action: 'new', payment_id: model.id }, aria: { label: t('trade.admin.refunds.new.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-thumbs-down"></i>
+        <i class="fa-solid fa-thumbs-down has-text-danger"></i>
         <span class="pl-1"><%= model.refunds_count %></span>
       <% end %>
     </div>
