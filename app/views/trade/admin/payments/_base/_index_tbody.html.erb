@@ -24,7 +24,7 @@
   <p><%= model.buyer_identifier %></p>
   <p><%= model.buyer_bank %></p>
   <% if model.payment_method %>
-    <%= link_to 'Payment Method', { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'tag', targe: '_blank' %>
+    <p><%= button_to 'Payment Method', { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'tag' %></p>
   <% end %>
 </td>
 <td>
