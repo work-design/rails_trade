@@ -10,6 +10,10 @@ module Trade
       @payments = @order.payments
     end
 
+    def pending
+      @payments = @order.pending_payments
+    end
+
     def new
       @payment.total_amount = @order.unreceived_amount
     end

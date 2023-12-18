@@ -84,11 +84,6 @@ module Trade
       @payment_orders = @order.payment_orders
     end
 
-    def payment_new
-      @payment_order = PaymentOrder.new
-      @payments = @order.pending_payments
-    end
-
     def payment_create
       @payment_order = @order.payment_orders.build(payment_order_params)
       @order = @payment_order.order
