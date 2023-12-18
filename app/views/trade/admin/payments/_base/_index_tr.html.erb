@@ -3,7 +3,7 @@
   <td>
     <div data-show-target="item" style="visibility: hidden">
       <% if model.payment_method.present? %>
-        <%= link_to t('.show.title'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light', target: '_blank' %>
+        <%= button_to t('.payment_methods.show.title'), { controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light' %>
       <% end %>
       <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-check-double"></i>
