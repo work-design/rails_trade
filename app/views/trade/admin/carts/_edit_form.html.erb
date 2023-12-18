@@ -1,6 +1,14 @@
-<%= form_with model: @cart, url: { action: 'update' } do |f| %>
-  <%= render 'error_messages', target: f.object %>
-  <%= f.collection_select :payment_strategy_id, @payment_strategies, :id, :name %>
-  <%= f.number_field :deposit_ratio %>
-  <%= f.submit %>
+<%= form_with model: @cart, url: { action: 'update' }, class: 'modal-card' do |f| %>
+  <header class="modal-card-head">
+    <p class="modal-card-title"><%= t('.title') %></p>
+    <button type="button" data-action="modal#close" class="delete"></button>
+  </header>
+  <section class="modal-card-body">
+    <%= render 'error_messages', target: f.object %>
+    <%= f.collection_select :payment_strategy_id, @payment_strategies, :id, :name %>
+    <%= f.number_field :deposit_ratio %>
+  </section>
+  <footer class="modal-card-foot">
+    <%= f.submit %>
+  </footer>
 <% end %>
