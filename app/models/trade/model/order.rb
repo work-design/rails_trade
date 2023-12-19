@@ -342,7 +342,7 @@ module Trade
     end
 
     def pending_payments
-      Payment.state_init.where(organ_id: organ_id, total_amount: amount).default_where('created_at-gte': Time.current)
+      Payment.state_init.where(organ_id: organ_id, total_amount: amount).default_where('created_at-gte': created_at).order(created_at: :asc)
     end
 
   end
