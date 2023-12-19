@@ -2,6 +2,7 @@ module Trade
   class Admin::OrderPaymentsController < Admin::BaseController
     before_action :set_order
     before_action :set_new_payment, only: [:new, :create]
+    before_action :set_payment_order, only: [:show, :edit, :update, :actions]
     after_action only: [:create] do
       mark_audits(instance: :@order, include: [:payment_orders])
     end
@@ -33,8 +34,12 @@ module Trade
       @payment.init_uuid
     end
 
+    def set_payment_order
+      @payment_order = @order.payment_orders.find params[:id]
+    end
+
     def model_name
-      'payment'
+      'payment_order'
     end
 
     def pluralize_model_name

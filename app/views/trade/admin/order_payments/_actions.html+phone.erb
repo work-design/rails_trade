@@ -10,8 +10,8 @@
   <i class="fa-solid fa-circle-info"></i>
   <span><%= t('.show.title') %></span>
 <% end %>
-<%= link_to({ controller: 'refunds', action: 'new', payment_id: model.id }, class: 'weui-actionsheet__cell') do %>
+<%= link_to({ controller: 'refunds', action: 'new', payment_id: model.payment_id }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-thumbs-down"></i>
   <span><%= t('trade.admin.refunds.new.title') %></span>
-  <span><%= model.refunds_count %></span>
+  <span><%= model.payment.refunds_count %></span>
 <% end %>
