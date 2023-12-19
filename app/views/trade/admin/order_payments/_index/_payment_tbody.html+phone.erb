@@ -1,0 +1,5 @@
+<p><%= model.type_i18n %></p>
+<p>
+  <span><%= model.total_amount.to_money.format.html_safe %></span>
+</p>
+<p class="has-text-grey"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>

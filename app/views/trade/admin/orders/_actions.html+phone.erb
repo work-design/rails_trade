@@ -14,9 +14,9 @@
   <i class="fa-solid fa-info"></i>
   <span><%= t('.show.title') %></span>
 <% end %>
-<%= link_to({ controller: 'order_payments', action: 'new', order_id: model.id }, class: 'weui-actionsheet__cell') do %>
+<%= link_to({ controller: 'order_payments', order_id: model.id }, class: 'weui-actionsheet__cell') do %>
   <i class="fa-solid fa-credit-card"></i>
-  <span><%= t('.order_payments.new.title') %></span>
+  <span><%= t('.order_payments.index.title') %></span>
 <% end %>
 <div
   data-controller="scan"

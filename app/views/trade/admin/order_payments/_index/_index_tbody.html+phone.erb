@@ -1,4 +1,4 @@
-<td><%= model.payment.type_i18n %></td>
+<p><%= model.payment.type_i18n %></p>
 <p>
   <span><%= model.order_amount.to_money.format.html_safe %></span>
   <span><%= model.payment_amount.to_money(model.payment.currency).format.html_safe %></span>
