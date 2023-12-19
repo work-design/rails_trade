@@ -1,6 +1,10 @@
-<%= render 'index_bar' %>
-<%= render 'index_actions' %>
-
-<%= render layout: 'index_table' do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @payments, as: :model %>
-<% end %>
+<%= render partial: 'index_tbody', layout: 'index_tr', collection: @payment_orders %>
+<tfoot>
+<tr>
+  <th colspan="5"></th>
+  <th class="center aligned">
+    预核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
+  </th>
+  <th colspan="2"></th>
+</tr>
+</tfoot>

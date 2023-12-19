@@ -1,6 +1,6 @@
 <td style="color: #999"><%= model.payment_id %></td>
 <td><%= model.payment.type %></td>
 <td><%= model.order_amount %></td>
-<td><%= model.check_amount.to_money(model.payment.currency).format %></td>
+<td><%= model.payment_amount.to_money(model.payment.currency).format.html_safe %></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 <td></td>

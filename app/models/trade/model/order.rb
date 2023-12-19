@@ -12,6 +12,7 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :items_count, :integer, default: 0
+      attribute :payment_orders_count, :integer, default: 0
       attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
       attribute :pay_auto, :boolean, default: false
