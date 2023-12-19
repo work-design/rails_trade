@@ -80,10 +80,6 @@ module Trade
       @order.package
     end
 
-    def payment_orders
-      @payment_orders = @order.payment_orders
-    end
-
     def payment_create
       @payment_order = @order.payment_orders.build(payment_order_params)
       @order = @payment_order.order

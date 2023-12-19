@@ -7,7 +7,7 @@ module Trade
     end
 
     def index
-      @payments = @order.payments
+      @payments = @order.payment_orders.includes(:payment)
     end
 
     def pending
