@@ -45,7 +45,7 @@ module Trade
     end
 
     def valid_promote_goods
-      PromoteGood.valid.where(good_type: self.class_name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.select(:promote_id).unavailable)
+      PromoteGood.valid.where(good_type: self.base_class_name, good_id: [nil, self.id]).where.not(promote_id: self.promote_goods.select(:promote_id).unavailable)
     end
 
     def generate_order!(cart: , maintain_id: nil, **params)

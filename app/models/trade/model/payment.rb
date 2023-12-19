@@ -35,7 +35,7 @@ module Trade
         adjust_checked: 'adjust_checked',
         abusive_checked: 'abusive_checked',
         refunded: 'refunded'
-      }, _default: 'init'
+      }, _default: 'init', _prefix: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true

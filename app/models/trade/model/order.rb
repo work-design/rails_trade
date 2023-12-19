@@ -341,5 +341,9 @@ module Trade
       payment
     end
 
+    def pending_payments
+      Payment.state_init.where(organ_id: organ_id, total_amount: amount).default_where()
+    end
+
   end
 end
