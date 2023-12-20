@@ -113,13 +113,11 @@ module Trade
 
     def checked_to_payment!
       payment.checked_amount += self.payment_amount
-      payment.check_state
       payment.save
     end
 
     def unchecked_to_payment!
       payment.checked_amount -= self.payment_amount
-      payment.check_state
       payment.save
     end
 
