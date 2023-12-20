@@ -100,7 +100,11 @@ Rails.application.routes.draw do
           match :adjust_edit, via: [:get, :post]
           patch :adjust_update
         end
-        resources :order_payments
+        resources :order_payments do
+          collection do
+            post :confirm
+          end
+        end
       end
       resources :payments do
         collection do
