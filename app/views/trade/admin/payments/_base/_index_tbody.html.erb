@@ -4,10 +4,10 @@
 </td>
 <td id="checked_amount_<%= model.id %>">
   <%= model.checked_amount.to_money.format.html_safe %>
-  <% if model.part_checked? %>
+  <% if model.state_part_checked? %>
     <%= button_to t('.adjust'), { action: 'adjust', id: model.id }, method: :patch, class: 'button' %>
   <% else %>
-    <span class="tag <%= active_asserts(false, grey: ['init', 'part_checked'].include?(model.state), teal: model.adjust_checked?, green: model.all_checked?) %>"><%= model.state_i18n %></span>
+    <span class="tag <%= active_asserts(false, grey: ['init', 'part_checked'].include?(model.state), teal: model.state_adjust_checked?, green: model.state_all_checked?) %>"><%= model.state_i18n %></span>
   <% end %>
 </td>
 <td>
@@ -25,7 +25,7 @@
   <p><%= model.buyer_bank %></p>
 </td>
 <td>
-  <time data-controller="time">
+  <time data-controller="time" data-format="human">
   <% if model.notified_at.present? %>
     <%= model.notified_at.to_fs(:iso8601) %>
   <% else %>
