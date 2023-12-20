@@ -21,6 +21,7 @@ module Trade
     end
 
     def create
+      @payment_order.state = 'confirmed'
       @payment.checked_amount += @payment_order.payment_amount
       if @payment.save
         render 'create'
