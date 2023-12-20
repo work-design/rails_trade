@@ -2,6 +2,7 @@ module Trade
   class Admin::PaymentOrdersController < Admin::BaseController
     before_action :set_payment
     before_action :set_payment_order, only: [:update, :refund, :confirm, :cancel]
+    before_action :set_new_payment_order, only: [:new, :create]
     after_action only: [:create, :cancel, :update] do
       mark_audits(instance: :@payment_order, include: [:payment, :order])
     end
@@ -20,7 +21,8 @@ module Trade
     end
 
     def create
-      if @payment_order.confirm!
+      @payment.checked_amount += @payment_order.payment_amount
+      if @payment.save
         render 'create'
       else
         render 'create_fail'
@@ -57,9 +59,8 @@ module Trade
     def payment_order_params
       params.fetch(:payment_order, {}).permit(
         :order_id,
-        :check_amount
-      ).merge(
-        state: 'confirmed'
+        :order_amount,
+        :payment_amount
       )
     end
 

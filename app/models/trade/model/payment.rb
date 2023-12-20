@@ -107,9 +107,7 @@ module Trade
       order = Order.where(organ_id: organ_id).find order_id
       payment_order = self.payment_orders.build(order_id: order.id)
       payment_order.order_amount = order.unreceived_amount
-      payment_order.save
-
-      payment_order
+      save
     end
 
     def check_state
@@ -130,8 +128,13 @@ module Trade
       self.assign_detail params
       payment_orders.each do |payment_order|
         payment_order.state = 'confirmed'
-        self.checked_amount += payment_order.payment_amount
+        self.checked_amount += payment_order.payment_amount.to_d
       end
+    end
+
+    def confirm!(params = {})
+      self.confirm(params)
+      self.save
     end
 
     def send_notice
