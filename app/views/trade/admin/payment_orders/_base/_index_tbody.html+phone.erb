@@ -1,6 +1,6 @@
-<p>
+<td>
   <%= link_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id }, data: { turbo_frame: 'modal' } %>
-</p>
+</td>
 <td><%= model.order.amount.to_money.format.html_safe %></td>
 <td>
   <% if model.state_confirmed? %>
