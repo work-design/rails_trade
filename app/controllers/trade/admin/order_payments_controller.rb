@@ -27,6 +27,7 @@ module Trade
 
     def confirm
       payment = Payment.default_where(default_params).find params[:payment_id]
+      payment.checked_amount = @order.amount
 
       @payment_order.order_amount = @order.amount
       @payment_order.payment_amount = payment.total_amount
