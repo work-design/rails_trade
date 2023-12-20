@@ -1,5 +1,5 @@
 <p>
-  <span><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></span>
+  <span><%= link_to model.uuid, { controller: 'order_payments', order_id: model.id }, text: true %></span>
   <span class="tag"><%= model.state_i18n %></span>
 </p>
 <p><%= model.serial_number %></p>

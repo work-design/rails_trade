@@ -1,7 +1,13 @@
 <div class="weui-panel is-borderless">
   <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
-    <%= link_to({ controller: 'orders' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% if @order.unpaid? %>
+      <%= link_to({ controller: 'orders', action: 'unpaid' }, class: 'px-4') do %>
+        <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <% end %>
+    <% else %>
+      <%= link_to({ controller: 'orders' }, class: 'px-4') do %>
+        <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <% end %>
     <% end %>
     <div class="weui-title"><%= @order.uuid %></div>
     <i style="width: 3rem"></i>
