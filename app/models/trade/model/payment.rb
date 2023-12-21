@@ -94,8 +94,11 @@ module Trade
         user_ids = self.payment_method.payment_references.pluck(:user_id)
         Order.where.not(id: self.payment_orders.pluck(:order_id)).where(user_id: user_ids, payment_status: ['unpaid', 'part_paid'], state: 'active')
       else
-        Order.to_pay.where(organ_id: organ_id, amount: total_amount).default_where('created_at-lte': created_at).order(created_at: :desc)
       end
+    end
+
+    def pending_push_orders
+      Order.to_pay.where(organ_id: organ_id, amount: total_amount).default_where('created_at-lte': created_at).order(created_at: :desc)
     end
 
     def analyze_adjust_amount
@@ -159,7 +162,7 @@ module Trade
     end
 
     def send_to_pending_orders
-      pending_orders.each do |order|
+      pending_push_orders.each do |order|
         broadcast_action_to(
           order,
           action: :append,
