@@ -1,0 +1,4 @@
+<% if referer_controller.end_with?('order_payments') %>
+  <%= turbo_stream.replace "payment_#{@payment.id}", partial: 'index_tbody', layout: 'index_tr', locals: { model: @payment_order } %>
+<% else %>
+<% end %>

@@ -7,4 +7,6 @@
   <%= render partial: 'payment_tbody', layout: 'payment_tr', collection: @order.pending_payments, as: :model %>
 <% end %>
 
-<%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>
+<% if @order.can_pay? && @order.pending_payments.blank? %>
+  <%= turbo_stream_from @order, channel: Trade::OrderChannel %>
+<% end %>
