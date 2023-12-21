@@ -3,8 +3,16 @@
     <%= yield %>
   </div>
   <div class="weui-media-box__ft">
-    <%= button_to({ action: 'actions', id: model.id }, state: 'enter', class: 'button is-borderless') do %>
-      <i class="fa-solid fa-lg fa-ellipsis-h has-text-grey"></i>
+  <% if model.state_confirmed? %>
+    <%= button_to({ controller: 'payment_orders', action: 'cancel', payment_id: model.payment_id, id: model.id }, class: 'button is-small is-warning') do %>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span class="pl-1">撤销</span>
     <% end %>
+  <% else %>
+    <%= button_to({ controller: 'payment_orders', action: 'update', payment_id: model.payment_id, id: model.id }, method: :patch, class: 'button is-small is-success', form: { id: "edit_payment_order_#{model.id}" }) do %>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span class="pl-1">核销</span>
+    <% end %>
+  <% end %>
   </div>
 </div>
