@@ -3,9 +3,9 @@
     <%= yield %>
   </div>
   <div class="weui-media-box__ft">
-    <%= form_with theme: nil, scope: :payment_order, url: { controller: 'payment_orders', action: 'create', payment_id: model.id }, class: 'button_to' do |f| %>
-      <%= f.hidden_field :order_id, value: @order.id %>
-      <%= f.hidden_field :order_amount, value: @order.amount %>
+    <%= form_with theme: nil, scope: :payment_order, url: { controller: 'trade/admin/payment_orders', action: 'create', payment_id: model.id }, class: 'button_to' do |f| %>
+      <%= f.hidden_field :order_id, value: order.id %>
+      <%= f.hidden_field :order_amount, value: order.amount %>
       <%= f.hidden_field :payment_amount, value: model.total_amount %>
       <button type="submit" class="button is-small is-danger">
         <i class="fa-solid fa-cart-plus"></i>

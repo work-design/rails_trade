@@ -28,13 +28,17 @@ module Trade
       attribute :refunds_count, :integer, default: 0
 
       enum state: {
-        paying: 'paying',
-        paid: 'paid',
-        proof_uploaded: 'proof_uploaded',
+        init: 'init',
         part_checked: 'part_checked',
         all_checked: 'all_checked',
         adjust_checked: 'adjust_checked',
         abusive_checked: 'abusive_checked',
+      }, _default: 'init', _prefix: true
+
+      enum pay_state: {
+        paying: 'paying',
+        paid: 'paid',
+        proof_uploaded: 'proof_uploaded',
         refunded: 'refunded'
       }, _default: 'paying', _prefix: true
 
@@ -56,9 +60,9 @@ module Trade
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
       #after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
-      after_create_commit :send_to_pending_orders
+      after_create_commit :send_to_pending_orders_first
       after_save_commit :send_verify_notice, if: -> { verified? && saved_change_to_verified? }
-      after_update_commit :send_to_pending_orders, if: -> { state_paid? && saved_change_to_state? }
+      after_update_commit :send_to_pending_orders, if: -> { pay_state_paid? && saved_change_to_pay_state? }
     end
 
     def sync_state_proof_uploaded
@@ -163,15 +167,30 @@ module Trade
       )
     end
 
-    def send_to_pending_orders
+    def send_to_pending_orders_first
       pending_push_orders.each do |order|
         broadcast_action_to(
           order,
           action: :append,
           target: 'payments_container',
           partial: 'trade/admin/order_payments/_index/payment_tbody',
+          layout: 'trade/admin/order_payments/payment_tr',
           variants: [:phone],
-          locals: { model: self }
+          locals: { model: self, order: order }
+        )
+      end
+    end
+
+    def send_to_pending_orders
+      pending_push_orders.each do |order|
+        broadcast_action_to(
+          order,
+          action: :replace,
+          target: "payment_#{id}",
+          partial: 'trade/admin/order_payments/_index/payment_tbody',
+          layout: 'trade/admin/order_payments/payment_tr',
+          variants: [:phone],
+          locals: { model: self, order: order }
         )
       end
     end

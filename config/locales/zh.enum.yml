@@ -43,13 +43,16 @@ zh:
           Trade::WalletPayment: 余额支付
           Trade::ScanPayment: 扫码收款
         state:
-          paying: 支付中
-          paid: 已支付
-          proof_uploaded: 支付凭证已上传
+          init: 待核销
           part_checked: 部分核销
           all_checked: 全部核销
           adjust_checked: 调整核销
           abusive_checked: 问题核销
+        pay_state:
+          paying: 支付中
+          paid: 已支付
+          proof_uploaded: 支付凭证已上传
+          refunded: 已退款
       trade/payment_order:
         state:
           init: 待支付
