@@ -120,7 +120,7 @@ module Trade
       if checked_amount == total_amount
         self.state = 'all_checked'
       elsif checked_amount == 0
-        self.state = 'init'
+        self.state = 'abusive_checked'
       elsif checked_amount < total_amount
         self.state = 'part_checked'
       elsif checked_amount > total_amount
