@@ -6,3 +6,5 @@
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @payment_orders, as: :model %>
   <%= render partial: 'payment_tbody', layout: 'payment_tr', collection: @order.pending_payments, as: :model %>
 <% end %>
+
+<%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>

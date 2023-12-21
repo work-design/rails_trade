@@ -157,6 +157,16 @@ module Trade
       )
     end
 
+    def send_to_pending_orders
+      broadcast_action_to(
+        self,
+        action: :append,
+        target: 'body',
+        partial: 'visit',
+        locals: { model: self }
+      )
+    end
+
     class_methods do
 
       def total_amount_step
