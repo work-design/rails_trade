@@ -55,6 +55,7 @@ module Trade
       before_create :analyze_payment_method
       before_save :sync_state_proof_uploaded, if: -> { attachment_changes['proof'].is_a?(ActiveStorage::Attached::Changes::CreateOne) }
       #after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
+      after_create_commit :send_to_pending_orders
       after_save_commit :send_verify_notice, if: -> { verified? && saved_change_to_verified? }
     end
 
@@ -158,13 +159,15 @@ module Trade
     end
 
     def send_to_pending_orders
-      broadcast_action_to(
-        self,
-        action: :append,
-        target: 'body',
-        partial: 'visit',
-        locals: { model: self }
-      )
+      pending_orders.each do |order|
+        broadcast_action_to(
+          order,
+          action: :append,
+          target: 'body',
+          partial: 'visit',
+          locals: { model: self }
+        )
+      end
     end
 
     class_methods do
