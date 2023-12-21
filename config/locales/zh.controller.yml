@@ -78,6 +78,8 @@ zh:
         index:
           title: 最近下单
       orders:
+        index:
+          title: 订单
         create:
           title: 确认下单
       items:
