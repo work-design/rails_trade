@@ -39,12 +39,12 @@
   <% else %>
     <%= link_to({ controller: 'holds', item_id: item.id }, state: 'enter', class: 'button is-small is-default') do %>
       <i></i>
-      <span><%= t('trade.my.holds.index.title') %></span>
+      <span><%= t('trade.admin.holds.index.title') %></span>
     <% end %>
     <%= link_to({ controller: 'items', action: 'edit', id: item.id }, state: 'enter', class: 'button is-small is-danger mt-2') do %>
       <i></i>
       <span><%= t('trade.my.items.edit.title') %></span>
-    <% end if item.order.unpaid? %>
+    <% end if false && item.order.payment_status_unpaid? %>
   <% end %>
   </div>
 </div>

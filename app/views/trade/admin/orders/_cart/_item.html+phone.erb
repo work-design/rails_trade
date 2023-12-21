@@ -1,0 +1,16 @@
+<div class="weui-media-box weui-media-box_appmsg">
+  <div class="weui-media-box__hd" data-controller="empty">
+    <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good.logo.attached? %>
+  </div>
+  <div class="weui-media-box__bd">
+    <h4 class="weui-media-box__title">
+      <span><%= item.good.name %></span>
+    </h4>
+    <p class="weui-media-box__desc">
+      <span class="has-text-danger"><%= item.single_price.to_money.format.html_safe %></span>
+      <span>x</span>
+      <span class="is-size-7"><%= item.number %></span>
+    </p>
+    <p><%= item.member&.name %></p>
+  </div>
+</div>

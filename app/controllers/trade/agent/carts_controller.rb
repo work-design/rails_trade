@@ -1,7 +1,6 @@
 module Trade
   class Agent::CartsController < Admin::CartsController
     include Controller::Agent
-
     before_action :set_client, only: [:show]
 
     def index
