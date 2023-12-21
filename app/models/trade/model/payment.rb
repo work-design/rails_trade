@@ -28,14 +28,15 @@ module Trade
       attribute :refunds_count, :integer, default: 0
 
       enum state: {
-        init: 'init',
+        paying: 'paying',
+        paid: 'paid',
         proof_uploaded: 'proof_uploaded',
         part_checked: 'part_checked',
         all_checked: 'all_checked',
         adjust_checked: 'adjust_checked',
         abusive_checked: 'abusive_checked',
         refunded: 'refunded'
-      }, _default: 'init', _prefix: true
+      }, _default: 'paying', _prefix: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true
@@ -57,6 +58,7 @@ module Trade
       #after_save_commit :send_notice, if: -> { all_checked? && saved_change_to_state? }
       after_create_commit :send_to_pending_orders
       after_save_commit :send_verify_notice, if: -> { verified? && saved_change_to_verified? }
+      after_update_commit :send_to_pending_orders, if: -> { state_paid? && saved_change_to_state? }
     end
 
     def sync_state_proof_uploaded
