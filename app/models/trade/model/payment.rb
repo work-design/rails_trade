@@ -168,8 +168,9 @@ module Trade
         broadcast_action_to(
           order,
           action: :append,
-          target: 'body',
-          partial: 'visit',
+          target: 'payments_container',
+          partial: 'trade/admin/order_payments/_index/payment_tbody',
+          variants: [:phone],
           locals: { model: self }
         )
       end
