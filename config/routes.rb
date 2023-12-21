@@ -127,7 +127,21 @@ Rails.application.routes.draw do
         end
       end
       resources :scan_payments
-      resources :items
+      resources :items do
+        collection do
+          post :trial
+        end
+        member do
+          get :carts
+          patch :toggle
+          patch :compute
+          post :print
+          get :promote
+          post :finish
+          post :untrial
+        end
+        resources :holds
+      end
     end
 
     namespace :trade, defaults: { business: 'trade' } do
@@ -186,21 +200,6 @@ Rails.application.routes.draw do
               get :user
             end
           end
-        end
-        resources :items do
-          collection do
-            post :trial
-          end
-          member do
-            get :carts
-            patch :toggle
-            patch :compute
-            post :print
-            get :promote
-            post :finish
-            post :untrial
-          end
-          resources :holds
         end
         resources :cart_promotes
         resources :payment_strategies
