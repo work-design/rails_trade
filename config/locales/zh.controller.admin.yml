@@ -95,6 +95,8 @@ zh:
       payment_orders:
         new:
           title: 核销
+        create:
+          title: 核销
       payment_methods:
         index_layout:
           remove: 移除
