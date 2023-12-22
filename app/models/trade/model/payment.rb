@@ -54,6 +54,8 @@ module Trade
 
       has_one_attached :proof
 
+      scope :to_check, -> { where(pay_state: 'paid', state: 'init') }
+
       after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || payment_orders.present?) }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
       before_save :check_state, if: -> { (changes.keys & ['checked_amount', 'total_amount']).present? }
