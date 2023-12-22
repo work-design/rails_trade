@@ -127,6 +127,7 @@ module Trade
     end
 
     def checked_to_order!
+      order.user_id = user_id
       order.check_state!
     end
 
