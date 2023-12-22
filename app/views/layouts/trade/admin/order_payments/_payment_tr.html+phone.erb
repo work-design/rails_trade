@@ -1,1 +1,16 @@
-<%= render partial: 'trade/admin/order_payments/_index/payment_tr', variants: [:phone], locals: { model: model, order: order } %>
+<div id="payment_<%= model.id %>" class="weui-media-box weui-media-box_appmsg">
+  <div class="weui-media-box__bd">
+    <%= yield %>
+  </div>
+  <div class="weui-media-box__ft">
+    <%= form_with theme: nil, scope: :payment_order, url: { controller: 'trade/admin/payment_orders', action: 'create', payment_id: model.id }, class: 'button_to' do |f| %>
+      <%= f.hidden_field :order_id, value: order.id %>
+      <%= f.hidden_field :order_amount, value: order.amount %>
+      <%= f.hidden_field :payment_amount, value: model.total_amount %>
+      <button type="submit" class="button is-small is-danger">
+        <i class="fa-solid fa-cart-plus"></i>
+        <span class="pl-1"><%= t(".payment_orders.create.title") %></span>
+      </button>
+    <% end %>
+  </div>
+</div>

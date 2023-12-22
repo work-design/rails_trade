@@ -2,6 +2,7 @@
 <%= render 'index_bar' %>
 <%= render 'index_actions' %>
 
+<%= render partial: 'order', locals: { model: @order } %>
 <%= render layout: 'index_table' do %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @payment_orders, as: :model %>
   <%= render partial: 'payment_tbody', layout: 'payment_tr', collection: @order.pending_payments, as: :model, locals: { order: @order } %>
