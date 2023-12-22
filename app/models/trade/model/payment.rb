@@ -68,7 +68,7 @@ module Trade
     end
 
     def sync_state_proof_uploaded
-      self.state = 'proof_uploaded'
+      self.pay_state = 'proof_uploaded'
     end
 
     def init_uuid
