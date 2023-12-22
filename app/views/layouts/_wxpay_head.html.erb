@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <%= render 'head_title' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="turbo-cache-control" content="no-preview">
+    <%= stylesheet_link_tag 'phone', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'phone', 'data-turbo-track': 'reload', defer: true %>
+    <% if request.variant.include?(:work_wechat) %>
+      <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" referrerpolicy="origin" defer="defer" data-turbo-track="reload" id="weixin_script"></script>
+      <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js" referrerpolicy="origin" defer="defer" data-turbo-track="reload" id="wxwork_script"></script>
+      <%= javascript_include_tag 'qy', 'data-turbo-track': 'reload', defer: true %>
+    <% elsif request.variant.include?(:wechat) %>
+      <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js" referrerpolicy="origin" defer="defer" data-turbo-track="reload" id="weixin_script"></script>
+      <%= javascript_include_tag 'wx', 'data-turbo-track': 'reload', defer: true %>
+    <% end %>
+    <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <%= csp_meta_tag %>
+  </head>
+  <body data-weui-theme="light">
+    <%= yield %>
+  </body>
+</html>
