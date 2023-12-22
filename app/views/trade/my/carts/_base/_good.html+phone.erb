@@ -37,7 +37,7 @@
         <span><%= model.single_price.to_money.format.html_safe %></span>
       <% end %>
       </div>
-      <%= render partial: 'cart', locals: { model: model.good, item_con: 'trade/my/items', item: model, cart: @cart } %>
+      <%= render partial: 'cart', locals: { model: model.good, item_con: controller_path.sub('carts', 'items'), item: model, cart: @cart } %>
     </div>
   </div>
 </div>
