@@ -4,7 +4,7 @@ module Trade
 
     def index
       q_params = {}
-      q_params.merge! params.permit(:pay_state, :state)
+      q_params.merge! params.permit(:payment_status, :state)
 
       @orders = current_member.agent_orders.default_where(q_params).order(id: :desc).page(params[:page])
     end

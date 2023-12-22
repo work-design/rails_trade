@@ -17,15 +17,15 @@
           <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
         </div>
         <div class="has-text-grey is-size-7 mt-1">
-          <span><%= Trade::Order.enum_i18n(:pay_state, 'paying') %></span>
+          <span><%= Trade::Order.enum_i18n(:payment_status, 'unpaid') %></span>
         </div>
       <% end %>
-      <%= link_to({ controller: 'trade/agent/orders', pay_state: 'paid' }, class: 'column has-block-centered') do %>
+      <%= link_to({ controller: 'trade/agent/orders', payment_status: 'all_paid' }, class: 'column has-block-centered') do %>
         <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-trash"></i>
+          <i class="fa-solid fa-fw fa-xl fa-list-check"></i>
         </div>
         <div class="has-text-grey is-size-7 mt-1">
-          <span><%= Trade::Order.enum_i18n(:pay_state, 'paid') %></span>
+          <span><%= Trade::Order.enum_i18n(:payment_status, 'all_paid') %></span>
         </div>
       <% end %>
     </div>
