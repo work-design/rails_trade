@@ -4,7 +4,7 @@
   </div>
   <div class="weui-panel__bd">
     <div class="columns is-4-mobile is-flex is-vcentered is-centered m-0" data-empty-target="content">
-      <%= link_to({ controller: 'trade/agent/orders' }, class: 'column has-block-centered') do %>
+      <%= link_to({ controller: 'trade/agent/orders' }, class: 'column has-column-centered') do %>
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
         </div>
@@ -12,7 +12,7 @@
           <span><%= t('trade.agent.orders.index.title') %></span>
         </div>
       <% end %>
-      <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'column has-block-centered') do %>
+      <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'column has-column-centered') do %>
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
         </div>
@@ -20,7 +20,7 @@
           <span><%= Trade::Order.enum_i18n(:payment_status, 'unpaid') %></span>
         </div>
       <% end %>
-      <%= link_to({ controller: 'trade/agent/orders', payment_status: 'all_paid' }, class: 'column has-block-centered') do %>
+      <%= link_to({ controller: 'trade/agent/orders', payment_status: 'all_paid' }, class: 'column has-column-centered') do %>
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-list-check"></i>
         </div>

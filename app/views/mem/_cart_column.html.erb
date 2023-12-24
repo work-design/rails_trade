@@ -1,7 +1,7 @@
 <div class="columns is-multiline is-mobile is-flex is-vcentered is-centered m-0 is-shadow">
   <%= render partial: 'wallet', collection: @wallets, as: :wallet %>
   <%= render partial: 'wallet_template', collection: @wallet_templates, as: :wallet_template %>
-  <%= link_to({ controller: 'trade/mem/lawful_wallets', action: 'show', **params.permit(:global_member_id) }, class: 'column is-one-third has-block-centered') do %>
+  <%= link_to({ controller: 'trade/mem/lawful_wallets', action: 'show', **params.permit(:global_member_id) }, class: 'column is-one-third has-column-centered') do %>
     <div class="is-several">
       <%= image_tag 'wallet.png', class: 'image is-16x16' %>
       <span class="ml-1 has-text-grey-dark is-size-7"><%= t('trade.my.lawful_wallets.show.title') %></span>
@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <% @card_templates.each do |card_template| %>
-    <%= link_to({ controller: 'trade/mem/card_templates', action: 'show', id: card_template.id }, state: 'enter', class: 'column is-one-third has-block-centered') do %>
+    <%= link_to({ controller: 'trade/mem/card_templates', action: 'show', id: card_template.id }, state: 'enter', class: 'column is-one-third has-column-centered') do %>
       <div class="is-several">
         <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
         <span class="ml-1 has-text-grey-dark is-size-7"><%= card_template.name %></span>
@@ -19,7 +19,7 @@
       <div class="has-text-weight-medium has-text-danger-dark is-family-zhushi is-size-5"><%= @cart.owned_text(card_template) %></div>
     <% end %>
   <% end %>
-  <%= link_to({ controller: 'trade/mem/promote_goods' }, class: 'column is-one-third has-block-centered') do %>
+  <%= link_to({ controller: 'trade/mem/promote_goods' }, class: 'column is-one-third has-column-centered') do %>
     <div class="has-text-grey-dark">
       <i class="fa-solid fa-tags has-text-primary"></i>
       <span class="has-text-grey-dark is-size-7 pl-0"><%= t('trade.my.promote_goods.index.title') %></span>
