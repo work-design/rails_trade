@@ -1,11 +1,11 @@
 <div id="cart_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-column-centered xx">
   <% if item.number > 1 %>
-    <button data-action="modify#minus" class="button is-light" style="width: 60px">
+    <button data-action="modify#minus" class="button is-light is-danger" style="width: 60px">
       <i class="fa-solid fa-minus has-text-dark-grey"></i>
       <span></span>
     </button>
   <% else %>
-    <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'button is-grey', style: 'width: 60px') do %>
+    <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'button is-light is-danger', style: 'width: 60px') do %>
       <i class="fa-solid fa-minus has-text-grey"></i>
     <% end %>
   <% end %>
