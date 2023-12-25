@@ -1,0 +1,5 @@
+<%= render 'top_bar' %>
+
+<div class="weui-panel is-box">
+  <%= image_tag QrcodeHelper.data_url(url_for(controller: 'trade/my/wxpay_payments', action: 'new', host: current_organ.host)), class: 'image as-centered' %>
+</div>

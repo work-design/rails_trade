@@ -344,6 +344,9 @@ Rails.application.routes.draw do
 
       namespace :me, defaults: { namespace: 'me' } do
         concerns :orderable
+        controller :home do
+          get :qrcode
+        end
       end
 
       namespace :our, defaults: { namespace: 'our' } do

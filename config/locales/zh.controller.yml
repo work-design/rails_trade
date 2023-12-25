@@ -123,6 +123,9 @@ zh:
           title: 订单
     me:
       title: 订单管理
+      home:
+        qrcode:
+          title: 收款码
       promote_goods:
         index:
           title: 优惠券
