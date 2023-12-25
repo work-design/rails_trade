@@ -1,0 +1,43 @@
+<div class="media box mx-3">
+  <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input', turbo_scroll: true }, class: 'pr-2' do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart.id %>
+    <label class="weui-cells_checkbox">
+      <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
+      <i class="weui-icon-checked"></i>
+    </label>
+  <% end %>
+  <div data-controller="empty" class="media-left">
+  <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
+    <%= image_tag model.good.logo, class: 'image is-64x64' %>
+  <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>
+    <%= image_tag model.good.cover, class: 'image is-64x64' %>
+  <% end %>
+  </div>
+  <div class="media-content">
+    <h4 class="weui-media-box__title"><%= model.good_name %></h4>
+    <ul class="weui-media-box__info">
+    <% if model.good.respond_to?(:parts) %>
+      <% model.good.parts.each do |part| %>
+        <li><%= part.name %></li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+  <div class="media-right">
+    <div class="has-v-centered">
+      <% if model.vip_code.present? %>
+        <div class="tags has-addons is-price control m-0" style="display: inline-flex">
+          <div class="tag is-danger">
+            <i class="fa-solid fa-badge-check"></i>
+            <span style="padding-left: 1px"><%= model.vip_code %></span>
+          </div>
+          <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
+        </div>
+        <span class="has-text-through"><%= model.good.price.to_money.format.html_safe %></span>
+      <% else %>
+        <span><%= model.single_price.to_money.format.html_safe %></span>
+      <% end %>
+    </div>
+    <%= render partial: 'cart_big', locals: { model: model.good, item_con: controller_path.sub('carts', 'items'), item: model, cart: @cart } %>
+  </div>
+</div>
