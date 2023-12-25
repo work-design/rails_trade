@@ -126,6 +126,8 @@ zh:
       home:
         qrcode:
           title: 收款码
+        qrcode_file:
+          title: 下载
       promote_goods:
         index:
           title: 优惠券

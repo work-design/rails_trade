@@ -346,6 +346,7 @@ Rails.application.routes.draw do
         concerns :orderable
         controller :home do
           get :qrcode
+          match :qrcode_file, via: [:get, :post]
         end
       end
 
