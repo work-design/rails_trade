@@ -1,5 +1,5 @@
 <div class="media box mx-3">
-  <div data-controller="empty" class="media-left has-block-centered is-align-self-stretch">
+  <div data-controller="empty" class="media-left as-logo">
     <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
       <%= f.hidden_field :current_cart_id, value: @cart.id %>
       <label class="weui-cells_checkbox">
@@ -37,7 +37,7 @@
       <% end %>
     </div>
   </div>
-  <div class="media-right">
+  <div class="media-right as-x">
     <%= render partial: 'cart_big', locals: { model: model.good, item_con: controller_path.sub('carts', 'items'), item: model, cart: @cart } %>
   </div>
 </div>
