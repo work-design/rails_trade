@@ -1,5 +1,5 @@
 <div class="media box mx-3">
-  <div data-controller="empty" class="media-left as-logo">
+  <div data-controller="empty" class="media-left has-v-centered as-logo">
     <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
       <%= f.hidden_field :current_cart_id, value: @cart.id %>
       <label class="weui-cells_checkbox">
