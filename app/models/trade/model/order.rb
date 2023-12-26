@@ -26,16 +26,19 @@ module Trade
         invest: 'invest',
         rent: 'rent'
       }, _default: 'use', _prefix: true
+
       enum generate_mode: {
         myself: 'myself',
         by_from: 'by_from',
         purchase: 'purchase'
       }, _default: 'myself'
+
       enum state: {
         init: 'init',
         done: 'done',
         canceled: 'canceled'
       }, _default: 'init'
+
       enum payment_status: {
         unpaid: 'unpaid',
         to_check: 'to_check',
@@ -235,6 +238,12 @@ module Trade
     def confirm_part_paid!
       items.each do |item|
         item.status = 'deliverable'
+      end
+    end
+
+    def confirm_unpaid!
+      items.each do |item|
+        item.status = 'ordered'
       end
     end
 
