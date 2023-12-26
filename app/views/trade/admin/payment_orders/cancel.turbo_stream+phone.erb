@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "order_#{@payment_order.order_id}", partial: 'trade/admin/order_payments/_index/order', locals: { model: @payment_order.order } %>
+<%= turbo_stream.replace "tr_#{@payment_order.id}", partial: 'trade/admin/order_payments/_index/index_tbody', layout: 'trade/admin/order_payments/_index/index_tr', locals: { model: @payment_order } %>
