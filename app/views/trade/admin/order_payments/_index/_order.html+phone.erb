@@ -2,11 +2,19 @@
   <div class="weui-form-preview__bd">
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
-      <span class="weui-form-preview__value"><%= model.amount.to_money.format.html_safe %></span>
+      <strong class="weui-form-preview__value"><%= model.amount.to_money.format.html_safe %></strong>
     </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
-      <span class="weui-form-preview__value has-text-danger"><%= model.unreceived_amount.to_money.format.html_safe %></span>
-    </div>
+    <% if model.received_amount > 0 %>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:received_amount) %></label>
+        <span class="weui-form-preview__value has-text-success"><%= model.received_amount.to_money.format.html_safe %></span>
+      </div>
+    <% end %>
+    <% if model.unreceived_amount > 0 %>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
+        <span class="weui-form-preview__value has-text-danger"><%= model.unreceived_amount.to_money.format.html_safe %></span>
+      </div>
+    <% end %>
   </div>
 </div>
