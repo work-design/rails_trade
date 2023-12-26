@@ -291,14 +291,16 @@ module Trade
       if self.received_amount.to_d >= self.amount.to_d
         self.payment_status = 'all_paid'
         self.confirm_paid!
+        self.paid_at = Time.current
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
         self.confirm_part_paid!
+        self.paid_at = Time.current
       elsif self.received_amount.to_d <= 0
         self.payment_status = 'unpaid'
+        self.paid_at = nil
       end
       self.expire_at = nil
-      self.paid_at = Time.current
     end
 
     def check_state!
