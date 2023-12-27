@@ -12,7 +12,7 @@ module Trade
       )
     end
 
-    priviate
+    private
     def set_url
       @url = url_for(controller: 'trade/my/wxpay_payments', action: 'new', scope: 'snsapi_base', host: current_organ.host)
     end
