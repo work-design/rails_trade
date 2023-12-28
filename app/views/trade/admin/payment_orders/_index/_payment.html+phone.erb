@@ -1,0 +1,12 @@
+<div id="payment_<%= model.id %>" class="weui-form-preview is-box">
+  <div class="weui-form-preview__bd">
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:total_amount) %></label>
+      <strong class="weui-form-preview__value"><%= model.total_amount.to_money.format.html_safe %></strong>
+    </div>
+    <div class="weui-form-preview__item">
+      <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:checked_amount) %></label>
+      <span class="weui-form-preview__value has-text-success"><%= model.checked_amount.to_money.format.html_safe %></span>
+    </div>
+  </div>
+</div>
