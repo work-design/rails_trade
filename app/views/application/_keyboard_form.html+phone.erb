@@ -43,7 +43,7 @@
         <div data-action="click->keyboard#enter">9</div>
       </div>
       <div class="keyboard-item width-2x">
-        <div data-action="click->keyboard#enter">0</div>
+        <div data-action="click->keyboard#zeroEnter">0</div>
       </div>
       <div class="keyboard-item width-1x">
         <div data-action="click->keyboard#dot">.</div>
@@ -55,7 +55,7 @@
       </div>
       <div class="keyboard-item height-3x">
         <div class="keyboard-button">
-          <%= f.submit '付款', all: { submit: nil }, class: 'button is-borderless' %>
+          <%= f.submit '付款', data: { keyboard_target: 'submit' }, all: { submit: nil }, class: 'button is-borderless', disabled: true %>
         </div>
       </div>
     </div>
