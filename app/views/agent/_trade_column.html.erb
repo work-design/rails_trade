@@ -1,6 +1,6 @@
 <div data-controller="empty" class="weui-panel is-box is-borderless">
   <div class="weui-panel__hd">
-    <span class="has-border-left-primary"><%= t('trade.my.orders.index.title') %></span>
+    <span class="has-border-left-primary"><%= t('trade.agent.orders.index.title') %></span>
   </div>
   <div class="weui-panel__bd">
     <div class="columns is-4-mobile is-flex is-vcentered is-centered m-0" data-empty-target="content">
@@ -10,6 +10,39 @@
         </div>
         <div class="has-text-grey is-size-7 mt-1">
           <span><%= t('trade.agent.orders.index.title') %></span>
+        </div>
+      <% end %>
+      <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'column has-column-centered') do %>
+        <div class="has-text-primary">
+          <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
+        </div>
+        <div class="has-text-grey is-size-7 mt-1">
+          <span><%= Trade::Order.enum_i18n(:payment_status, 'unpaid') %></span>
+        </div>
+      <% end %>
+      <%= link_to({ controller: 'trade/agent/orders', payment_status: 'all_paid' }, class: 'column has-column-centered') do %>
+        <div class="has-text-primary">
+          <i class="fa-solid fa-fw fa-xl fa-list-check"></i>
+        </div>
+        <div class="has-text-grey is-size-7 mt-1">
+          <span><%= Trade::Order.enum_i18n(:payment_status, 'all_paid') %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div data-controller="empty" class="weui-panel is-box is-borderless">
+  <div class="weui-panel__hd">
+    <span class="has-border-left-primary"><%= t('trade.admin.payments.index.title') %></span>
+  </div>
+  <div class="weui-panel__bd">
+    <div class="columns is-4-mobile is-flex is-vcentered is-centered m-0" data-empty-target="content">
+      <%= link_to({ controller: 'trade/admin/payments' }, state: 'enter', class: 'column has-column-centered') do %>
+        <div class="has-text-primary">
+          <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
+        </div>
+        <div class="has-text-grey is-size-7 mt-1">
+          <span><%= t('trade.admin.payments.index.title') %></span>
         </div>
       <% end %>
       <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'column has-column-centered') do %>
