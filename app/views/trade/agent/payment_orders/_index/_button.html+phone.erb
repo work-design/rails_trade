@@ -1,4 +1,4 @@
-<%= link_to({ controller: 'crm/me/productions', contact_id: @contact.id }, class: 'weui-btn_cell weui-btn_cell-primary') do %>
+<%= link_to({ controller: 'crm/me/productions', contact_id: @contact.id }, state: 'enter', class: 'weui-btn_cell weui-btn_cell-primary') do %>
   <i class="fa-solid fa-plus"></i>
   <span><%= t('crm.me.productions.index.title') %></span>
 <% end %>
