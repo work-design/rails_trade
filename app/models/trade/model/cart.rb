@@ -68,7 +68,7 @@ module Trade
       else
         p.merge!({ member_organ_id: member_organ_id }.compact)
       end
-      p.merge! agent_id: agent_id, client_id: client_id if respond_to? :agent_id
+      p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id if respond_to? :agent_id
       p
     end
 
