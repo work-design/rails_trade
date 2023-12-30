@@ -7,6 +7,8 @@ module Trade
         :default,
         only: ['payment_uuid', 'created_at', 'note']
       )
+
+      after_create_commit :to_provider_notice
     end
 
     def to_notice
