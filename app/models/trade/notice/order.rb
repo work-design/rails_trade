@@ -21,15 +21,15 @@ module Trade
     end
 
     def to_provider_notice
-      return unless organ&.creator
-      to_notification(
-        user: organ.creator,
-        title: '收到新订单',
-        body: '您的订单将按时到达配送点',
-        link: Rails.application.routes.url_for(controller: 'trade/admin/orders', action: 'show', id: id, host: organ.admin_host),
-        verbose: true,
-        organ_id: organ.provider_id
-      )
+      organ.ancestral_members.wechat.each do |member|
+        to_member_notification(
+          user: member,
+          title: '收到新订单',
+          body: '您的订单将按时到达配送点',
+          link: Rails.application.routes.url_for(controller: 'trade/admin/orders', action: 'show', id: id, host: organ.admin_host),
+          verbose: true
+        )
+      end
     end
 
   end
