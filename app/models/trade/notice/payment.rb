@@ -5,7 +5,8 @@ module Trade
     included do
       acts_as_notify(
         :default,
-        only: ['payment_uuid', 'created_at', 'total_amount', 'type', 'buyer_bank']
+        only: ['payment_uuid', 'created_at', 'total_amount', 'type', 'buyer_bank'],
+        methods: ['type_i18n']
       )
 
       after_create_commit :to_provider_notice
