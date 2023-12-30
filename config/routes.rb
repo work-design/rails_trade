@@ -109,6 +109,7 @@ Rails.application.routes.draw do
       resources :payments do
         collection do
           get :dashboard
+          get :uncheck
         end
         member do
           patch :analyze
