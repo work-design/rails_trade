@@ -32,7 +32,7 @@ module Trade
 
       has_many :promote_good_users, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
       has_many :promote_good_types, through: :promote_good_users
-      has_many :real_items, ->(o) { where(o.filter_hash).carting.order(id: :asc) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
+      has_many :real_items, ->(o) { where(o.filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where(o.in_filter_hash).where(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
       has_many :purchase_items, ->(o) { where(o.in_filter_hash).where.not(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
