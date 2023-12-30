@@ -5,7 +5,7 @@ module Trade
     included do
       acts_as_notify(
         :default,
-        only: ['payment_uuid', 'created_at', 'note']
+        only: ['payment_uuid', 'created_at', 'total_amount', 'type']
       )
 
       after_create_commit :to_provider_notice
