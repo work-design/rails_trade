@@ -143,10 +143,7 @@ module Trade
 
     def sync_from_current_cart
       self.address_id ||= current_cart.address_id
-      self.aim = current_cart.aim
-      self.payment_strategy_id = current_cart.payment_strategy_id
-      self.member_id = current_cart.member_id
-      self.agent_id = current_cart.agent_id if respond_to? :agent_id
+      self.assign_attributes current_cart.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'contact_id', 'client_id')
       current_cart.checked_all_items.each do |item|
         item.order = self
       end

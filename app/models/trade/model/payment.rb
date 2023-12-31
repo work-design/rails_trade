@@ -109,6 +109,10 @@ module Trade
       Order.to_pay.where(organ_id: organ_id, amount: total_amount).default_where('created_at-lte': created_at).order(created_at: :desc)
     end
 
+    def to_check_orders
+      Order.to_pay.where(organ_id: organ_id, user_id: user_id).default_where('created_at-gte': created_at).order(created_at: :asc)
+    end
+
     def analyze_adjust_amount
       self.adjust_amount = self.checked_amount - self.total_amount
       self.state = 'all_checked'

@@ -4,5 +4,5 @@
 
 <%= render layout: 'index_table' do %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @payment_orders, as: :model %>
-  <%= render partial: 'order_tbody', layout: 'order_tr', collection: @payment.pending_push_orders, as: :model %>
+  <%= render partial: 'order_tbody', layout: 'order_tr', collection: @payment.to_check_orders, as: :model %>
 <% end %>
