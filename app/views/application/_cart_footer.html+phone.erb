@@ -23,7 +23,7 @@
   </div>
   <div class="level-right mt-0 p-2">
   <% if @cart.checked_item_ids.present? && @cart.has_address? %>
-    <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, state: 'enter', class: 'button is-primary') do %>
+    <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary') do %>
       <span class="pr-1">结算</span>
       <i class="fa-solid fa-angle-right"></i>
     <% end %>
