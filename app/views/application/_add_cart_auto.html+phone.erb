@@ -1,14 +1,31 @@
-<%= form_with theme: nil, url: { controller: item_con, action: 'create' }, class: 'button_to' do |f| %>
-  <%= f.hidden_field :current_cart_id, value: @cart.id if @cart %>
-  <%= f.hidden_field :good_type, value: model.base_class_name %>
-  <%= f.hidden_field :good_id, value: model.id %>
-  <%= f.hidden_field :number, value: @payment.total_amount / model.price if model.price > 0 %>
-  <%= f.hidden_field :produce_on, value: params[:produce_on] %>
-  <%= f.hidden_field :scene_id, value: params[:scene_id] %>
-  <%= f.hidden_field :station_id, value: params[:station_id] %>
-  <%= f.hidden_field :desk_id, value: params[:desk_id] %>
-  <button type="submit" class="button is-small is-warning">
-    <i class="fa-solid fa-cart-plus"></i>
-    <span class="pl-1">自动计算</span>
-  </button>
-<% end %>
+<div id="cart_<%= model.id %><%= @cart&.identity %>" class="has-column-space-around xx">
+  <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, class: 'button_to' do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart.id if @cart %>
+    <%= f.hidden_field :good_type, value: model.base_class_name %>
+    <%= f.hidden_field :good_id, value: model.id %>
+    <%= f.hidden_field :produce_on, value: params[:produce_on] %>
+    <%= f.hidden_field :scene_id, value: params[:scene_id] %>
+    <%= f.hidden_field :station_id, value: params[:station_id] %>
+    <%= f.hidden_field :desk_id, value: params[:desk_id] %>
+    <button type="submit" class="button is-small is-danger">
+      <i class="fa-solid fa-cart-plus"></i>
+      <span class="pl-1"><%= t(".#{item_con.tr('/', '.')}.create.title") %></span>
+    </button>
+  <% end %>
+  <% if params[:payment_id] %>
+    <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, class: 'button_to' do |f| %>
+      <%= f.hidden_field :current_cart_id, value: @cart.id if @cart %>
+      <%= f.hidden_field :good_type, value: model.base_class_name %>
+      <%= f.hidden_field :good_id, value: model.id %>
+      <%= f.hidden_field :number, value: @payment.total_amount / model.price if model.price > 0 %>
+      <%= f.hidden_field :produce_on, value: params[:produce_on] %>
+      <%= f.hidden_field :scene_id, value: params[:scene_id] %>
+      <%= f.hidden_field :station_id, value: params[:station_id] %>
+      <%= f.hidden_field :desk_id, value: params[:desk_id] %>
+      <button type="submit" class="button is-small is-warning">
+        <i class="fa-solid fa-cart-plus"></i>
+        <span class="pl-1">自动计算</span>
+      </button>
+    <% end %>
+  <% end %>
+</div>
