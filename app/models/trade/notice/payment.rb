@@ -9,7 +9,7 @@ module Trade
         methods: ['type_i18n']
       )
 
-      after_create_commit :to_provider_notice
+      after_save_commit :to_provider_notice, if: -> { saved_change_to_pay_state? && pay_state == 'paid' }
     end
 
     def to_notice
