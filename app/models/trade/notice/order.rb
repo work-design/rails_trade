@@ -23,7 +23,7 @@ module Trade
     def to_provider_notice
       organ.ancestral_members.wechat.each do |member|
         to_member_notice(
-          user: member,
+          member: member,
           title: '收到新订单',
           body: '您的订单将按时到达配送点',
           link: Rails.application.routes.url_for(controller: 'trade/admin/orders', action: 'show', id: id, host: organ.admin_host),
