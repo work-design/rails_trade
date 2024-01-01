@@ -3,3 +3,4 @@
 <% else %>
   <%= turbo_stream.replace "order_#{@payment_order.order_id}", partial: 'index_tbody', layout: 'index_tr', locals: { model: @payment_order } %>
 <% end %>
+<%= turbo_stream.replace 'payment_container', partial: 'payment', locals: { model: @payment } %>
