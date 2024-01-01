@@ -5,8 +5,8 @@
   <div class="weui-media-box__ft">
     <%= form_with theme: nil, scope: :payment_order, url: { controller: 'trade/admin/payment_orders', action: 'create' }, class: 'button_to' do |f| %>
       <%= f.hidden_field :order_id, value: model.id %>
-      <%= f.hidden_field :order_amount, value: model.amount %>
-      <%= f.hidden_field :payment_amount, value: @payment.total_amount %>
+      <%= f.hidden_field :order_amount, value: [model.amount, @payment.total_amount].min %>
+      <%= f.hidden_field :payment_amount, value: [@payment.total_amount, model.amount].min %>
       <button type="submit" class="button is-small is-danger">
         <i class="fa-solid fa-cart-plus"></i>
         <span class="pl-1"><%= t("trade.admin.payment_orders.create.title") %></span>
