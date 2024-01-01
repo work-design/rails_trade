@@ -1,4 +1,6 @@
-<%= link_to({ controller: 'crm/me/productions', maintain_id: @maintain.id, payment_id: @payment.id }, state: 'enter', class: 'weui-btn_cell weui-btn_cell-primary') do %>
-  <i class="fa-solid fa-plus"></i>
-  <span><%= t('crm.me.productions.index.title') %></span>
+<% if @maintain %>
+  <%= link_to({ controller: 'crm/me/productions', maintain_id: @maintain.id, payment_id: @payment.id }, state: 'enter', class: 'weui-btn_cell weui-btn_cell-primary') do %>
+    <i class="fa-solid fa-plus"></i>
+    <span><%= t('crm.me.productions.index.title') %></span>
+  <% end %>
 <% end %>
