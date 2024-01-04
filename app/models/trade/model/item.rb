@@ -133,6 +133,8 @@ module Trade
     def filter_hash
       if member_id
         { member_id: member_id }
+      elsif contact_id
+        { contact_id: contact_id }
       elsif client_id
         { client_id: client_id }
       else
