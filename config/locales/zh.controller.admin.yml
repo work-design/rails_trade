@@ -70,6 +70,8 @@ zh:
           title: 计算租金
         print:
           title: 打印
+        create:
+          title: 加入购物车
       trade_promotes:
         index:
           title: 订单优惠
