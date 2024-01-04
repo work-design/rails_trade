@@ -231,6 +231,7 @@ module Trade
       elsif purchase
         self.single_price = purchase.cost_price
       end
+      self.changes
     end
 
     def compute_price!
