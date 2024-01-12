@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :rent_charges_count, :integer
 
-      enum :rent_unit, {
+      enum rent_unit: {
         seconds: 'seconds',
         minutes: 'minutes',
         hours: 'hours',
