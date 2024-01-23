@@ -1,4 +1,7 @@
-<p><%= link_to model.payment_uuid, { controller: 'payment_orders', payment_id: model.id } %></p>
+<p class="has-inline-space-between pr-3">
+  <%= link_to model.payment_uuid, { controller: 'payment_orders', payment_id: model.id } %>
+  <span class="tag"><%= model.state_i18n %></span>
+</p>
 <p>
   <strong class="has-text-danger"><%= model.total_amount.to_money.format.html_safe %></strong>
   <span class="tag"><%= model.type_i18n %></span>
