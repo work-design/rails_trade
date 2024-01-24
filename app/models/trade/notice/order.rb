@@ -21,6 +21,7 @@ module Trade
     end
 
     def to_provider_notice
+      return unless organ
       organ.ancestral_members.wechat.each do |member|
         to_member_notice(
           member: member,
