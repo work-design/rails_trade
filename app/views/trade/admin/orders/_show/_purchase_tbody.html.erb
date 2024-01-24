@@ -2,7 +2,7 @@
   <div class="is-several">
     <% if model.good_type == 'Factory::Production' %>
       <%= image_tag model.purchase.logo, class: 'image is-32x32' if model.purchase && model.purchase.logo&.attached? %>
-      <%= link_to({ controller: 'factory/admin/productions', product_id: model.purchase.product_id }, target: '_blank') do %>
+      <%= link_to({ controller: 'factory/admin/purchase_items', production_id: model.purchase_id }, target: '_blank') do %>
         <span><%= model.purchase.name %></span>
       <% end %>
     <% elsif model.purchase %>
