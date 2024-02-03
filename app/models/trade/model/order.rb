@@ -323,6 +323,14 @@ module Trade
       WalletTemplate.where(code: codes).pluck(:id)
     end
 
+    def wallet_amount(wallet_code)
+      r = items.map do |item|
+        item.parsed_wallet_amount.fetch(wallet_code, {})
+      end
+      r.compact_blank!
+      r
+    end
+
     def lawful_wallet_pay
       return unless can_pay?
       payment_order = payment_orders.build(order_amount: amount, payment_amount: amount)
