@@ -22,9 +22,10 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
-      belongs_to :payment, counter_cache: true
 
-      validates :payment_id, uniqueness: { scope: :order_id }
+      belongs_to :payment, counter_cache: true
+      belongs_to :order, optional: true
+
       #validate :valid_total_amount
 
       before_validation :init_uuid
@@ -39,7 +40,7 @@ module Trade
 
     def valid_total_amount
       if self.new_record? && total_amount > payment.total_amount
-        self.errors.add :total_amount, 'more then order received amount!'
+        self.errors.add :total_amount, 'more then received amount!'
       end
     end
 
@@ -50,6 +51,19 @@ module Trade
     def sync_refund_to_payment
       payment.refunded_amount = total_amount
       payment.save
+    end
+
+    def sync_refund_to_order
+      order.refunded_amount += self.total_amount
+      order.received_amount -= self.total_amount
+      order.payment_status = 'refunding'
+      order.save
+    end
+
+    def order_refund
+      order.payment_status = 'refunded'
+      order.state = 'canceled'
+      order.save
     end
 
     def deny_refund

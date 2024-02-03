@@ -139,19 +139,6 @@ module Trade
       order.save
     end
 
-    def sync_refund_to_order
-      order.refunded_amount += self.total_amount
-      order.received_amount -= self.total_amount
-      order.payment_status = 'refunding'
-      order.save
-    end
-
-    def order_refund
-      order.payment_status = 'refunded'
-      order.state = 'canceled'
-      order.save
-    end
-
     def refund
       if ['init', 'pending'].include? self.state
         return

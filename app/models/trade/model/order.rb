@@ -69,6 +69,7 @@ module Trade
 
       has_many :payment_orders, dependent: :destroy_async
       has_many :payments, through: :payment_orders, inverse_of: :orders
+      has_many :refunds
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, class_name: 'CustomWallet', primary_key: :user_id, foreign_key: :user_id
       has_many :promote_goods, -> { available }, primary_key: :user_id, foreign_key: :user_id
@@ -249,7 +250,7 @@ module Trade
 
     def reset_received_amount
       self.received_amount = self.payment_orders.select(&->(o){ o.state_confirmed? }).sum(&->(i){ i.order_amount.to_d })
-      self.refunded_amount = self.payment_orders.select(&->(o){ o.state_refunded? }).sum(&->(i){ i.order_amount.to_d })
+      self.refunded_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
     end
 
     def compute_pay_deadline_at
