@@ -15,7 +15,8 @@ module Trade
       enum state: {
         init: 'init',
         pending: 'pending',
-        confirmed: 'confirmed'
+        confirmed: 'confirmed',
+        refunded: 'refunded'
       }, _default: 'init', _prefix: true
 
       belongs_to :user, class_name: 'Auth::User', optional: true
@@ -135,6 +136,19 @@ module Trade
       return if order.blank?
       order.received_amount -= self.order_amount
       order.check_state
+      order.save
+    end
+
+    def sync_refund_to_order
+      order.refunded_amount += self.total_amount
+      order.received_amount -= self.total_amount
+      order.payment_status = 'refunding'
+      order.save
+    end
+
+    def order_refund
+      order.payment_status = 'refunded'
+      order.state = 'canceled'
       order.save
     end
 

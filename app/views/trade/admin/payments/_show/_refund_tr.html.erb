@@ -2,14 +2,6 @@
   <%= yield %>
   <td>
     <div data-show-target="item" style="visibility: hidden">
-      <% if model.refunded_at.blank? %>
-        <%= button_to({ controller: 'refunds', action: 'confirm', payment_id: @payment.id, id: model.id }, method: :patch, data: { turbo_confirm: t('.refunds.confirm.title') }, class: 'button is-small is-primary') do %>
-          <span><%= t('.refunds.confirm.title') %></span>
-        <% end %>
-        <%= button_to({ controller: 'refunds', action: 'deny', payment_id: @payment.id, id: model.id }, method: :patch, data: { turbo_confirm: t('.refunds.deny.title') }, class: 'button is-small is-danger') do %>
-          <span><%= t('.refunds.deny.title') %></span>
-        <% end %>
-      <% end %>
       <%= button_to({ controller: 'refunds', action: 'show', id: model.id }, aria: { label: t('.refunds.show.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-info has-text-info"></i>
       <% end %>

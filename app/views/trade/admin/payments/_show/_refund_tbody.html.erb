@@ -14,3 +14,13 @@
   <p class="has-text-success"><time data-controller="time" data-format="human"><%= model.refunded_at.to_fs(:iso8601) if model.refunded_at %></time></p>
 </td>
 <td><%= model.operator&.name %></td>
+<td>
+<% if model.refunded_at.blank? %>
+  <%= button_to({ controller: 'refunds', action: 'confirm', payment_id: @payment.id, id: model.id }, method: :patch, data: { turbo_confirm: t('.refunds.confirm.title') }, class: 'button is-small is-primary') do %>
+    <span><%= t('.refunds.confirm.title') %></span>
+  <% end %>
+  <%= button_to({ controller: 'refunds', action: 'deny', payment_id: @payment.id, id: model.id }, method: :patch, data: { turbo_confirm: t('.refunds.deny.title') }, class: 'button is-small is-danger') do %>
+    <span><%= t('.refunds.deny.title') %></span>
+  <% end %>
+<% end %>
+</td>

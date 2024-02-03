@@ -22,7 +22,6 @@ module Trade
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
-      belongs_to :order, inverse_of: :refunds, optional: true
       belongs_to :payment, counter_cache: true
 
       validates :payment_id, uniqueness: { scope: :order_id }
@@ -48,23 +47,9 @@ module Trade
       Money::Currency.new(self.currency).symbol
     end
 
-    def sync_refund_to_order
-      order.refunded_amount += self.total_amount
-      order.received_amount -= self.total_amount
-      order.payment_status = 'refunding'
-      self.confirm_refund!
-      order.save
-    end
-
     def sync_refund_to_payment
       payment.refunded_amount = total_amount
       payment.save
-
-      if order
-        order.payment_status = 'refunded'
-        order.state = 'canceled'
-        order.save
-      end
     end
 
     def deny_refund
