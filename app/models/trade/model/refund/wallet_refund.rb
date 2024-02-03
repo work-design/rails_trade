@@ -21,22 +21,16 @@ module Trade
     end
 
     def sync_amount
-      wallet.reload
-      wallet.expense_amount -= self.total_amount
-      computed = wallet.compute_expense_amount
-      if wallet.expense_amount == computed
+      wallet.with_lock do
+        wallet.expense_amount -= self.total_amount
         wallet.save!
-      else
-        wallet.errors.add :amount, "  #{wallet.expense_amount} Not Equal Computed #{computed}"
-        logger.error "#{self.class.name}/wallet: #{wallet.error_text}"
-        raise ActiveRecord::RecordInvalid.new(wallet)
       end
     end
 
     def sync_wallet_log
       cl = self.wallet_log || self.build_wallet_log
-      cl.title = wallet.wallet_uuid
-      cl.tag_str = '虚拟币退款'
+      cl.title = wallet.name
+      cl.tag_str = '余额退款'
       cl.amount = self.total_amount
       cl.save
     end
