@@ -62,7 +62,7 @@ module Trade
         self.order_amount = wallet_amount_x[0]
       end
       payment.total_amount = self.payment_amount
-
+      update_order_received_amount
       self.state = 'pending' unless state_changed?
     end
 
@@ -115,6 +115,7 @@ module Trade
 
     def update_order_received_amount
       order.received_amount += self.order_amount
+      order.unreceived_amount = order.amount - order.received_amount
     end
 
     def pending_to_order!
