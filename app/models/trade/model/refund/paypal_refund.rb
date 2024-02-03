@@ -15,6 +15,7 @@ module Trade
 
       if result.success?
         self.state = 'completed'
+        self.refunded_at = Time.current
       elsif result.error
         self.reason = result.error['message']
         self.state = 'failed'

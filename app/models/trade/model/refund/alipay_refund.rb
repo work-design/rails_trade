@@ -17,6 +17,7 @@ module Trade
       if refund['code'] == '10000' || refund['msg'] == 'Success'
         self.refund_uuid = refund['trade_no']
         self.state = 'completed'
+        self.refunded_at = Time.current
       else
         self.reason = "code: #{refund['code']}, msg: #{refund['msg']}"
         self.state = 'failed'

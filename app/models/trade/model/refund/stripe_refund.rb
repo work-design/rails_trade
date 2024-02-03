@@ -9,6 +9,7 @@ module Trade
 
       if refund.status == 'succeeded'
         self.state = 'completed'
+        self.refunded_at = Time.current
       else
         self.state = 'failed'
       end

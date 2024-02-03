@@ -15,7 +15,6 @@ module Trade
     def confirm
       @refund.do_refund
       @refund.operator = current_member
-      @refund.refunded_at = Time.current
       @refund.save
     end
 

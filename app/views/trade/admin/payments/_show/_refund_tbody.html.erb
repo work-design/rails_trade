@@ -15,7 +15,7 @@
 </td>
 <td><%= model.operator&.name %></td>
 <td>
-<% if model.refunded_at.blank? %>
+<% if model.can_refund? %>
   <%= button_to({ controller: 'refunds', action: 'confirm', payment_id: @payment.id, id: model.id }, method: :patch, data: { turbo_confirm: t('.refunds.confirm.title') }, class: 'button is-small is-primary') do %>
     <span><%= t('.refunds.confirm.title') %></span>
   <% end %>
