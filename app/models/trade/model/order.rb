@@ -332,20 +332,21 @@ module Trade
       payment
     end
 
-    def deposit_amount
-      return unreceived_amount if unreceived_amount.to_d > 0 && unreceived_amount.to_d < amount
-      if current_cart && current_cart.deposit_ratio < 100 && current_cart.deposit_ratio > 0
-        r = amount * current_cart.deposit_ratio / 100
-      elsif advance_amount.to_d > 0
-        return advance_amount
-      else
-        return amount
+    def default_payment_amount
+      if unreceived_amount.to_d > 0 && unreceived_amount.to_d < amount
+        return unreceived_amount
       end
 
-      r >= 0.01 ? r : amount
+      if current_cart&.support_deposit? && amount > 1
+        amount * current_cart.deposit_ratio / 100
+      elsif advance_amount.to_d > 0
+        advance_amount
+      else
+        amount
+      end
     end
 
-    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: deposit_amount)
+    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: default_payment_amount)
       payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid, total_amount: total_amount)
       payment.organ_id = organ_id
       payment.user = user

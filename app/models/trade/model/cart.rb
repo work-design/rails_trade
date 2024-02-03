@@ -107,6 +107,10 @@ module Trade
       end
     end
 
+    def support_deposit?
+      deposit_ratio < 100 && deposit_ratio > 0
+    end
+
     def in_cart?
       organ_id.blank? && member_organ.present?
     end
