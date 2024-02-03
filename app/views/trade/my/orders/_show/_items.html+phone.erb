@@ -44,5 +44,11 @@
       <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
       <span class="weui-form-preview__value has-text-danger"><%= model.amount.to_money.format.html_safe %></span>
     </div>
+    <% if model.refunded_amount.to_d > 0 %>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:refunded_amount) %></label>
+        <span class="weui-form-preview__value has-text-danger"><%= model.refunded_amount.to_money.format.html_safe %></span>
+      </div>
+    <% end %>
   </div>
 </div>
