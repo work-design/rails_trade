@@ -121,8 +121,12 @@ module Trade
       payment.save
     end
 
-    def pending_to_order!
+    def pending_to_order
       order.received_amount += self.order_amount
+    end
+
+    def pending_to_order!
+      pending_to_order
       order.save
     end
 
