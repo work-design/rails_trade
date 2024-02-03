@@ -5,7 +5,7 @@ module Trade
     extend ActiveSupport::Concern
 
     prepended do
-      
+
     end
   end
 end
