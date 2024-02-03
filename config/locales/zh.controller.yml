@@ -15,7 +15,8 @@ zh:
           title: 我的订单
         cart:
           title: 确认订单
-          confirm: 确认订单
+        create:
+          title: 确认订单
         add:
           title: 生成订单
         edit_payment_type:
