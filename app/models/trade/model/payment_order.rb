@@ -90,6 +90,7 @@ module Trade
       y = self.payment_amount
       rest = 0
       result = wallet_amount
+
       result.sort_by!(&->(i){ i[:rate] }).reverse!
       result.each do |i|
         if y > i[:amount]
@@ -105,6 +106,7 @@ module Trade
         end
       end
 
+      logger.debug "X is #{x}, y is #{y}, Rest is #{rest}"
       [x, rest]
     end
 

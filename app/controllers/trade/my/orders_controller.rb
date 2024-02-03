@@ -39,8 +39,8 @@ module Trade
         #@payment.extra_params.merge! 'profit_sharing' => true
         @payment.user = current_user
         if defined? RailsWechat
-        @payment.seller_identifier = current_payee&.mch_id
-        @payment.appid = current_wechat_user&.appid
+          @payment.seller_identifier = current_payee&.mch_id
+          @payment.appid = current_wechat_user&.appid
         end
 
         if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
