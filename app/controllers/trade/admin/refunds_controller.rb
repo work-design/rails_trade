@@ -16,14 +16,12 @@ module Trade
       @refund.do_refund
       @refund.operator = current_member
       @refund.refunded_at = Time.current
-
       @refund.save
     end
 
     def deny
       @refund.state = 'denied'
       @refund.operator = current_member
-
       @refund.save
     end
 

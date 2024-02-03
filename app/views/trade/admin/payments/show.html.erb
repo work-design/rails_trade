@@ -13,5 +13,6 @@
 </table>
 
 <%= render layout: 'index_table' do %>
+  <%= render partial: 'trade/admin/payment_orders/_base/index_tbody', layout: 'trade/admin/payment_orders/_base/index_tr', collection: @payment.payment_orders, as: :model %>
   <%= render partial: 'refund_tbody', layout: 'refund_tr', collection: @payment.refunds, as: :model %>
 <% end %>

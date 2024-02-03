@@ -245,7 +245,9 @@ module Trade
     end
 
     def confirm_refund!
-      self.items.each(&:confirm_refund!)
+      self.items.each do |item|
+        item.status = 'refund'
+      end
     end
 
     def reset_received_amount

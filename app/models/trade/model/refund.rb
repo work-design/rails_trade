@@ -20,7 +20,6 @@ module Trade
         denied: 'denied'
       }, _default: 'init'
 
-      belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :payment, counter_cache: true
@@ -30,12 +29,12 @@ module Trade
 
       before_validation :init_uuid
       after_save :sync_refund_to_payment, if: -> { completed? && state_before_last_save == 'init' }
+      after_save :sync_refund_to_order, if: -> { completed? && state_before_last_save == 'init' }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
     end
 
     def init_uuid
       self.refund_uuid ||= UidHelper.nsec_uuid('RD') if new_record?
-      self.organ_id = payment.organ_id
     end
 
     def valid_total_amount

@@ -13,6 +13,7 @@ module Trade
 
     def do_refund(params = {})
       self.state = 'completed'
+      self
     end
 
     def sync_wallet

@@ -99,6 +99,8 @@ zh:
           title: 核销
         create:
           title: 核销
+        refund:
+          title: 退款
       payment_methods:
         index_layout:
           remove: 移除

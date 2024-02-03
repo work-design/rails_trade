@@ -1,6 +1,6 @@
-<p>
+<td>
   <%= link_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id }, data: { turbo_frame: 'modal' } %>
-</p>
+</td>
 <td><%= model.order.amount.to_money.format.html_safe %></td>
 <td>
   <% if model.state_confirmed? %>
@@ -12,12 +12,16 @@
 <td><%= Trade::PaymentOrder.enum_i18n(:state, model.state) %></td>
 <td>
   <% if model.state_confirmed? %>
-    <%= button_to({ action: 'cancel', payment_id: @payment, id: model.id }, class: 'button is-small is-warning') do %>
+    <%= button_to({ controller: 'payment_orders', action: 'cancel', payment_id: @payment, id: model.id }, class: 'button is-small is-warning') do %>
       <i class="fa-solid fa-clock-rotate-left"></i>
       <span class="pl-1">撤销</span>
     <% end %>
+    <%= button_to({ controller: 'payment_orders', action: 'refund', payment_id: @payment, id: model.id }, class: 'button is-small is-warning') do %>
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span class="pl-1"><%= t('.payment_orders.refund.title') %></span>
+    <% end %>
   <% else %>
-    <%= button_to({ action: 'update', id: model.id }, method: :patch, class: 'button is-small is-success', form: { id: "edit_payment_order_#{model.id}" }) do %>
+    <%= button_to({ controller: 'payment_orders', action: 'update', id: model.id }, method: :patch, class: 'button is-small is-success', form: { id: "edit_payment_order_#{model.id}" }) do %>
       <i class="fa-solid fa-clock-rotate-left"></i>
       <span class="pl-1">核销</span>
     <% end %>
