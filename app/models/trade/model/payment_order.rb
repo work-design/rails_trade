@@ -5,7 +5,6 @@ module Trade
     included do
       attribute :payment_amount, :decimal
       attribute :order_amount, :decimal
-      attribute :wallet_code, :string
 
       enum kind: {
         item_amount: 'item_amount',
@@ -28,8 +27,7 @@ module Trade
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
-      after_initialize :init_amount, if: -> { new_record? && payment&.new_record? && payment.wallet_id.blank? }
-      after_initialize :init_wallet_amount, if: -> { new_record? && payment&.new_record? && payment.wallet_id.present? }
+      after_initialize :init_amount, if: -> { new_record? && payment&.new_record? }
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
       after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
@@ -40,33 +38,30 @@ module Trade
     end
 
     def init_amount
-      self.payment_amount = payment.total_amount
-      self.order_amount = payment.total_amount
-      self.state = 'pending' unless state_changed?
-    end
-
-    def init_wallet_amount
-      self.wallet_code = payment.wallet.wallet_template.code if payment.wallet.wallet_template
-
       if payment.total_amount.to_d > 0
-        init_amount
-        return
+        self.payment_amount = payment.total_amount
+        self.order_amount = payment.total_amount
       end
 
-      if payment.wallet.amount > order_wallet_amount
-        self.payment_amount = order_wallet_amount
-        self.order_amount = order.amount # todo 为什么之前是 item_amount
-      else
-        # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
-        self.payment_amount = payment.wallet.amount
-        self.order_amount = wallet_amount_x[0]
+      if payment.wallet
+        wallet_code = payment.wallet.wallet_template&.code
+        x = order_wallet_amount(wallet_code)
+        if payment.wallet.amount > x
+          self.payment_amount = x
+          self.order_amount = order.amount # todo 为什么之前是 item_amount
+        else
+          # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
+          self.payment_amount = payment.wallet.amount
+          self.order_amount = wallet_amount_x(wallet_code)[0]
+        end
       end
+
       payment.total_amount = self.payment_amount
       update_order_received_amount
       self.state = 'pending' unless state_changed?
     end
 
-    def order_wallet_amount
+    def order_wallet_amount(wallet_code)
       if payment.wallet.is_a?(LawfulWallet)
         order.items.sum(&->(i){ i.amount.to_d })
       else
@@ -74,7 +69,7 @@ module Trade
       end
     end
 
-    def wallet_amount_x
+    def wallet_amount_x(wallet_code)
       x = 0
       y = self.payment_amount
       rest = 0
