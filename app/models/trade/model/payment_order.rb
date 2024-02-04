@@ -44,13 +44,18 @@ module Trade
       end
 
       if payment.wallet
-        wallet_code = payment.wallet.wallet_template&.code
-        x = order_wallet_amount(wallet_code)
+        if payment.wallet.is_a?(LawfulWallet)
+          x = order.unreceived_amount
+        else
+          wallet_code = payment.wallet.wallet_template.code
+          x = order.wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
+        end
+        # 当钱包额度大于订单金额
         if payment.wallet.amount > x
           self.payment_amount = x
-          self.order_amount = order.amount # todo 为什么之前是 item_amount
+          self.order_amount = x
         else
-          # 当钱包余额够的时候，如果没有指定扣除额度，则将钱包余额全部扣除
+          # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
           self.payment_amount = payment.wallet.amount
           self.order_amount = wallet_amount_x(wallet_code)[0]
         end
@@ -59,14 +64,6 @@ module Trade
       payment.total_amount = self.payment_amount
       update_order_received_amount
       self.state = 'pending' unless state_changed?
-    end
-
-    def order_wallet_amount(wallet_code)
-      if payment.wallet.is_a?(LawfulWallet)
-        order.items.sum(&->(i){ i.amount.to_d })
-      else
-        order.wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
-      end
     end
 
     def wallet_amount_x(wallet_code)
