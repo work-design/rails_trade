@@ -21,7 +21,7 @@ module Trade
       belongs_to :user, class_name: 'Auth::User', optional: true
 
       belongs_to :order, counter_cache: true
-      belongs_to :payment, inverse_of: :payment_orders, counter_cache: true, optional: true
+      belongs_to :payment, inverse_of: :payment_orders, counter_cache: true
 
       has_one :refund, ->(o) { where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
@@ -62,6 +62,7 @@ module Trade
       end
 
       payment.total_amount = self.payment_amount
+
       update_order_received_amount
       self.state = 'pending' unless state_changed?
     end
