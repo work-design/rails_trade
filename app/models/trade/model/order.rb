@@ -333,12 +333,11 @@ module Trade
 
     def lawful_wallet_pay
       return unless can_pay?
-      payment = payments.build(type: 'Trade::WalletPayment', total_amount: unreceived_amount)
-      payment.wallet = lawful_wallet
-      payment.payment_orders.each do |payment_order|
-        payment_order.order_amount = unreceived_amount
-        payment_order.state = 'confirmed'
-      end
+      payment = payments.build(
+        type: 'Trade::WalletPayment',
+        wallet_id: lawful_wallet.id,
+        payment_order_attributes: [{ order_amount: unreceived_amount, state: 'confirmed' }]
+      )
       payment.save
       payment
     end
@@ -365,11 +364,16 @@ module Trade
       end
     end
 
-    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), total_amount: default_payment_amount)
-      payment = payments.find_by(type: type, payment_uuid: payment_uuid) || payments.build(type: type, payment_uuid: payment_uuid, total_amount: total_amount)
-      payment.organ_id = organ_id
-      payment.user = user
-      payment
+    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), order_amount: default_payment_amount)
+      payment = payments.find_by(type: type, payment_uuid: payment_uuid)
+      return payment if payment
+      payments.build(
+        type: type,
+        payment_uuid: payment_uuid,
+        organ_id: organ_id,
+        user_id: user_id,
+        payment_orders_attributes: [{ order_amount: order_amount }]
+      )
     end
 
     def pending_payments
