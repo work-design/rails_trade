@@ -333,12 +333,22 @@ module Trade
 
     def lawful_wallet_pay
       return unless can_pay?
-      payment_order = payment_orders.build(order_amount: amount, payment_amount: amount)
-      payment_order.state = 'confirmed'
-      payment = payment_order.build_payment(type: 'Trade::WalletPayment', total_amount: amount)
+      payment = payments.build(type: 'Trade::WalletPayment', total_amount: unreceived_amount)
       payment.wallet = lawful_wallet
+      payment.payment_orders.each do |payment_order|
+        payment_order.order_amount = unreceived_amount
+        payment_order.state = 'confirmed'
+      end
       payment.save
       payment
+    end
+
+    def xx
+      return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
+      wallets.includes(:wallet_template).where(wallet_template_id: wallet_codes).each do |wallet|
+        payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
+      end
+      payments.build(type: 'Trade::WalletPayment', wallet_id: lawful_wallet.id) if lawful_wallet
     end
 
     def default_payment_amount
