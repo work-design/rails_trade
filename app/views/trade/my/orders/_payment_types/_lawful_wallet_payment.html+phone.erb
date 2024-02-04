@@ -23,7 +23,8 @@
         <%= f.fields :payment_orders do |ef| %>
           <%= ef.hidden_field :order_id %>
           <%= ef.hidden_field :payment_amount %>
-          <%= ef.hidden_field :state, value: 'confirmed' %>
+          <%= ef.hidden_field :order_amount %>
+          <%= ef.hidden_field :state, value: 'pending' %>
         <% end %>
         <%= f.check_box 'xx', checked: false, class: 'weui-check', data: { action: 'input#form' } %>
         <span class="weui-icon-checked"></span>

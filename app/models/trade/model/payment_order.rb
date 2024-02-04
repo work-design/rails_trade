@@ -70,7 +70,7 @@ module Trade
       if payment.wallet.is_a?(LawfulWallet)
         order.items.sum(&->(i){ i.amount.to_d })
       else
-        wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
+        order.wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
       end
     end
 
@@ -78,7 +78,7 @@ module Trade
       x = 0
       y = self.payment_amount
       rest = 0
-      result = wallet_amount(wallet_code)
+      result = order.wallet_amount(wallet_code)
 
       result.sort_by!(&->(i){ i[:rate] }).reverse!
       result.each do |i|
