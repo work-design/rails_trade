@@ -10,24 +10,17 @@
   </span>
   <span class="weui-cell__ft has-v-centered" data-controller="input">
     <span class="has-text-danger"><%= payment_order.payment_amount.to_money.format.html_safe %></span>
-    <% if payment_order.payment.persisted? %>
-      <%= form_with theme: nil, url: { controller: 'payments', action: 'destroy', id: payment_order.payment_id }, method: :delete, state: 'redirect', data: { controller: 'input' } do |f| %>
-        <%= f.check_box 'xx', checked: true, class: 'weui-check', data: { action: 'input#form' } %>
-        <span class="weui-icon-checked"></span>
+    <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
+      <%= f.hidden_field :wallet_id %>
+      <%= f.hidden_field :type %>
+      <%= f.fields :payment_orders do |ef| %>
+        <%= ef.hidden_field :order_id %>
+        <%= ef.hidden_field :payment_amount %>
+        <%= ef.hidden_field :order_amount %>
+        <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
+        <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'weui-check', data: { action: 'input#form' } %>
       <% end %>
-    <% else %>
-      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
-        <%= f.hidden_field :wallet_id %>
-        <%= f.hidden_field :type %>
-        <%= f.fields :payment_orders do |ef| %>
-          <%= ef.hidden_field :order_id %>
-          <%= ef.hidden_field :payment_amount %>
-          <%= ef.hidden_field :order_amount %>
-          <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
-          <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'weui-check', data: { action: 'input#form' } %>
-        <% end %>
-        <span class="weui-icon-checked"></span>
-      <% end %>
+      <span class="weui-icon-checked"></span>
     <% end %>
   </span>
 </label>
