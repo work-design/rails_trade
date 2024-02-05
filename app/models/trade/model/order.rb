@@ -323,12 +323,40 @@ module Trade
       WalletTemplate.where(code: codes).pluck(:id)
     end
 
-    def wallet_amount(wallet_code)
+    def xx(wallet_code)
       r = items.map do |item|
         item.parsed_wallet_amount.fetch(wallet_code, {})
       end
       r.compact_blank!
       r
+    end
+
+    def wallet_amount(wallet_code)
+      r = xx(wallet_code)
+      r.sum(&->(i){ i[:amount].to_d })
+    end
+
+    def partly_wallet_amount(wallet_code, amount)
+      x = 0
+      rest = 0
+      result = xx(wallet_code)
+      result.sort_by!(&->(i){ i[:rate] }).reverse!
+      result.each do |i|
+        if amount > i[:amount]
+          x += i[:rate] * i[:amount]
+          amount -= i[:amount]
+        elsif amount == i[:amount]
+          x += i[:rate] * i[:amount]
+          break
+        else
+          x += i[:rate] * amount
+          rest = i[:amount] - amount
+          break
+        end
+      end
+
+      logger.debug "X is #{x}, y is #{y}, Rest is #{rest}"
+      [x, rest]
     end
 
     def lawful_wallet_pay

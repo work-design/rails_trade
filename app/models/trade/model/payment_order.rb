@@ -38,26 +38,21 @@ module Trade
     end
 
     def init_amount
-      if payment.total_amount.to_d > 0
-        self.payment_amount = payment.total_amount
-        self.order_amount = payment.total_amount
+      if self.payment_amount.to_d > 0
+        payment.total_amount = self.payment_amount
       end
 
       if payment.wallet_id
-        if payment.wallet.is_a?(LawfulWallet)
-          x = order.unreceived_amount
-        else
-          wallet_code = payment.wallet.wallet_template.code
-          x = order.wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
-        end
+        wallet_code = payment.wallet.wallet_template.code
+        x = order.wallet_amount(wallet_code)
         # 当钱包额度大于订单金额
         if payment.wallet.amount > x
-          self.payment_amount = x
           self.order_amount = x
+          self.payment_amount = x
         else
           # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
           self.payment_amount = payment.wallet.amount
-          self.order_amount = wallet_amount_x(wallet_code)[0]
+          self.order_amount = wallet_amount_x(wallet_code, payment_amount)
         end
       end
 
@@ -65,31 +60,6 @@ module Trade
 
       #update_order_received_amount
       self.state = 'pending' unless state_changed?
-    end
-
-    def wallet_amount_x(wallet_code)
-      x = 0
-      y = self.payment_amount
-      rest = 0
-      result = order.wallet_amount(wallet_code)
-
-      result.sort_by!(&->(i){ i[:rate] }).reverse!
-      result.each do |i|
-        if y > i[:amount]
-          x += i[:rate] * i[:amount]
-          y -= i[:amount]
-        elsif y == i[:amount]
-          x += i[:rate] * i[:amount]
-          break
-        else
-          x += i[:rate] * y
-          rest = i[:amount] - y
-          break
-        end
-      end
-
-      logger.debug "X is #{x}, y is #{y}, Rest is #{rest}"
-      [x, rest]
     end
 
     def init_user_id
