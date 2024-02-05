@@ -51,6 +51,7 @@ module Trade
     def payment_pending
       @payment = Payment.new(payment_params)
       @order = @payment.payment_orders[0].order
+      @order.init_wallet_payments(@payment.wallet.wallet_template_id)
       render locals: { from: 'pending' }
     end
 

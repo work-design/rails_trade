@@ -370,10 +370,12 @@ module Trade
       payment
     end
 
-    def init_wallet_payments
+    def init_wallet_payments(*except_ids)
       return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
+      codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
+      ids = WalletTemplate.where(code: codes).pluck(:id) - except_ids
 
-      wallets.includes(:wallet_template).where(wallet_template_id: wallet_codes).each do |wallet|
+      wallets.includes(:wallet_template).where(wallet_template_id: ids).each do |wallet|
         payments.build(
           type: 'Trade::WalletPayment',
           wallet_id: wallet.id,
