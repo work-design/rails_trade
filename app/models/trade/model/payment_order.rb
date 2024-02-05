@@ -38,10 +38,6 @@ module Trade
     end
 
     def init_amount
-      if self.payment_amount.to_d > 0
-        payment.total_amount = self.payment_amount
-      end
-
       if payment.wallet_id
         wallet_code = payment.wallet.wallet_template.code
         x = order.wallet_amount(wallet_code)
@@ -52,8 +48,10 @@ module Trade
         else
           # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
           self.payment_amount = payment.wallet.amount
-          self.order_amount = wallet_amount_x(wallet_code, payment_amount)
+          self.order_amount = order.partly_wallet_amount(wallet_code, payment_amount)
         end
+      else
+        self.payment_amount = self.order_amount
       end
 
       payment.total_amount = self.payment_amount
