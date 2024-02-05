@@ -47,10 +47,11 @@ module Trade
       belongs_to :operator, polymorphic: true, optional: true
 
       belongs_to :payment_method, optional: true
-      has_many :payment_orders, inverse_of: :payment, dependent: :destroy
-      has_many :orders, through: :payment_orders, inverse_of: :payments
-      accepts_nested_attributes_for :payment_orders
+      has_many :payment_orders, dependent: :destroy
+      has_many :orders, through: :payment_orders
       has_many :refunds
+
+      accepts_nested_attributes_for :payment_orders
 
       has_one_attached :proof
 

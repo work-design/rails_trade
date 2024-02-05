@@ -68,7 +68,7 @@ module Trade
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :payment_orders, dependent: :destroy_async
-      has_many :payments, through: :payment_orders, inverse_of: :orders
+      has_many :payments, through: :payment_orders
       has_many :refunds
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, class_name: 'CustomWallet', primary_key: :user_id, foreign_key: :user_id
@@ -372,7 +372,7 @@ module Trade
         payment_uuid: payment_uuid,
         organ_id: organ_id,
         user_id: user_id,
-        payment_orders_attributes: [{ order_amount: order_amount }]
+        payment_orders_attributes: [{ order_amount: order_amount, order: self }]
       )
     end
 

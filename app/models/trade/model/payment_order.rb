@@ -21,7 +21,7 @@ module Trade
       belongs_to :user, class_name: 'Auth::User', optional: true
 
       belongs_to :order, counter_cache: true
-      belongs_to :payment, inverse_of: :payment_orders, counter_cache: true
+      belongs_to :payment, counter_cache: true
 
       has_one :refund, ->(o) { where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
 
@@ -43,7 +43,7 @@ module Trade
         self.order_amount = payment.total_amount
       end
 
-      if payment.wallet
+      if payment.wallet_id
         if payment.wallet.is_a?(LawfulWallet)
           x = order.unreceived_amount
         else
@@ -63,7 +63,7 @@ module Trade
 
       payment.total_amount = self.payment_amount
 
-      update_order_received_amount
+      #update_order_received_amount
       self.state = 'pending' unless state_changed?
     end
 
