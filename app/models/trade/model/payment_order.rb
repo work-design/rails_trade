@@ -38,13 +38,12 @@ module Trade
     end
 
     def init_amount
-      if payment.wallet_id
+      if payment.respond_to?(:wallet) && payment.wallet.is_a?(CustomWallet)
         wallet_code = payment.wallet.wallet_template.code
-        x = order.wallet_amount(wallet_code)
+        wallet_amount = order.wallet_amount(wallet_code)  # 将订单金额换算至钱包对应单位
         # 当钱包额度大于订单金额
-        if payment.wallet.amount > x
-          self.order_amount = x
-          self.payment_amount = x
+        if payment.wallet.amount > wallet_amount
+          self.payment_amount = wallet_amount
         else
           # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
           self.payment_amount = payment.wallet.amount
@@ -55,9 +54,7 @@ module Trade
       end
 
       payment.total_amount = self.payment_amount
-
-      #update_order_received_amount
-      self.state = 'pending' unless state_changed?
+      update_order_received_amount if state_pending?
     end
 
     def init_user_id
