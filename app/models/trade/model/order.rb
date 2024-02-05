@@ -415,7 +415,7 @@ module Trade
         payment_uuid: payment_uuid,
         organ_id: organ_id,
         user_id: user_id,
-        payment_orders_attributes: [{ order: self, order_amount: order_amount, state: 'pending' }]
+        payment_orders_attributes: [{ order: self, order_amount: order_amount }]
       )
     end
 
