@@ -45,10 +45,13 @@ module Trade
           @url = @payment.h5(payer_client_ip: request.remote_ip)
         end
       end
+      render locals: { from: 'types' }
     end
 
     def payment_pending
       @payment = Payment.new(payment_params)
+      @order = @payment.payment_orders[0].order
+      render locals: { from: 'pending' }
     end
 
     def payment_frozen

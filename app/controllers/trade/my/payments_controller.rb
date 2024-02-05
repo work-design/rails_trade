@@ -2,14 +2,10 @@ module Trade
   class My::PaymentsController < My::BaseController
     before_action :set_order, only: [:wxpay]
     before_action :set_payment, only: [:show, :edit, :update, :destroy]
-    before_action :set_new_payment, only: [:new, :prepare, :create]
+    before_action :set_new_payment, only: [:new, :create]
 
     def index
       @payments = current_user.payments.page(params[:page])
-    end
-
-    def prepare
-
     end
 
     def next

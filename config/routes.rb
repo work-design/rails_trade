@@ -15,7 +15,7 @@ Rails.application.routes.draw do
           post :package
           get :pay
           get :payment_types
-          put :payment_pending
+          post :payment_pending
           get :payment_frozen
           get :payment_type
           get 'cancel' => :edit_cancel
