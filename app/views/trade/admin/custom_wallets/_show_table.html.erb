@@ -1,21 +1,27 @@
 <tr>
+  <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:user_id) %></td>
+  <td>
+    <span><%= @custom_wallet.user_id %></span>
+  </td>
+</tr>
+<tr>
   <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:amount) %></td>
   <td>
-    <span><%= @wallet.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-    <span><%= @wallet.wallet_template.unit %></span>
+    <span><%= @custom_wallet.amount.to_fs(:rounded, precision: @custom_wallet.wallet_template.digit) %></span>
+    <span><%= @custom_wallet.wallet_template.unit %></span>
   </td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:income_amount) %></td>
   <td>
-    <span><%= @wallet.income_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-    <span><%= @wallet.wallet_template.unit %></span>
+    <span><%= @custom_wallet.income_amount.to_fs(:rounded, precision: @custom_wallet.wallet_template.digit) %></span>
+    <span><%= @custom_wallet.wallet_template.unit %></span>
   </td>
 </tr>
 <tr>
   <td class="has-text-right"><%= Trade::Wallet.human_attribute_name(:expense_amount) %></td>
   <td>
-    <span><%= @wallet.expense_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-    <span><%= @wallet.wallet_template.unit %></span>
+    <span><%= @custom_wallet.expense_amount.to_fs(:rounded, precision: @custom_wallet.wallet_template.digit) %></span>
+    <span><%= @custom_wallet.wallet_template.unit %></span>
   </td>
 </tr>
