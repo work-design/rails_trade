@@ -348,14 +348,14 @@ module Trade
         payments.build(
           type: 'Trade::WalletPayment',
           wallet_id: wallet.id,
-          payment_order_attributes: [{ order: self, order_amount: unreceived_amount, state: 'pending' }]
+          payment_order_attributes: [{ order: self, order_amount: unreceived_amount }]
         )
       end
       if lawful_wallet
         payments.build(
           type: 'Trade::WalletPayment',
           wallet_id: lawful_wallet.id,
-          payment_order_attributes: [{ order: self, order_amount: unreceived_amount, state: 'pending' }]
+          payment_order_attributes: [{ order: self, order_amount: unreceived_amount }]
         )
       end
     end
@@ -382,7 +382,7 @@ module Trade
         payment_uuid: payment_uuid,
         organ_id: organ_id,
         user_id: user_id,
-        payment_orders_attributes: [{ order: self, order_amount: order_amount }]
+        payment_orders_attributes: [{ order: self, order_amount: order_amount, state: 'pending' }]
       )
     end
 
