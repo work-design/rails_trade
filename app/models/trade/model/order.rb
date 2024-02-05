@@ -364,7 +364,7 @@ module Trade
       payment = payments.build(
         type: 'Trade::WalletPayment',
         wallet_id: lawful_wallet.id,
-        payment_order_attributes: [{ order: self, order_amount: unreceived_amount, state: 'confirmed' }]
+        payment_orders_attributes: [{ order: self, order_amount: unreceived_amount, state: 'confirmed' }]
       )
       payment.save
       payment
@@ -372,18 +372,19 @@ module Trade
 
     def init_wallet_payments
       return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
+
       wallets.includes(:wallet_template).where(wallet_template_id: wallet_codes).each do |wallet|
         payments.build(
           type: 'Trade::WalletPayment',
           wallet_id: wallet.id,
-          payment_order_attributes: [{ order: self, order_amount: unreceived_amount }]
+          payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
         )
       end
       if lawful_wallet
         payments.build(
           type: 'Trade::WalletPayment',
           wallet_id: lawful_wallet.id,
-          payment_order_attributes: [{ order: self, order_amount: unreceived_amount }]
+          payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
         )
       end
     end
