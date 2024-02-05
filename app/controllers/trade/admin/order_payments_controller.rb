@@ -1,7 +1,7 @@
 module Trade
   class Admin::OrderPaymentsController < Admin::BaseController
     before_action :set_order
-    before_action :set_new_payment, only: [:new, :create]
+    before_action :set_new_payment, only: [:create]
     before_action :set_payment_order, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_new_payment_order, only: [:confirm]
     after_action only: [:create] do
@@ -17,7 +17,11 @@ module Trade
     end
 
     def new
-      @payment.total_amount = @order.unreceived_amount
+      @payment = @order.payments.build(
+        type: 'Trade::HandPayment',
+        payment_orders_attributes: [{ order: @order, order_amount: @order.unreceived_amount, state: 'pending' }]
+      )
+      @payment.init_uuid
     end
 
     def create
@@ -80,7 +84,7 @@ module Trade
         :buyer_identifier,
         :buyer_bank,
         :proof,
-        payment_orders_attributes: [:order_id, :check_amount, :state]
+        payment_orders_attributes: [:order_id, :order_amount, :state]
       )
       p.merge! default_form_params
     end

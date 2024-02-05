@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Payment ID</th>
+      <th><%= Trade::Payment.human_attribute_name(:type) %></th>
+      <th><%= Trade::Payment.human_attribute_name(:total_amount) %></th>
+      <th>可核销</th>
+      <th><%= Trade::Payment.human_attribute_name(:created_at) %></th>
+      <th>预核销</th>
+      <th>核销时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% unless @order.all_paid? %>
+    <%= render partial: 'payments', collection: @payments, as: :payment %>
+  <% end %>
+
+  <%= render partial: 'payment_orders', collection: @order.payment_orders, as: :payment_order %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="5"></th>
+      <th class="center aligned">
+        预核销合计：<span id="checked_amount"><%= @order.payment_orders.sum(:check_amount) %></span>
+      </th>
+      <th colspan="2"></th>
+    </tr>
+  </tfoot>
+</table>
