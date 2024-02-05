@@ -27,13 +27,7 @@ module Trade
     end
 
     def payment_types
-      if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
-        @order.wallets.includes(:wallet_template).where(wallet_template_id: @order.wallet_codes).each do |wallet|
-          @order.payments.build(type: 'Trade::WalletPayment', wallet_id: wallet.id)
-        end
-        @order.payments.build(type: 'Trade::WalletPayment', wallet_id: @order.lawful_wallet.id) if @order.lawful_wallet
-      end
-
+      @order.init_wallet_payments
       if @order.can_pay?
         @payment = @order.to_payment
         #@payment.extra_params.merge! 'profit_sharing' => true
