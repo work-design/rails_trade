@@ -35,7 +35,7 @@ module Trade
         :digit,
         :logo,
         :appid,
-        advances_attributes: [:amount, :price]
+        advances_attributes: [:amount, :price, :id]
       )
       p.merge! default_form_params
     end
