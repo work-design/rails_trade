@@ -2,7 +2,7 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_pending, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
@@ -45,6 +45,10 @@ module Trade
           @url = @payment.h5(payer_client_ip: request.remote_ip)
         end
       end
+    end
+
+    def payment_pending
+      @payment = Payment.new(payment_params)
     end
 
     def payment_frozen
@@ -118,6 +122,15 @@ module Trade
         :current_cart_id,
         items_attributes: {},
         payment_orders_attributes: {}
+      )
+      p.merge! default_form_params
+    end
+
+    def payment_params
+      p = params.fetch(:payment, {}).permit(
+        :type,
+        :wallet_id,
+        payment_orders_attributes: [:order_id, :payment_amount, :order_amount, :state]
       )
       p.merge! default_form_params
     end

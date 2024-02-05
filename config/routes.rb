@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           post :package
           get :pay
           get :payment_types
+          put :payment_pending
           get :payment_frozen
           get :payment_type
           get 'cancel' => :edit_cancel
@@ -72,7 +73,6 @@ Rails.application.routes.draw do
           get 'payment_order/:payment_order_id' => :payment_order_new
           post 'payment_order/:payment_order_id' => :payment_order_create
           get 'wxpay/:order_id' => :wxpay
-          post :prepare
         end
       end
     end
