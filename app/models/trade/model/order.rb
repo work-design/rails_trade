@@ -381,12 +381,16 @@ module Trade
         )
       end
       if lawful_wallet
-        payments.build(
-          type: 'Trade::WalletPayment',
-          wallet_id: lawful_wallet.id,
-          payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
-        )
+        init_lawful_wallet_payments
       end
+    end
+
+    def init_lawful_wallet_payments
+      payments.build(
+        type: 'Trade::WalletPayment',
+        wallet_id: lawful_wallet.id,
+        payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
+      )
     end
 
     def default_payment_amount

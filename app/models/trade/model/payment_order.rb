@@ -20,7 +20,7 @@ module Trade
 
       belongs_to :user, class_name: 'Auth::User', optional: true
 
-      belongs_to :order, counter_cache: true
+      belongs_to :order, inverse_of: :payment_orders, counter_cache: true
       belongs_to :payment, counter_cache: true
 
       has_one :refund, ->(o) { where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
