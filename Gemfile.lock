@@ -193,7 +193,7 @@ GEM
     marcel (1.0.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.21.2)
+    minitest (5.22.0)
     monetize (1.13.0)
       money (~> 6.12)
     money (6.16.0)
@@ -206,7 +206,7 @@ GEM
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
-    net-imap (0.4.9.1)
+    net-imap (0.4.10)
       date
       net-protocol
     net-pop (0.1.2)
@@ -216,10 +216,10 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0)
+    nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.16.0-x86_64-linux)
+    nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     pg (1.5.4)
     propshaft (0.8.0)
@@ -292,7 +292,7 @@ GEM
     with_advisory_lock (5.1.0)
       activerecord (>= 6.1)
       zeitwerk (>= 2.6)
-    zeitwerk (2.6.12)
+    zeitwerk (2.6.13)
 
 PLATFORMS
   ruby
@@ -358,19 +358,19 @@ CHECKSUMS
   marcel (1.0.2) sha256=a013b677ef46cbcb49fd5c59b3d35803d2ee04dd75d8bfdc43533fc5a31f7e4e
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   mini_portile2 (2.8.5) sha256=7a37db8ae758086c3c3ac3a59c036704d331e965d5e106635e4a42d6e66089ce
-  minitest (5.21.2) sha256=7685cdb8db964c7f68fcee974f21b62f0b60aaea2a6c898782e27e720ffebac2
+  minitest (5.22.0) sha256=5f36c875f57facb59228473c060ca34a968c57edf2e858bdbc890ca6821c6043
   monetize (1.13.0) sha256=0c1f8ae28aa21bbf1a6d014138d9bb0a5ce756c1a99b8b7f7d409c258b01d3b3
   money (6.16.0) sha256=cf476f5f19188e247ec20f6509cff64dc35d395ee018bad799b1a9ea8bd4754a
   money-rails (1.15.0) sha256=cace7c3af76a0685747f57b96fdb321a4d966294e0a11b51f8e28c3ac08e4903
   mutex_m (0.2.0) sha256=b6ef0c6c842ede846f2ec0ade9e266b1a9dac0bc151682b04835e8ebd54840d5
   net-http (0.4.1) sha256=a96efc5ea18bcb9715e24dda4159d10f67ff0345c8a980d04630028055b2c282
-  net-imap (0.4.9.1) sha256=2f869dc18e3f4a61e5f4c68d6e33e2db5b6d661dfa9151b2b20aa7dfdd342e7d
+  net-imap (0.4.10) sha256=5275758f4da3735e43f670c5e4db19695c6f7c2493ea0c5e14c23008b890c77e
   net-pop (0.1.2) sha256=848b4e982013c15b2f0382792268763b748cce91c9e91e36b0f27ed26420dff3
   net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
   net-smtp (0.4.0.1) sha256=098d28fab9d9bc280a2cfada77692cdca89c83c6789bdbb8d8429f97f1bf5a33
   nio4r (2.7.0) sha256=9586a685eca8246d6406e712a525e705d15bb88f709d78fc3f141e864df97276
-  nokogiri (1.16.0) sha256=341388184e975d091e6e38ce3f3b3388bfb7e4ac3d790efd8e39124844040bd1
-  nokogiri (1.16.0-x86_64-linux) sha256=6f55093bb47e75d412138f4b9462f960d3aad96cb6b43dbe9a3de62c2d31a742
+  nokogiri (1.16.2) sha256=68922ee5cde27497d995c46f2821957bae961947644eed2822d173daf7567f9c
+  nokogiri (1.16.2-x86_64-linux) sha256=5b146240ac6ec6c40fd4367623e74442bca45a542bd3282b1d4d18b07b8e5dfe
   pg (1.5.4) sha256=04f7b247151c639a0b955d8e5a9a41541343f4640aa3c2bdf749a872c339d25d
   propshaft (0.8.0) sha256=cad3fa50f78ef59db4938e61e5edc9b6105838cd890f75b1ca4d7c9b5b662b68
   psych (5.1.2) sha256=337322f58fc2bf24827d2b9bd5ab595f6a72971867d151bb39980060ea40a368
@@ -404,7 +404,7 @@ CHECKSUMS
   websocket-driver (0.7.6) sha256=f69400be7bc197879726ad8e6f5869a61823147372fd8928836a53c2c741d0db
   websocket-extensions (0.1.5) sha256=1c6ba63092cda343eb53fc657110c71c754c56484aad42578495227d717a8241
   with_advisory_lock (5.1.0) sha256=0692cd82013b271c59aa5e1f603b741ab94926dbce098990fbace5dd5412fed7
-  zeitwerk (2.6.12) sha256=561e12975d0332fd3b62cc859aff3bab432e5f320689c8a10cd4674b5c0439be
+  zeitwerk (2.6.13) sha256=2db861b021d020f48b5bf51613f355fcd041bf0a27ad8c748fa88fa974c5c7d4
 
 BUNDLED WITH
    2.5.3
