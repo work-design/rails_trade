@@ -24,9 +24,9 @@
   </div>
 <% else %>
   <div class="weui-panel__bd has-block-centered py-3">
-    <%= form_with theme: nil, scope: 'xx', url: { controller: 'payments', action: 'create' } do |f| %>
+    <%= form_with theme: nil, scope: 'xx', url: { controller: 'payments', action: 'create' }, skip_default_ids: true do |f| %>
       <% @order.payments.each do |payment| %>
-        <%= f.fields '', model: payment do |df| %>
+        <%= f.fields '', model: payment, skip_default_ids: true do |df| %>
           <%= df.hidden_field :wallet_id %>
           <%= df.hidden_field :type %>
           <%= df.fields :payment_orders do |ef| %>
