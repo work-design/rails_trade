@@ -1,10 +1,10 @@
-<%= form_with theme: nil, scope: 'xx', url: { controller: 'payments', action: 'create' }, skip_default_ids: true do |f| %>
+<%= form_with theme: nil, scope: 'batch', url: { action: 'payment_confirm' }, skip_default_ids: true do |f| %>
   <% @order.payments.each do |payment| %>
     <%= f.fields '', model: payment, skip_default_ids: true do |df| %>
       <%= df.hidden_field :wallet_id %>
       <%= df.hidden_field :type %>
       <%= df.fields :payment_orders do |ef| %>
-        <%= ef.hidden_field :order_id %>
+        <%= ef.hidden_field :payment_amount %>
         <%= ef.hidden_field :order_amount %>
         <%= ef.hidden_field :state, value: 'confirmed' %>
       <% end %>

@@ -18,15 +18,9 @@
 </div>
 
 <div class="weui-panel is-box">
-<% if @order.all_paid? %>
-  <div class="weui-panel__bd">
-    <p class="p-4 has-text-centered">订单已完成支付</p>
-  </div>
-<% else %>
   <div class="weui-panel__bd has-block-centered py-3">
-   
+    <%= render 'pending_form' %>
   </div>
-<% end %>
 </div>
 
 <%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>

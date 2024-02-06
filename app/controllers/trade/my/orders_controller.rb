@@ -2,7 +2,7 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :payment_pending, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_pending, :payment_confirm, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
@@ -45,14 +45,22 @@ module Trade
           @url = @payment.h5(payer_client_ip: request.remote_ip)
         end
       end
-      render locals: { from: 'types' }
     end
 
     def payment_pending
-      @payment = Payment.new(payment_params)
-      @order = @payment.payment_orders[0].order
+      @payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(@payment.wallet.wallet_template_id)
-      render locals: { from: 'pending' }
+    end
+
+    def payment_confirm
+      params[:batch].each do |payment_p|
+        payment_p.permit!
+        payment_p[:payment_orders_attributes].each do |_, v|
+          v.merge! order: @order
+        end
+        @order.payments.build(payment_p)
+      end
+      @order.save
     end
 
     def payment_frozen
@@ -131,12 +139,15 @@ module Trade
     end
 
     def payment_params
-      p = params.fetch(:payment, {}).permit(
+      _p = params.fetch(:payment, {}).permit(
         :type,
         :wallet_id,
-        payment_orders_attributes: [:order_id, :payment_amount, :order_amount, :state]
+        payment_orders_attributes: [:payment_amount, :order_amount, :state]
       )
-      p.merge! default_form_params
+      _p[:payment_orders_attributes].each do |_, v|
+        v.merge! order: @order
+      end
+      _p.merge! default_form_params
     end
 
   end
