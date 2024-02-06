@@ -8,6 +8,10 @@ module Trade
       @payments = current_user.payments.page(params[:page])
     end
 
+    def create
+      binding.b
+    end
+
     def next
       if @order.payment_status == 'all_paid'
         render 'paid' and return

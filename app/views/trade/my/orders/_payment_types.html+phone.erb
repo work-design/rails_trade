@@ -23,18 +23,20 @@
     <p class="p-4 has-text-centered">订单已完成支付</p>
   </div>
 <% else %>
-  <div class="weui-panel__bd">
-    <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { controller: 'payments', action: 'create' }, state: 'redirect' do |f| %>
-      <%= f.hidden_field :wallet_id %>
-      <%= f.hidden_field :type %>
-      <%= f.hidden_field :total_amount  %>
-      <%= f.fields :payment_orders do |ef| %>
-        <%= ef.hidden_field :order_id %>
-        <%= ef.hidden_field :state, value: 'confirmed' %>
-        <%= ef.hidden_field :payment_amount %>
+  <div class="weui-panel__bd has-block-centered py-3">
+    <%= form_with theme: nil, scope: 'xx', url: { controller: 'payments', action: 'create' } do |f| %>
+      <% @order.payments.each do |payment| %>
+        <%= f.fields '', model: payment do |df| %>
+          <%= df.hidden_field :wallet_id %>
+          <%= df.hidden_field :type %>
+          <%= df.fields :payment_orders do |ef| %>
+            <%= ef.hidden_field :order_id %>
+            <%= ef.hidden_field :order_amount %>
+            <%= ef.hidden_field :state, value: 'confirmed' %>
+          <% end %>
+        <% end %>
       <% end %>
-      <%= f.check_box 'xx', checked: false, class: 'weui-check', data: { action: 'input#form' } %>
-      <span class="weui-icon-checked"></span>
+      <%= f.submit '确认', class: 'button is-success' %>
     <% end %>
   </div>
 <% end %>
