@@ -20,6 +20,14 @@ module Trade
       self.total_amount = checked_amount if total_amount.zero?
     end
 
+    def desc
+      if wallet.is_a?(LawfulWallet)
+        type_i18n
+      else
+        wallet.wallet_template.name
+      end
+    end
+
     def assign_detail(params)
       self.notified_at = Time.current
       self.total_amount = params[:total_amount]

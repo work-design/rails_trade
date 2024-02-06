@@ -13,7 +13,7 @@
     <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
       <%= f.hidden_field :wallet_id %>
       <%= f.hidden_field :type %>
-      <%= f.fields :payment_orders do |ef| %>
+      <%= f.fields :payment_orders, model: payment_order do |ef| %>
         <%= ef.hidden_field :order_id %>
         <%= ef.hidden_field :payment_amount %>
         <%= ef.hidden_field :order_amount %>

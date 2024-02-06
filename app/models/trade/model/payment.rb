@@ -76,6 +76,10 @@ module Trade
       self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
     end
 
+    def desc
+      type_i18n
+    end
+
     def analyze_payment_method
       if self.buyer_name.present? || self.buyer_identifier.present?
         pm = PaymentMethod.find_or_initialize_by(account_name: self.buyer_name.to_s, account_num: self.buyer_identifier.to_s)
