@@ -31,9 +31,9 @@ module Trade
       before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
       after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
-      after_save :pending_to_order!, if: -> { state_pending? && (saved_changes.keys & ['state', 'order_amount']).present? }
-      after_save :checked_to_order!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'order_amount']).present? }
-      after_save :unchecked_to_order!, if: -> { state_init? && state_before_last_save == 'confirmed' }
+      #after_save :pending_to_order!, if: -> { state_pending? && (saved_changes.keys & ['state', 'order_amount']).present? }
+      #after_save :checked_to_order!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'order_amount']).present? }
+      #after_save :unchecked_to_order!, if: -> { state_init? && state_before_last_save == 'confirmed' }
       after_destroy_commit :unchecked_to_order!
     end
 
@@ -54,7 +54,7 @@ module Trade
       end
 
       payment.total_amount = self.payment_amount
-      update_order_received_amount if state_pending?
+      update_order_received_amount if ['pending', 'confirmed'].include?(state)
     end
 
     def init_user_id
