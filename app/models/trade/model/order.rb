@@ -91,7 +91,7 @@ module Trade
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_was.blank? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
-      before_save :check_state, if: -> { amount.to_d.zero? }
+      before_save :check_state, if: -> { amount.to_d.zero? || (changes.keys & ['received_amount']).present? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       before_create :confirm_ordered!
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }

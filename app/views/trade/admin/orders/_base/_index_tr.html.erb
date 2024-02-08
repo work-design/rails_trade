@@ -12,14 +12,14 @@
         <% end %>
       <% end %>
       <% if ['unpaid'].include?(model.payment_status) %>
-        <%= button_to({ action: 'adjust_edit', id: model.id }, aria: { label: t('.adjust_edit.title') }, class: 'button is-small is-rounded is-light') do %>
+        <%= button_to({ controller: 'orders', action: 'adjust_edit', id: model.id }, aria: { label: t('.adjust_edit.title') }, class: 'button is-small is-rounded is-light') do %>
           <i class="fa-solid fa-pen-clip has-text-primary"></i>
         <% end %>
       <% end %>
-      <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ controller: 'orders', action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil has-text-link"></i>
       <% end %>
-      <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm') } }) do %>
+      <%= button_to({ controller: 'orders', action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.confirm') } }) do %>
         <i class="fa-solid fa-trash has-text-danger"></i>
       <% end %>
     </div>

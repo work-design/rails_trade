@@ -71,7 +71,7 @@ module Trade
     end
 
     def payment_params
-      p = params.fetch(:payment, {}).permit(
+      _p = params.fetch(:payment, {}).permit(
         :wallet_id,
         :payment_uuid,
         :total_amount,
@@ -83,9 +83,12 @@ module Trade
         :buyer_identifier,
         :buyer_bank,
         :proof,
-        payment_orders_attributes: [:order_id, :order_amount, :state]
+        payment_orders_attributes: [:order_amount, :state]
       )
-      p.merge! default_form_params
+      _p[:payment_orders_attributes].each do |_, v|
+        v.merge! order: @order
+      end
+      _p.merge! default_form_params
     end
 
   end

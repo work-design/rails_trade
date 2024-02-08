@@ -81,11 +81,6 @@ module Trade
       order.save
     end
 
-    def checked_to_order!
-      order.user_id = user_id
-      order.check_state!
-    end
-
     def unchecked_to_order!
       return if order.blank?
       order.received_amount -= self.order_amount
