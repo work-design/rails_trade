@@ -25,8 +25,7 @@ module Trade
     end
 
     def create
-      @payment.confirm(params)
-      @payment.save
+      @payment.confirm!(params)
     end
 
     def confirm
