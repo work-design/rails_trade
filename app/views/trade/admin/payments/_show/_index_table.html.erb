@@ -1,0 +1,11 @@
+<table class="table is-striped is-boxed is-fullwidth">
+  <thead>
+    <tr>
+      <%= render 'trade/admin/payment_orders/_base/index_thead' %>
+      <%= render 'index_thead_actions' %>
+    </tr>
+  </thead>
+  <tbody id="tbody">
+    <%= yield %>
+  </tbody>
+</table>
