@@ -381,6 +381,7 @@ module Trade
         payments.build(
           type: 'Trade::WalletPayment',
           wallet_id: wallet.id,
+          pay_state: 'paid',
           payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
         )
       end
@@ -393,6 +394,7 @@ module Trade
       payments.build(
         type: 'Trade::WalletPayment',
         wallet_id: lawful_wallet.id,
+        pay_state: 'paid',
         payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
       )
     end

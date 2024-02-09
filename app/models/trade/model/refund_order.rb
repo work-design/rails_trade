@@ -30,6 +30,7 @@ module Trade
 
     def sync_to_payment_and_order!
       payment.refunded_amount += self.payment_amount
+      payment.pay_state = 'refunded'
 
       order.refunded_amount += self.order_amount
       order.unreceived_amount = order.amount - order.received_amount - order.refunded_amount

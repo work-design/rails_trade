@@ -75,7 +75,7 @@ module Trade
       order.save
     end
 
-    def xx
+    def refund_by_order(order_amount)
 
     end
 
