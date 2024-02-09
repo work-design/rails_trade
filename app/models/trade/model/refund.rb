@@ -24,10 +24,10 @@ module Trade
 
       belongs_to :payment, counter_cache: true
 
-      has_many :order_refunds
-      has_many :orders, through: :order_refunds
+      has_many :refund_orders, dependent: :destroy
+      has_many :orders, through: :refund_orders
 
-      accepts_nested_attributes_for :order_refunds
+      accepts_nested_attributes_for :refund_orders
 
       #validate :valid_total_amount
 

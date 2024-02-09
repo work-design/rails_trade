@@ -79,18 +79,17 @@ module Trade
       order.save
     end
 
-    def refund(to_refund_amount: payment_amount)
+    def refund(_refund_amount = payment_amount)
       if ['init', 'pending'].include? self.state
         return
       end
-
-      self.refund_amount = to_refund_amount
 
       refund = refunds.find_by(state: 'init') || refunds.build
       refund.refund_orders.build(
         order: order,
         refund: refund,
-        refund_amount: refund_amount
+        payment: payment,
+        payment_amount: _refund_amount
       )
       refund.save!
     end
