@@ -1,6 +1,6 @@
 <td>
   <p>
-    <span><%= link_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id }, data: { turbo_frame: 'modal' } %></span>
+    <span><%= button_to model.payment.payment_uuid, { controller: 'payments', action: 'show', id: model.payment_id } %></span>
     <span class="tag is-info"><%= model.type_i18n %></span>
   </p>
   <p>
