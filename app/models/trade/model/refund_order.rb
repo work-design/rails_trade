@@ -18,14 +18,14 @@ module Trade
 
       has_many :refunds, foreign_key: :payment_id, primary_key: :payment_id
 
-      after_initialize :init_amount
+      after_initialize :init_amount, if: :new_record?
       after_save :sync_to_payment_and_order!, if: -> { state_refunding? && (saved_changes.keys & ['state', 'payment_amount', 'order_amount']).present? }
       after_save :revert_to_payment_and_order!, if: -> { state_init? && state_before_last_save == 'refunding' }
       after_destroy_commit :revert_to_payment_and_order!
     end
 
     def init_amount
-      refund.total_amount = payment_amount
+      refund.total_amount = refund.total_amount + payment_amount
     end
 
     def sync_to_payment_and_order!
