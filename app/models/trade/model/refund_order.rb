@@ -25,7 +25,7 @@ module Trade
     end
 
     def init_amount
-      refund.total_amount = refund.total_amount + payment_amount
+      refund.total_amount = refund.total_amount.to_d + payment_amount
     end
 
     def sync_to_payment_and_order!

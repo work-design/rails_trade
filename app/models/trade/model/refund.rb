@@ -59,9 +59,7 @@ module Trade
 
     def sync_refund_to_orders
       refund_orders.each do |refund_order|
-        refund_order.order.refunded_amount += refund_order.refund_amount
-        refund_order.order.received_amount -= refund_order.total_amount
-        refund_order.order.payment_status = 'refunding'
+        refund_order.order.payment_status = 'refunded'
         refund_order.order.save
       end
     end
