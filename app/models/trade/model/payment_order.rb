@@ -89,6 +89,7 @@ module Trade
         order: order,
         refund: refund,
         payment: payment,
+        state: 'refunding',
         payment_amount: _refund_amount,
         order_amount: Rational(order_amount, payment_amount) * _refund_amount
       )

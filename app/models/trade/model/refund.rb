@@ -22,7 +22,7 @@ module Trade
 
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
-      belongs_to :payment, counter_cache: true
+      belongs_to :payment
 
       has_many :refund_orders, dependent: :destroy
       has_many :orders, through: :refund_orders

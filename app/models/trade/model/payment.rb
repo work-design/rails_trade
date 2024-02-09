@@ -50,6 +50,7 @@ module Trade
       has_many :payment_orders, dependent: :destroy
       has_many :orders, through: :payment_orders
       has_many :refunds
+      has_many :refund_orders
 
       accepts_nested_attributes_for :payment_orders
 
