@@ -55,6 +55,7 @@ module Trade
     def payment_confirm
       params[:batch].each do |payment_p|
         payment_p.permit!
+        payment_p.merge! state: 'all_checked'
         payment_p[:payment_orders_attributes].each do |_, v|
           v.merge! order: @order
         end
