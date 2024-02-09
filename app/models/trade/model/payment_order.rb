@@ -79,7 +79,7 @@ module Trade
 
     end
 
-    def refund(_refund_amount = payment_amount)
+    def refund_by_payment(_refund_amount = payment_amount)
       if ['init', 'pending'].include? self.state
         return
       end

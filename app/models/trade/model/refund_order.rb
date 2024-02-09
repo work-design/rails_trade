@@ -39,8 +39,8 @@ module Trade
     end
 
     def update_order_received_amount
-      order.received_amount += self.order_amount
-      order.unreceived_amount = order.amount - order.received_amount
+      order.refund_amount += self.order_amount
+      order.unreceived_amount = order.amount - order.received_amount - order.refund_amount
     end
 
     def unchecked_to_order!
