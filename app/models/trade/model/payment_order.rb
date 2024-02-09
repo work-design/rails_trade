@@ -5,6 +5,7 @@ module Trade
     included do
       attribute :payment_amount, :decimal
       attribute :order_amount, :decimal
+      attribute :refund_amount, :decimal
 
       enum kind: {
         item_amount: 'item_amount',
@@ -15,6 +16,7 @@ module Trade
         init: 'init',
         pending: 'pending',
         confirmed: 'confirmed',
+        refunding: 'refunding',
         refunded: 'refunded'
       }, _default: 'init', _prefix: true
 
@@ -23,7 +25,7 @@ module Trade
       belongs_to :order, inverse_of: :payment_orders, counter_cache: true
       belongs_to :payment, counter_cache: true
 
-      has_one :refund, ->(o) { where(order_id: o.order_id) }, foreign_key: :payment_id, primary_key: :payment_id
+      has_many :refunds, foreign_key: :payment_id, primary_key: :payment_id
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
@@ -82,15 +84,20 @@ module Trade
       order.save
     end
 
-    def refund
+    def refund(to_refund_amount: payment_amount)
       if ['init', 'pending'].include? self.state
         return
       end
 
-      refund = payment.refunds.build(order_id: order_id)
-      refund.total_amount = payment_amount
-      refund.currency = payment.currency
-      refund.save
+      self.refund_amount = to_refund_amount
+
+      refund = refunds.find_by(state: 'init') || refunds.build
+      refund.total_amount += refund_amount
+
+      self.class.transaction do
+        self.save!
+        refund.save!
+      end
     end
 
   end

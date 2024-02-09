@@ -23,17 +23,20 @@ module Trade
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :payment, counter_cache: true
+      has_many :payment_orders, ->{ where(state: 'refunding') }, primary_key: :payment_id, foreign_key: :payment_id
+      has_many :orders, through: :payment_orders
 
       #validate :valid_total_amount
 
       before_validation :init_uuid
       after_save :sync_refund_to_payment, if: -> { completed? && state_before_last_save == 'init' }
-      after_save :sync_refund_to_order, if: -> { completed? && state_before_last_save == 'init' }
+      after_save :sync_refund_to_orders, if: -> { completed? && state_before_last_save == 'init' }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
     end
 
     def init_uuid
       self.refund_uuid ||= UidHelper.nsec_uuid('RD') if new_record?
+      self.currency = payment.currency
     end
 
     def valid_total_amount
@@ -51,11 +54,13 @@ module Trade
       payment.save
     end
 
-    def sync_refund_to_order
-      order.refunded_amount += self.total_amount
-      order.received_amount -= self.total_amount
-      order.payment_status = 'refunding'
-      order.save
+    def sync_refund_to_orders
+      orders.each do |order|
+        order.refunded_amount += self.total_amount
+        order.received_amount -= self.total_amount
+        order.payment_status = 'refunding'
+        order.save
+      end
     end
 
     def order_refund
@@ -70,7 +75,7 @@ module Trade
     end
 
     def can_refund?
-      self.init? && ['all_paid', 'part_paid', 'refunding'].include?(order.payment_status)
+      self.init?
     end
 
   end
