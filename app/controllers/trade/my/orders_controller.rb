@@ -58,6 +58,7 @@ module Trade
         payment_p[:payment_orders_attributes].each do |_, v|
           v.merge! order: @order
         end
+        payment_p.merge! default_form_params
         @order.payments.build(payment_p)
       end
       @order.save
