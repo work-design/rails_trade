@@ -23,7 +23,6 @@ module Trade
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :payment, counter_cache: true
-      belongs_to :order, optional: true
 
       #validate :valid_total_amount
 
