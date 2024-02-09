@@ -4,7 +4,7 @@ module Trade
 
     included do
       attribute :payment_amount, :decimal
-      attribute :refund_amount, :decimal, comment: '对应的订单金额'
+      attribute :order_amount, :decimal, comment: '对应的订单金额'
 
       enum state: {
         init: 'init',

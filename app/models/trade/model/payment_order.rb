@@ -53,10 +53,6 @@ module Trade
       update_order_received_amount if ['pending', 'confirmed'].include?(state)
     end
 
-    def init_user_id
-      self.user_id = order&.user_id || payment&.user_id
-    end
-
     def checked_to_payment!
       payment.checked_amount += self.payment_amount
       payment.save
@@ -89,7 +85,8 @@ module Trade
         order: order,
         refund: refund,
         payment: payment,
-        payment_amount: _refund_amount
+        payment_amount: _refund_amount,
+        order_amount: order_amount
       )
       refund.save!
     end
