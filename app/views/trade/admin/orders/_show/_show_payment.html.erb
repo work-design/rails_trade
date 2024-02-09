@@ -1,10 +1,17 @@
 <tr>
   <td>
-    <span class="tag"><%= model.type_i18n %></span>
-    <span><%= model.payment_uuid %></span>
+    <span class="tag"><%= model.payment.type_i18n %></span>
+    <span><%= model.payment.payment_uuid %></span>
   </td>
   <td colspan="4">
-    <%= model.total_amount.to_money.format.html_safe %>
+  <% if model.payment.is_a?(Trade::WalletPayment) && model.payment.wallet.is_a?(Trade::CustomWallet) %>
+    <span><%= model.payment_amount.to_fs(:rounded, precision: model.payment.wallet.wallet_template.digit) %></span>
+    <span><%= model.payment.wallet.wallet_template.unit %></span>
+    <span>抵扣</span>
+    <span><%= model.order_amount.to_money.format(html_safe: true).html_safe %></span>
+  <% else %>
+    <span><%= model.order_amount.to_money.format.html_safe %></span>
+  <% end %>
   </td>
   <td></td>
 </tr>
