@@ -31,7 +31,7 @@ module Trade
     end
 
     def refund
-      @payment_order.refund
+      @payment_order.refund_by_payment
     end
 
     def confirm
