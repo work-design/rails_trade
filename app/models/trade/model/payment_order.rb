@@ -21,7 +21,7 @@ module Trade
       belongs_to :payment, counter_cache: true
 
       has_many :refunds, primary_key: :payment_id, foreign_key: :payment_id
-      has_many :refund_orders, query_constraints: [:order_id, :payment_id]
+      has_many :refund_orders, primary_key: [:order_id, :payment_id], query_constraints: [:order_id, :payment_id]
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
@@ -75,6 +75,10 @@ module Trade
       order.save
     end
 
+    def xx
+
+    end
+
     def refund(_refund_amount = payment_amount)
       if ['init', 'pending'].include? self.state
         return
@@ -86,7 +90,7 @@ module Trade
         refund: refund,
         payment: payment,
         payment_amount: _refund_amount,
-        order_amount: order_amount
+        order_amount: Rational(order_amount, payment_amount) * _refund_amount
       )
       refund.save!
     end
