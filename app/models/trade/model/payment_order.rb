@@ -84,7 +84,7 @@ module Trade
         return
       end
 
-      refund = refunds.find_by(state: 'init') || refunds.build
+      refund = refunds.find_by(state: 'init') || payment.refunds.build
       refund.refund_orders.build(
         order: order,
         refund: refund,
