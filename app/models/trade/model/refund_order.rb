@@ -28,7 +28,7 @@ module Trade
 
       order.refunded_amount += self.order_amount
       order.unreceived_amount = order.amount - order.received_amount - order.refunded_amount
-      order.state = 'refunding'
+      order.payment_status = 'refunding'
 
       self.class.transaction do
         payment.save!
@@ -41,7 +41,7 @@ module Trade
 
       order.refunded_amount -= self.order_amount
       order.unreceived_amount = order.amount - order.received_amount - order.refunded_amount
-      order.state = 'refunding'
+      order.check_state
 
       self.class.transaction do
         payment.save!
