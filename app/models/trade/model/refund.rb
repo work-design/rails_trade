@@ -23,8 +23,11 @@ module Trade
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :payment, counter_cache: true
-      has_many :payment_orders, ->{ where(state: 'refunding') }, primary_key: :payment_id, foreign_key: :payment_id
-      has_many :orders, through: :payment_orders
+
+      has_many :order_refunds
+      has_many :orders, through: :order_refunds
+
+      accepts_nested_attributes_for :order_refunds
 
       #validate :valid_total_amount
 

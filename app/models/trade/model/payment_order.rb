@@ -5,7 +5,6 @@ module Trade
     included do
       attribute :payment_amount, :decimal
       attribute :order_amount, :decimal
-      attribute :refund_amount, :decimal
 
       enum kind: {
         item_amount: 'item_amount',
@@ -16,21 +15,17 @@ module Trade
         init: 'init',
         pending: 'pending',
         confirmed: 'confirmed',
-        refunding: 'refunding',
-        refunded: 'refunded'
       }, _default: 'init', _prefix: true
-
-      belongs_to :user, class_name: 'Auth::User', optional: true
 
       belongs_to :order, inverse_of: :payment_orders, counter_cache: true
       belongs_to :payment, counter_cache: true
 
-      has_many :refunds, foreign_key: :payment_id, primary_key: :payment_id
+      has_many :refunds, primary_key: :payment_id, foreign_key: :payment_id
+      has_many :refund_orders, query_constraints: [:order_id, :payment_id]
 
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
       after_initialize :init_amount, if: -> { new_record? && payment&.new_record? }
-      before_save :init_user_id, if: -> { user_id.blank? && (changes.keys & ['order_id', 'payment_id']).present? }
       after_update :checked_to_payment!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
       after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
       #after_save :checked_to_order!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'order_amount']).present? }
@@ -92,12 +87,12 @@ module Trade
       self.refund_amount = to_refund_amount
 
       refund = refunds.find_by(state: 'init') || refunds.build
-      refund.total_amount += refund_amount
-
-      self.class.transaction do
-        self.save!
-        refund.save!
-      end
+      refund.refund_orders.build(
+        order: order,
+        refund: refund,
+        refund_amount: refund_amount
+      )
+      refund.save!
     end
 
   end
