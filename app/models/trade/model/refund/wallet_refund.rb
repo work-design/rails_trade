@@ -24,7 +24,7 @@ module Trade
 
     def sync_amount
       wallet.with_lock do
-        wallet.expense_amount -= self.total_amount
+        wallet.refund_amount += self.total_amount
         wallet.save!
       end
     end
