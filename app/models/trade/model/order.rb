@@ -377,6 +377,7 @@ module Trade
       ids = WalletTemplate.where(code: codes).pluck(:id)
 
       wallets.includes(:wallet_template).where.not(id: except_ids).where(wallet_template_id: ids).each do |wallet|
+        break if wallet.amount <= 0
         break unless unreceived_amount > 0
         payments.build(
           type: 'Trade::WalletPayment',
@@ -391,6 +392,7 @@ module Trade
     end
 
     def init_lawful_wallet_payments
+      return if lawful_wallet.amount <= 0
       payments.build(
         type: 'Trade::WalletPayment',
         wallet_id: lawful_wallet.id,
