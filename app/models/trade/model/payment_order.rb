@@ -45,6 +45,11 @@ module Trade
           self.payment_amount = payment.wallet.amount
           self.order_amount = order.partly_wallet_amount(wallet_code, payment_amount)
         end
+      elsif payment.respond_to?(:wallet)
+        if payment.wallet.amount < order_amount
+          self.order_amount = payment.wallet.amount
+          self.payment_amount = self.order_amount
+        end
       else
         self.payment_amount = self.order_amount
       end
