@@ -1,5 +1,5 @@
 <%= form_with theme: nil, scope: 'batch', url: { action: 'payment_confirm' }, skip_default_ids: true do |f| %>
-  <% @order.payments.each do |payment| %>
+  <% @order.payments.select(&->(i){ i.is_a?(Trade::WalletPayment) }).each do |payment| %>
     <%= f.fields '', model: payment, skip_default_ids: true do |df| %>
       <%= df.hidden_field :wallet_id %>
       <%= df.hidden_field :type %>
