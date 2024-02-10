@@ -409,7 +409,7 @@ module Trade
       elsif advance_amount.to_d > 0
         advance_amount
       else
-        amount
+        unreceived_amount
       end
     end
 
