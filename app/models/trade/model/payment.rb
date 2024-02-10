@@ -154,8 +154,8 @@ module Trade
       end
 
       self.class.transaction do
-        self.save!
         payment_orders.each(&->(i){ i.order.save! })
+        self.save!
       end
     end
 

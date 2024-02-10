@@ -53,8 +53,7 @@ module Trade
         @payment.checked_amount = @payment.total_amount
       end
 
-      @payment.confirm(notify_params)
-      if @payment.save
+      if @payment.confirm!(notify_params)
         render json: { code: 'SUCCESS', message: '处理成功' }
       else
         render json: { code: 'FAIL', message: '签名失败' }, status: :bad_request
