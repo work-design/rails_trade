@@ -374,9 +374,9 @@ module Trade
     def init_wallet_payments(*except_ids)
       return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
       codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
-      ids = WalletTemplate.where(code: codes).pluck(:id) - except_ids
+      ids = WalletTemplate.where(code: codes).pluck(:id)
 
-      wallets.includes(:wallet_template).where(wallet_template_id: ids).each do |wallet|
+      wallets.includes(:wallet_template).where.not(id: except_ids).where(wallet_template_id: ids).each do |wallet|
         break unless unreceived_amount > 0
         payments.build(
           type: 'Trade::WalletPayment',
@@ -385,7 +385,7 @@ module Trade
           payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
         )
       end
-      if lawful_wallet && unreceived_amount > 0
+      if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
         init_lawful_wallet_payments
       end
     end
