@@ -28,28 +28,13 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
-      if @order.can_pay?
-        @payment = @order.to_payment
-        #@payment.extra_params.merge! 'profit_sharing' => true
-        @payment.user = current_user
-        if defined? RailsWechat
-          @payment.seller_identifier = current_payee&.mch_id
-          @payment.appid = current_wechat_user&.appid
-        end
-
-        if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
-          @payment.buyer_identifier = current_wechat_user&.uid
-          @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
-          logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
-        elsif defined?(current_payee) && current_payee
-          @url = @payment.h5(payer_client_ip: request.remote_ip)
-        end
-      end
+      set_wxpay
     end
 
     def payment_pending
       payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(payment.wallet.wallet_template_id)
+      set_wxpay
     end
 
     def payment_confirm
@@ -77,19 +62,7 @@ module Trade
       end
 
       if @order.can_pay?
-        @payment = @order.to_payment
-        #@payment.extra_params.merge! 'profit_sharing' => true
-        @payment.user = current_user
-        @payment.seller_identifier = current_payee&.mch_id
-        @payment.appid = current_wechat_user&.appid
-
-        if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
-          @payment.buyer_identifier = current_wechat_user&.uid
-          @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
-          logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
-        elsif current_payee
-          @url = @payment.h5(payer_client_ip: request.remote_ip)
-        end
+        set_wxpay
       end
     end
 
@@ -150,6 +123,24 @@ module Trade
         v.merge! order: @order
       end
       _p.merge! default_form_params
+    end
+
+    def set_wxpay
+      if defined? RailsWechat
+        @payment = @order.to_payment(
+          seller_identifier: current_payee&.mch_id,
+          appid: current_wechat_user&.appid
+        )
+        #@payment.extra_params.merge! 'profit_sharing' => true
+
+        if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
+          @payment.buyer_identifier = current_wechat_user&.uid
+          @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
+          logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
+        elsif defined?(current_payee) && current_payee
+          @url = @payment.h5(payer_client_ip: request.remote_ip)
+        end
+      end
     end
 
   end

@@ -413,7 +413,7 @@ module Trade
       end
     end
 
-    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), order_amount: default_payment_amount)
+    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), order_amount: default_payment_amount, **options)
       payment = payments.find_by(type: type, payment_uuid: payment_uuid)
       return payment if payment
       payments.build(
@@ -421,7 +421,8 @@ module Trade
         payment_uuid: payment_uuid,
         organ_id: organ_id,
         user_id: user_id,
-        payment_orders_attributes: [{ order: self, order_amount: order_amount }]
+        payment_orders_attributes: [{ order: self, order_amount: order_amount }],
+        **options
       )
     end
 
