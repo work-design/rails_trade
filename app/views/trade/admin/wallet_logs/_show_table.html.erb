@@ -1,19 +1,19 @@
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:title) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:title) %></td>
   <td><%= @wallet_log.title %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:amount) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:amount) %></td>
   <td>
     <span><%= @wallet_log.amount.to_fs(:rounded, precision: model.wallet.wallet_template.digit) %></span>
     <span><%= @wallet_log.wallet.wallet_template.unit %></span>
   </td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:source_type) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:source_type) %></td>
   <td><%= @wallet_log.source_type %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:source_id) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:source_id) %></td>
   <td><%= @wallet_log.source_id %></td>
 </tr>

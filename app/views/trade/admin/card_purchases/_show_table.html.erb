@@ -1,20 +1,20 @@
 <tr>
-  <td class="has-text-right"><%= Trade::CardPurchase.human_attribute_name(:price) %></td>
+  <td><%= Trade::CardPurchase.human_attribute_name(:price) %></td>
   <td><%= @card_purchase.price %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::CardPurchase.human_attribute_name(:years) %></td>
+  <td><%= Trade::CardPurchase.human_attribute_name(:years) %></td>
   <td><%= @card_purchase.years %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::CardPurchase.human_attribute_name(:months) %></td>
+  <td><%= Trade::CardPurchase.human_attribute_name(:months) %></td>
   <td><%= @card_purchase.months %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::CardPurchase.human_attribute_name(:days) %></td>
+  <td><%= Trade::CardPurchase.human_attribute_name(:days) %></td>
   <td><%= @card_purchase.days %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::CardPurchase.human_attribute_name(:created_at) %></td>
+  <td><%= Trade::CardPurchase.human_attribute_name(:created_at) %></td>
   <td><time data-controller="time"><%= @card_purchase.created_at.to_fs(:iso8601) %></time></td>
 </tr>

@@ -1,17 +1,17 @@
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:good_type) %></td>
+  <td><%= Trade::Item.human_attribute_name(:good_type) %></td>
   <td><%= @item.good_type_i18n %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:good_id) %></td>
+  <td><%= Trade::Item.human_attribute_name(:good_id) %></td>
   <td><%= @item.good_name %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:status) %></td>
+  <td><%= Trade::Item.human_attribute_name(:status) %></td>
   <td><%= @item.status_i18n %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:single_price) %></td>
+  <td><%= Trade::Item.human_attribute_name(:single_price) %></td>
   <td>
     <span><%= @item.single_price.to_money.format.html_safe %></span>
     <% if @item.vip_code.present? %>
@@ -20,46 +20,46 @@
   </td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:number) %></td>
+  <td><%= Trade::Item.human_attribute_name(:number) %></td>
   <td><%= @item.number %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:original_amount) %></td>
+  <td><%= Trade::Item.human_attribute_name(:original_amount) %></td>
   <td><%= @item.original_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:additional_amount) %></td>
+  <td><%= Trade::Item.human_attribute_name(:additional_amount) %></td>
   <td><%= @item.additional_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:reduced_amount) %></td>
+  <td><%= Trade::Item.human_attribute_name(:reduced_amount) %></td>
   <td><%= @item.reduced_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:amount) %></td>
+  <td><%= Trade::Item.human_attribute_name(:amount) %></td>
   <td><%= @item.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:wallet_amount) %></td>
+  <td><%= Trade::Item.human_attribute_name(:wallet_amount) %></td>
   <td><%= simple_format @item.wallet_amount %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:produce_on) %></td>
+  <td><%= Trade::Item.human_attribute_name(:produce_on) %></td>
   <td><%= @item.produce_on %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:expire_at) %></td>
+  <td><%= Trade::Item.human_attribute_name(:expire_at) %></td>
   <td><time data-controller="time"><%= @item.expire_at&.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:produce_on) %></td>
+  <td><%= Trade::Item.human_attribute_name(:produce_on) %></td>
   <td><%= @item.produce_on %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:note) %></td>
+  <td><%= Trade::Item.human_attribute_name(:note) %></td>
   <td><%= @item.note %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Item.human_attribute_name(:extra) %></td>
+  <td><%= Trade::Item.human_attribute_name(:extra) %></td>
   <td><%= simple_format @item.extra %></td>
 </tr>

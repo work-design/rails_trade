@@ -1,20 +1,20 @@
 <tr>
-  <td class="has-text-right"><%= Trade::Refund.human_attribute_name(:refund_uuid) %></td>
+  <td><%= Trade::Refund.human_attribute_name(:refund_uuid) %></td>
   <td><%= @refund.refund_uuid %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Refund.human_attribute_name(:state) %></td>
+  <td><%= Trade::Refund.human_attribute_name(:state) %></td>
   <td><%= @refund.state_i18n %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Refund.human_attribute_name(:total_amount) %></td>
+  <td><%= Trade::Refund.human_attribute_name(:total_amount) %></td>
   <td><%= @refund.total_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Refund.human_attribute_name(:refund_uuid) %></td>
+  <td><%= Trade::Refund.human_attribute_name(:refund_uuid) %></td>
   <td><%= @refund.refund_uuid %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::Refund.human_attribute_name(:comment) %></td>
+  <td><%= Trade::Refund.human_attribute_name(:comment) %></td>
   <td><%= @refund.comment %></td>
 </tr>

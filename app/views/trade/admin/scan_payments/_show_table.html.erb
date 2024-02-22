@@ -1,24 +1,24 @@
 <tr>
-  <td class="has-text-right"><%= Trade::ScanPayment.human_attribute_name(:total_amount) %></td>
+  <td><%= Trade::ScanPayment.human_attribute_name(:total_amount) %></td>
   <td><%= @scan_payment.total_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::ScanPayment.human_attribute_name(:income_amount) %></td>
+  <td><%= Trade::ScanPayment.human_attribute_name(:income_amount) %></td>
   <td><%= @scan_payment.income_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::ScanPayment.human_attribute_name(:fee_amount) %></td>
+  <td><%= Trade::ScanPayment.human_attribute_name(:fee_amount) %></td>
   <td><%= @scan_payment.fee_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::ScanPayment.human_attribute_name(:refunded_amount) %></td>
+  <td><%= Trade::ScanPayment.human_attribute_name(:refunded_amount) %></td>
   <td><%= @scan_payment.refunded_amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::ScanPayment.human_attribute_name(:notified_at) %></td>
+  <td><%= Trade::ScanPayment.human_attribute_name(:notified_at) %></td>
   <td><time data-controller="time" data-format="human"><%= @scan_payment.notified_at.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::ScanPayment.human_attribute_name(:buyer_identifier) %></td>
+  <td><%= Trade::ScanPayment.human_attribute_name(:buyer_identifier) %></td>
   <td><%= @scan_payment.buyer_identifier %></td>
 </tr>

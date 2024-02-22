@@ -1,16 +1,16 @@
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:title) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:title) %></td>
   <td><%= @wallet_log.title %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:amount) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:amount) %></td>
   <td><%= @wallet_log.amount.to_money.format.html_safe %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:source_type) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:source_type) %></td>
   <td><%= @wallet_log.source_type_i18n %></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::WalletLog.human_attribute_name(:source_id) %></td>
+  <td><%= Trade::WalletLog.human_attribute_name(:source_id) %></td>
   <td><%= @wallet_log.source_id %></td>
 </tr>

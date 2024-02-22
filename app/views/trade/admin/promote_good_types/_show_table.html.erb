@@ -1,12 +1,12 @@
 <tr>
-  <td class="has-text-right"><%= Trade::PromoteGood.human_attribute_name(:effect_at) %></td>
+  <td><%= Trade::PromoteGood.human_attribute_name(:effect_at) %></td>
   <td><time data-controller="time"><%= @promote_good.effect_at.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::PromoteGood.human_attribute_name(:expire_at) %></td>
+  <td><%= Trade::PromoteGood.human_attribute_name(:expire_at) %></td>
   <td><time data-controller="time"><%= @promote_good.expire_at.to_fs(:iso8601) %></time></td>
 </tr>
 <tr>
-  <td class="has-text-right"><%= Trade::PromoteGood.human_attribute_name(:good_type) %></td>
+  <td><%= Trade::PromoteGood.human_attribute_name(:good_type) %></td>
   <td><%= @promote_good.good_type %></td>
 </tr>
