@@ -2,5 +2,5 @@
 <%= render 'nav_bar' %>
 
 <div class="weui-panel is-flex is-flex-direction-column">
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
+  <%= render partial: 'index_item', layout: 'index_item_actions', collection: @items, as: :model %>
 </div>

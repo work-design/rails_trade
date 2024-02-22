@@ -1,6 +1,6 @@
 <div class="weui-media-box weui-media-box_appmsg">
   <%= link_to({ action: 'show', id: model.id }, state: 'enter', data: { controller: 'empty' }, class: 'weui-media-box__hd as-logo') do %>
-    <%= image_tag model.good.logo, class: 'weui-media-box__thumb' if model.good.logo.attached? %>
+    <%= image_tag model.good.logo, class: 'weui-media-box__thumb' if model.good && model.good.logo.attached? %>
   <% end %>
   <div class="weui-media-box__bd as-body">
     <%= yield %>

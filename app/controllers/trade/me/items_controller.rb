@@ -3,7 +3,7 @@ module Trade
     include Controller::Me
 
     def index
-      @items = current_member.items.order(id: :desc).page(params[:page])
+      @items = current_member.items.includes(:good).order(id: :desc).page(params[:page])
     end
 
     private
