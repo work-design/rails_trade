@@ -1,11 +1,11 @@
-<div class="weui-media-box weui-media-box_appmsg">
+<div class="media">
   <%= link_to({ action: 'show', id: model.id }, state: 'enter', data: { controller: 'empty' }, class: 'weui-media-box__hd as-logo') do %>
     <%= image_tag model.good.logo, class: 'weui-media-box__thumb' if model.good && model.good.logo.attached? %>
   <% end %>
-  <div class="weui-media-box__bd as-body">
+  <div class="media-left">
     <%= yield %>
   </div>
-  <div class="weui-media-box__ft">
+  <div class="media-right as-x">
     <%= button_to({ action: 'actions', id: model.id }, state: 'enter', class: 'button is-borderless') do %>
       <i class="fa-solid fa-lg fa-ellipsis-h"></i>
     <% end %>
