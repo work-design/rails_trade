@@ -1,8 +1,8 @@
-<div class="media box">
-  <div class="media-left">
+<div class="media">
+  <div class="media-content">
     <%= yield %>
   </div>
-  <div class="media-right">
+  <div class="media-right as-x">
     <%= button_to({ action: 'actions', id: model.id }, class: 'button is-borderless') do %>
       <i class="fa-solid fa-lg fa-ellipsis-h"></i>
     <% end %>
