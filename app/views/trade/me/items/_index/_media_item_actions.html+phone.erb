@@ -1,0 +1,20 @@
+<div class="media">
+  <div class="media-left as-logo" data-controller="empty">
+    <%= link_to(model.good, text: true, data: { empty_target: 'content' }) do %>
+      <%= image_tag model.good.logo, class: 'weui-media-box__thumb' if model.good && model.good.logo&.attached? %>
+    <% end %>
+  </div>
+  <div class="media-content">
+    <%= yield %>
+  </div>
+  <div class="media-right as-x">
+    <%= link_to({ controller: 'bench/my/facilitatings', item_id: model.id }, class: 'button is-small is-primary') do %>
+      <i></i>
+      <span><%= t('bench.my.facilitatings.index.title') %></span>
+    <% end if model.good_type == 'Bench::Facilitate' && model.respond_to?(:facilitatings) %>
+    <%= link_to({ controller: 'packageds', item_id: model.id }, class: 'button is-small is-default') do %>
+      <i></i>
+      <span><%= t('trade.my.packageds.index.title') %></span>
+    <% end if model.aim_use? && ['Ship::BoxHost'].include?(model.good_type) %>
+  </div>
+</div>
