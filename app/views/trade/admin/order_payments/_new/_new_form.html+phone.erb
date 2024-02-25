@@ -1,6 +1,10 @@
 <%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'create' } do |f| %>
-  <%= f.hidden_field :type, value: 'Trade::HandPayment' %>
-  <%= f.number_field :total_amount, step: Trade::Payment.total_amount_step, required: true %>
+  <%= f.hidden_field :type %>
+  <%= f.fields :payment_orders do |ef| %>
+    <%= ef.number_field :order_amount %>
+    <%= ef.hidden_field :state %>
+    <%= ef.hidden_field :order_id %>
+  <% end %>
   <%= f.text_area :comment %>
   <%= f.file_field :proof %>
   <%= f.submit %>
