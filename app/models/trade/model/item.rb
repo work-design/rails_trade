@@ -137,8 +137,12 @@ module Trade
         { contact_id: contact_id }
       elsif client_id
         { client_id: client_id }
-      else
+      elsif member_organ_id
+        { member_organ_id: member_organ_id }
+      elsif user_id
         { user_id: user_id }
+      else
+        { user_id: nil, member_id: nil, member_organ_id: nil, contact_id: nil, client_id: nil }
       end
     end
 
