@@ -24,7 +24,7 @@
         </span>
       </div>
     <% end %>
-    <div class="buttons are-small is-flex-end has-border-top py-2">
+    <div class="buttons are-small flex-end has-border-top py-2">
       <%= button_to({ action: 'cancel', id: model.id }, method: :patch, class: 'button is-outlined is-default', form: { class: '' }) do %>
         <span>取消订单</span>
       <% end if model.can_cancel? %>

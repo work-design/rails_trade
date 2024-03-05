@@ -20,7 +20,7 @@
       <span class="weui-form-preview__value" data-empty-target="text"><%= @order.overall_reduced_amount.to_money.format.html_safe if @order.overall_reduced_amount.to_d > 0 %></span>
     </div>
   </div>
-  <div class="weui-form-preview__ft is-justify-content-flex-end">
+  <div class="weui-form-preview__ft justify-content-flex-end">
     <div class="px-4">
       <span><%= Trade::Order.human_attribute_name(:amount) %></span>
       <span>:</span>

@@ -4,6 +4,6 @@
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @refund.payment.refunds, as: :model %>
 <% end %>
 
-<div class="is-flex-grow-1 mt-4" id="form_wrapper">
+<div class="flex-grow-1 mt-4" id="form_wrapper">
   <%= render partial: 'new_form', locals: { model: @refund } if @refund.payment.income_amount > 0 %>
 </div>
