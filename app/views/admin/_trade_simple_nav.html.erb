@@ -9,6 +9,7 @@
     <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
     <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
     <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['promotes', 'promote_charges', 'promote_good_types', 'promote_good_users'], active: 'is-active') %>
+    <%= link_to t('trade.admin.card_templates.index.title'), { controller: 'trade/admin/card_templates' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['card_templates', 'cards'], active: 'is-active') %>
     <%= link_to t('trade.admin.wallet_templates.index.title'), { controller: 'trade/admin/wallet_templates' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['wallet_templates', 'custom_wallets'], active: 'is-active') %>
   </div>
 </div>
