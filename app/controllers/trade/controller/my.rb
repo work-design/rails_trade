@@ -18,8 +18,10 @@ module Trade
     end
 
     def set_card_templates
+      open_template_ids = current_user.cards.default_where(default_params).effective.pluck(:card_template_id).uniq
       min_grade = Trade::CardTemplate.default_where(default_params).minimum(:grade)
-      @card_templates = Trade::CardTemplate.default_where(default_params).where(grade: min_grade).limit(3)
+      @open_card_templates = Trade::CardTemplate.where(id: open_template_ids)
+      @card_templates = Trade::CardTemplate.default_where(default_params).where.not(id: open_template_ids).where(grade: min_grade).limit(3)
     end
 
     def set_wallet_template
