@@ -1,4 +1,4 @@
-<div class="weui-navbar">
+<div class="tabs mb-2">
 <% @card_templates.each do |card_template| %>
   <div class="<%= active_helper(active: 'weui-navbar__item weui-navbar__item_on', item: 'weui-navbar__item') %>"><%= card_template.name %></div>
 <% end %>
