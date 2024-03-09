@@ -42,7 +42,7 @@ module Trade
 
     def expired?(now = Time.current)
       return false if effect_at.present? && expire_at.blank?
-      return true if self.expire_at.blank? || effect_at.blank?
+      return true if effect_at.blank?
       self.expire_at < now && now > effect_at
     end
 
