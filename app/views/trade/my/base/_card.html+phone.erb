@@ -27,8 +27,12 @@
   <div class="weui-panel__hd has-block-space-between">
     <span>续费</span>
     <div class="has-text-weight-normal">
-      <span>有效期至</span>
-      <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at&.to_fs(:iso8601) %></time>
+      <% if model.expire_at %>
+        <span>有效期至</span>
+        <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at.to_fs(:iso8601) %></time>
+      <% else %>
+        <span>长期有效</span>
+      <% end %>
       <%= link_to t('trade.my.card_purchases.index.title'), { controller: 'card_purchases', card_id: model.id } %>
     </div>
   </div>
