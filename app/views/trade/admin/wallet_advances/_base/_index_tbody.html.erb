@@ -9,12 +9,12 @@
 <td>
 <% if model.item %>
   <p><%= model.advance.name %></p>
-  <p class="has-text-grey is-size-7"><%= model.item.uuid %></p>
+  <p class="has-text-grey size-7"><%= model.item.uuid %></p>
 <% end %>
 </td>
 <td><%= model.state_i18n %></td>
 <td><%= model.note %></td>
 <td>
   <p><%= model.operator&.name %></p>
-  <p class="has-text-grey is-size-7"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p class="has-text-grey size-7"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>

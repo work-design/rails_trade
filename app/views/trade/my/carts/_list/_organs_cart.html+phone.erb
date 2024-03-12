@@ -1,9 +1,9 @@
 <label class="weui-cell weui-cell_active weui-check__label" for="member_id_<%= model.id %>">
   <span class="weui-cell__bd">
-    <span class="is-block is-size-7"><%= model.name %></span>
+    <span class="is-block size-7"><%= model.name %></span>
     <span class="has-block-left mt-1">
       <%= image_tag model.organ.logo.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if model.organ.logo.attached? %>
-      <span class="is-size-7 has-text-grey"><%= model.organ.name %></span>
+      <span class="size-7 has-text-grey"><%= model.organ.name %></span>
     </span>
   </span>
   <span class="weui-cell__ft has-inline-centered" data-controller="input">

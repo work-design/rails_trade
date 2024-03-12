@@ -1,6 +1,6 @@
 <%= render 'top_bar' %>
 <%= render 'nav_bar' %>
 
-<div class="weui-panel is-flex flex-direction-column">
+<div class="weui-panel flex flex-direction-column">
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
 </div>

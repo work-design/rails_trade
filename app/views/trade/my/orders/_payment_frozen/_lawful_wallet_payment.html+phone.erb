@@ -1,19 +1,19 @@
 <label class="weui-cell weui-cell_active">
-  <span class="weui-cell__bd is-flex align-items-center">
+  <span class="weui-cell__bd flex align-items-center">
     <span class="is-several">
       <span>钱包</span>
     </span>
-    <span class="has-text-grey is-size-7 pl-2">
+    <span class="has-text-grey size-7 pl-2">
       <span>余</span>
       <span><%= @order.lawful_wallet.amount.to_money.format.html_safe %></span>
     </span>
-    <span class="has-text-grey is-size-7 pl-2">
+    <span class="has-text-grey size-7 pl-2">
       <span>已冻结</span>
       <span><%= @order.lawful_wallet.frozen_amount.to_money.format.html_safe %></span>
     </span>
   </span>
-  <span class="weui-cell__ft is-flex">
-    <span class="is-size-7">
+  <span class="weui-cell__ft flex">
+    <span class="size-7">
       <span><%= @order.amount.to_money.format(html_safe: true).html_safe %></span>
     </span>
       <%= form_with theme: nil, model: @order.lawful_wallet, url: { controller: 'lawful_wallets', action: 'update' }, state: 'redirect' do |f| %>

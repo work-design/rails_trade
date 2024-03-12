@@ -1,5 +1,5 @@
 <div data-controller="empty" class="weui-panel is-box is-borderless">
-  <div class="weui-panel__hd is-flex justify-content-space-between">
+  <div class="weui-panel__hd flex justify-content-space-between">
     <div>
       <i class="fa-solid fa-fw fa-cash-register has-text-primary"></i>
       <span><%= t('trade.admin.title') %></span>
@@ -11,25 +11,25 @@
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-list"></i>
         </div>
-        <div class="has-text-grey is-size-7 mt-1"><%= t('trade.admin.orders.index.title') %></div>
+        <div class="has-text-grey size-7 mt-1"><%= t('trade.admin.orders.index.title') %></div>
       <% end %>
       <%= link_to({ controller: 'trade/admin/items' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-list-ol"></i>
         </div>
-        <div class="has-text-grey is-size-7 mt-1"><%= t('trade.admin.items.index.title') %></div>
+        <div class="has-text-grey size-7 mt-1"><%= t('trade.admin.items.index.title') %></div>
       <% end %>
       <%= link_to({ controller: 'trade/admin/payments' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-receipt"></i>
         </div>
-        <div class="has-text-grey is-size-7 mt-1"><%= t('trade.admin.payments.index.title') %></div>
+        <div class="has-text-grey size-7 mt-1"><%= t('trade.admin.payments.index.title') %></div>
       <% end %>
       <%= link_to({ controller: 'trade/admin/scan_payments', action: 'new' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
         <div class="has-text-primary">
           <i class="fa-solid fa-fw fa-xl fa-cash-register"></i>
         </div>
-        <div class="has-text-grey is-size-7 mt-1"><%= t('trade.admin.scan_payments.new.title') %></div>
+        <div class="has-text-grey size-7 mt-1"><%= t('trade.admin.scan_payments.new.title') %></div>
       <% end %>
     </div>
   </div>

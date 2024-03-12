@@ -7,7 +7,7 @@
   <span class="tag"><%= model.type_i18n %></span>
 </p>
 <p><%= model.buyer_identifier %></p>
-<p class="is-size-7">
+<p class="size-7">
   <time data-controller="time">
   <% if model.notified_at.present? %>
     <%= model.notified_at.to_fs(:iso8601) %>

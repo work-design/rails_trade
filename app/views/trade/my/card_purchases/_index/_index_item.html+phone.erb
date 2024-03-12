@@ -2,12 +2,12 @@
   <span>本次有效期至</span>
   <time data-controller="time" data-format="human" class="has-text-success"><%= model.expire_at.to_fs(:iso8601) %></time>
 </p>
-<p class="is-flex">
+<p class="flex">
   <span class="tags has-addons">
     <span class="tag has-text-success pr-1 mb-0"><i class="fa-solid fa-plus fa-sm"></i></span>
     <span class="tag pl-0 mb-0"><%= model.duration.inspect %></span>
   </span>
 </p>
-<p class="is-size-7 has-text-grey">
+<p class="size-7 has-text-grey">
   <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
 </p>

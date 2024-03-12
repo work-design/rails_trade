@@ -5,7 +5,7 @@
       <%= link_to({ action: 'show', id: card_template.id }) do %>
         <div class="is-several justify-content-center">
           <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
-          <span class="ml-1 is-size-7 has-text-grey"><%= card_template.name %></span>
+          <span class="ml-1 size-7 has-text-grey"><%= card_template.name %></span>
         </div>
       <% end %>
     </li>

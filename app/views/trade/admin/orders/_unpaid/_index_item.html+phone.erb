@@ -12,7 +12,7 @@
 </p>
 <p>
   <span><%= link_to model.user_name, { user_id: model.user_id } %></span>
-  <time data-controller="time" class="is-size-7"><%= model.created_at.to_fs(:iso8601) %></time>
+  <time data-controller="time" class="size-7"><%= model.created_at.to_fs(:iso8601) %></time>
 </p>
 <p>
 <% if model&.member %>

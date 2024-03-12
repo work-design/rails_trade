@@ -28,14 +28,14 @@
 <div class="weui-panel is-box">
   <div class="weui-panel__hd">充值</div>
   <div class="weui-panel__bd">
-    <div class="columns m-4 is-flex is-multiline is-mobile">
+    <div class="columns m-4 flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: @lawful_wallet.advances.without_card, as: :advance %>
     </div>
     <% @lawful_wallet.advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mx-4">
       <strong><%= card_template.name %>专享</strong>
     </div>
-    <div class="columns m-4 is-flex is-multiline is-mobile">
+    <div class="columns m-4 flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: advances, as: :advance %>
     </div>
     <% end %>

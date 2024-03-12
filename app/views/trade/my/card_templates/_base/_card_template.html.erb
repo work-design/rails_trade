@@ -7,14 +7,14 @@
           <span>（未开通）</span>
         </p>
       </div>
-      <div class="card-content is-cover is-flex flex-direction-column-reverse" style="color: <%= model.text_color %>">
+      <div class="card-content is-cover flex flex-direction-column-reverse" style="color: <%= model.text_color %>">
         <div class="description"></div>
       </div>
       <div class="card-footer"></div>
     </div>
   </div>
   <div class="weui-panel__ft" data-controller="empty">
-    <div class="columns m-4 is-flex is-multiline is-mobile" data-empty-target="content">
+    <div class="columns m-4 flex is-multiline is-mobile" data-empty-target="content">
       <%= render partial: 'purchase', collection: model.purchases %>
     </div>
   </div>
