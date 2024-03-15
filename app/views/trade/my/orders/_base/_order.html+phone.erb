@@ -1,17 +1,14 @@
-<div class="weui-panel is-box">
+<div class="card">
   <%= render partial: 'order_overview', locals: { model: model } %>
-  <div class="weui-panel__bd">
+  <div class="card-content">
   <% if model.from_address.present? %>
     <%= render partial: 'ship_info', locals: { model: model } %>
   <% else %>
     <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
   <% end %>
   </div>
-  <div class="weui-panel__ft">
-    <%= link_to({ action: 'show', id: model.id }, class: 'weui-cell weui-cell_link') do %>
-      <div class="weui-cell__bd">
-
-      </div>
+  <div class="card-footer">
+    <%= link_to({ action: 'show', id: model.id }, class: 'button') do %>
       <div class="weui-cell__ft">
         <span class="size-7">
           <span class="has-text-grey">总价：</span>
