@@ -1,4 +1,4 @@
-<div class="panel mx-3 mt-3">
+<div class="panel is-white mx-3 mt-3">
   <div class="panel-heading">
     <% if model.aim != 'use' %>
       <span class="tag is-danger"><%= model.aim_i18n %></span>
@@ -8,7 +8,7 @@
       <span class="tag is-danger"><%= model.payment_strategy.name %></span>
     <% end %>
   </div>
-  <div class="panel-block">
+  <div class="panel-block flex-direction-column">
     <%= render partial: 'item', collection: model.items, as: :item %>
   </div>
 </div>
