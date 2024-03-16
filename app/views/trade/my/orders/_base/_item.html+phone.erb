@@ -1,10 +1,10 @@
-<div class="weui-media-box weui-media-box_appmsg">
-  <div class="weui-media-box__hd as-logo" data-controller="empty">
+<div class="media">
+  <div class="media-left as-logo" data-controller="empty">
     <%= link_to(item.good, text: true, state: 'enter', data: { empty_target: 'content' }) do %>
-      <%= image_tag item.good.logo, class: 'weui-media-box__thumb' if item.good && item.good.logo&.attached? %>
+      <%= image_tag item.good.logo, class: 'image is-64x64' if item.good && item.good.logo&.attached? %>
     <% end %>
   </div>
-  <div class="weui-media-box__bd as-body" style="background-color: initial">
+  <div class="media-content as-body" style="background-color: initial">
     <%= link_to(item.good, text: true, state: 'enter', class: 'weui-media-box__title') do %>
       <span><%= item.good_name %></span>
       <% if ['rent', 'invest'].include?(item.aim) && item.aim != item.order.aim %>
@@ -30,7 +30,7 @@
       <% end %>
     </div>
   </div>
-  <div class="weui-media-box__ft has-column-centered px-3">
+  <div class="media-right has-column-centered px-3">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
     <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, state: 'enter', class: 'button is-small is-primary') do %>
       <i></i>

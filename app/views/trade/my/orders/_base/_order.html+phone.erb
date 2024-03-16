@@ -1,13 +1,13 @@
-<div class="card">
+<div class="panel is-light">
   <%= render partial: 'order_overview', locals: { model: model } %>
-  <div class="card-content">
+  <div class="panel-block flex-direction-column">
   <% if model.from_address.present? %>
     <%= render partial: 'ship_info', locals: { model: model } %>
   <% else %>
     <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
   <% end %>
   </div>
-  <div class="card-footer">
+  <div class="panel-block">
     <%= link_to({ action: 'show', id: model.id }, class: 'button') do %>
       <div class="weui-cell__ft">
         <span class="size-7">

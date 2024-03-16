@@ -4,6 +4,8 @@
 
 <%= render partial: 'no_order' if @orders.blank? %>
 
-<%= render partial: 'order', collection: @orders, as: :model %>
+<div class="pt-3 px-3">
+  <%= render partial: 'order', collection: @orders, as: :model %>
+</div>
 
 <%= paginate @orders %>
