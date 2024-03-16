@@ -1,4 +1,4 @@
-<div class="panel is-light">
+<div class="panel is-white">
   <%= render partial: 'order_overview', locals: { model: model } %>
   <div class="panel-block flex-direction-column">
   <% if model.from_address.present? %>
@@ -18,8 +18,8 @@
       <span>份</span>
     </span>
   <% end %>
-  <div class="panel-block justify-content-space-between">
-    <div class="buttons are-small flex-end has-border-top">
+  <div class="panel-block justify-content-end">
+    <div class="buttons are-small">
       <%= button_to({ action: 'cancel', id: model.id }, method: :patch, class: 'button is-outlined is-dark', form: { class: '' }) do %>
         <span>取消订单</span>
       <% end if model.can_cancel? %>
