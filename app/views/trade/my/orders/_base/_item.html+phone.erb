@@ -30,7 +30,7 @@
       <% end %>
     </div>
   </div>
-  <div class="media-right has-column-centered px-3">
+  <div class="media-right as-x">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
     <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, state: 'enter', class: 'button is-small is-primary') do %>
       <i></i>
