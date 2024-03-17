@@ -1,15 +1,13 @@
-<div class="weui-panel is-borderless">
-  <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="weui-panel__hd as-bar">
-    <% if @payment.state_all_checked? %>
-      <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
-        <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-      <% end %>
-    <% else %>
-      <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
-        <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-      <% end %>
+<div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="box as-bar">
+  <% if @payment.state_all_checked? %>
+    <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end %>
-    <div class="weui-title"><%= @payment.payment_uuid %></div>
-    <i style="width: 3rem"></i>
-  </div>
+  <% else %>
+    <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% end %>
+  <div class="weui-title"><%= @payment.payment_uuid %></div>
+  <i class="px-4"></i>
 </div>
