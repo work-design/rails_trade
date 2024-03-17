@@ -1,5 +1,5 @@
-<div class="weui-panel is-box">
-  <div class="weui-panel__hd">
+<div class="box is-padding-less mx-3">
+  <div class="box-body">
     <% if model.aim != 'use' %>
       <span class="tag is-danger"><%= model.aim_i18n %></span>
     <% end %>
@@ -8,7 +8,7 @@
       <span class="tag is-danger"><%= model.payment_strategy.name %></span>
     <% end %>
   </div>
-  <div class="weui-panel__bd">
+  <div class="box-body">
     <%= render partial: 'item', collection: model.items, as: :item %>
   </div>
 </div>
