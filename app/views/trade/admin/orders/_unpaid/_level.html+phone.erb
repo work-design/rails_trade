@@ -1,14 +1,16 @@
-<nav class="columns is-multiline flex mb-0">
-  <div class="column is-one-third has-text-centered">
-    <div>
-      <p class="heading">未付总额</p>
-      <p class="title"><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></p>
+<nav class="flex-grid has-3-cols">
+  <div class="grid">
+    <div class="cell has-text-centered">
+      <div>
+        <p class="heading">未付总额</p>
+        <p class="title"><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></p>
+      </div>
     </div>
-  </div>
-  <div class="column is-one-third has-text-centered">
-    <div>
-      <p class="heading">订单数</p>
-      <p class="title"><%= @orders.total_count %></p>
+    <div class="cell has-text-centered">
+      <div>
+        <p class="heading">订单数</p>
+        <p class="title"><%= @orders.total_count %></p>
+      </div>
     </div>
   </div>
 </nav>

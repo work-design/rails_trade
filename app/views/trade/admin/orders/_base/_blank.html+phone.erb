@@ -4,17 +4,17 @@
 <%= render 'from_address' %>
 <%= render 'address' %>
 
-<div class="weui-panel">
+<div class="box">
   <%= render partial: 'blank_item', collection: @order.items, as: :item, locals: { form: form_object(@order, theme: 'weui') } %>
 </div>
 
 <% if @order.items.size > 1 %>
-<div class="weui-panel">
+<div class="box">
   <%= render partial: 'collectable', locals: { form: form_object(@order, theme: 'weui') } %>
 </div>
 <% end %>
 
-<div class="weui-panel">
+<div class="box">
   <%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'weui') } %>
 </div>
 
