@@ -4,19 +4,13 @@
 <%= render 'from_address' %>
 <%= render 'address' %>
 
-<div class="box">
-  <%= render partial: 'blank_item', collection: @order.items, as: :item, locals: { form: form_object(@order, theme: 'weui') } %>
-</div>
+<%= render partial: 'blank_item', collection: @order.items, as: :item, locals: { form: form_object(@order, theme: 'weui') } %>
 
 <% if @order.items.size > 1 %>
-<div class="box">
   <%= render partial: 'collectable', locals: { form: form_object(@order, theme: 'weui') } %>
-</div>
 <% end %>
 
-<div class="box">
-  <%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'weui') } %>
-</div>
+<%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'weui') } %>
 
 <%= render 'show_order' %>
 

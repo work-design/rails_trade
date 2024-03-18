@@ -1,13 +1,14 @@
-<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="item_amount_dialog" data-action="click->weui-dialog#toggle">
-  <div class="weui-cell__hd">
+<div
+  data-controller="weui-dialog"
+  data-weui-dialog-id-value="item_amount_dialog"
+  data-action="click->weui-dialog#toggle"
+  class="button mx-3 mb-3 justify-content-space-between"
+>
+  <div>
     <span class="has-text-grey">代收货款</span>
-  </div>
-  <div class="weui-cell__bd">
     <i class="fa-solid fa-circle-check has-text-success"></i>
   </div>
-  <div class="weui-cell__ft">
-    <span><%= @order.item_amount %></span>
-  </div>
+  <span><%= @order.item_amount %></span>
 </div>
 
 <div data-controller="weui-dialog" id="item_amount_dialog" class="weui-dialog__wrap">

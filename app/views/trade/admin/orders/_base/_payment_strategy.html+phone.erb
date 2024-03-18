@@ -1,9 +1,11 @@
-<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="payment_strategy_dialog" data-action="click->weui-dialog#toggle">
-  <div class="weui-cell__hd">
-    <span class="has-text-grey">付款方式</span>
-  </div>
-  <div class="weui-cell__bd"></div>
-  <div class="weui-cell__ft">
+<div
+  data-controller="weui-dialog"
+  data-weui-dialog-id-value="payment_strategy_dialog"
+  data-action="click->weui-dialog#toggle"
+  class="button mx-3 mb-3 justify-content-space-between"
+>
+  <span class="has-text-grey">付款方式</span>
+  <div>
   <% if @order.payment_strategy %>
     <span><%= @order.payment_strategy.name %></span>
     <span class="tag"><%= @order.payment_strategy.from_pay_i18n %></span>

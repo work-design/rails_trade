@@ -1,12 +1,15 @@
-<div class="weui-cell weui-cell_access" data-controller="weui-dialog" data-weui-dialog-id-value="fetch_dialog_<%= item.uuid %>" data-action="click->weui-dialog#toggle">
-  <div class="weui-cell__hd">
+<div
+  data-controller="weui-dialog"
+  data-weui-dialog-id-value="fetch_dialog_<%= item.uuid %>"
+  data-action="click->weui-dialog#toggle"
+  class="button mx-3 mb-3"
+>
   <% if item.good_name.blank? %>
     <span class="has-text-grey">添加物品</span>
   <% else %>
     <span><%= item.good_name %></span>
   <% end %>
-  </div>
-  <div class="weui-cell__bd">
+  <div class="flex-grow-1">
   <% if item.good_name.present? %>
     <span class="has-text-grey">x</span>
     <span class="has-text-grey"><%= item.number %></span>
@@ -16,7 +19,6 @@
     </div>
   <% end %>
   </div>
-  <div class="weui-cell__ft"></div>
 </div>
 
 <div data-controller="weui-dialog" id="fetch_dialog_<%= item.uuid %>" class="weui-dialog__wrap">
