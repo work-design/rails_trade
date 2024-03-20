@@ -23,7 +23,7 @@
 
 <div data-controller="weui-dialog" id="fetch_dialog_<%= item.uuid %>" class="weui-dialog__wrap">
   <div class="weui-mask" data-action="click->weui-dialog#close"></div>
-  <div class="weui-half-screen-dialog weui-half-screen-dialog_large" data-weui-dialog-target="dialog">
+  <div class="weui-half-screen-dialog" data-weui-dialog-target="dialog">
     <div class="weui-half-screen-dialog__hd">
       <div class="weui-half-screen-dialog__hd__side"></div>
       <div class="weui-half-screen-dialog__hd__main">
@@ -40,36 +40,30 @@
         <%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
         <%= f.hidden_field :organ_id, value: current_organ.id, form: 'new_order' %>
         <%= f.text_field :good_name, form: 'new_order' %>
-        <div class="weui-cell">
-          <div class="weui-cell__hd">
-            <label class="weui-label"><%= Trade::Item.human_attribute_name(:number) %></label>
-          </div>
-          <div data-controller="modify" class="weui-cell__bd flex align-items-center">
-            <i class="fa-solid fa-xl fa-circle-minus has-text-grey-dark flex-none" data-action="click->modify#minus"></i>
-            <%= f.number_field :number, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'weui-input flex-grow-1' %>
-            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark flex-none pr-1" data-action="click->modify#plus"></i>
+        <div class="field">
+          <label class="label color-grey"><%= Trade::Item.human_attribute_name(:number) %></label>
+          <div data-controller="modify" class="control flex align-items-center">
+            <i class="fa-solid fa-circle-minus has-text-grey-dark size-4 flex-none" data-action="click->modify#minus"></i>
+            <%= f.number_field :number, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'input mx-2 flex-grow-1' %>
+            <i class="fa-solid fa-circle-plus has-text-grey-dark size-4 flex-none pr-1" data-action="click->modify#plus"></i>
             <span class="flex-none" style="width: 3em"></span>
           </div>
         </div>
-        <div class="weui-cell">
-          <div class="weui-cell__hd">
-            <label class="weui-label"><%= Trade::Item.human_attribute_name(:weight) %></label>
-          </div>
-          <div data-controller="modify" class="weui-cell__bd flex align-items-center">
-            <i class="fa-solid fa-xl fa-circle-minus has-text-grey-dark flex-none" data-action="click->modify#minus"></i>
-            <%= f.number_field :weight, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'weui-input flex-grow-1' %>
-            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark flex-none pr-1" data-action="click->modify#plus"></i>
+        <div class="field">
+          <label class="label color-grey"><%= Trade::Item.human_attribute_name(:weight) %></label>
+          <div data-controller="modify" class="control flex align-items-center">
+            <i class="fa-solid fa-circle-minus has-text-grey-dark size-4 flex-none" data-action="click->modify#minus"></i>
+            <%= f.number_field :weight, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'input mx-2 flex-grow-1' %>
+            <i class="fa-solid fa-circle-plus has-text-grey-dark size-4 flex-none pr-1" data-action="click->modify#plus"></i>
             <span class="has-text-grey flex-none" style="width: 3em">千克</span>
           </div>
         </div>
-        <div class="weui-cell">
-          <div class="weui-cell__hd">
-            <label class="weui-label"><%= Trade::Item.human_attribute_name(:volume) %></label>
-          </div>
-          <div data-controller="modify" class="weui-cell__bd flex align-items-center">
-            <i class="fa-solid fa-xl fa-circle-minus has-text-grey-dark flex-none" data-action="click->modify#minus"></i>
-            <%= f.number_field :volume, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'weui-input flex-grow-1' %>
-            <i class="fa-solid fa-xl fa-circle-plus has-text-grey-dark flex-none pr-1" data-action="click->modify#plus"></i>
+        <div class="field">
+          <label class="label color-grey"><%= Trade::Item.human_attribute_name(:volume) %></label>
+          <div data-controller="modify" class="control flex align-items-center">
+            <i class="fa-solid fa-circle-minus has-text-grey-dark size-4 flex-none" data-action="click->modify#minus"></i>
+            <%= f.number_field :volume, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { modify_target: 'input' }, form: 'new_order', class: 'input mx-2 flex-grow-1' %>
+            <i class="fa-solid fa-circle-plus has-text-grey-dark size-4 flex-none pr-1" data-action="click->modify#plus"></i>
             <span class="has-text-grey flex-none" style="width: 3em">立方米</span>
           </div>
         </div>
@@ -77,7 +71,7 @@
       <% end %>
     </div>
     <div class="weui-half-screen-dialog__ft">
-      <%= button_tag '确认', class: 'weui-btn weui-btn_primary', form: 'new_order' %>
+      <%= button_tag '确认', type: 'button', class: 'button is-primary' %>
     </div>
   </div>
 </div>
