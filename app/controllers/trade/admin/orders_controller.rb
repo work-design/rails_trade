@@ -52,10 +52,6 @@ module Trade
       end
     end
 
-    def new
-      @order.items.build
-    end
-
     def cart
       @order = Order.new(current_cart_id: params[:current_cart_id])
     end

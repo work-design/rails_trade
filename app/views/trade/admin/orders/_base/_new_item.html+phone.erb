@@ -4,7 +4,15 @@
   data-action="click->weui-dialog#toggle"
   class="button mx-3 mb-3"
 >
-  <span class="has-text-grey">添加物品</span>
+  <span><%= item.good_name %></span>
+  <div class="flex-grow-1">
+    <span class="has-text-grey">x</span>
+    <span class="has-text-grey"><%= item.number %></span>
+    <div class="tag has-text-grey">
+      <span><%= item.weight %></span>
+      <span class="pl-1">千克</span>
+    </div>
+  </div>
 </div>
 
 <div data-controller="weui-dialog" id="fetch_dialog_<%= item.uuid %>" class="weui-dialog__wrap">
