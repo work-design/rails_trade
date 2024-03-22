@@ -1,41 +1,31 @@
-<div data-controller="weui-dialog" id="dialog" class="weui-dialog__wrap">
-  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
-  <div class="weui-half-screen-dialog" data-weui-dialog-target="dialog">
-    <div class="weui-half-screen-dialog__hd">
-      <div class="weui-half-screen-dialog__hd__side"></div>
-      <div class="weui-half-screen-dialog__hd__main">
-        <div class="weui-half-screen-dialog__title">优惠明细</div>
-      </div>
-      <div class="weui-half-screen-dialog__hd__side">
-        <button class="weui-icon-btn" data-action="weui-dialog#close">
-          <i class="weui-icon-close-thin"></i>
-        </button>
-      </div>
-    </div>
-    <div class="weui-half-screen-dialog__bd">
-      <div class="weui-form-preview">
-        <div class="weui-form-preview__bd">
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:original_amount) %></label>
-            <span class="weui-form-preview__value has-text-danger"><%= @cart.original_amount.to_money.format.html_safe %></span>
-          </div>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
-            <span class="weui-form-preview__value has-text-danger"><%= @cart.overall_reduced_amount.to_money.format.html_safe %></span>
-          </div>
-          <% @cart.cart_promotes.each do |cart_promote| %>
-          <div class="weui-form-preview__item pl-4" title="<%= cart_promote.id %>">
-            <label class="weui-form-preview__label"><%= cart_promote.promote.name %></label>
-            <span class="weui-form-preview__value has-text-grey"><%= cart_promote.amount.to_money.format.html_safe %></span>
-          </div>
-          <% end %>
-          <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:amount) %></label>
-            <span class="weui-form-preview__value has-text-danger"><%= @cart.amount.to_money.format.html_safe %></span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="weui-half-screen-dialog__ft"></div>
+<div id="dialog" data-controller="modal" class="modal is-mobile">
+  <div class="modal-background" data-action="click->modal#hide"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <div class="modal-card-title">优惠明细</div>
+      <button class="delete" data-action="modal#hide"></button>
+    </header>
+    <section class="modal-card-body">
+      <table class="table is-fullwidth is-borderless as-show">
+        <tr>
+          <td><%= Trade::Cart.human_attribute_name(:original_amount) %></td>
+          <td class="has-text-danger"><%= @cart.original_amount.to_money.format.html_safe %></td>
+        </tr>
+        <tr>
+          <td><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></td>
+          <td class="has-text-danger"><%= @cart.overall_reduced_amount.to_money.format.html_safe %></td>
+        </tr>
+        <% @cart.cart_promotes.each do |cart_promote| %>
+        <tr class="pl-4" title="<%= cart_promote.id %>">
+          <td><%= cart_promote.promote.name %></td>
+          <td class="has-text-grey"><%= cart_promote.amount.to_money.format.html_safe %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td><%= Trade::Cart.human_attribute_name(:amount) %></td>
+          <td class="has-text-danger"><%= @cart.amount.to_money.format.html_safe %></td>
+        </tr>
+      </table>
+    </section>
   </div>
 </div>
