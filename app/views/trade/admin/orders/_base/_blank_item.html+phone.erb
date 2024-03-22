@@ -1,33 +1,27 @@
 <div
-  data-controller="weui-dialog"
-  data-weui-dialog-id-value="fetch_dialog_<%= item.uuid %>"
-  data-action="click->weui-dialog#toggle"
+  data-controller="dispatch"
+  data-dispatch-modal-outlet="#modal_<%= item.uuid %>"
+  data-dispatch-click-value="show"
+  data-action="click->dispatch#doClick"
   class="button mx-3 mb-3"
 >
   <span class="has-text-grey">添加物品</span>
 </div>
 
-<div data-controller="weui-dialog" id="fetch_dialog_<%= item.uuid %>" class="weui-dialog__wrap">
-  <div class="weui-mask" data-action="click->weui-dialog#close"></div>
-  <div class="weui-half-screen-dialog" data-weui-dialog-target="dialog">
-    <div class="weui-half-screen-dialog__hd">
-      <div class="weui-half-screen-dialog__hd__side"></div>
-      <div class="weui-half-screen-dialog__hd__main">
-        <div class="weui-half-screen-dialog__title">添加物品</div>
-      </div>
-      <div class="weui-half-screen-dialog__hd__side">
-        <button class="weui-icon-btn" data-action="weui-dialog#close">
-          <i class="weui-icon-close-thin"></i>
-        </button>
-      </div>
-    </div>
-    <div class="weui-half-screen-dialog__bd">
+<div id="modal_<%= item.uuid %>" data-controller="modal" class="modal is-mobile">
+  <div class="modal-background" data-action="click->modal#hide"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <div class="modal-card-title">添加物品</div>
+      <button class="delete" data-action="modal#hide"></button>
+    </header>
+    <section class="modal-card-body">
       <%= form.fields :items, model: item do |f| %>
         <%= render partial: 'item_form', locals: { f: f } %>
       <% end %>
-    </div>
-    <div class="weui-half-screen-dialog__ft">
+    </section>
+    <footer class="modal-card-foot justify-content-center">
       <%= button_tag '确认', form: 'new_order', class: 'button is-primary' %>
-    </div>
+    </footer>
   </div>
 </div>
