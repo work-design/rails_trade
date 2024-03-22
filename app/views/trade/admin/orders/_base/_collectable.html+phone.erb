@@ -27,7 +27,6 @@
     </div>
     <div class="weui-half-screen-dialog__bd">
       <%= form.fields :items do |f| %>
-        <%= f.number_field :amount, placeholder: '输入货款金额', label: f.object.good_name, form: 'new_order' if f.object.good_name.present? %>
       <% end %>
     </div>
     <div class="weui-half-screen-dialog__ft">
