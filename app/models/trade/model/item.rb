@@ -10,8 +10,8 @@ module Trade
       attribute :number, :decimal, default: 1, comment: '数量'
       attribute :done_number, :decimal, default: 0, comment: '已达成交易数量'
       attribute :rest_number, :decimal, as: 'number - done_number', virtual: true
-      attribute :weight, :integer, default: 1, comment: '重量'
-      attribute :volume, :integer, default: 0, comment: '体积'
+      attribute :weight, :integer, comment: '重量'
+      attribute :volume, :integer, comment: '体积'
       attribute :vip_code, :string
       attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'

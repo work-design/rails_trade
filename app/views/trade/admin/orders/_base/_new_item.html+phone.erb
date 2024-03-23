@@ -3,16 +3,15 @@
   data-dispatch-modal-outlet="#modal_<%= item.uuid %>"
   data-dispatch-click-value="show"
   data-action="click->dispatch#doClick"
-  class="button mx-3 mb-3"
+  class="button justify-content-space-between mx-3 mb-3"
 >
-  <span><%= item.good_name %></span>
-  <div class="flex-grow-1">
-    <span class="has-text-grey">x</span>
-    <span class="has-text-grey"><%= item.number %></span>
-    <div class="tag has-text-grey">
-      <span><%= item.weight %></span>
-      <span class="pl-1">千克</span>
-    </div>
+  <div>
+    <span><%= item.good_name %></span>
+    <span class="has-text-danger"><%= item.amount.to_money.format.html_safe %></span>
+  </div>
+  <div>
+    <i class="fa-solid fa-xmark has-text-grey size-7"></i>
+    <span><%= item.number %></span>
   </div>
 </div>
 
