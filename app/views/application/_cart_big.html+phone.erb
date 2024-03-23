@@ -1,7 +1,7 @@
 <div id="cart_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-column-centered xx">
   <% if item.number > 1 %>
     <button data-action="modify#minus" class="button is-light is-danger" style="width: 60px">
-      <i class="fa-solid fa-minus has-text-dark-grey"></i>
+      <i class="fa-solid fa-minus"></i>
       <span></span>
     </button>
   <% else %>
@@ -14,7 +14,7 @@
     <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'input has-background-light has-text-centered', style: 'width: 60px' %>
   <% end %>
   <button data-action="modify#plus" class="button is-danger" style="width: 60px">
-    <i class="fa-solid fa-plus has-text-dark-grey"></i>
+    <i class="fa-solid fa-plus"></i>
     <span></span>
   </button>
 </div>
