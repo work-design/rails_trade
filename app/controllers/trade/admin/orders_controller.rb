@@ -52,6 +52,14 @@ module Trade
       end
     end
 
+    def create
+      if params[:commit].present? && @order.save
+        render 'create'
+      else
+        render 'new'
+      end
+    end
+
     def cart
       @order = Order.new(current_cart_id: params[:current_cart_id])
     end
