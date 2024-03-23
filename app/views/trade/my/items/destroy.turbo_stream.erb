@@ -1,6 +1,6 @@
 <% if referer_controller.end_with?('carts') %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_footer', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
-  <%= turbo_stream.replace 'dialog', partial: 'cart_promote', locals: { cart: @item.current_cart } %>
+  <%= turbo_stream.replace 'dialog', partial: 'cart_promotes', locals: { cart: @item.current_cart } %>
   <%= turbo_stream.remove "item_#{@item.id}" %>
 <% else %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
