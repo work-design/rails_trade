@@ -83,12 +83,12 @@ zh:
         wholesale_price: 批发价
         number: 数量
         done_number: 已交易
-        weight: 总重量
+        weight: 重量
         volume: 体积
         original_amount: 原价
         additional_amount: 附加费
         reduced_amount: 优惠金额
-        amount: 总价
+        amount: 金额
         advance_amount: 预付款
         user_id: 用户
         station_id: 收货网点
