@@ -148,7 +148,7 @@ module Trade
 
     def _prefixes
       super do |pres|
-        if ['payment_types', 'cart', 'add'].include?(params[:action])
+        if ['cart', 'add'].include?(params[:action])
           pres + ["trade/my/orders/_#{params[:action]}", 'trade/my/orders/_base']
         else
           pres
