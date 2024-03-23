@@ -86,9 +86,10 @@ module Trade
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
-      after_initialize :sync_from_current_cart, if: -> { current_cart_id.present? && new_record? }
-      before_validation :init_uuid, if: -> { uuid.blank? }
-      after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
+      after_initialize :sync_from_current_cart, if: -> { new_record? && current_cart_id.present? }
+      after_initialize :init_uuid, if: -> { uuid.blank? }
+      after_initialize :compute_amount, if: :new_record?
+      after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_was.blank? }
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
