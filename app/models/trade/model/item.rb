@@ -13,7 +13,7 @@ module Trade
       attribute :weight, :integer, comment: '重量'
       attribute :volume, :integer, comment: '体积'
       attribute :vip_code, :string
-      attribute :single_price, :decimal, default: 0, comment: '一份产品的价格'
+      attribute :single_price, :decimal, comment: '一份产品的价格'
       attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
       attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
       attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'

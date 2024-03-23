@@ -15,7 +15,7 @@
       <div class="modal-card-title">添加物品</div>
       <button class="delete" data-action="modal#hide"></button>
     </header>
-    <section class="modal-card-body">
+    <section data-controller="coeff" class="modal-card-body">
       <%= form.fields :items, model: item do |f| %>
         <%= render partial: 'item_form', locals: { f: f } %>
       <% end %>
