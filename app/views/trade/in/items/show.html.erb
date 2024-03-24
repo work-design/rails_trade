@@ -1,6 +1,6 @@
 <%= render 'top_bar' %>
 
-<div class="weui-panel is-box">
+<div class="box mx-3">
   <div class="weui-panel__hd"><%= @item.organ&.name %></div>
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_appmsg">
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="weui-panel is-box">
+<div class="box mx-3">
   <%= render partial: 'item', locals: { model: @item } %>
 </div>
 
