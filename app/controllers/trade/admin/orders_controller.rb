@@ -76,7 +76,7 @@ module Trade
       auth_code = params[:result].split(',')[-1]
 
       @payment = @order.to_payment(type: 'Trade::ScanPayment')
-      @payment.payee_app = current_payee
+      @payment.payee_app = current_payee.payee_apps.includes(:app).where(app: { type: ['Wechat::PublicApp', 'Wechat::PublicAgency'] }).take
       @payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
     end
 
