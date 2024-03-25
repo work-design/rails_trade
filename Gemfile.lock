@@ -233,13 +233,15 @@ GEM
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
+      racc (~> 1.4)
     pg (1.5.4)
     propshaft (0.8.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     raabro (1.4.0)
     racc (1.7.3)
@@ -281,7 +283,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.1.0)
-    rdoc (6.6.0)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
     reline (0.4.0)
       io-console (~> 0.5)
@@ -385,9 +387,10 @@ CHECKSUMS
   net-smtp (0.4.0) sha256=2d7eb8de289ba8dce3f0d436ee40b9366bea28354c5ba183c8ab2ec05139a3e7
   nio4r (2.5.9) sha256=0e9d160662fd38d5a26cfe75308f32dfebe4c0523bceaa86873838c93f3a2971
   nokogiri (1.15.4) sha256=e4a801e5ef643cc0036f0a7e93433d18818b31d48c9c287596b68e92c0173c4d
+  nokogiri (1.15.4-x86_64-linux) sha256=872ced3d72d797ed9b5a76c67141c6cee7589711358e11c73e9c53724ffd1842
   pg (1.5.4) sha256=04f7b247151c639a0b955d8e5a9a41541343f4640aa3c2bdf749a872c339d25d
   propshaft (0.8.0) sha256=cad3fa50f78ef59db4938e61e5edc9b6105838cd890f75b1ca4d7c9b5b662b68
-  psych (5.1.1.1) sha256=44b0d1823629ac815f1f470af642dc7261489d67feb622a3f5573aa9f5cc5f72
+  psych (5.1.2) sha256=337322f58fc2bf24827d2b9bd5ab595f6a72971867d151bb39980060ea40a368
   raabro (1.4.0) sha256=d4fa9ff5172391edb92b242eed8be802d1934b1464061ae5e70d80962c5da882
   racc (1.7.3) sha256=b785ab8a30ec43bce073c51dbbe791fd27000f68d1c996c95da98bf685316905
   rack (3.0.8) sha256=9c2c912fb7bb367ddeea98193fc51f2aa526733066d0846911aaddb13a457248
@@ -405,7 +408,7 @@ CHECKSUMS
   rails_trade (0.0.3)
   railties (7.1.2) sha256=f0394dc4ff065aafe6c87103ad3188a54268d811cb1549e4ac8bc56f71581858
   rake (13.1.0) sha256=be6a3e1aa7f66e6c65fa57555234eb75ce4cf4ada077658449207205474199c6
-  rdoc (6.6.0) sha256=10bff3fb916454ad47afa2b2471b2154896ff65bb808b616f221d22da67dd3de
+  rdoc (6.6.3.1) sha256=39f7b749229ab5ad9d21c81586151c1dd7a549fa8be4070ee09b524f9c656345
   reline (0.4.0) sha256=234c1d03d90a0950193f1e5d6593b1dec5de4d9ab4dad746340a05dab0e5be1d
   ruby2_keywords (0.0.5) sha256=ffd13740c573b7301cf7a2e61fc857b2a8e3d3aff32545d6f8300d8bae10e3ef
   sdoc (2.6.1) sha256=d78305be6fe9f81cb93787c24f8c2d47e418c2f1de2e7ff75c032d465fe3c5f8
