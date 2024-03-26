@@ -1,33 +1,31 @@
-<div data-controller="empty" class="weui-panel is-box is-borderless">
-  <div class="weui-panel__hd">
+<div data-controller="empty" class="box is-padding-less mx-3">
+  <div class="box-body">
     <span class="has-border-left-primary"><%= t('trade.my.orders.index.title') %></span>
   </div>
-  <div class="weui-panel__bd">
-    <div class="columns is-4-mobile flex is-vcentered is-centered m-0" data-empty-target="content">
-      <%= link_to({ controller: 'trade/my/orders', state: 'init' }, class: 'column has-column-centered') do %>
-        <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
-        </div>
-        <div class="has-text-grey size-7 mt-1">
-          <span><%= Trade::Order.enum_i18n(:state, 'init') %></span>
-        </div>
-      <% end %>
-      <%= link_to({ controller: 'trade/my/orders', state: 'done' }, class: 'column has-column-centered') do %>
-        <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
-        </div>
-        <div class="has-text-grey size-7 mt-1">
-          <span><%= Trade::Order.enum_i18n(:state, 'done') %></span>
-        </div>
-      <% end %>
-      <%= link_to({ controller: 'trade/my/orders', state: 'canceled' }, class: 'column has-column-centered') do %>
-        <div class="has-text-primary">
-          <i class="fa-solid fa-fw fa-xl fa-trash"></i>
-        </div>
-        <div class="has-text-grey size-7 mt-1">
-          <span><%= Trade::Order.enum_i18n(:state, 'canceled') %></span>
-        </div>
-      <% end %>
-    </div>
+  <div class="box-body columns is-4-mobile flex is-vcentered is-centered m-0" data-empty-target="content">
+    <%= link_to({ controller: 'trade/my/orders', state: 'init' }, class: 'column has-column-centered') do %>
+      <div class="has-text-primary">
+        <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
+      </div>
+      <div class="has-text-grey size-7 mt-1">
+        <span><%= Trade::Order.enum_i18n(:state, 'init') %></span>
+      </div>
+    <% end %>
+    <%= link_to({ controller: 'trade/my/orders', state: 'done' }, class: 'column has-column-centered') do %>
+      <div class="has-text-primary">
+        <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
+      </div>
+      <div class="has-text-grey size-7 mt-1">
+        <span><%= Trade::Order.enum_i18n(:state, 'done') %></span>
+      </div>
+    <% end %>
+    <%= link_to({ controller: 'trade/my/orders', state: 'canceled' }, class: 'column has-column-centered') do %>
+      <div class="has-text-primary">
+        <i class="fa-solid fa-fw fa-xl fa-trash"></i>
+      </div>
+      <div class="has-text-grey size-7 mt-1">
+        <span><%= Trade::Order.enum_i18n(:state, 'canceled') %></span>
+      </div>
+    <% end %>
   </div>
 </div>

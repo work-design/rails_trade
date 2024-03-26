@@ -1,5 +1,3 @@
-<%= f.hidden_field :good_type, value: 'Factory::Production', form: 'new_order' %>
-<%= f.hidden_field :organ_id, value: current_organ.id, form: 'new_order' %>
 <%= f.text_field :good_name, form: 'new_order' %>
 <%= f.number_field :single_price, form: 'new_order', data: { coeff_target: 'single', action: 'coeff#updateSingle' } %>
 <div class="field">

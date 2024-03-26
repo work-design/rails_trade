@@ -169,7 +169,6 @@ module Trade
         :collectable,
         :current_cart_id,
         items_attributes: [
-          :organ_id,
           :good_type,
           :good_id,
           :good_name,
