@@ -1,4 +1,4 @@
-<div class="tabs is-boxed is-fullwidth is-sticky mb-3">
+<div class="tabs is-boxed is-fullwidth is-sticky mb-3 flex-shrink-0">
   <ul>
   <% [:init, :done, :canceled].each do |status| %>
     <li class="<%= active_helper(state: status, item: 'size-7', active: 'is-active size-7') %>">
