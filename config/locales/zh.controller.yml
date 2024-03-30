@@ -78,14 +78,19 @@ zh:
       carts:
         index:
           title: 最近下单
+      items:
+        create:
+          title: 加入购物车
       orders:
         index:
           title: 订单
         create:
           title: 确认下单
-      items:
-        create:
-          title: 加入购物车
+        unpaid:
+          title: 待支付订单
+      payments:
+        uncheck:
+          title: 待核销流水
     from:
       orders:
         index:
