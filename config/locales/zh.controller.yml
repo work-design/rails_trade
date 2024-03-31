@@ -107,7 +107,7 @@ zh:
       title: 采购订单
       orders:
         index:
-          title: 订单
+          title: 采购单
         batch_paid:
           title: 支付
       promote_goods:
