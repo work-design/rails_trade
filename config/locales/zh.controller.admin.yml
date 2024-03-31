@@ -59,6 +59,8 @@ zh:
           title: 调价
         print:
           title: 打印订单
+        batch_destroy:
+          title: 批量删除
         batch_paid:
           title: 支付
       items:
