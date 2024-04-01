@@ -63,10 +63,12 @@ module Trade
 
       belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
+      belongs_to :source, class_name: self.name, optional: true
 
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
+      has_many :purchase_orders, class_name: self.name, foreign_key: :source_id
       has_many :payment_orders, dependent: :destroy_async
       has_many :payments, through: :payment_orders
       has_many :refund_orders, dependent: :destroy_async
