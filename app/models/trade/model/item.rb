@@ -64,11 +64,13 @@ module Trade
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
+      belongs_to :source, class_name: self.name
 
       has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_one :organ_delivery, ->(o) { where(o.organ_scene_filter_hash) }, class_name: 'Delivery', primary_key: :organ_id, foreign_key: :organ_id
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
 
+      has_many :purchase_items, class_name: self.name, foreign_key: :source_id
       has_many :carts, ->(o) { where(o.cart_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_carts, ->(o) { where(member_id: nil, user_id: nil, organ_id: [o.organ_id, nil], good_type: [o.good_type, nil], aim: [o.aim, nil]) }, class_name: 'Cart', primary_key: :member_organ_id, foreign_key: :member_organ_id
       has_many :cards, ->(o) { where(o.filter_hash).effective }, foreign_key: :organ_id, primary_key: :organ_id
