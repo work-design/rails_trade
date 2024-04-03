@@ -26,6 +26,10 @@
             <span class="pl-1"><%= t('.adjust_edit.title') %></span>
           <% end %>
         <% end %>
+        <%= link_to({ action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+          <i class="fa-solid fa-pen-clip has-text-link"></i>
+          <span class="pl-1"><%= t('.purchase.title') %></span>
+        <% end %>
       </div>
     </div>
   </td>

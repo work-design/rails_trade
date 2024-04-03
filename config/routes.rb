@@ -97,6 +97,7 @@ Rails.application.routes.draw do
           post :print
           get :payment_orders
           get :payment_new
+          get :purchase
           patch :payment_create
           delete :payment_destroy
           match :adjust_edit, via: [:get, :post]
@@ -133,6 +134,7 @@ Rails.application.routes.draw do
       resources :items do
         collection do
           post :trial
+          post :batch_purchase
         end
         member do
           get :carts

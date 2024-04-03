@@ -1,4 +1,4 @@
-<%= form_with model: @order, url: { action: 'adjust_update' } do |f| %>
+<%= form_with model: @order, url: { action: 'adjust_update' }, class: 'modal-card' do |f| %>
   <%= f.number_field :amount %>
   <%= f.submit %>
 <% end %>

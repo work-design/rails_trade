@@ -2,7 +2,7 @@ module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :payment_types, :payment_orders, :print_data, :print, :package, :micro, :adjust_edit, :adjust_update
+      :refund, :payment_types, :payment_orders, :print_data, :print, :purchase, :package, :micro, :adjust_edit, :adjust_update
     ]
     before_action :set_new_order, only: [:new, :create]
     before_action :set_user, only: [:user]
@@ -44,6 +44,10 @@ module Trade
       q_params.merge! params.permit(:id, :payment_status, :uuid)
 
       @orders = Order.default_where(q_params).page(params[:page])
+    end
+
+    def purchase
+      @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
     def batch_paid

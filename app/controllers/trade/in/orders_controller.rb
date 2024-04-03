@@ -31,6 +31,7 @@ module Trade
 
     def order_params
       p = params.fetch(:order, {}).permit(
+        :organ_id,
         :weight,
         :quantity,
         :payment_id,
@@ -38,6 +39,7 @@ module Trade
         :address_id,
         :invoice_address_id,
         :note,
+        :generate_mode,
         :current_cart_id,
         items_attributes: {},
         item_promotes_attributes: {}

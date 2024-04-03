@@ -18,6 +18,13 @@ module Trade
       @carts = @item.carts.includes(:user, :member)
     end
 
+    def batch_purchase
+      purchase_order = Order.new(generate_model: 'purchase', **default_form_params)
+      Item.where(id: params[:ids].split(',')).each do |item|
+        item.purchase_items.build
+      end
+    end
+
     def only
       unless params[:good_type] && params[:good_id]
         redirect_back(fallback_location: admin_items_url) and return

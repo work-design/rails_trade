@@ -1,0 +1,11 @@
+<%= render 'index_actions' %>
+
+<%= form_with model: @purchase_order, url: { controller: 'trade/in/orders', action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :generate_mode %>
+  <%= f.hidden_field :organ_id %>
+<% end %>
+
+<table class="table is-fullwidth is-striped is-boxed">
+  <%= render 'index_thead' %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model, locals: { form: form_object(@purchase_order, theme: '') } %>
+</table>
