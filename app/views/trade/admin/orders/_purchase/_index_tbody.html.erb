@@ -1,6 +1,6 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 
-<td><%= check_box_tag 'xx', model.id, false, id: nil %></td>
+<td><%= f.check_box 'xx', form: 'new_order' %></td>
 <td>
   <div class="is-several">
     <% if model.good_type == 'Factory::Production' %>
