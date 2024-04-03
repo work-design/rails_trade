@@ -1,3 +1,5 @@
+<%= form.fields :items, model: model.purchase_items.build do |f| %>
+
 <td><%= check_box_tag 'xx', model.id, false, id: nil %></td>
 <td>
   <div class="is-several">
@@ -19,10 +21,12 @@
   <span><%= model.number %></span>
 </td>
 <td>
-  <%= form.fields :items, model: model.purchase_items.build do |f| %>
-    <%= f.hidden_field :source_id, form: 'new_order' %>
-    <%= f.text_field :number, form: 'new_order' %>
-  <% end %>
+  <%= f.hidden_field :source_id, form: 'new_order' %>
+  <%= f.hidden_field :good_name, value: model.good_name, form: 'new_order' %>
+  <%= f.text_field :number, form: 'new_order' %>
+</td>
+<td>
+  <%= f.number_field :single_price, value: model.single_price, form: 'new_order' %>
 </td>
 <td><%= model.original_amount.to_money.format.html_safe %></td>
 <td>
@@ -38,3 +42,4 @@
     <% end %>
   </p>
 </td>
+<% end %>

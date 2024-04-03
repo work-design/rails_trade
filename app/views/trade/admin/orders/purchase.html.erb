@@ -6,6 +6,17 @@
 <% end %>
 
 <table class="table is-fullwidth is-striped is-boxed">
-  <%= render 'index_thead' %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model, locals: { form: form_object(@purchase_order, theme: '') } %>
+  <thead>
+    <%= render 'index_thead' %>
+  </thead>
+  <tbody>
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model, locals: { form: form_object(@purchase_order, theme: '') } %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="9" class="has-text-centered">
+        <%= submit_tag '提交', class: 'button mx-3', form: 'new_order' %>
+      </td>
+    </tr>
+  </tfoot>
 </table>
