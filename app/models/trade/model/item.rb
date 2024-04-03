@@ -5,6 +5,8 @@ module Trade
     include Inner::User
 
     included do
+      attr_accessor :xx
+
       attribute :uuid, :string
       attribute :good_name, :string
       attribute :number, :decimal, default: 1, comment: '数量'
