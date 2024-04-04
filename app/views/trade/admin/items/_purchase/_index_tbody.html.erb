@@ -14,17 +14,16 @@
 <% end %>
 </td>
 <td>
+  <div>
+    <%= f.hidden_field :source_id, form: 'purchase_order' %>
+    <%= f.hidden_field :good_name, value: model.good_name, form: 'purchase_order' %>
+    <%= f.text_field :number, form: 'purchase_order' %>
+  </div>
   <span><%= model.number.to_human %></span>
-  <span>/</span>
-  <span><%= model.done_number.to_human %></span>
 </td>
 <td>
   <p class="has-text-grey"><%= model.single_price.to_money.format.html_safe %></p>
   <p><%= model.original_amount.to_money.format.html_safe %></p>
-</td>
-<td>
-  <p><%= model.additional_amount.to_money.format.html_safe %></p>
-  <p><%= model.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td>
   <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
