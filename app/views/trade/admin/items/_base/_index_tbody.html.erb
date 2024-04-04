@@ -1,3 +1,4 @@
+<td><%= check_box_tag 'xx', model.id, false, id: nil %></td>
 <td>
 <% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>
