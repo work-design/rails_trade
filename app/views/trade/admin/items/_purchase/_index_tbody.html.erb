@@ -22,8 +22,12 @@
   <span data-show-target="hidden"><%= model.number.to_human %></span>
 </td>
 <td>
-  <p class="has-text-grey"><%= model.single_price.to_money.format.html_safe %></p>
-  <p><%= model.original_amount.to_money.format.html_safe %></p>
+  <div data-show-target="check" class="display-none">
+    <%= f.number_field :single_price, value: model.single_price, form: 'purchase_order' %>
+  </div>
+  <div data-show-target="hidden" class="has-text-grey">
+    <%= model.single_price.to_money.format.html_safe %>
+  </div>
 </td>
 <td>
   <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
