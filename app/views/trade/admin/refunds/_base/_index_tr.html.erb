@@ -1,7 +1,7 @@
 <tr id="tr_<%= model.id %>" data-controller="show" data-action="mouseenter->show#show mouseleave->show#hide">
   <%= yield %>
   <td>
-    <div data-show-target="item" style="visibility: hidden">
+    <div data-show-target="item" class="visibility-hidden">
       <% if model.refunded_at.blank? %>
         <%= button_to({ action: 'confirm', id: model.id }, method: :patch, data: { turbo_confirm: t('trade.admin.refunds.confirm.title') }, class: 'button is-small is-primary') do %>
           <span><%= t('trade.admin.refunds.confirm.title') %></span>
