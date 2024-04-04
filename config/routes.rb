@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       resources :scan_payments
       resources :items do
         collection do
+          get :purchase
           post :trial
           post :batch_purchase
         end

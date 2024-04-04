@@ -1,0 +1,48 @@
+<%= form.fields :items, model: model.purchase_items.build do |f| %>
+
+<td><%= f.check_box 'xx', form: 'purchase_order' %></td>
+<td>
+<% if model.good %>
+  <%= link_to model.good.name, { action: 'show', id: model.id } %>
+<% elsif model.purchase %>
+  <span><%= model.purchase.name %></span>
+<% else %>
+  <span><%= model.good_name %></span>
+<% end %>
+<% if ['rent', 'invest'].include?(model.aim) %>
+  <span class="tag is-danger"><%= model.aim_i18n %></span>
+<% end %>
+</td>
+<td>
+  <span><%= model.number.to_human %></span>
+  <span>/</span>
+  <span><%= model.done_number.to_human %></span>
+</td>
+<td>
+  <p class="has-text-grey"><%= model.single_price.to_money.format.html_safe %></p>
+  <p><%= model.original_amount.to_money.format.html_safe %></p>
+</td>
+<td>
+  <p><%= model.additional_amount.to_money.format.html_safe %></p>
+  <p><%= model.reduced_amount.to_money.format.html_safe %></p>
+</td>
+<td>
+  <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
+</td>
+<td><%= model.status_i18n %></td>
+<td>
+  <% if model.user %>
+  <p class="is-several">
+    <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
+    <span><%= model.user.name.presence || model.user_id %></span>
+  </p>
+  <% end %>
+  <p>
+    <span><%= model.member&.name %></span>
+    <% if model.member_organ %>
+      <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
+    <% end %>
+  </p>
+</td>
+<% end %>
