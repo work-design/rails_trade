@@ -1,6 +1,6 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 
-<td><%= f.check_box 'xx', form: 'purchase_order' %></td>
+<td><%= f.check_box 'xx', form: 'purchase_order', data: { action: 'show#toggle' } %></td>
 <td>
 <% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>
@@ -14,7 +14,7 @@
 <% end %>
 </td>
 <td>
-  <div>
+  <div data-show-target="check" class="visibility-hidden">
     <%= f.hidden_field :source_id, form: 'purchase_order' %>
     <%= f.hidden_field :good_name, value: model.good_name, form: 'purchase_order' %>
     <%= f.text_field :number, form: 'purchase_order' %>
