@@ -17,7 +17,7 @@
   <div data-show-target="check" class="display-none">
     <%= f.hidden_field :source_id, form: 'purchase_order' %>
     <%= f.hidden_field :good_name, value: model.good_name, form: 'purchase_order' %>
-    <%= f.text_field :number, form: 'purchase_order' %>
+    <%= f.text_field :number, value: model.number, form: 'purchase_order' %>
   </div>
   <span data-show-target="hidden"><%= model.number.to_human %></span>
 </td>
