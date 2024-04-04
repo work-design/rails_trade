@@ -1,10 +1,12 @@
 <%= render 'index_bar' %>
 <%= render 'index_actions' %>
 
+<% form = form_object(@purchase_order, theme: '') %>
+
 <%= render layout: 'index_table' do %>
   <% @items.group_by(&:order).each do |order, items| %>
     <%= render partial: 'order_tbody', layout: 'order_tr', locals: { model: order } if order %>
-    <%= render partial: 'index_tbody', layout: 'index_tr', collection: items, as: :model, locals: { form: form_object(@purchase_order, theme: '') } %>
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: items, as: :model, locals: { form: form } %>
   <% end %>
 <% end %>
 
