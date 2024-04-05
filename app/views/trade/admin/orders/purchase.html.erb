@@ -4,7 +4,7 @@
   <thead>
     <%= render 'index_thead' %>
   </thead>
-  <tbody>
+  <tbody id="tbody">
     <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model, locals: { form: form_object(@purchase_order, theme: '') } %>
   </tbody>
 </table>
