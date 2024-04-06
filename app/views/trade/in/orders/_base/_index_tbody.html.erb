@@ -6,6 +6,10 @@
 <td>
 <% if model.organ_id %>
   <%= model.organ.name %>
+<% else %>
+  <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
+    <i class="fa-solid fa-pencil has-text-grey"></i>
+  <% end %>
 <% end %>
 </td>
 <td><%= model.amount.to_money.format.html_safe %></td>
@@ -19,7 +23,7 @@
 </td>
 <td>
   <span><%= model.note %></span>
-  <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1', style: 'visibility: hidden') do %>
+  <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
     <i class="fa-solid fa-pencil has-text-grey"></i>
   <% end %>
 </td>

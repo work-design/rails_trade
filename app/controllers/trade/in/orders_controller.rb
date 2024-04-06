@@ -44,7 +44,7 @@ module Trade
         items_attributes: {},
         item_promotes_attributes: {}
       )
-      _p[:items_attributes].each do |_, v|
+      _p.fetch(:items_attributes, {}).each do |_, v|
         v.merge! member_organ_id: current_organ.id
       end
       _p.merge! current_cart_id: params[:current_cart_id] if params[:current_cart_id]
