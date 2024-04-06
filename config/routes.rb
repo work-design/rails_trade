@@ -312,6 +312,9 @@ Rails.application.routes.draw do
             delete :batch_destroy
             post :batch_paid
           end
+          member do
+            match :edit_organ, via: [:get, :post]
+          end
           resources :order_payments
         end
         concerns :orderable
