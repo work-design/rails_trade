@@ -1,7 +1,7 @@
 <%= render 'index_bar' %>
 <%= render 'index_actions' %>
 
-<% form = form_object(@purchase_order, theme: '') %>
+<% form = form_object(@purchase_order, theme: 'inline') %>
 
 <%= render layout: 'index_table' do %>
   <% @items.group_by(&:order).each do |order, items| %>
