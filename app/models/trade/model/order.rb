@@ -60,6 +60,7 @@ module Trade
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
 
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
+      belongs_to :provide, class_name: 'Factory::Provide', optional: true
 
       belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
