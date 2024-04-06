@@ -90,6 +90,7 @@ module Trade
       after_initialize :sync_from_current_cart, if: -> { new_record? && current_cart_id.present? }
       after_initialize :init_uuid, if: -> { uuid.blank? }
       after_initialize :compute_amount, if: :new_record?
+      before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       before_save :init_serial_number, if: -> { paid_at.present? && paid_at_was.blank? }
@@ -137,6 +138,10 @@ module Trade
       else
         self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
       end
+    end
+
+    def sync_organ_from_provide
+      self.organ_id = provide.provider_id if provide
     end
 
     def sync_user_from_address

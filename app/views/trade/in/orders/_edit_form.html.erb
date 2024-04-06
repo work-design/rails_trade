@@ -4,7 +4,7 @@
     <button type="button" data-action="modal#close" class="delete"></button>
   </header>
   <section class="modal-card-body">
-    <%= f.collection_select :organ_id, current_organ.provides, :id, :name %>
+    <%= f.collection_select :provide_id, current_organ.provides, :id, :name %>
   </section>
   <footer class="modal-card-foot">
     <%= f.submit %>
