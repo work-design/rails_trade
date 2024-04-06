@@ -161,7 +161,7 @@ module Trade
     end
 
     def order_params
-      p = params.fetch(:order, {}).permit(
+      _p = params.fetch(:order, {}).permit(
         :state,
         :payment_id,
         :payment_type,
@@ -186,7 +186,7 @@ module Trade
         ],
         cart_promotes_attributes: [:promote_id]
       )
-      p.merge! default_form_params
+      _p.merge! default_form_params
     end
 
     def order_adjust_params
