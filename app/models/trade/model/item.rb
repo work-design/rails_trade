@@ -113,6 +113,7 @@ module Trade
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial', 'expired'].include?(status) }
+      after_save :sync_amount_to_order, if: -> { order_id.present? && (saved_changes.keys & ['amount']).present? }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_save :set_not_fresh, if: -> { current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present? }
       after_destroy :remove_promotes
@@ -355,8 +356,9 @@ module Trade
     end
 
     def sync_amount_to_order
+      return unless order
       order.compute_amount
-      order.save
+      order.save!
     end
 
     def sync_amount_to_current_cart
