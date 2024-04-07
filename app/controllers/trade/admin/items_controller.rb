@@ -19,19 +19,12 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
 
-      @items = Item.includes(:user, :item_promotes, :order).where.not(order_id: nil).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @items = Item.includes(:user, :item_promotes, :purchase_items, :order).where.not(order_id: nil).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
     def carts
       @carts = @item.carts.includes(:user, :member)
-    end
-
-    def batch_purchase
-      purchase_order = Order.new(generate_model: 'purchase', **default_form_params)
-      Item.where(id: params[:ids].split(',')).each do |item|
-        item.purchase_items.build
-      end
     end
 
     def only
