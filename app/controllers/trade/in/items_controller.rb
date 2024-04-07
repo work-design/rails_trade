@@ -2,12 +2,17 @@ module Trade
   class In::ItemsController < Admin::ItemsController
     include Controller::In
     before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
-    before_action :set_item, only: [:show]
+    before_action :set_item, only: [:show, :edit_price, :update_price]
     before_action :set_new_item, only: [:create, :cost]
     before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]
 
     def cost
       @item.single_price = @item.good.cost
+      @item.save
+    end
+
+    def update_price
+      @item.single_price = params.fetch(:item, {})[:single_price]
       @item.save
     end
 

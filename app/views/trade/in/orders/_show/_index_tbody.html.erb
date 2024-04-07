@@ -4,14 +4,11 @@
     <p class="has-text-grey"><%= model.organ&.name %></p>
   <% end %>
 </td>
+<td><%= model.number.to_human %></td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
-  <i class="fa-solid fa-xmark has-text-grey"></i>
-  <span><%= model.number.to_human %></span>
-</td>
-<td><%= model.original_amount.to_money.format.html_safe %></td>
-<td>
-  <p><%= model.additional_amount.to_money.format.html_safe %></p>
-  <p><%= model.reduced_amount.to_money.format.html_safe %></p>
+  <%= button_to({ controller: 'items', action: 'edit_price', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.items.edit_price.title') }, class: 'pl-1 visibility-hidden') do %>
+    <i class="fa-solid fa-pencil has-text-grey"></i>
+  <% end %>
 </td>
 <td class="has-text-danger"><%= model.amount.to_money.format.html_safe %></td>

@@ -317,6 +317,12 @@ Rails.application.routes.draw do
           end
           resources :order_payments
         end
+        resources :items, only: [] do
+          member do
+            match :edit_price, via: [:get, :post]
+            patch :update_price
+          end
+        end
         concerns :orderable
       end
 

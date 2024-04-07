@@ -354,6 +354,11 @@ module Trade
       end
     end
 
+    def sync_amount_to_order
+      order.compute_amount
+      order.save
+    end
+
     def sync_amount_to_current_cart
       return unless current_cart
 

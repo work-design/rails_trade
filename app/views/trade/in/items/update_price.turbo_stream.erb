@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "item_#{@item.id}", partial: 'trade/in/orders/_show/index_tbody', locals: { model: @item } %>
+<%= turbo_stream.remove 'modal' %>
