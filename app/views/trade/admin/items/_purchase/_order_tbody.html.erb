@@ -1,7 +1,7 @@
 <td data-controller="check" data-check-range-value="order_<%= model.id %>">
   <%= check_box_tag 'zxx', 'order[items_attributes][', false, id: nil, data: { check_target: 'all', action: 'check#toggleAll' } %>
 </td>
-<td>
+<td colspan="6">
   <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
   <span class="tag is-warning"><%= model.state_i18n %></span>
   <% if ['rent', 'invest'].include?(model.aim) %>
@@ -15,13 +15,7 @@
     <span class="tag"><%= model.payment_strategy.from_pay_i18n %></span>
   </div>
   <% end %>
-</td>
-<td>
   <span><%= model.amount.to_money.format.html_safe %></span>
-</td>
-<td></td>
-<td>
-  <p><%# link_to model.user_name, { action: 'user', user_id: model.user_id } if model.user_id %></p>
   <p>
   <% if model&.member %>
     <span><%= model.member.name %></span>
@@ -29,5 +23,3 @@
   <% end %>
   </p>
 </td>
-<td><%= simple_format(model.extra_i18n) %></td>
-<td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
