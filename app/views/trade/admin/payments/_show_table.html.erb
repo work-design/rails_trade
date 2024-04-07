@@ -1,4 +1,4 @@
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:proof) %></td>
-  <td><%= image_tag @payment.proof, class: 'image' if @payment.proof.attached? %></td>
-</tr>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:proof) %></dt>
+  <dt><%= image_tag @payment.proof, class: 'image' if @payment.proof.attached? %></dd>
+</div>

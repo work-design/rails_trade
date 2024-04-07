@@ -1,32 +1,32 @@
-<tr>
-  <td><%= Expense.human_attribute_name(:subject) %></td>
-  <td>
+<div>
+  <dt><%= Expense.human_attribute_name(:subject) %></dt>
+  <dd>
     <% if @payout.payable %>
       <%= link_to @payout.payable.expense_subject, finance_expense_url(@payout.payable.id), target: '_blank' %>
     <% end %>
-  </td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:id) %></td>
-  <td><%= @payout.id %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:payout_uuid) %></td>
-  <td><%= @payout.payout_uuid %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:to_bank) %></td>
-  <td><%= @payout.to_bank %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:to_name) %></td>
-  <td><%= @payout.to_name %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:to_identifier) %></td>
-  <td><%= @payout.to_identifier %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:requested_amount) %></td>
-  <td><%= @payout.requested_amount %></td>
-</tr>
+  </dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:id) %></dt>
+  <dd><%= @payout.id %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:payout_uuid) %></dt>
+  <dd><%= @payout.payout_uuid %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:to_bank) %></dt>
+  <dd><%= @payout.to_bank %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:to_name) %></dt>
+  <dd><%= @payout.to_name %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:to_identifier) %></dt>
+  <dd><%= @payout.to_identifier %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:requested_amount) %></dt>
+  <dd><%= @payout.requested_amount %></dd>
+</div>

@@ -1,19 +1,19 @@
-<tr>
-  <td><%= Trade::WalletAdvance.human_attribute_name(:amount) %></td>
-  <td>
+<div>
+  <dt><%= Trade::WalletAdvance.human_attribute_name(:amount) %></dt>
+  <dd>
   <% if @wallet.wallet_template_id %>
     <span><%= @wallet_advance.amount %></span>
     <span><%= @wallet.wallet_template.unit %></span>
   <% else %>
     <span><%= @wallet_advance.amount.to_money.format.html_safe %></span>
   <% end %>
-  </td>
-</tr>
-<tr>
-  <td><%= Trade::WalletAdvance.human_attribute_name(:advance_id) %></td>
-  <td><%= @wallet_advance.advance&.name %></td>
-</tr>
-<tr>
-  <td><%= Trade::WalletAdvance.human_attribute_name(:note) %></td>
-  <td><%= @wallet_advance.note %></td>
-</tr>
+  </dd>
+</div>
+<div>
+  <dt><%= Trade::WalletAdvance.human_attribute_name(:advance_id) %></dt>
+  <dd><%= @wallet_advance.advance&.name %></dd>
+</div>
+<div>
+  <dt><%= Trade::WalletAdvance.human_attribute_name(:note) %></dt>
+  <dd><%= @wallet_advance.note %></dd>
+</div>

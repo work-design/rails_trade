@@ -1,20 +1,20 @@
-<tr>
-  <td><%= Trade::CardPurchase.human_attribute_name(:price) %></td>
-  <td><%= @card_purchase.price %></td>
-</tr>
-<tr>
-  <td><%= Trade::CardPurchase.human_attribute_name(:years) %></td>
-  <td><%= @card_purchase.years %></td>
-</tr>
-<tr>
-  <td><%= Trade::CardPurchase.human_attribute_name(:months) %></td>
-  <td><%= @card_purchase.months %></td>
-</tr>
-<tr>
-  <td><%= Trade::CardPurchase.human_attribute_name(:days) %></td>
-  <td><%= @card_purchase.days %></td>
-</tr>
-<tr>
-  <td><%= Trade::CardPurchase.human_attribute_name(:created_at) %></td>
-  <td><time data-controller="time"><%= @card_purchase.created_at.to_fs(:iso8601) %></time></td>
-</tr>
+<div>
+  <dt><%= Trade::CardPurchase.human_attribute_name(:price) %></dt>
+  <dd><%= @card_purchase.price %></dd>
+</div>
+<div>
+  <dt><%= Trade::CardPurchase.human_attribute_name(:years) %></dt>
+  <dd><%= @card_purchase.years %></dd>
+</div>
+<div>
+  <dt><%= Trade::CardPurchase.human_attribute_name(:months) %></dt>
+  <dd><%= @card_purchase.months %></dd>
+</div>
+<div>
+  <dt><%= Trade::CardPurchase.human_attribute_name(:days) %></dt>
+  <dd><%= @card_purchase.days %></dd>
+</div>
+<div>
+  <dt><%= Trade::CardPurchase.human_attribute_name(:created_at) %></dt>
+  <dd><time data-controller="time"><%= @card_purchase.created_at.to_fs(:iso8601) %></time></dd>
+</div>

@@ -1,12 +1,12 @@
-<tr>
-  <td><%= Trade::Privilege.human_attribute_name(:name) %></td>
-  <td><%= @privilege.name %></td>
-</tr>
-<tr>
-  <td><%= Trade::Privilege.human_attribute_name(:amount) %></td>
-  <td><%= @privilege.amount %></td>
-</tr>
-<tr>
-  <td><%= Trade::Privilege.human_attribute_name(:logo) %></td>
-  <td><%= image_tag @privilege.logo, class: 'image is-32x32' if @privilege.logo.attached? %></td>
-</tr>
+<div>
+  <dt><%= Trade::Privilege.human_attribute_name(:name) %></dt>
+  <dd><%= @privilege.name %></dd>
+</div>
+<div>
+  <dt><%= Trade::Privilege.human_attribute_name(:amount) %></dt>
+  <dd><%= @privilege.amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::Privilege.human_attribute_name(:logo) %></dt>
+  <dt><%= image_tag @privilege.logo, class: 'image is-32x32' if @privilege.logo.attached? %></dd>
+</div>

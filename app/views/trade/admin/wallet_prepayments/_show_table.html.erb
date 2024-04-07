@@ -1,22 +1,22 @@
-<tr>
-  <td><%= Trade::WalletPrepayment.human_attribute_name(:amount) %></td>
-  <td><%= @wallet_prepayment.amount %></td>
-</tr>
-<tr>
-  <td><%= Trade::WalletPrepayment.human_attribute_name(:token) %></td>
-  <td><%= @wallet_prepayment.token %></td>
-</tr>
-<tr>
-  <td><%= Trade::WalletPrepayment.human_attribute_name(:expire_at) %></td>
-  <td><time data-controller="time"><%= @wallet_prepayment.expire_at.to_fs(:iso8601) %></time></td>
-</tr>
-<tr>
-  <td></td>
-  <td>
+<div>
+  <dt><%= Trade::WalletPrepayment.human_attribute_name(:amount) %></dt>
+  <dd><%= @wallet_prepayment.amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::WalletPrepayment.human_attribute_name(:token) %></dt>
+  <dd><%= @wallet_prepayment.token %></dd>
+</div>
+<div>
+  <dt><%= Trade::WalletPrepayment.human_attribute_name(:expire_at) %></dt>
+  <dd><time data-controller="time"><%= @wallet_prepayment.expire_at.to_fs(:iso8601) %></time></dd>
+</div>
+<div>
+  <dt></dt>
+  <dd>
   <% if @wallet_prepayment.scene %>
     <%= image_tag @wallet_prepayment.scene.qrcode_data_url %>
   <% else %>
     <%= image_tag @wallet_prepayment.qrcode_url %>
   <% end %>
-  </td>
-</tr>
+  </dd>
+</div>

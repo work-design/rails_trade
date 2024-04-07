@@ -1,16 +1,16 @@
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:payment_uuid) %></td>
-  <td><%= @payment.payment_uuid %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:total_amount) %></td>
-  <td><%= @payment.total_amount.to_money.format.html_safe %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:state) %></td>
-  <td><%= @payment.state_i18n %></td>
-</tr>
-<tr>
-  <td><%= Trade::Payment.human_attribute_name(:created_at) %></td>
-  <td><time data-controller="time" data-format="human"><%= @payment.created_at.to_fs(:iso8601) %></time></td>
-</tr>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:payment_uuid) %></dt>
+  <dd><%= @payment.payment_uuid %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:total_amount) %></dt>
+  <dd><%= @payment.total_amount.to_money.format.html_safe %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:state) %></dt>
+  <dd><%= @payment.state_i18n %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:created_at) %></dt>
+  <dd><time data-controller="time" data-format="human"><%= @payment.created_at.to_fs(:iso8601) %></time></dd>
+</div>

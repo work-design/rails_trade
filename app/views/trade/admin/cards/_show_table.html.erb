@@ -1,16 +1,16 @@
-<tr>
-  <td><%= Trade::Card.human_attribute_name(:card_uuid) %></td>
-  <td><%= @card.card_uuid %></td>
-</tr>
-<tr>
-  <td><%= Trade::Card.human_attribute_name(:effect_at) %></td>
-  <td><time data-controller="time"><%= @card.effect_at.to_fs(:iso8601) %></time></td>
-</tr>
-<tr>
-  <td><%= Trade::Card.human_attribute_name(:expire_at) %></td>
-  <td><time data-controller="time"><%= @card.expire_at&.to_fs(:iso8601) %></time></td>
-</tr>
-<tr>
-  <td><%= Trade::Card.human_attribute_name(:created_at) %></td>
-  <td><time data-controller="time"><%= @card.created_at.to_fs(:iso8601) %></time></td>
-</tr>
+<div>
+  <dt><%= Trade::Card.human_attribute_name(:card_uuid) %></dt>
+  <dd><%= @card.card_uuid %></dd>
+</div>
+<div>
+  <dt><%= Trade::Card.human_attribute_name(:effect_at) %></dt>
+  <dd><time data-controller="time"><%= @card.effect_at.to_fs(:iso8601) %></time></dd>
+</div>
+<div>
+  <dt><%= Trade::Card.human_attribute_name(:expire_at) %></dt>
+  <dd><time data-controller="time"><%= @card.expire_at&.to_fs(:iso8601) %></time></dd>
+</div>
+<div>
+  <dt><%= Trade::Card.human_attribute_name(:created_at) %></dt>
+  <dd><time data-controller="time"><%= @card.created_at.to_fs(:iso8601) %></time></dd>
+</div>

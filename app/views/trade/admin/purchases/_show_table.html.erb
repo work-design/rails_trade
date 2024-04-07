@@ -1,20 +1,20 @@
-<tr>
-  <td><%= Trade::Purchase.human_attribute_name(:years) %></td>
-  <td><%= @purchase.years %></td>
-</tr>
-<tr>
-  <td><%= Trade::Purchase.human_attribute_name(:months) %></td>
-  <td><%= @purchase.months %></td>
-</tr>
-<tr>
-  <td><%= Trade::Purchase.human_attribute_name(:days) %></td>
-  <td><%= @purchase.days %></td>
-</tr>
-<tr>
-  <td><%= Trade::Purchase.human_attribute_name(:price) %></td>
-  <td><%= @purchase.price.to_money.format(html_safe: true).html_safe %></td>
-</tr>
-<tr>
-  <td><%= Trade::Purchase.human_attribute_name(:note) %></td>
-  <td><%= @purchase.note %></td>
-</tr>
+<div>
+  <dt><%= Trade::Purchase.human_attribute_name(:years) %></dt>
+  <dd><%= @purchase.years %></dd>
+</div>
+<div>
+  <dt><%= Trade::Purchase.human_attribute_name(:months) %></dt>
+  <dd><%= @purchase.months %></dd>
+</div>
+<div>
+  <dt><%= Trade::Purchase.human_attribute_name(:days) %></dt>
+  <dd><%= @purchase.days %></dd>
+</div>
+<div>
+  <dt><%= Trade::Purchase.human_attribute_name(:price) %></dt>
+  <dd><%= @purchase.price.to_money.format(html_safe: true).html_safe %></dd>
+</div>
+<div>
+  <dt><%= Trade::Purchase.human_attribute_name(:note) %></dt>
+  <dd><%= @purchase.note %></dd>
+</div>

@@ -1,30 +1,30 @@
-<tr>
-  <td><%= Trade::Wallet.human_attribute_name(:amount) %></td>
-  <td><%= @lawful_wallet.amount.to_money.format.html_safe %></td>
-</tr>
-<tr>
-  <td><%= Trade::Wallet.human_attribute_name(:income_amount) %></td>
-  <td>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:amount) %></dt>
+  <dd><%= @lawful_wallet.amount.to_money.format.html_safe %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:income_amount) %></dt>
+  <dd>
     <span><%= @wallet.income_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
     <span><%= @wallet.wallet_template.unit %></span>
-  </td>
-</tr>
-<tr>
-  <td><%= Trade::Wallet.human_attribute_name(:expense_amount) %></td>
-  <td>
+  </dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:expense_amount) %></dt>
+  <dd>
     <span><%= @wallet.expense_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
     <span><%= @wallet.wallet_template.unit %></span>
-  </td>
-</tr>
-<tr>
-  <td><%= Trade::Wallet.human_attribute_name(:account_bank) %></td>
-  <td><%= @wallet.account_bank %></td>
-</tr>
-<tr>
-  <td><%= Trade::Wallet.human_attribute_name(:account_name) %></td>
-  <td><%= @wallet.account_name %></td>
-</tr>
-<tr>
-  <td><%= Trade::Wallet.human_attribute_name(:account_number) %></td>
-  <td><%= @wallet.account_number %></td>
-</tr>
+  </dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:account_bank) %></dt>
+  <dd><%= @wallet.account_bank %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:account_name) %></dt>
+  <dd><%= @wallet.account_name %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:account_number) %></dt>
+  <dd><%= @wallet.account_number %></dd>
+</div>

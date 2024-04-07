@@ -1,8 +1,8 @@
-<tr>
-  <td><%= Trade::WalletTemplate.human_attribute_name(:name) %></td>
-  <td><%= @wallet_template.name %></td>
-</tr>
-<tr>
-  <td><%= Trade::WalletTemplate.human_attribute_name(:price) %></td>
-  <td><%= @wallet_template.advances %></td>
-</tr>
+<div>
+  <dt><%= Trade::WalletTemplate.human_attribute_name(:name) %></dt>
+  <dd><%= @wallet_template.name %></dd>
+</div>
+<div>
+  <dt><%= Trade::WalletTemplate.human_attribute_name(:price) %></dt>
+  <dd><%= @wallet_template.advances %></dd>
+</div>

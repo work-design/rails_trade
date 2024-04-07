@@ -1,8 +1,8 @@
-<tr>
-  <td><%= Trade::Order.human_attribute_name(:uuid) %></td>
-  <td><%= @order.uuid %></td>
-</tr>
-<tr>
-  <td><%= Trade::Order.human_attribute_name(:note) %></td>
-  <td><%= @order.note %></td>
-</tr>
+<div>
+  <dt><%= Trade::Order.human_attribute_name(:uuid) %></dt>
+  <dd><%= @order.uuid %></dd>
+</div>
+<div>
+  <dt><%= Trade::Order.human_attribute_name(:note) %></dt>
+  <dd><%= @order.note %></dd>
+</div>

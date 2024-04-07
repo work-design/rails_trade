@@ -1,16 +1,16 @@
-<tr>
-  <td><%= Trade::Cart.human_attribute_name(:payment_strategy_id) %></td>
-  <td><%= @cart.payment_strategy_id %></td>
-</tr>
-<tr>
-  <td><%= Trade::Cart.human_attribute_name(:deposit_ratio) %></td>
-  <td><%= @cart.deposit_ratio %></td>
-</tr>
-<tr>
-  <td><%= Trade::Cart.human_attribute_name(:buyer_type) %></td>
-  <td><%= @cart.buyer_type %></td>
-</tr>
-<tr>
-  <td><%= Trade::Cart.human_attribute_name(:buyer_id) %></td>
-  <td><%= @cart.buyer_id %></td>
-</tr>
+<div>
+  <dt><%= Trade::Cart.human_attribute_name(:payment_strategy_id) %></dt>
+  <dd><%= @cart.payment_strategy_id %></dd>
+</div>
+<div>
+  <dt><%= Trade::Cart.human_attribute_name(:deposit_ratio) %></dt>
+  <dd><%= @cart.deposit_ratio %></dd>
+</div>
+<div>
+  <dt><%= Trade::Cart.human_attribute_name(:buyer_type) %></dt>
+  <dd><%= @cart.buyer_type %></dd>
+</div>
+<div>
+  <dt><%= Trade::Cart.human_attribute_name(:buyer_id) %></dt>
+  <dd><%= @cart.buyer_id %></dd>
+</div>

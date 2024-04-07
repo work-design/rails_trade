@@ -1,12 +1,12 @@
-<tr>
-  <td><%= Trade::ExchangeRate.human_attribute_name(:from) %></td>
-  <td><%= @exchange_rate.from %></td>
-</tr>
-<tr>
-  <td><%= Trade::ExchangeRate.human_attribute_name(:to) %></td>
-  <td><%= @exchange_rate.to %></td>
-</tr>
-<tr>
-  <td><%= Trade::ExchangeRate.human_attribute_name(:rate) %></td>
-  <td><%= @exchange_rate.rate %></td>
-</tr>
+<div>
+  <dt><%= Trade::ExchangeRate.human_attribute_name(:from) %></dt>
+  <dd><%= @exchange_rate.from %></dd>
+</div>
+<div>
+  <dt><%= Trade::ExchangeRate.human_attribute_name(:to) %></dt>
+  <dd><%= @exchange_rate.to %></dd>
+</div>
+<div>
+  <dt><%= Trade::ExchangeRate.human_attribute_name(:rate) %></dt>
+  <dd><%= @exchange_rate.rate %></dd>
+</div>
