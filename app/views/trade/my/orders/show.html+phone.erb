@@ -14,8 +14,8 @@
 <%= render partial: 'items', locals: { model: @order } %>
 
 <div class="box mx-3" data-controller="empty">
-  <div class="weui-panel__hd">支付</div>
-  <div class="weui-panel__bd" data-empty-target="content">
+  <div class="box-header">支付</div>
+  <div class="" data-empty-target="content">
     <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
   </div>
 </div>
