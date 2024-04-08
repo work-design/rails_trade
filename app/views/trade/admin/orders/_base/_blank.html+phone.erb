@@ -4,7 +4,7 @@
 <%= render 'from_address' %>
 <%= render 'address' %>
 
-<%= render partial: 'item', collection: @order.items, as: :item, locals: { form: form } %>
+<%= render partial: 'new_item', collection: @order.items, as: :item, locals: { form: form } %>
 <%= render partial: 'blank_item', locals: { item: @order.items.build, form: form } %>
 
 <%= render partial: 'payment_strategy', locals: { form: form } %>
