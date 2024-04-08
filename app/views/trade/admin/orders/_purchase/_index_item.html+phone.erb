@@ -1,0 +1,6 @@
+<p>
+<% model.attributes.slice('name', 'title').each do |_, value| %>
+  <span><%= value %></span>
+<% end %>
+</p>
+<p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
