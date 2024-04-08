@@ -1,4 +1,9 @@
+<%= form.fields :items, model: model.purchase_items.build do |f| %>
+
 <div id="tr_<%= model.id %>" class="media">
+  <div class="media-left">
+    <%= f.check_box 'xx', form: 'new_order' %>
+  </div>
   <%= link_to({ action: 'show', id: model.id }, state: 'clear', class: 'media-content') do %>
     <%= yield %>
   <% end %>
@@ -8,3 +13,4 @@
     <% end %>
   </div>
 </div>
+<% end %>

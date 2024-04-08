@@ -184,6 +184,7 @@ module Trade
           :good_id,
           :good_name,
           :number,
+          :unit_id,
           :weight,
           :volume,
           :note,
