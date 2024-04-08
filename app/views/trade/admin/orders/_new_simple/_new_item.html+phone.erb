@@ -3,16 +3,22 @@
   data-dispatch-modal-outlet="#modal_<%= item.uuid %>"
   data-dispatch-click-value="show"
   data-action="click->dispatch#doClick"
-  class="button mx-3 mb-3"
+  class="button justify-content-space-between mx-3 mb-3"
 >
-  <span class="has-text-grey">添加物品</span>
+  <div>
+    <span><%= item.good_name %></span>
+  </div>
+  <div>
+    <i class="fa-solid fa-xmark has-text-grey size-7"></i>
+    <span class="tag"><%= item.number %></span>
+  </div>
 </div>
 
 <div id="modal_<%= item.uuid %>" data-controller="modal" class="modal is-mobile">
-  <div data-action="click->modal#hide" class="modal-background"></div>
+  <div class="modal-background" data-action="click->modal#hide"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <div class="modal-card-title">添加物品</div>
+      <div class="modal-card-title">修改</div>
       <button class="delete" data-action="modal#hide"></button>
     </header>
     <section data-controller="coeff" class="modal-card-body">
@@ -21,7 +27,7 @@
       <% end %>
     </section>
     <footer class="modal-card-foot justify-content-center">
-      <%= button_tag '确认', value: 'new', form: 'new_order', class: 'button is-primary' %>
+      <%= button_tag '确认', value: 'new_simple', form: 'new_order', class: 'button is-primary' %>
     </footer>
   </div>
 </div>

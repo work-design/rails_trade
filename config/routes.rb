@@ -88,6 +88,7 @@ Rails.application.routes.draw do
           get :unpaid
           delete :batch_destroy
           post :batch_paid
+          get :new_simple
         end
         member do
           match :payment_types, via: [:get, :post]

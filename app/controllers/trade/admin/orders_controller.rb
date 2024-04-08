@@ -4,7 +4,7 @@ module Trade
       :show, :edit, :update, :destroy, :actions,
       :refund, :payment_types, :payment_orders, :print_data, :print, :purchase, :package, :micro, :adjust_edit, :adjust_update
     ]
-    before_action :set_new_order, only: [:new, :create]
+    before_action :set_new_order, only: [:new, :new_simple, :create]
     before_action :set_user, only: [:user]
     before_action :set_cart, only: [:cart]
     before_action :set_payment_strategies, only: [:unpaid, :new, :create]
@@ -56,11 +56,18 @@ module Trade
       end
     end
 
+    def new_simple
+    end
+
     def create
       if params[:commit].present? && @order.save
         render 'create'
-      else
+      elsif params[:button] == 'new'
         render 'new'
+      elsif params[:button] == 'new_button'
+        render 'new_button'
+      else
+        render 'create'
       end
     end
 

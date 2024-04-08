@@ -1,0 +1,9 @@
+<%= f.text_field :good_name, form: 'new_order' %>
+<div class="field">
+  <label class="label color-grey"><%= Trade::Item.human_attribute_name(:number) %></label>
+  <div data-controller="modify input" class="control flex align-items-center">
+    <i class="fa-solid fa-circle-minus has-text-grey-dark size-4 flex-none" data-action="click->modify#minus"></i>
+    <%= f.number_field :number, step: 1, all: { normal: nil }, wrap: { input: nil }, label: nil, data: { coeff_target: 'quantity', modify_target: 'input', action: 'change->coeff#updateQuantity focus->input#blank' }, form: 'new_order', class: 'input mx-2' %>
+    <i class="fa-solid fa-circle-plus has-text-grey-dark size-4 flex-none pr-1" data-action="click->modify#plus"></i>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+<%= turbo_stream.update 'weui-tab__panel' do %>
+  <%= render partial: 'blank', locals: { form: form_object(@order, theme: 'weui') } %>
+<% end %>
+<%= turbo_stream.remove 'addresses_dialog' %>
