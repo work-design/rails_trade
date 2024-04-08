@@ -19,4 +19,7 @@
   <%= link_to({ action: 'payment_types', id: @order.id }, class: 'button is-link') do %>
     <span>支付</span>
   <% end if @order.can_pay? %>
+  <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
+    <span><%= t('.purchase.title') %></span>
+  <% end %>
 </div>

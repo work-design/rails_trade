@@ -1,0 +1,11 @@
+<%= render 'top_bar' %>
+<%= render 'index_actions' %>
+
+<table class="table is-fullwidth is-striped is-boxed">
+  <thead>
+    <%= render 'index_thead' %>
+  </thead>
+  <tbody id="tbody">
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model, locals: { form: form_object(@purchase_order, theme: '') } %>
+  </tbody>
+</table>
