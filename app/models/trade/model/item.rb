@@ -257,7 +257,7 @@ module Trade
     end
 
     def compute_amount
-      self.original_amount = single_price * number
+      self.original_amount = single_price * number if single_price
       self.advance_amount = good.advance_price * number if good
       self.amount = original_amount
     end
