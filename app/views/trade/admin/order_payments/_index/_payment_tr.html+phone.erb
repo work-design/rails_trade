@@ -1,8 +1,8 @@
-<div id="payment_<%= model.id %>" class="weui-media-box weui-media-box_appmsg">
-  <div class="weui-media-box__bd">
+<div id="payment_<%= model.id %>" class="media">
+  <div class="media-content">
     <%= yield %>
   </div>
-  <div class="weui-media-box__ft">
+  <div class="media-right as-x">
     <%= form_with theme: nil, scope: :payment_order, url: { controller: 'trade/admin/payment_orders', action: 'create', payment_id: model.id }, class: 'button_to' do |f| %>
       <%= f.hidden_field :order_id, value: order.id %>
       <%= f.hidden_field :order_amount, value: order.amount %>

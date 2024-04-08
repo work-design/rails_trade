@@ -1,8 +1,8 @@
-<div id="tr_<%= model.id %>" class="weui-media-box weui-media-box_appmsg">
-  <div class="weui-media-box__bd">
+<div id="tr_<%= model.id %>" class="media">
+  <div class="media-content">
     <%= yield %>
   </div>
-  <div class="weui-media-box__ft">
+  <div class="media-right as-x">
   <% if model.state_confirmed? %>
     <%= button_to({ controller: 'payment_orders', action: 'cancel', payment_id: model.payment_id, id: model.id }, class: 'button is-small is-warning') do %>
       <i class="fa-solid fa-clock-rotate-left"></i>

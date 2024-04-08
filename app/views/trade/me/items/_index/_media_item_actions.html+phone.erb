@@ -1,7 +1,7 @@
 <div class="media">
   <div class="media-left as-logo" data-controller="empty">
     <%= link_to(model.good, text: true, data: { empty_target: 'content' }) do %>
-      <%= image_tag model.good.logo, class: 'weui-media-box__thumb' if model.good && model.good.logo&.attached? %>
+      <%= image_tag model.good.logo, class: 'image is-64x64' if model.good && model.good.logo&.attached? %>
     <% end %>
   </div>
   <div class="media-content">
