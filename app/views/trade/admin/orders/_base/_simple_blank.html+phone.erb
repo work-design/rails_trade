@@ -1,0 +1,10 @@
+<%= render 'top_bar' %>
+
+<%= render 'blank_order' %>
+
+<%= render partial: 'simple_new_item', collection: @order.items, as: :item, locals: { form: form } %>
+<%= render partial: 'simple_blank_item', locals: { item: @order.items.build, form: form } %>
+
+<%= render partial: 'payment_strategy', locals: { form: form } %>
+
+<%= submit_tag '提交', class: 'button mx-3', form: 'new_order' %>

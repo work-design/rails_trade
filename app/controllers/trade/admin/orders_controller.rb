@@ -64,8 +64,8 @@ module Trade
         render 'create'
       elsif params[:button] == 'new'
         render 'new'
-      elsif params[:button] == 'new_button'
-        render 'new_button'
+      elsif params[:button] == 'new_simple'
+        render 'new_simple'
       else
         render 'create'
       end
