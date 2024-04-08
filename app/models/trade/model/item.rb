@@ -309,6 +309,7 @@ module Trade
     end
 
     def sum_amount
+      return {} unless single_price && single_price > 0
       _additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       _reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d }) # 促销价格
       {
