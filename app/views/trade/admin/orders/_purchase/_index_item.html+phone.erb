@@ -1,4 +1,7 @@
 <p>
   <strong><%= model.good_name %></strong>
 </p>
-<p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+<p>
+  <span><%= model.number %></span>
+  <% if model.unit %><span class="tag"><%= model.unit.name %></span><% end %>
+</p>
