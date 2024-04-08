@@ -9,6 +9,6 @@
     <% end %>
   </div>
   <div class="box-body">
-    <%= render partial: 'item', collection: model.items, as: :item %>
+    <%= render partial: 'item', collection: model.items.includes(:unit), as: :item %>
   </div>
 </div>
