@@ -2,7 +2,7 @@
 
 <%= render 'blank_order' %>
 <%= render 'from_address' %>
-<%= render 'address' %>
+<%= render partial: 'address', locals: { model: @order.build_address } if @order.address %>
 
 <%= render partial: 'new_item', collection: @order.items, as: :item, locals: { form: form } %>
 <%= render partial: 'blank_item', locals: { item: @order.items.build, form: form } %>
