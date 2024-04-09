@@ -1,12 +1,10 @@
-<div id="payment_container" class="weui-form-preview is-box">
-  <div class="weui-form-preview__bd">
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:total_amount) %></label>
-      <strong class="weui-form-preview__value"><%= model.total_amount.to_money.format.html_safe %></strong>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:checked_amount) %></label>
-      <span class="weui-form-preview__value has-text-success"><%= model.checked_amount.to_money.format.html_safe %></span>
-    </div>
+<dl id="payment_container" class="as-show is-box mx-3 mb-3">
+  <div>
+    <dt><%= Trade::Payment.human_attribute_name(:total_amount) %></dt>
+    <dd><%= model.total_amount.to_money.format.html_safe %></dd>
   </div>
-</div>
+  <div>
+    <dt><%= Trade::Payment.human_attribute_name(:checked_amount) %></dt>
+    <dd class="has-text-success"><%= model.checked_amount.to_money.format.html_safe %></dd>
+  </div>
+</dl>
