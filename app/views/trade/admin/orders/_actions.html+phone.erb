@@ -6,7 +6,7 @@
   <i class="fa-solid fa-pencil"></i>
   <span><%= t('.edit.title') %></span>
 <% end %>
-<%= link_to({ action: 'adjust_edit', id: model.id }, class: 'cell has-column-centered has-text-primary') do %>
+<%= button_to({ action: 'adjust_edit', id: model.id }, class: 'cell has-column-centered has-text-primary') do %>
   <i class="fa-solid fa-pen-clip"></i>
   <span><%= t('trade.admin.orders.adjust_edit.title') %></span>
 <% end %>
