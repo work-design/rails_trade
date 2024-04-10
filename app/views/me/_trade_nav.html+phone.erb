@@ -1,14 +1,8 @@
 <div data-controller="empty" class="box is-padding-less mx-3">
   <div class="box-body">
-    <span class="has-border-left-primary"><%= t('trade.me.title') %></span>
+    <span class="size-7 has-border-left-primary"><%= t('trade.me.title') %></span>
   </div>
   <div class="columns is-4-mobile flex is-vcentered is-centered m-0 is-shadow" data-empty-target="content">
-    <%= link_to({ controller: 'trade/me/orders' }, state: 'enter', class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
-        <i class="fa-solid fa-fw fa-xl fa-list"></i>
-      </div>
-      <div class="has-text-grey size-7 mt-1"><%= t('trade.me.orders.index.title') %></div>
-    <% end %>
     <%= link_to({ controller: 'trade/admin/orders' }, state: 'enter', class: 'column has-column-centered') do %>
       <div class="has-text-primary">
         <i class="fa-solid fa-fw fa-xl fa-list"></i>
