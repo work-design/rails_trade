@@ -22,4 +22,8 @@
   <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
     <span><%= t('.purchase.title') %></span>
   <% end %>
+  <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-info') do %>
+    <i class="fa-solid fa-pen-clip"></i>
+    <span class="pl-1"><%= t('.adjust_edit.title') %></span>
+  <% end %>
 </div>
