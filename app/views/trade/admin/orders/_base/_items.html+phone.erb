@@ -1,17 +1,17 @@
 <dl id="order_detail_<%= model.id %>" class="as-show is-box mx-3">
   <div>
     <dt><%= Trade::Order.human_attribute_name(:uuid) %></dt>
-    <div class="weui-form-preview__value" data-controller="clipboard">
+    <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.uuid %></span>
       <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
-      <div data-clipboard-target="toast" class="weui-toast__wrap">
+      <div data-clipboard-target="toast" class="display-none">
         <div class="weui-mask_transparent"></div>
         <div class="weui-toast">
           <i class="weui-icon-success-no-circle weui-icon_toast"></i>
           <p class="weui-toast__content">复制成功</p>
         </div>
       </div>
-    </div>
+    </dd>
   </div>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:created_at) %></dt>
@@ -37,6 +37,12 @@
     <div>
       <dt><%= Trade::Order.human_attribute_name(:advance_amount) %></dt>
       <dd class="has-text-danger"><%= model.advance_amount.to_money.format.html_safe %></dd>
+    </div>
+  <% end %>
+  <% if model.adjust_amount != 0 %>
+    <div>
+      <dt><%= Trade::Order.human_attribute_name(:adjust_amount) %></dt>
+      <dd class="has-text-danger"><%= model.adjust_amount.to_money.format.html_safe %></dd>
     </div>
   <% end %>
   <div>
