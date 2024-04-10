@@ -1,7 +1,6 @@
 <div data-controller="empty" class="box is-padding-less mx-3">
   <div class="box-body">
-    <i class="fa-solid fa-fw fa-cash-register has-text-primary"></i>
-    <span><%= t('trade.me.title') %></span>
+    <span class="has-border-left-primary"><%= t('trade.me.title') %></span>
   </div>
   <div class="columns is-4-mobile flex is-vcentered is-centered m-0 is-shadow" data-empty-target="content">
     <%= link_to({ controller: 'trade/me/orders' }, state: 'enter', class: 'column has-column-centered') do %>
