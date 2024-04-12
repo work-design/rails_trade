@@ -1,13 +1,13 @@
 <%= render 'top_bar' %>
 
-<div class="box mx-3">
-  <div class="weui-panel__hd level is-mobile">
+<div class="box is-padding-less mx-3">
+  <div class="box-header">
     <span class="level-left"><%= Trade::Wallet.human_attribute_name(:amount) %></span>
     <div class="level-right mt-0 pr-3 has-text-weight-bold">
       <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @wallet.id } if @wallet.id %>
     </div>
   </div>
-  <div class="weui-panel__bd">
+  <div class="box-body">
     <div class="has-text-centered">
       <h2 class="title">
         <span><%= @wallet.amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
@@ -15,21 +15,19 @@
       </h2>
     </div>
   </div>
-  <div class="weui-panel__ft py-2">
-  </div>
 </div>
 
-<div class="box mx-3">
-  <div class="weui-panel__hd">充值</div>
-  <div class="weui-panel__bd">
-    <div class="columns m-4 flex is-multiline is-mobile">
-      <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances.without_card, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
-    </div>
+<div class="box is-padding-less mx-3">
+  <div class="box-header">充值</div>
+  <div class="columns m-4 flex is-multiline is-mobile">
+    <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances.without_card, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
+  </div>
+  <div class="box-body">
     <% @wallet.wallet_template.unopened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
-    <div class="mx-4">
+    <div class="mb-3">
       <strong><%= card_template.name %>专享</strong>
     </div>
-    <div class="columns m-4 flex is-multiline is-mobile">
+    <div class="columns flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
     </div>
     <% end %>

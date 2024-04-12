@@ -1,27 +1,25 @@
-<div class="weui-panel is-box is-borderless">
-  <div class="weui-panel__bd">
-    <div class="card is-wallet is-radiusless" style="background-image: url(<%= rails_blob_url(model.card_template.cover) %>)">
-      <div class="card-header level mb-0">
-        <div class="level-left">
-          <p class="card-header-title" style="color: <%= model.card_template.text_color %>">
-            <span><%= model.card_template.name %></span>
-            <span class="has-text-grey">（已开通）</span>
-          </p>
-        </div>
-        <div class="level-right mt-0 pr-3"></div>
+<div class="box mx-3">
+  <div class="card is-wallet is-radiusless" style="background-image: url(<%= rails_blob_url(model.card_template.cover) %>)">
+    <div class="card-header level mb-0">
+      <div class="level-left">
+        <p class="card-header-title" style="color: <%= model.card_template.text_color %>">
+          <span><%= model.card_template.name %></span>
+          <span class="has-text-grey">（已开通）</span>
+        </p>
       </div>
-      <div class="card-content is-cover flex flex-direction-column-reverse" style="color: <%= model.card_template.text_color %>">
-        <div class="header">
-        </div>
-        <div class="description">
-        </div>
+      <div class="level-right mt-0 pr-3"></div>
+    </div>
+    <div class="card-content is-cover flex flex-direction-column-reverse" style="color: <%= model.card_template.text_color %>">
+      <div class="header">
       </div>
-      <div class="card-footer level" style="color: <%= model.card_template.text_color %>">
-        <div class="level-left">
-          <p><%= model.card_uuid %></p>
-        </div>
-        <div class="level-right"></div>
+      <div class="description">
       </div>
+    </div>
+    <div class="card-footer level" style="color: <%= model.card_template.text_color %>">
+      <div class="level-left">
+        <p><%= model.card_uuid %></p>
+      </div>
+      <div class="level-right"></div>
     </div>
   </div>
   <div class="weui-panel__hd has-block-space-between">
