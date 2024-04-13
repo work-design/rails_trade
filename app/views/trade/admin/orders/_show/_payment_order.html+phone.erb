@@ -1,8 +1,8 @@
-<div class="weui-form-preview__bd">
+<dl class="as-show is-box">
   <% if model.payment %>
-  <div class="weui-form-preview__item">
-    <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:payment_uuid) %></label>
-    <div class="weui-form-preview__value" data-controller="clipboard">
+  <div>
+    <dt><%= Trade::Payment.human_attribute_name(:payment_uuid) %></dt>
+    <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.payment.payment_uuid %></span>
       <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
       <div data-clipboard-target="toast" class="weui-toast__wrap">
@@ -12,22 +12,22 @@
           <p class="weui-toast__content">复制成功</p>
         </div>
       </div>
-    </div>
+    </dd>
   </div>
-  <div class="weui-form-preview__item">
-    <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:type) %></label>
-    <span class="weui-form-preview__value"><%= model.payment.type_i18n %></span>
+  <div>
+    <dt><%= Trade::Payment.human_attribute_name(:type) %></dt>
+    <dd><%= model.payment.type_i18n %></dd>
   </div>
-  <div class="weui-form-preview__item">
-    <label class="weui-form-preview__label"><%= Trade::Payment.human_attribute_name(:created_at) %></label>
-    <span class="weui-form-preview__value">
+  <div>
+    <dt><%= Trade::Payment.human_attribute_name(:created_at) %></dt>
+    <dd>
       <time data-controller="time" data-format="human"><%= model.payment.created_at.to_fs(:iso8601) %></time>
-    </span>
+    </dd>
   </div>
   <% end %>
-  <div class="weui-form-preview__item">
-    <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:order_amount) %></label>
-    <span class="weui-form-preview__value">
+  <div>
+    <dt><%= Trade::PaymentOrder.human_attribute_name(:order_amount) %></dt>
+    <dd>
       <% if model.payment.type == 'Trade::WalletPayment' %>
       <span class="tag">
       <% if model.payment.wallet.is_a?(Trade::LawfulWallet) %>
@@ -39,13 +39,13 @@
       </span>
       <% end %>
       <span class="has-text-danger"><%= model.order_amount.to_money.format.html_safe %></span>
-    </span>
+    </dd>
   </div>
-  <div class="weui-form-preview__item">
-    <label class="weui-form-preview__label"><%= Trade::PaymentOrder.human_attribute_name(:state) %></label>
-    <span class="weui-form-preview__value"><%= model.state_i18n %></span>
+  <div>
+    <dt><%= Trade::PaymentOrder.human_attribute_name(:state) %></dt>
+    <dd><%= model.state_i18n %></dd>
   </div>
-</div>
+</dl>
 <div class="weui-form-preview__ft">
   <%= link_to({ controller: 'payments', action: 'payment_order_new', payment_order_id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
     <span>支付</span>
