@@ -1,34 +1,32 @@
 <%= render 'top_bar' %>
 
-<div class="box mx-3">
-  <div class="weui-panel__hd has-block-space-between">
+<div class="box is-padding-less mx-3">
+  <div class="box-header">
     <span><%= Trade::Wallet.human_attribute_name(:amount) %></span>
     <div class="has-text-weight-bold">
       <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @lawful_wallet.id } if @lawful_wallet.id %>
     </div>
   </div>
-  <div class="weui-panel__bd">
-    <div class="has-text-centered">
-      <h2 class="title mb-0"><%= @lawful_wallet.amount.to_money.format.html_safe %></h2>
-      <% if @lawful_wallet.frozen_amount.to_d > 0 %>
-      <h3 class="title has-text-grey is-size-5">
-        <span class="tag">已冻结</span>
-        <span><%= @lawful_wallet.frozen_amount.to_money.format.html_safe %></span>
-      </h3>
-      <% end %>
-    </div>
+  <div class="box-body has-text-centered">
+    <h2 class="title mb-0"><%= @lawful_wallet.amount.to_money.format.html_safe %></h2>
+    <% if @lawful_wallet.frozen_amount.to_d > 0 %>
+    <h3 class="title has-text-grey is-size-5">
+      <span class="tag">已冻结</span>
+      <span><%= @lawful_wallet.frozen_amount.to_money.format.html_safe %></span>
+    </h3>
+    <% end %>
   </div>
-  <div class="weui-panel__ft py-2">
+  <div class="box-footer">
     <%= link_to({ action: 'account' }, class: 'weui-btn weui-btn_primary') do %>
       <span>提现</span>
     <% end %>
   </div>
 </div>
 
-<div class="box mx-3">
+<div class="box is-padding-less mx-3">
   <div class="weui-panel__hd">充值</div>
-  <div class="weui-panel__bd">
-    <div class="columns m-4 flex is-multiline is-mobile">
+  <div class="box-body">
+    <div class="columns flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: @lawful_wallet.advances.without_card, as: :advance %>
     </div>
     <% @lawful_wallet.advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
