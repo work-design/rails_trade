@@ -1,11 +1,11 @@
 <div class="media">
-  <%= link_to({ action: 'show', id: model.id }, state: 'enter', data: { controller: 'empty' }, class: 'media-left as-logo') do %>
+  <%= link_to({ action: 'show', id: model.id }, state: 'enter', data: { controller: 'empty' }, class: 'media-left') do %>
     <%= image_tag model.good.logo, class: 'image is-64x64' if model.good && model.good.logo.attached? %>
   <% end %>
   <div class="media-content">
     <%= yield %>
   </div>
-  <div class="media-right as-x">
+  <div class="media-right">
     <%= button_to({ action: 'actions', id: model.id }, state: 'enter', class: 'button is-borderless') do %>
       <i class="fa-solid fa-lg fa-ellipsis-h"></i>
     <% end %>

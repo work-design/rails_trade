@@ -2,7 +2,7 @@
   <div class="media-content">
     <%= yield %>
   </div>
-  <div class="media-right as-x">
+  <div class="media-right">
     <%= link_to({ controller: '/factory/productions', host: model.organ.host }, state: 'enter', class: 'button is-borderless') do %>
       <i class="fa-solid fa-lg fa-cart-shopping has-text-primary"></i>
     <% end %>

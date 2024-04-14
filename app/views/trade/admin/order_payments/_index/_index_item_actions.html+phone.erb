@@ -2,7 +2,7 @@
   <div class="media-content">
     <%= yield %>
   </div>
-  <div class="media-right as-x">
+  <div class="media-right">
   <% if model.state_confirmed? %>
     <%= button_to({ controller: 'payment_orders', action: 'cancel', payment_id: model.payment_id, id: model.id }, class: 'button is-small is-warning') do %>
       <i class="fa-solid fa-clock-rotate-left"></i>

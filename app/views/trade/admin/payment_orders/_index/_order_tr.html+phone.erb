@@ -2,7 +2,7 @@
   <div class="media-content">
     <%= yield %>
   </div>
-  <div class="media-right as-x">
+  <div class="media-right">
     <%= form_with theme: nil, scope: :payment_order, url: { controller: 'trade/admin/payment_orders', action: 'create' }, class: 'button_to' do |f| %>
       <%= f.hidden_field :order_id, value: model.id %>
       <%= f.hidden_field :order_amount, value: [model.amount, @payment.total_amount].min %>

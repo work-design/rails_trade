@@ -1,12 +1,12 @@
 <div class="media">
-  <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'media-left as-logo' do |f| %>
+  <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'media-left' do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <label class="weui-cells_checkbox">
       <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
       <i class="weui-icon-checked"></i>
     </label>
   <% end %>
-  <div data-controller="empty" class="media-left as-logo">
+  <div data-controller="empty" class="media-left">
   <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
     <%= image_tag model.good.logo, class: 'image is-64x64' %>
   <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>

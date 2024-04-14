@@ -1,5 +1,5 @@
 <div id="item_<%= item.id %>" class="media">
-  <div class="media-left as-logo" data-controller="empty">
+  <div class="media-left" data-controller="empty">
     <%= link_to(item.good, text: true, state: 'enter', data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'image is-64x64' if item.good && item.good.logo&.attached? %>
     <% end %>
@@ -25,7 +25,7 @@
       <% end %>
     </div>
   </div>
-  <div class="media-right as-x">
+  <div class="media-right">
     <%= button_to({ controller: 'items', action: 'edit_price', id: item.id }, class: 'button is-small') do %>
       <span><%= t('.items.edit_price.title') %></span>
     <% end %>
