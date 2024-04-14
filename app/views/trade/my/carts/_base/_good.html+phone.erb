@@ -1,4 +1,4 @@
-<div class="media">
+<div id="item_<%= model.id %>" class="<%= model.status_expired? ? 'media is-box mx-3 has-background-light' : 'media is-box mx-3' %>">
   <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'media-left' do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <label class="weui-cells_checkbox">
