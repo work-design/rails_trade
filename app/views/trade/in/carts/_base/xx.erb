@@ -1,6 +1,6 @@
 <div class="weui-panel__bd">
-  <div class="weui-cell">
-    <div class="weui-cell__bd">
+  <div class="media">
+    <div class="media-content">
       <% if current_organ.default_address %>
         <p>
           <span><%= current_organ.default_address.contact %></span>
@@ -14,6 +14,8 @@
         <p>联系管理员设置地址</p>
       <% end %>
     </div>
-    <div class="weui-cell__ft"></div>
+    <div class="media-right">
+      <i class="fa-solid fa-chevron-right"></i>
+    </div>
   </div>
 </div>

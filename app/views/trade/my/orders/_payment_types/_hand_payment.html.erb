@@ -1,9 +1,11 @@
-<%= link_to({ controller: 'payments', action: 'order_new', order_id: @order.id }, class: 'weui-cell weui-cell_active weui-cell_access') do %>
-  <div class="weui-cell__hd">
+<%= link_to({ controller: 'payments', action: 'order_new', order_id: @order.id }, class: 'media') do %>
+  <div class="media-left">
     <i class="fa-solid fa-fw fa-receipt"></i>
   </div>
-  <div class="weui-cell__bd weui-cell_primary">
+  <div class="media-content">
     <span>上传支付凭证</span>
   </div>
-  <div class="weui-cell__ft"></div>
+  <div class="media-right">
+    <i class="fa-solid fa-chevron-right"></i>
+  </div>
 <% end %>

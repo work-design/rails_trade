@@ -5,9 +5,9 @@
     data-mini-program-url-value="/pages/wxpay_pay/index"
     data-mini-program-data-value="<%= { url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false), path: url_for }.to_json %>"
     data-action="click->mini-program#link"
-    class="weui-cell weui-cell_access"
+    class="media"
   >
-    <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
+    <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
     <div class="weui-cell__bd weui-cell_primary">微信支付</div>
     <div class="weui-cell__ft has-text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   </div>
@@ -17,15 +17,15 @@
     data-wxpay-options-value="<%= @payment.payee_app.app.js_config(session[:enter_url]).to_json %>"
     data-wxpay-params-value="<%= { timestamp: @wxpay_order[:timeStamp], nonceStr: @wxpay_order[:nonceStr], package: @wxpay_order[:package], signType: @wxpay_order[:signType], paySign: @wxpay_order[:paySign] }.to_json %>"
     data-action="click->wxpay#chooseWXPay"
-    class="weui-cell weui-cell_active weui-cell_access"
+    class="media"
   >
-    <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
+    <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
     <div class="weui-cell__bd weui-cell_primary">微信支付</div>
     <div class="weui-cell__ft has-text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   </div>
 <% elsif @url %>
   <%= link_to(@url, class: 'weui-cell weui-cell_active weui-cell_access') do %>
-    <div class="weui-cell__hd"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
+    <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image fa-fw' %></div>
     <div class="weui-cell__bd weui-cell_primary has-text-link">微信支付</div>
     <div class="weui-cell__ft has-text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   <% end %>

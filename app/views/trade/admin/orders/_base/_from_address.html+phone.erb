@@ -1,8 +1,8 @@
-<%= button_to({ controller: 'profiled/my/addresses', action: 'order_from', from_address_id: @order.from_address_id }, class: 'button is-fullwidth') do %>
-  <div class="weui-cell__hd">
+<%= button_to({ controller: 'profiled/my/addresses', action: 'order_from', from_address_id: @order.from_address_id }, class: 'media button is-fullwidth') do %>
+  <div class="media-left">
     <i class="fa-solid fa-fw fa-location-dot has-text-success pr-2"></i>
   </div>
-  <div class="weui-cell__bd">
+  <div class="media-content">
   <% if @order.from_address %>
     <p>
       <strong><%= @order.from_address.contact %></strong>
@@ -19,5 +19,7 @@
     <span>发货人信息</span>
   <% end %>
   </div>
-  <div class="weui-cell__ft"></div>
+  <div class="media-right">
+    <i class="fa-solid fa-chevron-right"></i>
+  </div>
 <% end %>
