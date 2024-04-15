@@ -35,7 +35,7 @@ module Trade
     def payment_pending
       payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(payment.wallet_id)
-      set_wxpay
+      set_wxpay if request.variant.include?(:wecaht)
     end
 
     def payment_confirm
