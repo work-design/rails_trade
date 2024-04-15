@@ -8,7 +8,7 @@ module Trade
 
     private
     def set_card
-      @card = Card.find params[:card_id]
+      @card = current_user.cards.find params[:card_id]
     end
 
   end
