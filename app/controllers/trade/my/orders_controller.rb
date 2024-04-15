@@ -29,7 +29,7 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
-      set_wxpay
+      set_wxpay if request.variant.include?(:wecaht)
     end
 
     def payment_pending

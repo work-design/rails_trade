@@ -1,44 +1,42 @@
-<div class="weui-form-preview is-box mt-3">
-  <div class="weui-form-preview__bd">
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:amount) %></label>
-      <span class="weui-form-preview__value"><%= @order.amount.to_money.format.html_safe %></span>
-    </div>
-    <% if @order.advance_amount.to_d > 0 %>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:advance_amount) %></label>
-        <span class="weui-form-preview__value"><%= @order.advance_amount.to_money.format.html_safe %></span>
-      </div>
-    <% end %>
-    <% if @order.received_amount.to_d > 0 %>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:received_amount) %></label>
-        <span class="weui-form-preview__value"><%= @order.received_amount.to_money.format.html_safe %></span>
-      </div>
-    <% end %>
-    <% @order.payment_orders.select(&->(i){ i.persisted? }).each do |payment_order| %>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label pl-4"><%= payment_order.payment.desc %></label>
-        <span class="weui-form-preview__value">
-          <span><%= payment_order.payment_amount %></span>
-          <span class="tag"><%= payment_order.state_i18n %></span>
-          <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
-        </span>
-      </div>
-    <% end %>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></label>
-      <span class="weui-form-preview__value has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format.html_safe %></span>
-    </div>
-    <% if @order.payment_strategy %>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label"><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></label>
-        <span class="weui-form-preview__value"><%= @order.payment_strategy.name %></span>
-      </div>
-      <div class="weui-form-preview__item">
-        <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:deposit_ratio) %></label>
-        <span class="weui-form-preview__value"><%= @order.current_cart.deposit_ratio_str %></span>
-      </div>
-    <% end %>
+<dl class="as-show is-box mx-3 mb-3">
+  <div>
+    <dt><%= Trade::Order.human_attribute_name(:amount) %></dt>
+    <dd><%= @order.amount.to_money.format.html_safe %></dd>
   </div>
-</div>
+  <% if @order.advance_amount.to_d > 0 %>
+    <div>
+      <dt><%= Trade::Order.human_attribute_name(:advance_amount) %></dt>
+      <dd><%= @order.advance_amount.to_money.format.html_safe %></dd>
+    </div>
+  <% end %>
+  <% if @order.received_amount.to_d > 0 %>
+    <div>
+      <dt><%= Trade::Order.human_attribute_name(:received_amount) %></dt>
+      <dd><%= @order.received_amount.to_money.format.html_safe %></dd>
+    </div>
+  <% end %>
+  <% @order.payment_orders.select(&->(i){ i.persisted? }).each do |payment_order| %>
+    <div>
+      <dt class="pl-4"><%= payment_order.payment.desc %></dt>
+      <dd>
+        <span><%= payment_order.payment_amount %></span>
+        <span class="tag"><%= payment_order.state_i18n %></span>
+        <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
+      </dd>
+    </div>
+  <% end %>
+  <div>
+    <dt class="has-text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></dt>
+    <dd class="has-text-danger has-text-weight-bold"><%= @order.unreceived_amount.to_money.format.html_safe %></dd>
+  </div>
+  <% if @order.payment_strategy %>
+    <div>
+      <dt><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></dt>
+      <dd><%= @order.payment_strategy.name %></dd>
+    </div>
+    <div>
+      <dt><%= Trade::Cart.human_attribute_name(:deposit_ratio) %></dt>
+      <dd><%= @order.current_cart.deposit_ratio_str %></dd>
+    </div>
+  <% end %>
+</dl>

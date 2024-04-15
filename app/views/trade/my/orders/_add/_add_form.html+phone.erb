@@ -9,8 +9,8 @@
   <% end %>
 <% end %>
 
-<div class="box mx-3">
-  <div class="weui-panel__bd">
+<div class="box is-padding-less mx-3">
+  <div class="box-body">
     <%= render partial: 'item', collection: @order.items, as: :item %>
     <div class="weui-media-box weui-media-box_text pb-1 pt-2">
       <ul class="weui-media-box__info m-0">
@@ -21,7 +21,7 @@
       </ul>
     </div>
   </div>
-  <div class="weui-panel__ft p-4">
-    <%= submit_tag t('.create.title'), class: 'button is-primary', form: 'new_order' %>
+  <div class="box-footer">
+    <%= submit_tag t('.create.title'), class: 'button is-fullwidth is-primary', form: 'new_order' %>
   </div>
 </div>
