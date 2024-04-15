@@ -52,7 +52,7 @@ module Trade
       else
         self.state = 'fresh'
       end
-      self.last_expire_at = card.expire_at
+      self.last_expire_at = card.expire_at || Time.current
       self.years = purchase.years
       self.months = purchase.months
       self.days = purchase.days
