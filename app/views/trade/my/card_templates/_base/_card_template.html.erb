@@ -1,22 +1,18 @@
-<div class="weui-panel is-box is-borderless">
-  <div class="weui-panel__bd">
-    <div class="card is-wallet is-radiusless" style="background-image: url(<%= rails_blob_url(model.cover) %>)">
-      <div class="card-header">
-        <p class="card-header-title" style="color: <%= model.text_color %>">
-          <span><%= model.name %></span>
-          <span>（未开通）</span>
-        </p>
-      </div>
-      <div class="card-content is-cover flex flex-direction-column-reverse" style="color: <%= model.text_color %>">
-        <div class="description"></div>
-      </div>
-      <div class="card-footer"></div>
+<div class="box is-padding-less mx-3">
+  <div class="card is-wallet is-radiusless" style="background-image: url(<%= rails_blob_url(model.cover) %>)">
+    <div class="card-header">
+      <p class="card-header-title" style="color: <%= model.text_color %>">
+        <span><%= model.name %></span>
+        <span>（未开通）</span>
+      </p>
     </div>
+    <div class="card-content is-cover flex flex-direction-column-reverse" style="color: <%= model.text_color %>">
+      <div class="description"></div>
+    </div>
+    <div class="card-footer"></div>
   </div>
-  <div class="weui-panel__ft" data-controller="empty">
-    <div class="columns m-4 flex is-multiline is-mobile" data-empty-target="content">
-      <%= render partial: 'purchase', collection: model.purchases %>
-    </div>
+  <div class="columns m-4 flex is-multiline is-mobile" data-controller="empty" data-empty-target="content">
+    <%= render partial: 'purchase', collection: model.purchases %>
   </div>
 </div>
 
