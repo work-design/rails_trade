@@ -1,5 +1,5 @@
-<div class="box mx-3">
-  <div class="weui-panel__hd">
+<div class="box mx-3 p-0">
+  <div class="box-body">
     <span>余额：</span>
     <% if @wallet.is_a?(Trade::LawfulWallet) %>
       <span><%= @wallet.amount.to_money.format.html_safe %></span>
@@ -8,7 +8,5 @@
       <span><%= @wallet.wallet_template.unit %></span>
     <% end %>
   </div>
-  <div class="weui-panel__bd">
-    <%= yield %>
-  </div>
+  <%= yield %>
 </div>
