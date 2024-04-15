@@ -25,7 +25,6 @@ module Trade
     end
 
     def add
-      @order.valid?
     end
 
     def payment_types

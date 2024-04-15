@@ -101,10 +101,11 @@ module Trade
       )
 
       after_initialize :init_uuid, if: :new_record?
+      after_initialize :sync_from_good, if: -> { new_record? && good_id.present? }
       after_initialize :compute_amount, if: -> { new_record? && single_price.present? }
+      before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
-      before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :compute_price, if: -> { good_id_changed? || purchase_id_changed? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
@@ -202,6 +203,7 @@ module Trade
       self.extra = Hash(self.extra).merge good.item_extra
       self.organ_id = (good.respond_to?(:organ_id) && good.organ_id) || current_cart&.organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on
+      compute_price
     end
 
     def sync_from_current_cart
