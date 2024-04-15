@@ -48,8 +48,8 @@ module Trade
       elsif payment.respond_to?(:wallet)
         if payment.wallet.amount < order_amount
           self.order_amount = payment.wallet.amount
-          self.payment_amount = self.order_amount
         end
+        self.payment_amount = self.order_amount
       else
         self.payment_amount = self.order_amount
       end
