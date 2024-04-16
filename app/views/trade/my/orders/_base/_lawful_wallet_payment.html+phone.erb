@@ -1,5 +1,5 @@
-<label class="weui-cell weui-cell_active weui-cells_checkbox">
-  <span class="weui-cell__bd has-v-centered">
+<label class="media">
+  <span class="media-content has-v-centered">
     <span class="is-several">
       <span>钱包</span>
     </span>
@@ -8,7 +8,7 @@
       <span class="tag is-success"><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
     </span>
   </span>
-  <span class="weui-cell__ft has-v-centered" data-controller="input">
+  <span data-controller="input" class="media-right has-v-centered">
     <span class="has-text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
     <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
       <%= f.hidden_field :wallet_id %>
@@ -18,9 +18,8 @@
         <%= ef.hidden_field :payment_amount %>
         <%= ef.hidden_field :order_amount %>
         <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
-        <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'weui-check', data: { action: 'input#form' } %>
+        <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
       <% end %>
-      <span class="weui-icon-checked"></span>
     <% end %>
   </span>
 </label>
