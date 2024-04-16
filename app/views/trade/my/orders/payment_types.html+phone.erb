@@ -1,6 +1,7 @@
 <%= render 'top_bar' %>
 <%= render 'order_for_payment' %>
 
+<% if @order.payment_orders.select(&:new_record?).present? %>
 <div class="box is-padding-less mx-3">
   <div class="box-body">
     <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
@@ -14,6 +15,7 @@
     <% end %>
   </div>
 </div>
+<% end %>
 
 <% if @order.all_paid? %>
 <div class="box mx-3">
