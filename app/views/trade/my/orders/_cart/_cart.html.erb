@@ -1,27 +1,22 @@
-<div class="weui-form-preview is-box">
-  <div class="weui-form-preview__bd">
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:original_amount) %></label>
-      <span class="weui-form-preview__value"><%= cart.original_amount.to_money.format.html_safe %></span>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></label>
-      <span class="weui-form-preview__value"><%= cart.overall_additional_amount.to_money.format.html_safe %></span>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></label>
-      <span class="weui-form-preview__value"><%= cart.overall_reduced_amount.to_money.format.html_safe %></span>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Trade::Cart.human_attribute_name(:advance_amount) %></label>
-      <span class="weui-form-preview__value"><%= cart.advance_amount.to_money.format.html_safe %></span>
-    </div>
+<dl class="as-show is-box mx-3">
+  <div>
+    <dt><%= Trade::Cart.human_attribute_name(:original_amount) %></dt>
+    <dd><%= cart.original_amount.to_money.format.html_safe %></dd>
   </div>
-  <div class="weui-form-preview__ft justify-content-flex-end">
-    <div class="px-4">
-      <span><%= Trade::Cart.human_attribute_name(:amount) %></span>
-      <span>:</span>
-      <span><%= cart.amount.to_money.format.html_safe %></span>
-    </div>
+  <div>
+    <dt><%= Trade::Cart.human_attribute_name(:overall_additional_amount) %></dt>
+    <dd><%= cart.overall_additional_amount.to_money.format.html_safe %></dd>
   </div>
-</div>
+  <div>
+    <dt><%= Trade::Cart.human_attribute_name(:overall_reduced_amount) %></dt>
+    <dd><%= cart.overall_reduced_amount.to_money.format.html_safe %></dd>
+  </div>
+  <div>
+    <dt><%= Trade::Cart.human_attribute_name(:advance_amount) %></dt>
+    <dd><%= cart.advance_amount.to_money.format.html_safe %></dd>
+  </div>
+  <div class="pl-4">
+    <dt><%= Trade::Cart.human_attribute_name(:amount) %></dt>
+    <dd><%= cart.amount.to_money.format.html_safe %></dd>
+  </div>
+</dl>

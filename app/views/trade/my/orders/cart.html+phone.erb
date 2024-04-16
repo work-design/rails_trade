@@ -5,20 +5,16 @@
 <% end %>
 
 <div class="box mx-3">
-  <div class="weui-panel__bd">
-    <% if @cart.aim_rent? %>
-      <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
-    <% else %>
-      <%= render partial: 'item', collection: @cart.items.includes(:member, good: { logo_attachment: :blob }).status_checked, as: :item %>
-    <% end %>
-    <%= render partial: 'item', collection: @cart.trial_card_items, as: :item %>
-  </div>
+<% if @cart.aim_rent? %>
+  <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
+<% else %>
+  <%= render partial: 'item', collection: @cart.items.includes(:member, good: { logo_attachment: :blob }).status_checked, as: :item %>
+<% end %>
+<%= render partial: 'item', collection: @cart.trial_card_items, as: :item %>
 </div>
 
 <%= render partial: 'cart', locals: { cart: @cart } %>
 
 <div class="box mx-3">
-  <div class="weui-panel__ft p-4">
-    <%= submit_tag t('.create.title'), class: 'weui-btn weui-btn_primary', form: 'new_order' %>
-  </div>
+  <%= submit_tag t('.create.title'), class: 'button is-fullwidth is-primary', form: 'new_order' %>
 </div>
