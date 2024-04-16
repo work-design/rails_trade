@@ -16,7 +16,7 @@
     <dd><%= cart.advance_amount.to_money.format.html_safe %></dd>
   </div>
   <div class="pl-4">
-    <dt><%= Trade::Cart.human_attribute_name(:amount) %></dt>
+    <dt><strong><%= Trade::Cart.human_attribute_name(:amount) %></strong></dt>
     <dd><%= cart.amount.to_money.format.html_safe %></dd>
   </div>
 </dl>
