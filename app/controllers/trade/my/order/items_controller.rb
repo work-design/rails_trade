@@ -1,5 +1,5 @@
 module Trade
-  class My::ItemsController < My::ItemsController
+  class My::Order::ItemsController < My::ItemsController
     before_action :set_order
     before_action :set_item, only: [:show, :edit, :update, :actions]
 

@@ -1,9 +1,9 @@
 module Trade
   class My::ItemsController < My::BaseController
-    before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
-    before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]
+    before_action :set_cart, except: [:index]
+    before_action :set_cart, :set_item, only: [
+      :show, :edit, :update, :destroy, :actions, :promote, :toggle, :finish]
     before_action :set_new_item, only: [:create]
-    before_action :set_item, only: [:show, :edit, :order_edit, :order_update, :actions]
     before_action :set_card_template, only: [:trial]
     after_action :support_cors, only: [:create]
 
@@ -50,11 +50,6 @@ module Trade
       @item.save
     end
 
-    def order_update
-      @item.assign_attributes ordered_item_params
-      @item.save
-    end
-
     def finish
       @item.rent_finish_at = Time.current
       @item.save
@@ -75,10 +70,6 @@ module Trade
       end
     end
 
-    def set_item
-      @item = current_user.items.find params[:id]
-    end
-
     def set_card_template
       @card_template = CardTemplate.find params[:card_template_id]
     end
@@ -88,12 +79,6 @@ module Trade
         :number,
         :note,
         :desk_id
-      )
-    end
-
-    def ordered_item_params
-      params.fetch(:item, {}).permit(
-        :note
       )
     end
 

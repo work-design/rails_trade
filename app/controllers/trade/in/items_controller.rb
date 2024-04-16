@@ -1,10 +1,11 @@
 module Trade
   class In::ItemsController < Admin::ItemsController
     include Controller::In
-    before_action :set_cart, only: [:create, :update, :destroy, :toggle, :trial, :untrial]
-    before_action :set_item, only: [:show, :edit_price, :update_price]
-    before_action :set_new_item, only: [:create, :cost]
-    before_action :set_cart_item, only: [:update, :destroy, :promote, :toggle, :finish]
+    before_action :set_cart, :set_item, only: [
+      :show, :edit, :update, :destroy, :actions,
+      :promote, :toggle, :finish, :edit_price, :update_price
+    ]
+    before_action :set_cart, :set_new_item, only: [:create, :cost]
 
     def cost
       @item.single_price = @item.good.cost
@@ -21,9 +22,9 @@ module Trade
     end
 
     private
-    def set_item
-      @item = current_organ.organ_items.find params[:id]
-    end
+    # def set_item
+    #   @item = current_organ.organ_items.find params[:id]
+    # end
 
     def set_cart
       if current_cart
@@ -34,10 +35,6 @@ module Trade
         options.merge! client_id: nil, contact_id: nil
         @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: 'use')
       end
-    end
-
-    def set_cart_item
-      @item = @cart.items.load.find params[:id]
     end
 
     def item_params
