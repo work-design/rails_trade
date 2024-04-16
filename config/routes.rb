@@ -26,6 +26,7 @@ Rails.application.routes.draw do
           get :success
         end
         resources :packages
+        resources :items, controller: 'order/items'
       end
       resources :items do
         collection do
