@@ -29,13 +29,13 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
-      set_wxpay if request.variant.include?(:wecaht)
+      set_wxpay if request.variant.include?(:wechat)
     end
 
     def payment_pending
       payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(payment.wallet_id)
-      set_wxpay if request.variant.include?(:wecaht)
+      set_wxpay if request.variant.include?(:wechat)
     end
 
     def payment_confirm

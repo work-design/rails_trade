@@ -1,7 +1,7 @@
 <dl class="box mx-3 as-show">
   <div>
     <dt><%= Trade::Order.human_attribute_name(:uuid) %></dt>
-    <dd data-condivoller="clipboard">
+    <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.uuid %></span>
       <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
       <div data-clipboard-target="toast" class="display-none">
@@ -15,7 +15,7 @@
   </div>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:created_at) %></dt>
-    <dd><time data-condivoller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></dd>
+    <dd><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></dd>
   </div>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:item_amount) %></dt>
