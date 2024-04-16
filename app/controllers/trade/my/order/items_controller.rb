@@ -9,7 +9,7 @@ module Trade
     end
 
     def set_item
-      @item = @order.items.find params[:id]
+      @item = @order.items.load.find params[:id]
     end
 
     def item_params

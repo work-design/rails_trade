@@ -1,1 +1,2 @@
-<%= turbo_stream.append 'body', partial: 'visit' %>
+<%= turbo_stream.replace "tr_#{@item.order_id}", partial: 'trade/my/orders/_base/order', locals: { model: @item.order } %>
+<%= turbo_stream.remove 'modal' %>

@@ -114,10 +114,10 @@ module Trade
       before_create :add_promotes
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
-      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && ['init', 'checked', 'trial', 'expired'].include?(status) }
+      after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && in_cart? }
       after_save :sync_amount_to_order, if: -> { order_id.present? && (saved_changes.keys & ['amount']).present? }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
-      after_save :set_not_fresh, if: -> { current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present? }
+      after_save :set_not_fresh, if: -> { (current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present?) && in_cart? }
       after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
@@ -176,6 +176,10 @@ module Trade
 
     def effective?
       ['checked', 'trial'].include?(status) && !destroyed?
+    end
+
+    def in_cart?
+      ['init', 'checked', 'trial', 'expired'].include?(status)
     end
 
     def init_uuid

@@ -1,4 +1,4 @@
-<div class="box is-border">
+<div id="tr_<%= model.id %>" class="box is-border">
   <%= render partial: 'order_overview', locals: { model: model } %>
   <div class="box-body">
   <% if model.from_address.present? %>
@@ -7,7 +7,7 @@
     <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
   <% end %>
   </div>
-  <%= link_to({ action: 'show', id: model.id }, class: 'box-footer') do %>
+  <%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'box-footer') do %>
     <span class="size-7">
       <span class="has-text-grey">总价：</span>
       <span class="has-text-danger"><%= model.amount.to_money.format.html_safe %></span>
@@ -20,16 +20,16 @@
   <% end %>
   <div class="box-footer justify-content-end">
     <div class="buttons are-small">
-      <%= button_to({ action: 'cancel', id: model.id }, method: :patch, class: 'button is-outlined is-dark', form: { class: '' }) do %>
+      <%= button_to({ controller: 'orders', action: 'cancel', id: model.id }, method: :patch, class: 'button is-outlined is-dark', form: { class: '' }) do %>
         <span>取消订单</span>
       <% end if model.can_cancel? %>
-      <%= link_to({ action: 'show', id: model.id }, class: 'button is-outlined is-dark') do %>
+      <%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'button is-outlined is-dark') do %>
         <span>售后</span>
       <% end if model.all_paid? %>
-      <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-outlined is-danger') do %>
+      <%= link_to({ controller: 'orders', action: 'payment_types', id: model.id }, class: 'button is-outlined is-danger') do %>
         <span>支付</span>
       <% end if model.aim_use? && model.can_pay? %>
-      <%= link_to({ action: 'payment_frozen', id: model.id }, class: 'button is-outlined is-danger') do %>
+      <%= link_to({ controller: 'orders', action: 'payment_frozen', id: model.id }, class: 'button is-outlined is-danger') do %>
         <span>支付</span>
       <% end if model.aim_rent? && model.can_pay? %>
     </div>
