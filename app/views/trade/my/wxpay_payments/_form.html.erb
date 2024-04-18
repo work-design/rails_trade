@@ -1,6 +1,6 @@
-<div class="weui-cell">
-  <%= f.number_field :total_amount, all: { normal: nil }, min: 0.01, readonly: true, class: 'weui-input has-text-right' %>
-  <div class="weui-cell__ft pl-0">
+<div class="control has-icons-right mx-3">
+  <%= f.number_field :total_amount, label: nil, wrap: { input: 'field-body' }, all: { normal: nil }, min: 0.01, readonly: true, class: 'input has-text-right' %>
+  <div class="icon is-small is-right">
     <span id="dot" hidden>.</span>
     <span class="pl-2">元</span>
   </div>
