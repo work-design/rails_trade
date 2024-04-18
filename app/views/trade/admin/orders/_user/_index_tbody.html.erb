@@ -10,7 +10,7 @@
 <td>
   <span><%= model.payment_status_i18n %></span>
   <% if ['part_paid', 'all_paid'].include?(model.payment_status) %>
-    <%= button_to t('trade.admin.orders.refund.title'), { action: 'refund', id: model.id }, method: :patch, class: 'button is-warning is-small', form: { data: { turbo_confirm: t('.confirm') } } %>
+    <%= button_to t('trade.admin.orders.refund.title'), { action: 'refund', id: model.id }, method: :patch, form: { data: { turbo_confirm: t('.refund.confirm') } }, class: 'button is-warning is-small' %>
   <% elsif ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
     <%= link_to t('trade.admin.refunds.index.title'), { controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-link is-small' %>
   <% end %>
