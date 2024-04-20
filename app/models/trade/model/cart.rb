@@ -126,7 +126,7 @@ module Trade
     end
 
     def need_address?
-      ['Factory::Production'].include?(good_type) && ['use', 'rent'].include?(aim)
+      respond_to?(:station_id) && station_id.blank?
     end
 
     def has_address?
