@@ -57,6 +57,7 @@ module Trade
 
     def filter_hash
       p = { good_type: good_type, aim: aim }.compact
+
       if member_id
         p.merge! member_id: member_id
       elsif respond_to?(:contact_id) && contact_id
@@ -68,8 +69,14 @@ module Trade
       else
         p.merge!({ member_organ_id: member_organ_id }.compact)
       end
-      p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id if respond_to? :agent_id
-      p
+
+      if respond_to? :agent_id
+        p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id
+      end
+
+      if respond_to? :desk_id
+        p.merge! desk_id: desk_id, station_id: station_id
+      end
     end
 
     def agent_filter_hash
@@ -116,7 +123,6 @@ module Trade
     end
 
     def agent_cart?
-
     end
 
     def need_address?

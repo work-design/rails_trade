@@ -6,6 +6,11 @@ module Trade
       include Factory::Ext::ItemPurchase
       include Factory::Ext::ItemGood
     end
-    include Crm::Ext::Maintainable if defined? RailsCrm
+    if defined? RailsCrm
+      include Crm::Ext::Maintainable
+    end
+    if defined? RailsSpace
+      include Space::Ext::Item
+    end
   end
 end
