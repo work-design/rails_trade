@@ -77,6 +77,8 @@ module Trade
       if respond_to? :desk_id
         p.merge! desk_id: desk_id, station_id: station_id
       end
+
+      p
     end
 
     def agent_filter_hash
