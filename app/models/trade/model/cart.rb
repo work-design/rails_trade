@@ -16,6 +16,12 @@ module Trade
       attribute :purchasable, :boolean, default: false
       attribute :items_count, :integer, default: 0
 
+      enum dispatch: {
+        delivery: 'delivery',
+        dine: 'dine',
+        fetch: 'fetch'
+      }, _default: 'delivery', _prefix: true
+
       enum aim: {
         use: 'use',
         invest: 'invest',
@@ -56,7 +62,7 @@ module Trade
     end
 
     def filter_hash
-      p = { good_type: good_type, aim: aim }.compact
+      p = { good_type: good_type, aim: aim, dispatch: dispatch }.compact
 
       if member_id
         p.merge! member_id: member_id
@@ -290,7 +296,7 @@ module Trade
 
     def attr_options(**options)
       options.symbolize_keys!
-      args = { good_type: good_type, aim: aim }
+      args = { good_type: good_type, aim: aim, dispatch: dispatch }
       args.merge! options.slice(:good_type, :aim, :contact_id, :member_id)
       if options.key?(:good_id)
         if [nil, ''].include? options[:good_id]

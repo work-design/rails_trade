@@ -50,6 +50,12 @@ module Trade
         all: 'all'
       }, _default: 'init', _prefix: true
 
+      enum dispatch: {
+        delivery: 'delivery',
+        dine: 'dine',
+        fetch: 'fetch'
+      }, _default: 'delivery', _prefix: true
+
       enum aim: {
         use: 'use',
         invest: 'invest',
