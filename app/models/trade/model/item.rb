@@ -54,13 +54,13 @@ module Trade
         delivery: 'delivery',
         dine: 'dine',
         fetch: 'fetch'
-      }, _default: 'delivery', _prefix: true
+      }, _prefix: true
 
       enum aim: {
         use: 'use',
         invest: 'invest',
         rent: 'rent'
-      }, _default: 'use', _prefix: true
+      }, _prefix: true
 
       belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true
