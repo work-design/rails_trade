@@ -30,7 +30,6 @@ zh:
           false: 预付
         aim:
           use: 使用
-          purchase: 采购
           invest: 投资
           rent: 租用
       trade/payment:
@@ -83,6 +82,10 @@ zh:
           use: 使用
           invest: 投资
           rent: 租用
+        dispatch:
+          delivery: 商家配送
+          fetch: 自提
+          dine: 堂食
         purchase_status:
           init: 待收货
           received: 已收货
@@ -142,8 +145,11 @@ zh:
         aim:
           rent: 租用
           use: 买入
-          purchase: 采购
           invest: 投资
+        dispatch:
+          delivery: 商家配送
+          fetch: 自提
+          dine: 堂食
       trade/wallet_template:
         unit_kind:
           currency: 默认货币
