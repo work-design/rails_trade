@@ -128,7 +128,7 @@ module Trade
     end
 
     def need_address?
-      respond_to?(:station_id) && station_id.blank?
+      items.pluck(:dispatch).include?('delivery')
     end
 
     def has_address?
