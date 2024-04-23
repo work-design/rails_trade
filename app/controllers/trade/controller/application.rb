@@ -25,7 +25,7 @@ module Trade
 
     def set_new_item
       options = {}
-      options.merge! params.permit(:good_id, :produce_on, :scene_id)
+      options.merge! params.permit(:good_id, :dispatch, :produce_on, :scene_id)
       options.compact_blank!
 
       @item = @cart.find_item(**options) || @cart.items.build(options)

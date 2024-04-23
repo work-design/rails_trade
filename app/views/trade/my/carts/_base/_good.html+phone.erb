@@ -14,7 +14,10 @@
   <% end %>
   </div>
   <div class="media-content">
-    <h4 class="weui-media-box__title"><%= model.good_name %></h4>
+    <div>
+      <strong><%= model.good_name %></strong>
+      <span class="tag"><%= model.dispatch_i18n %></span>
+    </div>
     <ul class="weui-media-box__info">
     <% if model.good.respond_to?(:parts) %>
       <% model.good.parts.each do |part| %>
