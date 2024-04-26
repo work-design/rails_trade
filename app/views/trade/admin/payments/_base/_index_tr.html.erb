@@ -2,18 +2,6 @@
   <%= yield %>
   <td>
     <div data-show-target="item" class="visibility-hidden">
-      <% if model.payment_method.present? %>
-        <%= button_to({ controller: 'payment_methods', action: 'show', id: model.payment_method_id }, aria: { label: t('.payment_methods.show.title') }, class: 'button is-small is-rounded is-light') do %>
-          <i class="fa-solid fa-cash-register"></i>
-        <% end %>
-      <% end %>
-      <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-check-double"></i>
-        <span class="pl-1"><%= t('trade.admin.payment_orders.new.title') %></span>
-      <% end if model.payment_orders_count > 0 %>
-      <%= button_to({ controller: 'auditor/admin/audits', audited_type: 'Trade::Payment', audited_id: model.id }, aria: { label: t('.log') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-comments"></i>
-      <% end %>
       <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-info has-text-info"></i>
       <% end %>
@@ -25,6 +13,20 @@
       <%= button_to({ controller: 'refunds', action: 'new', payment_id: model.id }, aria: { label: t('trade.admin.refunds.new.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-thumbs-down has-text-danger"></i>
         <span class="pl-1"><%= model.refunds_count %></span>
+      <% end %>
+      <% if model.payment_method.present? %>
+        <%= button_to({ controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light') do %>
+          <i class="fa-solid fa-cash-register"></i>
+          <span class="pl-1"><%= t('.payment_methods.show.title') %></span>
+        <% end %>
+      <% end %>
+      <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-check-double"></i>
+        <span class="pl-1"><%= t('trade.admin.payment_orders.new.title') %></span>
+      <% end if model.payment_orders_count > 0 %>
+      <%= button_to({ controller: 'auditor/admin/audits', audited_type: 'Trade::Payment', audited_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-comments"></i>
+        <span class="pl-1"><%= t('auditor.admin.audits.index.title') %></span>
       <% end %>
     </div>
   </td>
