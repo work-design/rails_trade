@@ -133,7 +133,7 @@ module Trade
     def init_serial_number
       last_item = self.class.where(organ_id: self.organ_id).default_where('paid_at-gte': paid_at.beginning_of_day, 'paid_at-lte': paid_at.end_of_day).order(paid_at: :desc).first
 
-      if last_item
+      if last_item.serial_number.present?
         self.serial_number = last_item.serial_number.to_i + 1
       else
         self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
