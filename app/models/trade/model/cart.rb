@@ -301,8 +301,8 @@ module Trade
         end
       end
       args.merge! dispatch: options[:dispatch] if options.key?(:dispatch)
-      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id]
-      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on]
+      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
+      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
       args.stringify_keys!
     end
 
