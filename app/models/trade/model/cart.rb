@@ -272,20 +272,14 @@ module Trade
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def find_items(goods, **options)
-      result = {}
-      goods.each do |good|
-        item = find_item(good_id: good.id, **options)
-        result.merge! good.id => item if item
-      end
-      result
+    def find_items(*good_ids, **options)
+      args = attr_options(**options)
+      items.select { |i| i.attributes.slice(*args.keys) == args && good_ids.include?(i.good_id) }
     end
 
     def find_purchase_items(*purchase_ids, **options)
       args = attr_options(**options)
-      items.select do |i|
-        i.attributes.slice(*args.keys) == args && purchase_ids.include(i.purchase_id)
-      end
+      items.select { |i| i.attributes.slice(*args.keys) == args && purchase_ids.include?(i.purchase_id) }
     end
 
     def attr_options(**options)
