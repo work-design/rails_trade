@@ -25,7 +25,9 @@ module Trade
         ts.text(address.contact_info, x: 10)
         ts.text(address.content, font: 'TSS16.BF2', x: 10)
       end
-      ts.text("打包于 #{Date.today}", x: 10)
+      if paid_at
+        ts.text("#{paid_at.to_fs}", x: 10)
+      end
       ts.render
     end
   end
