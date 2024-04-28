@@ -15,8 +15,10 @@ module Trade
       ts.text(uuid, x: 10, y:30)
       ts.text(amount, x: 10)
       ts.bar(height: 3, width: 200)
-      ts.text(address.contact_info, x: 10)
-      ts.text(address.content, font: 'TSS16.BF2', x: 10)
+      if address
+        ts.text(address.contact_info, x: 10)
+        ts.text(address.content, font: 'TSS16.BF2', x: 10)
+      end
       ts.text("打包于 #{Date.today}", x: 10)
       ts.render
     end
