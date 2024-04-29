@@ -8,7 +8,7 @@ module Trade
       attribute :uuid, :string
       attribute :note, :string
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
-      attribute :serial_number, :string
+      attribute :serial_number, :integer
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :items_count, :integer, default: 0
@@ -134,10 +134,14 @@ module Trade
       last_item = self.class.where(organ_id: self.organ_id).default_where('paid_at-gte': paid_at.beginning_of_day, 'paid_at-lte': paid_at.end_of_day).order(paid_at: :desc).first
 
       if last_item&.serial_number.present?
-        self.serial_number = last_item.serial_number.to_i + 1
+        self.serial_number = last_item.serial_number + 1
       else
-        self.serial_number = (paid_at.strftime('%Y%j') + '0001').to_i
+        self.serial_number = 1
       end
+    end
+
+    def xx
+      paid_at.strftime('%Y%j')
     end
 
     def sync_organ_from_provide
