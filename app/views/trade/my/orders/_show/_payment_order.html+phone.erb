@@ -1,5 +1,5 @@
+<% if model.payment %>
 <dl class="as-show">
-  <% if model.payment %>
   <div>
     <dt><%= Trade::Payment.human_attribute_name(:payment_uuid) %></dt>
     <div class="weui-form-preview__value" data-controller="clipboard">
@@ -20,11 +20,8 @@
   </div>
   <div>
     <dt><%= Trade::Payment.human_attribute_name(:created_at) %></dt>
-    <dd>
-      <time data-controller="time" data-format="human"><%= model.payment.created_at.to_fs(:iso8601) %></time>
-    </dd>
+    <dd><time data-controller="time" data-format="human"><%= model.payment.created_at.to_fs(:iso8601) %></time></dd>
   </div>
-  <% end %>
   <div>
     <dt><%= Trade::PaymentOrder.human_attribute_name(:order_amount) %></dt>
     <dd>
@@ -46,8 +43,10 @@
     <dd><%= model.state_i18n %></dd>
   </div>
 </dl>
+<% else %>
 <div class="weui-form-preview__ft">
-  <%= link_to({ controller: 'payments', action: 'payment_order_new', payment_order_id: model.id }, class: 'weui-form-preview__btn weui-form-preview__btn_primary') do %>
+  <%= link_to({ controller: 'payments', action: 'payment_order_new', payment_order_id: model.id }, class: 'button') do %>
     <span>支付</span>
-  <% end unless model.payment %>
+  <% end %>
 </div>
+<% end %>
