@@ -159,7 +159,7 @@ module Trade
     end
 
     def need_address?
-      current_cart.checked_all_items.map(:dispatch).include?('delivery')
+      current_cart.checked_all_items.map(&:dispatch).include?('delivery')
     end
 
     def sync_from_current_cart
