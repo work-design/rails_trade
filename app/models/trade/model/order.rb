@@ -141,7 +141,7 @@ module Trade
     end
 
     def serial_str
-      serial_number.to_s.rjust(3, '0')
+      serial_number ? serial_number.to_s.rjust(3, '0') : ''
     end
 
     def serial_long_str
