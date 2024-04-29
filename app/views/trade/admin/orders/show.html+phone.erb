@@ -20,9 +20,7 @@
   </div>
 </div>
 
-<div data-controller="empty" class="box mx-3">
+<div class="box mx-3">
   <div class="weui-panel__hd">支付</div>
-  <div data-empty-target="content" class="weui-panel__bd">
-    <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
-  </div>
+  <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
 </div>
