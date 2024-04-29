@@ -140,8 +140,12 @@ module Trade
       end
     end
 
-    def xx
-      paid_at.strftime('%Y%j')
+    def serial_str
+      serial_number.to_s.rjust(3, '0')
+    end
+
+    def serial_long_str
+      paid_at.strftime('%Y%j') + serial_str
     end
 
     def sync_organ_from_provide
