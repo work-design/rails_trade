@@ -76,6 +76,7 @@ zh:
         serial_number: 序号
         from_address_id: 发货地址
         address_id: 收货地址
+        serial_str: 取餐码
       trade/item:
         good_id: 商品
         good_name: 商品名称
