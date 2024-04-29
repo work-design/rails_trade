@@ -16,25 +16,27 @@
 </td>
 <td>
   <p>
-    <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_advances.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-gem"></i>
+    <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <span><%= t('.wallet_advances.index.title') %></span>
       <span class="pl-1"><%= model.advances_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
   <p class="mt-2">
-    <%= link_to({ controller: 'wallet_sells', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_sells.index.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-gem"></i>
+    <%= link_to({ controller: 'wallet_sells', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <span><%= t('.wallet_sells.index.title') %></span>
       <span class="pl-1"><%= model.sells_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
 </td>
 <td>
   <span><%= model.expense_amount.to_money.format.html_safe %></span>
-  <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, aria: { label: t('trade.admin.wallet_payments.index.title') }, class: 'button is-small is-rounded is-light') do %>
+  <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
     <i class="fa-solid fa-credit-card"></i>
+    <span class="pl-1"><%= t('.wallet_payments.index.title') %></span>
   <% end %>
   <%= link_to({ controller: 'payouts', wallet_id: model.id }) do %>
     <i class="fa-solid fa-wallet"></i>
+    <span class="pl-1"><%= t('.payouts.index.title') %></span>
   <% end %>
 </td>
 <td>
