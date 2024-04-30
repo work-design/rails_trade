@@ -19,7 +19,7 @@ module Trade
       ts = BaseTspl.new
       ts.bar(y: 0, height: 20)
       ts.right_qrcode(url, y: 30, cell_width: 5)
-      ts.text(serial_str, font: 'TSS32.BF2', x: 10, y:30)
+      ts.text(serial_str.to_s + 'dddddddd', font: 'TSS32.BF2', x: 10, y:30)
       ts.bar(height: 3, width: 250)
       items.limit(3).each do |item|
         ts.text("#{item.good.name} x #{item.number}", x: 10)
