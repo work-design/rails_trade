@@ -23,7 +23,7 @@
       <% elsif item.rent_start_at %>
         <p>
           <span class="has-text-grey">已租：</span>
-          <time data-controller="count-up" data-count-up-time-value="<%= item.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono has-text-danger"><%= exact_distance_time(item.rent_start_at, Time.current) %></time>
+          <time data-controller="count-up" data-count-up-time-value="<%= item.rent_start_at.to_fs(:iso8601) %>" class="has-text-mono color-danger"><%= exact_distance_time(item.rent_start_at, Time.current) %></time>
         </p>
       <% end %>
       <p>

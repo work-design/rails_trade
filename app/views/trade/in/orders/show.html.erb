@@ -4,12 +4,12 @@
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:item_amount) %></td>
     <td colspan="2"></td>
-    <td colspan="2" class="has-text-success"><%= @order.item_amount.to_money.format.html_safe %></td>
+    <td colspan="2" class="color-success"><%= @order.item_amount.to_money.format.html_safe %></td>
   </tr>
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:adjust_amount) %></td>
     <td colspan="2"></td>
-    <td colspan="2" class="has-text-success"><%= @order.adjust_amount.to_money.format.html_safe %></td>
+    <td colspan="2" class="color-success"><%= @order.adjust_amount.to_money.format.html_safe %></td>
   </tr>
   <tr>
     <td><%= Trade::Order.human_attribute_name(:amount) %></td>

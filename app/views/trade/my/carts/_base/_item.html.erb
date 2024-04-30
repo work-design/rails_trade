@@ -52,7 +52,7 @@
       <del class="has-text-grey"><%= model.wholesale_price %></del>
       <% if model.reduced_amount < 0 %>
         <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= url_for(controller: 'items', action: 'promote', id: model.id) %>">
-          <span class="has-text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= model.reduced_amount %></span>
+          <span class="color-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= model.reduced_amount %></span>
         </span>
       <% end %>
     </div>

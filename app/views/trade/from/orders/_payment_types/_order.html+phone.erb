@@ -11,7 +11,7 @@
     <% @order.payment_orders.each do |payment_order| %>
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label pl-4"><%= payment_order.payment.type_i18n %></label>
-      <span class="weui-form-preview__value has-text-danger"><%= payment_order.check_amount.to_money.format.html_safe %></span>
+      <span class="weui-form-preview__value color-danger"><%= payment_order.check_amount.to_money.format.html_safe %></span>
     </div>
     <% end %>
     <% if @order.payment_strategy %>

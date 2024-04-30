@@ -5,13 +5,13 @@
     <span><%= model.good.name %></span>
     <span class="has-text-grey">(<%= model.good_id %>)</span>
   <% else %>
-    <span class="has-text-success">不限商品</span>
+    <span class="color-success">不限商品</span>
   <% end %>
   </p>
 </td>
 <td><%= model.promote.name %></td>
 <td>
-  <p class="has-text-success"><%= model.user&.name %></p>
+  <p class="color-success"><%= model.user&.name %></p>
   <p><%= model.member&.name %></p>
 </td>
 <td>

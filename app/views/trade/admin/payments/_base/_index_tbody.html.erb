@@ -12,11 +12,11 @@
 </td>
 <td>
   <p><%= model.total_amount.to_money.format.html_safe %></p>
-  <p class="has-text-success"><%= model.income_amount.to_money.format.html_safe %></p>
+  <p class="color-success"><%= model.income_amount.to_money.format.html_safe %></p>
 </td>
 <td>
   <p><%= model.fee_amount.to_money.format.html_safe %></p>
-  <p class="has-text-danger-dark"><%= model.refunded_amount.to_money.format.html_safe %></p>
+  <p class="color-danger-dark"><%= model.refunded_amount.to_money.format.html_safe %></p>
 </td>
 <td><%= model.adjust_amount.to_money.format.html_safe %></td>
 <td>

@@ -4,7 +4,7 @@
       <p>
         <span class="has-text-grey"><%= Trade::Cart.human_attribute_name(:amount) %></span>
         <span>：</span>
-        <span class="is-size-6 has-text-danger"><%= @cart.amount.to_money.format.html_safe %></span>
+        <span class="is-size-6 color-danger"><%= @cart.amount.to_money.format.html_safe %></span>
         <% if @cart.advance_amount.to_d > 0 %>
           <span>预付</span>
           <span><%= @cart.advance_amount.to_money.format.html_safe %></span>

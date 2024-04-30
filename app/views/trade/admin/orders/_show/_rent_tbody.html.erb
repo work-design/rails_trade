@@ -32,11 +32,11 @@
   </p>
   <% end %>
   <% if hold.rent_finish_at %>
-  <p class="has-text-success">
+  <p class="color-success">
     <time data-controller="time" data-value="<%= hold.rent_finish_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_finish_at.to_fs(:human) %></time>
   </p>
   <% elsif hold.rent_present_finish_at %>
-  <p class="has-text-success">
+  <p class="color-success">
     <time data-controller="time" data-value="<%= hold.rent_present_finish_at.to_fs(:iso8601) %>" data-format="human"><%= hold.rent_present_finish_at.to_fs(:human) %></time>
   </p>
   <% end %>

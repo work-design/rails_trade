@@ -1,4 +1,4 @@
-<p class="<%= model.amount >= 0 ? 'has-text-success' : 'has-text-danger' %>">
+<p class="<%= model.amount >= 0 ? 'color-success' : 'color-danger' %>">
   <% if model.wallet.is_a?(Trade::LawfulWallet) %>
     <span><%= model.amount.to_money.format.html_safe %></span>
   <% else %>

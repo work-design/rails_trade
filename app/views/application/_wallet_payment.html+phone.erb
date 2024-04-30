@@ -13,7 +13,7 @@
     </span>
   </span>
   <span class="weui-cell__ft has-v-centered" data-controller="input">
-    <span class="size-7 has-text-danger">
+    <span class="size-7 color-danger">
       <span><%= payment_order.payment_amount.to_fs(:rounded, precision: payment_order.payment.wallet.wallet_template.digit) %></span>
       <span><%= payment_order.payment.wallet.wallet_template.unit %></span>
       <span>抵扣</span>

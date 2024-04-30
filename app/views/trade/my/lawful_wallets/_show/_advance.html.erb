@@ -5,7 +5,7 @@
       <%= ef.hidden_field :good_id, value: advance.id %>
     <% end %>
     <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
-      <div class="description has-text-danger">
+      <div class="description color-danger">
         <span class="size-7">充</span>
         <span><%= advance.price.to_money.format.html_safe %></span>
       </div>

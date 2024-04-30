@@ -20,7 +20,7 @@
     <% else %>
       <div class="weui-form-preview__item">
         <label class="weui-form-preview__label">已租</label>
-        <span class="weui-form-preview__value has-text-mono has-text-danger">
+        <span class="weui-form-preview__value has-text-mono color-danger">
           <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
         </span>
       </div>

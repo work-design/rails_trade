@@ -7,7 +7,7 @@
           <span><%= model.scene.title %></span>
         </div>
         <span class="has-text-grey mr-2">
-          <time data-controller="time-count" data-time-count-time-value="<%= model.produce_plan.book_finish_at.to_fs(:iso8601) %>" class="has-text-danger" style="font-family: monospace"><%= exact_distance_time(model.produce_plan.book_finish_at) %></time>
+          <time data-controller="time-count" data-time-count-time-value="<%= model.produce_plan.book_finish_at.to_fs(:iso8601) %>" class="color-danger" style="font-family: monospace"><%= exact_distance_time(model.produce_plan.book_finish_at) %></time>
           <span>后截止下单</span>
         </span>
       </div>

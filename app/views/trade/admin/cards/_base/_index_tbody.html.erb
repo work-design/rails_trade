@@ -9,11 +9,11 @@
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p>
   <% if model.expire_at && model.expire_at > Date.today %>
-    <time data-controller="time" class="has-text-success"><%= model.expire_at.to_fs(:iso8601) %></time>
+    <time data-controller="time" class="color-success"><%= model.expire_at.to_fs(:iso8601) %></time>
   <% elsif model.expire_at %>
-    <time data-controller="time" class="has-text-danger"><%= model.expire_at.to_fs(:iso8601) %></time>
+    <time data-controller="time" class="color-danger"><%= model.expire_at.to_fs(:iso8601) %></time>
   <% else %>
-    <span class="has-text-success">长期</span>
+    <span class="color-success">长期</span>
   <% end %>
   </p>
 </td>

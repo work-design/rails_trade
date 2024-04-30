@@ -3,19 +3,19 @@
   <td>
     <div data-show-target="item" class="visibility-hidden">
       <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil has-text-link"></i>
+        <i class="fa-solid fa-pencil color-link"></i>
       <% end %>
       <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, data: { turbo_confirm: t('.destroy.confirm') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-trash has-text-danger"></i>
+        <i class="fa-solid fa-trash color-danger"></i>
       <% end %>
     </div>
     <div data-show-target="item" class="visibility-hidden">
       <%= link_to({ controller: 'purchases', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-credit-card has-text-success"></i>
+        <i class="fa-solid fa-credit-card color-success"></i>
         <span class="pl-1"><%= t('.purchases.index.title') %></span>
       <% end %>
       <%= link_to({ controller: 'privileges', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-crown has-text-info"></i>
+        <i class="fa-solid fa-crown color-info"></i>
         <span class="pl-1"><%= t('.privileges.index.title') %></span>
       <% end %>
       <%= link_to({ controller: 'card_promotes', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
