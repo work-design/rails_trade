@@ -242,7 +242,7 @@ Rails.application.routes.draw do
           resources :promote_charges
           resources :promote_good_types do
             collection do
-              get :part_new
+              match :part_new, via: [:get, :post]
               post :part_create
               get :part
               post :search
