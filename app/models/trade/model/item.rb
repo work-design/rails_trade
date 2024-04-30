@@ -108,13 +108,13 @@ module Trade
       after_initialize :compute_amount, if: -> { new_record? && single_price.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
+      before_validation :add_promotes, if: :new_record?
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :compute_price, if: -> { good_id_changed? || purchase_id_changed? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
-      before_create :add_promotes
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && in_cart? }

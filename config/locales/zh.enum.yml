@@ -60,7 +60,7 @@ zh:
       trade/promote:
         metering:
           number: 购买件数
-          original_amount: 总金额
+          amount: 总金额
           weight: 总重量
           volume: 体积
           duration: 时长

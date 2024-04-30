@@ -34,7 +34,7 @@ module Trade
         number: 'number', # 商品购买件数
         weight: 'weight', # 商品总重量, support sequence
         volume: 'volume', # 商品总体积, support sequence
-        original_amount: 'original_amount', # 商品总金额, support sequence
+        amount: 'amount', # 商品总金额, support sequence
         duration: 'duration'
       }
     end
