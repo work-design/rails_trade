@@ -1,6 +1,6 @@
 <p><%= model.promote.name %></p>
 <p>
-  <span class="has-text-grey"><%= Trade::PromoteGood.human_attribute_name(:user_limit) %></span>
+  <span class="color-grey"><%= Trade::PromoteGood.human_attribute_name(:user_limit) %></span>
   <span class="pl-1"><%= model.use_limit %></span>
 <p>
   <time data-controller="time"><%= model.effect_at&.to_fs(:iso8601) %></time>

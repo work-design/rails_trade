@@ -6,7 +6,7 @@
     </button>
   <% else %>
     <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'button is-light is-danger', style: 'width: 60px') do %>
-      <i class="fa-solid fa-minus has-text-grey"></i>
+      <i class="fa-solid fa-minus color-grey"></i>
     <% end %>
   <% end %>
   <%= form_with theme: nil, scope: 'item', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>

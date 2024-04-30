@@ -17,7 +17,7 @@
 <p>
 <% if model&.member %>
   <span><%= model.member.name %></span>
-  <span class="has-text-grey">（<%= model.member_organ.name %>）</span>
+  <span class="color-grey">（<%= model.member_organ.name %>）</span>
 <% end %>
 </p>
 <p><%= simple_format(model.extra_i18n) %></p>

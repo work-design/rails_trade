@@ -18,7 +18,7 @@
         <% @cart.cart_promotes.each do |cart_promote| %>
         <div class="pl-4" title="<%= cart_promote.id %>">
           <dt><%= cart_promote.promote.name %></dt>
-          <dd class="has-text-grey"><%= cart_promote.amount.to_money.format.html_safe %></dd>
+          <dd class="color-grey"><%= cart_promote.amount.to_money.format.html_safe %></dd>
         </div>
         <% end %>
         <div>

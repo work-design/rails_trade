@@ -3,11 +3,11 @@
     <span class="is-several">
       <span>钱包</span>
     </span>
-    <span class="has-text-grey size-7 pl-2">
+    <span class="color-grey size-7 pl-2">
       <span>余</span>
       <span><%= @order.lawful_wallet.amount.to_money.format.html_safe %></span>
     </span>
-    <span class="has-text-grey size-7 pl-2">
+    <span class="color-grey size-7 pl-2">
       <span>已冻结</span>
       <span><%= @order.lawful_wallet.frozen_amount.to_money.format.html_safe %></span>
     </span>

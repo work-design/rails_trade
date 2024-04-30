@@ -9,13 +9,13 @@
     <div>
       <% if model.member %>
       <span>
-        <span class="has-text-grey">下单人：</span>
+        <span class="color-grey">下单人：</span>
         <span><%= model.member.name %></span>
       </span>
       <% end %>
       <% if model.maintain %>
       <span>
-        <span class="has-text-grey">代下单：</span>
+        <span class="color-grey">代下单：</span>
         <span><%= model.maintain.member.name %></span>
       </span>
       <% end %>

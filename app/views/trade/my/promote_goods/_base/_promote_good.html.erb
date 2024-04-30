@@ -1,7 +1,7 @@
 <tr>
   <td>
     <p><%= model.promote.name %></p>
-    <p class="has-text-grey"><%= model.good_type_i18n %></p>
+    <p class="color-grey"><%= model.good_type_i18n %></p>
   </td>
   <td class="has-text-centered">
     <time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time>
@@ -12,7 +12,7 @@
       <% if model.use_limit.blank? %>
         <span>不限次</span>
       <% else %>
-        <span class="has-text-grey">限用</span><span><%= model.use_limit %></span>
+        <span class="color-grey">限用</span><span><%= model.use_limit %></span>
       <% end %>
       </span>
     </p>

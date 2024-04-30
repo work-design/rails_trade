@@ -14,7 +14,7 @@
     <div>
       <p>
         <span class="color-danger"><%= item.single_price.to_money.format.html_safe %></span>
-        <span class="has-text-grey-lighter">x</span>
+        <span class="color-grey-lighter">x</span>
         <span><%= item.number %></span>
         <% if item.unit %><span class="tag"><%= item.unit.name %></span><% end %>
       </p>

@@ -2,14 +2,14 @@
   <td></td>
   <td>
     <span><%= model.promote&.name %></span>
-    <span class="has-text-grey">（<%= model.promote_id %>）</span>
+    <span class="color-grey">（<%= model.promote_id %>）</span>
   </td>
   <td>
     <span><%= model.promote_good.good_type_i18n %></span>
-    <span class="has-text-grey">（<%= model.promote_good_id %>）</span>
+    <span class="color-grey">（<%= model.promote_good_id %>）</span>
   </td>
   <td><%= model.status_i18n %></td>
   <td colspan="2"></td>
-  <td class="has-text-grey"><%= model.amount.to_money.format.html_safe %></td>
+  <td class="color-grey"><%= model.amount.to_money.format.html_safe %></td>
   <td></td>
 </tr>

@@ -1,0 +1,12 @@
+<%= render 'top_bar' %>
+
+<% if @promote_goods.blank? && @global_promote_goods.blank? %>
+<div class="has-page-centered">
+  <p class="has-text-centered color-grey">暂无优惠券</p>
+</div>
+<% else %>
+  <%= render layout: 'index_list' do %>
+    <%= render partial: 'index_item', collection: @promote_goods, as: :model %>
+    <%= render partial: 'index_item', collection: @global_promote_goods, as: :model %>
+  <% end %>
+<% end %>

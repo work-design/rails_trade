@@ -4,7 +4,7 @@
       <%= image_tag model.organ.logo.variant(resize_to_limit: [150, 150]), class: 'image is-24x24' if model.organ.logo.attached? %>
       <span class="size-7"><%= model.organ.name %></span>
     </strong>
-    <span class="is-block size-7 has-text-grey"><%= model.name %></span>
+    <span class="is-block size-7 color-grey"><%= model.name %></span>
   </span>
   <span class="weui-cell__ft has-inline-centered" data-controller="input">
     <%= form_with theme: nil, url: { controller: 'org/my/authorized_tokens', action: 'update' }, method: :patch do |f| %>
@@ -13,7 +13,7 @@
       <span class="weui-icon-checked"></span>
     <% end %>
     <% unless model == current_client %>
-    <i class="fa-solid fa-chevron-right has-text-grey is-size-6 pl-2"></i>
+    <i class="fa-solid fa-chevron-right color-grey is-size-6 pl-2"></i>
     <% end %>
   </span>
 </label>

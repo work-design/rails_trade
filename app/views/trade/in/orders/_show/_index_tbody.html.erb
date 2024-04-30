@@ -1,14 +1,14 @@
 <td>
   <%= link_to({ controller: 'items', action: 'show', id: model.id }) do %>
     <p><%= model.good_name %></p>
-    <p class="has-text-grey"><%= model.organ&.name %></p>
+    <p class="color-grey"><%= model.organ&.name %></p>
   <% end %>
 </td>
 <td><%= model.number.to_human %></td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
   <%= button_to({ controller: 'items', action: 'edit_price', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.items.edit_price.title') }, class: 'pl-1 visibility-hidden') do %>
-    <i class="fa-solid fa-pencil has-text-grey"></i>
+    <i class="fa-solid fa-pencil color-grey"></i>
   <% end %>
 </td>
 <td class="color-danger"><%= model.amount.to_money.format.html_safe %></td>

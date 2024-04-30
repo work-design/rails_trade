@@ -1,11 +1,11 @@
-<%= link_to({ action: 'show', id: model.id }, state: 'enter', class: 'has-block-space-between has-text-grey-dark') do %>
+<%= link_to({ action: 'show', id: model.id }, state: 'enter', class: 'has-block-space-between color-grey-dark') do %>
   <span><%= model.good_name %></span>
   <span>
-    <span class="has-text-grey"><%= model.number %></span>
+    <span class="color-grey"><%= model.number %></span>
     <span>x</span>
     <span class="color-danger"><%= model.original_amount.to_money.format.html_safe %></span>
   </span>
 <% end %>
-<p class="has-text-grey">
+<p class="color-grey">
   <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
 </p>

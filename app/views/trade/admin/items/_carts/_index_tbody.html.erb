@@ -3,7 +3,7 @@
   <p>
     <%= link_to({ action: 'show', id: model.id }) do %>
       <span><%= model.user.name %></span>
-      <span class="has-text-grey">（<%= model.user_id %>）</span>
+      <span class="color-grey">（<%= model.user_id %>）</span>
     <% end %>
   </p>
 <% end %>

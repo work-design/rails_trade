@@ -3,7 +3,7 @@
   <p>
   <% if model.good_id %>
     <span><%= model.good.name %></span>
-    <span class="has-text-grey">(<%= model.good_id %>)</span>
+    <span class="color-grey">(<%= model.good_id %>)</span>
   <% else %>
     <span class="color-success">不限商品</span>
   <% end %>
@@ -25,6 +25,6 @@
 </td>
 <td>
   <span><%= model.use_limit.blank? ? '不限次' : model.use_limit %></span>
-  <span class="has-text-grey">/</span>
+  <span class="color-grey">/</span>
   <%= link_to(model.item_promotes_count, { controller: 'item_promotes', promote_good_id: model.id }, aria: { label: t('trade.admin.item_promotes.index.title') }) %>
 </td>

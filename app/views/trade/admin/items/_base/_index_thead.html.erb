@@ -4,7 +4,7 @@
 <th><%= Trade::Item.human_attribute_name(:good_name) %></th>
 <th><%= Trade::Item.human_attribute_name(:number) %></th>
 <th>
-  <p class="has-text-grey"><%= Trade::Item.human_attribute_name(:single_price) %></p>
+  <p class="color-grey"><%= Trade::Item.human_attribute_name(:single_price) %></p>
   <p><%= Trade::Item.human_attribute_name(:original_amount) %></p>
 </th>
 <th>
@@ -20,6 +20,6 @@
   <p><%= Trade::Item.human_attribute_name(:user_id) %></p>
   <p>
     <span><%= Trade::Item.human_attribute_name(:member_id) %></span>
-    <span class="has-text-grey">（<%= Trade::Item.human_attribute_name(:member_organ_id) %>）</span>
+    <span class="color-grey">（<%= Trade::Item.human_attribute_name(:member_organ_id) %>）</span>
   </p>
 </th>

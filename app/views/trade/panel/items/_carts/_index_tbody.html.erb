@@ -1,12 +1,12 @@
 <td><%= model.id %></td>
 <td>
   <span><%= model.user&.name %></span>
-  <span class="has-text-grey">（<%= model.user_id %>）</span>
+  <span class="color-grey">（<%= model.user_id %>）</span>
 </td>
 <td>
   <% if model.member %>
     <span><%= model.member.name %></span>
-    <span class="has-text-grey">（<%= model.member_id %>）</span>
+    <span class="color-grey">（<%= model.member_id %>）</span>
   <% end %>
 </td>
 <td><%= model.member_organ_id %></td>

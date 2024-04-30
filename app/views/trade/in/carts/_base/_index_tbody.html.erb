@@ -2,7 +2,7 @@
   <% if model.organ %>
   <p>
     <span><%= link_to model.organ.name, { action: 'show', id: model.id } %></span>
-    <span class="has-text-grey">（<%= model.organ_id %>）</span>
+    <span class="color-grey">（<%= model.organ_id %>）</span>
   </p>
   <% end %>
   <% if model.member %>
