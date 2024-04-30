@@ -334,7 +334,7 @@ module Trade
         reduced_amount: _reduced_amount,
         retail_price: single_price + _additional_amount,
         wholesale_price: original_amount + _additional_amount,
-        amount: original_amount + _additional_amount + _reduced_amount  # 最终价格
+        amount: original_amount # 最终价格
       }
     end
 
