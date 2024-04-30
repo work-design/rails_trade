@@ -1,8 +1,14 @@
 module Trade
   module Print::Order
+    extend ActiveSupport::Concern
+
+    included do
+      after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
+    end
 
     def print
-      r = organ.device.print(
+      return unless organ.device
+      organ.device.print(
         data: to_tspl
       )
     end
