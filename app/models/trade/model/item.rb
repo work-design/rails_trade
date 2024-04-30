@@ -1,6 +1,6 @@
 module Trade
   module Model::Item
-    PROMOTE_COLUMNS = ['original_amount', 'number', 'weight', 'volume']
+    PROMOTE_COLUMNS = ['amount', 'number', 'weight', 'volume']
     extend ActiveSupport::Concern
     include Inner::User
 
@@ -16,10 +16,9 @@ module Trade
       attribute :volume, :integer, comment: '体积'
       attribute :vip_code, :string
       attribute :single_price, :decimal, comment: '一份产品的价格'
-      attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
-      attribute :amount, :decimal
+      attribute :amount, :decimal, comment: '合计份数之后的价格，商品原价'
       attribute :wallet_amount, :json, default: {}
       attribute :advance_amount, :decimal, default: 0, comment: '预付款'
       attribute :expire_at, :datetime
@@ -241,7 +240,7 @@ module Trade
     end
 
     def parsed_wallet_amount
-      wallet_amount.transform_values(&->(v){ { rate: Rational(original_amount.to_s, v), amount: v.to_d }})
+      wallet_amount.transform_values(&->(v){ { rate: Rational(amount.to_s, v), amount: v.to_d }})
     end
 
     def compute_price
@@ -271,9 +270,8 @@ module Trade
     end
 
     def compute_amount
-      self.original_amount = single_price * number if single_price
+      self.amount = single_price * number if single_price
       self.advance_amount = good.advance_price * number if good
-      self.amount = original_amount
     end
 
     def order_uuid
@@ -310,7 +308,7 @@ module Trade
 
     # 多个商品批发价
     def wholesale_price
-      original_amount + additional_amount
+      amount + additional_amount
     end
 
     # 批发价和零售价之间的差价，即批发折扣
@@ -334,14 +332,9 @@ module Trade
     end
 
     def sum_amount
-      return {} unless single_price && single_price > 0
-      _additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
-      _reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d }) # 促销价格
-      {
-        additional_amount: _additional_amount,
-        reduced_amount: _reduced_amount,
-        amount: original_amount # 最终价格
-      }
+      return unless single_price && single_price > 0
+      self.additional_amount = item_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
+      self.reduced_amount = item_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })  # 促销价格
     end
 
     def remove_promotes
@@ -356,13 +349,13 @@ module Trade
 
     def add_promotes
       do_compute_promotes
-      self.assign_attributes sum_amount
+      self.sum_amount
       current_cart.compute_promote if current_cart
     end
 
     def reset_promotes
       result = do_compute_promotes
-      self.assign_attributes sum_amount
+      self.sum_amount
       if order
         order.compute_promote
       elsif current_cart
@@ -404,7 +397,6 @@ module Trade
     def reset_amount
       self.additional_amount = item_promotes.default_where('amount-gte': 0).sum(:amount)
       self.reduced_amount = item_promotes.default_where('amount-lt': 0).sum(:amount)
-      self.amount = original_amount + additional_amount + reduced_amount
       self.valid?
       self.changes
     end
