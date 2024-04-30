@@ -16,8 +16,6 @@ module Trade
       attribute :volume, :integer, comment: '体积'
       attribute :vip_code, :string
       attribute :single_price, :decimal, comment: '一份产品的价格'
-      attribute :retail_price, :decimal, default: 0, comment: '单个商品零售价(商品原价 + 服务价)'
-      attribute :wholesale_price, :decimal, default: 0, comment: '多个商品批发价'
       attribute :original_amount, :decimal, default: 0, comment: '合计份数之后的价格，商品原价'
       attribute :additional_amount, :decimal, default: 0, comment: '附加服务价格汇总'
       attribute :reduced_amount, :decimal, default: 0, comment: '已优惠的价格'
@@ -305,6 +303,16 @@ module Trade
       good.unified_quantity * self.number
     end
 
+    # 单个商品零售价(商品原价 + 服务价)
+    def retail_price
+      single_price + additional_amount
+    end
+
+    # 多个商品批发价
+    def wholesale_price
+      original_amount + additional_amount
+    end
+
     # 批发价和零售价之间的差价，即批发折扣
     def discount_price
       wholesale_price - (retail_price * number)
@@ -332,8 +340,6 @@ module Trade
       {
         additional_amount: _additional_amount,
         reduced_amount: _reduced_amount,
-        retail_price: single_price + _additional_amount,
-        wholesale_price: original_amount + _additional_amount,
         amount: original_amount # 最终价格
       }
     end
