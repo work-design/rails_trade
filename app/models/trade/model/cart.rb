@@ -169,8 +169,7 @@ module Trade
     end
 
     def promotes_count
-      r = PromoteGood.effective.where(user_id: nil).count
-      r + promote_goods_count
+      PromoteGood.effective.where(user_id: nil).count + promote_goods_users.count
     end
 
     def available_card_templates
