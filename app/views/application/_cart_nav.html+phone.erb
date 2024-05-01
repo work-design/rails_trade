@@ -7,7 +7,7 @@
     <% end %>
     <div class="level-item ml-4 align-items-baseline">
       <% if @cart.overall_reduced_amount < 0 %>
-        <p class="color-danger"><%= @cart.item_amount.to_money.format.html_safe %></p>
+        <p class="color-danger"><%= @cart.overall_reduced_amount.to_money.format.html_safe %></p>
       <% end %>
       <p class="ml-2"><%= @cart.amount.to_money.format.html_safe %></p>
     </div>
