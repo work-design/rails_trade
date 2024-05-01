@@ -24,10 +24,6 @@
   <dd><%= @item.number %></dd>
 </div>
 <div>
-  <dt><%= Trade::Item.human_attribute_name(:original_amount) %></dt>
-  <dd><%= @item.original_amount.to_money.format.html_safe %></dd>
-</div>
-<div>
   <dt><%= Trade::Item.human_attribute_name(:additional_amount) %></dt>
   <dd><%= @item.additional_amount.to_money.format.html_safe %></dd>
 </div>
