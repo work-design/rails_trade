@@ -10,7 +10,6 @@ module Trade
       attribute :description, :string
       attribute :metering, :string
       attribute :editable, :boolean, default: false, comment: '是否可更改价格'
-      attribute :verified, :boolean, default: false
       attribute :extra, :json
 
       belongs_to :organ, optional: true
@@ -23,10 +22,6 @@ module Trade
       has_many :promote_goods, dependent: :destroy_async
       has_many :promote_good_types, dependent: :destroy_async
       has_many :promote_good_users, dependent: :destroy_async
-
-      scope :verified, -> { where(verified: true) }
-      scope :default, -> { verified.where(default: true) }
-      scope :for_sale, -> { verified.where(default: false) }
 
       validates :code, uniqueness: true, allow_blank: true
 

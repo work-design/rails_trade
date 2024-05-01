@@ -35,7 +35,6 @@ module Trade
         :description,
         :metering,
         :editable,
-        :verified,
         extra: []
       )
       p.merge! default_form_params
