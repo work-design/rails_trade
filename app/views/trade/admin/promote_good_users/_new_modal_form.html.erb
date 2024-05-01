@@ -1,0 +1,13 @@
+<%= form_with theme: 'modal', model: @promote_good_user, url: { action: 'create' }, data: { controller: 'equal', equal_plus_value: { years: 1 }.to_json } do |f| %>
+  <header class="modal-card-head">
+    <p class="modal-card-title"><%= t('.title') %></p>
+    <button type="button" data-action="modal#close" class="delete"></button>
+  </header>
+  <section class="modal-card-body">
+    <%= render 'error_messages', target: f.object  %>
+    <%= render partial: 'form', locals: { f: f } %>
+  </section>
+  <footer class="modal-card-footer">
+    <%= f.submit %>
+  </footer>
+<% end %>

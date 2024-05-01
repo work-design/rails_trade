@@ -1,7 +1,7 @@
 module Trade
   class Admin::PromoteGoodUsersController < Admin::BaseController
     before_action :set_cart
-    before_action :set_promote_good_types, only: [:index]
+    before_action :set_promotes, only: [:index]
     before_action :set_promote_good_user, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_new_promote_good_user, only: [:new, :create]
 
@@ -15,9 +15,6 @@ module Trade
     def goods
       @goods = params[:good_type].constantize.default_where(default_params).order(id: :desc)
       @promote_good = PromoteGood.new
-    end
-
-    def new
     end
 
     def create
@@ -50,9 +47,9 @@ module Trade
       @cart = Cart.find params[:cart_id]
     end
 
-    def set_promote_good_types
-      ids = @cart.promote_good_types.pluck(:id)
-      @promote_good_types = PromoteGoodType.verified.where.not(id: ids).default_where(default_params)
+    def set_promotes
+      promote_ids = @cart.promote_good_types.pluck(:promote_id)
+      @promotes = Promote.verified.where.not(id: promote_ids).default_where(default_params)
     end
 
     def set_new_promote_good_user
@@ -64,7 +61,7 @@ module Trade
     end
 
     def promote_good_user_params
-      params.fetch(:promote_good_user, {}).permit(
+      _p = params.fetch(:promote_good_user, {}).permit(
         :promote_id,
         :good_id,
         :effect_at,
@@ -72,6 +69,7 @@ module Trade
         :use_limit,
         :status
       )
+      _p.merge! promote_id: params[:promote_id] if params[:promote_id]
     end
 
   end
