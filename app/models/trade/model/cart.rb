@@ -168,6 +168,11 @@ module Trade
       end
     end
 
+    def promotes_count
+      r = PromoteGood.effective.where(user_id: nil).count
+      r + promote_goods_count
+    end
+
     def available_card_templates
       effective_ids = cards.effective.where(temporary: false).pluck(:card_template_id)
 

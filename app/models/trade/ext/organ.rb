@@ -16,11 +16,6 @@ module Trade
       has_many :promote_goods, class_name: 'Trade::PromoteGood', foreign_key: :member_organ_id
     end
 
-    def promotes_count
-      r = PromoteGood.effective.where(member_id: nil).count
-      r + promote_goods.count
-    end
-
     def get_item(good_type:, good_id:, aim: 'use', **options)
       args = { good_type: good_type, good_id: good_id, aim: aim }
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?

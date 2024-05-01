@@ -26,11 +26,6 @@ module Trade
       scope :credited, -> { where(payment_strategy_id: self.credit_ids) }
     end
 
-    def promotes_count
-      r = PromoteGood.effective.where(member_id: nil).count
-      r + promote_goods_count
-    end
-
     def last_overdue_date
       orders.order(overdue_date: :asc).first&.overdue_date
     end
