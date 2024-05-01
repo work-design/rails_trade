@@ -31,7 +31,7 @@ module Trade
       has_many :item_promotes
 
       scope :verified, -> { where(status: ['available']) }
-      scope :effective, -> { t = Time.current; verified.where(over_limit: false).default_where('effect_at-lte': t, 'expire_at-gte': t) }
+      scope :effective, -> { t = Time.current; verified.where(over_limit: [false, nil]).default_where('effect_at-lte': t, 'expire_at-gte': t) }
 
       validates :effect_at, presence: true
       validates :expire_at, presence: true
