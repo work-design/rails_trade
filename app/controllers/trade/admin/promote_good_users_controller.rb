@@ -1,7 +1,6 @@
 module Trade
   class Admin::PromoteGoodUsersController < Admin::BaseController
     before_action :set_cart
-    before_action :set_promotes, only: [:index]
     before_action :set_promote_good_user, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_new_promote_good_user, only: [:new, :create]
 
@@ -10,6 +9,8 @@ module Trade
       q_params.merge! params.permit(:good_type, :good_id)
 
       @promote_good_users = @cart.promote_good_users.default_where(q_params).page(params[:page])
+      promote_ids = @cart.promote_good_types.pluck(:promote_id)
+      @promotes = Promote.verified.where.not(id: promote_ids).default_where(default_params)
     end
 
     def goods
@@ -46,11 +47,6 @@ module Trade
     private
     def set_cart
       @cart = Cart.find params[:cart_id]
-    end
-
-    def set_promotes
-      promote_ids = @cart.promote_good_types.pluck(:promote_id)
-      @promotes = Promote.verified.where.not(id: promote_ids).default_where(default_params)
     end
 
     def set_new_promote_good_user
