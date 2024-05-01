@@ -18,7 +18,8 @@ module Trade
     end
 
     def create
-      @promote_good_user.expire_at = Time.current.since(1.year)
+      @promote_good_user.expire_at ||= Time.current.since(1.year)
+
       if @promote_good_user.save
         render :create, locals: { model: @promote_good_user }
       else
@@ -70,6 +71,7 @@ module Trade
         :status
       )
       _p.merge! promote_id: params[:promote_id] if params[:promote_id]
+      _p
     end
 
   end
