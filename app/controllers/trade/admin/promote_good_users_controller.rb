@@ -10,7 +10,7 @@ module Trade
 
       @promote_good_users = @cart.promote_good_users.default_where(q_params).page(params[:page])
       promote_ids = @cart.promote_good_types.pluck(:promote_id)
-      @promotes = Promote.verified.where.not(id: promote_ids).default_where(default_params)
+      @promotes = Promote.where.not(id: promote_ids).default_where(default_params)
     end
 
     def goods
