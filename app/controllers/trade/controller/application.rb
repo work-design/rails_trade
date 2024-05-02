@@ -31,7 +31,9 @@ module Trade
       @item = @cart.find_item(**options) || @cart.items.build(options)
       @item.status = 'checked'
       @item.assign_attributes params.permit(['station_id', 'desk_id', 'current_cart_id'] & Item.column_names)
-      @item.number = @item.number.to_i + (params[:number].presence || 1).to_i if @item.persisted?
+      if @item.persisted?
+        @item.number = params[:number].presence || 1
+      end
     end
 
     def set_item
