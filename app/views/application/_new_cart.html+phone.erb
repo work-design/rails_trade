@@ -7,8 +7,15 @@
       <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
     </button>
   <% end %>
-  <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, data: { controller: 'input' }, id: 'new_item' do |f| %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, data: { controller: 'input' }, id: 'new_item' do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
+    <%= f.hidden_field :good_type %>
+    <%= f.hidden_field :good_id %>
+    <%= f.hidden_field :dispatch %>
+    <%= f.hidden_field :produce_on %>
+    <%= f.hidden_field :scene_id %>
+    <%= f.hidden_field :station_id %>
+    <%= f.hidden_field :desk_id %>
     <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
   <% end %>
   <button data-action="modify#plus" class="button_to ml-1">
