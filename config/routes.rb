@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :items do
         collection do
           post :trial
+          post :remove
         end
         member do
           get :promote
