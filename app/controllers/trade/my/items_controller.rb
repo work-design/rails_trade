@@ -3,7 +3,7 @@ module Trade
     before_action :set_cart, except: [:index]
     before_action :set_item, only: [
       :show, :edit, :update, :destroy, :actions, :promote, :toggle, :finish]
-    before_action :set_new_item, only: [:new, :create]
+    before_action :set_new_item, only: [:create]
     before_action :set_card_template, only: [:trial]
     after_action :support_cors, only: [:create]
 
@@ -15,7 +15,7 @@ module Trade
     end
 
     def create
-      if @item.save
+      if params[:commit] == 'xx' && @item.save
         state = Com::State.find_by(id: params[:state_uuid])
         if state.present? && state.referer.present?
           render :create, status: :created, locals: { url: state.referer }

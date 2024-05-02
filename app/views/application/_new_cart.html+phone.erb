@@ -7,10 +7,12 @@
       <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
     </button>
   <% end %>
-  <%= form_with theme: nil, url: { controller: item_con, action: 'remove' }, data: { controller: 'input' }, class: '' do |f| %>
+  <%= form_with theme: nil, url: { controller: item_con, action: 'new' }, data: { controller: 'input' }, id: 'new_item' do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
-  <% end %>
+    <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
+<% end %>
   <button data-action="modify#plus" class="button_to ml-1">
     <i class="fa-solid fa-xl fa-circle-plus color-grey"></i>
   </button>
 </div>
+<%= submit_tag 'xx', form: 'new_item', class: 'button is-small is-success' %>
