@@ -6,7 +6,7 @@
     <span class="tag"><%= model.code %></span>
   </div>
 </td>
-<td style="background-image: url(<%= rails_blob_url(model.cover) %>); background-size: cover; background-repeat: no-repeat">
+<td class="is-cover" style="background-image: url(<%= rails_blob_url(model.cover) if model.cover.attached? %>)">
   <span style="color: <%= model.text_color %>">文字颜色</span>
 </td>
 <td>
