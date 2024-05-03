@@ -279,7 +279,11 @@ module Trade
       item = find_item(**options) || items.build(options)
       item.status = 'checked'
       item.assign_attributes params.permit(['station_id', 'desk_id', 'current_cart_id'] & Item.column_names)
-      item.number = params[:number].presence || 1
+      if item.new_record?
+        item.number = params[:number].presence || 1
+      elsif params[:number].present?
+        item.number = params[:number]
+      end
       item
     end
 
