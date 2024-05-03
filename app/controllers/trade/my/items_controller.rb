@@ -24,6 +24,7 @@ module Trade
           render :create, status: :created
         end
       else
+        @item.valid?
         render :new, locals: { model: @item }
       end
     end
