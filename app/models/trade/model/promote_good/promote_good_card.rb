@@ -1,5 +1,5 @@
 module Trade
-  module Model::CardPromote
+  module Model::PromoteGoodCard
     extend ActiveSupport::Concern
 
     included do
