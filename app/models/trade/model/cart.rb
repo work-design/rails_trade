@@ -271,6 +271,18 @@ module Trade
       item
     end
 
+    def init_cart_item(params, **options)
+      options.with_defaults! dispatch: organ.dispatch
+      options.with_defaults! params.permit(:good_id, :dispatch, :produce_on, :scene_id)
+      options.compact_blank!
+
+      item = find_item(**options) || items.build(options)
+      item.status = 'checked'
+      item.assign_attributes params.permit(['station_id', 'desk_id', 'current_cart_id'] & Item.column_names)
+      item.number = params[:number].presence || 1
+      item
+    end
+
     def find_item(**options)
       args = attr_options(**options)
       items.find(&->(i){ i.attributes.slice(*args.keys) == args })
