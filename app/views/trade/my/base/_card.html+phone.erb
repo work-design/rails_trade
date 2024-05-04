@@ -22,7 +22,7 @@
       <div class="level-right"></div>
     </div>
   </div>
-  <div class="weui-panel__hd has-block-space-between">
+  <div class="has-block-space-between">
     <span>续费</span>
     <div class="has-text-weight-normal">
     <% if model.expire_at %>
@@ -35,10 +35,8 @@
     </div>
   </div>
   <% if model.expire_at %>
-  <div class="weui-panel__ft">
-    <div class="columns mx-0 mb-4 flex is-multiline is-mobile">
+    <div class="columns my-0 flex is-multiline is-mobile">
       <%= render partial: 'purchase', collection: model.card_template.purchases %>
     </div>
-  </div>
   <% end %>
 </div>
