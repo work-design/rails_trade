@@ -279,7 +279,7 @@ Rails.application.routes.draw do
               patch :reorder
             end
           end
-          resources :card_promotes
+          resources :promote_good_cards
           resources :cards do
             resources :card_purchases
           end

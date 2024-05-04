@@ -16,13 +16,14 @@ module Trade
       belongs_to :parent, class_name: self.name, optional: true
 
       has_one :purchase, -> { where(default: true) }
+
       has_many :cards
-      has_many :advances, dependent: :destroy_async
       has_many :purchases, dependent: :destroy_async
       has_many :privileges, dependent: :destroy_async
+      has_many :advances, dependent: :destroy_async
       has_many :opened_advances, -> { where(open: true).order(amount: :asc) }, class_name: 'Advance'
       has_many :unopened_advances, -> { where(open: false).order(amount: :asc) }, class_name: 'Advance'
-      has_many :card_promotes, dependent: :destroy_async
+      has_many :promote_good_cards, dependent: :destroy_async
 
       accepts_nested_attributes_for :advances
 
