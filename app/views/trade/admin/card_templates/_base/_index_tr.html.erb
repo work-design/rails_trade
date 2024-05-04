@@ -18,9 +18,9 @@
         <i class="fa-solid fa-crown color-info"></i>
         <span class="pl-1"><%= t('.privileges.index.title') %></span>
       <% end %>
-      <%= link_to({ controller: 'card_promotes', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'promote_good_cards', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-gift has-text-primary"></i>
-        <span class="pl-1"><%= t('.card_promotes.index.title') %></span>
+        <span class="pl-1"><%= t('.promote_good_cards.index.title') %></span>
       <% end %>
     </div>
   </td>

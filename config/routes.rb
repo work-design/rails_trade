@@ -192,6 +192,9 @@ Rails.application.routes.draw do
       namespace :admin, defaults: { namespace: 'admin' } do
         root 'home#index'
         concerns :order_admin
+        controller :home do
+          post :good_search
+        end
         resources :carts, except: [:new] do
           collection do
             get :total
@@ -205,7 +208,6 @@ Rails.application.routes.draw do
           resources :promote_good_users do
             collection do
               post :user_search
-              post :good_search
               get :user
             end
           end

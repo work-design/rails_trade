@@ -136,6 +136,9 @@ zh:
           title: 优惠券
         new:
           title: 优惠券派发
+      promote_good_cards:
+        index:
+          title: 优惠设置
       promote_good_users:
         index:
           title: 优惠券派发
@@ -163,9 +166,6 @@ zh:
       card_templates:
         index:
           title: 会员卡
-      card_promotes:
-        index:
-          title: 促销设置
       cards:
         index:
           title: 会员卡记录

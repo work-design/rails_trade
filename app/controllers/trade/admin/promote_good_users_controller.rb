@@ -32,14 +32,6 @@ module Trade
       @promote_good = PromoteGood.new(params.permit(:promote_id, :good_type, :good_id))
     end
 
-    def good_search
-      q_params = {}
-      q_params.merge! default_params
-      q_params.merge! params.permit('name-like')
-
-      @goods = params[:good_type].constantize.default_where(q_params)
-    end
-
     def user_search
       @accounts = Auth::Account.includes(:user, members: :organ).where(identity: params[:identity])
     end

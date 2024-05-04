@@ -1,1 +1,4 @@
-<%= f.collection_select :promote_id, @promotes, :id, :name %>
+<%= f.hidden_field :promote_id %>
+<%= f.datetime_field :effect_at, data: { action: 'change->equal#updateTime' }, step: 1 %>
+<%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>
+<%= render partial: 'good_search', locals: { f: f } %>
