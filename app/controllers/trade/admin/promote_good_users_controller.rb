@@ -8,8 +8,8 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:good_type, :good_id)
 
-      @promote_good_users = @cart.promote_good_users.default_where(q_params).page(params[:page])
-      promote_ids = @cart.promote_good_types.pluck(:promote_id)
+      @promote_good_users = @cart.promote_good_users.default_where(q_params)
+      promote_ids = @cart.promote_good_types.pluck(:promote_id) + @promote_good_users.pluck(:promote_id)
       @promotes = Promote.where.not(id: promote_ids).default_where(default_params)
     end
 
