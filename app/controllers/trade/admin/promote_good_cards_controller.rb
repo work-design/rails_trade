@@ -24,10 +24,17 @@ module Trade
     end
 
     def promote_good_card_params
-      params.fetch(:promote_good_card, {}).permit(
+      _p = params.fetch(:promote_good_card, {}).permit(
+        :promote_id,
         :good_type,
-        :promote_id
+        :good_id,
+        :effect_at,
+        :expire_at,
+        :use_limit,
+        :status
       )
+      _p.with_defaults! promote_id: params[:promote_id], good_type: 'Factory::Production'
+      _p
     end
 
   end
