@@ -87,7 +87,7 @@ module Trade
       has_many :holds
 
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :available_promote_goods, ->(o) { effective.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], user_id: [o.user_id, nil], member_id: [o.member_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :available_promote_goods, ->(o) { effective.where(o.promote_filter_hash) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       has_one_attached :image
 
@@ -175,6 +175,17 @@ module Trade
     def organ_scene_filter_hash
       o = { member_organ_id: member_organ_id }
       o.merge! produce_on: produce_on, scene_id: scene_id
+    end
+
+    def promote_filter_hash
+      {
+        organ_id: organ_ancestor_ids,
+        good_id: [good_id, nil],
+        user_id: [user_id, nil].uniq,
+        member_id: [member_id, nil].uniq,
+        card_template_id: cards.map(&:card_template_id).uniq,
+        aim: aim
+      }
     end
 
     def effective?
