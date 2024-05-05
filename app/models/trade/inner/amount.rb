@@ -22,7 +22,6 @@ module Trade
         cp.original_amount = item_promotes.sum(&->(i){ i.original_amount.to_d })
         cp.unit_prices = item_promotes.map(&->(i){ [i.id, i.unit_price] }).to_h
         cp.compute_amount
-        cp.save
       end
       cart_promotes.select(&->(i){ _avail.map(&:promote_id).exclude?(i.promote_id) }).each do |cart_promote|
         cart_promotes.destroy(cart_promote)

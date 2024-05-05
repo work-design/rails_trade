@@ -365,7 +365,9 @@ module Trade
     def add_promotes
       do_compute_promotes
       self.sum_amount
-      current_cart.compute_promote if current_cart
+      if current_cart
+        current_cart.compute_promote
+      end
     end
 
     def reset_promotes
