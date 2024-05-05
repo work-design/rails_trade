@@ -20,7 +20,7 @@ module Trade
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.original_amount = item_promotes.sum(&->(i){ i.original_amount.to_d })
-        cp.unit_prices = item_promotes.map(&->(i){ [i.id, i.unit_price] }).to_h
+        cp.unit_prices = item_promotes.map(&->(i){ [i.promote_charge_id, i.unit_price] }).to_h
         cp.compute_amount
       end
       cart_promotes.select(&->(i){ _avail.map(&:promote_id).exclude?(i.promote_id) }).each do |cart_promote|
