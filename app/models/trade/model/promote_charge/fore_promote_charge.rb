@@ -8,7 +8,7 @@ module Trade
     end
 
     def xx
-
+      minors
     end
 
   end

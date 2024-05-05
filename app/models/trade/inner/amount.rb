@@ -19,6 +19,7 @@ module Trade
       _avail.group_by(&:promote).each do |promote, item_promotes|
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
+        cp.original_amount = item_promotes.sum(&->(i){ i.original_amount.to_d })
         cp.compute_amount
         cp.save
       end

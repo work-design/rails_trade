@@ -335,7 +335,10 @@ module Trade
         promote_charge = promote_good.promote.compute_charge(value, **extra)
         next unless promote_charge
 
-        item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_good_id: promote_good.id, promote_charge_id: promote_charge.id, value: value)
+        ip = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_good_id: promote_good.id, promote_charge_id: promote_charge.id)
+        ip.value = value
+        ip.original_amount = amount
+        ip
       end
 
       r.compact!

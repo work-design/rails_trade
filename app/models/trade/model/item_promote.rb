@@ -3,9 +3,10 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :amount, :decimal
       attribute :promote_name, :string
       attribute :value, :decimal
+      attribute :amount, :decimal
+      attribute :original_amount, :decimal
 
       belongs_to :item, inverse_of: :item_promotes
       belongs_to :promote_good, counter_cache: true
@@ -29,7 +30,7 @@ module Trade
     end
 
     def compute_amount
-      self.amount = self.promote_charge.final_price(value)
+      self.amount = self.promote_charge.final_price(original_amount)
     end
 
   end
