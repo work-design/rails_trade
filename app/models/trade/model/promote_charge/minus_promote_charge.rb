@@ -8,7 +8,7 @@ module Trade
     end
 
     # 如果抵扣券金额大于总额，则为0
-    def final_price(amount)
+    def final_price(amount, **options)
       if parameter.abs >= amount
         - amount
       else

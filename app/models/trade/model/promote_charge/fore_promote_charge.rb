@@ -3,7 +3,7 @@ module Trade
   module Model::PromoteCharge::ForePromoteCharge
 
     #
-    def final_price(amount)
+    def final_price(amount, **options)
       -(amount - parameter)
     end
 

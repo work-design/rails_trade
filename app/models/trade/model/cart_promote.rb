@@ -40,8 +40,14 @@ module Trade
 
     def compute_amount
       self.promote_charge = promote.compute_charge(value, **(cart&.extra || order&.extra))
-      self.computed_amount = self.promote_charge.final_price(original_amount)
+      self.computed_amount = self.promote_charge.final_price(original_amount, **final_options)
       self.amount = computed_amount unless edited?
+    end
+
+    def final_options
+      {
+        unit_price: unit_prices.values.max
+      }
     end
 
     def sync_amount
