@@ -20,6 +20,7 @@ module Trade
         cp = cart_promotes.find(&->(i){ i.promote_id == promote.id }) || cart_promotes.build(promote_id: promote.id)
         cp.value = item_promotes.sum(&->(i){ i.value.to_d })
         cp.original_amount = item_promotes.sum(&->(i){ i.original_amount.to_d })
+        cp.unit_prices = item_promotes.map(&->(i){ [i.id, i.unit_price] }).to_h
         cp.compute_amount
         cp.save
       end

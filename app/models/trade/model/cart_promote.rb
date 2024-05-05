@@ -3,15 +3,16 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :promote_name, :string
       attribute :sequence, :integer
       attribute :value, :decimal
       attribute :original_amount, :decimal, comment: '初始价格'
       attribute :based_amount, :decimal, default: 0, comment: '基于此价格计算，默认为 item 的 amount，与sequence有关'
       attribute :computed_amount, :decimal, default: 0, comment: '计算出的价格'
+      attribute :unit_prices, :json, default: {}
       attribute :amount, :decimal, default: 0, comment: '默认等于 computed_amount，如果客服人员修改过价格后，则 amount 会发生变化'
       attribute :note, :string, comment: '备注'
       attribute :edited, :boolean, default: false, comment: '是否被客服改过价'
-      attribute :promote_name, :string
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 

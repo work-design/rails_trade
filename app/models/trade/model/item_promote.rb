@@ -7,6 +7,7 @@ module Trade
       attribute :value, :decimal
       attribute :amount, :decimal
       attribute :original_amount, :decimal
+      attribute :unit_price, :decimal
 
       belongs_to :item, inverse_of: :item_promotes
       belongs_to :promote_good, counter_cache: true
