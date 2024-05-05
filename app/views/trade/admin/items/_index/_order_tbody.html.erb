@@ -1,13 +1,10 @@
 <td><%= check_box_tag 'xx', model.id, false, id: nil %></td>
 <td>
-  <p>
-    <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
-    <span class="tag"><%= model.state_i18n %></span>
-    <% if ['rent', 'invest'].include?(model.aim) %>
-      <span class="tag is-info"><%= model.aim_i18n %></span>
-    <% end %>
-  </p>
-  <p><%= model.serial_number %></p>
+  <%= link_to model.uuid, { action: 'show', id: model.id }, text: true, class: 'has-text-mono' %>
+  <span class="tag"><%= model.state_i18n %></span>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag is-info"><%= model.aim_i18n %></span>
+  <% end %>
 </td>
 <td>
   <p><%= model.payment_status_i18n %></p>
