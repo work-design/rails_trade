@@ -16,7 +16,7 @@ module Trade
     end
 
     def set_promote_good_card
-      @promote_good_card = CardPromote.find(params[:id])
+      @promote_good_card = PromoteGoodCard.default_where(default_params).find(params[:id])
     end
 
     def set_new_promote_good_card
