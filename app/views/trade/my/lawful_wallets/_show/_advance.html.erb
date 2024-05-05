@@ -4,7 +4,7 @@
       <%= ef.hidden_field :good_type, value: advance.base_class_name %>
       <%= ef.hidden_field :good_id, value: advance.id %>
     <% end %>
-    <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
+    <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth', disabled: disabled do %>
       <div class="description color-danger">
         <span class="size-7">充</span>
         <span><%= advance.price.to_money.format.html_safe %></span>
