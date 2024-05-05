@@ -7,8 +7,10 @@ module Trade
       -(amount - parameter)
     end
 
-    def xx
-      minors
+    def minors_amount
+      minors.inject(0) do |sum, minor|
+        sum + minor.parameter
+      end
     end
 
   end
