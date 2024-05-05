@@ -27,9 +27,9 @@
   <div class="weui-panel__hd">充值</div>
   <div class="box-body">
     <div class="columns flex is-multiline is-mobile">
-      <%= render partial: 'advance', collection: @lawful_wallet.advances.without_card, as: :advance, locals: { disabled: false } %>
+      <%= render partial: 'advance', collection: @lawful_wallet.advances.without_card.order(amount: :asc), as: :advance, locals: { disabled: false } %>
     </div>
-    <% @lawful_wallet.advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
+    <% @lawful_wallet.advances.with_card.order(amount: :asc).group_by(&:card_template).each do |card_template, advances| %>
       <div>
         <strong><%= card_template.name %>专享</strong>
       </div>
