@@ -23,6 +23,7 @@ module Trade
       attribute :type, :string
 
       belongs_to :promote
+      has_many :minors, ->(o){ default_where(o.minor_filter_hash).order(min: :asc) }, class_name: self.name, primary_key: :promote_id, foreign_key: :promote_id
     end
 
     # amount: 商品价格
@@ -31,8 +32,12 @@ module Trade
       raise 'Should Implement in Subclass'
     end
 
-    def minors
-      promote.promote_charges.default_where('min-lt': self.min).order(min: :asc)
+    def minor_filter_hash
+      if contain_min
+        { 'max-lt': min }
+      else
+        { 'max-lte': min }
+      end
     end
 
     class_methods do
