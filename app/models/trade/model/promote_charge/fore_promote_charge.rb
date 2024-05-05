@@ -4,7 +4,8 @@ module Trade
 
     #
     def final_price(amount, **options)
-      -(amount - parameter)
+      reduced = (min * options[:unit_price] - minors_amount)
+      -(amount - reduced)
     end
 
     def minors_amount

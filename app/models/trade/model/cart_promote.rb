@@ -46,7 +46,7 @@ module Trade
 
     def final_options
       {
-        unit_price: unit_prices.values.max
+        unit_price: unit_prices.values.map(&:to_d).max
       }
     end
 
