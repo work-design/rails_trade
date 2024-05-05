@@ -7,7 +7,7 @@ module Trade
     def index
       @promote_good_cards = @card_template.promote_good_cards
       promote_ids = @promote_good_cards.pluck(:promote_id)
-      @promotes = Promote.where.not(id: promote_ids).default_where(default_params)
+      @promotes = Promote.default_where(default_params)
     end
 
     private
