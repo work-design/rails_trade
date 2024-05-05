@@ -98,7 +98,7 @@ zh:
           Trade::DiscountPromoteCharge: 折扣
           Trade::FinalPromoteCharge: 一口价
           Trade::MinusPromoteCharge: 满减/抵扣券
-          Trade::PlusPromoteCharge: 附加费用
+          Trade::ForePromoteCharge: 前几件折扣
         duration:
           hour: 小时
           minute: 分钟
