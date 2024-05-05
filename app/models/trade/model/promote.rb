@@ -45,7 +45,6 @@ module Trade
     def compute_charge(value, **extra)
       extra.transform_keys! { |key| extra_mappings[key.to_s] }
       extra.delete nil
-
       q_params = {
         'min-lte': value,
         'max-gte': value,
