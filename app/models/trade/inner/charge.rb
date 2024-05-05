@@ -9,7 +9,7 @@ module Trade
       attribute :filter_max, :decimal, precision: 10, scale: 2, default: 99999999.99
       attribute :contain_min, :boolean, default: true
       attribute :contain_max, :boolean, default: false
-      attribute :parameter, :decimal, precision: 10, scale: 2, default: 0
+      attribute :parameter, :decimal
       attribute :wallet_price, :json, default: {}
       attribute :base_price, :decimal, precision: 10, scale: 2, default: 0
       attribute :wallet_base_price, :json, default: {}

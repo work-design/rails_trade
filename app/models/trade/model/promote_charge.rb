@@ -24,6 +24,7 @@ module Trade
 
       belongs_to :promote
       has_many :minors, ->(o){ default_where(o.minor_filter_hash).order(min: :asc) }, class_name: self.name, primary_key: :promote_id, foreign_key: :promote_id
+
     end
 
     # amount: 商品价格
