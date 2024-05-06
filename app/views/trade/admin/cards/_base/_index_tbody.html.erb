@@ -3,9 +3,6 @@
   <p class="has-text-mono color-grey"><%= model.card_uuid %></p>
 </td>
 <td>
-  <p><%= model.user&.name %></p>
-</td>
-<td>
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p>
   <% if model.expire_at && model.expire_at > Date.today %>
