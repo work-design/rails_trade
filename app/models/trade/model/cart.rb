@@ -87,18 +87,6 @@ module Trade
       }
     end
 
-    def simple_filter_hash
-      if member_id
-        { member_id: member_id }
-      elsif client_id
-        { client_id: client_id }
-      elsif user_id
-        { user_id: user_id, member_id: nil, client_id: nil }
-      else
-        { member_organ_id: member_organ_id, member_id: member_id }
-      end
-    end
-
     def in_filter_hash
       {
         good_type: good_type,
