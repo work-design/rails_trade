@@ -1,2 +1,2 @@
-<%= f.number_field :number %>
+<%= f.number_field :number, value: f.object.number.to_human, step: f.object.good.step %>
 <%= f.text_area :note %>
