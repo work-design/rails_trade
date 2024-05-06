@@ -10,7 +10,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :card_uuid)
 
-      @cards = @card_template.cards.default_where(q_params).order(id: :desc).page(params[:page])
+      @cards = @card_template.cards.includes(:carts).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     private

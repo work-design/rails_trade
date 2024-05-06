@@ -16,3 +16,8 @@
 </td>
 <td><%= model.temporary_i18n %></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
+<td>
+<% model.carts.each do |cart| %>
+  <p><%= button_to cart.id, { controller: 'carts', action: 'show', id: cart.id } %></p>
+<% end %>
+</td>

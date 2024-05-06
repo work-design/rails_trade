@@ -40,6 +40,7 @@ module Trade
       q_params = {}
 
       @items = @cart.items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      render :show, locals: { model: @cart }
     end
 
     def create
