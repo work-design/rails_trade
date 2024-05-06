@@ -8,7 +8,10 @@
 </td>
 <td>
 <% if model.item %>
-  <p><%= model.advance.name %></p>
+  <p>
+    <span><%= model.advance.name %></span>
+    <span class="tag"><%= model.item.amount.to_money.format.html_safe %></span>
+  </p>
   <p class="color-grey size-7"><%= model.item.uuid %></p>
 <% end %>
 </td>
