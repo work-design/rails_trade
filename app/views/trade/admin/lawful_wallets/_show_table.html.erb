@@ -4,27 +4,21 @@
 </div>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:income_amount) %></dt>
-  <dd>
-    <span><%= @wallet.income_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-    <span><%= @wallet.wallet_template.unit %></span>
-  </dd>
+  <dd><%= @lawful_wallet.income_amount.to_money.format.html_safe %></dd>
 </div>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:expense_amount) %></dt>
-  <dd>
-    <span><%= @wallet.expense_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-    <span><%= @wallet.wallet_template.unit %></span>
-  </dd>
+  <dd><%= @lawful_wallet.expense_amount.to_money.format.html_safe %></dd>
 </div>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:account_bank) %></dt>
-  <dd><%= @wallet.account_bank %></dd>
+  <dd><%= @lawful_wallet.account_bank %></dd>
 </div>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:account_name) %></dt>
-  <dd><%= @wallet.account_name %></dd>
+  <dd><%= @lawful_wallet.account_name %></dd>
 </div>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:account_number) %></dt>
-  <dd><%= @wallet.account_number %></dd>
+  <dd><%= @lawful_wallet.account_number %></dd>
 </div>
