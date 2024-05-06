@@ -1,6 +1,6 @@
 <div class="cell has-column-centered p-3">
   <div class="header color-grey"><%= privilege.name %></div>
   <figure data-controller="skeleton" class="image is-128x128 is-skeleton mt-2">
-    <%= image_tag privilege.logo, data: { action: 'load->skeleton#appear' } if privilege.logo.attached? %>
+    <%= image_tag privilege.logo.url, data: { action: 'load->skeleton#appear' } if privilege.logo.attached? %>
   </figure>
 </div>
