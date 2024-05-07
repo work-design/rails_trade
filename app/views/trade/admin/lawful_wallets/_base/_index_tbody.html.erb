@@ -35,14 +35,14 @@
 <td>
   <p>
     <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-credit-card"></i>
-      <span class="pl-1"><%= t('.wallet_payments.index.title') %></span>
+      <span class="color-grey"><%= t('.wallet_payments.index.title') %></span>
+      <span class="ml-1"><%= model.payment_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
   <p>
     <%= link_to({ controller: 'payouts', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-wallet"></i>
-      <span class="pl-1"><%= t('.payouts.index.title') %></span>
+      <span class="color-grey"><%= t('.payouts.index.title') %></span>
+      <span class="ml-1"><%= model.payout_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
 </td>

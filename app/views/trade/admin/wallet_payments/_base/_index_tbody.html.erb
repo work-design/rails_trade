@@ -14,6 +14,14 @@
   <span><%= model.refunded_amount.to_money.format.html_safe %></span>
 <% end %>
 </td>
+<td>
+<% model.payment_orders.each do |payment_order| %>
+  <p>
+    <%= button_to(payment_order.order.uuid, { controller: 'orders', action: 'show', id: payment_order.order_id }, class: 'has-text-mono color-grey') %>
+    <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
+  </p>
+<% end %>
+</td>
 <td><%= model.comment %></td>
 <td>
   <p><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></p>

@@ -7,7 +7,7 @@ module Trade
     def index
       q_params = {}
 
-      @wallet_payments = @wallet.wallet_payments.default_where(q_params).order(id: :desc).page(params[:page])
+      @wallet_payments = @wallet.wallet_payments.includes(payment_orders: :order).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     private
