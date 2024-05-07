@@ -14,10 +14,8 @@
 <%= render partial: 'items', locals: { model: @order } %>
 
 <div data-controller="empty" class="box mx-3">
-  <div class="weui-panel__hd">服务/促销</div>
-  <div data-empty-target="content" class="weui-panel__bd">
-    <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
-  </div>
+  <strong>服务/促销</strong>
+  <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
 </div>
 
 <div class="box mx-3">
