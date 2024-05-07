@@ -13,18 +13,18 @@
   <% end %>
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:item_amount) %></td>
-    <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
+    <td colspan="<%= @order.aim_rent? ? '3' : '2' %>"></td>
     <td colspan="2" class="color-success"><%= @order.item_amount.to_money.format.html_safe %></td>
   </tr>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
   <tr class="has-background-light">
     <td><%= Trade::Order.human_attribute_name(:adjust_amount) %></td>
-    <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
+    <td colspan="<%= @order.aim_rent? ? '3' : '2' %>"></td>
     <td colspan="2" class="color-success"><%= @order.adjust_amount.to_money.format.html_safe %></td>
   </tr>
   <tr>
     <td><%= Trade::Order.human_attribute_name(:amount) %></td>
-    <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
+    <td colspan="<%= @order.aim_rent? ? '3' : '2' %>"></td>
     <td colspan="2">
       <span><%= @order.amount.to_money.format.html_safe %></span>
       <%= button_to({ controller: 'trade/admin/order_payments', action: 'new', order_id: @order.id }, class: 'button is-small is-rounded is-light') do %>
@@ -34,7 +34,7 @@
   </tr>
   <tr>
     <td><%= Trade::Order.human_attribute_name(:payment_status) %></td>
-    <td colspan="<%= @order.aim_rent? ? '4' : '3' %>"></td>
+    <td colspan="<%= @order.aim_rent? ? '3' : '2' %>"></td>
     <td colspan="2"><%= @order.payment_status_i18n %></td>
   </tr>
   <%= render partial: 'show_address', locals: { address: @order.address } if @order.address %>
