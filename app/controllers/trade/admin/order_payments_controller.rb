@@ -22,6 +22,8 @@ module Trade
         payment_orders_attributes: [{ order: @order, order_amount: @order.unreceived_amount, state: 'pending' }]
       )
       @payment.init_uuid
+
+      render :new, locals: { model: @payment }
     end
 
     def create
