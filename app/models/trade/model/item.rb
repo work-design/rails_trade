@@ -295,14 +295,14 @@ module Trade
 
     def cart_identity
       if purchase_id.present?
-        "#{purchase_id}_#{good_id}"
+        "cart_#{purchase_id}_#{good_id}"
       else
         if contact_id
-          "#{good_id}_#{contact_id}"
+          "cart_#{good_id}_#{contact_id}"
         elsif member_id
-          "#{good_id}_#{member_id}"
+          "cart_#{good_id}_#{member_id}"
         else
-          "#{good_id}"
+          "cart_#{good_id}"
         end
       end
     end

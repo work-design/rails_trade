@@ -1,18 +1,35 @@
-<div id="cart_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
-  <% if item.number > 1 %>
-    <button data-action="modify#minus" class="button_to mr-1">
-      <i class="fa-solid fa-xl fa-circle-minus has-text-dark-grey"></i>
-    </button>
-  <% else %>
-    <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
-      <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
-    <% end %>
-  <% end %>
-  <%= form_with theme: nil, scope: 'item', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>
+<% if item.new_record? %>
+  <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'create' }, id: item.cart_identity do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
-    <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
+    <%= f.hidden_field :good_type %>
+    <%= f.hidden_field :good_id %>
+    <%= f.hidden_field :dispatch %>
+    <%= f.hidden_field :produce_on %>
+    <%= f.hidden_field :scene_id %>
+    <%= f.hidden_field :station_id %>
+    <%= f.hidden_field :desk_id %>
+    <button type="submit" class="button is-small is-danger">
+      <i class="fa-solid fa-cart-plus"></i>
+      <span class="pl-1"><%= t(".#{item_con.tr('/', '.')}.create.title") %></span>
+    </button>
   <% end %>
-  <button data-action="modify#plus" class="button_to ml-1">
-    <i class="fa-solid fa-xl fa-circle-plus has-text-dark-grey"></i>
-  </button>
-</div>
+<% else %>
+  <div id="<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
+    <% if item.number > 1 %>
+      <button data-action="modify#minus" class="button_to mr-1">
+        <i class="fa-solid fa-xl fa-circle-minus has-text-dark-grey"></i>
+      </button>
+    <% else %>
+      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
+        <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
+      <% end %>
+    <% end %>
+    <%= form_with theme: nil, scope: 'item', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>
+      <%= f.hidden_field :current_cart_id, value: cart.id %>
+      <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
+    <% end %>
+    <button data-action="modify#plus" class="button_to ml-1">
+      <i class="fa-solid fa-xl fa-circle-plus has-text-dark-grey"></i>
+    </button>
+  </div>
+<% end %>
