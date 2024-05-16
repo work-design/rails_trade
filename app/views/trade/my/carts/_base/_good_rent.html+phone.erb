@@ -16,7 +16,7 @@
   <div class="media-content">
     <h4 class="weui-media-box__title"><%= model.good_name %></h4>
     <% if model.good.respond_to?(:parts) && model.good.parts.present? %>
-    <ul class="weui-media-box__info">
+    <ul class="media-info">
       <% model.good.parts.each do |part| %>
         <li><%= part.name %></li>
       <% end %>

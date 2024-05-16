@@ -260,7 +260,6 @@ module Trade
     end
 
     def init_cart_item(params, **options)
-      options.with_defaults! dispatch: organ.dispatch
       options.with_defaults! params.permit(:good_id, :dispatch, :produce_on, :scene_id)
       options.compact_blank!
 
@@ -292,6 +291,7 @@ module Trade
 
     def attr_options(**options)
       options.symbolize_keys!
+      options.with_defaults! dispatch: organ.dispatch
       args = { good_type: good_type, aim: aim }
       args.merge! options.slice(:good_type, :aim, :contact_id, :member_id)
       if options.key?(:good_id)
