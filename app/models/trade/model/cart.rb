@@ -71,7 +71,7 @@ module Trade
       end
 
       if respond_to? :agent_id
-        p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id
+        p.merge!({ agent_id: agent_id, contact_id: contact_id, client_id: client_id }.compact)
       end
 
       if respond_to? :desk_id
