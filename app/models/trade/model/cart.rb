@@ -221,14 +221,6 @@ module Trade
       save
     end
 
-    def identity
-      if member_id
-        "_#{member_id}"
-      elsif contact_id
-        "_#{contact_id}"
-      end
-    end
-
     def toggle_all
       if all_checked?
         items.each do |item|

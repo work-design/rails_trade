@@ -7,14 +7,7 @@ module Trade
 
     private
     def set_new_item
-      options = {
-        operator_id: current_client.id
-      }
-      options.merge! client_params
-      options.merge! params.permit(:good_id, :member_id, :number, :produce_on, :scene_id)
-      options.compact_blank!
-
-      @item = @cart.find_item(**options) || @cart.items.build(options)
+      @item = @cart.init_cart_item(params, operator_id: current_client.id, **client_params)
     end
 
     def set_cart

@@ -102,10 +102,7 @@ module Trade
     end
 
     def set_new_item
-      options = {}
-      options.merge! params.permit(:good_type, :good_id, :aim, :number, :produce_on, :scene_id, :current_cart_id)
-
-      @item = Item.new(options)
+      @item = @cart.init_cart_item(params)
     end
 
     def item_params
