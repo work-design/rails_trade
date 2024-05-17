@@ -5,9 +5,9 @@
 <% elsif referer_controller == 'factory/productions' %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
   <%= turbo_stream.replace "product_cart_#{@item.good.product_id}", partial: 'production_cart', locals: { cart: @item.current_cart, model: @item.good, item: @item, item_con: controller_path } %>
-  <%= turbo_stream.replace @item.cart_identity, partial: 'add_cart', locals: { cart: @item.current_cart, model: @item.good, item_con: controller_path } %>
+  <%= turbo_stream.replace @item.cart_identity, partial: 'cart', locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
   <%= turbo_stream.remove 'modal' %>
 <% else %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
-  <%= turbo_stream.replace @item.cart_identity, partial: 'add_cart', locals: { cart: @item.current_cart, model: @item.good, item_con: controller_path } %>
+  <%= turbo_stream.replace @item.cart_identity, partial: 'cart', locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
 <% end %>

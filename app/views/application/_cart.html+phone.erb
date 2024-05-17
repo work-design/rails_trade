@@ -1,18 +1,4 @@
-<% if item.new_record? %>
-  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: item.cart_identity, class: 'button_to' do |f| %>
-    <%= f.hidden_field :current_cart_id, value: cart.id %>
-    <%= f.hidden_field :good_type %>
-    <%= f.hidden_field :good_id %>
-    <%= f.hidden_field :dispatch %>
-    <%= f.hidden_field :produce_on %>
-    <%= f.hidden_field :scene_id %>
-    <%= f.hidden_field :station_id %>
-    <%= f.hidden_field :desk_id %>
-    <button type="submit" name="commit" value="xx">
-      <i class="fa-solid fa-xl fa-circle-plus color-grey"></i>
-    </button>
-  <% end %>
-<% else %>
+<% if item.persisted? %>
   <div id="<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
     <% if item.number > 1 %>
       <%= button_to({ controller: 'trade/my/items', action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
@@ -34,4 +20,18 @@
       <i class="fa-solid fa-xl fa-circle-plus color-grey"></i>
     </button>
   </div>
+<% else %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: item.cart_identity, class: 'button_to' do |f| %>
+    <%= f.hidden_field :current_cart_id, value: cart.id %>
+    <%= f.hidden_field :good_type %>
+    <%= f.hidden_field :good_id %>
+    <%= f.hidden_field :dispatch %>
+    <%= f.hidden_field :produce_on %>
+    <%= f.hidden_field :scene_id %>
+    <%= f.hidden_field :station_id %>
+    <%= f.hidden_field :desk_id %>
+    <button type="submit" name="commit" value="xx">
+      <i class="fa-solid fa-xl fa-circle-plus color-grey"></i>
+    </button>
+  <% end %>
 <% end %>
