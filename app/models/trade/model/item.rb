@@ -173,8 +173,11 @@ module Trade
     end
 
     def organ_scene_filter_hash
-      o = { member_organ_id: member_organ_id }
-      o.merge! produce_on: produce_on, scene_id: scene_id
+      {
+        member_organ_id: member_organ_id,
+        produce_on: produce_on,
+        scene_id: scene_id
+      }
     end
 
     def promote_filter_hash
@@ -184,7 +187,8 @@ module Trade
         user_id: [user_id, nil].uniq,
         member_id: [member_id, nil].uniq,
         card_template_id: cards.map(&:card_template_id).uniq,
-        aim: aim
+        aim: aim,
+        **extra
       }
     end
 
