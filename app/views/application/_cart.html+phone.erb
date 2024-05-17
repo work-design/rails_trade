@@ -1,7 +1,7 @@
 <% if item.persisted? %>
   <div id="<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
     <% if item.number > 1 %>
-      <%= button_to({ controller: 'trade/my/items', action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
+      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
         <i class="fa-solid fa-xl fa-circle-xmark color-grey"></i>
       <% end %>
       <button data-action="modify#minus" class="button_to mr-1">
