@@ -252,7 +252,7 @@ Rails.application.routes.draw do
             end
             member do
               get :blacklist
-              get :blacklist_new
+              match :blacklist_new, via: [:get, :post]
               post :blacklist_create
             end
           end
