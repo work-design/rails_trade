@@ -180,6 +180,12 @@ module Trade
       }
     end
 
+    def promote_extra_hash
+      extra.transform_values do |v|
+        [v, nil].flatten
+      end
+    end
+
     def promote_filter_hash
       {
         organ_id: organ_ancestor_ids,
@@ -188,7 +194,7 @@ module Trade
         member_id: [member_id, nil].uniq,
         card_template_id: cards.map(&:card_template_id).uniq,
         aim: aim,
-        **extra
+        **promote_extra_hash
       }
     end
 
