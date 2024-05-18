@@ -70,6 +70,7 @@ module Trade
         :part_id
       )
       _p.with_defaults! good_type: 'Factory::Production'
+      _p.with_defaults! params.permit(:promote_id)
     end
 
   end
