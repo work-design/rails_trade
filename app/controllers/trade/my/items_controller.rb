@@ -15,17 +15,12 @@ module Trade
     end
 
     def create
-      if params[:commit] == 'xx'
-        @item.save
-        state = Com::State.find_by(id: params[:state_uuid])
-        if state.present? && state.referer.present?
-          render :create, status: :created, locals: { url: state.referer }
-        else
-          render :create, status: :created
-        end
+      @item.save
+      state = Com::State.find_by(id: params[:state_uuid])
+      if state.present? && state.referer.present?
+        render :create, status: :created, locals: { url: state.referer }
       else
-        @item.valid?
-        render :new, locals: { model: @item }
+        render :create, status: :created
       end
     end
 
