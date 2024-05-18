@@ -20,8 +20,10 @@
   <% end %>
   <div class="box-footer justify-content-space-between">
     <div>
+    <% if model.serial_number %>
       <span class="color-grey size-7">取餐码：</span>
       <span><%= model.serial_str %></span>
+    <% end %>
     </div>
     <div class="buttons are-small">
       <%= button_to({ controller: 'orders', action: 'cancel', id: model.id }, method: :patch, class: 'button is-outlined is-dark', form: { class: '' }) do %>
