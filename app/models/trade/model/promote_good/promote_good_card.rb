@@ -4,6 +4,7 @@ module Trade
 
     included do
       belongs_to :card_template
+      belongs_to :card, optional: true
     end
 
   end
