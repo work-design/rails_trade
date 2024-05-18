@@ -194,6 +194,7 @@ Rails.application.routes.draw do
         concerns :order_admin
         controller :home do
           post :good_search
+          post :part_search
         end
         resources :carts, except: [:new] do
           collection do
