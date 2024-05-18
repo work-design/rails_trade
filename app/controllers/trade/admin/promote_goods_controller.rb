@@ -2,46 +2,14 @@ module Trade
   class Admin::PromoteGoodsController < Admin::BaseController
     before_action :set_promote
     before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
+    before_action :set_new_promote_good, only: [:new, :create, :part_new, :part_create]
 
     def index
       @promote_goods = @promote.promote_goods.where(good_id: nil).order(good_type: :asc).available
     end
 
-    def new
-      @promote_good = @promote.promote_goods.build(good_type: params[:good_type])
-    end
-
-    def create
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
-      @promote_good.assign_attributes promote_good_params
-
-      if @promote_good.save
-        render :create, locals: { model: @promote_good }
-      else
-        render :new, status: :unprocessable_entity
-      end
-    end
-
     def part
       @promote_goods = @promote.promote_goods.where(good_type: params[:good_type]).available
-    end
-
-    def part_new
-      @promote_good = @promote.promote_goods.build(good_type: params[:good_type])
-    end
-
-    def part_create
-      @promote_good = @promote.promote_goods.build
-      @promote_good.assign_attributes promote_good_params
-
-      if @promote_good.save
-        render :create, locals: { model: @promote_good }
-      else
-        render :part_new, status: :unprocessable_entity
-      end
-    end
-
-    def show
     end
 
     def blacklist
@@ -71,10 +39,6 @@ module Trade
       @goods = params[:good_type].constantize.default_where(q_params)
     end
 
-    def destroy
-      @promote_good.destroy
-    end
-
     private
     def set_promote
       @promote = Promote.find params[:promote_id]
@@ -82,6 +46,10 @@ module Trade
 
     def set_promote_good
       @promote_good = @promote.promote_goods.find params[:id]
+    end
+
+    def set_new_promote_good
+      @promote_good = @promote.promote_goods.build promote_good_params
     end
 
     def blacklist_params
@@ -93,13 +61,14 @@ module Trade
     end
 
     def promote_good_params
-      params.fetch(:promote_good, {}).permit(
+      _p = params.fetch(:promote_good, {}).permit(
         :effect_at,
         :expire_at,
         :good_type,
         :good_id,
         :aim
       )
+      _p.with_defaults! params.permit(:good_type)
     end
 
   end
