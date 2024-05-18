@@ -205,7 +205,7 @@ Rails.application.routes.draw do
             get :user
             get 'user/:user_id' => :user_show
           end
-          resources :promote_good_users do
+          resources :promote_goods, controller: 'cart/promote_goods' do
             collection do
               post :user_search
               get :user
@@ -243,7 +243,7 @@ Rails.application.routes.draw do
             get :search
           end
           resources :promote_charges
-          resources :promote_good_types do
+          resources :promote_goods do
             collection do
               match :part_new, via: [:get, :post]
               post :part_create
@@ -255,15 +255,13 @@ Rails.application.routes.draw do
               match :blacklist_new, via: [:get, :post]
               post :blacklist_create
             end
+            resources :item_promotes
           end
         end
         resources :promote_charges, only: [] do
           collection do
             get :options
           end
-        end
-        resources :promote_goods do
-          resources :item_promotes
         end
         resources :refunds, except: [:new, :create] do
           member do
@@ -281,10 +279,10 @@ Rails.application.routes.draw do
               patch :reorder
             end
           end
-          resources :promote_good_cards, controller: 'card_template/promote_goods'
+          resources :promote_goods, controller: 'card_template/promote_goods'
           resources :cards do
             resources :card_purchases
-            resources :promote_good_cards, controller: 'card/promote_goods'
+            resources :promote_goods, controller: 'card/promote_goods'
           end
         end
         resources :lawful_advances do

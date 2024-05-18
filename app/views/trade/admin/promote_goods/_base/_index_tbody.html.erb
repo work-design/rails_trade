@@ -1,30 +1,12 @@
+<td><%= model.good_type_i18n %></td>
 <td>
-  <p><%= model.good_type_i18n %></p>
-  <p>
-  <% if model.good_id %>
-    <span><%= model.good.name %></span>
-    <span class="color-grey">(<%= model.good_id %>)</span>
-  <% else %>
-    <span class="color-success">不限商品</span>
+  <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.expire_at.to_fs(:iso8601) %></time></p>
+</td>
+<td><%= model.aim_i18n %></td>
+<td>
+  <%= link_to({ action: 'blacklist', id: model.id }, text: true) do %>
+    <span><%= Trade::PromoteGood.human_attribute_name(:blacklists_count) %></span>
+    <span><%= model.blacklists_count %></span>
   <% end %>
-  </p>
-</td>
-<td><%= model.promote.name %></td>
-<td>
-<% if model.is_a?(Trade::PromoteGoodUser) %>
-  <p class="color-success"><%= model.user&.name %></p>
-  <p><%# model.member&.name %></p>
-<% end %>
-</td>
-<td>
-  <p><%= model.status_i18n %></p>
-</td>
-<td>
-  <p><time data-controller="time"><%= model.effect_at&.to_fs(:iso8601) %></time></p>
-  <p><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></p>
-</td>
-<td>
-  <span><%= model.use_limit.blank? ? '不限次' : model.use_limit %></span>
-  <span class="color-grey">/</span>
-  <%= link_to(model.item_promotes_count, { controller: 'item_promotes', promote_good_id: model.id }, aria: { label: t('trade.admin.item_promotes.index.title') }) %>
 </td>
