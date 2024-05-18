@@ -1,8 +1,8 @@
 module Trade
   class Admin::CardTemplate::PromoteGoodsController < Admin::PromoteGoodsController
     before_action :set_card_template
-    before_action :set_promote_good_card, only: [:show, :edit, :update, :destroy, :actions]
-    before_action :set_new_promote_good_card, only: [:new, :create]
+    before_action :set_promote_good, only: [:show, :edit, :update, :destroy, :actions]
+    before_action :set_new_promote_good, only: [:new, :create]
 
     def index
       @promote_goods = @card_template.promote_goods
