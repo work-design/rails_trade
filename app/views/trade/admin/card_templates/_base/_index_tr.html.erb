@@ -12,15 +12,15 @@
     <div data-show-target="item" class="visibility-hidden">
       <%= link_to({ controller: 'purchases', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-credit-card color-success"></i>
-        <span class="pl-1"><%= t('.purchases.index.title') %></span>
+        <span class="ml-1"><%= t('.purchases.index.title') %></span>
       <% end %>
       <%= link_to({ controller: 'privileges', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-crown color-info"></i>
-        <span class="pl-1"><%= t('.privileges.index.title') %></span>
+        <span class="ml-1"><%= t('.privileges.index.title') %></span>
       <% end %>
-      <%= link_to({ controller: 'promote_good_cards', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'card_template/promote_goods', card_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-gift has-text-primary"></i>
-        <span class="pl-1"><%= t('.promote_good_cards.index.title') %></span>
+        <span class="ml-1"><%= t('.promote_goods.index.title') %></span>
       <% end %>
     </div>
   </td>
