@@ -8,7 +8,7 @@ module Trade
     end
 
     def new
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
+      @promote_good = @promote.promote_goods.build(good_type: params[:good_type])
     end
 
     def create
