@@ -14,7 +14,8 @@ module Trade
       belongs_to :agency, optional: true
 
       has_many :card_purchases
-      has_many :promote_good_cards, foreign_key: :card_template_id, primary_key: :card_template_id
+      has_many :template_promote_goods, class_name: 'PromoteGood', foreign_key: :card_template_id, primary_key: :card_template_id
+      has_many :promote_goods, dependent: :destroy_async
 
       has_many :carts, ->(o) { where(o.simple_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :items, ->(o) { where(organ_id: o.organ_id, member_id: o.member_id).carting }, foreign_key: :user_id, primary_key: :user_id
