@@ -131,11 +131,6 @@ zh:
       promote_charges:
         index:
           title: 服务计算细则
-      promote_goods:
-        index:
-          title: 优惠券
-        new:
-          title: 优惠券派发
       promote_good_cards:
         index:
           title: 优惠设置
@@ -143,7 +138,7 @@ zh:
         index:
           title: 优惠券派发
           user: 派发给用户
-      promote_good_types:
+      promote_goods:
         index:
           title: 优惠券设置
         new:

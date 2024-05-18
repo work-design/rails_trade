@@ -4,7 +4,7 @@ module Trade
     before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
 
     def index
-      @promote_goods = @promote.promote_good_types.where(good_id: nil).order(good_type: :asc).available
+      @promote_goods = @promote.promote_goods.where(good_id: nil).order(good_type: :asc).available
     end
 
     def new
@@ -23,15 +23,15 @@ module Trade
     end
 
     def part
-      @promote_goods = @promote.promote_good_types.where(good_type: params[:good_type]).available
+      @promote_goods = @promote.promote_goods.where(good_type: params[:good_type]).available
     end
 
     def part_new
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType', good_type: params[:good_type])
+      @promote_good = @promote.promote_goods.build(good_type: params[:good_type])
     end
 
     def part_create
-      @promote_good = @promote.promote_goods.build(type: 'Trade::PromoteGoodType')
+      @promote_good = @promote.promote_goods.build
       @promote_good.assign_attributes promote_good_params
 
       if @promote_good.save

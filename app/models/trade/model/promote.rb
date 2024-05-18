@@ -20,8 +20,6 @@ module Trade
       has_many :promote_charges, dependent: :delete_all
       has_many :promote_extras, dependent: :delete_all
       has_many :promote_goods, dependent: :destroy_async
-      has_many :promote_good_types, dependent: :destroy_async
-      has_many :promote_good_users, dependent: :destroy_async
 
       validates :code, uniqueness: true, allow_blank: true
 
@@ -39,7 +37,7 @@ module Trade
     end
 
     def existing_good_types
-      promote_good_types.where(good_id: nil).pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
+      promote_goods.where(good_id: nil).pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
     end
 
     def compute_charge(value, **extra)
