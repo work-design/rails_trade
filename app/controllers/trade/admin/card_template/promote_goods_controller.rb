@@ -1,5 +1,5 @@
 module Trade
-  class Admin::PromoteGoodCardsController < Admin::BaseController
+  class Admin::CardTemplate::PromoteGoodsController < Admin::PromoteGoodsController
     before_action :set_card_template
     before_action :set_promote_good_card, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_new_promote_good_card, only: [:new, :create]

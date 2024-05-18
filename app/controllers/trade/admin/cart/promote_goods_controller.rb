@@ -1,5 +1,5 @@
 module Trade
-  class Admin::PromoteGoodUsersController < Admin::BaseController
+  class Admin::Cart::PromoteGoodsController < Admin::PromoteGoodsController
     before_action :set_cart
     before_action :set_promote_good_user, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_new_promote_good_user, only: [:new, :create]
