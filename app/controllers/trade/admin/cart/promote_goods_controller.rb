@@ -1,15 +1,15 @@
 module Trade
   class Admin::Cart::PromoteGoodsController < Admin::PromoteGoodsController
     before_action :set_cart
-    before_action :set_promote_good_user, only: [:show, :edit, :update, :destroy, :actions]
-    before_action :set_new_promote_good_user, only: [:new, :create]
+    before_action :set_promote_good, only: [:show, :edit, :update, :destroy, :actions]
+    before_action :set_new_promote_good, only: [:new, :create]
 
     def index
       q_params = {}
       q_params.merge! params.permit(:good_type, :good_id)
 
-      @promote_good_users = @cart.promote_good_users.default_where(q_params)
-      promote_ids = @cart.promote_good_types.pluck(:promote_id) + @promote_good_users.pluck(:promote_id)
+      @promote_goods = @cart.promote_goods.default_where(q_params)
+      promote_ids = @cart.promote_goods.pluck(:promote_id) + @promote_good_users.pluck(:promote_id)
       @promotes = Promote.where.not(id: promote_ids).default_where(default_params)
     end
 
@@ -41,16 +41,16 @@ module Trade
       @cart = Cart.find params[:cart_id]
     end
 
-    def set_new_promote_good_user
+    def set_new_promote_good
       @promote_good_user = @cart.promote_good_users.build(promote_good_user_params)
     end
 
-    def set_promote_good_user
+    def set_promote_good
       @promote_good_user = @cart.promote_good_users.find(params[:id])
     end
 
-    def promote_good_user_params
-      _p = params.fetch(:promote_good_user, {}).permit(
+    def promote_good_params
+      _p = params.fetch(:promote_good, {}).permit(
         :promote_id,
         :good_id,
         :effect_at,

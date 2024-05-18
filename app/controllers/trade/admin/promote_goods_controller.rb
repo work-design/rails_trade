@@ -1,6 +1,6 @@
 module Trade
   class Admin::PromoteGoodsController < Admin::BaseController
-    before_action :set_promote
+    before_action :set_promote, if: -> { params[:promote_id].present? }
     before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
     before_action :set_new_promote_good, only: [:new, :create, :part_new, :part_create]
 

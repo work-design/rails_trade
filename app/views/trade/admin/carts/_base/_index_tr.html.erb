@@ -10,9 +10,9 @@
       <% end %>
     </div>
     <div data-show-target="item" class="visibility-hidden">
-      <%= link_to({ controller: 'promote_good_users', cart_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'cart/promote_goods', cart_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-gift color-success"></i>
-        <span class="pl-1"><%= t('.promote_good_users.index.title') %></span>
+        <span class="ml-1"><%= t('.cart.promote_goods.index.title') %></span>
       <% end %>
     </div>
   </td>
