@@ -248,7 +248,6 @@ Rails.application.routes.draw do
               match :part_new, via: [:get, :post]
               post :part_create
               get :part
-              post :search
             end
             member do
               get :blacklist
