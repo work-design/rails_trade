@@ -6,7 +6,6 @@ module Trade
 
     def index
       @promote_goods = @card_template.promote_goods
-      promote_ids = @promote_goods.pluck(:promote_id)
       @promotes = Promote.default_where(default_params)
     end
 
