@@ -4,12 +4,10 @@ module Trade
     before_action :set_cart, only: [:index]
 
     def index
-      q_params = {
-        over_limit: false
-      }
+      q_params = {}
       q_params.merge! params.permit(:state)
 
-      @promote_good_users = @cart.promote_goods.includes(:promote).default_where(q_params).page(params[:page])
+      @promote_good_users = @cart.promote_goods.effective.includes(:promote).default_where(q_params).page(params[:page])
     end
 
     private

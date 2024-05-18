@@ -30,7 +30,7 @@ module Trade
       has_many :payment_references, ->(o) { where(o.filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
       has_many :payment_methods, through: :payment_references
 
-      has_many :promote_goods, ->(o) { where(o.filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
+      has_many :promote_goods, ->(o) { where(o.promote_filter_hash) }, primary_key: :good_type, foreign_key: :good_type
       has_many :real_items, ->(o) { where(o.filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where(o.in_filter_hash).where(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
@@ -89,6 +89,17 @@ module Trade
     def in_filter_hash
       {
         good_type: good_type,
+        aim: aim
+      }
+    end
+
+    def promote_filter_hash
+      {
+        organ_id: organ&.self_and_ancestor_ids,
+        user_id: [user_id, nil].uniq,
+        member_id: [member_id, nil].uniq,
+        card_template_id: cards.map(&:card_template_id).uniq.append(nil),
+        card_id: card_ids.append(nil),
         aim: aim
       }
     end
