@@ -31,14 +31,6 @@ module Trade
       end
     end
 
-    def search
-      q_params = {}
-      q_params.merge! default_params
-      q_params.merge! params.permit('name-like')
-
-      @goods = params[:good_type].constantize.default_where(q_params)
-    end
-
     private
     def set_promote
       @promote = Promote.find params[:promote_id]
