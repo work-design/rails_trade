@@ -27,20 +27,15 @@ module Trade
       belongs_to :user, class_name: 'Auth::User', counter_cache: :promote_goods_count, optional: true
       belongs_to :member, class_name: 'Org::Member', counter_cache: :promote_goods_count, optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
-      belongs_to :card_template
+      belongs_to :card_template, optional: true
       belongs_to :card, optional: true
-
-
-      has_many :blacklists, ->(o) { where(good_type: o.good_type, status: 'unavailable') }, class_name: self.name, primary_key: :promote_id, foreign_key: :promote_id
-      belongs_to :master,  ->(o) { where(good_type: o.good_type, good_id: nil, status: 'available') }, class_name: self.name, foreign_key: :promote_id, primary_key: :promote_id, counter_cache: :blacklists_count, optional: true
-
-
       belongs_to :promote
       belongs_to :good, polymorphic: true, optional: true
+      belongs_to :master, ->(o){ where(good_id: nil, status: 'available', **o.master_filter) }, class_name: self.name, foreign_key: :promote_id, primary_key: :promote_id, counter_cache: :blacklists_count, optional: true
 
+      has_many :blacklists, ->(o){ where(status: 'unavailable', **o.master_filter) }, class_name: self.name, primary_key: :promote_id, foreign_key: :promote_id
       has_many :item_promotes
       has_many :promote_good_types, ->(o) { where(aim: o.aim, status: 'available') }, primary_key: :good_type, foreign_key: :good_type
-
 
       scope :verified, -> { where(status: ['available']) }
       scope :effective, -> { t = Time.current; verified.where(over_limit: [false, nil]).default_where('effect_at-lte': t, 'expire_at-gte': t) }
@@ -50,9 +45,12 @@ module Trade
       validates :promote_id, uniqueness: { scope: [:type, :good_type, :good_id, :user_id, :member_id] }
 
       before_validation :sync_from_promote, if: -> { promote.present? && promote_id_changed? }
-      before_validation :sync_user, if: -> { member_id_changed? }
+    end
 
-      #after_save_commit :compute_over_limit, if: -> {}
+    def master_filter
+      {
+        good_type: good_type
+      }
     end
 
     def expired?

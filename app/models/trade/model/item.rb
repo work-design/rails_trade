@@ -86,8 +86,8 @@ module Trade
       has_many :payment_orders, primary_key: :order_id, foreign_key: :order_id
       has_many :holds
 
-      has_many :unavailable_promote_goods, ->(o) { unavailable.where(organ_id: o.organ_ancestor_ids, good_id: [o.good_id, nil], aim: o.aim) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
-      has_many :available_promote_goods, ->(o) { effective.where(o.promote_filter_hash) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
+      has_many :promote_goods, ->(o) { effective.where(o.promote_filter_hash) }, foreign_key: :good_type, primary_key: :good_type
+      has_many :unavailable_promote_goods, ->(o) { unavailable.where(o.promote_filter_hash) }, class_name: 'PromoteGood', foreign_key: :good_type, primary_key: :good_type
 
       has_one_attached :image
 
@@ -341,7 +341,7 @@ module Trade
     def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
 
-      r = available_promote_goods.includes(:promote).where.not(promote_id: unavailable_ids).map do |promote_good|
+      r = promote_goods.includes(:promote).where.not(promote_id: unavailable_ids).map do |promote_good|
         value = metering_attributes[promote_good.promote.metering]
         promote_charge = promote_good.promote.compute_charge(value, **extra)
         next unless promote_charge
