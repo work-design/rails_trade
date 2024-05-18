@@ -281,9 +281,10 @@ Rails.application.routes.draw do
               patch :reorder
             end
           end
-          resources :promote_good_cards
+          resources :promote_good_cards, controller: 'card_template/promote_goods'
           resources :cards do
             resources :card_purchases
+            resources :promote_good_cards, controller: 'card/promote_goods'
           end
         end
         resources :lawful_advances do
