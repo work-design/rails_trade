@@ -24,7 +24,7 @@ module Trade
     end
 
     def promote_good_params
-      _p = params.fetch(:promote_good_card, {}).permit(
+      _p = params.fetch(:promote_good, {}).permit(
         :promote_id,
         :good_type,
         :good_id,
