@@ -192,7 +192,7 @@ module Trade
         good_id: [good_id, nil],
         user_id: [user_id, nil].uniq,
         member_id: [member_id, nil].uniq,
-        card_template_id: cards.map(&:card_template_id).uniq,
+        card_template_id: cards.map(&:card_template_id).uniq.append(nil),
         aim: aim,
         **promote_extra_hash
       }
