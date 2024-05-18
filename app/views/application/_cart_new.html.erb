@@ -1,0 +1,46 @@
+<div id="production_cart_<%= item.cart_identity %>" class="flex justify-content-space-between is-fullwidth">
+  <div class="color-danger"><%= item.single_price.to_money.format.html_safe %></div>
+  <% if item.persisted? %>
+    <div data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="flex align-items-center">
+      <div class="mr-3"><%= item.amount.to_money.format.html_safe %></div>
+      <% if item.persisted? %>
+        <%= button_to({ controller: 'trade/my/items', id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: @cart.id }, form: { class: 'button_to mr-1' }) do %>
+          <i class="fa-solid fa-xl fa-circle-xmark"></i>
+        <% end %>
+      <% end %>
+      <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
+        <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
+      <% end %>
+      <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, method: :post, data: { controller: 'input' }, id: 'new_item' do |f| %>
+        <%= f.hidden_field :current_cart_id, value: cart.id %>
+        <%= f.hidden_field :good_type %>
+        <%= f.hidden_field :good_id %>
+        <%= f.hidden_field :dispatch %>
+        <%= f.hidden_field :produce_on %>
+        <%= f.hidden_field :scene_id %>
+        <%= f.hidden_field :station_id %>
+        <%= f.hidden_field :desk_id %>
+        <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
+      <% end %>
+      <button data-action="modify#plus" class="button_to ml-1">
+        <i class="fa-solid fa-xl fa-circle-plus color-grey"></i>
+      </button>
+      <button type="submit" name="commit" form="new_item" class="button is-small is-rounded is-success ml-3">加入购物车</button>
+    </div>
+  <% else %>
+    <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "production_cart_#{model.id}#{@cart&.identity}", class: 'button_to' do |f| %>
+      <%= f.hidden_field :current_cart_id, value: cart.id %>
+      <%= f.hidden_field :good_type %>
+      <%= f.hidden_field :good_id %>
+      <%= f.hidden_field :dispatch %>
+      <%= f.hidden_field :produce_on %>
+      <%= f.hidden_field :scene_id %>
+      <%= f.hidden_field :station_id %>
+      <%= f.hidden_field :desk_id %>
+      <button type="submit" class="button is-small is-warning is-radius">
+        <i class="fa-solid fa-cart-plus"></i>
+        <span class="pl-1">加入购物车</span>
+      </button>
+    <% end %>
+  <% end %>
+</div>
