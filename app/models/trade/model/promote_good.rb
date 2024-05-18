@@ -42,7 +42,7 @@ module Trade
 
       validates :effect_at, presence: true
       validates :expire_at, presence: true
-      validates :promote_id, uniqueness: { scope: [:type, :good_type, :good_id, :user_id, :member_id] }
+      validates :promote_id, uniqueness: { scope: [:good_type, :good_id, :user_id, :member_id, :card_template_id, :card_id] }
 
       before_validation :sync_from_promote, if: -> { promote.present? && promote_id_changed? }
     end
