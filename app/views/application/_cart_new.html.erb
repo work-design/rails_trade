@@ -2,14 +2,14 @@
   <div id="<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="flex align-items-center">
     <div class="mr-3"><%= item.amount.to_money.format.html_safe %></div>
     <% if item.persisted? %>
-      <%= button_to({ controller: 'trade/my/items', id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: @cart.id }, form: { class: 'button_to mr-1' }) do %>
+      <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id }, form: { class: 'button_to mr-1' }) do %>
         <i class="fa-solid fa-xl fa-circle-xmark"></i>
       <% end %>
     <% end %>
     <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
       <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
     <% end %>
-    <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'update', id: item.id }, data: { controller: 'input' } do |f| %>
+    <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
     <% end %>
