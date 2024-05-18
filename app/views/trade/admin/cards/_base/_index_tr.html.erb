@@ -14,8 +14,12 @@
     </div>
     <div data-show-target="item" class="visibility-hidden">
       <%= link_to({ controller: 'card_purchases', card_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-gem"></i>
+        <i class="fa-solid fa-gem color-primary"></i>
         <span class="ml-1"><%= t('.card_purchases.index.title') %></span>
+      <% end %>
+      <%= link_to({ controller: 'card/promote_goods', card_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <i class="fa-solid fa-tags color-success"></i>
+        <span class="ml-1"><%= t('.promote_goods.index.title') %></span>
       <% end %>
     </div>
   </td>

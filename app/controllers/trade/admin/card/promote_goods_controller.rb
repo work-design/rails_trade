@@ -10,7 +10,7 @@ module Trade
     end
 
     private
-    def set_card_template
+    def set_card
       @card = Card.find params[:card_id]
     end
 
