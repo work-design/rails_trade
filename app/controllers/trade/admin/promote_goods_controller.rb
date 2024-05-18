@@ -3,6 +3,7 @@ module Trade
     before_action :set_promote, if: -> { params[:promote_id].present? }
     before_action :set_promote_good, only: [:show, :edit, :blacklist, :blacklist_new, :blacklist_create, :blacklist_search, :update, :destroy]
     before_action :set_new_promote_good, only: [:new, :create, :part_new, :part_create]
+    before_action :set_product_taxons, only: [:new, :create, :edit, :update]
 
     def index
       @promote_goods = @promote.promote_goods.where(good_id: nil).order(good_type: :asc).available
@@ -44,6 +45,10 @@ module Trade
       @promote_good = @promote.promote_goods.build promote_good_params
     end
 
+    def set_product_taxons
+      @product_taxons = Factory::Product.default_where(default_params)
+    end
+
     def blacklist_params
       params.fetch(:promote_good, {}).permit(
         :effect_at,
@@ -54,13 +59,17 @@ module Trade
 
     def promote_good_params
       _p = params.fetch(:promote_good, {}).permit(
-        :effect_at,
-        :expire_at,
+        :promote_id,
         :good_type,
         :good_id,
-        :aim
+        :effect_at,
+        :expire_at,
+        :use_limit,
+        :aim,
+        :product_taxon_id,
+        :part_id
       )
-      _p.with_defaults! params.permit(:good_type)
+      _p.with_defaults! good_type: 'Factory::Production'
     end
 
   end

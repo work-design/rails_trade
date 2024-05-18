@@ -4,3 +4,4 @@
 <%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>
 <%= f.number_field :use_limit, step: 1, min: 1 %>
 <%= render partial: 'good_search', locals: { f: f } %>
+<%= f.collection_select :product_taxon_id, @product_taxons, :id, :name, include_blank: true %>
