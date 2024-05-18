@@ -11,6 +11,13 @@
         <span class="tag is-danger"><%= item.aim_i18n %></span>
       <% end %>
     <% end %>
+    <% if model.good.respond_to?(:parts) && model.good.parts.count > 0 %>
+      <ul class="media-info mt-1">
+      <% model.good.parts.each do |part| %>
+        <li><%= part.name %></li>
+      <% end %>
+      </ul>
+    <% end %>
     <div>
       <p>
         <span class="color-danger"><%= item.single_price.to_money.format.html_safe %></span>
