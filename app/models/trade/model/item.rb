@@ -318,6 +318,12 @@ module Trade
       end
     end
 
+    def cart_options
+      {
+        dispatch: dispatch
+      }
+    end
+
     def original_quantity
       return unless good
       good.unified_quantity * self.number
