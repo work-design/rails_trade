@@ -6,7 +6,8 @@
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
   <%= turbo_stream.replace "product_cart_#{@item.good.product_id}", partial: 'production_cart', locals: { model: @item.good, item: @item, cart: @item.current_cart, item_con: controller_path } %>
   <%= turbo_stream.replace "product_summary_#{@item.good.product_id}", partial: 'product_summary', locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart } %>
-  <%= turbo_stream.replace @item.cart_identity, partial: params[:partial] || 'cart', locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+  <%= turbo_stream.replace @item.cart_identity, partial: 'cart', locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+  <%= turbo_stream.replace "#{params[:partial]}_#{@item.cart_identity}", partial: params[:partial], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } if params[:partial] %>
 <% else %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
   <%= turbo_stream.replace @item.cart_identity, partial: 'cart', locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
