@@ -199,7 +199,7 @@ module Trade
     end
 
     def checked_items
-      items.includes(:item_promotes).select(&:effective?)
+      items.includes(:item_promotes, :good).select(&:effective?)
     end
 
     def checked_item_ids
