@@ -117,6 +117,24 @@ module Trade
       end
     end
 
+    def cart_items
+      items.includes(:item_promotes, :good).select(&:persisted?)
+    end
+
+    def checked_items
+      items.includes(:item_promotes, :good).select(&:effective?)
+    end
+
+    def checked_all_items
+      r = checked_items + trial_card_items.select(&->(i){ !i.destroyed? })
+      logger.debug "\e[33m  Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Cart id: #{id})  \e[0m"
+      r
+    end
+
+    def checked_item_ids
+      checked_items.pluck(:id)
+    end
+
     def support_deposit?
       deposit_ratio < 100 && deposit_ratio > 0
     end
@@ -193,20 +211,6 @@ module Trade
       )
       item.save
       items.each(&:compute_price!)
-    end
-
-    def checked_all_items
-      r = checked_items + trial_card_items.select(&->(i){ !i.destroyed? })
-      logger.debug "\e[33m  Items: #{r.map(&->(i){ "#{i.id}/#{i.object_id}" })}, Cart id: #{id})  \e[0m"
-      r
-    end
-
-    def checked_items
-      items.includes(:item_promotes, :good).select(&:effective?)
-    end
-
-    def checked_item_ids
-      checked_items.pluck(:id)
     end
 
     def compute_amount
