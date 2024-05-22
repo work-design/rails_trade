@@ -1,7 +1,7 @@
 module Trade
   class Agent::CartsController < Admin::CartsController
     include Controller::Agent
-    before_action :set_client, only: [:show]
+    before_action :set_contact, only: [:show]
 
     def index
       @carts = current_member.agent_carts.order(id: :desc).page(params[:page])
@@ -12,8 +12,8 @@ module Trade
       @cart = current_member.agent_carts.find(params[:id])
     end
 
-    def set_client
-      @cart.client || @cart.build_client
+    def set_contact
+      @cart.contact || @cart.build_contact
     end
 
     def cart_params

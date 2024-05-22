@@ -10,8 +10,8 @@
       </div>
       <%= yield %>
     </div>
-    <div class="column is-narrow" style="width: 300px">
-      <%# render partial: 'cart_nav', locals: { cart: @cart } %>
+    <div class="column is-one-quarter">
+      <%= render partial: 'cart_nav', locals: { cart: @cart } %>
     </div>
   </main>
 <% end %>
