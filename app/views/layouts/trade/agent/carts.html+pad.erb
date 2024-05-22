@@ -11,7 +11,7 @@
       <%= yield %>
     </div>
     <div class="column is-one-quarter">
-      <%= render partial: 'cart_nav', locals: { cart: @cart } %>
+      <%= render partial: 'cart_nav', locals: { cart: @cart } if @cart %>
     </div>
   </main>
 <% end %>
