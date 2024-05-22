@@ -1,23 +1,23 @@
 <div id="cart_nav">
-  <div>
-    <i class="fa-solid fa-bag-shopping"></i>
-    <span class="pl-1"><%= cart.items.count %></span>
-  </div>
   <% cart.items.each do |item| %>
-    <div>
+    <div data-id="<%= item.id %>" class="flex justify-content-space-between align-items-center mt-2 pr-3">
       <div class="is-several">
         <%= image_tag item.good.logo, class: 'image is-32x32' if item.good.logo.attached? %>
+        <span><%= item.good_name %></span>
       </div>
-      <span><%= item.good_name %></span>
-      <span>*</span>
-      <span><%= item.number.to_human %></span>
+      <div>
+        <span><%= item.number.to_human %></span>
+        <i class="fa-solid fa-xs fa-xmark color-grey"></i>
+        <span class="color-danger"><%= item.single_price.to_money.format.html_safe %></span>
+      </div>
     </div>
   <% end %>
-  <div><%= cart.item_amount.to_money.format.html_safe %></div>
-  <div>
-    <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, state: 'enter', class: 'button is-small is-primary is-radius') do %>
+  <div class="flex justify-content-space-between align-items-center mt-6 pr-3">
+    <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, state: 'enter', class: 'button is-small is-primary is-radius fa-weui-badge') do %>
       <span class="pr-1">去购物车</span>
       <i class="fa-solid fa-angle-right"></i>
+      <span class="weui-badge" style="right: -15px"><%= cart.items.count %></span>
     <% end %>
+    <div><%= cart.item_amount.to_money.format.html_safe %></div>
   </div>
 </div>
