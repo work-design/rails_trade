@@ -4,7 +4,7 @@ module Trade
     include Controller::Application
 
     included do
-      #layout 'agent'
+      layout 'agent'
     end
 
     def set_new_item

@@ -1,6 +1,11 @@
-<table class="table is-fullwidth is-hoverable">
-  <%= render 'index_thead' %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
-  <%= render partial: 'cart_promote', layout: 'cart_promote_tr', collection: @cart.cart_promotes, as: :model %>
-  <%= render 'show_total' %>
-</table>
+<div class="column">
+  <table class="table is-fullwidth is-hoverable">
+    <%= render 'index_thead' %>
+    <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
+    <%= render partial: 'cart_promote', layout: 'cart_promote_tr', collection: @cart.cart_promotes, as: :model %>
+    <%= render 'show_total' %>
+  </table>
+</div>
+<div class="column is-one-quarter">
+  <%= render partial: 'cart_nav', locals: { cart: @cart } if @cart %>
+</div>
