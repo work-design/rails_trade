@@ -51,7 +51,7 @@ module Trade
 
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_validation :sum_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
-      after_save :sync_client_to_items, if: -> { respond_to?(:agent_id) && agent_id.present? && saved_change_to_client_id? }
+      after_save :sync_contact_to_items, if: -> { respond_to?(:agent_id) && agent_id.present? && saved_change_to_contact_id? }
     end
 
     def filter_hash
@@ -82,7 +82,10 @@ module Trade
 
     def agent_filter_hash
       {
-        good_type: good_type, aim: aim, agent_id: agent_id, client_id: nil
+        good_type: good_type,
+        aim: aim,
+        agent_id: agent_id,
+        contact_id: nil
       }
     end
 
@@ -316,9 +319,9 @@ module Trade
       args.stringify_keys!
     end
 
-    def sync_client_to_items
-      agent_items.update_all(client_id: client_id)
-      maintain = agent.maintains.find_or_initialize_by(client_id: client_id)
+    def sync_contact_to_items
+      agent_items.update_all(contact_id: contact_id)
+      maintain = agent.maintains.find_or_initialize_by(contact_id: contact_id)
       maintain.state = 'carted'
       maintain.save
     end
