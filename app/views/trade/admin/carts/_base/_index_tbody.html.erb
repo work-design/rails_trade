@@ -25,4 +25,4 @@
   <p><%# link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
-<td class="has-text-centered"><%= model.items.size %></td>
+<td class="has-text-centered"><%= link_to model.items.size, { action: 'show', id: model.id } %></td>
