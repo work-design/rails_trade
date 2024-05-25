@@ -20,6 +20,7 @@ module Trade
       belongs_to :order, inverse_of: :payment_orders, counter_cache: true
       belongs_to :payment, counter_cache: true
 
+      has_many :items, primary_key: :order_id, foreign_key: :order_id
       has_many :refunds, primary_key: :payment_id, foreign_key: :payment_id
       has_many :refund_orders, primary_key: [:order_id, :payment_id], query_constraints: [:order_id, :payment_id]
 

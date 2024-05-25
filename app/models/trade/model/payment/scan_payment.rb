@@ -6,7 +6,7 @@ module Trade
         out_trade_no: payment_uuid.presence || UidHelper.nsec_uuid('ScanPAY'),
         auth_code: auth_code,
         total_fee: (self.total_amount * 100).to_i,
-        body: "一餐之计-餐饮服务",
+        body: good_desc,
         spbill_create_ip: spbill_create_ip
       }
 

@@ -49,6 +49,7 @@ module Trade
       belongs_to :payment_method, optional: true
       has_many :payment_orders, dependent: :destroy
       has_many :orders, through: :payment_orders
+      has_many :items, through: :payment_orders
       has_many :refunds
       has_many :refund_orders
 
@@ -79,6 +80,10 @@ module Trade
 
     def desc
       type_i18n
+    end
+
+    def good_desc
+      items.limit(3).pluck(:good_name).join(',').presence || '一餐之计-餐饮服务'
     end
 
     def analyze_payment_method
