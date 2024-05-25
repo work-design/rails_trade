@@ -94,7 +94,9 @@ zh:
           adjust: 平账
       order_payments:
         new:
-          title: 后台支付
+          title: 人工收款
+        new_micro:
+          title: 微信收款
       scan_payments:
         index:
           title: 收款记录

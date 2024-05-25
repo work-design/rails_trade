@@ -108,6 +108,7 @@ Rails.application.routes.draw do
         end
         resources :order_payments do
           collection do
+            match :new_micro, via: [:get, :post]
             post :confirm
           end
         end

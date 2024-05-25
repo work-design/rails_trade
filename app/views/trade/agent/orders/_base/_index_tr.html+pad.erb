@@ -20,7 +20,11 @@
       <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
         <%= button_to({ controller: 'order_payments', action: 'new', order_id: model.id }, class: 'button is-small is-rounded is-danger') do %>
           <i class="fa-solid fa-receipt"></i>
-          <span class="ml-1">立即支付</span>
+          <span class="ml-1"><%= t('.order_payments.new.title') %></span>
+        <% end %>
+        <%= button_to({ controller: 'order_payments', action: 'new_micro', order_id: model.id }, class: 'button is-small is-rounded is-danger') do %>
+          <i class="fa-solid fa-receipt"></i>
+          <span class="ml-1"><%= t('.order_payments.new_micro.title') %></span>
         <% end %>
       <% end %>
     </div>

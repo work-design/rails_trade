@@ -30,6 +30,15 @@ module Trade
       @payment.confirm!(params)
     end
 
+    def new_micro
+      @payment = @order.payments.build(
+        type: 'Trade::ScanPayment',
+        payment_orders_attributes: [{ order: @order, order_amount: @order.unreceived_amount, state: 'pending' }]
+      )
+
+      render :new, locals: { model: @payment }
+    end
+
     def confirm
       payment = Payment.default_where(default_params).find params[:payment_id]
       payment.checked_amount = @order.amount
