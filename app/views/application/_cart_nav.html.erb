@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <div class="flex justify-content-space-between align-items-center mt-6 pr-3">
-    <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, state: 'enter', class: 'button is-small is-primary is-radius fa-weui-badge') do %>
+    <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-small is-primary is-radius fa-weui-badge') do %>
       <span class="pr-1">去购物车</span>
       <i class="fa-solid fa-angle-right"></i>
       <span class="weui-badge" style="right: -15px"><%= cart.cart_items.count %></span>
