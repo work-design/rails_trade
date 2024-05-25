@@ -1,4 +1,12 @@
-<%= form_with model: @order, url: { action: 'adjust_update' } do |f| %>
-  <%= f.number_field :amount %>
-  <%= f.submit %>
+<%= form_with theme: 'modal', model: @order, url: { action: 'adjust_update' } do |f| %>
+  <header class="modal-card-head">
+    <p class="modal-card-title"><%= t('.title') %></p>
+    <button type="button" data-action="modal#close" class="delete"></button>
+  </header>
+  <section class="modal-card-body">
+    <%= f.number_field :amount %>
+  </section>
+  <footer class="modal-card-foot">
+    <%= f.submit %>
+  </footer>
 <% end %>
