@@ -31,7 +31,8 @@ module Trade
 
     def scan_payment_params
       p = params.fetch(:scan_payment, {}).permit(
-        :total_amount
+        :total_amount,
+        payment_orders_attributes: [:order_id, :order_amount, :state]
       )
       p.merge! default_form_params
     end
