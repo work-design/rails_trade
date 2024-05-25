@@ -83,7 +83,9 @@ module Trade
     end
 
     def good_desc
-      items.limit(3).pluck(:good_name).join(',').presence || '一餐之计-餐饮服务'
+      payment_orders.map do |po|
+        po.order.items[0..2].map(&:good_name).join(',').presence
+      end.join
     end
 
     def analyze_payment_method
