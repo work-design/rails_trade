@@ -1,0 +1,20 @@
+<th id="xxd" data-controller="check" data-check-container-value="tbody" data-check-check-commit-outlet="form">
+  <%= check_box_tag 'xxdx', 'xx', false, data: { check_target: 'all', action: 'check#toggleAll' }, id: nil %>
+</th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:uuid) %></p>
+  <p><%= Trade::Order.human_attribute_name(:serial_number) %></p>
+  <p class="color-grey"><%= Trade::Order.human_attribute_name(:created_at) %></p>
+</th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:payment_status) %></p>
+  <p><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></p>
+</th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:amount) %></p>
+  <p class="color-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></p>
+</th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:received_amount) %></p>
+  <p class="color-success"><%= Trade::Order.human_attribute_name(:paid_at) %></p>
+</th>
