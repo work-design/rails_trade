@@ -1,6 +1,6 @@
 <td>
 <% if model.contact %>
-  <p><%= link_to model.contact.identity, { action: 'show', id: model.id }, state: 'enter' %></p>
+  <p><%= link_to model.contact.identity, { action: 'show', id: model.id } %></p>
   <p><span class="color-grey"><%= model.contact.name %></span></p>
 <% end %>
 </td>
