@@ -6,10 +6,11 @@
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
     <%= f.fields :payment_orders do |ef| %>
-      <%= ef.number_field :order_amount %>
+      <%= ef.number_field :order_amount, readonly: true %>
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>
+    <%= text_field_tag :result, nil, autofocus: true %>
   </section>
   <footer class="modal-card-foot">
     <%= f.submit %>
