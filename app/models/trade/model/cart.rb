@@ -65,11 +65,9 @@ module Trade
         p.merge! client_id: client_id
       elsif user_id
         p.merge! user_id: user_id
-      else
-        p.merge!({ member_organ_id: member_organ_id }.compact)
-      end
-
-      if respond_to? :agent_id
+      elsif member_organ_id
+        p.merge! member_organ_id: member_organ_id
+      elsif respond_to?(:agent_id) && agent_id
         p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id
       end
 
