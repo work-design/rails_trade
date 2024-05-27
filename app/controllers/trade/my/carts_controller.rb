@@ -18,7 +18,7 @@ module Trade
     end
 
     def show
-      @items = @cart.items.includes(:delivery, produce_plan: :scene).order(id: :asc).page(params[:page])
+      @items = @cart.items.includes(:delivery, :agent, produce_plan: :scene).order(id: :asc).page(params[:page])
     end
 
     def invest

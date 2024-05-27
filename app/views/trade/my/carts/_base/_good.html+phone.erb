@@ -18,13 +18,19 @@
       <strong><%= model.good_name %></strong>
       <span class="tag"><%= model.dispatch_i18n %></span>
     </div>
-    <ul class="media-info mt-1">
-    <% if model.good.respond_to?(:parts) %>
-      <% model.good.parts.each do |part| %>
-        <li><%= part.name %></li>
-      <% end %>
+    <% if model.good.respond_to?(:parts) && model.good.parts.size > 0 %>
+      <ul class="media-info mt-1">
+        <% model.good.parts.each do |part| %>
+          <li><%= part.name %></li>
+        <% end %>
+      </ul>
     <% end %>
-    </ul>
+    <% if model.agent_id.present? %>
+      <div class="tags are-small has-addons mt-1">
+        <span class="tag is-info is-light">下单人</span>
+        <span class="tag is-light"><%= model.agent.name %></span>
+      </div>
+    <% end %>
     <div class="flex justify-content-space-between mt-1">
       <div class="has-v-centered">
       <% if model.vip_code.present? %>
