@@ -59,6 +59,8 @@ module Trade
 
       if member_id
         p.merge! member_id: member_id
+      elsif respond_to?(:agent_id) && agent_id
+        p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id
       elsif respond_to?(:contact_id) && contact_id
         p.merge! contact_id: contact_id, client_id: client_id
       elsif respond_to?(:client_id) && client_id
@@ -67,8 +69,6 @@ module Trade
         p.merge! user_id: user_id
       elsif member_organ_id
         p.merge! member_organ_id: member_organ_id
-      elsif respond_to?(:agent_id) && agent_id
-        p.merge! agent_id: agent_id, contact_id: contact_id, client_id: client_id
       end
 
       if respond_to? :desk_id
