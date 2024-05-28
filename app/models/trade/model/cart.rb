@@ -284,17 +284,17 @@ module Trade
 
     def find_item(**options)
       args = attr_options(**options)
-      items.find(&->(i){ i.attributes.slice(*args.keys) == args })
+      cart_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
     def find_items(good_ids, **options)
       args = attr_options(**options)
-      items.select { |i| i.attributes.slice(*args.keys) == args && good_ids.include?(i.good_id) }
+      cart_items.select { |i| i.attributes.slice(*args.keys) == args && good_ids.include?(i.good_id) }
     end
 
     def find_purchase_items(purchase_ids, **options)
       args = attr_options(**options)
-      items.select { |i| i.attributes.slice(*args.keys) == args && purchase_ids.include?(i.purchase_id) }
+      cart_items.select { |i| i.attributes.slice(*args.keys) == args && purchase_ids.include?(i.purchase_id) }
     end
 
     def attr_options(**options)
