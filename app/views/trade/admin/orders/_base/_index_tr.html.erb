@@ -3,15 +3,15 @@
   <td>
     <div data-show-target="item" class="visibility-hidden">
       <div class="mb-1">
-        <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
+        <%= button_to({ controller: 'orders', action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
           <i class="fa-solid fa-pencil color-link"></i>
         <% end %>
-        <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
+        <%= button_to({ controller: 'orders', action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
           <i class="fa-solid fa-trash color-danger"></i>
         <% end %>
       </div>
       <div>
-        <%= link_to({ controller: 'trade/admin/refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
+        <%= link_to({ controller: 'refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
           <span><%= t('trade.admin.refunds.index.title') %></span>
         <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
         <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
@@ -21,12 +21,12 @@
           <% end %>
         <% end %>
         <% if ['unpaid'].include?(model.payment_status) %>
-          <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+          <%= button_to({ controller: 'orders', action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
             <i class="fa-solid fa-pen-clip has-text-primary"></i>
             <span class="pl-1"><%= t('.adjust_edit.title') %></span>
           <% end %>
         <% end %>
-        <%= link_to({ action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <%= link_to({ controller: 'orders', action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
           <i class="fa-solid fa-pen-clip color-link"></i>
           <span class="pl-1"><%= t('.purchase.title') %></span>
         <% end %>
