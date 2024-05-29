@@ -10,7 +10,7 @@
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>
-    <%= text_field_tag :result, nil, autocomplete: false, autofocus: true, class: 'input' %>
+    <%= text_field_tag :result, nil, autocomplete: 'off', autofocus: true, class: 'input' %>
   </section>
   <footer class="modal-card-foot">
     <%= f.submit %>
