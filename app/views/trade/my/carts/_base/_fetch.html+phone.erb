@@ -2,7 +2,7 @@
   <div class="weui-cell">
     <div class="media-content">
     <% if model.respond_to?(:produce_plan) && model.produce_plan && model.produce_plan.book_finish_at.acts_like?(:time) %>
-      <div class="has-block-space-between has-background-danger-light is-size-0_9 py-1" style="border-radius: 18px">
+      <div class="has-block-space-between has-background-danger-light size-0_9 py-1" style="border-radius: 18px">
         <div class="weui-badge">
           <span><%= model.scene.title %></span>
         </div>
