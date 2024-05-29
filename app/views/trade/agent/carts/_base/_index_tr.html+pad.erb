@@ -1,0 +1,13 @@
+<tr id="tr_<%= model.id %>">
+  <%= yield %>
+  <td>
+    <%= button_to({ action: 'edit', id: model.id }, class: 'button is-rounded is-light') do %>
+      <i class="fa-solid fa-pencil color-link"></i>
+      <span class="ml-1"><%= t('.edit.title') %></span>
+    <% end %>
+    <%= button_to({ action: 'destroy', id: model.id }, method: :delete, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-rounded is-light') do %>
+      <i class="fa-solid fa-trash color-danger"></i>
+      <span class="ml-1"><%= t('.destroy.title') %></span>
+    <% end %>
+  </td>
+</tr>
