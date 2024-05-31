@@ -312,6 +312,9 @@ Rails.application.routes.draw do
       end
 
       namespace :in, defaults: { namespace: 'in' } do
+        controller :home do
+          get :index
+        end
         resources :orders, only: [] do
           collection do
             delete :batch_destroy
