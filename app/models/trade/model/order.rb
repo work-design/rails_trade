@@ -81,7 +81,7 @@ module Trade
       has_many :cart_promotes, dependent: :nullify  # overall can be blank
 
       accepts_nested_attributes_for :payment_orders
-      accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id').compact_blank.blank? || ['0'].include?(attributes['xx']) }
+      accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id').compact_blank.blank? || ['0'].include?(attributes['commit']) }
       accepts_nested_attributes_for :cart_promotes
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }

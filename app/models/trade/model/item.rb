@@ -5,7 +5,7 @@ module Trade
     include Inner::User
 
     included do
-      attr_accessor :xx
+      attr_accessor :commit
 
       attribute :uuid, :string
       attribute :good_name, :string
