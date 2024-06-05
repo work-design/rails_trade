@@ -15,7 +15,7 @@ module Trade
         init: 'init',
         pending: 'pending',
         confirmed: 'confirmed',
-      }, _default: 'init', _prefix: true
+      }, default: 'init', prefix: true
 
       belongs_to :order, inverse_of: :payment_orders, counter_cache: true
       belongs_to :payment, counter_cache: true

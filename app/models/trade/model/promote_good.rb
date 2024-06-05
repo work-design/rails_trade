@@ -15,13 +15,13 @@ module Trade
       enum :status, {
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
-      }, _default: 'available'
+      }, default: 'available'
 
       enum :aim, {
         use: 'use',
         rent: 'rent',
         invest: 'invest'
-      }, _default: 'use'
+      }, default: 'use'
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', counter_cache: :promote_goods_count, optional: true

@@ -25,19 +25,19 @@ module Trade
         use: 'use',
         invest: 'invest',
         rent: 'rent'
-      }, _default: 'use', _prefix: true
+      }, default: 'use', prefix: true
 
       enum :generate_mode, {
         myself: 'myself',
         by_from: 'by_from',
         purchase: 'purchase'
-      }, _default: 'myself'
+      }, default: 'myself'
 
       enum :state, {
         init: 'init',
         done: 'done',
         canceled: 'canceled'
-      }, _default: 'init'
+      }, default: 'init'
 
       enum :payment_status, {
         unpaid: 'unpaid',
@@ -47,7 +47,7 @@ module Trade
         refunding: 'refunding',
         refunded: 'refunded',
         denied: 'denied'
-      }, _default: 'unpaid'
+      }, default: 'unpaid'
 
       belongs_to :address, class_name: 'Profiled::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true

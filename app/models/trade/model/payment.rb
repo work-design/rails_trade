@@ -33,14 +33,14 @@ module Trade
         all_checked: 'all_checked',
         adjust_checked: 'adjust_checked',
         abusive_checked: 'abusive_checked',
-      }, _default: 'init', _prefix: true
+      }, default: 'init', prefix: true
 
       enum :pay_state, {
         paying: 'paying',
         paid: 'paid',
         proof_uploaded: 'proof_uploaded',
         refunded: 'refunded'
-      }, _default: 'paying', _prefix: true
+      }, default: 'paying', prefix: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
       belongs_to :user, class_name: 'Auth::User', optional: true

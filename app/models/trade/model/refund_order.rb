@@ -10,7 +10,7 @@ module Trade
         init: 'init',
         refunding: 'refunding',
         refunded: 'refunded'
-      }, _default: 'init', _prefix: true
+      }, default: 'init', prefix: true
 
       belongs_to :order, inverse_of: :refund_orders
       belongs_to :payment, inverse_of: :refund_orders

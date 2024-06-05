@@ -17,7 +17,7 @@ module Trade
         pending: 'pending',
         done: 'done',
         failed: 'failed'
-      }, _default: 'pending'
+      }, default: 'pending'
 
       belongs_to :wallet
       belongs_to :operator, class_name: 'Auth::User', optional: true

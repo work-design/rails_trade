@@ -18,7 +18,7 @@ module Trade
         completed: 'completed',
         failed: 'failed',
         denied: 'denied'
-      }, _default: 'init'
+      }, default: 'init'
 
       belongs_to :operator, class_name: 'Org::Member', optional: true
 

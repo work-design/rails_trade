@@ -39,25 +39,25 @@ module Trade
         expired: 'expired',
         paid: 'paid',
         refund: 'refund'
-      }, _default: 'checked', _prefix: true
+      }, default: 'checked', prefix: true
 
       enum :delivery_status, {
         init: 'init',
         partially: 'partially',
         all: 'all'
-      }, _default: 'init', _prefix: true
+      }, default: 'init', prefix: true
 
       enum :dispatch, {
         delivery: 'delivery',
         dine: 'dine',
         fetch: 'fetch'
-      }, _prefix: true
+      }, prefix: true
 
       enum :aim, {
         use: 'use',
         invest: 'invest',
         rent: 'rent'
-      }, _prefix: true
+      }, prefix: true
 
       belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :address, class_name: 'Profiled::Address', optional: true

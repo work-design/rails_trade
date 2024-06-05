@@ -18,7 +18,7 @@ module Trade
         init: 'init',
         checked: 'checked',
         ordered: 'ordered'
-      }, _default: 'init'
+      }, default: 'init'
 
       validates :amount, presence: true
 

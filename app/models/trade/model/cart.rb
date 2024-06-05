@@ -20,7 +20,7 @@ module Trade
         use: 'use',
         invest: 'invest',
         rent: 'rent'
-      }, _default: 'use', _prefix: true
+      }, default: 'use', prefix: true
 
       belongs_to :address, class_name: 'Profiled::Address', optional: true
 
