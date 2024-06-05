@@ -13,7 +13,7 @@ module Trade
       attribute :account_name, :string
       attribute :account_num, :string
 
-      enum state: {
+      enum :state, {
         pending: 'pending',
         done: 'done',
         failed: 'failed'

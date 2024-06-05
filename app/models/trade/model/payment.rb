@@ -27,7 +27,7 @@ module Trade
       attribute :payment_orders_count, :integer, default: 0
       attribute :refunds_count, :integer, default: 0
 
-      enum state: {
+      enum :state, {
         init: 'init',
         part_checked: 'part_checked',
         all_checked: 'all_checked',
@@ -35,7 +35,7 @@ module Trade
         abusive_checked: 'abusive_checked',
       }, _default: 'init', _prefix: true
 
-      enum pay_state: {
+      enum :pay_state, {
         paying: 'paying',
         paid: 'paid',
         proof_uploaded: 'proof_uploaded',

@@ -7,10 +7,10 @@ module Trade
       attribute :amount, :decimal
       attribute :note, :string
 
-      enum kind: {
+      enum :kind, {
         given: 'given'  # 系统赠送
       }
-      enum state: {
+      enum :state, {
         success: 'success',
         failed: 'failed'
       }

@@ -6,7 +6,7 @@ module Trade
       attribute :payment_amount, :decimal
       attribute :order_amount, :decimal, comment: '对应的订单金额'
 
-      enum state: {
+      enum :state, {
         init: 'init',
         refunding: 'refunding',
         refunded: 'refunded'

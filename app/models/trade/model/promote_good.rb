@@ -12,12 +12,12 @@ module Trade
       attribute :over_limit, :boolean, as: 'item_promotes_count >= use_limit', virtual: true
       attribute :blacklists_count, :integer, default: 0
 
-      enum status: {
+      enum :status, {
         available: 'available',  # 可选
         unavailable: 'unavailable',  # 不可选
       }, _default: 'available'
 
-      enum aim: {
+      enum :aim, {
         use: 'use',
         rent: 'rent',
         invest: 'invest'

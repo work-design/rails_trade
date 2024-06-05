@@ -7,7 +7,7 @@ module Trade
       attribute :period, :integer, default: 0, comment: '可延期时间，单位天'
       attribute :from_pay, :boolean, default: true
 
-      enum strategy: {
+      enum :strategy, {
         # 预付全款
         # 预付定金
         # 后付

@@ -8,7 +8,7 @@ module Trade
       attribute :name, :string
       attribute :code, :string
 
-      enum metering: {
+      enum :metering, {
         weight: 'weight',
         volume: 'volume',
         duration: 'duration'

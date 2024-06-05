@@ -27,7 +27,7 @@ module Trade
       attribute :holds_count, :integer, default: 0
       attribute :purchase_items_count, :integer, default: 0
 
-      enum status: {
+      enum :status, {
         init: 'init',
         checked: 'checked',
         ordered: 'ordered',
@@ -41,19 +41,19 @@ module Trade
         refund: 'refund'
       }, _default: 'checked', _prefix: true
 
-      enum delivery_status: {
+      enum :delivery_status, {
         init: 'init',
         partially: 'partially',
         all: 'all'
       }, _default: 'init', _prefix: true
 
-      enum dispatch: {
+      enum :dispatch, {
         delivery: 'delivery',
         dine: 'dine',
         fetch: 'fetch'
       }, _prefix: true
 
-      enum aim: {
+      enum :aim, {
         use: 'use',
         invest: 'invest',
         rent: 'rent'

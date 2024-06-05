@@ -16,7 +16,7 @@ module Trade
       attribute :purchasable, :boolean, default: false
       attribute :items_count, :integer, default: 0
 
-      enum aim: {
+      enum :aim, {
         use: 'use',
         invest: 'invest',
         rent: 'rent'

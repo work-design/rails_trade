@@ -21,25 +21,25 @@ module Trade
       attribute :refunded_amount, :decimal, default: 0
       attribute :unreceived_amount, :decimal
 
-      enum aim: {
+      enum :aim, {
         use: 'use',
         invest: 'invest',
         rent: 'rent'
       }, _default: 'use', _prefix: true
 
-      enum generate_mode: {
+      enum :generate_mode, {
         myself: 'myself',
         by_from: 'by_from',
         purchase: 'purchase'
       }, _default: 'myself'
 
-      enum state: {
+      enum :state, {
         init: 'init',
         done: 'done',
         canceled: 'canceled'
       }, _default: 'init'
 
-      enum payment_status: {
+      enum :payment_status, {
         unpaid: 'unpaid',
         to_check: 'to_check',
         part_paid: 'part_paid',

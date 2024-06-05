@@ -6,12 +6,12 @@ module Trade
       attribute :payment_amount, :decimal
       attribute :order_amount, :decimal
 
-      enum kind: {
+      enum :kind, {
         item_amount: 'item_amount',
         overall_additional_amount: 'overall_additional_amount'
       }
 
-      enum state: {
+      enum :state, {
         init: 'init',
         pending: 'pending',
         confirmed: 'confirmed',

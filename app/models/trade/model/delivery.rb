@@ -9,7 +9,7 @@ module Trade
       attribute :fetch_finish_at, :datetime
       attribute :produce_on, :date, comment: '对接生产管理'
 
-      enum state: {
+      enum :state, {
         init: 'init'
       }
 

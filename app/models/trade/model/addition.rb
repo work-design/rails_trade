@@ -26,7 +26,7 @@ module Trade
 
       validates :code, uniqueness: true, allow_blank: true
 
-      enum metering: {
+      enum :metering, {
         number: 'number', # 商品购买件数
         weight: 'weight', # 商品总重量, support sequence
         volume: 'volume', # 商品总体积, support sequence

@@ -13,7 +13,7 @@ module Trade
       attribute :refund_uuid, :string
       attribute :response, :json
 
-      enum state: {
+      enum :state, {
         init: 'init',
         completed: 'completed',
         failed: 'failed',

@@ -21,7 +21,7 @@ module Trade
       belongs_to :promote
       belongs_to :promote_charge, optional: true
 
-      enum status: {
+      enum :status, {
         init: 'init',
         checked: 'checked',
         ordered: 'ordered'

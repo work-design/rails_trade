@@ -6,7 +6,7 @@ module Trade
       attribute :amount, :decimal
       attribute :note, :string
 
-      enum state: {
+      enum :state, {
         success: 'success',
         failed: 'failed'
       }

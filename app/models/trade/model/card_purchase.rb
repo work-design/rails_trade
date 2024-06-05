@@ -10,10 +10,10 @@ module Trade
       attribute :note, :string
       attribute :last_expire_at, :datetime
 
-      enum kind: {
+      enum :kind, {
         given: 'given'  # 系统赠送
       }
-      enum state: {
+      enum :state, {
         continue: 'continue',
         fresh: 'fresh',
         renew: 'renew'
