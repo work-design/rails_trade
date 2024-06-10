@@ -10,20 +10,21 @@
         <%= render 'show_total' %>
       </tbody>
     </table>
-
-    <% if @cart.checked_item_ids.present? && @cart.has_address? %>
-      <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary') do %>
-        <span class="pr-1">结算</span>
-        <i class="fa-solid fa-angle-right"></i>
-      <% end %>
-    <% else %>
-      <button class="button is-primary" disabled>
-        <span class="pr-1">结算</span>
-        <i class="fa-solid fa-angle-right"></i>
-      </button>
-    <% end %>
   </div>
   <div class="column is-one-quarter">
     <%= render partial: 'cart_form', locals: { cart: @cart } if @cart %>
   </div>
+</div>
+<div class="has-block-centered px-3">
+<% if @cart.checked_item_ids.present? && @cart.has_address? %>
+  <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-medium is-primary') do %>
+    <span class="pr-1">结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  <% end %>
+<% else %>
+  <button class="button is-primary" disabled>
+    <span class="pr-1">结算</span>
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+<% end %>
 </div>
