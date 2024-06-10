@@ -17,11 +17,13 @@ module Trade
     end
 
     def cart_params
-      params.fetch(:cart, {}).permit(
+      _p = params.fetch(:cart, {}).permit(
         :address_id,
         :auto,
         contact_attributes: [:id, :identity, :name, :extra]
       )
+      _p[:contact_attributes].merge! organ_id: current_organ.id
+      _p
     end
 
   end

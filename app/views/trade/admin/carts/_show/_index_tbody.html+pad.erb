@@ -1,4 +1,8 @@
 <td><%= model.good.name %></td>
-<td><%= model.single_price.to_money.format.html_safe %></td>
+<td>
+  <span class="color-danger"><%= model.single_price.to_money.format.html_safe %></span>
+</td>
 <td><%= model.number.to_human %></td>
-<td><%= model.amount.to_money.format.html_safe %></td>
+<td>
+  <span class="color-danger"><%= model.amount.to_money.format.html_safe %></span>
+</td>
