@@ -1,4 +1,5 @@
-<%= form_with theme: 'line', model: @cart, url: { action: 'update' }, id: 'cart_form' do |f| %>
+<div id="cart_form">
+<%= form_with theme: 'line', model: @cart, url: { action: 'update' } do |f| %>
   <%= render 'error_messages', target: @cart %>
   <%= f.fields :contact do |ef| %>
     <%= ef.text_field :identity %>
@@ -15,3 +16,4 @@
     <%= f.submit t('.bind.title'), class: 'button is-fullwidth is-warning mt-3' %>
   <% end %>
 <% end %>
+</div>
