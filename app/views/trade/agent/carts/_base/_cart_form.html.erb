@@ -1,4 +1,4 @@
-<%= form_with theme: 'line', model: @cart, url: { action: 'update' } do |f| %>
+<%= form_with theme: 'line', model: @cart, url: { action: 'update' }, id: 'cart_form' do |f| %>
   <%= render 'error_messages', target: @cart %>
   <%= f.fields :contact do |ef| %>
     <%= ef.text_field :identity %>
