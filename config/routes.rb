@@ -362,7 +362,11 @@ Rails.application.routes.draw do
 
       namespace :agent, defaults: { namespace: 'agent' } do
         concerns :order_admin
-        resources :carts
+        resources :carts do
+          member do
+            patch :bind
+          end
+        end
       end
 
       namespace :me, defaults: { namespace: 'me' } do

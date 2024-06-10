@@ -78,6 +78,8 @@ zh:
       carts:
         index:
           title: 最近下单
+        bind:
+          title: 绑定已存在联系人
       items:
         create:
           title: 加入购物车

@@ -6,3 +6,12 @@
   <% end %>
   <%= f.submit nil, class: 'button is-fullwidth is-primary' %>
 <% end %>
+
+<% if @cart.contact.errors.present? %>
+  <%= form_with theme: nil, model: @cart, url: { action: 'bind' }, method: :patch do |f| %>
+    <%= f.fields :contact do |ef| %>
+      <%= ef.hidden_field :identity %>
+    <% end %>
+    <%= f.submit t('.bind.title'), class: 'button is-fullwidth is-warning mt-3' %>
+  <% end %>
+<% end %>
