@@ -1,10 +1,14 @@
 <div class="columns">
   <div class="column">
-    <table class="table is-fullwidth is-hoverable">
-      <%= render 'index_thead' %>
-      <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
-      <%= render partial: 'cart_promote', layout: 'cart_promote_tr', collection: @cart.cart_promotes, as: :model %>
-      <%= render 'show_total' %>
+    <table class="table is-fullwidth is-boxed mt-3">
+      <thead>
+        <%= render 'index_thead' %>
+      </thead>
+      <tbody>
+        <%= render partial: 'index_tbody', layout: 'index_tr', collection: @items, as: :model %>
+        <%= render partial: 'cart_promote', layout: 'cart_promote_tr', collection: @cart.cart_promotes, as: :model %>
+        <%= render 'show_total' %>
+      </tbody>
     </table>
 
     <% if @cart.checked_item_ids.present? && @cart.has_address? %>
