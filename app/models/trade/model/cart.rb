@@ -334,6 +334,7 @@ module Trade
 
     def migrate_from(other_cart)
       other_cart.items.each do |item|
+        item.current_cart = self
         item.assign_attributes filter_hash
         item.save
       end
