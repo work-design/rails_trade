@@ -332,5 +332,9 @@ module Trade
       self.original_amount = item_amount + overall_additional_amount
     end
 
+    def migrate_from(other_cart)
+
+    end
+
   end
 end
