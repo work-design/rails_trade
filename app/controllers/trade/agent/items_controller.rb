@@ -23,8 +23,9 @@ module Trade
       else
         options = { agent_id: current_member.id }
         options.merge! default_form_params
-        options.merge! user_id: nil, member_id: nil, client_id: nil
-        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
+        options.merge! user_id: nil, member_id: nil, client_id: nil, contact_id: nil
+        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type] || 'Factory::Production', aim: params[:aim].presence || 'use')
+        logger.debug "\e[35m  Cart:#{@cart.id}  \e[0m"
       end
     end
 
