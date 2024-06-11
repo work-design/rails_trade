@@ -16,8 +16,6 @@ module Trade
       @new_cart.migrate_from(@cart)
       @new_cart.compute_amount!
       @new_cart.save
-
-      redirect_to action: 'show', id: @new_cart.id
     end
 
     private

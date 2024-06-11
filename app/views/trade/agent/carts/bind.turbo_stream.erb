@@ -1,1 +1,1 @@
-<%= turbo_stream.replace 'cart_form', partial: 'cart_form' %>
+<%= turbo_stream.append 'body', partial: 'visit', locals: { url: url_for(action: 'show', id: @new_cart.id) } %>
