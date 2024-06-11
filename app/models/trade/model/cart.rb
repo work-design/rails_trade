@@ -333,7 +333,10 @@ module Trade
     end
 
     def migrate_from(other_cart)
-
+      other_cart.items.each do |item|
+        item.assign_attributes filter_hash
+        item.save
+      end
     end
 
   end
