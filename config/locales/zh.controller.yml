@@ -107,6 +107,9 @@ zh:
           title: 平台订单
     in:
       title: 采购订单
+      home:
+        index:
+          title: 采购订单
       items:
         edit_price:
           title: 采购价
