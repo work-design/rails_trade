@@ -1,4 +1,13 @@
-<%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: ['promotes', 'promote_charges', 'promote_good_types', 'promote_good_users'], active: 'is-active') %>
-<%= link_to t('trade.admin.items.index.title'), { controller: 'trade/admin/items' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'items', active: 'is-active') %>
-<%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'carts', active: 'is-active') %>
-
+<div class="fixed-grid has-6-cols">
+  <div class="grid">
+    <div class="cell is-box">
+      <%= link_to t('trade.admin.promotes.index.title'), { controller: 'trade/admin/promotes' }, class: 'button' %>
+    </div>
+    <div class="cell is-box">
+      <%= link_to t('trade.admin.items.index.title'), { controller: 'trade/admin/items' }, class: 'button' %>
+    </div>
+    <div class="cell is-box">
+      <%= link_to t('trade.admin.carts.index.title'), { controller: 'trade/admin/carts' }, class: 'button' %>
+    </div>
+  </div>
+</div>
