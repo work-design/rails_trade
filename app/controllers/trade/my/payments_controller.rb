@@ -9,7 +9,6 @@ module Trade
     end
 
     def create
-      binding.b
     end
 
     def next
