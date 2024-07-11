@@ -1,0 +1,13 @@
+<div class="fixed-grid has-6-cols">
+  <div class="grid">
+    <%= link_to({ controller: 'promotes' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= t('.promotes.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'items' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= t('.items.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'carts' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= t('.carts.index.title') %></span>
+    <% end %>
+  </div>
+</div>
