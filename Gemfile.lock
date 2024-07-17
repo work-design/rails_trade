@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: 7aec32afcd9dbe9347f221c73e467a92165bd680
+  revision: f129ae056414f30e1ba6651f38398c6d05246e86
   specs:
     rails_com (1.3.0)
       acme-client
@@ -20,21 +20,21 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: 8bbfb8000b400f5de3eef01d8261b7459104753c
+  revision: f2e28cda684b9dd7d7a2b7a0884095567bb62464
   specs:
     rails_design (0.0.1)
       rails
 
 GIT
   remote: https://github.com/work-design/rails_notice.git
-  revision: b1f2b15541cda88995f05c48f4e3bbd893df260c
+  revision: 193cf9ead844a2b6c1fcad2bd5c5e1ea0679a822
   specs:
     rails_notice (1.0.3)
       rails_com
 
 GIT
   remote: https://github.com/work-design/rails_org.git
-  revision: e2504853485b9e321a8597d02a362642c1b39c03
+  revision: faa6bcd3eea717628fa6c1e62f39cb598b8c33ad
   specs:
     rails_org (0.0.1)
       rails_com
@@ -126,7 +126,7 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    acts_as_list (1.2.1)
+    acts_as_list (1.2.2)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
     amazing_print (1.6.0)
@@ -147,18 +147,19 @@ GEM
       activerecord (>= 4.0.0)
     drb (2.2.1)
     erubi (1.12.0)
-    faraday (2.9.2)
+    faraday (2.10.0)
       faraday-net_http (>= 2.0, < 3.2)
+      logger
     faraday-net_http (3.1.0)
       net-http
     faraday-retry (2.2.1)
       faraday (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    http-2-next (1.0.3)
+    http-2 (1.0.0)
     http-form_data (2.3.0)
-    httpx (1.2.6)
-      http-2-next (>= 1.0.3)
+    httpx (1.3.0)
+      http-2 (>= 1.0.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -177,6 +178,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -319,7 +321,7 @@ CHECKSUMS
   activerecord (7.1.3.2) sha256=4872900c3340948e2fc92ea08397034eaacd8cec1760ed7704975a116cc78173
   activestorage (7.1.3.2) sha256=283777f15a5ae2519ccf2a573968fa7afaea02d24b90cd6e0c23f77331069727
   activesupport (7.1.3.2) sha256=ad8445b7ae4a6d3acc5f88c8c5f437eb0b54062032aaf44856c7b6d3855b8b2e
-  acts_as_list (1.2.1) sha256=c6d5259bf92e531ea799550198acd96ae21016b629e82cc0d29c34d4a28e904e
+  acts_as_list (1.2.2)
   amazing_print (1.6.0) sha256=9903e93daadc15411c854239f8ca1ca6ce78be279ed99d43fec2bd3b0aa37397
   base64 (0.2.0) sha256=0f25e9b21a02a0cc0cea8ef92b2041035d39350946e8789c562b2d1a3da01507
   bigdecimal (3.1.7) sha256=e799b369a0005fc6d62eed7ef19139ac9bc319cc51470c637b9dcdf593600133
@@ -333,13 +335,13 @@ CHECKSUMS
   default_where (2.2.0) sha256=77f54769256ad5d961c44a6dd88d8d485a1c4487a549d2c178da9101f6fed0a0
   drb (2.2.1) sha256=e9d472bf785f558b96b25358bae115646da0dbfd45107ad858b0bc0d935cb340
   erubi (1.12.0) sha256=27bedb74dfb1e04ff60674975e182d8ca787f2224f2e8143268c7696f42e4723
-  faraday (2.9.2) sha256=6595edbe3b4663223e52a315f6bf2bca97ea1527bab7e02a926bf8afcf7423a4
+  faraday (2.10.0)
   faraday-net_http (3.1.0) sha256=1627be414960d0131691190ff524506ba6607402a50fb6eccda9e64ca60f859f
   faraday-retry (2.2.1) sha256=4146fed14549c0580bf14591fca419a40717de0dd24f267a8ec2d9a728677608
   globalid (1.2.1) sha256=70bf76711871f843dbba72beb8613229a49429d1866828476f9c9d6ccc327ce9
-  http-2-next (1.0.3) sha256=7df55ef84e9a66f71b260c497414983a3ba787e0d92cc38391a70fe63f5d5fc5
+  http-2 (1.0.0)
   http-form_data (2.3.0) sha256=cc4eeb1361d9876821e31d7b1cf0b68f1cf874b201d27903480479d86448a5f3
-  httpx (1.2.6) sha256=352a4e6593a5172a0fb2909b4d44e7425aedbdea8a20e8ce5381b394ffea2bd7
+  httpx (1.3.0)
   i18n (1.14.4) sha256=c7deedead0866ea9102975a4eab7968f53de50793a0c211a37808f75dd187551
   io-console (0.7.2) sha256=f0dccff252f877a4f60d04a4dc6b442b185ebffb4b320ab69212a92b48a7a221
   irb (1.12.0) sha256=07634937fbb7d28d07e46da50d0aa43b4d2f7258174d08de4e32dfb57c10539d
@@ -347,6 +349,7 @@ CHECKSUMS
   kaminari-actionview (1.2.2) sha256=1330f6fc8b59a4a4ef6a549ff8a224797289ebf7a3a503e8c1652535287cc909
   kaminari-activerecord (1.2.2) sha256=0dd3a67bab356a356f36b3b7236bcb81cef313095365befe8e98057dd2472430
   kaminari-core (1.2.2) sha256=3bd26fec7370645af40ca73b9426a448d09b8a8ba7afa9ba3c3e0d39cdbb83ff
+  logger (1.6.0)
   loofah (2.22.0) sha256=10d76e070c86b12fec74b6a9515fd1940f4459198b991342d0a7897d86c372fe
   mail (2.8.1) sha256=ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad
   marcel (1.0.4) sha256=0d5649feb64b8f19f3d3468b96c680bae9746335d02194270287868a661516a4
