@@ -13,7 +13,7 @@ module Trade
       belongs_to :promote, optional: true
 
       has_one_attached :logo
-      acts_as_list scope: :card_template_id
+      positioned on: :card_template_id
 
       default_scope -> { order(position: :asc) }
 
