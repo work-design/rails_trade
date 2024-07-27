@@ -1,7 +1,7 @@
 <td>
 <% if model.contact %>
   <p><%= link_to model.contact.identity, { action: 'show', id: model.id } %></p>
-  <p><span class="color-grey"><%= model.contact.name %></span></p>
+  <p><span class="text-grey"><%= model.contact.name %></span></p>
 <% end %>
 </td>
 <td>
@@ -12,10 +12,10 @@
   <p><%= model.payment_strategy&.name %></p>
   <p><%= model.deposit_ratio %></p>
 </td>
-<td class="has-text-right">
+<td class="text-right">
   <p><%= model.item_amount.to_money.format.html_safe %></p>
   <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
   <p><%= model.overall_reduced_amount.to_money.format.html_safe %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
-<td class="has-text-centered"><%= link_to model.items.size, { action: 'show', id: model.id } %></td>
+<td class="text-centered"><%= link_to model.items.size, { action: 'show', id: model.id } %></td>

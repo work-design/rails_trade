@@ -2,7 +2,7 @@
   <% if model.user %>
   <p>
     <span><%= link_to model.user.name.presence || "user_#{model.user_id}", { action: 'show', id: model.id } %></span>
-    <span class="color-grey">（<%= model.user_id %>）</span>
+    <span class="text-grey">（<%= model.user_id %>）</span>
   </p>
   <% end %>
   <% if model.member %>
@@ -19,10 +19,10 @@
   <p><%= model.payment_strategy&.name %></p>
   <p><%= model.deposit_ratio %></p>
 </td>
-<td class="has-text-right">
+<td class="text-right">
   <p><%= model.item_amount.to_money.format.html_safe %></p>
   <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
   <p><%# link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
-<td class="has-text-centered"><%= link_to model.items.size, { action: 'show', id: model.id } %></td>
+<td class="text-centered"><%= link_to model.items.size, { action: 'show', id: model.id } %></td>

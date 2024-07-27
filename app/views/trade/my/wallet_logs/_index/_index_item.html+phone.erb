@@ -6,7 +6,7 @@
     <span><%= @wallet.wallet_template.unit %></span>
   <% end %>
   <% if model.source_type == 'Trade::WalletSell' %>
-  <span class="color-grey">
+  <span class="text-grey">
     <span>(<%= model.source.selled.done_amount %></span>
     <span>*</span>
     <span><%= model.source.selled.price.to_money.format.html_safe %>)</span>
@@ -14,6 +14,6 @@
   <% end %>
   <span class="tag"><%= model.tag_str %></span>
 </p>
-<p class="size-7 color-grey">
+<p class="size-7 text-grey">
   <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
 </p>

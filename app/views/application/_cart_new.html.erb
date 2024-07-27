@@ -7,15 +7,15 @@
       <% end %>
     <% end %>
     <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
-      <i class="fa-solid fa-xl fa-circle-minus color-grey"></i>
+      <i class="fa-solid fa-xl fa-circle-minus text-grey"></i>
     <% end %>
     <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
-      <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'has-background-light has-text-centered', style: 'width: 30px' %>
+      <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'background-light text-centered', style: 'width: 30px' %>
       <%= hidden_field_tag :partial, 'cart_new' %>
     <% end %>
     <button data-action="modify#plus" class="button_to ml-1">
-      <i class="fa-solid fa-xl fa-circle-plus color-grey"></i>
+      <i class="fa-solid fa-xl fa-circle-plus text-grey"></i>
     </button>
   </div>
 <% else %>

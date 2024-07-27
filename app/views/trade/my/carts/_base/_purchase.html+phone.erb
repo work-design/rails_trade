@@ -2,7 +2,7 @@
   <span class="level-left flex-direction-row justify-content-space-between">
     <span>
       <span><%= card_template.name %></span>
-      <span class="color-grey ml-2"><%= card_template.promote&.name %></span>
+      <span class="text-grey ml-2"><%= card_template.promote&.name %></span>
     </span>
     <span>
       <span><%= card_template.purchase.price.to_money.format.html_safe if card_template.purchase %></span>

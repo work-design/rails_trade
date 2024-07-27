@@ -2,12 +2,12 @@
   <div class="weui-cell">
     <div class="media-content">
     <% if model.respond_to?(:produce_plan) && model.produce_plan && model.produce_plan.book_finish_at.acts_like?(:time) %>
-      <div class="has-block-space-between has-background-danger-light size-0_9 py-1" style="border-radius: 18px">
+      <div class="has-block-space-between background-danger-light size-0_9 py-1" style="border-radius: 18px">
         <div class="weui-badge">
           <span><%= model.scene.title %></span>
         </div>
-        <span class="color-grey mr-2">
-          <time data-controller="time-count" data-time-count-time-value="<%= model.produce_plan.book_finish_at.to_fs(:iso8601) %>" class="color-danger" style="font-family: monospace"><%= exact_distance_time(model.produce_plan.book_finish_at) %></time>
+        <span class="text-grey mr-2">
+          <time data-controller="time-count" data-time-count-time-value="<%= model.produce_plan.book_finish_at.to_fs(:iso8601) %>" class="text-danger" style="font-family: monospace"><%= exact_distance_time(model.produce_plan.book_finish_at) %></time>
           <span>后截止下单</span>
         </span>
       </div>

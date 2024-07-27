@@ -5,8 +5,8 @@
       <%= ef.hidden_field :good_type, value: purchase.base_class_name %>
     <% end %>
     <%= button_tag class: 'button is-outlined is-success is-block' do %>
-      <div class="header color-grey"><%= purchase.title %></div>
-      <div class="description color-danger"><%= purchase.price.to_money.format.html_safe %></div>
+      <div class="header text-grey"><%= purchase.title %></div>
+      <div class="description text-danger"><%= purchase.price.to_money.format.html_safe %></div>
     <% end %>
   <% end %>
 </div>

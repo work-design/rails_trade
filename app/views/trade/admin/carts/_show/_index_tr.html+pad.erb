@@ -2,15 +2,15 @@
   <%= yield %>
   <td title="<%= model.id %>">
     <%= button_to({ controller: 'items', action: 'show', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-circle-info color-info"></i>
+      <i class="fa-solid fa-circle-info text-info"></i>
       <span class="ml-1"><%= t('.show.title') %></span>
     <% end %>
     <%= button_to({ controller: 'items', action: 'edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-pencil color-link"></i>
+      <i class="fa-solid fa-pencil text-link"></i>
       <span class="ml-1"><%= t('.edit.title') %></span>
     <% end %>
     <%= button_to({ controller: 'items', action: 'destroy', id: model.id }, method: :delete, params: { current_cart_id: @cart.id }, class: 'button is-small is-rounded is-light', form: { data: { turbo_confirm: t('.destroy.confirm') } }) do %>
-      <i class="fa-solid fa-trash color-danger"></i>
+      <i class="fa-solid fa-trash text-danger"></i>
       <span class="ml-1"><%= t('.destroy.title') %></span>
     <% end %>
   </td>

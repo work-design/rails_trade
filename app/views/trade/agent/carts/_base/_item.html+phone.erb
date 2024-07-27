@@ -31,7 +31,7 @@
           </div>
           <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
         </div>
-        <span class="has-text-through"><%= model.good.price.to_money.format.html_safe %></span>
+        <span class="text-through"><%= model.good.price.to_money.format.html_safe %></span>
       <% else %>
         <span><%= model.single_price.to_money.format.html_safe %></span>
       <% end %>

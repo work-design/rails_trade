@@ -1,4 +1,4 @@
-<%= button_to({ action: 'destroy', id: model.id }, method: :delete, class: ' has-column-centered color-danger', form: { data: { turbo_confirm: t('.destroy.confirm') }, class: 'cell' }) do %>
+<%= button_to({ action: 'destroy', id: model.id }, method: :delete, class: ' has-column-centered text-danger', form: { data: { turbo_confirm: t('.destroy.confirm') }, class: 'cell' }) do %>
   <i class="fa-solid fa-trash"></i>
   <span><%= t('.destroy.title') %></span>
 <% end %>
@@ -6,7 +6,7 @@
   <i class="fa-solid fa-pencil"></i>
   <span><%= t('.edit.title') %></span>
 <% end %>
-<%= button_to({ action: 'adjust_edit', id: model.id }, class: 'cell has-column-centered has-text-primary') do %>
+<%= button_to({ action: 'adjust_edit', id: model.id }, class: 'cell has-column-centered text-primary') do %>
   <i class="fa-solid fa-pen-clip"></i>
   <span><%= t('trade.admin.orders.adjust_edit.title') %></span>
 <% end %>

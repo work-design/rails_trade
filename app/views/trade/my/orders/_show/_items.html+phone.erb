@@ -40,17 +40,17 @@
   <% if model.advance_amount.to_d > 0 %>
     <div>
       <dt><%= Trade::Order.human_attribute_name(:advance_amount) %></dt>
-      <dd class="color-danger"><%= model.advance_amount.to_money.format.html_safe %></dd>
+      <dd class="text-danger"><%= model.advance_amount.to_money.format.html_safe %></dd>
     </div>
   <% end %>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:amount) %></dt>
-    <dd class="color-danger"><%= model.amount.to_money.format.html_safe %></dd>
+    <dd class="text-danger"><%= model.amount.to_money.format.html_safe %></dd>
   </div>
   <% if model.refunded_amount.to_d > 0 %>
     <div>
       <dt><%= Trade::Order.human_attribute_name(:refunded_amount) %></dt>
-      <dd class="color-danger"><%= model.refunded_amount.to_money.format.html_safe %></dd>
+      <dd class="text-danger"><%= model.refunded_amount.to_money.format.html_safe %></dd>
     </div>
   <% end %>
 </dl>

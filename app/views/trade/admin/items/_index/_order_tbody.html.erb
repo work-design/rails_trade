@@ -1,6 +1,6 @@
 <td><%= check_box_tag 'xx', model.id, false, id: nil %></td>
 <td>
-  <%= link_to model.uuid, { action: 'show', id: model.id }, text: true, class: 'has-text-mono' %>
+  <%= link_to model.uuid, { action: 'show', id: model.id }, text: true, class: 'family-monospace' %>
   <span class="tag"><%= model.state_i18n %></span>
   <% if ['rent', 'invest'].include?(model.aim) %>
     <span class="tag is-info"><%= model.aim_i18n %></span>
@@ -24,7 +24,7 @@
   <p>
   <% if model&.member %>
     <span><%= model.member.name %></span>
-    <span class="color-grey">（<%= model.member_organ.name %>）</span>
+    <span class="text-grey">（<%= model.member_organ.name %>）</span>
   <% end %>
   </p>
 </td>

@@ -17,7 +17,7 @@
   <span><%= model.done_number.to_human %></span>
 </td>
 <td>
-  <p class="color-grey"><%= model.single_price.to_money.format.html_safe %></p>
+  <p class="text-grey"><%= model.single_price.to_money.format.html_safe %></p>
 </td>
 <td>
   <p><%= model.additional_amount.to_money.format.html_safe %></p>
@@ -38,7 +38,7 @@
   <p>
     <span><%= model.member&.name %></span>
     <% if model.member_organ %>
-      <span class="color-grey">（<%= model.member_organ.name %>）</span>
+      <span class="text-grey">（<%= model.member_organ.name %>）</span>
     <% end %>
   </p>
 </td>

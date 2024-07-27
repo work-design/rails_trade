@@ -4,26 +4,26 @@
   </div>
   <div class="columns is-4-mobile flex is-vcentered is-centered m-0" data-empty-target="content">
     <%= link_to({ controller: 'trade/agent/orders' }, class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
+      <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
       </div>
-      <div class="color-grey size-7 mt-1">
+      <div class="text-grey size-7 mt-1">
         <span><%= t('trade.agent.orders.index.title') %></span>
       </div>
     <% end %>
     <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
+      <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
       </div>
-      <div class="color-grey size-7 mt-1">
+      <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:payment_status, 'unpaid') %></span>
       </div>
     <% end %>
     <%= link_to({ controller: 'trade/agent/orders', payment_status: 'all_paid' }, class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
+      <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-list-check"></i>
       </div>
-      <div class="color-grey size-7 mt-1">
+      <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:payment_status, 'all_paid') %></span>
       </div>
     <% end %>
@@ -35,26 +35,26 @@
   </div>
   <div class="columns is-4-mobile flex is-vcentered is-centered m-0" data-empty-target="content">
     <%= link_to({ controller: 'trade/admin/payments' }, state: 'enter', class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
+      <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
       </div>
-      <div class="color-grey size-7 mt-1">
+      <div class="text-grey size-7 mt-1">
         <span><%= t('trade.admin.payments.index.title') %></span>
       </div>
     <% end %>
     <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
+      <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
       </div>
-      <div class="color-grey size-7 mt-1">
+      <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:payment_status, 'unpaid') %></span>
       </div>
     <% end %>
     <%= link_to({ controller: 'trade/agent/orders', payment_status: 'all_paid' }, class: 'column has-column-centered') do %>
-      <div class="has-text-primary">
+      <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-list-check"></i>
       </div>
-      <div class="color-grey size-7 mt-1">
+      <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:payment_status, 'all_paid') %></span>
       </div>
     <% end %>

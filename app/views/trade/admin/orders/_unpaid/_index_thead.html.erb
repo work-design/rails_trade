@@ -2,14 +2,14 @@
   <p><%= Trade::Order.human_attribute_name(:uuid) %></p>
   <p><%= Trade::Order.human_attribute_name(:serial_number) %></p>
 </th>
-<th class="has-text-right"><%= Trade::Order.human_attribute_name(:amount) %></th>
+<th class="text-right"><%= Trade::Order.human_attribute_name(:amount) %></th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></p>
   <p><%= Trade::Order.human_attribute_name(:pay_deadline_at) %></p>
 </th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:created_at) %></p>
-  <p class="color-success"><%= Trade::Order.human_attribute_name(:paid_at) %></p>
+  <p class="text-success"><%= Trade::Order.human_attribute_name(:paid_at) %></p>
 </th>
 <th><%= Trade::Order.human_attribute_name(:user_id) %></th>
 <th><%= Trade::Order.human_attribute_name(:extra) %></th>

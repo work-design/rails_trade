@@ -1,6 +1,6 @@
 <%= button_to({ controller: 'profiled/my/addresses', action: 'order_from', from_address_id: @order.from_address_id }, class: 'media button is-fullwidth') do %>
   <div class="media-left">
-    <i class="fa-solid fa-fw fa-location-dot color-success pr-2"></i>
+    <i class="fa-solid fa-fw fa-location-dot text-success pr-2"></i>
   </div>
   <div class="media-content">
   <% if @order.from_address %>
@@ -11,7 +11,7 @@
         <span class="tag"><%= @order.from_address.station.name %></span>
       <% end %>
     </p>
-    <p class="color-grey size-7">
+    <p class="text-grey size-7">
       <span><%= @order.from_address.area.full_name %></span>
       <span><%= @order.from_address.detail %></span>
     </p>

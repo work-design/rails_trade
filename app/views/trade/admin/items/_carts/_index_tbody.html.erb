@@ -3,7 +3,7 @@
   <p>
     <%= link_to({ action: 'show', id: model.id }) do %>
       <span><%= model.user.name %></span>
-      <span class="color-grey">（<%= model.user_id %>）</span>
+      <span class="text-grey">（<%= model.user_id %>）</span>
     <% end %>
   </p>
 <% end %>
@@ -19,10 +19,10 @@
   <p><%= model.payment_strategy&.name %></p>
   <p><%= model.deposit_ratio %></p>
 </td>
-<td class="has-text-right">
+<td class="text-right">
   <p><%= model.item_amount.to_money.format.html_safe %></p>
   <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
   <p><%= link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
-<td class="has-text-centered"><%= model.items.size %></td>
+<td class="text-centered"><%= model.items.size %></td>

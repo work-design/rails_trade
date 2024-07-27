@@ -1,5 +1,5 @@
 <td><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></td>
-<td class="has-text-right">
+<td class="text-right">
   <p><%= model.amount.to_money.format.html_safe %></p>
   <p><%= model.received_amount.to_money.format.html_safe %></p>
   <p><%= model.unreceived_amount.to_money.format.html_safe %></p>
@@ -12,7 +12,7 @@
   <p>
   <% if model&.member %>
     <span><%= model.member.name %></span>
-    <span class="color-grey">（<%= model.member_organ.name %>）</span>
+    <span class="text-grey">（<%= model.member_organ.name %>）</span>
   <% end %>
   </p>
 </td>

@@ -4,7 +4,7 @@
 </p>
 <p><%= model.serial_number %></p>
 <p>
-  <span class="color-danger"><%= model.amount.to_money.format.html_safe %></span>
+  <span class="text-danger"><%= model.amount.to_money.format.html_safe %></span>
   <span class="tag"><%= model.payment_status_i18n %></span>
   <% if model.payment_strategy %>
   <span class="tag is-danger"><%= model.payment_strategy.name %></span>
@@ -17,7 +17,7 @@
 <p>
 <% if model&.member %>
   <span><%= model.member.name %></span>
-  <span class="color-grey">（<%= model.member_organ.name %>）</span>
+  <span class="text-grey">（<%= model.member_organ.name %>）</span>
 <% end %>
 </p>
 <p><%= simple_format(model.extra_i18n) %></p>

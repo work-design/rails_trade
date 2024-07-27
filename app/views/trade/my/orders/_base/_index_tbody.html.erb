@@ -8,10 +8,10 @@
     <span>支付</span>
   <% end if model.can_pay? %>
 </td>
-<td><time data-controller="time" data-format="human" class="color-grey"><%= model.created_at.to_fs(:iso8601) %></time></td>
+<td><time data-controller="time" data-format="human" class="text-grey"><%= model.created_at.to_fs(:iso8601) %></time></td>
 <td>
   <span><%= model.note %></span>
   <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
-    <i class="fa-solid fa-pencil color-grey"></i>
+    <i class="fa-solid fa-pencil text-grey"></i>
   <% end %>
 </td>

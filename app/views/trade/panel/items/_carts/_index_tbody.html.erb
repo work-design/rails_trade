@@ -1,20 +1,20 @@
 <td><%= model.id %></td>
 <td>
   <span><%= model.user&.name %></span>
-  <span class="color-grey">（<%= model.user_id %>）</span>
+  <span class="text-grey">（<%= model.user_id %>）</span>
 </td>
 <td>
   <% if model.member %>
     <span><%= model.member.name %></span>
-    <span class="color-grey">（<%= model.member_id %>）</span>
+    <span class="text-grey">（<%= model.member_id %>）</span>
   <% end %>
 </td>
 <td><%= model.member_organ_id %></td>
 <td><%= model.organ_id %></td>
 <td><%= model.good_type_i18n %></td>
 <td><%= model.aim %></td>
-<td class="has-text-right">
+<td class="text-right">
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
-<td class="has-text-centered"><%= model.items.size %></td>
+<td class="text-centered"><%= model.items.size %></td>
 

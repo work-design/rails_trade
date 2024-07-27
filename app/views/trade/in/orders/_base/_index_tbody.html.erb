@@ -1,14 +1,14 @@
 <td><%= check_box_tag 'xx', model.id, false, id: nil %></td>
 <td>
-  <p><%= link_to model.uuid, { action: 'show', id: model.id }, class: 'has-text-mono' %></p>
-  <p class="color-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p><%= link_to model.uuid, { action: 'show', id: model.id }, class: 'family-monospace' %></p>
+  <p class="text-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
 <td>
 <% if model.organ_id %>
   <%= model.organ.name %>
 <% else %>
   <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
-    <i class="fa-solid fa-pencil color-grey"></i>
+    <i class="fa-solid fa-pencil text-grey"></i>
   <% end %>
 <% end %>
 </td>
@@ -24,7 +24,7 @@
 <td>
   <span><%= model.note %></span>
   <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
-    <i class="fa-solid fa-pencil color-grey"></i>
+    <i class="fa-solid fa-pencil text-grey"></i>
   <% end %>
 </td>
 <td>

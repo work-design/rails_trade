@@ -3,11 +3,11 @@
   <td>
     <div>
       <%= button_to({ controller: 'orders', action: 'edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil color-link"></i>
+        <i class="fa-solid fa-pencil text-link"></i>
         <span class="ml-1"><%= t('.edit.title') %></span>
       <% end %>
       <%= button_to({ controller: 'orders', action: 'destroy', id: model.id }, method: :delete, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-trash color-danger"></i>
+        <i class="fa-solid fa-trash text-danger"></i>
         <span class="ml-1"><%= t('.destroy.title') %></span>
       <% end %>
     </div>
@@ -23,12 +23,12 @@
       <% end %>
       <% if ['unpaid'].include?(model.payment_status) %>
         <%= button_to({ controller: 'orders', action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-          <i class="fa-solid fa-pen-clip has-text-primary"></i>
+          <i class="fa-solid fa-pen-clip text-primary"></i>
           <span class="ml-1"><%= t('.adjust_edit.title') %></span>
         <% end %>
       <% end %>
       <%= link_to({ controller: 'orders', action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pen-clip color-link"></i>
+        <i class="fa-solid fa-pen-clip text-link"></i>
         <span class="ml-1"><%= t('.purchase.title') %></span>
       <% end %>
     </div>

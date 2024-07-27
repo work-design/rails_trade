@@ -1,16 +1,16 @@
 <td>
   <p><%= model.card_template.name %></p>
-  <p class="has-text-mono color-grey"><%= model.card_uuid %></p>
+  <p class="family-monospace text-grey"><%= model.card_uuid %></p>
 </td>
 <td>
   <p><time data-controller="time"><%= model.effect_at.to_fs(:iso8601) %></time></p>
   <p>
   <% if model.expire_at && model.expire_at > Date.today %>
-    <time data-controller="time" class="color-success"><%= model.expire_at.to_fs(:iso8601) %></time>
+    <time data-controller="time" class="text-success"><%= model.expire_at.to_fs(:iso8601) %></time>
   <% elsif model.expire_at %>
-    <time data-controller="time" class="color-danger"><%= model.expire_at.to_fs(:iso8601) %></time>
+    <time data-controller="time" class="text-danger"><%= model.expire_at.to_fs(:iso8601) %></time>
   <% else %>
-    <span class="color-success">长期</span>
+    <span class="text-success">长期</span>
   <% end %>
   </p>
 </td>

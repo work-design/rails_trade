@@ -4,7 +4,7 @@
 <td>
   <%= form_with(theme: 'inline', model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { turbo_scroll: true }) do |f| %>
     <%= f.hidden_field :current_cart_id, value: params[:current_cart_id] %>
-    <%= f.text_field :note, placeholder: true, class: 'has-background-light has-text-centered' %>
+    <%= f.text_field :note, placeholder: true, class: 'background-light text-centered' %>
     <%= f.submit %>
   <% end %>
 </td>

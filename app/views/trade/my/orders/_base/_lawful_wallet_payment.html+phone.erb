@@ -9,7 +9,7 @@
     </span>
   </span>
   <span data-controller="input" class="media-right has-v-centered">
-    <span class="color-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
+    <span class="text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
     <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
       <%= f.hidden_field :wallet_id %>
       <%= f.hidden_field :type %>

@@ -7,10 +7,10 @@
 >
   <div>
     <span><%= item.good_name %></span>
-    <span class="color-danger"><%= item.single_price.to_money.format.html_safe %></span>
+    <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
   </div>
   <div>
-    <i class="fa-solid fa-xmark color-grey size-7"></i>
+    <i class="fa-solid fa-xmark text-grey size-7"></i>
     <span class="tag"><%= item.number %></span>
     <span class="pl-3"><%= item.amount.to_money.format.html_safe %></span>
   </div>

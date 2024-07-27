@@ -1,11 +1,11 @@
 <td>
   <p>
     <span><%= model.min %></span>
-    <span class="color-grey size-0_9"><%= model.rentable.rent_unit_i18n %></span>
+    <span class="text-grey size-0_9"><%= model.rentable.rent_unit_i18n %></span>
   </p>
   <p>
     <span><%= model.max %></span>
-    <span class="color-grey size-0_9"><%= model.rentable.rent_unit_i18n %></span>
+    <span class="text-grey size-0_9"><%= model.rentable.rent_unit_i18n %></span>
   </p>
 </td>
 <td>
@@ -31,7 +31,7 @@
     <% end %>
   </div>
   <%= link_to({ action: 'wallet', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('bench.admin.facilitates.wallet.title') }) do %>
-    <i class="fa-solid fa-sm fa-pencil color-grey"></i>
+    <i class="fa-solid fa-sm fa-pencil text-grey"></i>
   <% end %>
 </td>
 <td><%= model.base_price.to_money.format.html_safe %></td>

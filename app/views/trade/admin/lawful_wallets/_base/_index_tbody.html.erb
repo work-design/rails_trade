@@ -2,29 +2,29 @@
   <span><%= model.name %></span>
   <div class="is-several">
   <% if model.member %>
-    <i class="fa-solid fa-user-tie has-text-primary"></i>
+    <i class="fa-solid fa-user-tie text-primary"></i>
     <span><%= model.member.name %></span>
   <% elsif model.user %>
-    <i class="fa-solid fa-user color-info"></i>
+    <i class="fa-solid fa-user text-info"></i>
     <span><%= model.user.name %></span>
   <% end %>
   </div>
 </td>
 <td>
   <p><%= model.amount.to_money.format.html_safe %></p>
-  <p class="color-grey"><%= model.frozen_amount.to_money.format.html_safe %></p>
+  <p class="text-grey"><%= model.frozen_amount.to_money.format.html_safe %></p>
 </td>
 <td><%= model.income_amount.to_money.format.html_safe %></td>
 <td>
   <p>
     <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <span class="color-grey"><%= t('.wallet_advances.index.title') %></span>
+      <span class="text-grey"><%= t('.wallet_advances.index.title') %></span>
       <span class="pl-1"><%= model.advances_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
   <p class="mt-2">
     <%= link_to({ controller: 'wallet_sells', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <span class="color-grey"><%= t('.wallet_sells.index.title') %></span>
+      <span class="text-grey"><%= t('.wallet_sells.index.title') %></span>
       <span class="pl-1"><%= model.sells_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
@@ -35,13 +35,13 @@
 <td>
   <p>
     <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <span class="color-grey"><%= t('.wallet_payments.index.title') %></span>
+      <span class="text-grey"><%= t('.wallet_payments.index.title') %></span>
       <span class="ml-1"><%= model.payment_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
   <p>
     <%= link_to({ controller: 'payouts', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
-      <span class="color-grey"><%= t('.payouts.index.title') %></span>
+      <span class="text-grey"><%= t('.payouts.index.title') %></span>
       <span class="ml-1"><%= model.payout_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>

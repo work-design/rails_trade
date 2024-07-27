@@ -1,4 +1,4 @@
-<%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd has-text-weight-normal flex justify-content-space-between align-items-center size-7') do %>
+<%= link_to({ action: 'show', id: model.id }, class: 'weui-panel__hd text-weight-normal flex justify-content-space-between align-items-center size-7') do %>
   <div>
     <div>
       <% if model.aim.present? && model.aim != 'use' %>
@@ -9,13 +9,13 @@
     <div>
       <% if model.member %>
       <span>
-        <span class="color-grey">下单人：</span>
+        <span class="text-grey">下单人：</span>
         <span><%= model.member.name %></span>
       </span>
       <% end %>
       <% if model.maintain %>
       <span>
-        <span class="color-grey">代下单：</span>
+        <span class="text-grey">代下单：</span>
         <span><%= model.maintain.member.name %></span>
       </span>
       <% end %>

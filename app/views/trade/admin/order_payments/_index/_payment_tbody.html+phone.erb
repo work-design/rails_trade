@@ -3,6 +3,6 @@
   <span><%= model.total_amount.to_money.format.html_safe %></span>
   <span class="tag <%= model.pay_state_paying? ? 'is-danger' : 'is-success' %>"><%= model.pay_state_i18n %></span>
 </p>
-<p class="color-grey">
+<p class="text-grey">
   <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
 </p>

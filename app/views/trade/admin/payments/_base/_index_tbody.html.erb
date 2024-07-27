@@ -1,5 +1,5 @@
 <td>
-  <p><%= link_to model.payment_uuid, { action: 'show', id: model.id }, class: 'has-text-mono' %></p>
+  <p><%= link_to model.payment_uuid, { action: 'show', id: model.id }, class: 'family-monospace' %></p>
   <div class="tag"><%= model.type_i18n %></div>
 </td>
 <td id="checked_amount_<%= model.id %>">
@@ -12,16 +12,16 @@
 </td>
 <td>
   <p><%= model.total_amount.to_money.format.html_safe %></p>
-  <p class="color-success"><%= model.income_amount.to_money.format.html_safe %></p>
+  <p class="text-success"><%= model.income_amount.to_money.format.html_safe %></p>
 </td>
 <td>
   <p><%= model.fee_amount.to_money.format.html_safe %></p>
-  <p class="color-danger-dark"><%= model.refunded_amount.to_money.format.html_safe %></p>
+  <p class="text-danger-dark"><%= model.refunded_amount.to_money.format.html_safe %></p>
 </td>
 <td><%= model.adjust_amount.to_money.format.html_safe %></td>
 <td>
   <p><%= model.buyer_name %></p>
-  <p class="has-text-mono"><%= model.buyer_identifier %></p>
+  <p class="family-monospace"><%= model.buyer_identifier %></p>
   <p><%= model.buyer_bank %></p>
 </td>
 <td>

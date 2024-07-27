@@ -5,11 +5,11 @@
       <%= ef.hidden_field :good_id, value: advance.id %>
     <% end %>
     <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
-      <div class="header color-grey has-text-weight-semibold">
+      <div class="header text-grey text-weight-semibold">
         <span><%= advance.amount.to_fs(:rounded, precision: wallet_template.digit) %></span>
         <span><%= wallet_template.unit %></span>
       </div>
-      <div class="description color-danger"><%= advance.price.to_money.format.html_safe %></div>
+      <div class="description text-danger"><%= advance.price.to_money.format.html_safe %></div>
     <% end %>
   <% end %>
 </div>
