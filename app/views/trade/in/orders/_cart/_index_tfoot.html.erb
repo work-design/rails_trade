@@ -2,7 +2,7 @@
   <tr>
     <td colspan="4"></td>
     <td>
-      <%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+      <%= form_with theme: 'inline', model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
         <%= f.hidden_field :current_cart_id %>
         <%= f.submit '确认订单', class: 'button is-success' %>
       <% end %>
