@@ -58,13 +58,7 @@ module Trade
 
     private
     def set_cart
-      if current_cart
-        @cart = current_cart
-      else
-        options = { user_id: current_user.id, member_id: nil, client_id: nil }
-        options.merge! default_form_params
-        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
-      end
+      @cart = Trade::Cart.get_cart(params, user_id: current_user.id, **default_form_params)
     end
 
     def set_card_template

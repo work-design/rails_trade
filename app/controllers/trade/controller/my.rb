@@ -5,11 +5,7 @@ module Trade
 
     private
     def set_cart
-      options = {}
-      options.merge! default_form_params
-      options.merge! user_id: current_user.id, member_id: nil
-
-      @cart = Cart.where(options).find_or_initialize_by(good_type: nil)
+      @cart = Cart.get_cart(params, good_type: nil, user_id: current_user.id, **default_form_params)
       logger.debug "my cart #{@cart.id}"
     end
 

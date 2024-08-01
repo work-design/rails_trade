@@ -27,7 +27,7 @@ module Trade
     # end
 
     def set_cart
-      @cart = Cart.get_cart(params, good_type: params[:good_type], member_organ_id: current_organ.id)
+      @cart = Cart.get_cart(params, member_organ_id: current_organ.id)
     end
 
     def item_params

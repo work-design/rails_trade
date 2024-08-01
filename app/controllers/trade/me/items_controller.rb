@@ -8,10 +8,7 @@ module Trade
 
     private
     def set_cart
-      options = {}
-      options.merge! default_form_params
-      options.merge! member_id: current_member.id
-      @cart = Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: params[:aim].presence || 'use')
+      @cart = Cart.get_cart(params, member_id: current_member.id, **default_form_params)
     end
 
     def set_item
