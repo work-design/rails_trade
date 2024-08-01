@@ -7,8 +7,9 @@
 <% if model.organ_id %>
   <%= model.organ.name %>
 <% else %>
-  <%= button_to({ action: 'edit_organ', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
-    <i class="fa-solid fa-pencil text-grey"></i>
+  <%= button_to({ action: 'edit_organ', id: model.id }, data: { show_target: 'item' }, class: 'visibility-hidden') do %>
+    <i class="fa-solid fa-sm fa-pencil text-grey"></i>
+    <span class="ml-1 size-7"><%= t('.edit_organ.title') %></span>
   <% end %>
 <% end %>
 </td>

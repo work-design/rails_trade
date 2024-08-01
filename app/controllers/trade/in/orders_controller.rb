@@ -1,6 +1,9 @@
 module Trade
   class In::OrdersController < Admin::OrdersController
     include Controller::In
+    before_action :set_order, only: [
+      :show, :edit, :update, :destroy, :actions, :edit_organ
+    ]
 
     def index
       q_params = {}

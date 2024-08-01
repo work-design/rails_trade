@@ -118,6 +118,8 @@ zh:
           title: 采购单
         batch_paid:
           title: 支付
+        edit_organ:
+          title: 指定供应商
       promote_goods:
         index:
           title: 优惠券
