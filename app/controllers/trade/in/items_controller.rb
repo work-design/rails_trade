@@ -3,7 +3,7 @@ module Trade
     include Controller::In
     before_action :set_cart, :set_item, only: [
       :show, :edit, :update, :destroy, :actions,
-      :promote, :toggle, :finish, :edit_price, :update_price, :edit_assign
+      :promote, :toggle, :finish, :edit_price, :update_price
     ]
     before_action :set_cart, :set_new_item, only: [:create, :cost]
 
