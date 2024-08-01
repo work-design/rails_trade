@@ -1,10 +1,11 @@
 <div class="fixed-grid has-6-cols">
   <div class="grid">
+    <%= link_to({ controller: 'orders' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span class="text-grey"><%= @orders_count %></span>
+      <span><%= t('.orders.index.title') %></span>
+    <% end %>
     <%= link_to({ controller: 'carts' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('.carts.index.title') %></span>
-    <% end %>
-    <%= link_to({ controller: 'orders' }, class: 'cell button is-fullwidth') do %>
-      <span><%= t('.orders.index.title') %></span>
     <% end %>
   </div>
 </div>
