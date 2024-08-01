@@ -27,14 +27,7 @@ module Trade
     # end
 
     def set_cart
-      if current_cart
-        @cart = current_cart
-      else
-        options = { member_organ_id: current_organ.id }
-        options.merge! user_id: nil, member_id: nil
-        options.merge! client_id: nil, contact_id: nil
-        @cart = Trade::Cart.where(options).find_or_create_by(good_type: params[:good_type], aim: 'use')
-      end
+      @cart = Cart.get_cart(params, good_type: params[:good_type], member_organ_id: current_organ.id)
     end
 
     def item_params
