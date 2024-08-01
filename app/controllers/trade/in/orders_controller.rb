@@ -4,6 +4,7 @@ module Trade
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions, :edit_organ
     ]
+    before_action :set_providers, only: [:edit_organ]
 
     def index
       q_params = {}
@@ -30,6 +31,10 @@ module Trade
 
     def set_new_order
       @order = current_organ.organ_orders.build(order_params)
+    end
+
+    def set_providers
+
     end
 
     def order_params
