@@ -129,13 +129,13 @@ module Trade
 
     def cart_filter_hash
       options = { good_type: [good_type, nil], aim: [aim, nil] }
-      if contact_id
+      if respond_to?(:contact_id) && contact_id
         options.merge! contact_id: [contact_id, nil], client_id: client_id
       elsif member_id
         options.merge! member_id: [member_id, nil], member_organ_id: member_organ_id
       elsif user_id
         options.merge! user_id: [user_id, nil]
-      elsif client_id
+      elsif respond_to?(:client_id) && client_id
         options.merge! client_id: client_id
       else
         options
@@ -145,9 +145,9 @@ module Trade
     def filter_hash
       if member_id
         { member_id: member_id }
-      elsif contact_id
+      elsif respond_to?(:contact_id) && contact_id
         { contact_id: contact_id }
-      elsif client_id
+      elsif respond_to?(:client_id) && client_id
         { client_id: client_id }
       elsif member_organ_id
         { member_organ_id: member_organ_id }
@@ -308,7 +308,7 @@ module Trade
       if purchase_id.present?
         "cart_#{purchase_id}_#{good_id}"
       else
-        if contact_id
+        if respond_to?(:contact_id) && contact_id
           "cart_#{good_id}_#{contact_id}"
         elsif member_id
           "cart_#{good_id}_#{member_id}"

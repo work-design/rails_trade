@@ -268,7 +268,7 @@ module Trade
 
     def init_cart_item(params, **options)
       options.with_defaults! params.permit(:good_id, :dispatch, :produce_on, :scene_id).to_h.symbolize_keys
-      options.with_defaults! dispatch: organ.dispatch
+      options.with_defaults! dispatch: organ.dispatch if organ
       options.compact_blank!
 
       item = find_item(**options) || items.build(options)

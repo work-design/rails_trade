@@ -3,6 +3,12 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      enum :dispatch, {
+        delivery: 'delivery',
+        dine: 'dine',
+        fetch: 'fetch'
+      }, prefix: true
+
       has_many :card_templates, class_name: 'Trade::CardTemplate'
 
       has_many :member_carts, class_name: 'Trade::Cart', foreign_key: :member_organ_id, dependent: :destroy_async
