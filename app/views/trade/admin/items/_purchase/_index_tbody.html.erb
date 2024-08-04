@@ -1,6 +1,6 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 
-<td><%= f.check_box 'xx', form: 'purchase_order', data: { action: 'show#toggle' } %></td>
+<td><%= f.check_box 'xx', form: 'purchase_order', data: { action: 'show#toggle', all: 'xxd' } %></td>
 <td>
 <% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>

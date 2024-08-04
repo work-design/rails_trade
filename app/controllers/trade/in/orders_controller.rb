@@ -31,7 +31,6 @@ module Trade
 
     def set_new_order
       @order = current_organ.organ_orders.build(order_params)
-      binding.b
     end
 
     def set_providers
