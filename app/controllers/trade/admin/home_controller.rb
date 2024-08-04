@@ -2,6 +2,7 @@ module Trade
   class Admin::HomeController < Admin::BaseController
 
     def index
+      @orders_count = Order.default_where(default_params).count
     end
 
     def good_search
