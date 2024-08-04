@@ -27,9 +27,9 @@ module Trade
       @cart = Cart.get_cart(params, member_organ_id: current_organ.id)
     end
 
-    # def set_item
-    #   @item = current_organ.organ_items.find params[:id]
-    # end
+    def set_item
+      @item = current_organ.organ_items.find params[:id]
+    end
 
     def item_params
       params.fetch(:item, {}).permit(
