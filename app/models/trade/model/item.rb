@@ -105,7 +105,6 @@ module Trade
 
       after_initialize :init_uuid, if: :new_record?
       after_initialize :sync_from_good, if: -> { new_record? && good_id.present? }
-      after_initialize :compute_amount, if: -> { new_record? && single_price.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :add_promotes, if: :new_record?
@@ -236,6 +235,7 @@ module Trade
       self.organ_id = (good.respond_to?(:organ_id) && good.organ_id) || current_cart&.organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on
       compute_price
+      compute_amount
     end
 
     def sync_from_current_cart
