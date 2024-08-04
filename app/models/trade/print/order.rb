@@ -7,7 +7,7 @@ module Trade
     end
 
     def print
-      return unless organ.device
+      return unless organ&.device
       organ.device.print(
         data: to_tspl
       )
