@@ -5,7 +5,8 @@ module Trade
       :show, :edit, :update, :destroy, :actions,
       :promote, :toggle, :finish, :edit_price, :update_price
     ]
-    before_action :set_cart, :set_new_item, only: [:create, :cost]
+    before_action :set_cart, only: [:create, :cost]
+    before_action :set_new_item, only: [:create, :cost]
 
     def cost
       @item.single_price = @item.good.cost
@@ -22,13 +23,13 @@ module Trade
     end
 
     private
-    # def set_item
-    #   @item = current_organ.organ_items.find params[:id]
-    # end
-
     def set_cart
       @cart = Cart.get_cart(params, member_organ_id: current_organ.id)
     end
+
+    # def set_item
+    #   @item = current_organ.organ_items.find params[:id]
+    # end
 
     def item_params
       params.fetch(:item, {}).permit(
