@@ -1,11 +1,14 @@
 module Trade
   class In::ItemsController < Admin::ItemsController
     include Controller::In
-    before_action :set_cart, :set_item, only: [
+    before_action :set_cart, only: [
+      :show, :edit, :update, :destroy, :actions,
+      :promote, :toggle, :finish, :edit_price, :update_price, :create, :cost
+    ]
+    before_action :set_item, only: [
       :show, :edit, :update, :destroy, :actions,
       :promote, :toggle, :finish, :edit_price, :update_price
     ]
-    before_action :set_cart, only: [:create, :cost]
     before_action :set_new_item, only: [:create, :cost]
 
     def cost
