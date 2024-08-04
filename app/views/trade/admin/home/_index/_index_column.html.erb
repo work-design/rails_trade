@@ -10,6 +10,7 @@
       <span><%= t('.promotes.index.title') %></span>
     <% end %>
     <%= link_to({ controller: 'items' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= @items_count %></span>
       <span><%= t('.items.index.title') %></span>
     <% end %>
     <%= link_to({ controller: 'carts' }, class: 'cell button is-fullwidth flex-direction-column') do %>

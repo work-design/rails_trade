@@ -3,6 +3,7 @@ module Trade
 
     def index
       @orders_count = Order.default_where(default_params).count
+      @items_count = Item.default_where(default_params).count
     end
 
     def good_search
