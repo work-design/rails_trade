@@ -31,6 +31,7 @@ module Trade
 
     def set_new_order
       @order = current_organ.organ_orders.build(order_params)
+      binding.b
     end
 
     def set_providers
@@ -50,7 +51,7 @@ module Trade
         :note,
         :generate_mode,
         :current_cart_id,
-        items_attributes: {},
+        items_attributes: [:source_id, :number, :single_price],
         item_promotes_attributes: {}
       )
       _p.fetch(:items_attributes, {}).each do |_, v|
