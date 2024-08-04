@@ -345,7 +345,7 @@ module Trade
       def get_cart(params, good_type: params[:good_type] || 'Factory::Production', aim: params[:aim] || 'use', **options)
         current_cart_id = params[:current_cart_id].presence || params.dig(:item, :current_cart_id).presence
         if current_cart_id
-          cart = find params[:current_cart_id]
+          cart = find current_cart_id
         else
           options.with_defaults!({ user_id: nil, member_id: nil, member_organ_id: nil, client_id: nil, contact_id: nil, agent_id: nil }.slice(*column_names.map(&:to_sym)))
           cart = where(options).find_or_create_by(good_type: good_type, aim: aim)
