@@ -4,6 +4,12 @@
       <span><%= @orders_count %></span>
       <span><%= t('.orders.index.title') %></span>
     <% end %>
+    <%= link_to({ controller: 'wallet_templates' }, class: 'cell button is-fullwidth') do %>
+      <span><%= t('.wallet_templates.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'card_templates' }, class: 'cell button is-fullwidth') do %>
+      <span><%= t('.card_templates.index.title') %></span>
+    <% end %>
   </div>
   <div class="grid">
     <%= link_to({ controller: 'promotes' }, class: 'cell button is-fullwidth flex-direction-column') do %>
