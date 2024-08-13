@@ -22,7 +22,7 @@ module Trade
         rent: 'rent'
       }, default: 'use', prefix: true
 
-      belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :address, class_name: 'Ship::Address', optional: true
 
       belongs_to :payment_strategy, optional: true
 

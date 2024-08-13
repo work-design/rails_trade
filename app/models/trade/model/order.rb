@@ -49,14 +49,14 @@ module Trade
         denied: 'denied'
       }, default: 'unpaid'
 
-      belongs_to :address, class_name: 'Profiled::Address', optional: true
+      belongs_to :address, class_name: 'Ship::Address', optional: true
       belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :from_user, class_name: 'Auth::User', optional: true
       belongs_to :from_member, class_name: 'Org::Member', optional: true
       belongs_to :from_member_organ, class_name: 'Org::Organ', optional: true
-      belongs_to :from_address, class_name: 'Profiled::Address', optional: true
+      belongs_to :from_address, class_name: 'Ship::Address', optional: true
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
 
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
