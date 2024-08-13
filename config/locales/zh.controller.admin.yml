@@ -76,6 +76,8 @@ zh:
           title: 打印
         purchase:
           title: 加入采购单
+        produce:
+          title: 排生产计划
         create:
           title: 加入购物车
       trade_promotes:

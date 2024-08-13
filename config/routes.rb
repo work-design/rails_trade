@@ -138,6 +138,7 @@ Rails.application.routes.draw do
       resources :items do
         collection do
           get :purchase
+          get :produce
           post :trial
           post :batch_purchase
         end
