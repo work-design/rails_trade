@@ -40,7 +40,7 @@ zh:
           title: 修改价格
       orders:
         index:
-          title: 订单
+          title: 销售单
           add_payment: 添加支付流水
           refund_list: 退款详情
         user:
@@ -67,7 +67,7 @@ zh:
           title: 支付
       items:
         index:
-          title: 订单明细
+          title: 售出产品
         carts:
           title: 所在购物车
         compute:
