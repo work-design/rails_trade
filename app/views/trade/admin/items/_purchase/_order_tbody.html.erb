@@ -7,7 +7,12 @@
   <% if ['rent', 'invest'].include?(model.aim) %>
     <span class="tag is-info"><%= model.aim_i18n %></span>
   <% end %>
-  <span><%= model.serial_number %></span>
+  <% if model.serial_number %>
+  <div class="tags has-addons display-inline-flex mb-0">
+    <span class="tag is-dark"><%= Trade::Order.human_attribute_name(:serial_number) %></span>
+    <span class="tag is-warning"><%= model.serial_number %></span>
+  </div>
+  <% end %>
   <span class="tag is-success"><%= model.payment_status_i18n %></span>
   <% if model.payment_strategy %>
   <div class="tags has-addons mt-1">
