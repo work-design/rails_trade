@@ -12,7 +12,7 @@
 <% end %>
 </td>
 <td><%= model.number.to_human %></td>
-<td><%= model.single_price.to_money.format.html_safe %></td>
+<td class="text-grey"><%= model.single_price.to_money.format.html_safe %></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 <td><%= model.status_i18n %></td>
 <td>

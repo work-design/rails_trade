@@ -5,12 +5,16 @@
       <%= link_to({ controller: 'item_promotes', item_id: model.id }, aria: { label: t('trade.admin.item_promotes.index.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-gift"></i>
       <% end if false %>
-      <%= link_to({ controller: 'holds', item_id: model.id }, aria: { label: t('trade.admin.holds.index.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ controller: 'holds', item_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-face-meh text-success"></i>
+        <span class="ml-1"><%= t('.holds.index.title') %></span>
       <% end %>
-      <%= link_to({ action: 'carts', id: model.id }, aria: { label: t('trade.admin.items.carts.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ action: 'carts', id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-cart-shopping text-info"></i>
+        <span class="ml-1"><%= t('.items.carts.title') %></span>
       <% end %>
+    </div>
+    <div data-show-target="item" class="visibility-hidden">
       <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-circle-info text-info"></i>
       <% end %>
