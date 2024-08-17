@@ -4,6 +4,9 @@
       <span><%= @orders_count %></span>
       <span><%= t('.orders.index.title') %></span>
     <% end %>
+    <%= link_to({ controller: 'payments' }, class: 'cell button is-fullwidth') do %>
+      <span><%= t('.payments.index.title') %></span>
+    <% end %>
     <%= link_to({ controller: 'wallet_templates' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('.wallet_templates.index.title') %></span>
     <% end %>
