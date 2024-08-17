@@ -1,16 +1,6 @@
 <td></td>
 <td>
   <i class="fa-solid fa-cart-shopping text-info mr-1"></i>
-<% if model.good %>
-  <%= link_to model.good.name, { action: 'show', id: model.id } %>
-<% elsif model.purchase %>
-  <span><%= model.purchase.name %></span>
-<% else %>
-  <span><%= model.good_name %></span>
-<% end %>
-<% if ['rent', 'invest'].include?(model.aim) %>
-  <span class="tag is-danger"><%= model.aim_i18n %></span>
-<% end %>
 </td>
 <td><%= model.number.to_human %></td>
 <td class="text-grey"><%= model.single_price.to_money.format.html_safe %></td>
