@@ -25,6 +25,17 @@ module Trade
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
+    def produce
+      q_params = {
+        #status: ['paid']
+        good_type: 'Factory::Production'
+      }
+      q_params.merge! default_params
+      q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
+
+      @items = Item.includes(:user, :item_promotes, :purchase_items, :order).where.not(order_id: nil).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+    end
+
     def carts
       @carts = @item.carts.includes(:user, :member)
     end

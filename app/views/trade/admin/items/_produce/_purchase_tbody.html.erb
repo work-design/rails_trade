@@ -1,0 +1,22 @@
+<td></td>
+<td>
+  <%= link_to({ controller: 'in/orders', action: 'show', id: model.order_id }, target: '_blank') do %>
+    <i class="fa-solid fa-cart-shopping text-info mr-1"></i>
+    <span class="text-grey family-monospace"><%= model.order.uuid %></span>
+  <% end %>
+</td>
+<td><%= model.number.to_human %></td>
+<td class="text-grey"><%= model.single_price.to_money.format.html_safe %></td>
+<td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
+<td><%= model.status_i18n %></td>
+<td>
+  <% if model.user %>
+  <p class="is-several">
+    <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
+    <span><%= model.user.name.presence || model.user_id %></span>
+  </p>
+  <% end %>
+  <p>
+    <span><%= model.organ&.name %></span>
+  </p>
+</td>

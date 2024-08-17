@@ -1,0 +1,30 @@
+<td id="order_check_<%= model.id %>" data-controller="check" data-check-range-value="order_<%= model.id %>">
+  <%= check_box_tag 'zxx', 'order[items_attributes][', false, id: nil, data: { check_target: 'all', action: 'check#toggleAll' } %>
+</td>
+<td colspan="6">
+  <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
+  <span class="tag is-warning"><%= model.state_i18n %></span>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag is-info"><%= model.aim_i18n %></span>
+  <% end %>
+  <% if model.serial_number %>
+  <div class="tags has-addons display-inline-flex mb-0">
+    <span class="tag is-dark"><%= Trade::Order.human_attribute_name(:serial_number) %></span>
+    <span class="tag is-warning"><%= model.serial_number %></span>
+  </div>
+  <% end %>
+  <span class="tag is-success"><%= model.payment_status_i18n %></span>
+  <% if model.payment_strategy %>
+  <div class="tags has-addons mt-1">
+    <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+    <span class="tag"><%= model.payment_strategy.from_pay_i18n %></span>
+  </div>
+  <% end %>
+  <span><%= model.amount.to_money.format.html_safe %></span>
+  <p>
+  <% if model&.member %>
+    <span><%= model.member.name %></span>
+    <span class="text-grey">（<%= model.member_organ.name %>）</span>
+  <% end %>
+  </p>
+</td>
