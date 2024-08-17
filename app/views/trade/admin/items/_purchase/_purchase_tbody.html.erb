@@ -1,7 +1,9 @@
 <td></td>
 <td>
-  <i class="fa-solid fa-cart-shopping text-info mr-1"></i>
-  <span class="text-grey family-monospace"><%= model.order.uuid %></span>
+  <%= link_to({ controller: 'in/orders', action: 'show', id: model.order_id }, target: '_blank') do %>
+    <i class="fa-solid fa-cart-shopping text-info mr-1"></i>
+    <span class="text-grey family-monospace"><%= model.order.uuid %></span>
+  <% end %>
 </td>
 <td><%= model.number.to_human %></td>
 <td class="text-grey"><%= model.single_price.to_money.format.html_safe %></td>
