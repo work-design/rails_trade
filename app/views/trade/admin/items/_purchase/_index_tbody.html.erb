@@ -16,6 +16,8 @@
 <td>
   <div data-show-target="check" class="display-none">
     <%= f.hidden_field :source_id, form: 'purchase_order', disabled: true %>
+    <%= f.hidden_field :good_type, value: model.good_type, form: 'purchase_order', disabled: true %>
+    <%= f.hidden_field :good_id, value: model.good_id, form: 'purchase_order', disabled: true %>
     <%= f.hidden_field :good_name, value: model.good_name, form: 'purchase_order', disabled: true %>
     <%= f.number_field :number, value: model.number, form: 'purchase_order', disabled: true, style: 'width: 5em' %>
   </div>

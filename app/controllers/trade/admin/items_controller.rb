@@ -15,7 +15,9 @@ module Trade
     end
 
     def purchase
-      q_params = {}
+      q_params = {
+        #status: ['paid']
+      }
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
 

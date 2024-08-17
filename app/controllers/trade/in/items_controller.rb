@@ -36,6 +36,8 @@ module Trade
 
     def item_params
       params.fetch(:item, {}).permit(
+        :good_type,
+        :good_id,
         :number,
         :organ_id,
         :note,
