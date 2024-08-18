@@ -1,6 +1,3 @@
-<td id="order_check_<%= model.id %>" data-controller="check" data-check-range-value="order_<%= model.id %>">
-  <%= check_box_tag 'zxx', 'order[items_attributes][', false, id: nil, data: { check_target: 'all', action: 'check#toggleAll' } %>
-</td>
 <td colspan="6">
   <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
   <span class="tag is-warning"><%= model.state_i18n %></span>

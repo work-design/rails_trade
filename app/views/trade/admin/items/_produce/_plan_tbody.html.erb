@@ -1,0 +1,11 @@
+<td>
+  <%= link_to({ controller: 'factory/admin/production_plans', action: 'show', production_id: model.production_id, id: model.id }, target: '_blank') do %>
+    <i class="fa-solid fa-cart-shopping text-info mr-1"></i>
+    <span class="text-grey family-monospace"><%= model.produce_on %></span>
+  <% end %>
+</td>
+<td><%= model.number.to_human %></td>
+<td class="text-grey"><%=  %></td>
+<td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
+<td><%= model.status_i18n %></td>
+<td></td>

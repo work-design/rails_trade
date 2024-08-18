@@ -23,4 +23,4 @@
     </div>
   </td>
 </tr>
-<%= render partial: 'purchase_tbody', layout: 'purchase_tr', collection: model.purchase_items.select(&:persisted?), as: :model %>
+<%= render partial: 'plan_tbody', layout: 'plan_tr', collection: model.good.production_plans, as: :model %>

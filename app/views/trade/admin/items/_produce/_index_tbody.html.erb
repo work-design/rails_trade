@@ -1,9 +1,4 @@
 <td>
-  <%= form_with theme: 'inline', model: model.good.production_plans.build do |f| %>
-    <%= f.hidden_field :production_id %>
-  <% end %>
-</td>
-<td>
 <% if model.good %>
   <%= link_to model.good.name, { action: 'show', id: model.id } %>
 <% elsif model.purchase %>
