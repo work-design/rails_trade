@@ -22,16 +22,7 @@
 </td>
 <td><%= model.status_i18n %></td>
 <td>
-  <% if model.user %>
-  <p class="is-several">
-    <%= image_tag model.user.avatar, class: 'image is-32x32' if model.user.avatar.attached? %>
-    <span><%= model.user.name.presence || model.user_id %></span>
-  </p>
+  <%= button_to({ controller: 'factory/admin/production_plans', action: 'new', production_id: model.good_id }, class: 'button is-small is-primary') do %>
+    <span><%= t('factory.admin.production_plans.new.title') %></span>
   <% end %>
-  <p>
-    <span><%= model.member&.name %></span>
-    <% if model.member_organ %>
-      <span class="text-grey">（<%= model.member_organ.name %>）</span>
-    <% end %>
-  </p>
 </td>
