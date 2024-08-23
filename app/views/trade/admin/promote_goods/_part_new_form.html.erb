@@ -1,8 +1,5 @@
 <%= form_with theme: 'modal', model: @promote_good, scope: :promote_good, url: { action: 'part_create' }, data: { controller: 'equal', equal_plus_value: { years: 1 }.to_json } do |f| %>
-  <header class="modal-card-head">
-    <p class="modal-card-title"><%= t('.title') %></p>
-    <button type="button" data-action="modal#close" class="delete"></button>
-  </header>
+  <%= render 'modal_header' %>
   <section class="modal-card-body">
     <%= render 'error_messages', target: f.object  %>
     <%= f.hidden_field :good_type %>
@@ -10,7 +7,5 @@
     <%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>
     <%= render partial: 'good_search', locals: { f: f } %>
   </section>
-  <footer class="modal-card-foot">
-    <%= f.submit %>
-  </footer>
+  <%= f.submit %>
 <% end %>

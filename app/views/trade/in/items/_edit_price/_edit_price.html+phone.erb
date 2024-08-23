@@ -1,4 +1,4 @@
-<%= form_with theme: 'weui', model: @item, url: { action: 'update_price' }, class: 'modal-card' do |f| %>
+<%= form_with theme: 'modal', model: @item, url: { action: 'update_price' } do |f| %>
   <header class="modal-card-head">
     <p class="modal-card-title">
       <span><%= @item.good_name %></span>
@@ -7,7 +7,5 @@
   <section class="modal-card-body">
     <%= f.number_field :single_price, autofocus: true %>
   </section>
-  <footer class="modal-card-foot is-block">
-    <%= f.submit %>
-  </footer>
+  <%= f.submit %>
 <% end %>

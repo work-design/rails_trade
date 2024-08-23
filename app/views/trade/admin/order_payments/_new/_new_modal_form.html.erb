@@ -1,13 +1,8 @@
 <%= form_with theme: 'modal', model: @payment, scope: :payment, url: { action: 'create' } do |f| %>
-  <header class="modal-card-head">
-    <p class="modal-card-title"><%= t('.title') %></p>
-    <button type="button" data-action="modal#close" class="delete"></button>
-  </header>
+  <%= render 'modal_header' %>
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
     <%= render partial: 'form', locals: { f: f } %>
   </section>
-  <footer class="modal-card-foot">
-    <%= f.submit %>
-  </footer>
+  <%= f.submit %>
 <% end %>
