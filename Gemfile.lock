@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/work-design/rails_com.git
-  revision: d2857f8acc2c00f072751a135f60313a4fe98f92
+  revision: 04d6500361708cb307bfac025bf6105f82f305ab
   specs:
     rails_com (1.3.0)
       acme-client
@@ -21,21 +21,21 @@ GIT
 
 GIT
   remote: https://github.com/work-design/rails_design.git
-  revision: da1da1fdf6db540f615744d0c745e24a798ea5c1
+  revision: 8a14339a3984e0aa217fd56b74439bb408d4b66d
   specs:
     rails_design (0.0.1)
       rails
 
 GIT
   remote: https://github.com/work-design/rails_notice.git
-  revision: 8de901ff8bb67af3b5de11f291aac81be569b455
+  revision: 828c2eec5bf86ac4a41ba92a94519e2eb4ba4d93
   specs:
     rails_notice (1.0.3)
       rails_com
 
 GIT
   remote: https://github.com/work-design/rails_org.git
-  revision: abc7b63416eadfa93f75ed383e1617d4d5b26f29
+  revision: 112b4e1bcf9ce718429c4c6affabd95499bdb4a8
   specs:
     rails_org (0.0.1)
       rails_com
