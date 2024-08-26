@@ -4,6 +4,8 @@ zh:
     my:
       title: 订单
       carts:
+        index:
+          title: 购物车
         show:
           title: 购物车
         invest:
