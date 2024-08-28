@@ -6,9 +6,9 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: 'item', collection: @items, as: :model %>
+    <%= render partial: 'item', collection: @items, as: :item, locals: { cart: @cart } %>
   </tbody>
-  <%= render 'total_price' %>
+  <%= render 'cart_footer' %>
   <tfoot>
     <tr>
       <th colspan="4"></th>

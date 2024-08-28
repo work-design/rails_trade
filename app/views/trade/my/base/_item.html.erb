@@ -1,0 +1,65 @@
+<tr class="<%= 'active' if item.status_checked? %>" id="item_<%= item.cart_identity %>">
+  <td>
+    <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'toggle', id: item.id }, data: { controller: 'input' } do |f| %>
+      <%= f.hidden_field :current_cart_id, value: cart.id %>
+      <%= f.check_box :status, { checked: item.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: item.id %>
+    <% end %>
+  </td>
+  <td>
+    <%= item.good&.name %>
+    <p style="color: grey;"><%= item.good_type_i18n %></p>
+  </td>
+  <td>
+    <p><%= item.retail_price.to_money.format.html_safe %></p>
+    <% if item.weight > 0 %>
+    <p>
+      <span><%= item.weight %></span>
+      <span><%# item.unit %></span>
+    </p>
+    <% end %>
+  </td>
+  <td>
+    <div class="field has-addons">
+      <div class="control">
+        <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, method: :patch, class: 'button_to' do |f| %>
+          <%= hidden_field_tag :partial, 'item' %>
+          <%= f.hidden_field :current_cart_id, value: cart.id %>
+          <%= f.hidden_field :number, value: item.number - 1 %>
+          <%= button_tag class: 'button' do %>
+            <i class="fa-solid fa-minus"></i>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="control">
+        <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, data: { controller: 'input' } do |f| %>
+          <%= hidden_field_tag :partial, 'item' %>
+          <%= f.hidden_field :current_cart_id, value: cart.id %>
+          <%= f.number_field :number, value: item.number.to_human, step: 1, data: { action: 'input#form' }, class: 'input text-centered', id: nil %>
+        <% end %>
+      </div>
+      <div class="control">
+        <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, method: :patch, class: 'button_to' do |f| %>
+          <%= hidden_field_tag :partial, 'item' %>
+          <%= f.hidden_field :number, value: item.number + 1 %>
+          <%= f.hidden_field :current_cart_id, value: cart.id %>
+          <%= button_tag class: 'button is-link' do %>
+            <i class="fa-solid fa-plus"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td>
+    <% if item.amount != item.wholesale_price %>
+    <div>
+      <del class="text-grey"><%= item.wholesale_price %></del>
+      <% if item.reduced_amount < 0 %>
+        <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= url_for(controller: 'items', action: 'promote', id: item.id) %>">
+          <span class="text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= item.reduced_amount %></span>
+        </span>
+      <% end %>
+    </div>
+    <% end %>
+    <p><%= item.amount.to_money.format.html_safe %></p>
+  </td>
+</tr>
