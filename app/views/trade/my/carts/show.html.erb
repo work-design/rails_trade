@@ -13,7 +13,7 @@
     <tr>
       <th colspan="4"></th>
       <th>
-      <% if @checked_ids.present? %>
+      <% if @cart.checked_item_ids.present? && @cart.has_address? %>
         <%= link_to '结算', { controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary', id: 'new_order' %>
       <% else %>
         <button class="button is-primary" disabled>结算</button>
