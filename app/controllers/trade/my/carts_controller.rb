@@ -54,6 +54,7 @@ module Trade
 
     def toggle_all
       @cart.toggle_all
+      @items = @cart.items.includes(:delivery, :agent, produce_plan: :scene).order(id: :asc).page(params[:page])
     end
 
     private

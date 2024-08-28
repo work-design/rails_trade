@@ -1,0 +1,23 @@
+<table id="cart_table" class="table is-fullwidth">
+  <thead>
+    <tr>
+      <%= render 'show_thead' %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= yield %>
+   </tbody>
+  <%= render 'cart_footer' %>
+  <tfoot>
+    <tr>
+      <th colspan="4"></th>
+      <th>
+        <% if @cart.checked_item_ids.present? && @cart.has_address? %>
+          <%= link_to '结算', { controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary', id: 'new_order' %>
+        <% else %>
+          <button class="button is-primary" disabled>结算</button>
+        <% end %>
+      </th>
+    </tr>
+  </tfoot>
+</table>
