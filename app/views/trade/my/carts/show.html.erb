@@ -1,4 +1,4 @@
-<%= render 'address' if defined? RailsShip %>
+<%= render 'address' if @cart.need_address? %>
 
 <%= render layout: 'show_table_layout' do %>
   <%= render partial: 'item', collection: @items, as: :item, locals: { cart: @cart } %>

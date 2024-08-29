@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="level-right mt-0">
-    <%= link_to({ controller: "ship/#{params[:namespace]}/addresses", cart_id: @cart.id }, data: { turbo_frame: 'modal' }, class: 'level-item') do %>
+    <%= link_to({ controller: "ship/my/cart/addresses", cart_id: @cart.id }, class: 'level-item') do %>
       <i class="fa-solid fa-angle-right"></i>
     <% end %>
   </div>
