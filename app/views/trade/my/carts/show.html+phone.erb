@@ -1,5 +1,3 @@
-<%= render 'head' %>
-
 <%= render 'address' if @cart.need_address? %>
 
 <% @items.group_by(&:delivery).each do |delivery, items| %>
