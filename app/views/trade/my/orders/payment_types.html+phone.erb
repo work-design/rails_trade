@@ -1,4 +1,3 @@
-<%= render 'top_bar' %>
 <%= render 'order_for_payment' %>
 
 <% if @order.payment_orders.select(&:new_record?).present? %>
