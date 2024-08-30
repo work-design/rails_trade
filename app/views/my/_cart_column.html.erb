@@ -4,7 +4,7 @@
   <%= link_to({ controller: 'trade/my/lawful_wallets', action: 'show', **params.permit(:global_member_id) }, class: 'column is-one-third has-column-centered') do %>
     <div class="is-several">
       <%= image_tag 'wallet.png', class: 'image is-16x16' %>
-      <span class="ml-1 text-grey-dark size-7"><%= t('trade.my.lawful_wallets.show.title') %></span>
+      <span class="text-grey-dark size-7"><%= t('trade.my.lawful_wallets.show.title') %></span>
     </div>
     <div class="text-weight-medium text-danger-dark is-size-5">
       <%= @lawful_wallet.amount.to_money.format.html_safe %>
@@ -14,7 +14,7 @@
     <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'column is-one-third has-column-centered') do %>
       <div class="is-several">
         <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
-        <span class="ml-1 text-grey-dark size-7"><%= card_template.name %></span>
+        <span class="text-grey-dark size-7"><%= card_template.name %></span>
       </div>
       <div class="text-weight-medium text-danger-dark"><%= @cart.owned_text(card_template) %></div>
     <% end %>
@@ -23,7 +23,7 @@
     <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'column is-one-third has-column-centered') do %>
       <div class="is-several">
         <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
-        <span class="ml-1 text-grey-dark size-7"><%= card_template.name %></span>
+        <span class="text-grey-dark size-7"><%= card_template.name %></span>
       </div>
       <div class="text-weight-medium text-danger-dark"><%= @cart.owned_text(card_template) %></div>
     <% end %>

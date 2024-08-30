@@ -2,5 +2,5 @@
   <span><%= model.title %></span>
   <span class="tag"><%= model.tag_str %></span>
 </p>
-<p class="<%= model.amount >= 0 ? 'color-success' : 'color-danger' %>"><%= model.amount.to_money.format.html_safe %></p>
+<p class="<%= model.amount >= 0 ? 'text-success' : 'text-danger' %>"><%= model.amount.to_money.format.html_safe %></p>
 <p class="text-grey"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
