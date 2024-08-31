@@ -56,7 +56,7 @@ Rails.application.routes.draw do
         end
       end
       resources :promote_goods, only: [:index, :show]
-      resources :card_templates do
+      resources :card_templates, except: [:edit, :destroy] do
         member do
           get :code
         end
