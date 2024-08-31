@@ -5,7 +5,7 @@
         <i class="fa-solid fa-xl fa-circle-minus text-dark-grey"></i>
       </button>
     <% else %>
-      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, state: 'redirect', class: 'mr-1') do %>
+      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
         <i class="fa-solid fa-xl fa-circle-minus text-dark-grey"></i>
       <% end %>
     <% end %>

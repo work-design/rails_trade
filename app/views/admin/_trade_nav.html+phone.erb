@@ -3,25 +3,25 @@
     <span class="size-7 has-border-left-primary"><%= t('trade.admin.title') %></span>
   </div>
   <div class="columns is-mobile is-multiline is-vcentered is-centered m-0 is-shadow" data-empty-target="content">
-    <%= link_to({ controller: 'trade/admin/orders' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
+    <%= link_to({ controller: 'trade/admin/orders' }, class: 'column is-one-quarter has-column-centered') do %>
       <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-list"></i>
       </div>
       <div class="text-grey size-7 mt-1"><%= t('trade.admin.orders.index.title') %></div>
     <% end %>
-    <%= link_to({ controller: 'trade/admin/items' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
+    <%= link_to({ controller: 'trade/admin/items' }, class: 'column is-one-quarter has-column-centered') do %>
       <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-list-ol"></i>
       </div>
       <div class="text-grey size-7 mt-1"><%= t('trade.admin.items.index.title') %></div>
     <% end %>
-    <%= link_to({ controller: 'trade/admin/payments' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
+    <%= link_to({ controller: 'trade/admin/payments' }, class: 'column is-one-quarter has-column-centered') do %>
       <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-receipt"></i>
       </div>
       <div class="text-grey size-7 mt-1"><%= t('trade.admin.payments.index.title') %></div>
     <% end %>
-    <%= link_to({ controller: 'trade/admin/scan_payments', action: 'new' }, state: 'enter', class: 'column is-one-quarter has-column-centered') do %>
+    <%= link_to({ controller: 'trade/admin/scan_payments', action: 'new' }, class: 'column is-one-quarter has-column-centered') do %>
       <div class="text-primary">
         <i class="fa-solid fa-fw fa-xl fa-cash-register"></i>
       </div>

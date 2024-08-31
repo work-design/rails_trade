@@ -6,11 +6,11 @@
       <%= f.hidden_field :number, value: model.number, form: 'new_order' %>
       <%= f.hidden_field :good_name, value: model.good_name, form: 'new_order' %>
     </div>
-    <%= link_to({ action: 'show', id: model.id }, state: 'clear', class: 'media-content') do %>
+    <%= link_to({ action: 'show', id: model.id }, class: 'media-content') do %>
       <%= yield %>
     <% end %>
     <div class="media-right">
-      <%= button_to({ action: 'actions', id: model.id }, state: 'enter', class: 'button is-borderless') do %>
+      <%= button_to({ action: 'actions', id: model.id }, class: 'button is-borderless') do %>
         <i class="fa-solid fa-lg fa-ellipsis-h text-grey"></i>
       <% end %>
     </div>

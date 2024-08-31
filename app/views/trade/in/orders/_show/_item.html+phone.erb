@@ -1,11 +1,11 @@
 <div id="item_<%= item.id %>" class="media">
   <div class="media-left" data-controller="empty">
-    <%= link_to(item.good, text: true, state: 'enter', data: { empty_target: 'content' }) do %>
+    <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'image is-64x64' if item.good && item.good.logo&.attached? %>
     <% end %>
   </div>
   <div class="media-content as-body" style="background-color: initial">
-    <%= link_to(item.good, text: true, state: 'enter') do %>
+    <%= link_to(item.good, text: true) do %>
       <span><%= item.good_name %></span>
       <% if ['rent', 'invest'].include?(item.aim) && item.aim != item.order.aim %>
         <span class="tag is-danger"><%= item.aim_i18n %></span>

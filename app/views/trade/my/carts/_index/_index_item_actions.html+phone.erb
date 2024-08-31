@@ -3,7 +3,7 @@
     <%= yield %>
   </div>
   <div class="media-right">
-    <%= link_to({ controller: '/factory/productions', host: model.organ.host }, state: 'enter', class: 'button is-borderless') do %>
+    <%= link_to({ controller: '/factory/productions', host: model.organ.host }, class: 'button is-borderless') do %>
       <i class="fa-solid fa-lg fa-cart-shopping text-primary"></i>
     <% end %>
   </div>

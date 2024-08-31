@@ -1,11 +1,11 @@
 <div class="media">
   <div class="media-left" data-controller="empty">
-    <%= link_to(item.good, text: true, state: 'enter', data: { empty_target: 'content' }) do %>
+    <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'image is-64x64' if item.good && item.good.logo&.attached? %>
     <% end %>
   </div>
   <div class="media-content as-body" style="background-color: initial">
-    <%= link_to(item.good, text: true, state: 'enter', class: 'weui-media-box__title') do %>
+    <%= link_to(item.good, text: true, class: 'weui-media-box__title') do %>
       <span><%= item.good_name %></span>
       <% if ['rent', 'invest'].include?(item.aim) && item.aim != item.order.aim %>
         <span class="tag is-danger"><%= item.aim_i18n %></span>
@@ -33,16 +33,16 @@
   </div>
   <div class="media-right as-x">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
-    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, state: 'enter', class: 'button is-small is-primary') do %>
+    <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'button is-small is-primary') do %>
       <i></i>
       <span><%= t('bench.my.facilitatings.index.title') %></span>
     <% end %>
   <% else %>
-    <%= link_to({ controller: 'trade/admin/holds', item_id: item.id }, state: 'enter', class: 'button is-small is-default') do %>
+    <%= link_to({ controller: 'trade/admin/holds', item_id: item.id }, class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.admin.holds.index.title') %></span>
     <% end %>
-    <%= link_to({ controller: 'items', action: 'edit', id: item.id }, state: 'enter', class: 'button is-small is-danger mt-2') do %>
+    <%= link_to({ controller: 'items', action: 'edit', id: item.id }, class: 'button is-small is-danger mt-2') do %>
       <i></i>
       <span><%= t('trade.my.items.edit.title') %></span>
     <% end if false && item.order.payment_status_unpaid? %>
