@@ -1,6 +1,7 @@
 module Trade
   class Order < ApplicationRecord
     include Model::Order
+    include Print::Order
     include Crm::Ext::Maintainable if defined? RailsCrm
     if defined? RailsAudit
       include Auditor::Ext::Discard
@@ -9,5 +10,13 @@ module Trade
     if defined? RailsNotice
       include Notice::Order
     end
+    if defined? RailsShip
+      include Ship::Ext::Order
+    end
+
+    def payment_memo_id
+      nil
+    end
+
   end
 end

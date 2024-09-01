@@ -37,7 +37,6 @@ module Trade
         done: 'done',
         canceled: 'canceled',
         expired: 'expired',
-        paid: 'paid',
         refund: 'refund'
       }, default: 'checked', prefix: true
 
@@ -94,7 +93,7 @@ module Trade
       scope :carting, -> { where(status: ['init', 'checked', 'trial']) }
       scope :checked, -> { where(status: ['checked', 'trial']) }
       scope :deliverable, -> { where(status: ['deliverable', 'packaged']) }
-      scope :packable, -> { where(status: ['paid']) }
+      scope :packable, -> { where(status: ['deliverable']) }
       scope :packaged, -> { where(status: ['packaged', 'done']) }
 
       acts_as_notify(
