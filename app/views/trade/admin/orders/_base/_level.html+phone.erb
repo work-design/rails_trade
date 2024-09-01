@@ -1,18 +1,18 @@
 <div class="fixed-grid has-3-cols px-3">
   <div class="grid">
-    <div class="cell is-box">
+    <div class="cell is-boxed">
       <div class="has-column-centered">
         <p class="size-7">未付总额</p>
         <strong><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></strong>
       </div>
     </div>
-    <div class="cell is-box">
+    <div class="cell is-boxed">
       <div class="has-column-centered">
         <p class="size-7">已收款</p>
         <strong><%= @orders.unscope(:limit, :offset).sum(:received_amount).to_money.format.html_safe %></strong>
       </div>
     </div>
-    <div class="cell is-box">
+    <div class="cell is-boxed">
       <div class="has-column-centered">
         <p class="size-7">订单数</p>
         <strong><%= @orders.total_count %></strong>
