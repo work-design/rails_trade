@@ -1,25 +1,23 @@
-<div class="box mx-3 p-0">
-  <%= link_to({ controller: 'ship/my/cart/addresses', cart_id: @cart.id }, class: 'media') do %>
-    <div class="media-left">
-      <i class="fa-solid fa-fw fa-location-dot text-danger pr-2"></i>
-    </div>
-    <div class="media-content">
-    <% if @cart.address %>
-      <p>
-        <span><%= @cart.address.contact %></span>
-        <span><%= @cart.address.tel %></span>
-      </p>
-      <p class="size-7">
-        <span><%= @cart.address.area.full_name %></span>
-        <span><%= @cart.address.station&.name %></span>
-        <span><%= @cart.address.detail %></span>
-      </p>
-    <% else %>
-      <p>选择地址</p>
-    <% end %>
-    </div>
-    <div class="media-right">
-      <i class="fa-solid fa-chevron-right"></i>
-    </div>
+<%= link_to({ controller: 'ship/my/cart/addresses', cart_id: @cart.id }, class: 'media is-boxed') do %>
+  <div class="media-left">
+    <i class="fa-solid fa-fw fa-location-dot text-danger pr-2"></i>
+  </div>
+  <div class="media-content">
+  <% if @cart.address %>
+    <p>
+      <span><%= @cart.address.contact %></span>
+      <span><%= @cart.address.tel %></span>
+    </p>
+    <p class="size-7">
+      <span><%= @cart.address.area.full_name %></span>
+      <span><%= @cart.address.station&.name %></span>
+      <span><%= @cart.address.detail %></span>
+    </p>
+  <% else %>
+    <p>选择地址</p>
   <% end %>
-</div>
+  </div>
+  <div class="media-right">
+    <i class="fa-solid fa-chevron-right"></i>
+  </div>
+<% end %>

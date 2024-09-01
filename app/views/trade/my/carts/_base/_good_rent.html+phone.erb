@@ -1,4 +1,4 @@
-<div class="media is-box">
+<div class="media is-boxed">
   <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'pr-2' do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <label class="weui-cells_checkbox">
