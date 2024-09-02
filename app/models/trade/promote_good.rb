@@ -1,6 +1,8 @@
 module Trade
   class PromoteGood < ApplicationRecord
     include Model::PromoteGood
-    include Crm::Ext::Maintainable if defined? RailsCrm
+    if defined? RailsCrm
+      include Crm::Ext::Maintainable
+    end
   end
 end
