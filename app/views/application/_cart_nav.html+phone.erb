@@ -1,8 +1,10 @@
 <div id="cart_nav" class="level is-mobile mb-0 py-2 has-border-top">
   <div class="level-left flex-direction-row pl-4">
-    <%= link_to({ controller: defined?(cart_con) ? cart_con : 'trade/my/carts', action: 'show', id: @cart.id }, class: 'level-item mb-0 fa-weui-badge') do %>
-      <i class="fa-solid fa-bag-shopping fa-2x"></i>
-      <span class="weui-badge"><%= @cart.items.count %></span>
+    <%= link_to({ controller: defined?(cart_con) ? cart_con : 'trade/my/carts', action: 'show', id: @cart.id }, class: 'level-item mb-0') do %>
+      <div class="fa-weui-badge">
+        <i class="fa-solid fa-fw fa-xl fa-bag-shopping"></i>
+        <span class="weui-badge"><%= @cart.items.count %></span>
+      </div>
     <% end %>
     <div class="level-item ml-4 align-items-baseline">
       <% if @cart.amount != @cart.item_amount %>
