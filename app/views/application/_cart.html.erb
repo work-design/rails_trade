@@ -8,6 +8,7 @@
         <i class="fa-solid fa-xl fa-circle-minus text-dark-grey"></i>
       </button>
     <% else %>
+      <span class="px-3 mr-1"></span>
       <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
         <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
       <% end %>
