@@ -22,7 +22,7 @@
 </div>
 
 <div class="box is-padding-less mx-3">
-  <div class="weui-panel__hd">充值</div>
+  <div class="box-header">充值</div>
   <div class="box-body">
     <div class="columns flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: @lawful_wallet.advances.without_card.order(amount: :asc), as: :advance, locals: { disabled: false } %>
