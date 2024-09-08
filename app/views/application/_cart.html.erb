@@ -32,7 +32,7 @@
     <%= f.hidden_field :desk_id %>
     <button type="submit" class="button is-small is-danger">
       <i class="fa-solid fa-cart-plus"></i>
-      <span class="ml-1"><%= t('.items.create.title') %></span>
+      <span class="ml-1"><%= t("#{item_con.tr('/', '.')}.create.title") %></span>
     </button>
   <% end %>
 <% end %>
