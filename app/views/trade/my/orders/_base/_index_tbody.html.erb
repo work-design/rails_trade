@@ -1,5 +1,5 @@
 <td>
-  <%= link_to model.uuid, { action: 'show', id: model.id } %>
+  <p class="size-0_9 family-monospace"><%= link_to model.uuid, { action: 'show', id: model.id } %></p>
 </td>
 <td><%= model.amount.to_money.format.html_safe %></td>
 <td>
