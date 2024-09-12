@@ -24,7 +24,7 @@
     <div class="weui-form-preview__item">
       <label class="weui-form-preview__label"><%= Trade::Hold.human_attribute_name(:rent_duration) %></label>
       <span class="weui-form-preview__value">
-        <time data-controller="count-up" data-count-up-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>" class="family-monospace text-danger"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
+        <time data-controller="time-count" data-time-count-time-value="<%= model.rent_start_at.to_fs(:iso8601) %>" class="family-monospace text-danger"><%= exact_distance_time(model.rent_start_at, Time.current) %></time>
       </span>
     </div>
     <div class="weui-form-preview__item">
