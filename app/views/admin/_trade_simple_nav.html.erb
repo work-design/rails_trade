@@ -1,4 +1,4 @@
-<div data-controller="menu empty" class="menu ex-accordion is-active">
+<div data-controller="menu" class="<%= role_permit?(business: 'trade', namespace: 'admin') ? 'menu ex-accordion is-active' : 'display-none' %>">
   <div class="menu-label">
     <div>
       <i class="fa-solid fa-fw fa-shopping-cart"></i>
@@ -8,7 +8,7 @@
       <i class="fa-solid fa-cog"></i>
     <% end %>
   </div>
-  <div data-empty-target="content" class="menu-list">
+  <div class="menu-list">
     <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
     <%= link_to t('trade.admin.items.index.title'), { controller: 'trade/admin/items' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'items', active: 'is-active') %>
   </div>
