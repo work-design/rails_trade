@@ -1,6 +1,12 @@
 <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="box as-bar">
-  <%= link_to({ controller: 'home' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+  <% if referer_controller == 'me/home' %>
+    <%= link_to({ controller: '/me/home' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% else %>
+    <%= link_to({ controller: 'home' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
   <% end %>
   <div class="weui-title"><%= t('.title') %></div>
   <i class="px-5"></i>
