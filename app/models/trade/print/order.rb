@@ -13,12 +13,19 @@ module Trade
       )
     end
 
-    def to_tspl
-      url = Rails.application.routes.url_for(controller: 'trade/my/orders', action: 'show', id: id, host: organ.host)
+    def qrcode_show_url
+      Rails.application.routes.url_for(
+        controller: 'trade/my/orders',
+        action: 'show',
+        id: id,
+        host: organ.host
+      )
+    end
 
+    def to_tspl
       ts = BaseTspl.new
       ts.bar(y: 0, height: 20)
-      ts.right_qrcode(url, y: 30, cell_width: 5)
+      ts.right_qrcode(qrcode_show_url, y: 30, cell_width: 5)
       ts.text(serial_str, font: 'TSS32.BF2', x: 10, y:30)
       ts.bar(height: 3, width: 250)
       items.limit(3).each do |item|
@@ -35,6 +42,15 @@ module Trade
       end
       ts.render
     end
+
+    def to_cpcl
+      cpcl = BaseCpcl.new
+      cpcl.text serial_str
+      cpcl.text "#{item.good.name} x #{item.number}"
+      cpcl.right_qrcode(qrcode_show_url)
+      cpcl.render
+    end
+
   end
 end
 
