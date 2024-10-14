@@ -11,15 +11,15 @@
 
 <%= render partial: 'items', locals: { model: @order } %>
 
-<div data-controller="empty" class="box mx-3">
-  <div class="weui-panel__hd">服务/促销</div>
+<div class="box mx-3">
+  <div class="box-header">服务/促销</div>
   <div data-empty-target="content" class="weui-panel__bd">
     <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
   </div>
 </div>
 
-<div data-controller="empty" class="box mx-3">
-  <div class="weui-panel__hd">支付</div>
+<div class="box mx-3">
+  <div class="box-header">支付</div>
   <div data-empty-target="content" class="weui-panel__bd">
     <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
   </div>

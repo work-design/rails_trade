@@ -11,7 +11,7 @@
 
 <%= render partial: 'items', locals: { model: @order } %>
 
-<div data-controller="empty" class="box mx-3">
+<div class="box mx-3">
   <strong>服务/促销</strong>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
 </div>

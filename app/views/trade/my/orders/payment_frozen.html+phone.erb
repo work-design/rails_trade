@@ -1,6 +1,6 @@
 <%= render 'order' %>
 
-<div class="weui-panel">
+<div class="box is-padding-less mx-3">
   <div class="weui-panel__bd">
     <div class="weui-media-box weui-media-box_small-appmsg">
       <div class="weui-cells">
@@ -17,13 +17,13 @@
 </div>
 
 <% if @order.all_paid? %>
-<div class="weui-panel">
+<div class="box is-padding-less mx-3">
   <div class="weui-panel__bd">
     <p class="p-4 text-centered">订单已完成支付</p>
   </div>
 </div>
 <% else %>
-<div class="weui-panel">
+<div class="box is-padding-less mx-3">
   <div class="weui-panel__bd">
     <div class="weui-cells">
       <%= render partial: 'wxpay' %>

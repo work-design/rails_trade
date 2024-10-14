@@ -2,8 +2,8 @@
   <%= render 'my/profile_item' %>
 </div>
 
-<div data-controller="empty" class="box mx-3">
-  <div class="weui-panel__hd">企业用餐</div>
+<div class="box mx-3">
+  <div class="box-header">企业用餐</div>
   <div class="weui-panel__bd">
     <div data-empty-target="content" class="weui-cells weui-cells_radio">
       <%= render partial: 'organs_cart', collection: @members, as: :model %>

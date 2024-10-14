@@ -6,7 +6,7 @@
       <i class="weui-icon-checked"></i>
     </label>
   <% end %>
-  <div data-controller="empty" class="media-left">
+  <div class="media-left">
   <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
     <%= image_tag model.good.logo, class: 'image is-64x64' %>
   <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>

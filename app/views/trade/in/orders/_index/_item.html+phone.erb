@@ -1,5 +1,5 @@
 <div id="item_<%= model.id %>" class="media">
-  <div class="media-left" data-controller="empty">
+  <div class="media-left">
     <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'image is-64x64' if item.good && item.good.logo&.attached? %>
     <% end %>
