@@ -43,11 +43,21 @@ module Trade
       ts.render
     end
 
-    def to_cpcl
+    def to_cpclx
       cpcl = BaseCpcl.new
       cpcl.text serial_str
       cpcl.right_qrcode(qrcode_show_url, y: 20)
-      cpcl.render
+      cpcl.render.bytes
+    end
+
+    def to_cpcl
+      long = ('0'..'z').to_a.join
+      long.chars_step.map do |str|
+        cpcl = BaseCpcl.new
+        cpcl.text str
+        cpcl.right_qrcode(str, y: 20)
+        cpcl.render.bytes
+      end
     end
 
   end

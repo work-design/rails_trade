@@ -113,7 +113,7 @@ module Trade
     end
 
     def print_data
-      render json: @order.to_cpcl.bytes
+      render json: @order.to_cpcl
     end
 
     def print
