@@ -43,7 +43,7 @@ module Trade
       ts.render
     end
 
-    def to_cpclx
+    def to_cpclz
       cpcl = BaseCpcl.new
       cpcl.text serial_str
       cpcl.right_qrcode(qrcode_show_url, y: 20)
@@ -51,13 +51,10 @@ module Trade
     end
 
     def to_cpcl
-      long = ('0'..'z').to_a.join
-      long.chars_step.map do |str|
-        cpcl = BaseCpcl.new
-        cpcl.text str
-        cpcl.right_qrcode(str, y: 20)
-        cpcl.render.bytes
-      end
+      cpcl = BaseCpcl.new
+      cpcl.text note
+      cpcl.right_qrcode(note, y: 40)
+      cpcl.render.bytes
     end
 
   end
