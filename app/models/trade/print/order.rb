@@ -46,7 +46,7 @@ module Trade
     def to_cpcl
       cpcl = BaseCpcl.new
       cpcl.text serial_str
-      cpcl.right_qrcode(note, y: 20)
+      cpcl.right_qrcode(qrcode_show_url, y: 20)
       cpcl.render
     end
 
