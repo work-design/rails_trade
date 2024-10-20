@@ -19,7 +19,7 @@
     </button>
   </div>
 <% else %>
-  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: item.cart_identity, class: 'button_to' do |f| %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_new_#{item.cart_identity}", class: 'button_to' do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
     <%= f.hidden_field :good_type %>
     <%= f.hidden_field :good_id %>
@@ -30,7 +30,7 @@
     <%= f.hidden_field :desk_id %>
     <button type="submit" name="partial" value="cart_new" class="button is-small is-warning is-rounded">
       <i class="fa-solid fa-cart-plus"></i>
-      <span class="ml-1">加入购物车</span>
+      <span class="ml-1">加入购物车11</span>
     </button>
   <% end %>
 <% end %>
