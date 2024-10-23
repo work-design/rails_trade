@@ -116,7 +116,7 @@ module Trade
     end
 
     def cart_items
-      items.includes(:item_promotes, :good).select(&:persisted?)
+      items.includes(:item_promotes, :good).order(id: :asc).select(&:persisted?)
     end
 
     def checked_items
