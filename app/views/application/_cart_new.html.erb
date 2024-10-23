@@ -2,7 +2,7 @@
   <div id="cart_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="inline-flex align-items-center" style="width: fit-content">
     <div class="mr-3 text-danger"><%= item.amount.to_money.format.html_safe %></div>
     <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, partial: ['cart_new', 'cart_add'] }, form: { class: 'button_to mr-1' }) do %>
-      <i class="fa-solid fa-xl fa-circle-xmark"></i>
+      <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
     <% end %>
     <% if item.number > 1 %>
       <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
