@@ -1,13 +1,13 @@
 <% if item.persisted? %>
   <div id="cart_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="inline-flex align-items-center" style="width: fit-content">
     <div class="mr-3 text-danger"><%= item.amount.to_money.format.html_safe %></div>
-    <% if item.persisted? %>
-      <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, partial: 'cart_new' }, form: { class: 'button_to mr-1' }) do %>
-        <i class="fa-solid fa-xl fa-circle-xmark"></i>
-      <% end %>
+    <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, partial: 'cart_new' }, form: { class: 'button_to mr-1' }) do %>
+      <i class="fa-solid fa-xl fa-circle-xmark"></i>
     <% end %>
-    <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
-      <i class="fa-solid fa-xl fa-circle-minus text-grey"></i>
+    <% if item.number > 1 %>
+      <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
+        <i class="fa-solid fa-xl fa-circle-minus text-grey"></i>
+      <% end %>
     <% end %>
     <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
