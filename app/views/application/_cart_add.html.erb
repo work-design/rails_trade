@@ -1,0 +1,20 @@
+<% if item.persisted? %>
+  <div id="cart_add_<%= item.cart_identity %>" class="inline-flex align-items-center" style="width: fit-content">
+    <button class="button_to ml-1">已在购物车</button>
+  </div>
+<% else %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_add_#{item.cart_identity}", class: 'button_to' do |f| %>
+    <%= f.hidden_field :current_cart_id, value: cart.id %>
+    <%= f.hidden_field :good_type %>
+    <%= f.hidden_field :good_id %>
+    <%= f.hidden_field :dispatch %>
+    <%= f.hidden_field :produce_on %>
+    <%= f.hidden_field :scene_id %>
+    <%= f.hidden_field :station_id %>
+    <%= f.hidden_field :desk_id %>
+    <button type="submit" name="partial" value="cart_add" class="button is-small is-warning is-rounded">
+      <i class="fa-solid fa-cart-plus"></i>
+      <span class="ml-1">加入购物车</span>
+    </button>
+  <% end %>
+<% end %>
