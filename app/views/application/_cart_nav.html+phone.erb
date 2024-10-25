@@ -8,7 +8,7 @@
     <% end %>
     <div class="level-item align-items-baseline">
       <% if @cart.amount != @cart.item_amount %>
-        <del class="text-grey"><%= @cart.item_amount.to_money.format.html_safe %></del>
+        <del class="text-grey ml-4"><%= @cart.item_amount.to_money.format.html_safe %></del>
       <% end %>
       <span class="ml-2"><%= @cart.amount.to_money.format.html_safe %></span>
     </div>
