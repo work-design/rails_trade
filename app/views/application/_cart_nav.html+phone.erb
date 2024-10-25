@@ -6,7 +6,7 @@
         <span class="weui-badge"><%= @cart.items.count %></span>
       </div>
     <% end %>
-    <div class="level-item ml-4 align-items-baseline">
+    <div class="level-item align-items-baseline">
       <% if @cart.amount != @cart.item_amount %>
         <del class="text-grey"><%= @cart.item_amount.to_money.format.html_safe %></del>
       <% end %>
