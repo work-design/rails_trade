@@ -25,9 +25,9 @@
       </p>
       <% end %>
       <% if item.desk.present? %>
-      <p>
-        <strong><%= item.desk.name %></strong>
-      </p>
+        <%= link_to({ controller: 'items', desk_id: item.desk_id }) do %>
+          <span class="tag"><%= item.desk.name %></span>
+        <% end %>
       <% end %>
     </div>
   </div>
