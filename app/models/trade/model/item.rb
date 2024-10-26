@@ -204,6 +204,10 @@ module Trade
       ['init', 'checked', 'trial', 'expired'].include?(status)
     end
 
+    def changeable?
+      ['ordered'].include?(status)
+    end
+
     def init_uuid
       self.uuid = UidHelper.nsec_uuid('ITEM')
     end
