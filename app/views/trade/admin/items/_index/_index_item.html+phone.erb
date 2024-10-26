@@ -8,6 +8,6 @@
 </p>
 <p class="text-grey">
   <span><%= model.single_price.to_money.format.html_safe %></span>
-  <span><%= model.original_amount.to_money.format.html_safe %></span>
+  <span><%= model.amount.to_money.format.html_safe %></span>
 </p>
 <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
