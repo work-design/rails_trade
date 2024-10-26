@@ -1,7 +1,9 @@
 # RailsTrade
 
 [![测试](https://github.com/work-design/rails_trade/actions/workflows/test.yml/badge.svg)](https://github.com/work-design/rails_trade/actions/workflows/test.yml)
-[![Docker构建](https://github.com/work-design/rails_trade/actions/workflows/cd.yml/badge.svg)](https://github.com/work-design/rails_trade/actions/workflows/cd.yml)
+
+[![Engine汇总](https://github.com/work-design/rails_trade/actions/workflows/git.yml/badge.svg)](https://github.com/work-design/rails_trade/actions/workflows/git.yml)
+
 [![Gem](https://github.com/work-design/rails_trade/actions/workflows/gempush.yml/badge.svg)](https://github.com/work-design/rails_trade/actions/workflows/gempush.yml)
 
 处理订单、支付（退款）、促销、附加服务（运费）策略；

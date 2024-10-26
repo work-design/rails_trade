@@ -6,7 +6,7 @@
   <% end %>
   <% if ['rent', 'invest'].include?(model.aim) %>
     <span class="tag"><%= model.aim_i18n %></span>
-  <% end %>  
+  <% end %>
 </p>
 <p class="text-grey">
   <span><%= model.single_price.to_money.format.html_safe %></span>
