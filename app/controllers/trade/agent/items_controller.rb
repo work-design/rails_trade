@@ -9,7 +9,7 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:good_id, :desk_id)
 
-      @items = current_member.agent_items.includes(:organ).default_where(q_params).page(params[:page])
+      @items = current_member.agent_items.includes(:organ).default_where(q_params).order(order_id: :desc).page(params[:page])
     end
 
     private
