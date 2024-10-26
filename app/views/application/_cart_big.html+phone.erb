@@ -7,12 +7,12 @@
     <% end %>
     <div class="has-column-centered xx ml-1">
       <% if item.number > 1 %>
-        <button data-action="modify#minus" class="button is-light is-danger" style="width: 60px">
+        <button data-action="modify#minus" class="button is-small is-light is-danger" style="width: 60px">
           <i class="fa-solid fa-minus"></i>
           <span></span>
         </button>
       <% else %>
-        <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'partial[]': 'cart_big' }, class: 'button is-light is-danger', style: 'width: 60px') do %>
+        <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'partial[]': 'cart_big' }, class: 'button is-small is-light is-danger', style: 'width: 60px') do %>
           <i class="fa-solid fa-minus text-grey"></i>
         <% end %>
       <% end %>
