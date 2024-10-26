@@ -1,0 +1,14 @@
+<div class="mx-3 py-2">
+  <div class="flex">
+    <span><%= model.uuid %></span>
+  </div>
+  <div class="flex">
+    <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
+    <% if model.agent %>
+      <div class="tags has-addons">
+        <span class="tag text-grey">下单人</span>
+        <span class="tag is-warning"><%= model.agent.name %></span>
+      </div>
+    <% end %>
+  </div>
+</div>
