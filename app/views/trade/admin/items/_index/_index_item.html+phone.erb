@@ -1,10 +1,12 @@
 <p>
-<% if model.good %>
-  <%= link_to model.good.name, { action: 'show', id: model.id } %>
-<% else %>
-  <span><%= model.good_name %></span>
-<% end %>
-  <span class="tag"><%= model.aim_i18n %></span>
+  <% if model.good %>
+    <%= link_to model.good.name, { action: 'show', id: model.id } %>
+  <% else %>
+    <span><%= model.good_name %></span>
+  <% end %>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag"><%= model.aim_i18n %></span>
+  <% end %>  
 </p>
 <p class="text-grey">
   <span><%= model.single_price.to_money.format.html_safe %></span>
