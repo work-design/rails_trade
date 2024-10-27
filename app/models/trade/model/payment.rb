@@ -156,6 +156,7 @@ module Trade
     def confirm!(params = {})
       self.assign_detail params
       self.class.transaction do
+        payment_orders.each { |i| i.state = 'confirmed' }
         payment_orders.each(&->(i){ i.order.save! })
         self.save!
       end
