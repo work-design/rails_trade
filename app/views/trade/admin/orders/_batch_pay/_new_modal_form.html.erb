@@ -1,0 +1,13 @@
+<%= form_with theme: 'modal', model: @payment, url: { controller: 'scan_payments', action: 'create' } do |f| %>
+  <%= render 'modal_header' %>
+  <section class="modal-card-body">
+    <%= f.hidden_field :type %>
+    <%= f.fields :payment_orders do |ef| %>
+      <%= ef.number_field :order_amount, readonly: true %>
+      <%= ef.hidden_field :state %>
+      <%= ef.hidden_field :order_id %>
+    <% end %>
+    <%= text_field_tag :result, nil, autocomplete: 'off', autofocus: true, class: 'input' %>
+  </section>
+  <%= f.submit %>
+<% end %>

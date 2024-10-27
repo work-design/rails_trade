@@ -90,6 +90,7 @@ Rails.application.routes.draw do
           get :unpaid
           delete :batch_destroy
           post :batch_paid
+          post :batch_pay
           get :new_simple
         end
         member do
@@ -321,6 +322,7 @@ Rails.application.routes.draw do
           collection do
             delete :batch_destroy
             post :batch_paid
+            post :batch_pay
           end
           member do
             match :edit_organ, via: [:get, :post]

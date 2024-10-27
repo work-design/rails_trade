@@ -55,7 +55,7 @@ module Trade
         self.payment_amount = self.order_amount
       end
 
-      payment.total_amount = self.payment_amount
+      payment.total_amount = payment.total_amount.to_d + self.payment_amount
       payment.checked_amount += self.payment_amount if ['confirmed'].include?(state)
       update_order_received_amount if ['pending', 'confirmed'].include?(state)
     end

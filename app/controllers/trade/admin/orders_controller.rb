@@ -56,6 +56,16 @@ module Trade
       end
     end
 
+    def batch_pay
+      orders = Order.where(id: params[:ids].split(',')).map do |order|
+        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
+      end
+
+      @payment = ScanPayment.new(
+        payment_orders_attributes: orders
+      )
+    end
+
     def new_simple
     end
 

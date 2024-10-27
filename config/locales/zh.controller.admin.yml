@@ -65,6 +65,8 @@ zh:
           title: 批量删除
         batch_paid:
           title: 支付
+        batch_pay:
+          title: 微信支付
       items:
         index:
           title: 售出产品
