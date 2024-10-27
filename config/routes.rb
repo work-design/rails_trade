@@ -139,6 +139,7 @@ Rails.application.routes.draw do
         collection do
           get :purchase
           get :produce
+          get 'desk/:desk_id' => :desk
           post :trial
           post :batch_purchase
         end
