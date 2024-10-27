@@ -6,16 +6,16 @@
       <span class="ml-1"><%= t('.batch_paid.title') %></span>
     <% end %>
   <% end %>
-  <%= form_with url: { action: 'batch_paid' }, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to display-none' do |f| %>
+  <%= form_with url: { action: 'batch_destroy' }, method: :delete, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to display-none' do |f| %>
     <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
-    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-success' do %>
-      <i class="fa-solid fa-cash-register"></i>
-      <span class="ml-1"><%= t('.batch_paid.title') %></span>
+    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-danger' do %>
+      <i class="fa-solid fa-trash-can"></i>
+      <span class="ml-1"><%= t('.batch_destroy.title') %></span>
     <% end %>
   <% end %>
   <%= form_with url: { action: 'batch_pay' }, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to display-none' do |f| %>
     <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
-    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-danger' do %>
+    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-warning' do %>
       <i class="fa-brands fa-weixin"></i>
       <span class="ml-1"><%= t('.batch_pay.title') %></span>
     <% end %>
