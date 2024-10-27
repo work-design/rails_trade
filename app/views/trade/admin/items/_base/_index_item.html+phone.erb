@@ -8,8 +8,9 @@
     <span class="tag"><%= model.aim_i18n %></span>
   <% end %>
 </p>
-<p class="text-grey">
-  <span><%= model.single_price.to_money.format.html_safe %></span>
-  <span><%= model.amount.to_money.format.html_safe %></span>
+<p>
+  <span class="text-danger"><%= model.single_price.to_money.format.html_safe %></span>
+  <span class="text-grey">x</span>
+  <span><%= model.number %></span>
 </p>
 <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
