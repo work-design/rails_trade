@@ -155,6 +155,12 @@ Rails.application.routes.draw do
         end
         resources :holds
       end
+      resources :refunds, except: [:new, :create] do
+        member do
+          patch :confirm
+          patch :deny
+        end
+      end
     end
 
     namespace :trade, defaults: { business: 'trade' } do
@@ -267,12 +273,7 @@ Rails.application.routes.draw do
             get :options
           end
         end
-        resources :refunds, except: [:new, :create] do
-          member do
-            patch :confirm
-            patch :deny
-          end
-        end
+
         resources :card_templates do
           collection do
             get :advance_options
