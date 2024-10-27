@@ -1,4 +1,4 @@
-<%= f.number_field :total_amount, step: Trade::Payment.total_amount_step, required: true %>
+<%= f.number_field :total_amount, step: Trade::Payment.total_amount_step, required: true, autofocus: true %>
 <%= f.number_field :fee_amount, step: '0.01' %>
 <%= f.number_field :income_amount, step: '0.01' %>
 <%= f.text_field :buyer_name %>
