@@ -1,5 +1,5 @@
 <td>
-  <%= button_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id } %>
+  <%= button_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id }, class: 'family-monospace' %>
 </td>
 <td>
   <% if model.state_confirmed? %>
