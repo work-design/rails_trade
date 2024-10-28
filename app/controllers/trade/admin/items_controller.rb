@@ -41,7 +41,7 @@ module Trade
         status: ['init', 'checked', 'ordered']
       }
       q_params.merge! default_params
-      q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
+      q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status)
 
       @desk = Space::Desk.default_where(default_params).find params[:desk_id]
       @items = Item.includes(:user, :item_promotes, :order).where.not(order_id: nil).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
