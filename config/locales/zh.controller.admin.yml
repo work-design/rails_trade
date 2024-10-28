@@ -70,6 +70,8 @@ zh:
       items:
         index:
           title: 售出产品
+        desk:
+          title: 点单详情
         carts:
           title: 所在购物车
         compute:
