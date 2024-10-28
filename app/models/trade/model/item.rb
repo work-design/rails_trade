@@ -91,6 +91,7 @@ module Trade
       has_one_attached :image
 
       scope :carting, -> { where(status: ['init', 'checked', 'trial']) }
+      scope :todo, -> { where(status: ['init', 'checked', 'trial', 'ordered']) }
       scope :checked, -> { where(status: ['checked', 'trial']) }
       scope :deliverable, -> { where(status: ['deliverable', 'packaged']) }
       scope :packable, -> { where(status: ['deliverable']) }
