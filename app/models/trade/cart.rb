@@ -8,7 +8,7 @@ module Trade
       include Crm::Ext::Maintainable
     end
     if defined? RailsSpace
-      include Space::Ext::Item
+      include Space::Ext::Cart
     end
   end
 end
