@@ -22,7 +22,7 @@
     <div class="field has-addons">
       <div class="control">
         <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, method: :patch, class: 'button_to' do |f| %>
-          <%= hidden_field_tag :partial, 'item' %>
+          <%= hidden_field_tag 'partial[]', 'item' %>
           <%= f.hidden_field :current_cart_id, value: cart.id %>
           <%= f.hidden_field :number, value: item.number - 1 %>
           <%= button_tag class: 'button' do %>
@@ -32,14 +32,14 @@
       </div>
       <div class="control">
         <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, data: { controller: 'input' } do |f| %>
-          <%= hidden_field_tag :partial, 'item' %>
+          <%= hidden_field_tag 'partial[]', 'item' %>
           <%= f.hidden_field :current_cart_id, value: cart.id %>
           <%= f.number_field :number, value: item.number.to_human, step: 1, data: { action: 'input#form' }, class: 'input text-centered', id: nil %>
         <% end %>
       </div>
       <div class="control">
         <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, method: :patch, class: 'button_to' do |f| %>
-          <%= hidden_field_tag :partial, 'item' %>
+          <%= hidden_field_tag 'partial[]', 'item' %>
           <%= f.hidden_field :number, value: item.number + 1 %>
           <%= f.hidden_field :current_cart_id, value: cart.id %>
           <%= button_tag class: 'button is-link' do %>
