@@ -1,0 +1,28 @@
+<td><%= check_box_tag 'xxz', model.id, false, id: nil %></td>
+<td colspan="2">
+  <%= button_to model.uuid, { controller: 'orders', action: 'show', id: model.id }, text: true, class: 'family-monospace text-link' %>
+  <span class="tag is-success"><%= model.state_i18n %></span>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag is-info"><%= model.aim_i18n %></span>
+  <% end %>
+  <span class="tag is-warning"><%= model.payment_status_i18n %></span>
+  <% if model.payment_strategy %>
+    <div class="tags has-addons mt-1">
+      <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+      <span class="tag"><%= model.payment_strategy.from_pay_i18n %></span>
+    </div>
+  <% end %>
+</td>
+<td><%= model.amount.to_money.format.html_safe %></td>
+<td></td>
+<td>
+  <p><%# link_to model.user_name, { action: 'user', user_id: model.user_id } if model.user_id %></p>
+  <p>
+  <% if model&.member %>
+    <span><%= model.member.name %></span>
+    <span class="text-grey">（<%= model.member_organ.name %>）</span>
+  <% end %>
+  </p>
+</td>
+<td></td>
+<td></td>

@@ -1,0 +1,9 @@
+<div class="buttons are-small">
+  <%= form_with url: { controller: 'orders', action: 'batch_pay' }, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to display-none' do |f| %>
+    <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
+    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-warning' do %>
+      <i class="fa-brands fa-weixin"></i>
+      <span class="ml-1"><%= t('.orders.batch_pay.title') %></span>
+    <% end %>
+  <% end %>
+</div>
