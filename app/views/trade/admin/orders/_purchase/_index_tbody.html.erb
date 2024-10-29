@@ -28,7 +28,6 @@
 <td>
   <%= f.number_field :single_price, value: model.single_price, form: 'new_order' %>
 </td>
-<td><%= model.original_amount.to_money.format.html_safe %></td>
 <td>
   <p><%= model.additional_amount.to_money.format.html_safe %></p>
   <p><%= model.reduced_amount.to_money.format.html_safe %></p>
