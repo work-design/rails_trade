@@ -41,7 +41,7 @@ module Trade
     def result
       return self if self.payment_status == 'all_paid'
 
-      result = Alipay::Service.trade_query out_trade_no: self.uuid
+      result = app.api.trade_query out_trade_no: self.uuid
       result = JSON.parse(result)
       result = result['alipay_trade_query_response']
 
