@@ -21,7 +21,7 @@ module Trade
     end
 
     def alipay_prepay
-      Alipay2::Service.trade_app_pay_params(
+      Alipay::Service.trade_app_pay_params(
         subject: self.subject,
         out_trade_no: self.uuid,
         total_amount: self.total_amount.to_s
@@ -29,7 +29,7 @@ module Trade
     end
 
     def url(return_url: url_helpers.wait_my_order_url(self.id), notify_url: url_helpers.alipay_notify_payments_url)
-      Alipay2::Service.trade_page_pay(
+      Alipay::Service.trade_page_pay(
         { subject: subject, out_trade_no: uuid, total_amount: amount.to_s },
         { return_url: return_url, notify_url: notify_url }
       )
@@ -39,7 +39,7 @@ module Trade
     def result
       return self if self.payment_status == 'all_paid'
 
-      result = Alipay2::Service.trade_query out_trade_no: self.uuid
+      result = Alipay::Service.trade_query out_trade_no: self.uuid
       result = JSON.parse(result)
       result = result['alipay_trade_query_response']
 
