@@ -3,6 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      belongs_to :app, class_name: 'Alipay::App', foreign_key: :appid, primary_key: :appid, optional: true
+
       has_many :refunds, class_name: 'AlipayRefund', foreign_key: :payment_id
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
