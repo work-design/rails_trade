@@ -1,6 +1,7 @@
 module Trade
   class Admin::ScanPaymentsController < Admin::BaseController
-    before_action :set_new_scan_payment, only: [:new, :create]
+    before_action :set_new_scan_payment, only: [:new]
+    before_action :set_new_payment, only: [:create]
     skip_before_action :require_org_member, only: [:new, :create] if whether_filter(:require_org_member)
     skip_before_action :require_role, only: [:new, :create] if whether_filter(:require_role)
 
@@ -12,21 +13,35 @@ module Trade
     end
 
     def create
-      auth_code = params[:result].split(',')[-1]
-
-      if current_payee
-        @scan_payment.operator = current_user
-        @scan_payment.seller_identifier = current_payee.mch_id
-        @scan_payment.appid = current_payee.payee_apps[0]&.appid
-        @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
-      else
-        head :ok
-      end
+      @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
+      head :ok
     end
 
     private
     def set_new_scan_payment
       @scan_payment = ScanPayment.new(scan_payment_params)
+    end
+
+    def set_new_payment
+      if auth_code.start_with?('25', '26', '27', '28', '29', '30', 'fp') && current_alipay_app
+        @scan_payment = AlipayPayment.new(scan_payment_params)
+        @scan_payment.appid = current_alipay_app
+      elsif current_payee
+        @scan_payment = ScanPayment.new(scan_payment_params)
+        @scan_payment.seller_identifier = current_payee.mch_id
+        @scan_payment.appid = current_payee.payee_apps[0]&.appid
+      end
+      @scan_payment.operator = current_user
+      @scan_payment
+    end
+
+    def auth_code
+      params[:result].split(',')[-1]
+    end
+
+    def current_alipay_app
+      return @current_alipay_app if defined? @current_alipay_app
+      @current_alipay_app = Alipay::App.default_where(default_params).take
     end
 
     def scan_payment_params

@@ -22,8 +22,18 @@ module Trade
       self.seller_identifier = params['store_id'].to_s + params['terminal_id'].to_s
     end
 
+    def micro_pay!(auth_code:, scene: 'bar_code', **options)
+      app.api.trade_pay(
+        out_trade_no: uuid,
+        total_amount: total_amount.to_s,
+        subject: good_desc,
+        auth_code: auth_code,
+        scene: scene
+      )
+    end
+
     def alipay_prepay
-      Alipay::Service.trade_app_pay_params(
+      app.api.trade_app_pay_params(
         subject: self.subject,
         out_trade_no: self.uuid,
         total_amount: self.total_amount.to_s
