@@ -11,25 +11,35 @@ module Trade
     end
 
     def assign_detail(params)
-      self.buyer_identifier = params['buyer_login_id']
-      self.pay_status = params['trade_status']
-
+      self.payment_uuid = params['trade_no']
+      self.notified_at = params['gmt_payment']
+      self.buyer_identifier = params['buyer_logon_id']
       self.total_amount = params['total_amount']
       self.income_amount = params['receipt_amount']
-
-      self.notified_at = params['send_pay_date']
-
-      self.seller_identifier = params['store_id'].to_s + params['terminal_id'].to_s
+      self.extra = params.slice(
+        'out_trade_no',
+        'point_amount',
+        'invoice_amount',
+        'buyer_open_id',
+        'buyer_pay_amount',
+        'fund_bill_list'
+      )
     end
 
     def micro_pay!(auth_code:, scene: 'bar_code', **options)
-      app.api.trade_pay(
-        out_trade_no: uuid,
+      r = app.api.trade_pay(
+        out_trade_no: payment_uuid,
         total_amount: total_amount.to_s,
         subject: good_desc,
         auth_code: auth_code,
-        scene: scene
+        scene: scene,
+        debug: true
       )
+      if r['total_amount'].present?
+        confirm!(r)
+      else
+        logger.debug "\e[35m  scan pay result: #{r}  \e[0m"
+      end
     end
 
     def alipay_prepay

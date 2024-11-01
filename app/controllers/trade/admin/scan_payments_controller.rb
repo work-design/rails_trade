@@ -25,7 +25,7 @@ module Trade
     def set_new_payment
       if auth_code.start_with?('25', '26', '27', '28', '29', '30', 'fp') && current_alipay_app
         @scan_payment = AlipayPayment.new(scan_payment_params)
-        @scan_payment.appid = current_alipay_app
+        @scan_payment.appid = current_alipay_app.appid
       elsif current_payee
         @scan_payment = ScanPayment.new(scan_payment_params)
         @scan_payment.seller_identifier = current_payee.mch_id
