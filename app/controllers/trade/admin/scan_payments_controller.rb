@@ -14,7 +14,6 @@ module Trade
 
     def create
       @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
-      head :ok
     end
 
     private
