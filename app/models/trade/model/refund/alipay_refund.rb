@@ -10,7 +10,7 @@ module Trade
         refund_amount: self.total_amount.to_s,
         out_request_no: self.refund_uuid
       }
-      res = payment.app.api.trade_refund(refund_params)
+      res = payment.app.api.trade_refund(**refund_params)
 
       if res['trade_no'].present?
         self.refund_uuid = res['trade_no']
