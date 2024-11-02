@@ -2,20 +2,18 @@
 module Trade
   module Model::Refund::AlipayRefund
 
-    def do_refund(params = {})
+    def do_refund
       return unless can_refund?
 
       refund_params = {
-        out_trade_no: order.uuid,
+        trade_no: payment.payment_uuid,
         refund_amount: self.total_amount.to_s,
         out_request_no: self.refund_uuid
       }
+      res = payment.app.api.trade_refund(refund_params)
 
-      refund_res = Alipay::Service.trade_refund(refund_params)
-      refund = JSON.parse(refund_res).fetch('alipay_trade_refund_response', {})
-
-      if refund['code'] == '10000' || refund['msg'] == 'Success'
-        self.refund_uuid = refund['trade_no']
+      if res['trade_no'].present?
+        self.refund_uuid = res['trade_no']
         self.state = 'completed'
         self.refunded_at = Time.current
       else
@@ -23,7 +21,7 @@ module Trade
         self.state = 'failed'
       end
 
-      refund
+      self.save
     end
 
   end

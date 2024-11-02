@@ -136,6 +136,7 @@ zh:
           Trade::WalletRefund: 钱包退款
           Trade::WxpayRefund: 微信退款
           Trade::HandRefund: 后台退款
+          Trade::AlipayRefund: 支付宝退款
       trade/unit:
         metering:
           weight: 重量
