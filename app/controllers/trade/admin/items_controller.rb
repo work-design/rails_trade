@@ -123,6 +123,7 @@ module Trade
     def item_params
       params.fetch(:item, {}).permit(
         :number,
+        :desk_id,
         :rent_estimate_finish_at
       )
     end
