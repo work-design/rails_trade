@@ -70,7 +70,7 @@ zh:
           Crm::Source: 客户来源
         status:
           init: 初始状态
-          checked: 已选中
+          checked: 待下单
           ordered: 已下单
           deliverable: 可交付
           packaged: 已打包
