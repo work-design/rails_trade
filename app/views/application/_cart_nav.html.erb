@@ -16,7 +16,7 @@
     <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-small is-primary is-radius right-badge') do %>
       <span class="pr-1">去购物车</span>
       <i class="fa-solid fa-angle-right"></i>
-      <span class="weui-badge" style="right: -15px"><%= cart.cart_items.count %></span>
+      <span class="weui-badge"><%= cart.cart_items.count %></span>
     <% end %>
     <div><%= cart.item_amount.to_money.format.html_safe %></div>
   </div>
