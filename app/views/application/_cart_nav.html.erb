@@ -1,6 +1,6 @@
-<div id="cart_nav">
+<div class="box" id="cart_nav">
   <% cart.cart_items.each do |item| %>
-    <div data-id="<%= item.id %>" class="flex justify-content-space-between align-items-center mt-2 pr-3">
+    <div data-id="<%= item.id %>" class="flex justify-content-space-between align-items-center mt-2">
       <div class="is-several">
         <%= image_tag item.good.logo, class: 'image is-32x32' if item.good.logo.attached? %>
         <span><%= item.good_name %></span>
@@ -12,7 +12,7 @@
       </div>
     </div>
   <% end %>
-  <div class="flex justify-content-space-between align-items-center mt-6 pr-3">
+  <div class="flex justify-content-space-between align-items-center mt-6">
     <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-small is-primary is-radius right-badge') do %>
       <span class="pr-1">去购物车</span>
       <i class="fa-solid fa-angle-right"></i>
