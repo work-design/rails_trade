@@ -1,0 +1,6 @@
+<li>
+<% if @cart.good_type == 'Factory::Production' %>
+  <%= link_to t('factory.agent.productions.index.title'), { controller: 'factory/agent/productions', desk_id: @cart.desk_id } %>
+<% end %>
+</li>
+<li class="is-active"><%= t('.title') %></li>
