@@ -31,7 +31,7 @@ module Trade
     end
 
     def compute_amount
-      self.amount = self.promote_charge.final_price(original_amount)
+      self.amount = self.promote_charge.final_price(original_amount, unit_price: unit_price)
     end
 
   end
