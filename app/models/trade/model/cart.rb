@@ -120,7 +120,7 @@ module Trade
     end
 
     def checked_items
-      items.includes(:item_promotes, :good).select(&:effective?)
+      items.select(&:effective?)
     end
 
     def checked_all_items
