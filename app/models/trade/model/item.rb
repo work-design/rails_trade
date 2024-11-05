@@ -67,7 +67,7 @@ module Trade
       belongs_to :from_address, class_name: 'Ship::Address', optional: true
 
       belongs_to :good, polymorphic: true, optional: true
-      belongs_to :current_cart, class_name: 'Cart', optional: true  # 下单时的购物车
+      belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 下单时的购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
       belongs_to :source, class_name: self.name, counter_cache: :purchase_items_count, optional: true
       belongs_to :unit, optional: true
@@ -345,20 +345,21 @@ module Trade
 
     def do_compute_promotes(metering_attributes = attributes.slice(*PROMOTE_COLUMNS))
       unavailable_ids = unavailable_promote_goods.map(&:promote_id)
+      r = []
 
-      r = promote_goods.includes(:promote).where.not(promote_id: unavailable_ids).map do |promote_good|
+      promote_goods.includes(:promote).where.not(promote_id: unavailable_ids).each do |promote_good|
         value = metering_attributes[promote_good.promote.metering]
         promote_charge = promote_good.promote.compute_charge(value, **extra)
-        next unless promote_charge
 
-        ip = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_good_id: promote_good.id, promote_charge_id: promote_charge.id)
-        ip.value = value
-        ip.original_amount = amount
-        ip.unit_price = single_price
-        ip
+        if promote_charge
+          ip = item_promotes.find(&->(i){ i.promote_id == promote_good.promote_id }) || item_promotes.build(promote_good_id: promote_good.id, promote_charge_id: promote_charge.id)
+          ip.value = value
+          ip.original_amount = amount
+          ip.unit_price = single_price
+          r << ip
+        end
       end
 
-      r.compact!
       r
     end
 
