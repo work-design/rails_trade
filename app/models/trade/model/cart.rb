@@ -120,7 +120,9 @@ module Trade
     end
 
     def checked_items
-      items.select(&:effective?)
+      r = items.select(&:effective?)
+      ActiveRecord::Associations::Preloader.new(records: r, associations: [:item_promotes, :good]).call
+      r
     end
 
     def checked_all_items
