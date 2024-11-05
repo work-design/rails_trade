@@ -35,6 +35,7 @@ module Trade
           cart_promotes.destroy(cart_promote)
         end
       end
+      logger.debug "\e[35m  Compute Promote: #{_avail.map(&:id)}  \e[0m"
       self.changes
     end
 
