@@ -23,7 +23,7 @@ module Trade
       validates :amount, presence: true
 
       after_initialize :sync_promote, if: -> { new_record? && promote_good_id_changed? }
-      after_initialize :compute_amount, if: -> { value_changed? }
+      after_initialize :compute_amount, if: -> { (['value', 'original_amount'] & changes.keys).present? }
     end
 
     def sync_promote

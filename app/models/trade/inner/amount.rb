@@ -38,15 +38,6 @@ module Trade
       self.changes
     end
 
-    def available_item_promotes
-      r = []
-      checked_items.each do |checked_item|
-        r += checked_item.item_promotes
-      end
-
-      r
-    end
-
     def reset_amount
       self.compute_amount
       self.valid?

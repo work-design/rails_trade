@@ -133,6 +133,15 @@ module Trade
       checked_items.pluck(:id)
     end
 
+    def available_item_promotes
+      r = []
+      checked_items.each do |checked_item|
+        r += checked_item.item_promotes
+      end
+
+      r
+    end
+
     def support_deposit?
       deposit_ratio < 100 && deposit_ratio > 0
     end
