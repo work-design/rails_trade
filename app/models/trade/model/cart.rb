@@ -116,7 +116,10 @@ module Trade
     end
 
     def cart_items
-      items.includes(:item_promotes, :good).order(id: :asc).select(&:persisted?)
+      r = items.select(&:persisted?)
+      ActiveRecord::Associations::Preloader.new(records: r, associations: [:item_promotes, :good]).call
+      r.sort_by { |i| i.id }
+      r
     end
 
     def checked_items
