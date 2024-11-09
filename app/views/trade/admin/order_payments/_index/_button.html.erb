@@ -1,0 +1,14 @@
+<% if @order.can_pay? %>
+  <%= link_to({ controller: 'orders', action: 'payment_types', id: @order.id }, class: 'button is-fullwidth is-link') do %>
+    <span>支付</span>
+  <% end %>
+  <div
+    data-controller="scan"
+    data-action="click->scan#report"
+    class="button is-fullwidth"
+    data-report-url="<%= url_for(controller: 'orders', action: 'micro', id: @order.id) %>"
+  >
+    <i class="fa-solid fa-credit-card"></i>
+    <span><%= t('.orders.micro.title') %></span>
+  </div>
+<% end %>
