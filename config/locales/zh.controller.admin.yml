@@ -99,6 +99,8 @@ zh:
           analyze: 分析支付方式
           adjust: 平账
       order_payments:
+        index:
+          title: 订单支付
         new:
           title: 人工收款
         new_micro:
