@@ -9,7 +9,9 @@ module Trade
     def print
       return unless organ&.device
       organ.device.print(
-        data: to_tspl
+        data: to_esc,
+        mode: 3,
+        cmd_type: 'ESC'
       )
     end
 
@@ -41,6 +43,13 @@ module Trade
         ts.text("#{paid_at.to_fs}", x: 10)
       end
       ts.render
+    end
+
+    def to_esc
+      cpcl = BaseEsc.new
+      cpcl.text serial_str
+      cpcl.qrcode(qrcode_show_url, y: 20)
+      cpcl.render
     end
 
     def to_cpcl
