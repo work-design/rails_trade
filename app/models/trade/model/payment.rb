@@ -157,7 +157,10 @@ module Trade
       self.assign_detail params
       self.class.transaction do
         payment_orders.each { |i| i.state = 'confirmed' }
-        payment_orders.each(&->(i){ i.order.save! })
+        payment_orders.each do |i|
+          i.update_order_received_amount
+          i.order.save!
+        end
         self.save!
       end
     end
