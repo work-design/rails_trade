@@ -401,13 +401,13 @@ Rails.application.routes.draw do
     end
   end
   resolve 'Trade::Purchase' do |purchase|
-    url_for(controller: 'trade/my/card_templates', action: 'show', id: purchase.card_template_id, return_state: StateUtil.encode(request))
+    url_for(controller: 'trade/my/card_templates', action: 'show', id: purchase.card_template_id)
   end
   resolve 'Trade::Advance' do |advance|
     if advance.wallet_template_id
-      url_for(controller: 'trade/my/wallet_templates', action: 'show', id: advance.wallet_template_id, return_state: StateUtil.encode(request))
+      url_for(controller: 'trade/my/wallet_templates', action: 'show', id: advance.wallet_template_id)
     else
-      url_for(controller: 'trade/my/lawful_wallets', action: 'show', return_state: StateUtil.encode(request))
+      url_for(controller: 'trade/my/lawful_wallets', action: 'show')
     end
   end
 end
