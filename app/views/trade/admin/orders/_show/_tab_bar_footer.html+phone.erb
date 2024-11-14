@@ -9,12 +9,12 @@
       class="button is-info"
     >
       <i class="fa-solid fa-print"></i>
-      <span class="pl-1">打印订单</span>
+      <span class="ml-1">打印订单</span>
     </button>
   <% else %>
     <%= button_to({ action: 'print' }, class: 'button is-info') do %>
       <i class="fa-solid fa-print"></i>
-      <span class="pl-1"><%= t('.print.title') %></span>
+      <span class="ml-1"><%= t('.print.title') %></span>
     <% end %>
   <% end %>
   <% if @order.can_pay? %>
@@ -29,10 +29,11 @@
     </div>
   <% end %>
   <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
-    <span><%= t('.purchase.title') %></span>
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span class="ml-1"><%= t('.purchase.title') %></span>
   <% end %>
   <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-info') do %>
     <i class="fa-solid fa-pen-clip"></i>
-    <span class="pl-1"><%= t('.adjust_edit.title') %></span>
+    <span class="ml-1"><%= t('.adjust_edit.title') %></span>
   <% end %>
 </div>
