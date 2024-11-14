@@ -94,10 +94,13 @@ module Trade
     end
 
     def micro
-      auth_code = params[:result].split(',')[-1]
-
-      @payment = @order.to_payment(type: 'Trade::ScanPayment')
-      @payment.payee_app = current_payee.payee_apps.includes(:app).where(app: { type: ['Wechat::PublicApp', 'Wechat::PublicAgency'] }).take
+      if auth_code.start_with?('25', '26', '27', '28', '29', '30', 'fp') && current_alipay_app
+        @payment = @order.to_payment(type: 'Trade::AlipayPayment')
+        @payment.appid = current_alipay_app.appid
+      else
+        @payment = @order.to_payment(type: 'Trade::ScanPayment')
+        @payment.payee_app = current_payee.payee_apps.includes(:app).where(app: { type: ['Wechat::PublicApp', 'Wechat::PublicAgency'] }).take
+      end
       @payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
     end
 
@@ -165,6 +168,15 @@ module Trade
 
     def set_payment_strategies
       @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
+    end
+
+    def current_alipay_app
+      return @current_alipay_app if defined? @current_alipay_app
+      @current_alipay_app = Alipay::App.default_where(default_params).take
+    end
+
+    def auth_code
+      params[:result].split(',')[-1]
     end
 
     def _prefixes
