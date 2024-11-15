@@ -1,6 +1,6 @@
 <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="box as-bar">
-  <% if referer_controller == 'me/home' %>
-    <%= link_to({ controller: '/me/home' }, class: 'px-4') do %>
+  <% if current_state %>
+    <%= link_to(current_state.referer, class: 'px-4') do %>
       <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
     <% end %>
   <% else %>
