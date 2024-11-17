@@ -4,7 +4,7 @@ module Trade
       :show, :edit, :update, :destroy, :actions,
       :analyze, :adjust
     ]
-    before_action :set_new_payment, only: [:new, :create, :order_new, :order_create]
+    before_action :set_new_payment, only: [:new, :create, :confirm, :order_new, :order_create]
 
     def dashboard
     end
@@ -24,8 +24,34 @@ module Trade
       @payments = Payment.includes(:user, :payment_orders).to_check.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
+    def desk_scan
+      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
+      orders = Order.where(id: order_ids).map do |order|
+        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
+      end
+
+      @payment = ScanPayment.new(
+        payment_orders_attributes: orders
+      )
+    end
+
+    def desk_hand
+      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
+      orders = Order.where(id: order_ids).map do |order|
+        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
+      end
+
+      @payment = HandPayment.new(
+        payment_orders_attributes: orders
+      )
+    end
+
     def new
       @payment.init_uuid
+    end
+
+    def confirm
+      @payment.confirm!(payment_params)
     end
 
     def analyze
@@ -59,7 +85,7 @@ module Trade
         :buyer_identifier,
         :buyer_bank,
         :proof,
-        payment_orders_attributes: [:order_id, :check_amount, :state]
+        payment_orders_attributes: [:order_id, :order_amount, :payment_amount, :state]
       )
       p.merge! default_form_params
     end

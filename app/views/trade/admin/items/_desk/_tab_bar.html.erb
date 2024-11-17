@@ -1,0 +1,8 @@
+<div class="buttons as-bottom">
+  <%= button_to({ controller: 'payments', action: 'desk_scan', desk_id: @desk.id }, class: 'button is-primary') do %>
+    <span><%= t('.payments.desk_scan.title') %></span>
+  <% end %>
+  <%= button_to({ controller: 'payments', action: 'desk_hand', desk_id: @desk.id }, class: 'button is-link') do %>
+    <span><%= t('.payments.desk_hand.title') %></span>
+  <% end %>
+</div>

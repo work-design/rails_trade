@@ -94,6 +94,10 @@ zh:
           import: 导入
           init: 预核销
           confirmed: 未预核销
+        desk_scan:
+          title: 扫码支付
+        desk_hand:
+          title: 线下支付
         item:
           show: 支付方式
           analyze: 分析支付方式

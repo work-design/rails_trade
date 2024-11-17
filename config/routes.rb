@@ -118,6 +118,9 @@ Rails.application.routes.draw do
         collection do
           get :dashboard
           get :uncheck
+          post :desk_scan
+          post :desk_hand
+          post :confirm
         end
         member do
           patch :analyze
