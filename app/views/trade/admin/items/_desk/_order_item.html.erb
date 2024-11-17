@@ -1,11 +1,12 @@
-<div class="mx-3 py-2">
+<div class="box mx-3 py-2 mb-1">
   <div class="flex">
-    <span><%= model.uuid %></span>
+    <span class="text-grey"><%= model.uuid %></span>
+    <span class="tag ml-1"><%= model.payment_status_i18n %></span>
   </div>
-  <div class="flex">
+  <div class="flex mt-1">
     <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
     <% if model.agent %>
-      <div class="tags has-addons">
+      <div class="tags has-addons ml-1">
         <span class="tag text-grey">下单人</span>
         <span class="tag is-warning"><%= model.agent.name %></span>
       </div>
