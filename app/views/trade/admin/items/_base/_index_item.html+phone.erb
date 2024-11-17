@@ -11,6 +11,6 @@
 <p>
   <span class="text-danger"><%= model.single_price.to_money.format.html_safe %></span>
   <span class="text-grey">x</span>
-  <span><%= model.number %></span>
+  <span><%= model.number.to_human %></span>
 </p>
 <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
