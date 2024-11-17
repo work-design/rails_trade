@@ -72,6 +72,8 @@ zh:
           title: 售出产品
         desk:
           title: 点单详情
+        desk_history:
+          title: 订单历史
         carts:
           title: 所在购物车
         compute:

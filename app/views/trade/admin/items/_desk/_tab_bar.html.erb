@@ -1,8 +1,11 @@
-<div class="buttons as-bottom">
+<div class="buttons are-small as-bottom">
   <%= button_to({ controller: 'payments', action: 'desk_scan', desk_id: @desk.id }, class: 'button is-primary') do %>
     <span><%= t('.payments.desk_scan.title') %></span>
   <% end %>
   <%= button_to({ controller: 'payments', action: 'desk_hand', desk_id: @desk.id }, class: 'button is-link') do %>
     <span><%= t('.payments.desk_hand.title') %></span>
+  <% end %>
+  <%= link_to({ action: 'desk_history' }, class: 'button is-success') do %>
+    <span><%= t('.desk_history.title') %></span>
   <% end %>
 </div>

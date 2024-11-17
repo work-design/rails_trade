@@ -144,6 +144,7 @@ Rails.application.routes.draw do
           get :purchase
           get :produce
           get 'desk/:desk_id' => :desk
+          get 'desk_history/:desk_id' => :desk_history
           post :trial
           post :batch_purchase
         end
