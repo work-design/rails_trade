@@ -1,16 +1,25 @@
 <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="box as-bar">
-  <%= link_to({ controller: 'factory/agent/productions' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-  <% end if @cart.good_type == 'Factory::Production' %>
-  <%= link_to({ controller: '/ship/box_hosts' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-  <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'use' %>
-  <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-  <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
-  <%= link_to({ controller: '/bench/facilitates' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-  <% end if @cart.good_type == 'Bench::Facilitate' %>
+  <% if current_state %>
+    <%= link_to(current_state.referer, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% elsif @cart.good_type == 'Factory::Production' %>
+    <%= link_to({ controller: 'factory/agent/productions' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% elsif @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'use' %>
+    <%= link_to({ controller: '/ship/box_hosts' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% elsif @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
+    <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% elsif @cart.good_type == 'Bench::Facilitate' %>
+    <%= link_to({ controller: '/bench/facilitates' }, class: 'px-4') do %>
+      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <% end %>
+  <% end %>
   <span class="weui-title"><%= t('.title') %></span>
   <i class="px-5"></i>
 </div>
