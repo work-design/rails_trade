@@ -3,7 +3,17 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      after_create_commit :print_to_prepare
       after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
+    end
+
+    def print_to_prepare
+      return unless organ&.device
+      organ.device.print(
+        data: to_prepare_esc,
+        mode: 3,
+        cmd_type: 'ESC'
+      )
     end
 
     def print
@@ -50,6 +60,18 @@ module Trade
       cpcl.text serial_str
       cpcl.qrcode(qrcode_show_url, y: 20)
       cpcl.render
+    end
+
+    def to_prepare_esc
+      pr = BaseEsc.new
+      pr.text "下单时间：#{created_at.to_fs(:wechat)}"
+      pr.text serial_str
+      items.each do |item|
+        pr.text("#{item.good.name} x #{item.number.to_human}")
+      end
+      pr.text state_i18n
+      pr.qrcode(qrcode_show_url, y: 20)
+      pr.render
     end
 
     def to_cpcl
