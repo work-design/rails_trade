@@ -56,22 +56,26 @@ module Trade
     end
 
     def to_esc
-      cpcl = BaseEsc.new
-      cpcl.text serial_str
-      cpcl.qrcode(qrcode_show_url, y: 20)
-      cpcl.render
+      pr = BaseEsc.new
+      share_print_esc(pr)
+      pr.render
     end
 
     def to_prepare_esc
       pr = BaseEsc.new
-      pr.text "下单时间：#{created_at.to_fs(:wechat)}"
-      pr.text serial_str
+      share_print_esc(pr)
+      pr.render
+    end
+
+    def share_print_esc(pr)
+      pr.text "#{self.class.human_attribute_name(:created_at)}：#{created_at.to_fs(:wechat)}"
+      pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
+      pr.text '已下单：'
       items.each do |item|
         pr.text("#{item.good.name} x #{item.number.to_human}")
       end
-      pr.text state_i18n
+      pr.text "#{self.class.human_attribute_name(:state)}：#{state_i18n}"
       pr.qrcode(qrcode_show_url, y: 20)
-      pr.render
     end
 
     def to_cpcl
