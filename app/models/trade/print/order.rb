@@ -58,6 +58,7 @@ module Trade
     def to_esc
       pr = BaseEsc.new
       share_print_esc(pr)
+      pr.qrcode(qrcode_show_url, y: 20)
       pr.render
     end
 
@@ -75,7 +76,6 @@ module Trade
         pr.text("#{item.good.name} x #{item.number.to_human}")
       end
       pr.text "#{self.class.human_attribute_name(:state)}：#{state_i18n}"
-      pr.qrcode(qrcode_show_url, y: 20)
     end
 
     def to_cpcl
