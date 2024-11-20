@@ -17,12 +17,12 @@
     <div class="level-item">
     <% if @cart.can_order? %>
       <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-primary') do %>
-        <span class="pr-1"><%= t("trade.#{params[:namespace].presence || 'my'}.orders.cart.title") %></span>
+        <span class="mr-1"><%= t("trade.#{params[:namespace].presence || 'my'}.orders.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       <% end %>
     <% else %>
       <button class="button is-small is-primary" disabled>
-        <span class="pr-1">结算</span>
+        <span class="mr-1"><%= t("trade.#{params[:namespace].presence || 'my'}.orders.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       </button>
     <% end %>
