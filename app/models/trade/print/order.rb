@@ -68,9 +68,9 @@ module Trade
       sock.connect(Socket.pack_sockaddr_in(printer_port, printer_ip))
       begin
         sock.send(to_esc, 0)
-        puts "指令已发送到打印机。"
+        logger.debug "指令已发送到打印机"
       rescue StandardError => e
-        puts "发送失败: #{e.message}"
+        logger.debug "发送失败: #{e.message}"
       ensure
         # 关闭连接
         sock.close unless sock.closed?
