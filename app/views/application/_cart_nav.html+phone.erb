@@ -15,9 +15,9 @@
   </div>
   <div class="level-right mt-0 pr-4">
     <div class="level-item">
-    <% if @cart.checked_item_ids.present? && @cart.has_address? %>
+    <% if @cart.can_order? %>
       <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-primary') do %>
-        <span class="pr-1"><%= t('trade.my.orders.cart.title') %></span>
+        <span class="pr-1"><%= t("trade.#{params[:namespace].presence || 'my'}.orders.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       <% end %>
     <% else %>

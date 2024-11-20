@@ -162,6 +162,10 @@ module Trade
       items.pluck(:dispatch).include?('delivery')
     end
 
+    def can_order?
+      checked_item_ids.compact.present? && has_address?
+    end
+
     def has_address?
       if agent_id.present?
         true

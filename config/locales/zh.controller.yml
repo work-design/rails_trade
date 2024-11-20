@@ -92,6 +92,8 @@ zh:
           title: 确认下单
         unpaid:
           title: 待支付订单
+        cart:
+          title: 下单
       payments:
         uncheck:
           title: 待核销流水

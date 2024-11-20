@@ -21,7 +21,7 @@
     <div><%= cart.item_amount.to_money.format.html_safe %></div>
   </div>
   <div class="mt-2 flex justify-content-center">
-  <% if cart.checked_item_ids.present? %>
+  <% if cart.can_order? %>
     <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: cart.id }, class: 'button is-small is-primary') do %>
       <span class="pr-1"><%= t('trade.my.orders.cart.title') %></span>
       <i class="fa-solid fa-angle-right"></i>
