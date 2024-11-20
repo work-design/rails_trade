@@ -60,6 +60,21 @@ module Trade
       share_print_esc(pr)
       pr.qrcode(qrcode_show_url, y: 20)
       pr.render
+      pr.render_0x
+    end
+
+    def print_by_ip(printer_ip = '172.30.1.239', printer_port = 9100)
+      sock = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
+      sock.connect(Socket.pack_sockaddr_in(printer_port, printer_ip))
+      begin
+        sock.send(to_esc, 0)
+        puts "指令已发送到打印机。"
+      rescue StandardError => e
+        puts "发送失败: #{e.message}"
+      ensure
+        # 关闭连接
+        sock.close unless sock.closed?
+      end
     end
 
     def to_prepare_esc
