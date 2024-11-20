@@ -17,7 +17,7 @@
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
   <span class="text-grey">x</span>
-  <span><%= model.number %></span>
+  <span><%= model.number.to_human %></span>
 </td>
 <td>
   <p><%= model.additional_amount.to_money.format.html_safe %></p>

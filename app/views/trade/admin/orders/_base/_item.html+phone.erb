@@ -15,8 +15,10 @@
       <p>
         <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
         <span class="text-grey-lighter">x</span>
-        <span><%= item.number %></span>
-        <% if item.unit %><span class="tag"><%= item.unit.name %></span><% end %>
+        <span><%= item.number.to_human %></span>
+        <% if item.unit %>
+          <span class="tag"><%= item.unit.name %></span>
+        <% end %>
       </p>
       <% if item.delivery %>
       <p>
