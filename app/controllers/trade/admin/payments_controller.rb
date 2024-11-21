@@ -85,6 +85,7 @@ module Trade
         :buyer_identifier,
         :buyer_bank,
         :proof,
+        :adjust_amount,
         payment_orders_attributes: [:order_id, :order_amount, :payment_amount, :state]
       )
       p.merge! default_form_params
