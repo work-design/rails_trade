@@ -11,7 +11,7 @@
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>
-    <%= text_field_tag :result, nil, autocomplete: 'off', autofocus: true, class: 'input' %>
+    <%= f.number_field :adjust_amount %>
   </section>
   <%= f.submit %>
 <% end %>
