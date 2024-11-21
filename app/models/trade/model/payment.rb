@@ -80,8 +80,7 @@ module Trade
     end
 
     def init_amount
-      self.checked_amount = self.payment_orders.select(&:state_confirmed?).sum(&:payment_amount)
-      self.total_amount = self.checked_amount + self.adjust_amount
+      self.total_amount = self.payment_orders.sum(&:payment_amount)
     end
 
     def desc
@@ -113,7 +112,7 @@ module Trade
     end
 
     def compute_checked_amount
-      self.payment_orders.select(&->(o){ o.confirmed? }).sum(&:payment_amount)
+      self.checked_amount = self.payment_orders.select(&:state_confirmed?).sum(&:payment_amount)
     end
 
     def pending_orders

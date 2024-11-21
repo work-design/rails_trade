@@ -116,6 +116,8 @@ zh:
           title: 收款记录
         new:
           title: 收款
+        create:
+          title: 扫码收款
       payment_orders:
         new:
           title: 核销
