@@ -54,10 +54,6 @@ module Trade
       else
         self.payment_amount = self.order_amount
       end
-
-      payment.total_amount = payment.total_amount.to_d + self.payment_amount
-      payment.checked_amount += self.payment_amount if ['confirmed'].include?(state)
-      update_order_received_amount if ['pending', 'confirmed'].include?(state)
     end
 
     def checked_to_payment!
@@ -67,11 +63,6 @@ module Trade
     def unchecked_to_payment!
       payment.checked_amount -= self.payment_amount
       payment.save
-    end
-
-    def update_order_received_amount
-      order.received_amount += self.order_amount
-      order.unreceived_amount = order.amount - order.received_amount
     end
 
     def unchecked_to_order!

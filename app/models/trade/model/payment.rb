@@ -60,6 +60,7 @@ module Trade
       scope :to_check, -> { where(pay_state: 'paid', state: 'init') }
 
       after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || payment_orders.present?) }
+      after_initialize :init_amount, if: -> { new_record? }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
       before_save :check_state, if: -> { (changes.keys & ['checked_amount', 'total_amount']).present? }
       before_create :analyze_payment_method
@@ -76,6 +77,11 @@ module Trade
 
     def init_uuid
       self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+    end
+
+    def init_amount
+      self.checked_amount = self.payment_orders.select(&:confirmed?).sum(&:payment_amount)
+      self.total_amount = self.checked_amount + self.adjust_amount
     end
 
     def desc
@@ -157,8 +163,9 @@ module Trade
       self.assign_detail params
       self.class.transaction do
         payment_orders.each { |i| i.state = 'confirmed' }
+        self.init_amount
         payment_orders.each do |i|
-          i.update_order_received_amount
+          i.order.check_received_amount
           i.order.save!
         end
         self.save!
