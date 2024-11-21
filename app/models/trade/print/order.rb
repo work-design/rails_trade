@@ -8,8 +8,8 @@ module Trade
     end
 
     def print_to_prepare
-      return unless organ&.device
-      organ.device.print(
+      return unless organ&.device_produce
+      organ.device_produce.print(
         data: to_prepare_esc,
         mode: 3,
         cmd_type: 'ESC'
