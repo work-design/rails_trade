@@ -162,7 +162,7 @@ module Trade
       self.assign_detail params
       self.class.transaction do
         payment_orders.each { |i| i.state = 'confirmed' }
-        self.init_amount
+        self.compute_checked_amount
         payment_orders.each do |i|
           i.order.check_received_amount
           i.order.save!
