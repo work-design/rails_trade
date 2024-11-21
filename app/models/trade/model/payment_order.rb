@@ -3,8 +3,8 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :payment_amount, :decimal
-      attribute :order_amount, :decimal
+      attribute :payment_amount, :decimal, default: 0
+      attribute :order_amount, :decimal, default: 0
 
       enum :kind, {
         item_amount: 'item_amount',
@@ -27,9 +27,7 @@ module Trade
       validates :order_id, uniqueness: { scope: :payment_id }, unless: -> { payment_id.nil? }
 
       after_initialize :init_amount, if: -> { new_record? && payment&.new_record? }
-      #after_update :checked_to_payment!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'payment_amount']).present? }
       #after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
-      #after_save :checked_to_order!, if: -> { state_confirmed? && (saved_changes.keys & ['state', 'order_amount']).present? }
       #after_save :unchecked_to_order!, if: -> { state_init? && state_before_last_save == 'confirmed' }
       after_destroy_commit :unchecked_to_order!
     end
@@ -54,10 +52,6 @@ module Trade
       else
         self.payment_amount = self.order_amount
       end
-    end
-
-    def checked_to_payment!
-      payment.save
     end
 
     def unchecked_to_payment!

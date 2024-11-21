@@ -340,7 +340,7 @@ module Trade
     end
 
     def check_received_amount
-      self.received_amount = self.payment_orders.select(&->(o){ o.state_confirmed? }).sum(&->(i){ i.order_amount.to_d })
+      self.received_amount = self.payment_orders.select(&:state_confirmed?).sum(&:order_amount)
     end
 
     def wallet_codes
