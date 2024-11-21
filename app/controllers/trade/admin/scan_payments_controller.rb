@@ -16,10 +16,6 @@ module Trade
       @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
     end
 
-    def confirm
-      @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
-    end
-
     private
     def set_new_scan_payment
       @scan_payment = ScanPayment.new(scan_payment_params)
