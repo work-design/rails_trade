@@ -1,6 +1,6 @@
 <div class="box mx-3 py-2 mb-1">
   <div class="flex">
-    <span class="text-grey"><%= model.uuid %></span>
+    <span class="text-grey"><%= link_to model.uuid, { controller: 'orders', action: 'show', id: model.id } %></span>
     <span class="tag ml-1"><%= model.payment_status_i18n %></span>
   </div>
   <div class="flex mt-1">

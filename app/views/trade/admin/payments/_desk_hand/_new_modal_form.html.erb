@@ -3,7 +3,10 @@
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
     <%= f.fields :payment_orders do |ef| %>
-      <%= ef.number_field :order_amount, readonly: true %>
+      <div class="field-label is-normal">
+        <label class="label family-monospace text-grey"><%= ef.object.order.uuid %></label>
+      </div>
+      <%= ef.number_field :order_amount, readonly: true, label: nil %>
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>

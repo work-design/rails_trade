@@ -11,12 +11,16 @@
 
 <%= render partial: 'items', locals: { model: @order } %>
 
-<div class="box mx-3">
-  <strong>服务/促销</strong>
+<% if @order.cart_promotes.present? %>
+<div class="mx-3">
+  <strong class="text-grey pl-3">服务/促销</strong>
   <%= render partial: 'cart_promote', collection: @order.cart_promotes, as: :cart_promote %>
 </div>
+<% end %>
 
-<div class="box mx-3">
-  <strong>支付</strong>
+<% if @order.payment_orders.present? %>
+<div class="mx-3">
+  <strong class="text-grey pl-3">支付</strong>
   <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
 </div>
+<% end %>
