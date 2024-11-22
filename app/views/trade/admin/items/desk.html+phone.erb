@@ -1,3 +1,4 @@
+<div class="mt-3"></div>
 <% @items.group_by(&:order).each do |order, items| %>
   <%= render partial: 'order_item', locals: { model: order } if order %>
   <%= render layout: 'index_list' do %>

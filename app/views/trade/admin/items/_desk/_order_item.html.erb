@@ -1,15 +1,10 @@
-<div class="box mx-3 py-2 mb-1">
-  <div class="flex">
-    <span class="text-grey"><%= link_to model.uuid, { controller: 'orders', action: 'show', id: model.id } %></span>
-    <span class="tag ml-1"><%= model.payment_status_i18n %></span>
-  </div>
-  <div class="flex mt-1">
-    <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
-    <% if model.agent %>
-      <div class="tags has-addons ml-1">
-        <span class="tag text-grey">下单人</span>
-        <span class="tag is-warning"><%= model.agent.name %></span>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'mx-3 mt-3 pl-3 flex') do %>
+  <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
+  <% if model.agent %>
+    <div class="tags has-addons ml-1">
+      <span class="tag text-grey">下单人</span>
+      <span class="tag is-warning"><%= model.agent.name %></span>
+    </div>
+  <% end %>
+  <span class="tag ml-1"><%= model.payment_status_i18n %></span>
+<% end %>
