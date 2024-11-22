@@ -80,7 +80,7 @@ module Trade
     end
 
     def init_amount
-      self.total_amount = self.payment_orders.sum(&:payment_amount)
+      self.total_amount ||= self.payment_orders.sum(&:payment_amount)
     end
 
     def desc
