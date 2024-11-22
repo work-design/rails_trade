@@ -13,3 +13,6 @@
   <span class="text-grey">x</span>
   <span><%= model.number.to_human %></span>
 </p>
+<% if model.order_id.blank? %>
+  <p><time data-controller="time" data-format="human" class="text-grey"><%= model.created_at.to_fs(:iso8601) %></time></p>
+<% end %>
