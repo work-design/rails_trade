@@ -32,6 +32,9 @@ module Trade
       has_one_attached :logo
     end
 
+    def good_name
+    end
+
     def item_extra
       {}
     end
