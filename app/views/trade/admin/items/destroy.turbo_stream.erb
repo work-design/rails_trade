@@ -1,5 +1,7 @@
 <% if current_state && referer_controller.end_with?('items') %>
   <%= turbo_stream.append 'body', partial: 'visit', locals: { url: current_state.referer } %>
+<% elsif referer_path == 'trade/admin/items/_desk' %>
+  <%= turbo_stream.remove "desk_tr_#{@item.id}" %>
 <% else %>
   <% if referer_controller.end_with?('carts') %>
     <%= turbo_stream.replace 'cart_nav', partial: 'cart_footer', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
