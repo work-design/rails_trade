@@ -17,18 +17,22 @@
         <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
           <%= button_to({ controller: 'order_payments', action: 'new', order_id: model.id }, class: 'button is-small is-rounded is-danger') do %>
             <i class="fa-solid fa-receipt"></i>
-            <span class="pl-1">立即支付</span>
+            <span class="ml-1">立即支付</span>
           <% end %>
         <% end %>
         <% if ['unpaid'].include?(model.payment_status) %>
-          <%= button_to({ controller: 'orders', action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+          <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
             <i class="fa-solid fa-pen-clip text-primary"></i>
-            <span class="pl-1"><%= t('.adjust_edit.title') %></span>
+            <span class="ml-1"><%= t('.adjust_edit.title') %></span>
           <% end %>
         <% end %>
-        <%= link_to({ controller: 'orders', action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <%= link_to({ action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
           <i class="fa-solid fa-pen-clip text-link"></i>
-          <span class="pl-1"><%= t('.purchase.title') %></span>
+          <span class="ml-1"><%= t('.purchase.title') %></span>
+        <% end %>
+        <%= button_to({ action: 'print', id: model.id }, class: 'button is-info') do %>
+          <i class="fa-solid fa-print text-success"></i>
+          <span class="ml-1"><%= t('.print.title') %></span>
         <% end %>
       </div>
     </div>

@@ -38,4 +38,4 @@
   <% end %>
   </p>
 </td>
-<td><%= simple_format(model.extra_i18n) %></td>
+<td><pre><%= model.extra_i18n.to_format_yaml %></pre></td>
