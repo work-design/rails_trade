@@ -89,7 +89,7 @@ module Trade
 
       after_initialize :sync_from_current_cart, if: -> { new_record? && current_cart_id.present? }
       after_initialize :init_uuid, if: -> { uuid.blank? }
-      after_initialize :compute_amount, if: :new_record?
+      after_initialize :confirm_ordered!, if: :new_record?
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
@@ -97,7 +97,6 @@ module Trade
       before_save :check_state, if: -> { amount.to_d.zero? || (changes.keys & ['received_amount']).present? }
       before_save :init_serial_number, if: -> { can_serial_number? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
-      before_create :confirm_ordered!
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_create :sync_ordered_to_current_cart, if: -> { current_cart_id.present? }
@@ -198,9 +197,14 @@ module Trade
       end
     end
 
+    def ordered_items
+      items.select(&:order_effective?)
+    end
+
     def compute_amount
-      self.item_amount = items.sum(&->(i){ i.amount.to_d })
-      self.advance_amount = items.sum(&->(i){ i.advance_amount.to_d })
+      _ordered_items = ordered_items
+      self.item_amount = _ordered_items.sum(&->(i){ i.amount.to_d })
+      self.advance_amount = _ordered_items.sum(&->(i){ i.advance_amount.to_d })
       self.overall_additional_amount = cart_promotes.select(&->(o){ o.amount >= 0 }).sum(&->(i){ i.amount.to_d })
       self.overall_reduced_amount = cart_promotes.select(&->(o){ o.amount < 0 }).sum(&->(i){ i.amount.to_d })
       self.amount = item_amount + overall_additional_amount + overall_reduced_amount + adjust_amount.to_d
@@ -250,6 +254,7 @@ module Trade
       cart_promotes.each do |cart_promote|
         cart_promote.status = 'ordered'
       end
+      compute_amount
     end
 
     def confirm_paid!

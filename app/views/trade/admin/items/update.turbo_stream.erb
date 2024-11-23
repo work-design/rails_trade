@@ -7,6 +7,8 @@
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
 <% end %>
 
+<%= turbo_stream.remove 'modal' %>
+
 <% params[:partial].each do |partial| %>
   <%= turbo_stream.replace "#{partial}_#{@item.cart_identity}", partial: partial, locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
 <% end if params[:partial] %>

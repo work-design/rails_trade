@@ -122,6 +122,7 @@ module Trade
       after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
+      after_destroy :sync_amount_to_order, if: -> { order_id.present? && ['ordered'].include?(status) }
       after_destroy :set_not_fresh
     end
 
@@ -199,6 +200,10 @@ module Trade
 
     def effective?
       ['checked', 'trial'].include?(status) && !destroyed?
+    end
+
+    def order_effective?
+      ['ordered'].include?(status) && !destroyed?
     end
 
     def in_cart?
