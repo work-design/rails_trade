@@ -59,9 +59,9 @@ module Trade
       pr = BaseEsc.new
       pr.qrcode(qrcode_show_url, y: 20)
       share_print_esc(pr)
-      pr.text "#{self.class.human_attribute_name(:item_amount)}：#{item_amount.to_money.format(html_wrap: false)}" if item_amount != amount
-      pr.text "#{self.class.human_attribute_name(:adjust_amount)}：#{adjust_amount.to_money.format(html_wrap: false)}" if adjust_amount.to_d != 0
-      pr.text "#{self.class.human_attribute_name(:amount)}：#{amount.to_money.format(html_wrap: false)}"
+      pr.text "#{self.class.human_attribute_name(:item_amount)}：#{item_amount.to_money.to_s}" if item_amount != amount
+      pr.text "#{self.class.human_attribute_name(:adjust_amount)}：#{adjust_amount.to_money.to_s}" if adjust_amount.to_d != 0
+      pr.text "#{self.class.human_attribute_name(:amount)}：#{amount.to_money.to_s}"
       pr.render
       pr.render_raw
     end
