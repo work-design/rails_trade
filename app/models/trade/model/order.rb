@@ -211,7 +211,7 @@ module Trade
     end
 
     def subject
-      r = items.map { |oi| oi.good.name.presence }.join(', ')
+      r = items.map { |oi| oi.good_name.presence }.join(', ')
       r.presence || 'goods'
     end
 
