@@ -1,6 +1,10 @@
 <%= form_with theme: 'modal', model: @order, url: { action: 'adjust_update' } do |f| %>
   <%= render 'modal_header' %>
   <section class="modal-card-body">
+    <div class="field is-horizontal">
+      <div class="field-label is-normal"></div>
+      <div class="field-body">修改至实际最终售价</div>
+    </div>
     <%= f.number_field :amount, autofocus: true %>
   </section>
   <%= f.submit %>
