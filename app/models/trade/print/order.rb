@@ -9,11 +9,13 @@ module Trade
 
     def print_to_prepare
       return unless organ&.device_produce
-      organ.device_produce.print(
-        data: to_prepare_esc,
-        mode: 3,
-        cmd_type: 'ESC'
-      )
+      items.each do |item|
+        organ.device_produce.print(
+          data: to_prepare_esc(item),
+          mode: 3,
+          cmd_type: 'ESC'
+        )
+      end
     end
 
     def print
@@ -58,10 +60,16 @@ module Trade
     def to_esc
       pr = BaseEsc.new
       pr.qrcode(qrcode_show_url, y: 20)
-      share_print_esc(pr)
+      pr.text "#{self.class.human_attribute_name(:created_at)}：#{created_at.to_fs(:wechat)}"
+      pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
+      pr.text '已下单：'
+      items.includes(:good).each do |item|
+        pr.text("    #{item.good_name} x #{item.number.to_human}") if item.good
+      end
       pr.text "#{self.class.human_attribute_name(:item_amount)}：#{item_amount.to_money.to_s}" if item_amount != amount
       pr.text "#{self.class.human_attribute_name(:adjust_amount)}：#{adjust_amount.to_money.to_s}" if adjust_amount.to_d != 0
       pr.text "#{self.class.human_attribute_name(:amount)}：#{amount.to_money.to_s}"
+      pr.text "#{self.class.human_attribute_name(:payment_status)}：#{payment_status_i18n}"
       pr.render
       pr.render_raw
     end
@@ -80,21 +88,13 @@ module Trade
       end
     end
 
-    def to_prepare_esc
+    def to_prepare_esc(item)
       pr = BaseEsc.new
-      share_print_esc(pr)
+      pr.big_text("#{item.good_name} x #{item.number.to_human}") if item.good
+      pr.text "#{item.class.human_attribute_name(:desk_id)}：#{item.desk.name}" if item.desk
+      pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
       pr.render
       pr.render_raw
-    end
-
-    def share_print_esc(pr)
-      pr.text "#{self.class.human_attribute_name(:created_at)}：#{created_at.to_fs(:wechat)}"
-      pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
-      pr.text '已下单：'
-      items.includes(:good).each do |item|
-        pr.text("    #{item.good_name} x #{item.number.to_human}") if item.good
-      end
-      pr.text "#{self.class.human_attribute_name(:state)}：#{state_i18n}"
     end
 
     def to_cpcl
