@@ -33,6 +33,11 @@ module Trade
     end
 
     def good_name
+      if respond_to?(:title)
+        title
+      elsif respond_to?(:name)
+        name
+      end
     end
 
     def item_extra
