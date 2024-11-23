@@ -203,7 +203,7 @@ module Trade
     end
 
     def order_effective?
-      ['ordered'].include?(status) && !destroyed?
+      ['ordered', 'deliverable'].include?(status) && !destroyed?
     end
 
     def in_cart?
