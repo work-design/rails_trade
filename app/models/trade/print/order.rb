@@ -92,7 +92,7 @@ module Trade
       pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
       pr.text '已下单：'
       items.includes(:good).each do |item|
-        pr.text("#{item.good_name} x #{item.number.to_human}") if item.good
+        pr.text("    #{item.good_name} x #{item.number.to_human}") if item.good
       end
       pr.text "#{self.class.human_attribute_name(:state)}：#{state_i18n}"
     end
