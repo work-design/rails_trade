@@ -60,7 +60,7 @@ module Trade
       share_print_esc(pr)
       pr.qrcode(qrcode_show_url, y: 20)
       pr.render
-      pr.render_0x
+      pr.render_raw
     end
 
     def print_by_ip(printer_ip = '172.30.1.239', printer_port = 9100)
@@ -81,6 +81,7 @@ module Trade
       pr = BaseEsc.new
       share_print_esc(pr)
       pr.render
+      pr.render_raw
     end
 
     def share_print_esc(pr)
