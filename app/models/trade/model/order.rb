@@ -258,25 +258,25 @@ module Trade
     end
 
     def confirm_paid!
-      items.each do |item|
+      ordered_items.each do |item|
         item.status = 'deliverable'
       end
     end
 
     def confirm_part_paid!
-      items.each do |item|
+      ordered_items.each do |item|
         item.status = 'deliverable'
       end
     end
 
     def confirm_unpaid!
-      items.each do |item|
+      ordered_items.each do |item|
         item.status = 'ordered'
       end
     end
 
     def confirm_refund!
-      self.items.each do |item|
+      ordered_items.each do |item|
         item.status = 'refund'
       end
     end
