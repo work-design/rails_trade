@@ -1,7 +1,7 @@
 <% if referer_controller.end_with?('carts') %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_footer', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
 <% elsif referer_path == 'trade/admin/items/_desk' %>
-  <%= turbo_stream.replace "desk_tr_#{@item.id}", partial: '_desk/index_tbody', locals: { model: @item } %>
+  <%= turbo_stream.replace "desk_tr_#{@item.id}", partial: '_desk/index_tbody', layout: '_desk/index_tr', locals: { model: @item } %>
 <% else %>
   <%= turbo_stream.replace "product_summary_#{@item.good.product_id}", partial: 'product_summary', locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart } %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
