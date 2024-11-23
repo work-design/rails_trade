@@ -87,8 +87,8 @@ module Trade
       pr.text "#{self.class.human_attribute_name(:created_at)}：#{created_at.to_fs(:wechat)}"
       pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
       pr.text '已下单：'
-      items.each do |item|
-        pr.text("#{item.good.name} x #{item.number.to_human}")
+      items.includes(:good).each do |item|
+        pr.text("#{item.good.name} x #{item.number.to_human}") if item.good
       end
       pr.text "#{self.class.human_attribute_name(:state)}：#{state_i18n}"
     end
