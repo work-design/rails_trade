@@ -1,0 +1,19 @@
+<div class="box as-bar">
+  <%= link_to({ controller: '/ship/box_specifications', action: 'rent' }, class: 'px-4') do %>
+    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+  <% end %>
+  <span class="weui-title">
+    <span class="mr-1"><%= t('.title') %></span>
+    <%= link_to(action: 'list') do %>
+      <% if current_cart.member %>
+        <span class="weui-badge weui-badge__primary">
+          <span>企业版</span>
+          <span><%= current_cart.member.organ.name %></span>
+        </span>
+      <% else %>
+        <span class="weui-badge">个人版</span>
+      <% end %>
+    <% end %>
+  </span>
+  <i style="width: 3rem"></i>
+</div>
