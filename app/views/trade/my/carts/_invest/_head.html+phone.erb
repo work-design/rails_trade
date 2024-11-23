@@ -1,24 +1,22 @@
-<div class="box is-padding-less mx-3">
-  <div data-controller="mini-program" data-mini-program-pt-class="pt-0" class="box-header as-bar">
-    <%= link_to({ controller: '/ship/box_specifications' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
-    <% end %>
-    <span class="weui-title">
-      <span class="mr-1"><%= t('.title') %></span>
-      <%= link_to(action: 'list', return_url: url_for) do %>
-        <% if current_cart.member %>
-          <span class="weui-badge weui-badge__primary">
-            <i class="fa-solid fa-building-user"></i>
-            <span><%= current_cart.member.organ.name %></span>
-          </span>
-        <% else %>
-          <span class="weui-badge">
-             <i class="fa-solid fa-user"></i>
-            <span>个人版</span>
-          </span>
-        <% end %>
+<div class="box as-bar">
+  <%= link_to({ controller: '/ship/box_specifications' }, class: 'px-4') do %>
+    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+  <% end %>
+  <span class="weui-title">
+    <span class="mr-1"><%= t('.title') %></span>
+    <%= link_to(action: 'list', return_url: url_for) do %>
+      <% if current_cart.member %>
+        <span class="weui-badge weui-badge__primary">
+          <i class="fa-solid fa-building-user"></i>
+          <span><%= current_cart.member.organ.name %></span>
+        </span>
+      <% else %>
+        <span class="weui-badge">
+           <i class="fa-solid fa-user"></i>
+          <span>个人版</span>
+        </span>
       <% end %>
-    </span>
-    <i style="width: 3rem"></i>
-  </div>
+    <% end %>
+  </span>
+  <i style="width: 3rem"></i>
 </div>
