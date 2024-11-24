@@ -1,6 +1,6 @@
 <p>
   <% if model.good %>
-    <%= link_to model.good.name, { action: 'show', id: model.id } %>
+    <%= link_to model.good_name, { action: 'show', id: model.id } %>
   <% else %>
     <span><%= model.good_name %></span>
   <% end %>
