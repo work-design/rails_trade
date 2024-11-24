@@ -9,13 +9,11 @@ module Trade
 
     def print_to_prepare
       return unless organ&.device_produce
-      items.each do |item|
-        organ.device_produce.print(
-          data: to_prepare_esc(item),
-          mode: 3,
-          cmd_type: 'ESC'
-        )
-      end
+      organ.device_produce.print(
+        data: to_prepare_esc,
+        mode: 3,
+        cmd_type: 'ESC'
+      )
     end
 
     def print
@@ -88,12 +86,15 @@ module Trade
       end
     end
 
-    def to_prepare_esc(item)
+    def to_prepare_esc
       pr = BaseEsc.new
-      pr.big_text("#{item.good_name} x #{item.number.to_human}") if item.good
-      pr.text "#{item.class.human_attribute_name(:desk_id)}：#{item.desk.name}" if item.desk
-      pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
-      pr.render
+      items.each do |item|
+        pr.big_text("#{item.good_name} x #{item.number.to_human}") if item.good
+        pr.break_line
+        pr.text "#{item.class.human_attribute_name(:desk_id)}：#{item.desk.name}" if item.desk
+        pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
+        pr.render
+      end
       pr.render_raw
     end
 
