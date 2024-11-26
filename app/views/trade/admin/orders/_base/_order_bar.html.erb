@@ -1,0 +1,10 @@
+<div class="tabs is-centered mb-3">
+  <ul>
+    <li class="<%= active_helper(action: 'index', active: 'is-active') %>">
+      <%= link_to t('.index.title'), { action: 'index' } %>
+    </li>
+    <li class="<%= active_helper(action: 'unpaid', active: 'is-active') %>">
+      <%= link_to t('.unpaid.title'), { action: 'unpaid' } %>
+    </li>
+  </ul>
+</div>
