@@ -106,6 +106,8 @@ Rails.application.routes.draw do
           delete :payment_destroy
           match :adjust_edit, via: [:get, :post]
           patch :adjust_update
+          match :desk_edit, via: [:get, :post]
+          patch :desk_update
         end
         resources :order_payments do
           collection do

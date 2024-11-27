@@ -2,7 +2,8 @@ module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :payment_types, :payment_orders, :print_data, :print, :purchase, :package, :micro, :adjust_edit, :adjust_update
+      :refund, :payment_types, :payment_orders, :print_data, :print, :purchase, :package, :micro,
+      :adjust_edit, :adjust_update, :desk_edit, :desk_update
     ]
     before_action :set_new_order, only: [:new, :new_simple, :create]
     before_action :set_user, only: [:user]
@@ -138,15 +139,16 @@ module Trade
       head :no_content
     end
 
-    def adjust_edit
-    end
-
     def adjust_update
       if order_adjust_params['amount']
         @order.adjust_amount = @order.adjust_amount.to_d + order_adjust_params['amount'].to_d - @order.amount
       end
 
       @order.save
+    end
+
+    def desk_edit
+      @desks = Space::Desk.default_where(default_params)
     end
 
     private
