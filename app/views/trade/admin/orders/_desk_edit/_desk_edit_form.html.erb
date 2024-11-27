@@ -5,7 +5,7 @@
       <div class="field-label is-normal"></div>
       <div class="field-body">选择包房</div>
     </div>
-    <%= f.collection :desk_id, @desks, :id, :name, include_blank: true %>
+    <%= f.collection_select :desk_id, @desks, :id, :name, include_blank: true %>
   </section>
   <%= f.submit %>
 <% end %>

@@ -11,10 +11,11 @@
     </div>
     <div data-show-target="item" class="visibility-hidden">
       <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-link') do %>
-        <span><%= t('trade.admin.orders.payment_types.title') %></span>
+        <span><%= t('.payment_types.title') %></span>
       <% end %>
-      <%= button_to({ action: 'edit_desk', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ action: 'desk_edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-pencil text-link"></i>
+        <span class="ml-1"><%= t('.desk_edit.title') %></span>
       <% end %>
     </div>
   </td>
