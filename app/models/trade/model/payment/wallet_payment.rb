@@ -17,7 +17,7 @@ module Trade
     end
 
     def init_amount
-      self.total_amount = checked_amount if total_amount.zero?
+      self.total_amount = checked_amount if total_amount.blank?
     end
 
     def desc

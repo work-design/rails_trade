@@ -109,6 +109,8 @@ module Trade
         { organ_id: organ_id, member_id: member_id }
       elsif client_id
         { organ_id: organ_id, member_id: member_id, client_id: client_id }
+      elsif contact_id
+        { organ_id: organ_id, member_id: member_id, contact_id: contact_id }
       else
         { organ_id: organ_id, member_id: member_id }
       end

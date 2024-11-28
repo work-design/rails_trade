@@ -297,11 +297,6 @@ Rails.application.routes.draw do
             resources :promote_goods, controller: 'card/promote_goods'
           end
         end
-        resources :lawful_advances do
-          collection do
-            get :lawful
-          end
-        end
         resources :wallet_templates do
           resources :advances
           resources :custom_wallets
@@ -309,6 +304,11 @@ Rails.application.routes.draw do
           resources :wallet_goods
         end
         resources :lawful_wallets
+        resources :lawful_advances do
+          collection do
+            get :lawful
+          end
+        end
         resources :wallets, only: [] do
           resources :wallet_payments
           resources :wallet_advances
