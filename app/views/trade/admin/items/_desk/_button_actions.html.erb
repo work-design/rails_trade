@@ -5,6 +5,9 @@
       <i class="fa-brands fa-weixin"></i>
       <span class="ml-1"><%= t('.orders.batch_pay.title') %></span>
     <% end %>
+  <% end if false %>
+  <%= button_to({ controller: 'payments', action: 'desk_scan', desk_id: @desk.id }, class: 'button is-link') do %>
+    <span><%= t('.payments.desk_scan.title') %></span>
   <% end %>
   <%= button_to({ controller: 'payments', action: 'desk_hand', desk_id: @desk.id }, class: 'button is-link') do %>
     <span><%= t('.payments.desk_hand.title') %></span>
