@@ -3,14 +3,23 @@
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
     <%= f.fields :payment_orders do |ef| %>
-      <div class="field-label is-normal">
-        <label class="label family-monospace text-grey display-inline"><%= ef.object.order.uuid %></label>
-        <span class="size-7 text-grey">第 <%= ef.index + 1 %> 次下单</span>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal"></div>
+        <div class="field-body">
+          <div class="field">
+            <%= ef.number_field :order_amount, readonly: true, label: nil %>
+            <p class="help text-danger">
+              <span class="family-monospace"><%= ef.object.order.uuid %></span>
+              <time data-controller="time" class="text-grey"><%= ef.object.order.created_at.to_fs(:iso8601) %></time>
+              <span class="text-grey">第 <%= ef.index + 1 %> 次下单</span>
+            </p>
+          </div>
+        </div>
       </div>
-      <%= ef.number_field :order_amount, readonly: true, label: nil %>
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>
+    <%= f.number_field :total_amount, readonly: true %>
     <%= text_field_tag :result, nil, autocomplete: 'off', autofocus: true, class: 'input' %>
   </section>
   <%= f.submit %>
