@@ -1,5 +1,5 @@
 <tr>
-  <td>
+  <td class="text-right">
     <span class="is-several">
       <span>钱包</span>
     </span>
@@ -8,18 +8,20 @@
       <span class="tag is-success"><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
     </span>
   </td>
-  <td data-controller="input">
-    <span class="text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
-    <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
-      <%= f.hidden_field :wallet_id %>
-      <%= f.hidden_field :type %>
-      <%= f.fields :payment_orders, model: payment_order do |ef| %>
-        <%= ef.hidden_field :order_id %>
-        <%= ef.hidden_field :payment_amount %>
-        <%= ef.hidden_field :order_amount %>
-        <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
-        <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
+  <td>
+    <div data-controller="input" class="has-v-centered">
+      <span class="text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
+      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
+        <%= f.hidden_field :wallet_id %>
+        <%= f.hidden_field :type %>
+        <%= f.fields :payment_orders, model: payment_order do |ef| %>
+          <%= ef.hidden_field :order_id %>
+          <%= ef.hidden_field :payment_amount %>
+          <%= ef.hidden_field :order_amount %>
+          <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
+          <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </td>
 </tr>
