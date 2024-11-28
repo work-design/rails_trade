@@ -67,6 +67,8 @@ zh:
           title: 支付
         batch_pay:
           title: 微信支付
+        desk_edit:
+          title: 绑定桌台
       items:
         index:
           title: 售出产品

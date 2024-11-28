@@ -151,6 +151,12 @@ module Trade
       @desks = Space::Desk.default_where(default_params)
     end
 
+    def desk_update
+      @order.items.each do |i|
+        i.update desk_id: params[:desk_id]
+      end
+    end
+
     private
     def set_order
       @order = Order.where(default_params).find(params[:id])
