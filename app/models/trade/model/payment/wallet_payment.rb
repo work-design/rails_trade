@@ -9,15 +9,10 @@ module Trade
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
-      before_validation :init_amount, if: -> { checked_amount_changed? }
       after_save :sync_amount, if: -> { saved_change_to_total_amount? }
       after_destroy :sync_amount_after_destroy
       after_create_commit :sync_wallet_log, if: -> { saved_change_to_total_amount? }
       after_destroy_commit :sync_destroy_wallet_log
-    end
-
-    def init_amount
-      self.total_amount = checked_amount if total_amount.blank?
     end
 
     def desc

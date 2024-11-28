@@ -164,7 +164,7 @@ module Trade
         payment_orders.each { |i| i.state = 'confirmed' }
         self.compute_checked_amount
         payment_orders.each do |i|
-          i.order.check_received_amount
+          i.order.compute_received_amount
           i.order.save!
         end
         self.save!

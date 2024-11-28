@@ -1,5 +1,5 @@
 <table class="table is-fullwidth is-borderless as-show">
-  <tbody>
+  <tbody id="payments_form">
     <tr>
       <td class="text-right"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></td>
       <td class="text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></td>
@@ -11,11 +11,5 @@
         <%= render partial: 'lawful_wallet_payment', locals: { payment_order: payment_order } %>
       <% end %>
     <% end %>
-    <tr>
-      <td></td>
-      <td>
-        <button class="button is-danger is-large">立即支付</button>
-      </td>
-    </tr>
   </tbody>
 </table>

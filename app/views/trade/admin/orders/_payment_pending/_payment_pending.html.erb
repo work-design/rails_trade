@@ -1,19 +1,17 @@
-<%= render 'order_for_payment' %>
-
-<div class="box is-padding-less mx-3">
+<tr>
+  <td class="text-right"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></td>
+  <td class="text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></td>
+</tr>
 <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
   <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
     <%= render partial: 'wallet_payment', locals: { payment_order: payment_order } %>
   <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
     <%= render partial: 'lawful_wallet_payment', locals: { payment_order: payment_order } %>
-  <% elsif payment_order.payment.is_a?(Trade::WxpayPayment) %>
-    <%= render partial: 'wxpay', locals: { payment_order: payment_order } %>
   <% end %>
 <% end %>
-</div>
-
-<div class="box mx-3">
-  <%= render 'pending_form' %>
-</div>
-
-<%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>
+<tr>
+  <td></td>
+  <td>
+    <%= render 'pending_form' %>
+  </td>
+</tr>

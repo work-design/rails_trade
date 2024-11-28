@@ -2,7 +2,7 @@ module Trade
   class Admin::OrdersController < Admin::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :payment_types, :payment_orders, :print_data, :print, :purchase, :package, :micro,
+      :refund, :payment_types, :payment_pending, :payment_confirm, :payment_orders, :print_data, :print, :purchase, :package, :micro,
       :adjust_edit, :adjust_update, :desk_edit, :desk_update, :contact_edit
     ]
     before_action :set_new_order, only: [:new, :new_simple, :create]
@@ -93,6 +93,18 @@ module Trade
     def payment_pending
       payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(payment.wallet_id)
+    end
+
+    def payment_confirm
+      params[:batch].each do |payment_p|
+        payment_p.permit!
+        payment_p[:payment_orders_attributes].each do |_, v|
+          v.merge! order: @order
+        end
+        payment_p.merge! default_form_params
+        @order.payments.build(payment_p)
+      end
+      @order.confirm!
     end
 
     def micro
@@ -234,7 +246,21 @@ module Trade
     end
 
     def order_adjust_params
-      params.fetch(:order, {}).permit(:amount)
+      params.fetch(:order, {}).permit(
+        :amount
+      )
+    end
+
+    def payment_params
+      _p = params.fetch(:payment, {}).permit(
+        :type,
+        :wallet_id,
+        payment_orders_attributes: [:payment_amount, :order_amount, :state]
+      )
+      _p[:payment_orders_attributes].each do |_, v|
+        v.merge! order: @order
+      end
+      _p.merge! default_form_params
     end
 
   end

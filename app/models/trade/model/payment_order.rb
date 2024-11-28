@@ -33,24 +33,24 @@ module Trade
     end
 
     def init_amount
-      if payment.respond_to?(:wallet) && payment.wallet.is_a?(CustomWallet)
-        wallet_code = payment.wallet.wallet_template.code
-        wallet_amount = order.wallet_amount(wallet_code)  # 将订单金额换算至钱包对应单位
-        # 当钱包额度大于订单金额
-        if payment.wallet.amount > wallet_amount
-          self.payment_amount = wallet_amount
-        else
-          # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
-          self.payment_amount = payment.wallet.amount
-          self.order_amount = order.partly_wallet_amount(wallet_code, payment_amount)
+      if payment.is_a?(WalletPayment)
+        if payment.wallet.is_a?(CustomWallet)
+          wallet_code = payment.wallet.wallet_template.code
+          wallet_amount = order.wallet_amount(wallet_code)  # 将订单金额换算至钱包对应单位
+          # 当钱包额度大于订单金额
+          if payment.wallet.amount > wallet_amount
+            self.payment_amount = wallet_amount
+          else
+            # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
+            self.payment_amount = payment.wallet.amount
+            self.order_amount = order.partly_wallet_amount(wallet_code, payment_amount)
+          end
+        elsif payment.wallet.is_a?(LawfulWallet)
+          if payment.wallet.amount < order_amount
+            self.order_amount = payment.wallet.amount
+          end
+          self.payment_amount = self.order_amount
         end
-      elsif payment.respond_to?(:wallet)
-        if payment.wallet.amount < order_amount
-          self.order_amount = payment.wallet.amount
-        end
-        self.payment_amount = self.order_amount
-      else
-        self.payment_amount = self.order_amount
       end
     end
 

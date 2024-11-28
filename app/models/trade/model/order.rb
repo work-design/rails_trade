@@ -336,14 +336,26 @@ module Trade
     end
 
     def check_state!
-      self.check_received_amount
+      self.compute_received_amount
       self.refunded_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
       self.check_state
       self.save!
     end
 
-    def check_received_amount
+    def compute_received_amount
       self.received_amount = self.payment_orders.select(&:state_confirmed?).sum(&:order_amount)
+    end
+
+    def confirm!
+      self.class.transaction do
+        payment_orders.each { |i| i.state = 'confirmed' }
+        self.compute_received_amount
+        payment_orders.each do |i|
+          i.payment.compute_checked_amount
+          i.payment.save!
+        end
+        self.save!
+      end
     end
 
     def wallet_codes

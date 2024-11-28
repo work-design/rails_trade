@@ -6,9 +6,8 @@
       <%= df.fields :payment_orders do |ef| %>
         <%= ef.hidden_field :payment_amount %>
         <%= ef.hidden_field :order_amount %>
-        <%= ef.hidden_field :state, value: 'confirmed' %>
       <% end %>
     <% end %>
   <% end %>
-  <%= f.submit '确认', class: 'button is-fullwidth is-success' %>
+  <%= f.submit '确认', class: 'button is-large is-success' %>
 <% end %>
