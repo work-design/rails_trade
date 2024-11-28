@@ -1,0 +1,11 @@
+<%= form_with theme: 'modal', model: @order, url: { action: 'update' } do |f| %>
+  <%= render 'modal_header' %>
+  <section class="modal-card-body">
+    <div class="field is-horizontal">
+      <div class="field-label is-normal"></div>
+      <div class="field-body">选择会员</div>
+    </div>
+    <%= f.collection_select :contact_id, @contacts, :id, :name, include_blank: true %>
+  </section>
+  <%= f.submit %>
+<% end %>

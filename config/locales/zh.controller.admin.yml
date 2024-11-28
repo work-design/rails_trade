@@ -69,6 +69,8 @@ zh:
           title: 微信支付
         desk_edit:
           title: 绑定桌台
+        contact_edit:
+          title: 绑定会员
       items:
         index:
           title: 售出产品

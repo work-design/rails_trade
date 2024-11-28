@@ -108,6 +108,7 @@ Rails.application.routes.draw do
           patch :adjust_update
           match :desk_edit, via: [:get, :post]
           patch :desk_update
+          match :contact_edit, via: [:get, :post]
         end
         resources :order_payments do
           collection do

@@ -3,7 +3,7 @@ module Trade
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
       :refund, :payment_types, :payment_orders, :print_data, :print, :purchase, :package, :micro,
-      :adjust_edit, :adjust_update, :desk_edit, :desk_update
+      :adjust_edit, :adjust_update, :desk_edit, :desk_update, :contact_edit
     ]
     before_action :set_new_order, only: [:new, :new_simple, :create]
     before_action :set_user, only: [:user]
@@ -157,6 +157,10 @@ module Trade
       end
     end
 
+    def contact_edit
+      @contacts = Crm::Contact.default_where(default_params)
+    end
+
     private
     def set_order
       @order = Order.where(default_params).find(params[:id])
@@ -209,6 +213,7 @@ module Trade
         :payment_strategy_id,
         :collectable,
         :current_cart_id,
+        :contact_id,
         items_attributes: [
           :good_type,
           :good_id,
