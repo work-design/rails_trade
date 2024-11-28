@@ -17,7 +17,7 @@
 <td>
 <% model.payment_orders.each do |payment_order| %>
   <p>
-    <%= button_to(payment_order.order.uuid, { controller: 'orders', action: 'show', id: payment_order.order_id }, class: 'family-monospace text-grey') %>
+    <%= button_to(payment_order.order.uuid, { controller: 'orders', action: 'show', id: payment_order.order_id }, class: 'family-monospace text-grey') if payment_order.order %>
     <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
   </p>
 <% end %>
