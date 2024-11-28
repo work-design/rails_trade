@@ -4,7 +4,7 @@ module Trade
 
     included do
       after_create_commit :print_to_prepare
-      after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
+      #after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
     end
 
     def print_to_prepare
