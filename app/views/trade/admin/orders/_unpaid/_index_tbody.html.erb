@@ -1,6 +1,6 @@
 <td>
   <p>
-    <%= link_to model.uuid, { action: 'show', id: model.id }, text: true %>
+    <%= link_to model.uuid, { action: 'show', id: model.id }, text: true, class: 'family-monospace' %>
     <span class="tag"><%= model.state_i18n %></span>
   </p>
   <p class="text-grey"><%= model.serial_number %></p>
@@ -31,12 +31,18 @@
 </td>
 <td>
   <p><%# link_to model.user_name, { action: 'user', user_id: model.user_id, payment_status: ['unpaid', 'part_paid'] } %></p>
+
+<% if model.member %>
   <p>
-  <% if model&.member %>
     <span><%= model.member.name %></span>
     <span class="text-grey">（<%= model.member_organ.name %>）</span>
-  <% end %>
   </p>
+<% end %>
+<% if model.contact %>
+  <p>
+    <span class="text-grey"><%= model.contact.name %></span>
+  </p>
+<% end %>
 </td>
 <td><%= model.items_count %></td>
 <td><%= simple_format(model.extra_i18n) %></td>
