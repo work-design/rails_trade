@@ -13,14 +13,13 @@
     <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
       <%= f.hidden_field :wallet_id %>
       <%= f.hidden_field :type %>
-      <%= f.hidden_field :total_amount  %>
-      <%= f.fields :payment_orders do |ef| %>
+      <%= f.fields :payment_orders, model: payment_order do |ef| %>
         <%= ef.hidden_field :order_id %>
-        <%= ef.hidden_field :state, value: 'confirmed' %>
         <%= ef.hidden_field :payment_amount %>
+        <%= ef.hidden_field :order_amount %>
+        <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
+        <%= f.check_box 'xx', checked: ef.object.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
       <% end %>
-      <%= f.check_box 'xx', checked: false, data: { action: 'input#form' } %>
-      <span class="weui-icon-checked"></span>
     <% end %>
   </td>
 </tr>
