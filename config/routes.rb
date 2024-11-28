@@ -95,6 +95,7 @@ Rails.application.routes.draw do
         end
         member do
           match :payment_types, via: [:get, :post]
+          post :payment_pending
           post :package
           post :micro
           get :print_data
