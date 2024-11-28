@@ -90,6 +90,11 @@ module Trade
       @order.init_wallet_payments
     end
 
+    def payment_pending
+      payment = @order.payments.build(payment_params)
+      @order.init_wallet_payments(payment.wallet_id)
+    end
+
     def micro
       if auth_code.start_with?('25', '26', '27', '28', '29', '30', 'fp') && current_alipay_app
         @payment = @order.to_payment(type: 'Trade::AlipayPayment')
