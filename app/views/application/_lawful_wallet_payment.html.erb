@@ -10,17 +10,17 @@
   </td>
   <td data-controller="input">
     <span class="text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
-      <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
-        <%= f.hidden_field :wallet_id %>
-        <%= f.hidden_field :type %>
-        <%= f.hidden_field :total_amount  %>
-        <%= f.fields :payment_orders do |ef| %>
-          <%= ef.hidden_field :order_id %>
-          <%= ef.hidden_field :state, value: 'confirmed' %>
-          <%= ef.hidden_field :payment_amount %>
-        <% end %>
-        <%= f.check_box 'xx', checked: false, data: { action: 'input#form' } %>
-        <span class="weui-icon-checked"></span>
+    <%= form_with theme: nil, model: payment_order.payment, scope: 'payment', url: { action: 'payment_pending' } do |f| %>
+      <%= f.hidden_field :wallet_id %>
+      <%= f.hidden_field :type %>
+      <%= f.hidden_field :total_amount  %>
+      <%= f.fields :payment_orders do |ef| %>
+        <%= ef.hidden_field :order_id %>
+        <%= ef.hidden_field :state, value: 'confirmed' %>
+        <%= ef.hidden_field :payment_amount %>
       <% end %>
+      <%= f.check_box 'xx', checked: false, data: { action: 'input#form' } %>
+      <span class="weui-icon-checked"></span>
+    <% end %>
   </td>
 </tr>
