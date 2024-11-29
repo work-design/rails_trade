@@ -51,6 +51,8 @@ module Trade
           end
           self.payment_amount = self.order_amount
         end
+      else
+        self.payment_amount = self.order_amount
       end
     end
 
