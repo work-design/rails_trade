@@ -1,7 +1,7 @@
 <tr>
   <td>
     <span class="tag"><%= model.payment.type_i18n %></span>
-    <span><%= model.payment.payment_uuid %></span>
+    <span class="family-monospace"><%= model.payment.payment_uuid %></span>
   </td>
   <td colspan="4">
   <% if model.payment.is_a?(Trade::WalletPayment) && model.payment.wallet.is_a?(Trade::CustomWallet) %>
