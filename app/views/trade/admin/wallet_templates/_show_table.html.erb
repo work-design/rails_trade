@@ -4,5 +4,9 @@
 </div>
 <div>
   <dt><%= Trade::WalletTemplate.human_attribute_name(:price) %></dt>
-  <dd><%= @wallet_template.advances %></dd>
+  <dd>
+  <% @wallet_template.advances.each do |advance| %>
+    <p><%= advance.price %></p>
+  <% end %>
+  </dd>
 </div>
