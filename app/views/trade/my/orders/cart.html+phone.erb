@@ -2,7 +2,7 @@
   <%= f.hidden_field :current_cart_id %>
 <% end %>
 
-<div class="box mx-3">
+<div class="box">
 <% if @cart.aim_rent? %>
   <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
 <% else %>
@@ -13,6 +13,4 @@
 
 <%= render partial: 'cart', locals: { cart: @cart } %>
 
-<div class="box mx-3">
-  <%= submit_tag t('.create.title'), class: 'button is-fullwidth is-primary', form: 'new_order' %>
-</div>
+<%= submit_tag t('.create.title'), class: 'button is-fullwidth is-primary', form: 'new_order' %>

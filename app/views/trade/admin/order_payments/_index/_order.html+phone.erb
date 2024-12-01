@@ -1,4 +1,4 @@
-<dl id="order_<%= model.id %>" class="as-show is-boxed mx-3">
+<dl id="order_<%= model.id %>" class="as-show is-boxed">
   <div>
     <dt><%= Trade::Order.human_attribute_name(:amount) %></dt>
     <dd><%= model.amount.to_money.format.html_safe %></dd>

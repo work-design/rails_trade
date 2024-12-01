@@ -1,8 +1,8 @@
-<div class="box is-padding-less mx-3">
+<div class="box is-padding-less">
   <%= render 'my/profile_item' %>
 </div>
 
-<div class="box mx-3">
+<div class="box">
   <div class="box-header">企业用餐</div>
   <div class="weui-panel__bd">
     <div data-empty-target="content" class="weui-cells weui-cells_radio">
@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="box mx-3">
+<div class="box">
   <div class="weui-panel__bd">
   <% @roles.each do |role| %>
     <%= link_to({ controller: 'org/board/organs', action: 'new', role_id: role.id }, class: 'media') do %>

@@ -1,4 +1,4 @@
-<div class="box is-padding-less mx-3">
+<div class="box is-padding-less">
   <div class="box-header">
     <span class="level-left"><%= Trade::Wallet.human_attribute_name(:amount) %></span>
     <div class="level-right mt-0 pr-3 text-weight-bold">
@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="box is-padding-less mx-3">
+<div class="box is-padding-less">
   <div class="box-header">充值</div>
   <div class="columns m-4 flex is-multiline is-mobile">
     <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances.without_card, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>

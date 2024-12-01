@@ -1,4 +1,4 @@
-<dl id="payment_container" class="as-show is-boxed mx-3 mb-3">
+<dl id="payment_container" class="as-show is-boxed mb-3">
   <div>
     <dt><%= Trade::Payment.human_attribute_name(:total_amount) %></dt>
     <dd><%= model.total_amount.to_money.format.html_safe %></dd>

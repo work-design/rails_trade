@@ -1,4 +1,4 @@
-<div class="tabs as-navbar is-sticky mx-3 flex-shrink-0">
+<div class="tabs as-navbar is-sticky flex-shrink-0">
 <% [:init, :done, :canceled].each do |status| %>
   <%= link_to Trade::Order.enum_i18n(:state, status), { state: status }, class: active_helper(state: status, active: 'is-active') %>
 <% end %>

@@ -1,7 +1,7 @@
 <%= render 'order_for_payment' %>
 
 <% if @order.payment_orders.select(&:new_record?).present? %>
-<div class="box is-padding-less mx-3">
+<div class="box is-padding-less">
   <div class="box-body">
     <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
       <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
@@ -17,7 +17,7 @@
 <% end %>
 
 <% if @order.all_paid? %>
-<div class="box mx-3">
+<div class="box">
   <p class="text-centered">订单已完成支付</p>
 </div>
 <% end %>
