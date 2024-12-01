@@ -445,7 +445,7 @@ module Trade
         return unreceived_amount
       end
 
-      if current_cart&.support_deposit? && amount > 1
+      if current_cart&.support_deposit? && amount >= 1
         amount * current_cart.deposit_ratio / 100
       elsif advance_amount.to_d > 0
         advance_amount
