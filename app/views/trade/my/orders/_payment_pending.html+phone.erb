@@ -12,8 +12,6 @@
 <% end %>
 </div>
 
-<div class="box">
-  <%= render 'pending_form' %>
-</div>
+<%= render 'pending_form' %>
 
 <%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>
