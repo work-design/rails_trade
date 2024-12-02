@@ -49,7 +49,7 @@ module Trade
 
     def desk_history
       q_params = {
-        status: ['deliverable']
+        status: ['deliverable', 'done']
       }
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status)
