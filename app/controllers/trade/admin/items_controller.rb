@@ -63,10 +63,6 @@ module Trade
     end
 
     def only
-      unless params[:good_type] && params[:good_id]
-        redirect_back(fallback_location: admin_items_url) and return
-      end
-
       good = params[:good_type].safe_constantize&.find_by(id: params[:good_id])
       if good.respond_to?(:user_id)
         @user = good.user
@@ -87,8 +83,6 @@ module Trade
       end
 
       @additions = @item.total
-
-      render 'only'
     end
 
     def toggle
