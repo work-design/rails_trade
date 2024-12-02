@@ -10,18 +10,6 @@ module Trade
       @item_promotes = @promote_good.item_promotes.includes(:promote, :item).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
-    def new
-      @item_promote = ItemPromote.new
-    end
-
-    def create
-      @item_promote = ItemPromote.new(item_promote_params)
-
-      unless @item_promote.save
-        render :new, locals: { model: @item_promote }, status: :unprocessable_entity
-      end
-    end
-
     private
     def set_promote_good
       @promote_good = PromoteGood.find params[:promote_good_id]
