@@ -172,6 +172,7 @@ Rails.application.routes.draw do
         resources :items, controller: 'desk/items' do
           collection do
             get :history
+            post :done
           end
         end
       end

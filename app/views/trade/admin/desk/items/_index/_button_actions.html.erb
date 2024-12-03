@@ -1,16 +1,12 @@
 <div class="buttons are-small">
-  <%= form_with url: { controller: 'orders', action: 'batch_pay' }, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to display-none' do |f| %>
-    <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
-    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-warning' do %>
-      <i class="fa-brands fa-weixin"></i>
-      <span class="ml-1"><%= t('.orders.batch_pay.title') %></span>
-    <% end %>
-  <% end if false %>
   <%= button_to({ controller: 'payments', action: 'desk_scan', desk_id: @desk.id }, class: 'button is-link') do %>
     <span><%= t('.payments.desk_scan.title') %></span>
   <% end %>
   <%= button_to({ controller: 'payments', action: 'desk_hand', desk_id: @desk.id }, class: 'button is-link') do %>
     <span><%= t('.payments.desk_hand.title') %></span>
+  <% end %>
+  <%= button_to({ action: 'done' }, class: 'button is-link') do %>
+    <span><%= t('.done.title') %></span>
   <% end %>
   <%= button_to({ controller: 'space/admin/desks', action: 'print_all', station_id: @desk.room.station_id, room_id: @desk.room_id, id: @desk.id }, class: 'button is-primary') do %>
     <i class="fa-solid fa-print"></i>
