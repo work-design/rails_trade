@@ -74,10 +74,6 @@ zh:
       items:
         index:
           title: 售出产品
-        desk:
-          title: 点单详情
-        desk_history:
-          title: 订单历史
         carts:
           title: 所在购物车
         compute:
@@ -222,3 +218,9 @@ zh:
       rent_charges:
         index:
           title: 租金规则
+      desk:
+        items:
+          index:
+            title: 点单详情
+          history:
+            title: 订单历史

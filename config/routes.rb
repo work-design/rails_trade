@@ -148,8 +148,6 @@ Rails.application.routes.draw do
         collection do
           get :purchase
           get :produce
-          get 'desk/:desk_id' => :desk
-          get 'desk_history/:desk_id' => :desk_history
           post :trial
           post :batch_purchase
         end
@@ -168,6 +166,13 @@ Rails.application.routes.draw do
         member do
           patch :confirm
           patch :deny
+        end
+      end
+      resources :desks, only: [] do
+        resources :items, controller: 'desk/items' do
+          collection do
+            get :history
+          end
         end
       end
     end

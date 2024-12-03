@@ -11,15 +11,6 @@
       <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-trash text-danger"></i>
       <% end %>
-      <%= button_to({ action: 'update', id: model.id }, method: :patch, params: { 'item[desk_id]': nil }, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-trash text-danger"></i>
-      <% end if false %>
-    </div>
-    <div data-show-target="item" class="visibility-hidden">
-      <%= link_to({ action: 'carts', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-cart-shopping text-info"></i>
-        <span class="ml-1"><%= t('.items.carts.title') %></span>
-      <% end %>
     </div>
   </td>
 </tr>
