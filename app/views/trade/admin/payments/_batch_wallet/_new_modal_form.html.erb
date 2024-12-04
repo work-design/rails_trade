@@ -2,6 +2,7 @@
   <%= render 'modal_header' %>
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
+    <%= f.hidden_field :wallet_id %>
     <%= f.fields :payment_orders do |ef| %>
       <div class="field is-horizontal">
         <div class="field-label is-normal"></div>

@@ -49,7 +49,7 @@ module Trade
     end
 
     def batch_wallet
-      @payment = WalletPayment.init_with_order_ids params[:ids].split(',')
+      @payment = WalletPayment.init_with_order_ids params[:ids].split(','), params[:wallet_id]
     end
 
     def confirm
