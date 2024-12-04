@@ -51,12 +51,6 @@ module Trade
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
-    def batch_paid
-      Order.where(id: params[:ids].split(',')).each do |i|
-        i.direct_paid!
-      end
-    end
-
     def new_simple
     end
 
