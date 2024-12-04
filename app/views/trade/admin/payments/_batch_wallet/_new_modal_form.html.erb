@@ -1,0 +1,26 @@
+<%= form_with theme: 'modal', model: @payment, scope: :payment, url: { controller: 'payments', action: 'confirm' }, data: { controller: 'total' } do |f| %>
+  <%= render 'modal_header' %>
+  <section class="modal-card-body">
+    <%= f.hidden_field :type %>
+    <%= f.fields :payment_orders do |ef| %>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal"></div>
+        <div class="field-body">
+          <div class="field">
+            <%= ef.number_field :order_amount, readonly: true, label: nil %>
+            <p class="help text-danger">
+              <span class="family-monospace"><%= ef.object.order.uuid %></span>
+              <time data-controller="time" class="text-grey"><%= ef.object.order.created_at.to_fs(:iso8601) %></time>
+              <span class="text-grey">第 <%= ef.index + 1 %> 次下单</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <%= ef.hidden_field :state %>
+      <%= ef.hidden_field :order_id %>
+    <% end %>
+    <%= f.number_field :adjust_amount, autofocus: true, data: { total_target: 'reduce', action: 'total#updateReduce' } %>
+    <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
+  </section>
+  <%= f.submit %>
+<% end %>

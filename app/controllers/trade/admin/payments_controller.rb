@@ -24,6 +24,10 @@ module Trade
       @payments = Payment.includes(:user, :payment_orders).to_check.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
+    def new
+      @payment.init_uuid
+    end
+
     def desk_scan
       order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
 
@@ -44,8 +48,8 @@ module Trade
       @payment = HandPayment.init_with_order_ids params[:ids].split(',')
     end
 
-    def new
-      @payment.init_uuid
+    def batch_wallet
+      @payment = WalletPayment.init_with_order_ids params[:ids].split(',')
     end
 
     def confirm

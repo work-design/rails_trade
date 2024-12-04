@@ -125,6 +125,7 @@ Rails.application.routes.draw do
           post :desk_hand
           post :batch_scan
           post :batch_hand
+          post :batch_wallet
           post :confirm
         end
         member do
