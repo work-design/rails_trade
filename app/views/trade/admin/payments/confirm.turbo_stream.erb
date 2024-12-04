@@ -1,1 +1,1 @@
-<%= turbo_stream.append 'body', partial: 'visit', locals: { url: url_for(controller: 'items', action: 'desk_history', desk_id: params[:desk_id]) } %>
+<%= turbo_stream.append 'body', partial: 'visit', locals: { url: url_for(controller: 'desk/items', action: 'history', desk_id: params[:desk_id]) } %>

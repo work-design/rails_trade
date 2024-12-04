@@ -89,8 +89,6 @@ Rails.application.routes.draw do
           get 'user/:user_id' => :user
           get :unpaid
           delete :batch_destroy
-          post :batch_paid
-          post :batch_pay
           get :new_simple
         end
         member do
@@ -125,6 +123,8 @@ Rails.application.routes.draw do
           get :uncheck
           post :desk_scan
           post :desk_hand
+          post :batch_scan
+          post :batch_hand
           post :confirm
         end
         member do
@@ -337,8 +337,6 @@ Rails.application.routes.draw do
         resources :orders, only: [] do
           collection do
             delete :batch_destroy
-            post :batch_paid
-            post :batch_pay
           end
           member do
             match :edit_organ, via: [:get, :post]
