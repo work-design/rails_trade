@@ -26,44 +26,22 @@ module Trade
 
     def desk_scan
       order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
-      orders = Order.where(id: order_ids).map do |order|
-        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
-      end
 
-      @payment = ScanPayment.new(
-        payment_orders_attributes: orders
-      )
+      @payment = ScanPayment.init_with_order_ids order_ids
     end
 
     def desk_hand
       order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
-      orders = Order.where(id: order_ids).map do |order|
-        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
-      end
 
-      @payment = HandPayment.new(
-        payment_orders_attributes: orders
-      )
+      @payment = HandPayment.init_with_order_ids order_ids
     end
 
     def batch_scan
-      orders = Order.where(id: params[:ids].split(',')).map do |order|
-        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
-      end
-
-      @payment = ScanPayment.new(
-        payment_orders_attributes: orders
-      )
+      @payment = ScanPayment.init_with_order_ids params[:ids].split(',')
     end
 
     def batch_hand
-      orders = Order.where(id: params[:ids].split(',')).map do |order|
-        { order: order, order_amount: order.unreceived_amount, state: 'pending' }
-      end
-
-      @payment = HandPayment.new(
-        payment_orders_attributes: orders
-      )
+      @payment = HandPayment.init_with_order_ids params[:ids].split(',')
     end
 
     def new

@@ -225,6 +225,14 @@ module Trade
         0.1.to_d.power(self.columns_hash['total_amount'].scale || self.columns_hash['total_amount'].limit || 2)
       end
 
+      def init_with_order_ids(ids)
+        orders = Order.where(id: ids).map do |order|
+          { order: order, order_amount: order.unreceived_amount, state: 'pending' }
+        end
+
+        new(payment_orders_attributes: orders)
+      end
+
     end
 
   end
