@@ -63,10 +63,7 @@ zh:
           title: 采购
         batch_destroy:
           title: 批量删除
-        batch_paid:
-          title: 支付
-        batch_pay:
-          title: 微信支付
+          confirm: 确认删除
         desk_edit:
           title: 绑定桌台
         contact_edit:
@@ -100,6 +97,10 @@ zh:
           title: 扫码支付
         desk_hand:
           title: 线下支付
+        batch_hand:
+          title: 线下支付
+        batch_scan:
+          title: 扫码支付
         item:
           show: 支付方式
           analyze: 分析支付方式
