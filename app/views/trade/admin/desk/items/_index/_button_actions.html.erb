@@ -5,7 +5,7 @@
   <%= button_to({ controller: 'payments', action: 'desk_hand', desk_id: @desk.id }, class: 'button is-link') do %>
     <span><%= t('.payments.desk_hand.title') %></span>
   <% end %>
-  <%= button_to({ action: 'done' }, class: 'button is-link') do %>
+  <%= button_to({ action: 'done' }, data: { turbo_confirm: t('.done.confirm') }, class: 'button is-link') do %>
     <span><%= t('.done.title') %></span>
   <% end %>
   <%= button_to({ controller: 'space/admin/desks', action: 'print_all', station_id: @desk.room.station_id, room_id: @desk.room_id, id: @desk.id }, class: 'button is-primary') do %>
