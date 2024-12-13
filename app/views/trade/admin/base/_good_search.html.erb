@@ -3,7 +3,7 @@
     <label class="label">商品</label>
   </div>
   <div class="field-body">
-    <div class="panel" data-controller="typer" data-typer-url-value="<%= url_for(controller: 'home', action: 'good_search') %>" data-typer-method-value="post">
+    <div class="panel" data-controller="typer" data-typer-url-value="<%= url_for(controller: 'home', action: 'good_search') %>">
       <%= f.hidden_field :good_type, value: f.object.good_type %>
       <%= f.hidden_field :good_id, data: { typer_target: 'value' } %>
       <div class="control has-icons-left">
