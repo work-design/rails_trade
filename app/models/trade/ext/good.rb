@@ -19,7 +19,7 @@ module Trade
 
       has_many :items, class_name: 'Trade::Item', as: :good
       has_many :orders, through: :items, source: :trade
-      has_many :addresses, -> { distinct }, class_name: 'Factory::Address', through: :items
+      has_many :addresses, -> { distinct }, class_name: 'Ship::Address', through: :items
 
       has_many :promote_goods, class_name: 'Trade::PromoteGood', as: :good
       has_many :unavailable_promote_goods, ->(o) { unavailable.where(good_id: [o.id, nil]) }, class_name: 'Trade::PromoteGood', primary_key: :good_type, foreign_key: :good_type
