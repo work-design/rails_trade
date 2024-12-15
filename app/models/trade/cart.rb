@@ -2,7 +2,7 @@ module Trade
   class Cart < ApplicationRecord
     include Model::Cart
     if defined? RailsFactory
-      include Factory::Model::Cart
+      include Factory::Ext::Cart
     end
     if defined? RailsCrm
       include Crm::Ext::Maintainable
