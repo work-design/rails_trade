@@ -104,7 +104,7 @@ module Trade
       )
 
       after_initialize :init_uuid, if: :new_record?
-      after_initialize :sync_from_good, if: -> { new_record? && good_id.present? }
+      #after_initialize :sync_from_good, if: -> { new_record? && good_id.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
       before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :add_promotes, if: :new_record?
