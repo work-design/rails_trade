@@ -33,7 +33,7 @@ module Trade
       has_many :promote_goods, ->(o) { where(o.promote_filter_hash) }, primary_key: :good_type, foreign_key: :good_type
       has_many :real_items, ->(o) { where(o.filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
-      has_many :organ_items, ->(o) { where(o.in_filter_hash).where(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
+      has_many :organ_items, ->(o) { where(o.in_filter_hash).where(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :purchase_cart
       has_many :purchase_items, ->(o) { where(o.in_filter_hash).where.not(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
       has_many :agent_items, ->(o) { where(o.agent_filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id

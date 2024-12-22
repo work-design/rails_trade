@@ -31,7 +31,7 @@ module Trade
     end
 
     def set_item
-      @item = current_organ.organ_items.find params[:id]
+      @item = @cart.items.load.find params[:id]
     end
 
     def item_params

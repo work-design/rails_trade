@@ -67,7 +67,8 @@ module Trade
       belongs_to :from_address, class_name: 'Ship::Address', optional: true
 
       belongs_to :good, polymorphic: true, optional: true
-      belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 下单时的购物车
+      belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 销售时的购物车
+      belongs_to :purchase_cart, class_name: 'Cart', foreign_key: :current_cart_id, inverse_of: :purchase_items, optional: true # 采购时得购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
       belongs_to :source, class_name: self.name, counter_cache: :purchase_items_count, optional: true
       belongs_to :unit, optional: true
@@ -416,9 +417,15 @@ module Trade
     def sync_amount_to_current_cart
       return unless current_cart
 
-      current_cart.compute_amount
+      if current_cart.purchasable
+        purchase_cart.compute_amount
+        purchase_cart.save!
+      else
+        current_cart.compute_amount
+        current_cart.save!
+      end
+
       logger.debug "\e[33m  Item Object id: #{id}/#{object_id}"
-      current_cart.save!
     end
 
     def set_not_fresh
