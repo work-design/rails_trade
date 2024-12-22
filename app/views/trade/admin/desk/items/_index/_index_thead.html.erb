@@ -1,5 +1,9 @@
 <th><%= Trade::Item.human_attribute_name(:good_name) %></th>
-<th><%= Trade::Item.human_attribute_name(:number) %></th>
+<th>
+  <span><%= Trade::Item.human_attribute_name(:number) %></span>
+  <span>/</span>
+  <span><%= Trade::Item.human_attribute_name(:done_number) %></span>
+</th>
 <th>
   <p class="text-grey"><%= Trade::Item.human_attribute_name(:single_price) %></p>
 </th>
