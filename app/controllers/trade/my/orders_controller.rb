@@ -25,17 +25,20 @@ module Trade
     end
 
     def add
-      binding.b
     end
 
     def payment_types
       @order.init_wallet_payments
+      @order.to_payment(type: 'Trade::HandPayment')
+
+      binding.b
       set_wxpay if request.variant.include?(:wechat)
     end
 
     def payment_pending
       payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(payment.wallet_id)
+      @order.to_payment(type: 'Trade::HandPayment')
       set_wxpay if request.variant.include?(:wechat)
     end
 

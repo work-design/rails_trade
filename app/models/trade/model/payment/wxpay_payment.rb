@@ -78,13 +78,17 @@ module Trade
     def common_params
       {
         description: "支付编号: #{payment_uuid}",
-        out_trade_no: payment_uuid,
+        out_trade_no: out_trade_no,
         notify_url: Rails.application.routes.url_for(host: organ.host, controller: 'trade/payments', action: 'wxpay_notify', mch_id: payee_app.mch_id),
         amount: {
           total: (self.total_amount * 100).to_i,
           currency: 'CNY'
         }
       }
+    end
+
+    def out_trade_no
+      payment_orders[0].order.uuid
     end
 
     def assign_detail(params)
