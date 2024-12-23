@@ -2,7 +2,8 @@ module Trade
   class In::OrdersController < Admin::OrdersController
     include Controller::In
     before_action :set_order, only: [
-      :show, :edit, :update, :destroy, :actions, :edit_organ
+      :show, :edit, :update, :destroy, :actions, :edit_organ,
+      :payment_types
     ]
     before_action :set_providers, only: [:edit_organ]
 
