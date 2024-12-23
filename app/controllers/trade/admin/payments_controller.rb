@@ -40,18 +40,6 @@ module Trade
       @payment = HandPayment.init_with_order_ids order_ids
     end
 
-    def batch_scan
-      @payment = ScanPayment.init_with_order_ids params[:ids].split(',')
-    end
-
-    def batch_hand
-      @payment = HandPayment.init_with_order_ids params[:ids].split(',')
-    end
-
-    def batch_wallet
-      @payment = WalletPayment.init_with_order_ids params[:ids].split(','), params[:wallet_id]
-    end
-
     def confirm
       @payment.confirm!(payment_params)
     end

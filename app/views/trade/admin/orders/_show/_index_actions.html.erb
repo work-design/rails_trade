@@ -5,13 +5,13 @@
       <span class="pl-1"><%= t('.print.title') %></span>
     <% end %>
     <% if ['unpaid', 'part_paid'].include?(@order.payment_status) %>
-      <%= button_to({ controller: 'order_payments', action: 'new', order_id: @order.id }, class: 'button is-danger') do %>
+      <%= button_to({ controller: 'hand_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-danger') do %>
         <i class="fa-solid fa-receipt"></i>
-        <span class="ml-1"><%= t('.order_payments.new.title') %></span>
+        <span class="ml-1"><%= t('.hand_payments.batch.title') %></span>
       <% end %>
-      <%= button_to({ controller: 'order_payments', action: 'new_micro', order_id: @order.id }, class: 'button is-primary') do %>
+      <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-primary') do %>
         <i class="fa-brands fa-weixin"></i>
-        <span class="ml-1"><%= t('trade.admin.order_payments.new_micro.title') %></span>
+        <span class="ml-1"><%= t('.scan_payments.batch.title') %></span>
       <% end %>
     <% end %>
   </div>

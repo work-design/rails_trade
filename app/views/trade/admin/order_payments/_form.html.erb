@@ -1,8 +1,0 @@
-<%= f.text_field :payment_uuid %>
-<%= f.fields :payment_orders do |ef| %>
-  <%= ef.number_field :order_amount %>
-  <%= ef.hidden_field :state %>
-  <%= ef.hidden_field :order_id %>
-<% end %>
-<%= f.text_area :comment %>
-<%= f.file_field :proof %>

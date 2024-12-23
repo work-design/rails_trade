@@ -144,7 +144,16 @@ Rails.application.routes.draw do
           end
         end
       end
-      resources :scan_payments
+      resources :scan_payments do
+        collection do
+          post :batch
+        end
+      end
+      resources :hand_payments do
+        collection do
+          post :batch
+        end
+      end
       resources :items do
         collection do
           get :purchase
@@ -319,7 +328,11 @@ Rails.application.routes.draw do
           end
         end
         resources :wallets, only: [] do
-          resources :wallet_payments
+          resources :wallet_payments do
+            collection do
+              post :batch
+            end
+          end
           resources :wallet_advances
           resources :wallet_logs
           resources :wallet_sells

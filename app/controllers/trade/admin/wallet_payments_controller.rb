@@ -10,6 +10,10 @@ module Trade
       @wallet_payments = @wallet.wallet_payments.includes(payment_orders: :order).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
+    def batch
+      @payment = WalletPayment.init_with_order_ids params[:ids].split(','), params[:wallet_id]
+    end
+
     private
     def set_wallet
       @wallet = Wallet.find params[:wallet_id]

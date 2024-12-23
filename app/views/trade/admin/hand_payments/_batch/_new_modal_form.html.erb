@@ -21,6 +21,7 @@
     <% end %>
     <%= f.number_field :adjust_amount, autofocus: true, data: { total_target: 'reduce', action: 'total#updateReduce' } %>
     <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
+    <%= f.text_area :comment %>
     <%= f.file_field :proof %>
   </section>
   <%= f.submit %>
