@@ -1,6 +1,6 @@
-<%= form_with url: { controller: 'items', action: 'batch_purchase' }, data: { controller: 'check-commit' }, class: 'button_to' do |f| %>
-  <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
-  <%= button_tag data: { check_commit_target: 'submit', action: 'check-commit#doSubmit' }, aria: { label: t('.batch_purchase.title') }, disabled: true, class: 'button is-small text-success' do %>
+<%= form_with url: { controller: 'items', action: 'batch_purchase' }, class: 'button_to' do |f| %>
+  <%= f.hidden_field :ids, data: { form_target: 'ids' } %>
+  <%= button_tag data: { form_target: 'submit' }, aria: { label: t('.batch_purchase.title') }, disabled: true, class: 'button is-small text-success' do %>
     <i class="fa-solid fa-cash-register"></i>
   <% end %>
 <% end %>
