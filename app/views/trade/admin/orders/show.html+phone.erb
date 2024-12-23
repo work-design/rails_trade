@@ -19,7 +19,7 @@
 <% end %>
 
 <% if @order.payment_orders.present? %>
-<div class="mx-3">
+<div>
   <strong class="text-grey pl-3">支付</strong>
   <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
 </div>
