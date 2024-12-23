@@ -20,12 +20,13 @@
 <% end %>
 <div
   data-controller="scan"
+  data-scan-params-value="<%= { ids: @order.id }.to_json %>"
   data-action="click->scan#report"
   class="cell has-column-centered"
-  data-report-url="<%= url_for(action: 'micro', id: model.id) %>"
+  data-report-url="<%= url_for(controller: 'scan_payments', action: 'batch') %>"
 >
   <i class="fa-solid fa-credit-card"></i>
-  <span><%= t('.orders.micro.title') %></span>
+  <span><%= t('.scan_payments.batch.title') %></span>
 </div>
 <% if model.organ.device %>
   <%= button_to({ action: 'print' }, class: 'cell has-column-centered') do %>
