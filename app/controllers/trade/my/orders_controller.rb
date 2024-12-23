@@ -25,6 +25,7 @@ module Trade
     end
 
     def add
+      binding.b
     end
 
     def payment_types

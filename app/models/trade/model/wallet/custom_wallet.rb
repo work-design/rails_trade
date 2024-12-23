@@ -10,5 +10,9 @@ module Trade
       self.organ_id = wallet_template.organ_id
     end
 
+    def template_name
+      wallet_template.name
+    end
+
   end
 end
