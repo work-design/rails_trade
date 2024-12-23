@@ -1,13 +1,11 @@
-<div class="buttons are-small">
-  <%= form_with url: { controller: 'items', action: 'batch_purchase' }, data: { controller: 'check-commit', check_commit_check_outlet: 'th' }, class: 'button_to display-none' do |f| %>
-    <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
-    <%= button_tag data: { action: 'check-commit#doSubmit' }, aria: { label: t('.batch_purchase.title') }, class: 'button is-small text-success' do %>
-      <i class="fa-solid fa-cash-register"></i>
-    <% end %>
+<%= form_with url: { controller: 'items', action: 'batch_purchase' }, data: { controller: 'check-commit' }, class: 'button_to' do |f| %>
+  <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
+  <%= button_tag data: { check_commit_target: 'submit', action: 'check-commit#doSubmit' }, aria: { label: t('.batch_purchase.title') }, disabled: true, class: 'button is-small text-success' do %>
+    <i class="fa-solid fa-cash-register"></i>
   <% end %>
-  <%= form_with theme: 'inline', model: @purchase_order, url: { controller: 'trade/in/orders', action: 'create' }, id: 'new_order' do |f| %>
-    <%= f.hidden_field :generate_mode %>
-    <%= f.hidden_field :organ_id %>
-    <%= f.submit class: 'button' %>
-  <% end %>
-</div>
+<% end %>
+<%= form_with theme: 'inline', model: @purchase_order, url: { controller: 'trade/in/orders', action: 'create' }, id: 'new_order' do |f| %>
+  <%= f.hidden_field :generate_mode %>
+  <%= f.hidden_field :organ_id %>
+  <%= f.submit class: 'button' %>
+<% end %>
