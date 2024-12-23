@@ -20,6 +20,12 @@ module Trade
       @payment = ScanPayment.init_with_order_ids params[:ids].split(',')
     end
 
+    def desk
+      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
+
+      @payment = ScanPayment.init_with_order_ids order_ids
+    end
+
     private
     def set_new_scan_payment
       @scan_payment = ScanPayment.new(scan_payment_params)

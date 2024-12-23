@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           get :wait
           post :package
           get :pay
-          get :payment_types
+          match :payment_types, via: [:get, :post]
           post :payment_pending
           post :payment_confirm
           get :payment_frozen
@@ -121,11 +121,6 @@ Rails.application.routes.draw do
         collection do
           get :dashboard
           get :uncheck
-          post :desk_scan
-          post :desk_hand
-          post :batch_scan
-          post :batch_hand
-          post :batch_wallet
           post :confirm
         end
         member do
@@ -147,11 +142,13 @@ Rails.application.routes.draw do
       resources :scan_payments do
         collection do
           post :batch
+          post 'desk/:desk_id' => :desk
         end
       end
       resources :hand_payments do
         collection do
           post :batch
+          post 'desk/:desk_id' => :desk
         end
       end
       resources :items do
