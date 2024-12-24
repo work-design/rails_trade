@@ -436,6 +436,7 @@ module Trade
         order_amount = partly_wallet_amount(wallet_code, payment_amount)
         init_wallet_payment(wallet: wallet, order_amount: order_amount, payment_amount: payment_amount)
       end
+
       if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
         init_lawful_wallet_payment
       end
