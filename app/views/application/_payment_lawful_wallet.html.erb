@@ -14,13 +14,12 @@
       <%= f.fields '', model: payment_order, skip_default_ids: true do |df| %>
         <%= df.hidden_field :order_amount %>
         <%= df.hidden_field :payment_amount %>
-        <%= df.hidden_field :state, value: payment_order.state_init? ? 'pending' : 'init' %>
         <%= df.fields :payment do |ef| %>
-          <%= ef.hidden_field :wallet_id %>
           <%= ef.hidden_field :type %>
+          <%= ef.hidden_field :wallet_id %>
         <% end %>
       <% end %>
-      <%= check_box_tag 'xx', nil, payment_order.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
+      <%= check_box_tag 'xx', nil, payment_order.state_confirmed?, class: 'xl ml-1', data: { action: 'input#form' } %>
     </div>
   </td>
 </tr>

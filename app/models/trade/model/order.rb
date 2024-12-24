@@ -418,7 +418,7 @@ module Trade
 
     def batch_pending_payments(params)
       params.each do |payment_p|
-        payment_orders.build(payment_p.permit!)
+        payment_orders.build payment_p.permit(:order_amount, :payment_amount, payment_attributes: [:type, :wallet_id]).merge!(state: 'confirmed')
       end
       compute_received_amount
       compute_unreceived_amount
@@ -480,6 +480,7 @@ module Trade
       payment_orders.build(
         order_amount: order_amount,
         payment_amount: order_amount,
+        state: 'pending',
         payment_attributes: {
           type: 'Trade::WalletPayment',
           organ_id: organ_id,
