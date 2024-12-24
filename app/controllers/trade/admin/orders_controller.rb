@@ -75,19 +75,12 @@ module Trade
     end
 
     def payment_pending
-      payment = @order.payments.build(payment_params)
-      @order.init_wallet_payments(payment.wallet_id)
+      @order.batch_pending_payments(params[:batch])
+      #@order.init_wallet_payments(payment.wallet_id)
     end
 
     def payment_confirm
-      params[:batch].each do |payment_p|
-        payment_p.permit!
-        payment_p[:payment_orders_attributes].each do |_, v|
-          v.merge! order: @order
-        end
-        payment_p.merge! default_form_params
-        @order.payments.build(payment_p)
-      end
+      @order.batch_pending_payments(params[:batch])
       @order.confirm!
     end
 

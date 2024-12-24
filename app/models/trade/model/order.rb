@@ -416,6 +416,12 @@ module Trade
       payment
     end
 
+    def batch_pending_payments(params)
+      params.each do |payment_p|
+        to_payment(**payment_p.permit!)
+      end
+    end
+
     def init_wallet_payments(*except_ids)
       return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
       codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
@@ -479,12 +485,17 @@ module Trade
         return payment if payment
       end
 
-      po = payment_orders.build(state: state, order_amount: order_amount, payment_amount: payment_amount)
-      po.build_payment(
-        type: type,
-        organ_id: organ_id,
-        user_id: user_id,
-        **options
+      payment_orders.build(
+        state: state,
+        order_amount: order_amount,
+        payment_amount: payment_amount,
+        payment_attributes: {
+          type: type,
+          organ_id: organ_id,
+          user_id: user_id,
+          total_amount: payment_amount,
+          **options
+        }
       )
     end
 
