@@ -377,7 +377,7 @@ module Trade
     end
 
     def total_wallet_amount(wallet_code)
-      parsed_wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
+      parsed_wallet_amount(wallet_code).sum { |i| i[:amount].to_d }
     end
 
     # amount 为 wallet 对应单位
