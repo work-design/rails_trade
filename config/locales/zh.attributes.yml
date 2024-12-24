@@ -123,7 +123,7 @@ zh:
         comment: 备注
         state: 状态
         payment_uuid: 流水号
-        proof: 支付凭证
+        proof: 收款凭证
       trade/payment/orders:
         uuid: 订单号
       trade/payment_method:
@@ -176,7 +176,7 @@ zh:
         refunded_at: 退款时间
         total_amount: 金额
         order_id: 订单
-        payment_id: 支付流水
+        payment_id: 收款流水
         comment: 备注
       trade/wallet:
         wallet_template_id: 储值类型

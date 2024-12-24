@@ -3,9 +3,9 @@
 <div class="box is-padding-less">
 <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
   <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
-    <%= render partial: 'wallet_payment', locals: { payment_order: payment_order } %>
+    <%= render partial: 'payment_wallet', locals: { payment_order: payment_order } %>
   <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
-    <%= render partial: 'lawful_wallet_payment', locals: { payment_order: payment_order } %>
+    <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order } %>
   <% elsif payment_order.payment.is_a?(Trade::WxpayPayment) %>
     <%= render partial: 'wxpay', locals: { payment_order: payment_order } %>
   <% end %>

@@ -88,7 +88,7 @@ zh:
           title: 订单优惠
       payments:
         index:
-          title: 支付流水
+          title: 收款流水
           new: 新增
           import: 导入
           init: 预核销

@@ -69,8 +69,8 @@ module Trade
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
-      has_many :payment_orders, dependent: :destroy_async
-      has_many :payments, through: :payment_orders
+      has_many :payment_orders, inverse_of: :order, dependent: :destroy_async
+      has_many :payments, inverse_of: :orders, through: :payment_orders
       has_many :refund_orders, dependent: :destroy_async
       has_many :refunds, through: :refund_orders
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
@@ -418,14 +418,27 @@ module Trade
 
     def batch_pending_payments(params)
       params.each do |payment_p|
-        to_payment(**payment_p.permit!)
+        payment_orders.build(payment_p.permit!)
+      end
+      compute_received_amount
+      compute_unreceived_amount
+    end
+
+    def init_wallet_payments
+      return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
+
+      init_wallet_payment
+      return if unreceived_amount <= 0
+
+      if lawful_wallet && payment_orders.map { |i| i.payment.wallet_id }.exclude?(lawful_wallet.id)
+        init_lawful_wallet_payment
       end
     end
 
-    def init_wallet_payments(*except_ids)
-      return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
+    def init_wallet_payment
       codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
       ids = WalletTemplate.where(code: codes).pluck(:id)
+      except_ids = payment_orders.map { |i| i.payment.wallet_id }
 
       wallets.includes(:wallet_template).where.not(id: except_ids).where(wallet_template_id: ids).each do |wallet|
         break if wallet.amount <= 0
@@ -438,24 +451,21 @@ module Trade
         else
           payment_amount = wallet.amount # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
         end
-
         order_amount = partly_wallet_amount(wallet_code, payment_amount)
-        init_wallet_payment(wallet: wallet, order_amount: order_amount, payment_amount: payment_amount)
-      end
 
-      if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
-        init_lawful_wallet_payment
+        payment_orders.build(
+          order_amount: order_amount,
+          payment_amount: payment_amount,
+          payment_attributes: {
+            type: 'Trade::WalletPayment',
+            organ_id: organ_id,
+            user_id: user_id,
+            total_amount: payment_amount,
+            wallet_id: wallet.id,
+            pay_state: 'paid'
+          }
+        )
       end
-    end
-
-    def init_wallet_payment(wallet:, order_amount:, payment_amount: order_amount)
-      to_payment(
-        type: 'Trade::WalletPayment',
-        wallet_id: wallet.id,
-        pay_state: 'paid',
-        order_amount: order_amount,
-        payment_amount: payment_amount
-      )
     end
 
     def init_lawful_wallet_payment
@@ -467,11 +477,17 @@ module Trade
         order_amount = unreceived_amount
       end
 
-      to_payment(
-        type: 'Trade::WalletPayment',
-        wallet_id: lawful_wallet.id,
-        pay_state: 'paid',
-        order_amount: order_amount
+      payment_orders.build(
+        order_amount: order_amount,
+        payment_amount: order_amount,
+        payment_attributes: {
+          type: 'Trade::WalletPayment',
+          organ_id: organ_id,
+          user_id: user_id,
+          total_amount: order_amount,
+          wallet_id: lawful_wallet.id,
+          pay_state: 'paid'
+        }
       )
     end
 

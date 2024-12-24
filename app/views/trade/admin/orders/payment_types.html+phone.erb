@@ -3,7 +3,7 @@
     <dt><%= Trade::Order.human_attribute_name(:unreceived_amount) %></dt>
     <dd class="text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></dd>
   </div>
-    <%# render partial: 'wallet_payment', collection: @order.payment_orders, as: :payment_order %>
+    <%# render partial: 'payment_wallet', collection: @order.payment_orders, as: :payment_order %>
 </dl>
 
 <%= render 'hand_payment' %>

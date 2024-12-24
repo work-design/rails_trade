@@ -1,13 +1,23 @@
-<%= form_with theme: nil, scope: 'batch', url: { action: 'payment_confirm' }, skip_default_ids: true do |f| %>
-  <% @order.payments.select(&->(i){ i.is_a?(Trade::WalletPayment) }).each do |payment| %>
-    <%= f.fields '', model: payment, skip_default_ids: true do |df| %>
-      <%= df.hidden_field :wallet_id %>
-      <%= df.hidden_field :type %>
-      <%= df.fields :payment_orders do |ef| %>
-        <%= ef.hidden_field :payment_amount %>
-        <%= ef.hidden_field :order_amount %>
-      <% end %>
-    <% end %>
-  <% end %>
+<%= form_with theme: 'modal', scope: 'batch', url: { action: 'payment_confirm' }, method: :post, skip_default_ids: true do |f| %>
+  <%= render 'modal_header' %>
+  <section class="modal-card-body">
+    <table class="table is-fullwidth is-borderless as-show">
+      <tbody>
+        <tr>
+          <td class="text-right"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></td>
+          <td class="text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></td>
+        </tr>
+        <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
+          <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
+            <%= render partial: 'payment_wallet', locals: { payment_order: payment_order, f: f } %>
+          <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
+            <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order, f: f } %>
+          <% elsif payment_order.payment.is_a?(Trade::HandPayment) %>
+            <%= render partial: 'payment_hand', locals: { payment_order: payment_order, f: f } %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
   <%= f.submit '确认', class: 'button is-large is-success' %>
 <% end %>

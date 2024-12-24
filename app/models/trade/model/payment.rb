@@ -47,8 +47,8 @@ module Trade
       belongs_to :operator, polymorphic: true, optional: true
 
       belongs_to :payment_method, optional: true
-      has_many :payment_orders, dependent: :destroy
-      has_many :orders, through: :payment_orders
+      has_many :payment_orders, inverse_of: :payment, dependent: :destroy
+      has_many :orders, inverse_of: :payments, through: :payment_orders
       has_many :items, through: :payment_orders
       has_many :refunds
       has_many :refund_orders

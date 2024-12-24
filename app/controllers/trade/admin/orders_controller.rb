@@ -72,11 +72,19 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
+      @order.payment_orders.build(
+        order_amount: @order.unreceived_amount,
+        payment_amount: @order.unreceived_amount,
+        payment_attributes: {
+          type: 'Trade::HandPayment',
+          total_amount: @order.unreceived_amount
+        }
+      )
     end
 
     def payment_pending
       @order.batch_pending_payments(params[:batch])
-      #@order.init_wallet_payments(payment.wallet_id)
+      @order.init_wallet_payments
     end
 
     def payment_confirm
@@ -234,9 +242,6 @@ module Trade
         :wallet_id,
         payment_orders_attributes: [:payment_amount, :order_amount, :state]
       )
-      _p[:payment_orders_attributes].each do |_, v|
-        v.merge! order: @order
-      end
       _p.merge! default_form_params
     end
 
