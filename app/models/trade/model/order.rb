@@ -400,7 +400,7 @@ module Trade
         end
       end
 
-      logger.debug "\e[35m  Used is #{used}, Amount is #{amount}, Rest is #{rest}  \e[0m"
+      logger.debug "\e[35m  Used: #{used}, Amount: #{amount}, Rest: #{rest}  \e[0m"
       [used, rest]
     end
 
@@ -434,8 +434,8 @@ module Trade
           # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
           payment_amount = wallet.amount
         end
-        order_amount = partly_wallet_amount(wallet_code, payment_amount)
 
+        order_amount = partly_wallet_amount(wallet_code, payment_amount)
         init_wallet_payment(wallet, order_amount: order_amount, payment_amount: payment_amount)
       end
       if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
