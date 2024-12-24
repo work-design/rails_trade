@@ -19,7 +19,7 @@
           <%= ef.hidden_field :wallet_id %>
         <% end %>
       <% end %>
-      <%= check_box_tag 'xx', nil, payment_order.state_confirmed?, class: 'xl ml-1', data: { action: 'input#form' } %>
+      <%= check_box_tag 'xx', nil, payment_order.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
     </div>
   </td>
 </tr>

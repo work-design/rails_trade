@@ -418,9 +418,9 @@ module Trade
 
     def batch_pending_payments(params)
       params.each do |payment_p|
-        payment_orders.build payment_p.permit(:order_amount, :payment_amount, payment_attributes: [:type, :wallet_id]).merge!(state: 'confirmed')
+        payment_orders.build payment_p.permit(:order_amount, :payment_amount, payment_attributes: [:type, :wallet_id]).merge!(state: 'pending')
       end
-      compute_received_amount
+      self.received_amount = self.payment_orders.select(&:state_pending?).sum(&:order_amount)
       compute_unreceived_amount
     end
 
@@ -433,6 +433,16 @@ module Trade
       if lawful_wallet && payment_orders.map { |i| i.payment.wallet_id }.exclude?(lawful_wallet.id)
         init_lawful_wallet_payment
       end
+    end
+
+    def init_hand_payment
+      payment_orders.build(
+        order_amount: unreceived_amount,
+        payment_amount: unreceived_amount,
+        payment_attributes: {
+          type: 'Trade::HandPayment'
+        }
+      )
     end
 
     def init_wallet_payment
@@ -460,7 +470,6 @@ module Trade
             type: 'Trade::WalletPayment',
             organ_id: organ_id,
             user_id: user_id,
-            total_amount: payment_amount,
             wallet_id: wallet.id,
             pay_state: 'paid'
           }
@@ -480,12 +489,10 @@ module Trade
       payment_orders.build(
         order_amount: order_amount,
         payment_amount: order_amount,
-        state: 'pending',
         payment_attributes: {
           type: 'Trade::WalletPayment',
           organ_id: organ_id,
           user_id: user_id,
-          total_amount: order_amount,
           wallet_id: lawful_wallet.id,
           pay_state: 'paid'
         }

@@ -72,14 +72,6 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
-      @order.payment_orders.build(
-        order_amount: @order.unreceived_amount,
-        payment_amount: @order.unreceived_amount,
-        payment_attributes: {
-          type: 'Trade::HandPayment',
-          total_amount: @order.unreceived_amount
-        }
-      )
     end
 
     def payment_pending
