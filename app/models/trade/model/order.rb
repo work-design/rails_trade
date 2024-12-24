@@ -376,7 +376,7 @@ module Trade
       r
     end
 
-    def wallet_amount(wallet_code)
+    def total_wallet_amount(wallet_code)
       parsed_wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
     end
 
@@ -426,24 +426,22 @@ module Trade
         break if unreceived_amount <= 0
 
         wallet_code = wallet.wallet_template.code
-        wallet_amount = wallet_amount(wallet_code)  # 将订单金额换算至钱包对应单位
-        # 当钱包额度大于订单金额
-        if wallet.amount > wallet_amount
+        wallet_amount = total_wallet_amount(wallet_code)  # 将订单金额换算至钱包对应单位
+        if wallet.amount > wallet_amount # 当钱包额度大于订单金额
           payment_amount = wallet_amount
         else
-          # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
-          payment_amount = wallet.amount
+          payment_amount = wallet.amount # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
         end
 
         order_amount = partly_wallet_amount(wallet_code, payment_amount)
-        init_wallet_payment(wallet, order_amount: order_amount, payment_amount: payment_amount)
+        init_wallet_payment(wallet: wallet, order_amount: order_amount, payment_amount: payment_amount)
       end
       if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
         init_lawful_wallet_payments
       end
     end
 
-    def init_wallet_payment(wallet, order_amount:, payment_amount: order_amount)
+    def init_wallet_payment(wallet:, order_amount:, payment_amount: order_amount)
       to_payment(
         type: 'Trade::WalletPayment',
         wallet_id: wallet.id,
@@ -457,7 +455,7 @@ module Trade
       if lawful_wallet.amount <= 0
         return
       elsif lawful_wallet.amount < unreceived_amount
-        order_amount = wallet_wallet.amount
+        order_amount = lawful_wallet.amount
       else
         order_amount = unreceived_amount
       end
