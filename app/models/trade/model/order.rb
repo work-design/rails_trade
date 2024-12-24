@@ -437,7 +437,7 @@ module Trade
         init_wallet_payment(wallet: wallet, order_amount: order_amount, payment_amount: payment_amount)
       end
       if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
-        init_lawful_wallet_payments
+        init_lawful_wallet_payment
       end
     end
 
@@ -451,7 +451,7 @@ module Trade
       )
     end
 
-    def init_lawful_wallet_payments
+    def init_lawful_wallet_payment
       if lawful_wallet.amount <= 0
         return
       elsif lawful_wallet.amount < unreceived_amount
