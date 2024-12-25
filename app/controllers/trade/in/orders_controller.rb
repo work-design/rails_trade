@@ -26,6 +26,13 @@ module Trade
       @order.save
     end
 
+    def batch_receive
+      @order.items.where(id: params[:ids].split(',')).each do |i|
+        i.purchase_status = 'received'
+        i.save
+      end
+    end
+
     def refund
       @order.apply_for_refund
     end

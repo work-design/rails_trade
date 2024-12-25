@@ -120,8 +120,8 @@ zh:
       orders:
         index:
           title: 采购单
-        batch_paid:
-          title: 支付
+        batch_receive:
+          title: 收货
         edit_organ:
           title: 指定供应商
       promote_goods:
