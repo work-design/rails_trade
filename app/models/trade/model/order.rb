@@ -114,7 +114,7 @@ module Trade
       elsif contact_id
         { organ_id: organ_id, member_id: member_id, contact_id: contact_id }
       else
-        { organ_id: organ_id, member_id: member_id }
+        { organ_id: organ_id, member_id: member_id, client_id: client_id, contact_id: contact_id }
       end
     end
 
