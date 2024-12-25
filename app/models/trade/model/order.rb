@@ -418,7 +418,12 @@ module Trade
     end
 
     def batch_pending_payments(params)
-      self.assign_attributes params
+      params[:payment_orders_attributes].each do |_, po_params|
+        if po_params[:state] == 'pending'
+          po_params[:payment_attributes].merge! organ_id: organ_id, user_id: user_id
+          self.payment_orders.build po_params
+        end
+      end
       self.received_amount = self.payment_orders.select(&:state_pending?).sum(&:order_amount)
       compute_unreceived_amount
     end
@@ -434,10 +439,12 @@ module Trade
       end
     end
 
-    def init_hand_payment
+    def init_hand_payment(state: 'init')
+      return if unreceived_amount <= 0
       payment_orders.build(
         order_amount: unreceived_amount,
         payment_amount: unreceived_amount,
+        state: state,
         payment_attributes: {
           type: 'Trade::HandPayment'
         }

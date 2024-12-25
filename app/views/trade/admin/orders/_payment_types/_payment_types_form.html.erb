@@ -1,4 +1,4 @@
-<%= form_with theme: 'modal', model: @order, url: { action: 'payment_pending' }, method: :post do |f| %>
+<%= form_with theme: 'modal_line', model: @order, url: { action: 'payment_pending' }, method: :post do |f| %>
   <%= render 'modal_header' %>
   <section class="modal-card-body">
     <table class="table is-fullwidth is-borderless as-show">

@@ -72,11 +72,13 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
+      @order.init_hand_payment
     end
 
     def payment_pending
       @order.batch_pending_payments(payment_params)
       @order.init_wallet_payments
+      @order.init_hand_payment(state: 'pending')
     end
 
     def payment_confirm

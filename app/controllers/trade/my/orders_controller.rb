@@ -118,15 +118,17 @@ module Trade
     end
 
     def payment_params
-      _p = params.fetch(:payment, {}).permit(
-        :type,
-        :wallet_id,
-        payment_orders_attributes: [:payment_amount, :order_amount, :state]
+      params.fetch(:order, {}).permit(
+        payment_orders_attributes: [
+          :payment_amount,
+          :order_amount,
+          :state,
+          payment_attributes: [
+            :type,
+            :wallet_id
+          ]
+        ]
       )
-      _p[:payment_orders_attributes].each do |_, v|
-        v.merge! order: @order
-      end
-      _p.merge! default_form_params
     end
 
     def set_wxpay
