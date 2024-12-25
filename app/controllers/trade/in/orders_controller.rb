@@ -21,6 +21,11 @@ module Trade
       @orders = Order.default_where(q_params).page(params[:page])
     end
 
+    def payment_confirm
+      @order.batch_pending_payments(payment_params)
+      @order.save
+    end
+
     def refund
       @order.apply_for_refund
     end
