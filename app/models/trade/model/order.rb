@@ -83,6 +83,7 @@ module Trade
 
       accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id', 'source_id').compact_blank.blank? || ['0'].include?(attributes['commit']) }
       accepts_nested_attributes_for :cart_promotes
+      accepts_nested_attributes_for :payment_orders
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
@@ -417,9 +418,7 @@ module Trade
     end
 
     def batch_pending_payments(params)
-      params.each do |payment_p|
-        payment_orders.build payment_p.permit(:order_amount, :payment_amount, payment_attributes: [:type, :wallet_id]).merge!(state: 'pending')
-      end
+      self.assign_attributes params
       self.received_amount = self.payment_orders.select(&:state_pending?).sum(&:order_amount)
       compute_unreceived_amount
     end
@@ -461,7 +460,7 @@ module Trade
         else
           payment_amount = wallet.amount # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
         end
-        order_amount = partly_wallet_amount(wallet_code, payment_amount)
+        order_amount, _ = partly_wallet_amount(wallet_code, payment_amount)
 
         payment_orders.build(
           order_amount: order_amount,

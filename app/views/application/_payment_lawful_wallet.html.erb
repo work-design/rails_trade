@@ -11,15 +11,15 @@
   <td>
     <div data-controller="input" class="has-v-centered">
       <span class="text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
-      <%= f.fields '', model: payment_order, skip_default_ids: true do |df| %>
+      <%= f.fields :payment_orders, model: payment_order, skip_default_ids: true, child_index: 1 do |df| %>
         <%= df.hidden_field :order_amount %>
         <%= df.hidden_field :payment_amount %>
         <%= df.fields :payment do |ef| %>
           <%= ef.hidden_field :type %>
           <%= ef.hidden_field :wallet_id %>
         <% end %>
-      <% end %>
-      <%= check_box_tag 'xx', nil, payment_order.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } %>
+        <%= df.check_box :state, { value: 'pending', checked: payment_order.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } }, 'pending', 'init' %>
+    <% end %>
     </div>
   </td>
 </tr>

@@ -75,12 +75,12 @@ module Trade
     end
 
     def payment_pending
-      @order.batch_pending_payments(params[:batch])
+      @order.batch_pending_payments(payment_params)
       @order.init_wallet_payments
     end
 
     def payment_confirm
-      @order.batch_pending_payments(params[:batch])
+      @order.batch_pending_payments(payment_params)
       @order.confirm!
     end
 
@@ -229,12 +229,17 @@ module Trade
     end
 
     def payment_params
-      _p = params.fetch(:payment, {}).permit(
-        :type,
-        :wallet_id,
-        payment_orders_attributes: [:payment_amount, :order_amount, :state]
+      params.fetch(:order, {}).permit(
+        payment_orders_attributes: [
+          :payment_amount,
+          :order_amount,
+          :state,
+          payment_attributes: [
+            :type,
+            :wallet_id
+          ]
+        ]
       )
-      _p.merge! default_form_params
     end
 
   end
