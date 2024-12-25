@@ -72,7 +72,12 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
-      @order.init_hand_payment
+
+      if @order.payment_types.include?('Trade::WalletPayment')
+        @order.init_hand_payment
+      else
+        @order.init_hand_payment(state: 'pending')
+      end
     end
 
     def payment_pending

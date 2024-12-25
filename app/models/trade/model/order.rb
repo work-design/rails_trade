@@ -417,6 +417,10 @@ module Trade
       payment
     end
 
+    def payment_types
+      payment_orders.map { |i| i.payment.type }
+    end
+
     def batch_pending_payments(params)
       params[:payment_orders_attributes].each do |_, po_params|
         if po_params[:state] == 'pending'
