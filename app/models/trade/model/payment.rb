@@ -227,7 +227,12 @@ module Trade
 
       def init_with_order_ids(ids)
         orders = Order.where(id: ids).map do |order|
-          { order: order, order_amount: order.unreceived_amount, state: 'pending' }
+          {
+            order: order,
+            order_amount: order.unreceived_amount,
+            payment_amount: order.unreceived_amount,
+            state: 'pending'
+          }
         end
 
         new(payment_orders_attributes: orders)
