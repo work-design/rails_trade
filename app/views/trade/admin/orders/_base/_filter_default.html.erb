@@ -1,9 +1,7 @@
-<div data-switch-target="src" class="buttons">
-  <%= link_to t('.all'), filter_params(except: [:state]), class: active_helper(state: nil, active: 'button is-info', item: 'button is-light') %>
-  <% Trade::Order.options_i18n(:state).each do |text, value| %>
-    <%= link_to text, filter_params(state: value, except: [:id]), class: active_helper(state: value, active: 'button is-info', item: 'button is-light') %>
-  <% end %>
-  <% Trade::Order.options_i18n(:payment_status).each do |text, value| %>
-    <%= link_to text, filter_params(payment_status: value, except: [:id]), class: active_helper(payment_status: value, active: 'button is-info', item: 'button is-light') %>
-  <% end %>
-</div>
+<%= link_to t('.all'), filter_params(except: [:state]), class: active_helper(state: nil, active: 'button is-info', item: 'button is-light') %>
+<% Trade::Order.options_i18n(:state).each do |text, value| %>
+  <%= link_to text, filter_params(state: value, except: [:id]), class: active_helper(state: value, active: 'button is-info', item: 'button is-light') %>
+<% end %>
+<% Trade::Order.options_i18n(:payment_status).each do |text, value| %>
+  <%= link_to text, filter_params(payment_status: value, except: [:id]), class: active_helper(payment_status: value, active: 'button is-info', item: 'button is-light') %>
+<% end %>
