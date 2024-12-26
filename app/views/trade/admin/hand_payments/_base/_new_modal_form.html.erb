@@ -1,4 +1,4 @@
-<%= form_with theme: 'modal', model: @payment, scope: :payment, url: { controller: 'payments', action: 'confirm', desk_id: params[:desk_id] }, data: { controller: 'total' } do |f| %>
+<%= form_with theme: 'modal', model: @payment, scope: :payment, url: { controller: 'payments', action: 'confirm', **params.permit(:desk_id) }, data: { controller: 'total' } do |f| %>
   <%= render 'modal_header' %>
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
@@ -21,6 +21,7 @@
     <% end %>
     <%= f.number_field :adjust_amount, autofocus: true, data: { total_target: 'reduce', action: 'total#updateReduce' } %>
     <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
+    <%= f.text_area :comment %>
     <%= f.file_field :proof %>
   </section>
   <%= f.submit %>

@@ -72,22 +72,22 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
+
+      if @order.payment_types.include?('Trade::WalletPayment')
+        @order.init_hand_payment
+      else
+        @order.init_hand_payment(state: 'pending')
+      end
     end
 
     def payment_pending
-      payment = @order.payments.build(payment_params)
-      @order.init_wallet_payments(payment.wallet_id)
+      @order.batch_pending_payments(payment_params)
+      @order.init_wallet_payments
+      @order.init_hand_payment(state: 'pending')
     end
 
     def payment_confirm
-      params[:batch].each do |payment_p|
-        payment_p.permit!
-        payment_p[:payment_orders_attributes].each do |_, v|
-          v.merge! order: @order
-        end
-        payment_p.merge! default_form_params
-        @order.payments.build(payment_p)
-      end
+      @order.batch_pending_payments(payment_params)
       @order.confirm!
     end
 
@@ -236,15 +236,17 @@ module Trade
     end
 
     def payment_params
-      _p = params.fetch(:payment, {}).permit(
-        :type,
-        :wallet_id,
-        payment_orders_attributes: [:payment_amount, :order_amount, :state]
+      params.fetch(:order, {}).permit(
+        payment_orders_attributes: [
+          :payment_amount,
+          :order_amount,
+          :state,
+          payment_attributes: [
+            :type,
+            :wallet_id
+          ]
+        ]
       )
-      _p[:payment_orders_attributes].each do |_, v|
-        v.merge! order: @order
-      end
-      _p.merge! default_form_params
     end
 
   end

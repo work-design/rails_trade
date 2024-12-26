@@ -43,10 +43,10 @@ module Trade
       notify_params = WxPay::Cipher.decrypt_notice encrypted_params['resource'], key: payee.key_v3
       logger.debug "\e[35m  #{notify_params}  \e[0m"
 
-      if notify_params['out_trade_no'].start_with?('PAY')
+      if notify_params['out_trade_no'].start_with?('PAY-')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
         @payment.pay_state = 'paid'
-      else
+      elsif notify_params['out_trade_no'].start_with?('OR-')
         uuid = notify_params['out_trade_no'].split('_')[0] || notify_params['out_trade_no']
         @order = Order.find_by(uuid: uuid)
         @payment = @order.to_payment(

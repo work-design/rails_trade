@@ -17,7 +17,7 @@
 <td>
   <div class="is-several">
   <span><%= model.payment_status_i18n %></span>
-  <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small') do %>
+  <%= button_to({ action: 'payment_types', id: model.id }, class: 'button is-small') do %>
     <span>支付</span>
   <% end if model.can_pay? %>
   </div>

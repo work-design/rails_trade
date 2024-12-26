@@ -1,0 +1,13 @@
+<tr>
+  <td class="text-right"><%= payment_order.payment.type_i18n %></td>
+  <td>
+    <%= f.fields :payment_orders, model: payment_order, skip_default_ids: true do |df| %>
+      <%= df.number_field :order_amount %>
+      <%= df.hidden_field :payment_amount %>
+      <%= df.hidden_field :state %>
+      <%= df.fields :payment do |ef| %>
+        <%= ef.hidden_field :type %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

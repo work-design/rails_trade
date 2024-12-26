@@ -1,9 +1,7 @@
-<div class="buttons are-small">
-  <%= form_with url: { action: 'batch_destroy' }, method: :delete, data: { controller: 'check-commit', check_commit_check_outlet: 'th', turbo_confirm: t('.batch_destroy.confirm') }, class: 'button_to display-none' do |f| %>
-    <%= f.hidden_field :ids, data: { check_commit_target: 'ids' } %>
-    <%= button_tag data: { action: 'check-commit#doSubmit' }, class: 'button text-danger' do %>
-      <i class="fa-solid fa-trash-can"></i>
-      <span class="ml-1"><%= t('.batch_destroy.title') %></span>
-    <% end %>
+<%= form_with url: { action: 'batch_destroy' }, method: :delete, data: { turbo_confirm: t('.batch_destroy.confirm') }, class: 'button_to' do |f| %>
+  <%= f.hidden_field :ids, data: { form_target: 'ids' } %>
+  <%= button_tag data: { form_target: 'submit' }, disabled: true, class: 'button is-danger' do %>
+    <i class="fa-solid fa-trash-can"></i>
+    <span class="ml-1"><%= t('.batch_destroy.title') %></span>
   <% end %>
-</div>
+<% end %>

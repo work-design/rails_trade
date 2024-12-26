@@ -1,5 +1,5 @@
 module Trade
-  class Admin::ScanPaymentsController < Admin::BaseController
+  class Admin::ScanPaymentsController < Admin::PaymentsController
     before_action :set_new_scan_payment, only: [:new]
     before_action :set_new_payment, only: [:create]
     skip_before_action :require_org_member, only: [:new, :create] if whether_filter(:require_org_member)
@@ -14,6 +14,16 @@ module Trade
 
     def create
       @scan_payment.micro_pay!(auth_code: auth_code, spbill_create_ip: request.remote_ip)
+    end
+
+    def batch
+      @payment = ScanPayment.init_with_order_ids params[:ids].split(',')
+    end
+
+    def desk
+      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
+
+      @payment = ScanPayment.init_with_order_ids order_ids
     end
 
     private

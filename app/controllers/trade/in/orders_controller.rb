@@ -2,7 +2,8 @@ module Trade
   class In::OrdersController < Admin::OrdersController
     include Controller::In
     before_action :set_order, only: [
-      :show, :edit, :update, :destroy, :actions, :edit_organ
+      :show, :edit, :update, :destroy, :actions, :edit_organ,
+      :payment_types, :payment_pending, :payment_confirm
     ]
     before_action :set_providers, only: [:edit_organ]
 
@@ -18,6 +19,18 @@ module Trade
       q_params.merge! params.permit(:id, :payment_status, :uuid)
 
       @orders = Order.default_where(q_params).page(params[:page])
+    end
+
+    def payment_confirm
+      @order.batch_pending_payments(payment_params)
+      @order.save
+    end
+
+    def batch_receive
+      @order.items.where(id: params[:ids].split(',')).each do |i|
+        i.purchase_status = 'received'
+        i.save
+      end
     end
 
     def refund

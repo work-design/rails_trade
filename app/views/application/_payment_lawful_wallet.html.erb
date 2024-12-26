@@ -1,0 +1,25 @@
+<tr>
+  <td class="text-right">
+    <span class="is-several">
+      <span>钱包</span>
+    </span>
+    <span class="tags has-addons pl-2 display-inline-flex">
+      <span class="tag">余</span>
+      <span class="tag is-success"><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
+    </span>
+  </td>
+  <td>
+    <div data-controller="input" class="has-v-centered">
+      <span class="text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></span>
+      <%= f.fields :payment_orders, model: payment_order, skip_default_ids: true, child_index: 1 do |df| %>
+        <%= df.hidden_field :order_amount %>
+        <%= df.hidden_field :payment_amount %>
+        <%= df.fields :payment do |ef| %>
+          <%= ef.hidden_field :type %>
+          <%= ef.hidden_field :wallet_id %>
+        <% end %>
+        <%= df.check_box :state, { value: 'pending', checked: payment_order.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } }, 'pending', 'init' %>
+    <% end %>
+    </div>
+  </td>
+</tr>

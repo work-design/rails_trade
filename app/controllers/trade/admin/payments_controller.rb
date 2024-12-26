@@ -28,30 +28,6 @@ module Trade
       @payment.init_uuid
     end
 
-    def desk_scan
-      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
-
-      @payment = ScanPayment.init_with_order_ids order_ids
-    end
-
-    def desk_hand
-      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).pluck(:order_id)
-
-      @payment = HandPayment.init_with_order_ids order_ids
-    end
-
-    def batch_scan
-      @payment = ScanPayment.init_with_order_ids params[:ids].split(',')
-    end
-
-    def batch_hand
-      @payment = HandPayment.init_with_order_ids params[:ids].split(',')
-    end
-
-    def batch_wallet
-      @payment = WalletPayment.init_with_order_ids params[:ids].split(','), params[:wallet_id]
-    end
-
     def confirm
       @payment.confirm!(payment_params)
     end

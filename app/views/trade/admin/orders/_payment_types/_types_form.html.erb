@@ -1,0 +1,3 @@
+<%= form_with theme: 'modal_line', model: @order, url: { action: @order.payment_types.include?('Trade::WalletPayment') ? 'payment_pending' : 'payment_confirm' }, method: :post do |f| %>
+  <%= render partial: 'payment_types_form', locals: { f: f } %>
+<% end %>

@@ -20,6 +20,7 @@ module Trade
       attribute :received_amount, :decimal, default: 0
       attribute :refunded_amount, :decimal, default: 0
       attribute :unreceived_amount, :decimal
+      attribute :payable_amount, :decimal
 
       enum :aim, {
         use: 'use',
@@ -68,8 +69,8 @@ module Trade
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
-      has_many :payment_orders, dependent: :destroy_async
-      has_many :payments, through: :payment_orders
+      has_many :payment_orders, inverse_of: :order, dependent: :destroy_async
+      has_many :payments, inverse_of: :orders, through: :payment_orders
       has_many :refund_orders, dependent: :destroy_async
       has_many :refunds, through: :refund_orders
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
@@ -80,9 +81,9 @@ module Trade
       has_many :available_item_promotes, -> { includes(:promote) }, through: :items, source: :item_promotes
       has_many :cart_promotes, dependent: :nullify  # overall can be blank
 
-      accepts_nested_attributes_for :payment_orders
       accepts_nested_attributes_for :items, reject_if: ->(attributes) { attributes.slice('good_name', 'good_id', 'source_id').compact_blank.blank? || ['0'].include?(attributes['commit']) }
       accepts_nested_attributes_for :cart_promotes
+      accepts_nested_attributes_for :payment_orders
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
@@ -93,6 +94,7 @@ module Trade
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
+      before_create :init_payable_amount
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
       before_save :check_state, if: -> { amount.to_d.zero? || (changes.keys & ['received_amount']).present? }
       before_save :init_serial_number, if: -> { can_serial_number? }
@@ -112,7 +114,7 @@ module Trade
       elsif contact_id
         { organ_id: organ_id, member_id: member_id, contact_id: contact_id }
       else
-        { organ_id: organ_id, member_id: member_id }
+        { organ_id: organ_id, member_id: member_id, client_id: client_id, contact_id: contact_id }
       end
     end
 
@@ -142,6 +144,16 @@ module Trade
         self.serial_number = last_item + 1
       else
         self.serial_number = 1
+      end
+    end
+
+    def init_payable_amount
+      if current_cart&.support_deposit? && amount >= 1
+        self.payable_amount = amount * current_cart.deposit_ratio / 100
+      elsif advance_amount.to_d > 0
+        self.payable_amount = advance_amount
+      else
+        self.payable_amount = unreceived_amount
       end
     end
 
@@ -329,15 +341,15 @@ module Trade
       self.expire_at = nil
     end
 
+    def compute_received_amount
+      self.received_amount = self.payment_orders.select(&:state_confirmed?).sum(&:order_amount)
+    end
+
     def check_state!
       self.compute_received_amount
       self.refunded_amount = self.refunds.where.not(state: 'failed').sum(:total_amount)
       self.check_state
       self.save!
-    end
-
-    def compute_received_amount
-      self.received_amount = self.payment_orders.select(&:state_confirmed?).sum(&:order_amount)
     end
 
     def confirm!
@@ -365,8 +377,8 @@ module Trade
       r
     end
 
-    def wallet_amount(wallet_code)
-      parsed_wallet_amount(wallet_code).sum(&->(i){ i[:amount].to_d })
+    def total_wallet_amount(wallet_code)
+      parsed_wallet_amount(wallet_code).sum { |i| i[:amount].to_d }
     end
 
     # amount 为 wallet 对应单位
@@ -389,75 +401,135 @@ module Trade
         end
       end
 
-      logger.debug "\e[35m  Used is #{used}, Amount is #{amount}, Rest is #{rest}  \e[0m"
+      logger.debug "\e[35m  Used: #{used}, Amount: #{amount}, Rest: #{rest}  \e[0m"
       [used, rest]
     end
 
     def lawful_wallet_pay
       return unless can_pay?
-      payment = payments.build(
+      payment = to_payment(
         type: 'Trade::WalletPayment',
         wallet_id: lawful_wallet.id,
-        payment_orders_attributes: [{ order: self, order_amount: unreceived_amount, state: 'confirmed' }]
+        state: 'confirmed',
+        order_amount: unreceived_amount
       )
       payment.save
       payment
     end
 
-    def init_wallet_payments(*except_ids)
-      return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
-      codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
-      ids = WalletTemplate.where(code: codes).pluck(:id)
+    def payment_types
+      payment_orders.map { |i| i.payment.type }
+    end
 
-      wallets.includes(:wallet_template).where.not(id: except_ids).where(wallet_template_id: ids).each do |wallet|
-        break if wallet.amount <= 0
-        break unless unreceived_amount > 0
-        payments.build(
-          type: 'Trade::WalletPayment',
-          wallet_id: wallet.id,
-          pay_state: 'paid',
-          payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
-        )
+    def batch_pending_payments(params)
+      params[:payment_orders_attributes].each do |_, po_params|
+        if po_params[:state] == 'pending'
+          po_params[:payment_attributes].merge! organ_id: organ_id, user_id: user_id
+          self.payment_orders.build po_params
+        end
       end
-      if lawful_wallet && except_ids.exclude?(lawful_wallet.id) && unreceived_amount > 0
-        init_lawful_wallet_payments
+      self.received_amount = self.payment_orders.select(&:state_pending?).sum(&:order_amount)
+      compute_unreceived_amount
+    end
+
+    def init_wallet_payments
+      return unless items.map(&:good_type).exclude?('Trade::Advance') && can_pay?
+
+      init_wallet_payment
+      return if unreceived_amount <= 0
+
+      if lawful_wallet && payment_orders.map { |i| i.payment.wallet_id }.exclude?(lawful_wallet.id)
+        init_lawful_wallet_payment
       end
     end
 
-    def init_lawful_wallet_payments
-      return if lawful_wallet.amount <= 0
-      payments.build(
-        type: 'Trade::WalletPayment',
-        wallet_id: lawful_wallet.id,
-        pay_state: 'paid',
-        payment_orders_attributes: [{ order: self, order_amount: unreceived_amount }]
+    def init_hand_payment(state: 'init')
+      return if unreceived_amount <= 0
+      payment_orders.build(
+        order_amount: unreceived_amount,
+        payment_amount: unreceived_amount,
+        state: state,
+        payment_attributes: {
+          type: 'Trade::HandPayment'
+        }
       )
     end
 
-    def default_payment_amount
-      if unreceived_amount.to_d > 0 && unreceived_amount.to_d < amount
-        return unreceived_amount
-      end
+    def init_wallet_payment
+      codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
+      ids = WalletTemplate.where(code: codes).pluck(:id)
+      except_ids = payment_orders.map { |i| i.payment.wallet_id }
 
-      if current_cart&.support_deposit? && amount >= 1
-        amount * current_cart.deposit_ratio / 100
-      elsif advance_amount.to_d > 0
-        advance_amount
-      else
-        unreceived_amount
+      wallets.includes(:wallet_template).where.not(id: except_ids).where(wallet_template_id: ids).each do |wallet|
+        break if wallet.amount <= 0
+        break if unreceived_amount <= 0
+
+        wallet_code = wallet.wallet_template.code
+        wallet_amount = total_wallet_amount(wallet_code)  # 将订单金额换算至钱包对应单位
+        if wallet.amount > wallet_amount # 当钱包额度大于订单金额
+          payment_amount = wallet_amount
+        else
+          payment_amount = wallet.amount # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
+        end
+        order_amount, _ = partly_wallet_amount(wallet_code, payment_amount)
+
+        payment_orders.build(
+          order_amount: order_amount,
+          payment_amount: payment_amount,
+          payment_attributes: {
+            type: 'Trade::WalletPayment',
+            organ_id: organ_id,
+            user_id: user_id,
+            wallet_id: wallet.id,
+            pay_state: 'paid'
+          }
+        )
       end
     end
 
-    def to_payment(type: 'Trade::WxpayPayment', payment_uuid: [uuid, UidHelper.rand_string].join('_'), order_amount: default_payment_amount, state: 'init', **options)
-      payment = payments.find_by(type: type, payment_uuid: payment_uuid)
-      return payment if payment
-      payments.build(
-        type: type,
-        payment_uuid: payment_uuid,
-        organ_id: organ_id,
-        user_id: user_id,
-        payment_orders_attributes: [{ order: self, state: state, order_amount: order_amount }],
-        **options
+    def init_lawful_wallet_payment
+      if lawful_wallet.amount <= 0
+        return
+      elsif lawful_wallet.amount < unreceived_amount
+        order_amount = lawful_wallet.amount
+      else
+        order_amount = unreceived_amount
+      end
+
+      payment_orders.build(
+        order_amount: order_amount,
+        payment_amount: order_amount,
+        payment_attributes: {
+          type: 'Trade::WalletPayment',
+          organ_id: organ_id,
+          user_id: user_id,
+          wallet_id: lawful_wallet.id,
+          pay_state: 'paid'
+        }
+      )
+    end
+
+    def xx
+      unreceived_amount.to_d > 0 && unreceived_amount.to_d <= amount
+    end
+
+    def to_payment(type: 'Trade::WxpayPayment', order_amount: payable_amount, payment_amount: order_amount, state: 'init', **options)
+      if options.key? :payment_uuid
+        payment = payments.find_by(type: type, payment_uuid: options[:payment_uuid])
+        return payment if payment
+      end
+
+      payment_orders.build(
+        state: state,
+        order_amount: order_amount,
+        payment_amount: payment_amount,
+        payment_attributes: {
+          type: type,
+          organ_id: organ_id,
+          user_id: user_id,
+          total_amount: payment_amount,
+          **options
+        }
       )
     end
 

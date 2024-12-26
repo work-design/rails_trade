@@ -44,6 +44,9 @@ module Trade
       self.name ||= maintain.client.name if respond_to?(:maintain) && maintain
     end
 
+    def template_name
+    end
+
     def sync_organ_id
       return unless wallet_template
       self.organ_id = wallet_template.organ_id

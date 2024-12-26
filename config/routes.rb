@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           get :wait
           post :package
           get :pay
-          get :payment_types
+          match :payment_types, via: [:get, :post]
           post :payment_pending
           post :payment_confirm
           get :payment_frozen
@@ -94,7 +94,7 @@ Rails.application.routes.draw do
         member do
           match :payment_types, via: [:get, :post]
           post :payment_pending
-          post :pending_confirm
+          post :payment_confirm
           post :package
           post :micro
           get :print_data
@@ -121,11 +121,6 @@ Rails.application.routes.draw do
         collection do
           get :dashboard
           get :uncheck
-          post :desk_scan
-          post :desk_hand
-          post :batch_scan
-          post :batch_hand
-          post :batch_wallet
           post :confirm
         end
         member do
@@ -144,7 +139,18 @@ Rails.application.routes.draw do
           end
         end
       end
-      resources :scan_payments
+      resources :scan_payments do
+        collection do
+          post :batch
+          post 'desk/:desk_id' => :desk
+        end
+      end
+      resources :hand_payments do
+        collection do
+          post :batch
+          post 'desk/:desk_id' => :desk
+        end
+      end
       resources :items do
         collection do
           get :purchase
@@ -319,7 +325,11 @@ Rails.application.routes.draw do
           end
         end
         resources :wallets, only: [] do
-          resources :wallet_payments
+          resources :wallet_payments do
+            collection do
+              post :batch
+            end
+          end
           resources :wallet_advances
           resources :wallet_logs
           resources :wallet_sells
@@ -338,6 +348,7 @@ Rails.application.routes.draw do
         resources :orders, only: [] do
           collection do
             delete :batch_destroy
+            post :batch_receive
           end
           member do
             match :edit_organ, via: [:get, :post]

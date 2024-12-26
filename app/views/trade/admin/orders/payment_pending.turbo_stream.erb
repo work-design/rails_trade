@@ -1,1 +1,1 @@
-<%= turbo_stream.update 'payments_form', partial: 'payment_pending' %>
+<%= turbo_stream.append 'body', partial: 'pending_form', layout: 'modal_form' %>

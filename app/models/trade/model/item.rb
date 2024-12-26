@@ -67,7 +67,8 @@ module Trade
       belongs_to :from_address, class_name: 'Ship::Address', optional: true
 
       belongs_to :good, polymorphic: true, optional: true
-      belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 下单时的购物车
+      belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 销售时的购物车
+      belongs_to :purchase_cart, class_name: 'Cart', foreign_key: :current_cart_id, inverse_of: :purchase_items, optional: true # 采购时得购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
       belongs_to :source, class_name: self.name, counter_cache: :purchase_items_count, optional: true
       belongs_to :unit, optional: true
@@ -104,13 +105,13 @@ module Trade
       )
 
       after_initialize :init_uuid, if: :new_record?
-      after_initialize :sync_from_good, if: -> { new_record? && good_id.present? }
+      after_initialize :sync_from_good, if: -> { new_record? && order.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
-      before_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_validation :add_promotes, if: :new_record?
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
+      before_save :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
@@ -266,7 +267,12 @@ module Trade
     end
 
     def parsed_wallet_amount
-      wallet_amount.transform_values(&->(v){ { rate: Rational(amount.to_s, v), amount: v.to_d }})
+      wallet_amount.transform_values do |v|
+        {
+          rate: Rational(amount.to_s, v),
+          amount: v.to_d
+        }
+      end
     end
 
     def compute_price
@@ -416,9 +422,15 @@ module Trade
     def sync_amount_to_current_cart
       return unless current_cart
 
-      current_cart.compute_amount
+      if current_cart.purchasable
+        purchase_cart.compute_amount
+        purchase_cart.save!
+      else
+        current_cart.compute_amount
+        current_cart.save!
+      end
+
       logger.debug "\e[33m  Item Object id: #{id}/#{object_id}"
-      current_cart.save!
     end
 
     def set_not_fresh

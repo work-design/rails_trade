@@ -29,26 +29,29 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
+      @order.to_payment(type: 'Trade::HandPayment')
+
+      binding.b
       set_wxpay if request.variant.include?(:wechat)
     end
 
     def payment_pending
       payment = @order.payments.build(payment_params)
       @order.init_wallet_payments(payment.wallet_id)
+      @order.to_payment(type: 'Trade::HandPayment')
       set_wxpay if request.variant.include?(:wechat)
     end
 
     def payment_confirm
       params[:batch].each do |payment_p|
         payment_p.permit!
-        payment_p.merge! state: 'all_checked'
         payment_p[:payment_orders_attributes].each do |_, v|
           v.merge! order: @order
         end
         payment_p.merge! default_form_params
         @order.payments.build(payment_p)
       end
-      @order.save
+      @order.confirm!
     end
 
     def payment_frozen
@@ -115,15 +118,17 @@ module Trade
     end
 
     def payment_params
-      _p = params.fetch(:payment, {}).permit(
-        :type,
-        :wallet_id,
-        payment_orders_attributes: [:payment_amount, :order_amount, :state]
+      params.fetch(:order, {}).permit(
+        payment_orders_attributes: [
+          :payment_amount,
+          :order_amount,
+          :state,
+          payment_attributes: [
+            :type,
+            :wallet_id
+          ]
+        ]
       )
-      _p[:payment_orders_attributes].each do |_, v|
-        v.merge! order: @order
-      end
-      _p.merge! default_form_params
     end
 
     def set_wxpay

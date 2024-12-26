@@ -1,0 +1,21 @@
+<%= render 'modal_header' %>
+<section class="modal-card-body">
+  <table class="table is-fullwidth is-borderless as-show">
+    <tbody>
+    <tr>
+      <td class="text-right"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></td>
+      <td class="text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></td>
+    </tr>
+    <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
+      <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
+        <%= render partial: 'payment_wallet', locals: { payment_order: payment_order, f: f } %>
+      <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
+        <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order, f: f } %>
+      <% elsif payment_order.payment.is_a?(Trade::HandPayment) %>
+        <%= render partial: 'payment_hand', locals: { payment_order: payment_order, f: f } %>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</section>
+<%= f.submit %>
