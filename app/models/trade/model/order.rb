@@ -21,6 +21,7 @@ module Trade
       attribute :refunded_amount, :decimal, default: 0
       attribute :unreceived_amount, :decimal
       attribute :payable_amount, :decimal
+      attribute :verifying_amount, :decimal, comment: '待核销金额'
 
       enum :aim, {
         use: 'use',
@@ -349,6 +350,10 @@ module Trade
       self.received_amount = self.payment_orders.select(&:state_confirmed?).sum(&:order_amount)
     end
 
+    def compute_verifying_amount
+      self.verifying_amount = self.payment_orders.select(&:state_pending?).sum(&:order_amount)
+    end
+
     def computed_payable_amount
       self.payable_amount - self.payment_orders.select(&:paid?).sum(&:order_amount)
     end
@@ -436,6 +441,8 @@ module Trade
           self.payment_orders.build po_params
         end
       end
+      self.compute_verifying_amount
+      self.payment_status = 'to_check'
     end
 
     def init_wallet_payments(order_amount: computed_payable_amount)
