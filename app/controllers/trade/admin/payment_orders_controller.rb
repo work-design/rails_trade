@@ -35,8 +35,7 @@ module Trade
     end
 
     def confirm
-      @payment_order.state = 'confirmed'
-      @payment_order.save
+      @payment_order.confirmed!
     end
 
     def cancel
