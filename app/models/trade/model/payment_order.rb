@@ -33,6 +33,10 @@ module Trade
       after_destroy_commit :unchecked_to_order!
     end
 
+    def paid?
+      ['pending', 'confirmed'].include?(state)
+    end
+
     def confirm!
       self.state = 'confirmed'
       payment.compute_checked_amount
