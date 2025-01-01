@@ -3,7 +3,7 @@ module Trade
     include Controller::In
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions, :edit_organ,
-      :payment_types, :payment_pending, :payment_confirm
+      :payment_types, :payment_pending, :payment_confirm, :batch_receive
     ]
     before_action :set_providers, only: [:edit_organ]
 

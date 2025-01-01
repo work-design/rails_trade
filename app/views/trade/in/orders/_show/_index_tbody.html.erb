@@ -5,6 +5,7 @@
     <p class="text-grey"><%= model.organ&.name %></p>
   <% end %>
 </td>
+<td><%= model.purchase_status_i18n %></td>
 <td><%= model.number.to_human %></td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>

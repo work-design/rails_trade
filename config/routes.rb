@@ -348,10 +348,10 @@ Rails.application.routes.draw do
         resources :orders, only: [] do
           collection do
             delete :batch_destroy
-            post :batch_receive
           end
           member do
             match :edit_organ, via: [:get, :post]
+            post :batch_receive
           end
           resources :order_payments
         end
