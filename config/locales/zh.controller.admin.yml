@@ -127,6 +127,8 @@ zh:
           title: 核销
         refund:
           title: 退款
+        confirm:
+          title: 核销
       payment_methods:
         index_layout:
           remove: 移除
