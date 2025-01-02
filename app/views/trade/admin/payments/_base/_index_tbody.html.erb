@@ -1,6 +1,9 @@
 <td>
   <p><%= link_to model.payment_uuid, { action: 'show', id: model.id }, class: 'family-monospace' %></p>
-  <div class="tag"><%= model.type_i18n %></div>
+  <div>
+    <span class="tag"><%= model.type_i18n %></span>
+    <span class="tag"><%= model.payment_orders_count %> 笔订单</span>
+  </div>
 </td>
 <td id="checked_amount_<%= model.id %>">
   <%= model.checked_amount.to_money.format.html_safe %>

@@ -8,7 +8,6 @@
         <div class="field-body">
           <div class="field">
             <%= ef.number_field :order_amount, readonly: true, label: nil %>
-            <%= ef.hidden_field :payment_amount %>
             <p class="help text-danger">
               <span class="family-monospace"><%= ef.object.order.uuid %></span>
               <time data-controller="time" class="text-grey"><%= ef.object.order.created_at.to_fs(:iso8601) %></time>

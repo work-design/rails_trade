@@ -112,8 +112,16 @@ module Trade
       self.income_amount = self.total_amount.to_d - self.fee_amount.to_d - self.refunded_amount.to_d
     end
 
+    def compute_orders_amount
+      self.orders_amount = self.payment_orders.sum(&:order_amount)
+    end
+
     def compute_checked_amount
       self.checked_amount = self.payment_orders.select(&:state_confirmed?).sum(&:payment_amount)
+    end
+
+    def rate
+      Rational(self.total_amount, self.orders_amount)
     end
 
     def pending_orders
@@ -162,12 +170,21 @@ module Trade
     def confirm!(params = {})
       self.assign_detail params
       self.class.transaction do
-        payment_orders.each { |i| i.state = 'confirmed' }
-        self.compute_checked_amount
-        payment_orders.each do |i|
+        compute_orders_amount
+        payment_orders[0..-2].each do |i|
+          i.payment_amount = (i.order_amount * rate).to_f.round(2)
+          i.state = 'confirmed'
           i.order.compute_received_amount
           i.order.save!
         end
+
+        last = payment_orders[-1]
+        last.payment_amount = total_amount - payment_orders[0..-1].sum(&:payment_amount)
+        last.state = 'confirmed'
+        last.order.compute_received_amount
+        last.order.save
+
+        self.compute_checked_amount
         self.save!
       end
     end
