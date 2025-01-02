@@ -4,11 +4,13 @@
     <span class="tag"><%= model.type_i18n %></span>
     <span class="tag"><%= model.payment_orders_count %> 笔订单</span>
   </div>
+  <p class="family-monospace"><%= model.buyer_identifier %></p>
 </td>
 <td id="checked_amount_<%= model.id %>">
-  <%= model.checked_amount.to_money.format.html_safe %>
+  <p><%= model.orders_amount.to_money.format.html_safe %></p>
+  <span><%= model.checked_amount.to_money.format.html_safe %></span>
   <% if model.state_part_checked? %>
-    <%= button_to t('.adjust'), { action: 'adjust', id: model.id }, method: :patch, class: 'button' %>
+    <%= button_to t('.adjust'), { action: 'adjust', id: model.id }, method: :patch, class: 'button is-small' %>
   <% else %>
     <span class="tag <%= active_asserts(false, grey: ['init', 'part_checked'].include?(model.state), teal: model.state_adjust_checked?, green: model.state_all_checked?) %>"><%= model.state_i18n %></span>
   <% end %>
@@ -22,11 +24,6 @@
   <p class="<%= model.refunded_amount > 0 ? 'text-danger' : 'text-grey' %>"><%= model.refunded_amount.to_money.format.html_safe %></p>
 </td>
 <td><%= model.adjust_amount.to_money.format.html_safe %></td>
-<td>
-  <p><%= model.buyer_name %></p>
-  <p class="family-monospace"><%= model.buyer_identifier %></p>
-  <p><%= model.buyer_bank %></p>
-</td>
 <td>
   <time data-controller="time" data-format="human">
   <% if model.notified_at.present? %>
