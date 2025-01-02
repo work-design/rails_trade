@@ -166,23 +166,28 @@ module Trade
       end
     end
 
+    def confirm
+      compute_orders_amount
+      return if orders_amount == 0
+
+      payment_orders[0..-2].each do |i|
+        i.payment_amount = (i.order_amount * rate).to_f.round(2)
+        i.state = 'confirmed'
+        i.order.compute_received_amount
+      end
+
+      last = payment_orders[-1]
+      last.payment_amount = total_amount - payment_orders[0..-1].sum(&:payment_amount)
+      last.state = 'confirmed'
+      last.order.compute_received_amount
+
+      self.compute_checked_amount
+    end
+
     def confirm!(params = {})
       self.assign_detail params
       self.class.transaction do
-        compute_orders_amount
-        payment_orders[0..-2].each do |i|
-          i.payment_amount = (i.order_amount * rate).to_f.round(2)
-          i.state = 'confirmed'
-          i.order.compute_received_amount
-        end
-
-        last = payment_orders[-1]
-        last.payment_amount = total_amount - payment_orders[0..-1].sum(&:payment_amount)
-        last.state = 'confirmed'
-        last.order.compute_received_amount
-
-        self.compute_checked_amount
-
+        self.confirm
         self.save!
         self.payment_orders.each { |i| i.order.save! }
       end
