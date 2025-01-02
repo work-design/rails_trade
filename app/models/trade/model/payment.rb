@@ -141,8 +141,7 @@ module Trade
     end
 
     def analyze_adjust_amount
-      self.adjust_amount = self.checked_amount - self.total_amount
-      self.state = 'all_checked'
+      self.adjust_amount = self.total_amount - self.orders_amount
       self.save
     end
 
