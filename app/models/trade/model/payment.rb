@@ -177,7 +177,7 @@ module Trade
       end
 
       last = payment_orders[-1]
-      last.payment_amount = total_amount - payment_orders[0..-1].sum(&:payment_amount)
+      last.payment_amount = total_amount - payment_orders[0..-2].sum(&:payment_amount)
       last.state = 'confirmed'
       last.order.compute_received_amount
 
