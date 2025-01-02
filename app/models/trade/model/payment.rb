@@ -49,7 +49,7 @@ module Trade
 
       belongs_to :payment_method, optional: true
       has_many :payment_orders, inverse_of: :payment, dependent: :destroy
-      has_many :orders, inverse_of: :payments, through: :payment_orders
+      has_many :orders, through: :payment_orders
       has_many :items, through: :payment_orders
       has_many :refunds
       has_many :refund_orders
@@ -174,17 +174,17 @@ module Trade
           i.payment_amount = (i.order_amount * rate).to_f.round(2)
           i.state = 'confirmed'
           i.order.compute_received_amount
-          i.order.save!
         end
 
         last = payment_orders[-1]
         last.payment_amount = total_amount - payment_orders[0..-1].sum(&:payment_amount)
         last.state = 'confirmed'
         last.order.compute_received_amount
-        last.order.save
 
         self.compute_checked_amount
+
         self.save!
+        self.payment_orders.each { |i| i.order.save! }
       end
     end
 

@@ -71,7 +71,7 @@ module Trade
       has_many :carts, ->(o) { where(organ_id: [o.organ_id, nil], member_id: [o.member_id, nil]) }, primary_key: :user_id, foreign_key: :user_id
 
       has_many :payment_orders, inverse_of: :order, dependent: :destroy_async
-      has_many :payments, inverse_of: :orders, through: :payment_orders
+      has_many :payments, through: :payment_orders
       has_many :refund_orders, dependent: :destroy_async
       has_many :refunds, through: :refund_orders
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
