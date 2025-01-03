@@ -1,6 +1,7 @@
 <td>
   <%= button_to model.order.uuid, { controller: 'orders', action: 'show', id: model.order_id }, class: 'family-monospace text-link' %>
 </td>
+<td><%= Trade::PaymentOrder.enum_i18n(:state, model.state) %></td>
 <td>
   <% if model.state_confirmed? %>
     <%= model.order_amount.to_money.format.html_safe %>
@@ -16,7 +17,6 @@
   <%= model.payment_amount.to_money.format.html_safe %>
 <% end %>
 </td>
-<td><%= Trade::PaymentOrder.enum_i18n(:state, model.state) %></td>
 <td>
   <% if model.state_confirmed? %>
     <%= button_to({ controller: 'payment_orders', action: 'cancel', payment_id: @payment.id, id: model.id }, class: 'button is-small is-warning') do %>
