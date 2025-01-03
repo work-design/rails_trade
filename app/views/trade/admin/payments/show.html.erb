@@ -1,16 +1,6 @@
-<table class="table is-fullwidth is-hoverable as-show">
-  <thead>
-    <tr>
-      <th></th>
-      <th>
-        <%= link_to t('.edit.title'), { action: 'edit' }, class: 'button is-small is-link' %>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render 'show_table' %>
-  </tbody>
-</table>
+<dl class="as-show is-boxed">
+  <%= render 'show_table' %>
+</dl>
 
 <%= render layout: 'index_table' do %>
   <%= render partial: 'trade/admin/payment_orders/_base/index_tbody', layout: 'trade/admin/payment_orders/_base/index_tr', collection: @payment.payment_orders, as: :model %>

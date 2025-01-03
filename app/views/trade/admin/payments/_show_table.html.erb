@@ -1,4 +1,16 @@
 <div>
   <dt><%= Trade::Payment.human_attribute_name(:proof) %></dt>
-  <dt><%= image_tag @payment.proof, class: 'image' if @payment.proof.attached? %></dd>
+  <dd><%= image_tag @payment.proof, class: 'image' if @payment.proof.attached? %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:orders_amount) %></dt>
+  <dd><%= @payment.orders_amount.to_money.format.html_safe %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:adjust_amount) %></dt>
+  <dd><%= @payment.adjust_amount.to_money.format.html_safe %></dd>
+</div>
+<div>
+  <dt><%= Trade::Payment.human_attribute_name(:total_amount) %></dt>
+  <dd><%= @payment.total_amount.to_money.format.html_safe %></dd>
 </div>
