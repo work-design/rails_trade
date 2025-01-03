@@ -23,4 +23,4 @@
 
 <%= render layout: 'refund_table' do %>
   <%= render partial: 'refund_tbody', layout: 'refund_tr', collection: @payment.refunds, as: :model %>
-<% end %>
+<% end if @payment.refunds.present? %>
