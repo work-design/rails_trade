@@ -14,6 +14,11 @@
 
 <%= render layout: 'index_table' do %>
   <%= render partial: 'trade/admin/payment_orders/_base/index_tbody', layout: 'trade/admin/payment_orders/_base/index_tr', collection: @payment.payment_orders, as: :model %>
+  <tr>
+    <td colspan="2" class="text-right text-grey">合计：</td>
+    <td><%= @payment.orders_amount.to_money.format.html_safe %></td>
+    <td><%= @payment.total_amount.to_money.format.html_safe %></td>
+  </tr>
 <% end %>
 
 <%= render layout: 'refund_table' do %>
