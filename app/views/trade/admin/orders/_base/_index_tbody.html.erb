@@ -30,9 +30,9 @@
 <td>
   <p><%# link_to model.user_name, { action: 'user', user_id: model.user_id } if model.user_id %></p>
   <p>
-  <% if model&.member %>
-    <span><%= model.member.name %></span>
-    <span class="text-grey">（<%= model.member_organ.name %>）</span>
+  <% if model.agent %>
+    <span><%= model.agent.name %></span>
+    <span class="text-grey">下单</span>
   <% end %>
   </p>
 </td>

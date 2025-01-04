@@ -67,6 +67,7 @@ zh:
         refunded_amount: 已退款
         currency: 币种
         user_id: 购买者
+        agent_id: 下单者
         extra: 附加信息
         state: 状态
         created_at: 下单时间
