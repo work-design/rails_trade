@@ -1,6 +1,6 @@
 <%= render 'index_actions' %>
 
-<table class="table is-fullwidth is-boxed">
+<table class="table is-fullwidth as-boxed">
   <%= render 'index_thead' %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
   <tr class="background-light">

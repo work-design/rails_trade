@@ -1,4 +1,4 @@
-<dl class="as-show is-boxed">
+<dl class="as-show as-boxed">
   <div>
     <dt><%= Trade::Order.human_attribute_name(:unreceived_amount) %></dt>
     <dd class="text-danger"><%= @order.unreceived_amount.to_money.format.html_safe %></dd>
