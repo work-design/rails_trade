@@ -88,11 +88,11 @@ zh:
           title: 加入购物车
       orders:
         index:
-          title: 订单
+          title: 销售单（由我代下）
         create:
           title: 确认下单
         unpaid:
-          title: 待支付订单
+          title: 待支付订单（由我代下）
         cart:
           title: 下单
       payments:

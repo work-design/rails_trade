@@ -1,0 +1,14 @@
+<div class="tabs is-boxed mb-3">
+  <ul>
+    <li class="<%= active_helper(controller: 'trade/admin/orders', action: 'unpaid', active: 'is-active') %>">
+      <%= link_to({ controller: 'trade/admin/orders', action: 'unpaid' }) do %>
+        <span><%= t('trade.admin.orders.unpaid.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'trade/agent/orders', action: 'unpaid', active: 'is-active') %>">
+      <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }) do %>
+        <span><%= t('trade.agent.orders.unpaid.title') %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,14 @@
+<div class="tabs is-boxed mb-3">
+  <ul>
+    <li class="<%= active_helper(controller: 'trade/admin/orders', active: 'is-active') %>">
+      <%= link_to({ controller: 'trade/admin/orders' }) do %>
+        <span><%= t('trade.admin.orders.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'trade/agent/orders', active: 'is-active') %>">
+      <%= link_to({ controller: 'trade/agent/orders' }) do %>
+        <span><%= t('trade.agent.orders.index.title') %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>
