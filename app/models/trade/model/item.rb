@@ -337,12 +337,12 @@ module Trade
 
     # 单个商品零售价(商品原价 + 服务价)
     def retail_price
-      single_price + additional_amount
+      single_price.to_d + additional_amount
     end
 
     # 多个商品批发价
     def wholesale_price
-      amount + additional_amount
+      amount.to_d + additional_amount
     end
 
     # 批发价和零售价之间的差价，即批发折扣
