@@ -1,9 +1,9 @@
 <tfoot>
   <tr>
-    <td colspan="4"></td>
-    <td>
-      <%= form_with theme: 'inline', model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
+    <td colspan="4" class="text-centered">
+      <%= form_with theme: 'inline', model: @order, url: { action: 'create' }, class: 'display-inline-flex' do |f| %>
         <%= f.hidden_field :current_cart_id %>
+        <%= f.text_area :note, placeholder: true, class: 'input' %>
         <%= f.submit '确认订单', class: 'button is-success' %>
       <% end %>
     </td>

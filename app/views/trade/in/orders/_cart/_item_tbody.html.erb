@@ -1,11 +1,3 @@
 <td><%= model.good_name %></td>
-<td><%= model.uuid %></td>
 <td><%= model.number %></td>
-<td>
-  <%= form_with theme: 'inline', model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch do |f| %>
-    <%= f.hidden_field :current_cart_id, value: params[:current_cart_id] %>
-    <%= f.text_field :note, placeholder: true, class: 'input' %>
-    <%= f.submit %>
-  <% end %>
-</td>
 <td><%= model.amount.to_money.format.html_safe %></td>
