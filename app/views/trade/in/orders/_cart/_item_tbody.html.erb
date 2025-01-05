@@ -4,7 +4,7 @@
 <td>
   <%= form_with theme: 'inline', model: model, url: { controller: 'items', action: 'update', id: model.id }, method: :patch do |f| %>
     <%= f.hidden_field :current_cart_id, value: params[:current_cart_id] %>
-    <%= f.text_field :note, placeholder: true, class: 'input text-centered' %>
+    <%= f.text_field :note, placeholder: true, class: 'input' %>
     <%= f.submit %>
   <% end %>
 </td>
