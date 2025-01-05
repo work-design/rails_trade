@@ -1,10 +1,7 @@
 <%= form_with theme: 'modal', model: @order, url: { action: 'update' } do |f| %>
-  <header class="modal-card-head">
-    <p class="modal-card-title"><%= t('.title') %></p>
-    <button type="button" data-action="modal#close" class="delete"></button>
-  </header>
+  <%= render 'modal_header' %>
   <section class="modal-card-body">
-    <%= f.collection_select :provide_id, current_organ.provides, :id, :name %>
+    <%= f.text_area :note %>
   </section>
   <%= f.submit %>
 <% end %>
