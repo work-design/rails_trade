@@ -2,6 +2,6 @@
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @promote_goods, as: :model %>
 <% end %>
 
-<table class="table is-striped is-boxed is-fullwidth">
+<table class="table is-striped is-fullwidth as-boxed">
   <%= render partial: 'type_tbody', collection: Trade::PromoteGood.options_i18n(:good_type).except(*@promote.existing_good_types), as: :model %>
 </table>
