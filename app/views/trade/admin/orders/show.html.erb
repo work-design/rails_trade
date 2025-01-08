@@ -1,6 +1,6 @@
 <%= render 'index_actions' %>
 
-<table class="table is-fullwidth is-striped is-boxed">
+<table class="table is-fullwidth is-striped as-boxed">
   <% if @order.aim_rent? %>
     <%= render 'rent_thead' %>
     <%= render partial: 'rent_tbody', layout: 'rent_tr', collection: @order.items, as: :model %>
