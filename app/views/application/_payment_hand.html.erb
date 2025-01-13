@@ -5,7 +5,7 @@
       <%= df.number_field :order_amount %>
       <%= df.hidden_field :payment_amount %>
       <%= df.hidden_field :state %>
-      <%= df.fields :payment do |ef| %>
+      <%= df.fields :payment, model: payment_order.payment do |ef| %>
         <%= ef.hidden_field :type %>
       <% end %>
     <% end %>

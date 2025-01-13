@@ -123,7 +123,7 @@ module Trade
           :payment_amount,
           :order_amount,
           :state,
-          payment_attributes: [
+          payment: [
             :type,
             :wallet_id
           ]

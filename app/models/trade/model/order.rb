@@ -437,8 +437,9 @@ module Trade
     def batch_pending_payments(params)
       params[:payment_orders_attributes].each do |_, po_params|
         if po_params[:state] == 'pending'
-          po_params[:payment_attributes].merge! organ_id: organ_id, user_id: user_id
-          self.payment_orders.build po_params
+          p_params = (po_params.delete(:payment) || {}).merge!(organ_id: organ_id, user_id: user_id)
+          po = self.payment_orders.build po_params
+          po.build_payment p_params
         end
       end
       self.compute_verifying_amount
@@ -458,14 +459,12 @@ module Trade
 
     def init_hand_payment(state: 'init', order_amount: computed_payable_amount)
       return if order_amount <= 0
-      payment_orders.build(
+      po = payment_orders.build(
         order_amount: order_amount,
         payment_amount: order_amount,
-        state: state,
-        payment_attributes: {
-          type: 'Trade::HandPayment'
-        }
+        state: state
       )
+      po.build_payment(type: 'Trade::HandPayment')
     end
 
     def init_wallet_payment(state: 'init', order_amount: computed_payable_amount)
@@ -486,16 +485,16 @@ module Trade
         end
         order_amount, _ = partly_wallet_amount(wallet_code, payment_amount)
 
-        payment_orders.build(
+        po = payment_orders.build(
           order_amount: order_amount,
-          payment_amount: payment_amount,
-          payment_attributes: {
-            type: 'Trade::WalletPayment',
-            organ_id: organ_id,
-            user_id: user_id,
-            wallet_id: wallet.id,
-            pay_state: 'paid'
-          }
+          payment_amount: payment_amount
+        )
+        po.build_payment(
+          type: 'Trade::WalletPayment',
+          organ_id: organ_id,
+          user_id: user_id,
+          wallet_id: wallet.id,
+          pay_state: 'paid'
         )
       end
     end
@@ -509,16 +508,16 @@ module Trade
         _order_amount = order_amount
       end
 
-      payment_orders.build(
+      po = payment_orders.build(
         order_amount: _order_amount,
-        payment_amount: _order_amount,
-        payment_attributes: {
-          type: 'Trade::WalletPayment',
-          organ_id: organ_id,
-          user_id: user_id,
-          wallet_id: lawful_wallet.id,
-          pay_state: 'paid'
-        }
+        payment_amount: _order_amount
+      )
+      po.build_payment(
+        type: 'Trade::WalletPayment',
+        organ_id: organ_id,
+        user_id: user_id,
+        wallet_id: lawful_wallet.id,
+        pay_state: 'paid'
       )
     end
 
@@ -532,17 +531,17 @@ module Trade
         return payment if payment
       end
 
-      payment_orders.build(
+      po = payment_orders.build(
         state: state,
         order_amount: order_amount,
-        payment_amount: payment_amount,
-        payment_attributes: {
-          type: type,
-          organ_id: organ_id,
-          user_id: user_id,
-          total_amount: payment_amount,
-          **options
-        }
+        payment_amount: payment_amount
+      )
+      po.build_payment(
+        type: type,
+        organ_id: organ_id,
+        user_id: user_id,
+        total_amount: payment_amount,
+        **options
       )
     end
 

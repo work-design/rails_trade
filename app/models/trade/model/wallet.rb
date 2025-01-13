@@ -60,7 +60,7 @@ module Trade
     end
 
     def compute_payment_amount
-      self.payment_amount = wallet_payments.state_all_checked.sum(:total_amount)
+      self.payment_amount = wallet_payments.select(&:state_all_checked?).sum(:total_amount)
     end
 
     def compute_expense_amount
