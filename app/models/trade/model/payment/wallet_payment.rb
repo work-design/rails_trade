@@ -9,7 +9,7 @@ module Trade
 
       validates :payment_uuid, presence: true, uniqueness: { scope: :type }
 
-      after_save :sync_amount, if: -> { saved_change_to_total_amount? }
+      after_save :sync_amount#, if: -> { saved_change_to_total_amount? }
       after_destroy :sync_amount_after_destroy
       after_create_commit :sync_wallet_log, if: -> { saved_change_to_total_amount? }
       after_destroy_commit :sync_destroy_wallet_log
@@ -34,7 +34,7 @@ module Trade
 
     def sync_amount
       wallet.with_lock do
-        wallet.payment_amount = wallet.payment_amount.to_d + self.total_amount
+        wallet.compute_payment_amount
         wallet.save!
       end
     end

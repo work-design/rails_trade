@@ -55,8 +55,12 @@ module Trade
     def reset_expense_amount
       self.frozen_amount = wallet_frozens.sum(:amount)
       self.payout_amount = payouts.sum(:requested_amount)
-      self.payment_amount = wallet_payments.state_all_checked.sum(:total_amount)
+      compute_payment_amount
       compute_expense_amount
+    end
+
+    def compute_payment_amount
+      self.payment_amount = wallet_payments.state_all_checked.sum(:total_amount)
     end
 
     def compute_expense_amount
