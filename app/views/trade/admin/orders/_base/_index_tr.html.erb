@@ -12,12 +12,12 @@
       </div>
       <div>
         <%= link_to({ controller: 'refunds', order_id: model.id }, class: 'button is-small is-rounded is-link') do %>
-          <span><%= t('trade.admin.refunds.index.title') %></span>
+          <span><%= t('.refunds.index.title') %></span>
         <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
         <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
-          <%= button_to({ controller: 'order_payments', action: 'new', order_id: model.id }, class: 'button is-small is-rounded is-danger') do %>
+          <%= button_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-rounded is-danger') do %>
             <i class="fa-solid fa-receipt"></i>
-            <span class="ml-1">立即支付</span>
+            <span class="ml-1"><%= t('.payment_types.title') %></span>
           <% end %>
         <% end %>
         <% if ['unpaid'].include?(model.payment_status) %>
