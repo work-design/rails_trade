@@ -33,7 +33,6 @@ module Trade
     end
 
     def sync_amount
-      binding.b
       wallet.with_lock do
         wallet.compute_payment_amount
         wallet.save!
