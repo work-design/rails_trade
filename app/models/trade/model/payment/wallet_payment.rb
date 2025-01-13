@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :wallet
+      belongs_to :wallet, inverse_of: :wallet_payments
       has_many :wallet_logs, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
       has_many :refunds, class_name: 'WalletRefund', primary_key: [:id, :wallet_id], foreign_key: [:payment_id, :wallet_id]
 

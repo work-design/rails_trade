@@ -181,7 +181,7 @@ module Trade
       last.state = 'confirmed'
       last.order.compute_received_amount
 
-      self.compute_checked_amount
+      compute_checked_amount
     end
 
     def confirm!(params = {})
