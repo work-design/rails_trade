@@ -88,7 +88,12 @@ module Trade
 
     def payment_confirm
       @order.batch_pending_payments(payment_params)
-      @order.confirm!
+      if params['commit']
+        @order.confirm!
+      else
+        @order.init_wallet_payments
+        @order.init_hand_payment(state: 'pending')
+      end
     end
 
     def micro
