@@ -89,7 +89,6 @@ zh:
       payments:
         index:
           title: 收款流水
-          new: 新增
           import: 导入
           init: 预核销
           confirmed: 未预核销
@@ -97,6 +96,8 @@ zh:
           show: 支付方式
           analyze: 分析支付方式
           adjust: 平账
+        print:
+          title: 打印
       order_payments:
         index:
           title: 订单支付

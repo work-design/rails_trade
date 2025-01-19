@@ -32,6 +32,10 @@
         <i class="fa-solid fa-comments"></i>
         <span class="pl-1"><%= t('auditor.admin.audits.index.title') %></span>
       <% end %>
+      <%= button_to({ action: 'print', id: model.id }, class: 'button is-small is-rounded is-info') do %>
+        <i class="fa-solid fa-print"></i>
+        <span class="ml-1"><%= t('.print.title') %></span>
+      <% end %>
     </div>
   </td>
 </tr>

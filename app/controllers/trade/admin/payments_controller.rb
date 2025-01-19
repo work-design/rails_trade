@@ -2,7 +2,7 @@ module Trade
   class Admin::PaymentsController < Admin::BaseController
     before_action :set_payment, only: [
       :show, :edit, :update, :destroy, :actions,
-      :analyze, :adjust
+      :analyze, :adjust, :print
     ]
     before_action :set_new_payment, only: [:new, :create, :confirm, :order_new, :order_create]
 
@@ -38,6 +38,15 @@ module Trade
 
     def adjust
       @payment.analyze_adjust_amount
+    end
+
+    def print
+      if @payment.organ.device
+        @payment.print
+      else
+        redirect_to controller: 'jia_bo/admin/device_organs' and return
+      end
+      head :no_content
     end
 
     private

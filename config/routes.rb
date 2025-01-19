@@ -126,6 +126,7 @@ Rails.application.routes.draw do
         member do
           patch :analyze
           patch :adjust
+          post :print
         end
         resources :refunds, only: [:new, :create]
         resources :payment_orders do

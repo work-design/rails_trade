@@ -19,7 +19,8 @@ module Trade::Admin
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status, 'created_at-gte', 'created_at-lte')
 
-      @items = Item.includes(:good, :user, :item_promotes, :order).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
+      @items = Item.includes(:user, :item_promotes, :order).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
+      @items = @items.includes(:good)
     end
 
     def done
