@@ -10,5 +10,6 @@
   </div>
   <div data-empty-target="content" class="menu-list">
     <%= link_to t('trade.in.orders.index.title'), { controller: 'trade/in/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
+    <%= link_to t('trade.in.payments.index.title'), { controller: 'trade/in/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
   </div>
 </div>

@@ -125,6 +125,9 @@ zh:
           title: 收货
         edit_organ:
           title: 指定供应商
+      payments:
+        index:
+          title: 付款流水
       promote_goods:
         index:
           title: 优惠券

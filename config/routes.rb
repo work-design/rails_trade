@@ -77,6 +77,10 @@ Rails.application.routes.draw do
           post 'payment_order/:payment_order_id' => :payment_order_create
           get 'wxpay/:order_id' => :wxpay
         end
+        member do
+          post :print
+        end
+        resources :refunds, only: [:new, :create]
       end
     end
 
