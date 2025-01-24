@@ -138,7 +138,6 @@ module Trade
       else
         redirect_to controller: 'jia_bo/admin/device_organs' and return
       end
-      head :no_content
     end
 
     def adjust_update
