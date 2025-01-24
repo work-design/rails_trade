@@ -18,11 +18,7 @@ module Trade
 
     def print
       return unless organ&.device_organ
-      organ.device_organ.print(
-        data: to_esc,
-        mode: 3,
-        cmd_type: 'ESC'
-      )
+      organ.device_organ.print(self)
     end
 
     def qrcode_show_url
