@@ -7,12 +7,8 @@ module Trade
     end
 
     def print
-      return unless organ&.device
-      organ.device.print(
-        data: to_esc,
-        mode: 3,
-        cmd_type: 'ESC'
-      )
+      return unless organ&.device_receipt
+      organ.device_receipt.print(to_esc)
     end
 
     def to_esc

@@ -9,16 +9,12 @@ module Trade
 
     def print_to_prepare
       return unless organ&.device_produce
-      organ.device_produce.print(
-        data: to_prepare_esc,
-        mode: 3,
-        cmd_type: 'ESC'
-      )
+      organ.device_produce.print(to_prepare_esc)
     end
 
     def print
-      return unless organ&.device_organ
-      organ.device_organ.print(self)
+      return unless organ&.device_receipt
+      organ.device_receipt.print(to_esc)
     end
 
     def qrcode_show_url
@@ -70,7 +66,7 @@ module Trade
       pr.text "订餐电话：0717-6788808"
       pr.text "#{created_at.to_fs(:wechat)}"
       pr.render
-      pr.render_raw
+      pr
     end
 
     def to_prepare_esc
@@ -82,7 +78,7 @@ module Trade
         pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
         pr.render
       end
-      pr.render_raw
+      pr
     end
 
     def to_cpcl
