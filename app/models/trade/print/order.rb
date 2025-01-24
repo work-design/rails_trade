@@ -17,8 +17,8 @@ module Trade
     end
 
     def print
-      return unless organ&.device
-      organ.device.print(
+      return unless organ&.device_organ
+      organ.device_organ.print(
         data: to_esc,
         mode: 3,
         cmd_type: 'ESC'
@@ -75,20 +75,6 @@ module Trade
       pr.text "#{created_at.to_fs(:wechat)}"
       pr.render
       pr.render_raw
-    end
-
-    def print_by_ip(printer_ip = '172.30.1.239', printer_port = 9100)
-      sock = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
-      sock.connect(Socket.pack_sockaddr_in(printer_port, printer_ip))
-      begin
-        sock.send(to_esc, 0)
-        logger.debug "指令已发送到打印机"
-      rescue StandardError => e
-        logger.debug "发送失败: #{e.message}"
-      ensure
-        # 关闭连接
-        sock.close unless sock.closed?
-      end
     end
 
     def to_prepare_esc
