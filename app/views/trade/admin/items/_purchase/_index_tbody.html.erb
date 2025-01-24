@@ -2,16 +2,10 @@
 
 <td><%= f.check_box 'xx', include_hidden: false, form: 'purchase_order', data: { action: 'show#toggle' } %></td>
 <td>
-<% if model.good %>
-  <%= link_to model.good.name, { action: 'show', id: model.id } %>
-<% elsif model.purchase %>
-  <span><%= model.purchase.name %></span>
-<% else %>
-  <span><%= model.good_name %></span>
-<% end %>
-<% if ['rent', 'invest'].include?(model.aim) %>
-  <span class="tag is-danger"><%= model.aim_i18n %></span>
-<% end %>
+  <%= link_to model.good_name, { action: 'show', id: model.id } %>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag is-danger"><%= model.aim_i18n %></span>
+  <% end %>
 </td>
 <td>
   <div data-show-target="check" class="display-none">

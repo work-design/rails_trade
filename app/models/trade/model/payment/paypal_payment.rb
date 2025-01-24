@@ -75,7 +75,7 @@ module Trade
     def paypal_items_params
       items = order_items.map do |item|
         {
-          name: item.good.name,
+          name: item.good_name,
           sku: item.good.sku,
           price: item.good.price.to_money.exchange_to(self.currency).to_s,
           currency: self.currency.upcase,

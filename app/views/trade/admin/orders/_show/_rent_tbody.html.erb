@@ -3,7 +3,7 @@
     <% if model.good %>
       <%= image_tag model.good.logo, class: 'image is-32x32' if model.good.logo.attached? %>
       <%= link_to model.good, target: '_blank' do %>
-        <span><%= model.good.name %></span>
+        <span><%= model.good_name %></span>
       <% end %>
     <% end %>
     <span class="tag"><%= model.aim_i18n %></span>
