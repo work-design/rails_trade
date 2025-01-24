@@ -1,5 +1,5 @@
 <% if referer_controller == 'trade/admin/desk/items' %>
   <%= turbo_stream.append 'body', partial: 'visit', locals: { url: url_for(controller: referer_controller, action: 'history', desk_id: params[:desk_id]) } %>
 <% else %>
-  <%= turbo_stream.append 'body', partial: 'visit', locals: { url: url_for(controller: referer_controller) } %>
+  <%= turbo_stream.append 'body', partial: 'visit' %>
 <% end %>
