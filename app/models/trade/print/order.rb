@@ -9,13 +9,13 @@ module Trade
 
     def print_to_prepare
       if organ&.produce_printer
-        organ.produce_printer.device.print(to_prepare_esc)
+        organ.produce_printer.printer.print(to_prepare_esc)
       end
     end
 
     def print
       if organ&.receipt_printer
-        organ.receipt_printer.device.print(to_esc)
+        organ.receipt_printer.printer.print(to_esc)
       end
     end
 
