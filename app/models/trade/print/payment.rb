@@ -12,21 +12,27 @@ module Trade
       end
     end
 
+    def qrcode_show_url
+      Rails.application.routes.url_for(
+        controller: 'trade/my/payments',
+        action: 'show',
+        id: id,
+        host: organ.host
+      )
+    end
+
     def to_esc
       pr = BaseEsc.new
       pr.qrcode(qrcode_show_url, y: 20)
       pr.text "#{self.class.human_attribute_name(:created_at)}：#{created_at.to_fs(:wechat)}"
-      pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
       pr.text '已下单：'
       items.includes(:good).each do |item|
         pr.text("    #{item.good_name} x #{item.number.to_human}") if item.good
       end
-      pr.text "#{self.class.human_attribute_name(:item_amount)}：#{item_amount.to_money.to_s}" if item_amount != amount
-      pr.text "#{self.class.human_attribute_name(:adjust_amount)}：#{adjust_amount.to_money.to_s}" if adjust_amount.to_d != 0
-      pr.text "#{self.class.human_attribute_name(:amount)}：#{amount.to_money.to_s}"
-      pr.text "#{self.class.human_attribute_name(:payment_status)}：#{payment_status_i18n}"
+      pr.text "#{self.class.human_attribute_name(:total_amount)}：#{total_amount.to_money.to_s}"
+      pr.text "#{self.class.human_attribute_name(:state)}：#{state_i18n}"
       pr.render
-      pr.render_raw
+      pr
     end
 
   end
