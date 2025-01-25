@@ -1,5 +1,7 @@
 <%= form_with theme: 'inline', model: @purchase_order, url: { controller: 'trade/in/orders', action: 'create' }, id: 'purchase_order' do |f| %>
   <%= f.hidden_field :generate_mode %>
   <%= f.hidden_field :organ_id %>
-  <%= f.submit '加入采购单', class: 'button is-primary' %>
+  <%= button_tag name: 'commit', value: true, data: { form_target: 'submit' }, disabled: true, class: 'button is-primary' do %>
+    <span>加入采购单</span>
+  <% end %>
 <% end %>
