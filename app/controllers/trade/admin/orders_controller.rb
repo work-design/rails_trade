@@ -133,11 +133,7 @@ module Trade
     end
 
     def print
-      if @order.organ.device
-        @order.print
-      else
-        redirect_to controller: 'jia_bo/admin/device_organs' and return
-      end
+      @order.print
     end
 
     def adjust_update
