@@ -7,8 +7,9 @@ module Trade
     end
 
     def print
-      return unless organ&.device_receipt
-      organ.device_receipt.print(to_esc)
+      if organ&.receipt_printer
+        organ.receipt_printer.printer.print(to_esc)
+      end
     end
 
     def to_esc
