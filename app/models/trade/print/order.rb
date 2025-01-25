@@ -8,13 +8,15 @@ module Trade
     end
 
     def print_to_prepare
-      return unless organ&.device_produce
-      organ.device_produce.print(to_prepare_esc)
+      if organ&.produce_printer
+        organ.produce_printer.device.print(to_prepare_esc)
+      end
     end
 
     def print
-      return unless organ&.device_receipt
-      organ.device_receipt.print(to_esc)
+      if organ&.receipt_printer
+        organ.receipt_printer.device.print(to_esc)
+      end
     end
 
     def qrcode_show_url
