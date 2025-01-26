@@ -41,12 +41,7 @@ module Trade
     end
 
     def print
-      if @payment.organ.device
-        @payment.print
-      else
-        redirect_to controller: 'jia_bo/admin/device_organs' and return
-      end
-      head :no_content
+      @payment.print
     end
 
     private

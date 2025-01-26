@@ -111,13 +111,12 @@ module Trade
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
-      before_save :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
-      before_save :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
+      after_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
+      after_validation :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
       after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && in_cart? }
-      after_save :sync_amount_to_order, if: -> { order_id.present? && (saved_changes.keys & ['amount']).present? }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_save :set_not_fresh, if: -> { (current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present?) && in_cart? }
       after_destroy :remove_promotes
@@ -236,7 +235,7 @@ module Trade
 
     def sync_from_good
       return unless good
-      self.good_name = good.good_name.presence || good.name
+      self.good_name = good.good_name
       self.extra = Hash(self.extra).merge good.item_extra
       self.organ_id = (good.respond_to?(:organ_id) && good.organ_id) || current_cart&.organ_id
       self.produce_on = good.produce_on if good.respond_to? :produce_on

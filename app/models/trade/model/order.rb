@@ -93,7 +93,7 @@ module Trade
       after_initialize :init_uuid, if: -> { uuid.blank? }
       after_initialize :confirm_ordered!, if: :new_record?
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
-      after_validation :compute_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
+      after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       before_create :init_payable_amount
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
@@ -269,7 +269,6 @@ module Trade
       cart_promotes.each do |cart_promote|
         cart_promote.status = 'ordered'
       end
-      compute_amount
     end
 
     def confirm_paid!

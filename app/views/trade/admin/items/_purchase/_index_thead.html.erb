@@ -1,4 +1,4 @@
-<th id="xxd" data-controller="check" data-check-container-value="tbody" data-check-form-outlet="form.button_to">
+<th id="xxd" data-controller="check" data-check-container-value="tbody" data-check-form-outlet="#purchase_order">
   <%= check_box_tag 'xxd', 'order[items_attributes][', false, data: { check_target: 'all', action: 'check#toggleAll' }, id: nil %>
 </th>
 <th><%= Trade::Item.human_attribute_name(:good_name) %></th>

@@ -1,4 +1,4 @@
-<%= form_with theme: 'modal', model: @payment, url: { controller: 'scan_payments', action: 'create' } do |f| %>
+<%= form_with theme: 'modal', model: @payment, url: { controller: 'scan_payments', action: 'create' }, data: { controller: 'total' } do |f| %>
   <%= render 'modal_header' %>
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
@@ -19,8 +19,12 @@
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>
-    <%= f.number_field :total_amount, readonly: true %>
-    <%= text_field_tag :result, nil, autocomplete: 'off', autofocus: true, class: 'input' %>
+    <%= f.number_field :adjust_amount, data: { total_target: 'reduce', action: 'total#updateReduce' } %>
+    <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
+    <div class="field is-horizontal">
+      <%= text_field_tag :result, nil, autocomplete: 'off', autofocus: true, class: 'input' %>
+    </div>
+    <%= f.text_area :comment %>
   </section>
   <%= f.submit %>
 <% end %>

@@ -1,15 +1,13 @@
-<div class="buttons are-small">
-  <%= button_to({ controller: 'scan_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-link') do %>
-    <span><%= t('.scan_payments.desk.title') %></span>
-  <% end %>
-  <%= button_to({ controller: 'hand_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-link') do %>
-    <span><%= t('.hand_payments.desk.title') %></span>
-  <% end %>
-  <%= button_to({ action: 'done' }, data: { turbo_confirm: t('.done.confirm') }, class: 'button is-link') do %>
-    <span><%= t('.done.title') %></span>
-  <% end %>
-  <%= button_to({ controller: 'space/admin/desks', action: 'print_all', station_id: @desk.room.station_id, room_id: @desk.room_id, id: @desk.id }, class: 'button is-primary') do %>
-    <i class="fa-solid fa-print"></i>
-    <span class="ml-1"><%= t('space.admin.desks.print_all.title') %></span>
-  <% end %>
-</div>
+<%= button_to({ controller: 'scan_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-link') do %>
+  <span><%= t('.scan_payments.desk.title') %></span>
+<% end %>
+<%= button_to({ controller: 'hand_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-link') do %>
+  <span><%= t('.hand_payments.desk.title') %></span>
+<% end %>
+<%= button_to({ action: 'done' }, data: { turbo_confirm: t('.done.confirm') }, class: 'button is-link') do %>
+  <span><%= t('.done.title') %></span>
+<% end %>
+<%= button_to({ controller: 'space/admin/desks', action: 'print_all', station_id: @desk.room.station_id, room_id: @desk.room_id, id: @desk.id }, class: 'button is-primary') do %>
+  <i class="fa-solid fa-print"></i>
+  <span class="ml-1"><%= t('space.admin.desks.print_all.title') %></span>
+<% end %>

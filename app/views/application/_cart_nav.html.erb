@@ -1,4 +1,4 @@
-<div class="box" id="cart_nav">
+<div class="box is-fullheight background-light" id="cart_nav">
   <% cart.cart_items.each do |item| %>
     <div data-id="<%= item.id %>" class="flex justify-content-space-between align-items-center mt-2">
       <div class="is-several">
@@ -12,22 +12,25 @@
       </div>
     </div>
   <% end %>
-  <div class="flex justify-content-space-between align-items-center mt-6">
-    <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-small is-primary is-radius right-badge') do %>
+  <div class="flex justify-content-space-between align-items-center my-3">
+    <div><%= Trade::Cart.human_attribute_name(:item_amount) %>：</div>
+    <div><%= cart.item_amount.to_money.format.html_safe %></div>
+  </div>
+  <div style="margin-right: -5px; margin-left: 5px;">
+    <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-fullwidth is-primary is-radius right-badge') do %>
       <span class="pr-1">去购物车</span>
       <i class="fa-solid fa-angle-right"></i>
       <span class="weui-badge"><%= cart.cart_items.count %></span>
     <% end %>
-    <div><%= cart.item_amount.to_money.format.html_safe %></div>
   </div>
   <div class="mt-2 flex justify-content-center">
   <% if cart.can_order? %>
-    <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: cart.id }, class: 'button is-small is-primary') do %>
+    <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: cart.id }, class: 'button is-fullwidth is-primary') do %>
       <span class="pr-1"><%= t('trade.my.orders.cart.title') %></span>
       <i class="fa-solid fa-angle-right"></i>
     <% end %>
   <% else %>
-    <button class="button is-small is-primary" disabled>
+    <button class="button is-fullwidth is-primary" disabled>
       <span class="pr-1">结算</span>
       <i class="fa-solid fa-angle-right"></i>
     </button>

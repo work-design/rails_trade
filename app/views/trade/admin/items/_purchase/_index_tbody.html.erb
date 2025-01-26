@@ -2,23 +2,16 @@
 
 <td><%= f.check_box 'xx', include_hidden: false, form: 'purchase_order', data: { action: 'show#toggle' } %></td>
 <td>
-<% if model.good %>
-  <%= link_to model.good.name, { action: 'show', id: model.id } %>
-<% elsif model.purchase %>
-  <span><%= model.purchase.name %></span>
-<% else %>
-  <span><%= model.good_name %></span>
-<% end %>
-<% if ['rent', 'invest'].include?(model.aim) %>
-  <span class="tag is-danger"><%= model.aim_i18n %></span>
-<% end %>
+  <%= link_to model.good_name, { action: 'show', id: model.id } %>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag is-danger"><%= model.aim_i18n %></span>
+  <% end %>
 </td>
 <td>
   <div data-show-target="check" class="display-none">
     <%= f.hidden_field :source_id, form: 'purchase_order', disabled: true %>
     <%= f.hidden_field :good_type, value: model.good_type, form: 'purchase_order', disabled: true %>
-    <%= f.hidden_field :good_id, value: model.good_id, form: 'purchase_order', disabled: true %>
-    <%= f.hidden_field :good_name, value: model.good_name, form: 'purchase_order', disabled: true %>
+    <%= f.hidden_field :purchase_id, value: model.good_id, form: 'purchase_order', disabled: true %>
     <%= f.number_field :number, value: model.number, form: 'purchase_order', disabled: true, style: 'width: 5em' %>
   </div>
   <span data-show-target="hidden"><%= model.number.to_human %></span>

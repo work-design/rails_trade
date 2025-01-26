@@ -8,21 +8,15 @@ module Trade
     end
 
     def print_to_prepare
-      return unless organ&.device_produce
-      organ.device_produce.print(
-        data: to_prepare_esc,
-        mode: 3,
-        cmd_type: 'ESC'
-      )
+      if organ&.produce_printer
+        organ.produce_printer.printer.print(to_prepare_esc)
+      end
     end
 
     def print
-      return unless organ&.device
-      organ.device.print(
-        data: to_esc,
-        mode: 3,
-        cmd_type: 'ESC'
-      )
+      if organ&.receipt_printer
+        organ.receipt_printer.printer.print(to_esc)
+      end
     end
 
     def qrcode_show_url
@@ -74,21 +68,7 @@ module Trade
       pr.text "订餐电话：0717-6788808"
       pr.text "#{created_at.to_fs(:wechat)}"
       pr.render
-      pr.render_raw
-    end
-
-    def print_by_ip(printer_ip = '172.30.1.239', printer_port = 9100)
-      sock = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
-      sock.connect(Socket.pack_sockaddr_in(printer_port, printer_ip))
-      begin
-        sock.send(to_esc, 0)
-        logger.debug "指令已发送到打印机"
-      rescue StandardError => e
-        logger.debug "发送失败: #{e.message}"
-      ensure
-        # 关闭连接
-        sock.close unless sock.closed?
-      end
+      pr
     end
 
     def to_prepare_esc
@@ -100,7 +80,7 @@ module Trade
         pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
         pr.render
       end
-      pr.render_raw
+      pr
     end
 
     def to_cpcl
