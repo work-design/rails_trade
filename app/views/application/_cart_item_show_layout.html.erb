@@ -1,4 +1,4 @@
-<tr class="<%= 'active' if item.status_checked? %>" id="item_<%= item.id %>">
+<tr id="cart_item_show_<%= item.cart_identity %>">
   <td>
     <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'toggle', id: item.id }, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
