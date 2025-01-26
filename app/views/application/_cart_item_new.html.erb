@@ -1,5 +1,5 @@
 <% if item.persisted? %>
-  <div id="cart_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="inline-flex align-items-center" style="width: fit-content">
+  <div id="cart_item_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="inline-flex align-items-center" style="width: fit-content">
     <div class="mr-3 text-danger"><%= item.amount.to_money.format.html_safe %></div>
     <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, 'partial[]': ['cart_item_new', 'cart_item_add'] }, form: { class: 'button_to mr-1' }) do %>
       <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
@@ -19,7 +19,7 @@
     </button>
   </div>
 <% else %>
-  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_new_#{item.cart_identity}", class: 'button_to' do |f| %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_item_new_#{item.cart_identity}", class: 'button_to' do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
     <%= f.hidden_field :good_type %>
     <%= f.hidden_field :good_id %>

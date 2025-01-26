@@ -1,5 +1,5 @@
 <% if item.persisted? %>
-  <div id="cart_big_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="flex">
+  <div id="cart_item_big_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="flex">
     <%= form_with theme: nil, scope: 'item', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'input background-light text-centered', style: 'width: 60px; height: 100%; font-size: x-large' %>
@@ -23,7 +23,7 @@
     </div>
   </div>
 <% else %>
-  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_big_#{item.cart_identity}", class: 'button_to' do |f| %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_item_big_#{item.cart_identity}", class: 'button_to' do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id if @cart %>
     <%= f.hidden_field :good_type %>
     <%= f.hidden_field :good_id %>

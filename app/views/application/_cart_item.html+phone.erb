@@ -1,5 +1,5 @@
 <% if item.persisted? %>
-  <div id="cart_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
+  <div id="cart_item_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
     <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'partial[]': 'cart_item' }, class: 'mr-1', form: { data: { turbo_confirm: t('.destroy.confirm') } }) do %>
       <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
     <% end %>
@@ -18,7 +18,7 @@
     </button>
   </div>
 <% else %>
-  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_#{item.cart_identity}", class: 'button_to' do |f| %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_item_#{item.cart_identity}", class: 'button_to' do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
     <%= f.hidden_field :good_type %>
     <%= f.hidden_field :good_id %>
