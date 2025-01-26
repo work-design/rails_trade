@@ -6,9 +6,7 @@
     <% end %>
   </td>
   <td><%= item.good_name %></td>
-  <td>
-    <p><%= item.retail_price.to_money.format.html_safe %></p>
-  </td>
+  <td><%= item.retail_price.to_money.format.html_safe %></td>
   <td>
     <%= yield %>
   </td>
