@@ -2,7 +2,7 @@
   <%= f.hidden_field :current_cart_id %>
 <% end %>
 
-<table class="table is-fullwidth">
+<table class="table is-fullwidth as-boxed">
   <thead>
     <tr>
       <th><%= Trade::Item.human_attribute_name(:good_name) %></th>
@@ -17,7 +17,7 @@
     <tr>
       <th colspan="2"></th>
       <th>
-        <%= submit_tag t('.confirm'), class: 'button is-success', form: 'new_order' %>
+        <%= submit_tag t('.create.title'), class: 'button is-success', form: 'new_order' %>
       </th>
     </tr>
   </tfoot>

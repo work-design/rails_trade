@@ -31,7 +31,6 @@ module Trade
       @order.init_wallet_payments
       @order.to_payment(type: 'Trade::HandPayment')
 
-      binding.b
       set_wxpay if request.variant.include?(:wechat)
     end
 
