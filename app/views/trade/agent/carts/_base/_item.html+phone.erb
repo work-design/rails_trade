@@ -38,6 +38,6 @@
     </div>
   </div>
   <div class="media-right as-x">
-    <%= render partial: 'cart_big', locals: { model: model.good, item_con: controller_path.sub('carts', 'items'), item: model, cart: @cart } %>
+    <%= render partial: 'cart_item_big', locals: { item: model, cart: @cart, item_con: controller_path.sub('carts', 'items') } %>
   </div>
 </div>

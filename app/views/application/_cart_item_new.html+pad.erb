@@ -2,7 +2,7 @@
   <div id="cart_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="flex align-items-center">
     <div class="size-5 mr-6"><%= item.amount.to_money.format.html_safe %></div>
     <% if item.persisted? %>
-      <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, partial: 'cart_new' }, class: 'button is-large is-danger', form: { class: 'button_to mr-3' }) do %>
+      <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, partial: 'cart_item_new' }, class: 'button is-large is-danger', form: { class: 'button_to mr-3' }) do %>
         <span class="icon is-large">
           <i class="fa-solid fa-xmark"></i>
         </span>
@@ -16,7 +16,7 @@
     <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'input background-light text-centered', style: 'width: 5em' %>
-      <%= hidden_field_tag :partial, 'cart_new' %>
+      <%= hidden_field_tag :partial, 'cart_item_new' %>
     <% end %>
     <button data-action="modify#plus" class="button is-large is-success ml-3">
       <span class="icon is-large">
@@ -34,7 +34,7 @@
     <%= f.hidden_field :scene_id %>
     <%= f.hidden_field :station_id %>
     <%= f.hidden_field :desk_id %>
-    <button type="submit" name="partial" value="cart_new" class="button is-warning is-rounded">
+    <button type="submit" name="partial" value="cart_item_new" class="button is-warning is-rounded">
       <i class="fa-solid fa-cart-plus"></i>
       <span class="ml-1">加入购物车</span>
     </button>
