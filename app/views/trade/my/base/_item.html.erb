@@ -6,8 +6,8 @@
     <% end %>
   </td>
   <td>
-    <%= item.good&.name %>
-    <p style="color: grey;"><%= item.good_type_i18n %></p>
+    <%= item.good_name %>
+    <p class="text-grey"><%= item.good_type_i18n %></p>
   </td>
   <td>
     <p><%= item.retail_price.to_money.format.html_safe %></p>
@@ -19,35 +19,7 @@
     <% end %>
   </td>
   <td>
-    <div class="field has-addons">
-      <div class="control">
-        <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, method: :patch, class: 'button_to' do |f| %>
-          <%= hidden_field_tag 'partial[]', 'item' %>
-          <%= f.hidden_field :current_cart_id, value: cart.id %>
-          <%= f.hidden_field :number, value: item.number - 1 %>
-          <%= button_tag class: 'button' do %>
-            <i class="fa-solid fa-minus"></i>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="control">
-        <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, data: { controller: 'input' } do |f| %>
-          <%= hidden_field_tag 'partial[]', 'item' %>
-          <%= f.hidden_field :current_cart_id, value: cart.id %>
-          <%= f.number_field :number, value: item.number.to_human, step: 1, data: { action: 'input#form' }, class: 'input text-centered', id: nil %>
-        <% end %>
-      </div>
-      <div class="control">
-        <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'update', id: item.id }, method: :patch, class: 'button_to' do |f| %>
-          <%= hidden_field_tag 'partial[]', 'item' %>
-          <%= f.hidden_field :number, value: item.number + 1 %>
-          <%= f.hidden_field :current_cart_id, value: cart.id %>
-          <%= button_tag class: 'button is-link' do %>
-            <i class="fa-solid fa-plus"></i>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+    <%= render 'cart_item' %>
   </td>
   <td>
     <% if item.amount != item.wholesale_price %>
