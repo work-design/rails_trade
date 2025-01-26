@@ -25,12 +25,7 @@
   <tr>
     <td><%= Trade::Order.human_attribute_name(:amount) %></td>
     <td colspan="<%= @order.aim_rent? ? '3' : '2' %>"></td>
-    <td colspan="2">
-      <span><%= @order.amount.to_money.format.html_safe %></span>
-      <%= button_to({ controller: 'trade/admin/order_payments', action: 'new', order_id: @order.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-credit-card"></i>
-      <% end %>
-    </td>
+    <td colspan="2"><%= @order.amount.to_money.format.html_safe %></td>
   </tr>
   <tr>
     <td><%= Trade::Order.human_attribute_name(:payment_status) %></td>
