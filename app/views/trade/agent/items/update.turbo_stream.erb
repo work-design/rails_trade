@@ -5,6 +5,6 @@
   <%= turbo_stream.replace "product_summary_#{@item.good.product_id}", partial: 'product_summary', locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
 <% end %>
 
-<% params[:partial].each do |partial| %>
-  <%= turbo_stream.replace "#{partial}_#{@item.cart_identity}", partial: partial, locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+<% params[:replace].each do |replace| %>
+  <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
 <% end %>
