@@ -2,12 +2,16 @@
 <% if item.persisted? %>
   <div class="control">
   <% if item.number > 1 %>
-    <button data-action="modify#minus" class="button_to mr-1">
-      <i class="fa-solid fa-xl fa-circle-minus text-dark-grey"></i>
+    <button data-action="modify#minus" class="button">
+      <span class="icon">
+        <i class="fa-solid fa-minus"></i>
+      </span>
     </button>
   <% else %>
     <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'partial[]': 'cart_item_show' }, class: 'button') do %>
-      <i class="fa-solid fa-minus"></i>
+      <span class="icon">
+        <i class="fa-solid fa-times"></i>
+      </span>
     <% end %>
   <% end %>
   </div>
@@ -20,7 +24,9 @@
   </div>
   <div class="control">
     <button data-action="modify#plus" class="button is-link">
-      <i class="fa-solid fa-plus"></i>
+      <span class="icon">
+        <i class="fa-solid fa-plus"></i>
+      </span>
     </button>
   </div>
 <% end %>
