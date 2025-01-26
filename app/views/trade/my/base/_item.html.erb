@@ -19,7 +19,7 @@
     <% end %>
   </td>
   <td>
-    <%= render partial: 'cart_item_show', locals: { item: item, cart: cart } %>
+    <%= render partial: 'cart_item_show', locals: { item: item, cart: cart, item_con: 'trade/my/items' } %>
   </td>
   <td>
     <% if item.amount != item.wholesale_price %>
