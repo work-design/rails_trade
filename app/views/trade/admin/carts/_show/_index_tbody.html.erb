@@ -4,16 +4,10 @@
     <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: model.id %>
   <% end %>
 </td>
+<td><%= model.good_name %></td>
+<td><%= model.single_price.to_money.format.html_safe %></td>
 <td>
-  <p><%= model.good_name %></p>
-</td>
-<td>
-  <p><%= model.good.quantity %></p>
-  <p><%= model.good.unit %></p>
-</td>
-<td>
-  <p><%= model.single_price.to_money.format.html_safe %></p>
-  <p class="text-grey"><%= model.number.to_human %></p>
+  <%= render partial: 'cart_item_show', locals: { item: model, cart: @cart, item_con: "trade/#{params[:namespace]}/items" } %>
 </td>
 <td>
   <p><%= model.retail_price.to_money.format.html_safe %></p>
