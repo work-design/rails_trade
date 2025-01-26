@@ -1,6 +1,8 @@
 <td>
-  <p><%= model.good_type_i18n %></p>
-  <p><%= model.aim_i18n %></p>
+  <%= link_to({ action: 'show', id: model.id }) do %>
+    <p><%= model.good_type_i18n %></p>
+    <p><%= model.aim_i18n %></p>
+  <% end %>
 </td>
 <td>
   <p><%= model.payment_strategy&.name %></p>
