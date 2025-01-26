@@ -1,26 +1,14 @@
 <tr id="cart_item_show_<%= item.cart_identity %>">
   <td>
-    <%= form_with theme: nil, model: item, url: { controller: 'items', action: 'toggle', id: item.id }, data: { controller: 'input' } do |f| %>
+    <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'toggle', id: item.id }, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.check_box :status, { checked: item.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: item.id %>
     <% end %>
   </td>
   <td><%= item.good_name %></td>
-  <td><%= item.retail_price.to_money.format.html_safe %></td>
+  <td><%= item.single_price.to_money.format.html_safe %></td>
   <td>
     <%= yield %>
   </td>
-  <td>
-    <% if item.amount != item.wholesale_price %>
-    <div>
-      <del class="text-grey"><%= item.wholesale_price %></del>
-      <% if item.reduced_amount < 0 %>
-        <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= url_for(controller: 'items', action: 'promote', id: item.id) %>">
-          <span class="text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= item.reduced_amount %></span>
-        </span>
-      <% end %>
-    </div>
-    <% end %>
-    <p><%= item.amount.to_money.format.html_safe %></p>
-  </td>
+  <td><%= item.amount.to_money.format.html_safe %></td>
 </tr>

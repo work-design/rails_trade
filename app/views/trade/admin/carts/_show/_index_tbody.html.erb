@@ -9,4 +9,14 @@
 <td>
   <%= render partial: 'cart_item_show', locals: { item: model, cart: @cart, item_con: "trade/#{params[:namespace]}/items" } %>
 </td>
+<% if item.amount != item.wholesale_price %>
+  <div>
+    <del class="text-grey"><%= item.wholesale_price %></del>
+    <% if item.reduced_amount < 0 %>
+        <span class="is-inline-block" data-controller="hover" data-hover-url-value="<%= url_for(controller: 'items', action: 'promote', id: item.id) %>">
+          <span class="text-danger" data-action="mouseenter->hover#show mouseleave->hover#hide"><%= item.reduced_amount %></span>
+        </span>
+    <% end %>
+  </div>
+<% end %>
 <td><%= model.amount.to_money.format.html_safe %></td>
