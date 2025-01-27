@@ -11,11 +11,9 @@
           <%= render partial: 'payment_wallet', locals: { payment_order: payment_order, f: f } %>
         <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
           <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order, f: f } %>
-        <% elsif payment_order.payment.is_a?(Trade::HandPayment) %>
-          <%= render partial: 'payment_hand', locals: { payment_order: payment_order, f: f } %>
         <% end %>
       <% end %>
-      </tbody>
+    </tbody>
   </table>
 </section>
 <%= f.submit %>
