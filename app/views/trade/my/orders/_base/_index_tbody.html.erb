@@ -4,8 +4,8 @@
 <td><%= model.amount.to_money.format.html_safe %></td>
 <td>
   <span><%= model.payment_status_i18n %></span>
-  <%= link_to({ action: 'payment_types', id: model.id }, class: 'button is-small') do %>
-    <span>支付</span>
+  <%= button_to({ action: 'payment_types', id: model.id }, class: 'button is-small') do %>
+    <span><%= t('.payment_types.title') %></span>
   <% end if model.can_pay? %>
 </td>
 <td><time data-controller="time" data-format="human" class="text-grey"><%= model.created_at.to_fs(:iso8601) %></time></td>

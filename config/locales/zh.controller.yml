@@ -21,6 +21,8 @@ zh:
           title: 确认订单
         add:
           title: 生成订单
+        payment_types:
+          title: 支付
         edit_payment_type:
           title: 支付方式
         wxpay_pc_pay:
