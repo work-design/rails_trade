@@ -118,7 +118,7 @@ module Trade
     def cart_items
       r = items.select(&:persisted?)
       ActiveRecord::Associations::Preloader.new(records: r, associations: [:item_promotes, :good]).call
-      r.sort_by { |i| i.id }
+      r.sort_by! { |i| i.id }
       r
     end
 
