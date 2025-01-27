@@ -24,21 +24,21 @@ module Trade
     def trial
     end
 
-    def add
-    end
-
     def payment_types
       @order.init_wallet_payments
-      @order.to_payment(type: 'Trade::HandPayment')
-
-      set_wxpay if request.variant.include?(:wechat)
+      if support_wxpay?
+        @order.init_wxpay_payment(state: 'pending', payee: current_payee)
+      end
     end
 
     def payment_pending
-      payment = @order.payments.build(payment_params)
-      @order.init_wallet_payments(payment.wallet_id)
-      @order.to_payment(type: 'Trade::HandPayment')
-      set_wxpay if request.variant.include?(:wechat)
+      @order.batch_pending_payments(payment_params)
+      @order.init_wallet_payments
+      if support_wxpay?
+        @order.init_wxpay_payment(
+          state: 'pending', payee: current_payee, ip: request.remote_ip
+        )
+      end
     end
 
     def payment_confirm
@@ -130,22 +130,15 @@ module Trade
       )
     end
 
-    def set_wxpay
-      if defined? RailsWechat
-        @payment = @order.to_payment(
-          seller_identifier: current_payee&.mch_id,
-          appid: current_wechat_user&.appid
-        )
-        #@payment.extra_params.merge! 'profit_sharing' => true
+    def support_wxpay?
+      defined?(RailsWechat) &&
+        request.variant.include?(:wechat) &&
+        request.variant.exclude?(:work_wechat) &&
+        current_payee
+    end
 
-        if request.variant.include?(:wechat) && request.variant.exclude?(:work_wechat)
-          @payment.buyer_identifier = current_wechat_user&.uid
-          @wxpay_order = @payment.js_pay(payer_client_ip: request.remote_ip)
-          logger.debug "\e[35m  #{@wxpay_order}  \e[0m"
-        elsif defined?(current_payee) && current_payee
-          @url = @payment.h5(payer_client_ip: request.remote_ip)
-        end
-      end
+    def set_wxpay
+
     end
 
   end

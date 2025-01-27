@@ -419,14 +419,16 @@ module Trade
 
     def lawful_wallet_pay
       return unless can_pay?
-      payment = to_payment(
-        type: 'Trade::WalletPayment',
-        wallet_id: lawful_wallet.id,
-        state: 'confirmed',
-        order_amount: unreceived_amount
+      po = payment_orders.build(
+        order_amount: unreceived_amount,
+        payment_amount: unreceived_amount,
+        state: 'confirmed'
       )
-      payment.save
-      payment
+      p = po.build_payment(
+        type: 'Trade::WalletPayment',
+        wallet_id: lawful_wallet.id
+      )
+      p.save
     end
 
     def payment_types
@@ -464,6 +466,28 @@ module Trade
         state: state
       )
       po.build_payment(type: 'Trade::HandPayment')
+    end
+
+    def init_wxpay_payment(state: 'init', order_amount: computed_payable_amount, ip: )
+      return if order_amount <= 0
+      po = payment_orders.build(
+        order_amount: order_amount,
+        seller_identifier: current_payee&.mch_id,
+        appid: current_wechat_user&.appid
+      )
+      payment = po.build_payment(
+        type: 'Trade::WxpayPayment',
+        buyer_identifier: current_wechat_user&.uid
+      )
+      #@payment.extra_params.merge! 'profit_sharing' => true
+
+      wxpay_order = payment.js_pay(payer_client_ip: ip)
+      logger.debug "\e[35m  #{wxpay_order}  \e[0m"
+      wxpay_order
+    end
+
+    def init_wxpay_url(state: 'init', order_amount: computed_payable_amount, ip: )
+      payment.h5(payer_client_ip: ip)
     end
 
     def init_wallet_payment(state: 'init', order_amount: computed_payable_amount)
