@@ -1,14 +1,3 @@
-<%= form_with theme: nil, scope: 'batch', url: { action: 'payment_confirm' }, skip_default_ids: true do |f| %>
-  <% @order.payments.select(&->(i){ i.is_a?(Trade::WalletPayment) }).each do |payment| %>
-    <%= f.fields '', model: payment, skip_default_ids: true do |df| %>
-      <%= df.hidden_field :wallet_id %>
-      <%= df.hidden_field :type %>
-      <%= df.fields :payment_orders do |ef| %>
-        <%= ef.hidden_field :payment_amount %>
-        <%= ef.hidden_field :order_amount %>
-        <%= ef.hidden_field :state, value: 'confirmed' %>
-      <% end %>
-    <% end %>
-  <% end %>
-  <%= f.submit '确认', class: 'button is-fullwidth is-success' %>
+<%= form_with theme: 'modal_line', model: @order, url: { action: 'payment_confirm' }, method: :post, skip_default_ids: true do |f| %>
+  <%= render partial: 'payment_types_form', locals: { f: f } %>
 <% end %>
