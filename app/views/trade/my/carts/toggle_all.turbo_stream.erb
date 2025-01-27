@@ -1,5 +1,5 @@
 <%= turbo_stream.replace 'cart_table' do %>
   <%= render layout: 'show_table_layout' do %>
-    <%= render partial: 'item', collection: @items, as: :item, locals: { cart: @cart } %>
+    <%= render partial: 'cart_item_show', layout: 'cart_item_show_layout', collection: @items, as: :item, locals: { cart: @cart, item_con: 'trade/my/items' } %>
   <% end %>
 <% end %>
