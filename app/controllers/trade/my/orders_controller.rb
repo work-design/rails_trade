@@ -27,7 +27,12 @@ module Trade
     def payment_types
       @order.init_wallet_payments
       if support_wxpay?
-        @order.init_wxpay_payment(state: 'pending', payee: current_payee)
+        @order.init_wxpay_payment(
+          state: 'pending',
+          payee: current_payee,
+          wechat_user: current_wechat_user,
+          ip: request.remote_ip
+        )
       end
     end
 
@@ -36,7 +41,10 @@ module Trade
       @order.init_wallet_payments
       if support_wxpay?
         @order.init_wxpay_payment(
-          state: 'pending', payee: current_payee, ip: request.remote_ip
+          state: 'pending',
+          payee: current_payee,
+          wechat_user: current_wechat_user,
+          ip: request.remote_ip
         )
       end
     end

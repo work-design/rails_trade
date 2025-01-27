@@ -468,15 +468,16 @@ module Trade
       po.build_payment(type: 'Trade::HandPayment')
     end
 
-    def init_wxpay_payment(state: 'init', order_amount: computed_payable_amount, ip: )
+    def init_wxpay_payment(state: 'init', order_amount: computed_payable_amount, payee:, wechat_user:, ip:)
       return if order_amount <= 0
       po = payment_orders.build(
         order_amount: order_amount,
-        seller_identifier: current_payee&.mch_id,
-        appid: current_wechat_user&.appid
+        appid: current_wechat_user&.appid,
+        state: state
       )
       payment = po.build_payment(
         type: 'Trade::WxpayPayment',
+        seller_identifier: payee&.mch_id,
         buyer_identifier: current_wechat_user&.uid
       )
       #@payment.extra_params.merge! 'profit_sharing' => true
