@@ -50,15 +50,20 @@ module Trade
     end
 
     def payment_confirm
-      params[:batch].each do |payment_p|
-        payment_p.permit!
-        payment_p[:payment_orders_attributes].each do |_, v|
-          v.merge! order: @order
+      @order.batch_pending_payments(payment_params)
+      if params['commit']
+        @order.confirm!
+      else
+        @order.init_wallet_payments
+        if support_wxpay?
+          @order.init_wxpay_payment(
+            state: 'pending',
+            payee: current_payee,
+            wechat_user: current_wechat_user,
+            ip: request.remote_ip
+          )
         end
-        payment_p.merge! default_form_params
-        @order.payments.build(payment_p)
       end
-      @order.confirm!
     end
 
     def payment_frozen
