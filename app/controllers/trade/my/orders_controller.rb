@@ -147,7 +147,8 @@ module Trade
       defined?(RailsWechat) &&
         request.variant.include?(:wechat) &&
         request.variant.exclude?(:work_wechat) &&
-        current_payee
+        current_payee &&
+        current_wechat_user
     end
 
     def set_wxpay
