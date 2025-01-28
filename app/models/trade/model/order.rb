@@ -472,13 +472,13 @@ module Trade
       return if order_amount <= 0
       po = payment_orders.build(
         order_amount: order_amount,
-        appid: current_wechat_user&.appid,
         state: state
       )
       payment = po.build_payment(
         type: 'Trade::WxpayPayment',
-        seller_identifier: payee&.mch_id,
-        buyer_identifier: current_wechat_user&.uid
+        appid: wechat_user.appid,
+        seller_identifier: payee.mch_id,
+        buyer_identifier: wechat_user.uid
       )
       #@payment.extra_params.merge! 'profit_sharing' => true
 
