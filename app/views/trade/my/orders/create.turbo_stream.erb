@@ -2,6 +2,6 @@
   <% if @order.items.pluck(:aim).all?('rent') %>
     <%= render partial: 'visit', locals: { url: url_for(action: 'payment_frozen', id: @order.id) } %>
   <% else %>
-    <%= render partial: 'visit', locals: { url: url_for(action: 'payment_types', id: @order.id) } %>
+    <%= render partial: 'visit', locals: { url: url_for(action: 'show', id: @order.id) } %>
   <% end %>
 <% end %>
