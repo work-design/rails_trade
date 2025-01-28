@@ -1,0 +1,5 @@
+<% if @order.can_pay? %>
+  <%= button_to({ action: 'payment_types' }, class: 'button is-primary') do %>
+    <span><%= t('.payment_types.title') %></span>
+  <% end %>
+<% end %>
