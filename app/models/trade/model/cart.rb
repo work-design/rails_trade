@@ -370,6 +370,7 @@ module Trade
           cart = where(options).find_or_create_by(good_type: good_type, aim: aim)
         end
         cart.compute_amount! unless cart.fresh
+        logger.debug "\e[35m  Current Cart: #{cart.id}  \e[0m"
         cart
       end
 
