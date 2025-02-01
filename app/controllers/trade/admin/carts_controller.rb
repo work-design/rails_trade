@@ -5,7 +5,9 @@ module Trade
     before_action :set_purchase, only: [:show]
 
     def index
-      q_params = {}
+      q_params = {
+        aim: 'use'
+      }
       q_params.merge! default_params
       q_params.merge! params.permit(:user_id, :id)
 
