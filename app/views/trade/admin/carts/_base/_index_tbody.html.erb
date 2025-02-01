@@ -1,9 +1,10 @@
 <td>
-  <% if model.user %>
-  <p>
-    <span><%= link_to model.user.name.presence || "user_#{model.user_id}", { action: 'show', id: model.id } %></span>
+  <%= link_to({ action: 'show', id: model.id }) do %>
+    <span><%= model.user.name.presence %></span>
     <span class="text-grey">（<%= model.user_id %>）</span>
-  </p>
+  <% end %>
+  <%= link_to({ user_id: model.user_id }, data: { show_target: 'item' }, class: 'visibility-hidden') do %>
+    <i class="fa-solid fa-filter text-grey"></i>
   <% end %>
 </td>
 <td>
