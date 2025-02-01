@@ -2,7 +2,7 @@
   <%= render 'modal_header' %>
   <section class="modal-card-body">
     <%= render 'error_messages', target: f.object %>
-    <%= f.collection_select :payment_strategy_id, @payment_strategies, :id, :name %>
+    <%= f.collection_select :payment_strategy_id, @payment_strategies, :id, :name, include_blank: true %>
     <%= f.number_field :deposit_ratio %>
   </section>
   <%= f.submit %>
