@@ -5,24 +5,19 @@
     <span class="text-grey">（<%= model.user_id %>）</span>
   </p>
   <% end %>
-  <% if model.member %>
-  <p>
-    <span data-id="<%= model.member_id %>"><%= model.member.name %></span>
-  </p>
-  <% end %>
+</td>
+<td>
+  <p><%= model.client_id %></p>
+  <p><%= model.contact_id %></p>
 </td>
 <td>
   <p><%= model.good_type_i18n %></p>
-  <p><%= model.aim_i18n %></p>
 </td>
 <td>
   <p><%= model.payment_strategy&.name %></p>
   <p><%= model.deposit_ratio %></p>
 </td>
 <td class="text-right">
-  <p><%= model.item_amount.to_money.format.html_safe %></p>
-  <p><%= model.overall_additional_amount.to_money.format.html_safe %></p>
-  <p><%# link_to model.overall_reduced_amount.to_money.format.html_safe, { controller: 'cart_promotes', cart_id: model.id } %></p>
   <p><%= model.amount.to_money.format.html_safe %></p>
 </td>
 <td class="text-centered"><%= link_to model.items.size, { action: 'show', id: model.id } %></td>

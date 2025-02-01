@@ -3,19 +3,19 @@
     <li class="<%= active_helper(action: 'index', active: 'is-active') %>">
       <%= link_to({ action: 'index' }) do %>
         <i class="fa-solid fa-handshake"></i>
-        <span class="pl-1"><%= t('.index.title') %></span>
+        <span class="ml-1"><%= t('.index.title') %></span>
       <% end %>
     </li>
     <li class="<%= active_helper(action: 'purchase', active: 'is-active') %>">
       <%= link_to({ action: 'purchase' }) do %>
         <i class="fa-solid fa-cart-shopping"></i>
-        <span class="pl-1"><%= t('.purchase.title') %></span>
+        <span class="ml-1"><%= t('.purchase.title') %></span>
       <% end %>
     </li>
     <li class="<%= active_helper(action: 'produce', active: 'is-active') %>">
       <%= link_to({ action: 'produce' }) do %>
         <i class="fa-solid fa-industry"></i>
-        <span class="pl-1"><%= t('.produce.title') %></span>
+        <span class="ml-1"><%= t('.produce.title') %></span>
       <% end %>
     </li>
   </ul>
