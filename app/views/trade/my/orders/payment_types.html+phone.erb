@@ -1,19 +1,21 @@
 <%= render 'order_for_payment' %>
 
-<% if @order.payment_orders.select(&:new_record?).present? %>
-<div class="box is-padding-less">
-  <div class="box-body">
-    <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
-      <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
-        <%= render partial: 'payment_wallet', locals: { payment_order: payment_order } %>
-      <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
-        <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order } %>
-      <% elsif payment_order.payment.is_a?(Trade::WxpayPayment) %>
-        <%= render partial: 'wxpay', locals: { payment_order: payment_order } %>
+<%= form_with theme: nil, model: @order, url: { action: @order.payment_types.include?('Trade::WalletPayment') ? 'payment_pending' : 'payment_confirm' }, method: :post do |f| %>
+  <% if @order.payment_orders.select(&:new_record?).present? %>
+  <div class="box is-padding-less">
+    <div class="box-body">
+      <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
+        <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
+          <%= render partial: 'payment_wallet', locals: { payment_order: payment_order, f: f } %>
+        <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
+          <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order, f: f } %>
+        <% elsif payment_order.payment.is_a?(Trade::WxpayPayment) %>
+          <%= render partial: 'wxpay', locals: { payment_order: payment_order, f: f } %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
+  <% end %>
 <% end %>
 
 <% if @order.all_paid? %>
