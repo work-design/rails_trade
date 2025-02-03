@@ -90,7 +90,7 @@ module Trade
     end
 
     def out_trade_no
-      payment_orders[0].order.uuid
+      [payment_orders[0].order.uuid, SecureRandom.alphanumeric(4)].join('_')
     end
 
     def assign_detail(params)
