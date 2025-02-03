@@ -52,7 +52,6 @@ module Trade
       }, default: 'unpaid'
 
       belongs_to :address, class_name: 'Ship::Address', optional: true
-      belongs_to :station, class_name: 'Ship::Station', optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :from_user, class_name: 'Auth::User', optional: true

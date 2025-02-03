@@ -13,6 +13,9 @@ module Trade
     if defined? RailsShip
       include Ship::Ext::Order
     end
+    if defined? RailsSpace
+      include Space::Ext::Order
+    end
 
     def payment_memo_id
       nil
