@@ -478,7 +478,8 @@ module Trade
         type: 'Trade::WxpayPayment',
         appid: wechat_user.appid,
         seller_identifier: payee.mch_id,
-        buyer_identifier: wechat_user.uid
+        buyer_identifier: wechat_user.uid,
+        organ_id: organ_id
       )
       #@payment.extra_params.merge! 'profit_sharing' => true
 
