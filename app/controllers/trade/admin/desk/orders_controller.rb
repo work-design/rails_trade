@@ -9,7 +9,8 @@ module Trade::Admin
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status)
 
-      @orders = Order.includes(:user, :items).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @order_s = Order.default_where(q_params)
+      @orders = @order_s.includes(:user, :items).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def history
