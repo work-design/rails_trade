@@ -185,7 +185,7 @@ module Trade
 
     def sync_from_current_cart
       self.address_id ||= current_cart.address_id if need_address?
-      self.assign_attributes current_cart.attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'contact_id', 'client_id')
+      self.assign_attributes current_cart.attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id')
       current_cart.checked_all_items.each do |item|
         item.order = self
       end
