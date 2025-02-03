@@ -472,6 +472,7 @@ module Trade
       return if order_amount <= 0
       po = payment_orders.build(
         order_amount: order_amount,
+        payment_amount: order_amount,
         state: state
       )
       payment = po.build_payment(
