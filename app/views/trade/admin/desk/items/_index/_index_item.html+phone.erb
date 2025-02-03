@@ -1,0 +1,18 @@
+<p>
+  <% if model.good %>
+    <%= link_to model.good_name, { action: 'show', id: model.id } %>
+  <% else %>
+    <span><%= model.good_name %></span>
+  <% end %>
+  <% if ['rent', 'invest'].include?(model.aim) %>
+    <span class="tag"><%= model.aim_i18n %></span>
+  <% end %>
+</p>
+<p>
+  <span class="text-danger"><%= model.single_price.to_money.format.html_safe %></span>
+  <span class="text-grey">x</span>
+  <span><%= model.number.to_human %></span>
+</p>
+<% if model.order_id.blank? %>
+  <p><time data-controller="time" data-format="human" class="text-grey"><%= model.created_at.to_fs(:iso8601) %></time></p>
+<% end %>

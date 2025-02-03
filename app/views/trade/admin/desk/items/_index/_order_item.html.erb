@@ -1,0 +1,9 @@
+<%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'mx-3 mt-3 pl-3 flex') do %>
+  <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
+  <% if model.agent %>
+    <div class="tags has-addons ml-1">
+      <span class="tag text-grey">下单人</span>
+      <span class="tag is-warning"><%= model.agent.name %></span>
+    </div>
+  <% end %>
+<% end %>

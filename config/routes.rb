@@ -187,6 +187,7 @@ Rails.application.routes.draw do
             post :done
           end
         end
+        resources :items, controller: 'desk/items'
       end
     end
 
