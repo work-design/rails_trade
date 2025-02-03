@@ -224,7 +224,7 @@ zh:
         index:
           title: 租金规则
       desk:
-        items:
+        orders:
           index:
             title: 点单详情
           history:
