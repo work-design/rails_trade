@@ -72,7 +72,9 @@ module Trade
       )
       logger.debug "\e[35m  wxpay params: #{params}  \e[0m"
 
-      payee_app.api.jsapi_order(**params)
+      r = payee_app.api.jsapi_order(**params)
+      logger.debug "\e[35m  js prepay: #{r}  \e[0m"
+      r
     end
 
     def common_params
