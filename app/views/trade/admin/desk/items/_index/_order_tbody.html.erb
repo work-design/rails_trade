@@ -1,10 +1,4 @@
 <td colspan="2">
-  <%= button_to model.uuid, { controller: 'orders', action: 'show', id: model.id }, text: true, class: 'family-monospace text-link' %>
-  <span class="tag is-success"><%= model.state_i18n %></span>
-  <% if ['rent', 'invest'].include?(model.aim) %>
-    <span class="tag is-info"><%= model.aim_i18n %></span>
-  <% end %>
-  <span class="tag is-warning"><%= model.payment_status_i18n %></span>
   <% if model.payment_strategy %>
     <div class="tags has-addons mt-1">
       <span class="tag is-danger"><%= model.payment_strategy.name %></span>

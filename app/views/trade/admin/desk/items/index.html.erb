@@ -3,7 +3,7 @@
 <%= render 'index_actions' %>
 
 <%= render layout: 'index_table' do %>
-  <% @items.group_by(&:cart).each do |cart, items| %>
+  <% @items.group_by(&:current_cart).each do |cart, items| %>
     <%= render partial: 'order_tbody', layout: 'order_tr', locals: { model: cart } %>
     <%= render partial: 'index_tbody', layout: 'index_tr', collection: items, as: :model %>
   <% end %>
