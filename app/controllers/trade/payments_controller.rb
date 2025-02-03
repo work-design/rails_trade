@@ -46,7 +46,7 @@ module Trade
       if notify_params['out_trade_no'].start_with?('PAY-')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
         @payment.pay_state = 'paid'
-      elsif notify_params['out_trade_no'].start_with?('OR-')
+      elsif notify_params['out_trade_no'].start_with?('OD-')
         uuid = notify_params['out_trade_no'].split('_')[0] || notify_params['out_trade_no']
         @order = Order.find_by(uuid: uuid)
         @payment = @order.to_payment(
