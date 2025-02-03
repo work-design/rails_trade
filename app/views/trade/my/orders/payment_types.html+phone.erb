@@ -10,7 +10,7 @@
         <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
           <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order, f: f } %>
         <% elsif payment_order.payment.is_a?(Trade::WxpayPayment) %>
-          <%= render partial: 'wxpay', locals: { payment_order: payment_order, f: f } %>
+          <%= render partial: 'payment_wxpay', locals: { payment_order: payment_order, f: f } %>
         <% end %>
       <% end %>
     </div>
