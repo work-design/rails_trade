@@ -484,9 +484,7 @@ module Trade
       )
       #@payment.extra_params.merge! 'profit_sharing' => true
 
-      wxpay_order = payment.js_pay(payer_client_ip: ip)
-      logger.debug "\e[35m  Wxpay Order:#{wxpay_order}  \e[0m"
-      wxpay_order
+      payment.js_pay(payer_client_ip: ip)
     end
 
     def init_wxpay_url(state: 'init', order_amount: computed_payable_amount, ip: )
