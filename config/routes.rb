@@ -181,7 +181,7 @@ Rails.application.routes.draw do
         end
       end
       resources :desks, only: [] do
-        resources :items, controller: 'desk/items' do
+        resources :orders, controller: 'desk/orders' do
           collection do
             get :history
             post :done

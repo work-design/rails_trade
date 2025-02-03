@@ -1,26 +1,25 @@
 module Trade::Admin
-  class Desk::ItemsController < ItemsController
+  class Desk::OrdersController < OrdersController
     before_action :set_desk
 
     def index
       q_params = {
-        status: ['init', 'checked', 'ordered']
+        state: ['init', 'done']
       }
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status)
 
-      @items = Item.includes(:user, :item_promotes, :order).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
+      @orders = Order.includes(:user, :items).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def history
       q_params = {
-        status: ['deliverable', 'done']
+        state: ['init', 'done']
       }
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status, 'created_at-gte', 'created_at-lte')
 
-      @items = Item.includes(:user, :item_promotes, :order).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
-      @items = @items.includes(:good)
+      @orders = Order.includes(:user, :items).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def done

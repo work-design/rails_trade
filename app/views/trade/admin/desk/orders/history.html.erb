@@ -1,0 +1,10 @@
+<%= render 'desk_bar' %>
+<%= render 'level' %>
+<%= render 'index_bar' %>
+<%= render 'index_actions' %>
+
+<%= render layout: 'index_table' do %>
+  <%= render partial: 'order_tbody', layout: 'order_tr', collection: @orders, as: :model %>
+<% end %>
+
+<%= paginate @orders %>
