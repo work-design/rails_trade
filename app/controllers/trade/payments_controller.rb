@@ -52,7 +52,7 @@ module Trade
         @payment = @order.to_payment(
           type: 'Trade::WxpayPayment',
           payment_uuid: notify_params['transaction_id'],
-          total_amount: notify_params.dig('amount', 'total').to_i / 100.0
+          order_amount: notify_params.dig('amount', 'total').to_i / 100.0
         )
       end
 
