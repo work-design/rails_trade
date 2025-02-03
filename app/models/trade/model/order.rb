@@ -419,16 +419,14 @@ module Trade
 
     def lawful_wallet_pay
       return unless can_pay?
-      po = payment_orders.build(
+      payment = init_payment_with_order(
+        type: 'Trade::WalletPayment',
         order_amount: unreceived_amount,
         payment_amount: unreceived_amount,
-        state: 'confirmed'
-      )
-      p = po.build_payment(
-        type: 'Trade::WalletPayment',
+        state: 'confirmed',
         wallet_id: lawful_wallet.id
       )
-      p.save
+      payment.save
     end
 
     def payment_types
@@ -460,27 +458,24 @@ module Trade
 
     def init_hand_payment(state: 'init', order_amount: computed_payable_amount)
       return if order_amount <= 0
-      po = payment_orders.build(
+      init_payment_with_order(
+        type: 'Trade::HandPayment',
         order_amount: order_amount,
         payment_amount: order_amount,
         state: state
       )
-      po.build_payment(type: 'Trade::HandPayment')
     end
 
     def init_wxpay_payment(state: 'init', order_amount: computed_payable_amount, payee:, wechat_user:, ip:)
       return if order_amount <= 0
-      po = payment_orders.build(
+      payment = init_payment_with_order(
+        type: 'Trade::WxpayPayment',
         order_amount: order_amount,
         payment_amount: order_amount,
-        state: state
-      )
-      payment = po.build_payment(
-        type: 'Trade::WxpayPayment',
+        state: state,
         appid: wechat_user.appid,
         seller_identifier: payee.mch_id,
-        buyer_identifier: wechat_user.uid,
-        organ_id: organ_id
+        buyer_identifier: wechat_user.uid
       )
       #@payment.extra_params.merge! 'profit_sharing' => true
 
@@ -509,14 +504,10 @@ module Trade
         end
         order_amount, _ = partly_wallet_amount(wallet_code, payment_amount)
 
-        po = payment_orders.build(
-          order_amount: order_amount,
-          payment_amount: payment_amount
-        )
-        po.build_payment(
+        init_payment_with_order(
           type: 'Trade::WalletPayment',
-          organ_id: organ_id,
-          user_id: user_id,
+          order_amount: order_amount,
+          payment_amount: payment_amount,
           wallet_id: wallet.id,
           pay_state: 'paid'
         )
@@ -532,14 +523,10 @@ module Trade
         _order_amount = order_amount
       end
 
-      po = payment_orders.build(
-        order_amount: _order_amount,
-        payment_amount: _order_amount
-      )
-      po.build_payment(
+      init_payment_with_order(
         type: 'Trade::WalletPayment',
-        organ_id: organ_id,
-        user_id: user_id,
+        order_amount: _order_amount,
+        payment_amount: _order_amount,
         wallet_id: lawful_wallet.id,
         pay_state: 'paid'
       )
@@ -554,17 +541,25 @@ module Trade
         payment = payments.find_by(type: type, payment_uuid: options[:payment_uuid])
         return payment if payment
       end
-
-      po = payment_orders.build(
-        state: state,
+      init_payment_with_order(
+        type: type,
         order_amount: order_amount,
-        payment_amount: payment_amount
+        payment_amount: payment_amount,
+        state: state,
+        **options
+      )
+    end
+
+    def init_payment_with_order(type:, order_amount:, payment_amount:, state: 'init', **options)
+      po = payment_orders.build(
+        order_amount: order_amount,
+        payment_amount: payment_amount,
+        state: state
       )
       po.build_payment(
         type: type,
         organ_id: organ_id,
         user_id: user_id,
-        total_amount: payment_amount,
         **options
       )
     end
