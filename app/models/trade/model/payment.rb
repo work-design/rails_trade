@@ -60,7 +60,7 @@ module Trade
 
       scope :to_check, -> { where(pay_state: 'paid', state: 'init') }
 
-      after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || total_amount > 0 || payment_orders.present?) }
+      after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || total_amount.to_d > 0 || payment_orders.present?) }
       after_initialize :init_amount, if: -> { new_record? }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
       before_save :check_state, if: -> { (changes.keys & ['checked_amount', 'total_amount']).present? }
