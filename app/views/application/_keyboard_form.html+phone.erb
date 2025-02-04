@@ -1,56 +1,63 @@
-<div class="form-fields">
-  <div class="weui-cells__title"><%= t('.title') %></div>
-  <%= render partial: 'form', locals: { f: f } %>
-</div>
 <div
   data-controller="keyboard"
   data-keyboard-id-value="<%= id %>"
   data-keyboard-dot-value="dot"
   data-keyboard-digit-value="2"
-  class="number_keyboard"
 >
-  <div class="keyboard-left">
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">1</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">2</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">3</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">4</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">5</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">6</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">7</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">8</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#enter">9</div>
-    </div>
-    <div class="keyboard-item width-2x">
-      <div data-action="click->keyboard#zeroEnter">0</div>
-    </div>
-    <div class="keyboard-item width-1x">
-      <div data-action="click->keyboard#dot">.</div>
+  <div class="form-fields">
+    <div class="weui-cells__title"><%= t('.title') %></div>
+    <div class="control has-icons-right mx-3">
+      <%= f.number_field :total_amount, value: nil, label: nil, wrap: { input: 'field-body' }, all: { normal: nil }, min: 0.01, readonly: true, class: 'input text-right' %>
+      <div class="icon is-small is-right">
+        <span id="dot" hidden>.</span>
+        <span class="pl-2">元</span>
+      </div>
     </div>
   </div>
-  <div class="keyboard-right">
-    <div class="keyboard-item height-1x">
-      <div data-action="click->keyboard#backspace"><i class="fa-solid fa-arrow-left"></i></div>
+  <div class="number_keyboard">
+    <div class="keyboard-left">
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">1</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">2</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">3</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">4</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">5</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">6</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">7</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">8</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#enter">9</div>
+      </div>
+      <div class="keyboard-item width-2x">
+        <div data-action="click->keyboard#zeroEnter">0</div>
+      </div>
+      <div class="keyboard-item width-1x">
+        <div data-action="click->keyboard#dot">.</div>
+      </div>
     </div>
-    <div class="keyboard-item height-3x">
-      <div class="keyboard-button">
-        <%= f.submit '付款', data: { keyboard_target: 'submit' }, all: { submit: nil }, class: 'button is-borderless', disabled: true %>
+    <div class="keyboard-right">
+      <div class="keyboard-item height-1x">
+        <div data-action="click->keyboard#backspace"><i class="fa-solid fa-arrow-left"></i></div>
+      </div>
+      <div class="keyboard-item height-3x">
+        <div class="keyboard-button">
+          <%= f.submit '付款', data: { keyboard_target: 'submit' }, all: { submit: nil }, class: 'button is-borderless', disabled: true %>
+        </div>
       </div>
     </div>
   </div>
