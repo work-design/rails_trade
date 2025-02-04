@@ -2,13 +2,13 @@
   <div class="level-item text-centered">
     <div>
       <p class="heading">未付总额</p>
-      <p class="title"><%# @items.unscope(:limit, :offset).sum(:amount).to_money.format.html_safe %></p>
+      <p class="title"><%= @items.unscope(:limit, :offset).sum(:amount).to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">已收款</p>
-      <p class="title"><%# @items.unscope(:limit, :offset).sum(:amount).to_money.format.html_safe %></p>
+      <p class="title"><%= @items.unscope(:limit, :offset).sum(:amount).to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
