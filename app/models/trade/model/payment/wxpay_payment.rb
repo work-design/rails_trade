@@ -90,7 +90,7 @@ module Trade
     end
 
     def out_trade_no
-      if order
+      if payment_orders.present?
         [payment_orders[0].order.uuid, SecureRandom.alphanumeric(4)].join('_')
       else
         payment_uuid
