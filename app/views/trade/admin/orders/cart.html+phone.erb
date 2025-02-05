@@ -2,19 +2,15 @@
   <%= f.hidden_field :current_cart_id %>
 <% end %>
 
-<div class="box">
-  <div class="weui-panel__bd">
+<div class="box is-padding-less">
   <% if @cart.aim_rent? %>
     <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
   <% else %>
     <%= render partial: 'item', collection: @cart.items.status_checked, as: :item %>
   <% end %>
   <%= render partial: 'item', collection: @cart.trial_card_items, as: :item %>
-  </div>
 </div>
 
 <%= render partial: 'cart', locals: { cart: @cart } %>
 
-<div class="mx-3">
-  <%= submit_tag t('.create.title'), class: 'button is-fullwidth is-success', form: 'new_order' %>
-</div>
+<%= submit_tag t('.create.title'), class: 'button is-fullwidth is-success', form: 'new_order' %>
