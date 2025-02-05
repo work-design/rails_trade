@@ -5,7 +5,7 @@
   <%= button_to({ controller: 'hand_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-link') do %>
     <span><%= t('.hand_payments.desk.title') %></span>
   <% end %>
-  <%= link_to({ action: 'desk_history' }, class: 'button is-success') do %>
-    <span><%= t('.desk_history.title') %></span>
+  <%= link_to({ action: 'history' }, class: 'button is-success') do %>
+    <span><%= t('.history.title') %></span>
   <% end %>
 </div>

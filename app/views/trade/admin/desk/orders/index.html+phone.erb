@@ -1,9 +1,10 @@
-<div class="mt-3"></div>
-<% @items.group_by(&:order).each do |order, items| %>
-  <%= render partial: 'order_item', locals: { model: order } if order %>
+<div class="mt-3">
+<% @orders.each do |order| %>
+  <%= render partial: 'order_item', locals: { model: order } %>
   <%= render layout: 'index_list' do %>
-    <%= render partial: 'index_item', layout: 'index_item_actions', collection: items, as: :model %>
+    <%= render partial: 'index_item', layout: 'index_item_actions', collection: order.items, as: :model %>
   <% end %>
 <% end %>
+</div>
 
-<%= paginate @items %>
+<%= paginate @orders %>
