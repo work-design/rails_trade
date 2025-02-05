@@ -1,3 +1,7 @@
 <%= form_with theme: 'weui', model: @payment, url: { action: 'create' }, data: { default_valid_css_value: 'text-danger' } do |f| %>
-  <%= render partial: 'keyboard_form', locals: { f: f, id: 'wxpay_payment_total_amount' } %>
+  <%= render layout: 'keyboard_form', locals: { f: f, id: 'wxpay_payment_total_amount' } do %>
+    <div class="keyboard-button">
+      <%= f.submit '付款', data: { keyboard_target: 'submit' }, all: { submit: nil }, class: 'button is-borderless', disabled: true %>
+    </div>
+  <% end %>
 <% end %>

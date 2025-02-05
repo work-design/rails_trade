@@ -56,9 +56,7 @@
         <div data-action="click->keyboard#backspace"><i class="fa-solid fa-arrow-left"></i></div>
       </div>
       <div class="keyboard-item height-3x">
-        <div class="keyboard-button">
-          <%= f.submit '付款', data: { keyboard_target: 'submit' }, all: { submit: nil }, class: 'button is-borderless', disabled: true %>
-        </div>
+        <%= yield %>
       </div>
     </div>
   </div>
