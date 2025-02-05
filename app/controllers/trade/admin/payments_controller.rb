@@ -24,10 +24,6 @@ module Trade
       @payments = Payment.includes(:user, :payment_orders).to_check.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
-    def new
-      @payment.init_uuid
-    end
-
     def confirm
       @payment.confirm!(payment_params)
     end
