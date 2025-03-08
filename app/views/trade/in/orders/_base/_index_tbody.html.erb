@@ -4,8 +4,8 @@
   <p class="text-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
 <td>
-<% if model.organ_id %>
-  <%= model.organ.name %>
+<% if model.provide_id %>
+  <%= model.provide.name %>
 <% else %>
   <%= button_to({ action: 'edit_organ', id: model.id }, data: { show_target: 'item' }, class: 'visibility-hidden') do %>
     <i class="fa-solid fa-sm fa-pencil text-grey"></i>
