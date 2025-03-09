@@ -1,7 +1,7 @@
 <th id="xxd" data-controller="check" data-check-form-outlet="form.button_to">
   <%= check_box_tag nil, 'xx', false, data: { check_target: 'all', action: 'check#toggleAll' }, id: nil %>
 </th>
-<th><%= Trade::Item.human_attribute_name(:good_id) %></th>
+<th><%= Trade::Item.human_attribute_name(:good_name) %></th>
 <th><%= Trade::Item.human_attribute_name(:purchase_status) %></th>
 <th><%= Trade::Item.human_attribute_name(:number) %></th>
 <th><%= Trade::Item.human_attribute_name(:single_price) %></th>
