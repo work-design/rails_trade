@@ -1,7 +1,8 @@
 <%= form_with url: { controller: 'items', action: 'batch_purchase' }, class: 'button_to' do |f| %>
   <%= f.hidden_field :ids, data: { form_target: 'ids' } %>
-  <%= button_tag data: { form_target: 'submit' }, aria: { label: t('.batch_purchase.title') }, disabled: true, class: 'button is-success' do %>
+  <%= button_tag data: { form_target: 'submit' }, disabled: true, class: 'button is-success' do %>
     <i class="fa-solid fa-cash-register"></i>
+    <span class="ml-1"><%= t('.items.batch_purchase.title') %></span>
   <% end %>
 <% end %>
 <%= form_with theme: 'inline', model: @purchase_order, url: { controller: 'trade/in/orders', action: 'create' }, id: 'new_order' do |f| %>
