@@ -18,7 +18,7 @@
     </button>
   </div>
 <% else %>
-  <%= form_with theme: nil, url: { controller: item_con, action: 'create' }, id: item.cart_identity, class: 'button_to' do |f| %>
+  <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: item.cart_identity, class: 'button_to' do |f| %>
     <%= f.hidden_field :current_cart_id, value: cart.id %>
     <%= f.hidden_field :good_type %>
     <%= f.hidden_field :purchase_id %>

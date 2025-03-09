@@ -38,8 +38,10 @@ module Trade
       params.fetch(:item, {}).permit(
         :good_type,
         :good_id,
+        :purchase_id,
         :number,
         :organ_id,
+        :provide_id,
         :note,
         :desk_id,
         :current_cart_id
