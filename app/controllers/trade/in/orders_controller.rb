@@ -5,7 +5,6 @@ module Trade
       :show, :edit, :update, :destroy, :actions, :edit_organ,
       :payment_types, :payment_pending, :payment_confirm, :batch_receive
     ]
-    before_action :set_providers, only: [:edit_organ]
 
     def index
       q_params = {}
@@ -33,6 +32,17 @@ module Trade
       end
     end
 
+    def batch_create
+      params[:provide_ids].each do |provide_id|
+        order = Order.new(
+          organ_id: current_organ.id,
+          current_cart_id: params[:current_cart_id],
+          provide_id: provide_id
+        )
+        order.save
+      end
+    end
+
     def refund
       @order.apply_for_refund
     end
@@ -44,10 +54,6 @@ module Trade
 
     def set_new_order
       @order = current_organ.organ_orders.build(order_params)
-    end
-
-    def set_providers
-
     end
 
     def order_params

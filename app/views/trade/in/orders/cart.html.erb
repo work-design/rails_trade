@@ -12,7 +12,13 @@
 </div>
 
 <%= render layout: 'index_table' do %>
-  <%= render partial: 'item_tbody', layout: 'item_tr', collection: @order.items, as: :model %>
+  <% @order.items.group_by(&:provide).each do |provide, items| %>
+    <tr>
+      <td colspan="2"><%= provide&.name %></td>
+      <td><%= hidden_field_tag 'provide_ids[]', provide&.id, form: 'batch_create' %></td>
+    </tr>
+    <%= render partial: 'item_tbody', layout: 'item_tr', collection: items, as: :model %>
+  <% end %>
 <% end %>
 
 <%# render partial: 'orders/addresses', locals: { addresses: @order.user.addresses.transport } %>
