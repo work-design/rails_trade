@@ -88,7 +88,7 @@ module Trade
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
-      after_initialize :sync_from_current_cart, if: -> { new_record? && current_cart_id.present? }
+      #after_initialize :sync_from_current_cart, if: -> { new_record? && current_cart_id.present? }
       after_initialize :init_uuid, if: -> { uuid.blank? }
       after_initialize :confirm_ordered!, if: :new_record?
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }

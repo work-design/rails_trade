@@ -1,18 +1,18 @@
 <div class="box">
-  <p><%= @order.member&.name %></p>
-  <p><%= @order.user&.name %></p>
+  <p><%= @cart.member&.name %></p>
+  <p><%= @cart.user&.name %></p>
   <p>
-    <span class="tag"><%= @order.current_cart.payment_strategy&.name %></span>
-    <% if @order.current_cart.deposit_ratio %>
+    <span class="tag"><%= @cart.payment_strategy&.name %></span>
+    <% if @cart.deposit_ratio %>
       <span class="tag">
-        Deposit Ratio:<%= @order.current_cart.deposit_ratio %>%
+        Deposit Ratio:<%= @cart.deposit_ratio %>%
       </span>
     <% end %>
   </p>
 </div>
 
 <%= render layout: 'index_table' do %>
-  <% @order.items.group_by(&:provide).each do |provide, items| %>
+  <% @cart.checked_all_items.group_by(&:provide).each do |provide, items| %>
     <tr>
       <td colspan="2"><%= provide&.name %></td>
       <td><%= hidden_field_tag 'provide_ids[]', provide&.id, form: 'batch_create' %></td>

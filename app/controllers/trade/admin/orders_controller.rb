@@ -67,7 +67,6 @@ module Trade
     end
 
     def cart
-      @order = Order.new(current_cart_id: params[:current_cart_id])
     end
 
     def payment_types

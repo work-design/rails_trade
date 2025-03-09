@@ -207,6 +207,22 @@ module Trade
       promote_goods.effective.count
     end
 
+    def generate_orders(provide_ids)
+      provide_ids.each do |provide_id|
+        order = Order.new(
+          organ_id: organ_id,
+          provide_id: provide_id
+        )
+        order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id')
+
+        checked_all_items.select { |i| i.provide_id.to_s == provide_id }.each do |item|
+          item.order = order
+        end
+
+        order.save
+      end
+    end
+
     def available_card_templates
       effective_ids = cards.effective.where(temporary: false).pluck(:card_template_id)
 

@@ -33,14 +33,8 @@ module Trade
     end
 
     def batch_create
-      params[:provide_ids].each do |provide_id|
-        order = Order.new(
-          organ_id: current_organ.id,
-          current_cart_id: params[:current_cart_id],
-          provide_id: provide_id
-        )
-        order.save
-      end
+      @cart = Cart.find params[:current_cart_id]
+      @cart.generate_orders(params[:provide_ids])
     end
 
     def refund
