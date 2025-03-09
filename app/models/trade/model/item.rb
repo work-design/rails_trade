@@ -66,6 +66,8 @@ module Trade
       belongs_to :from_station, class_name: 'Ship::Station', optional: true
       belongs_to :from_address, class_name: 'Ship::Address', optional: true
 
+      belongs_to :provide, class_name: 'Factory::Provide', optional: true
+
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 销售时的购物车
       belongs_to :purchase_cart, class_name: 'Cart', foreign_key: :current_cart_id, inverse_of: :purchase_items, optional: true # 采购时得购物车
@@ -111,6 +113,7 @@ module Trade
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
       before_validation :init_organ_delivery, if: -> { (changes.keys & ['member_organ_id']).present? }
+      before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       after_validation :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
@@ -241,6 +244,10 @@ module Trade
       self.produce_on = good.produce_on if good.respond_to? :produce_on
       compute_price
       compute_amount
+    end
+
+    def sync_organ_from_provide
+      self.organ_id = provide.provider_id if provide
     end
 
     def sync_from_current_cart
