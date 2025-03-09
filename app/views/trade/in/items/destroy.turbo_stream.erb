@@ -1,7 +1,7 @@
 <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
 
 <% if @item.purchase_id %>
-  <%= turbo_stream.replace @item.cart_identity, partial: 'add_purchase_cart', locals: { cart: @item.current_cart, item_con: controller_path, model: @item.purchase, good_id: @item.good_id } %>
+  <%= turbo_stream.replace @item.cart_identity, partial: 'purchase_cart', locals: { cart: @item.current_cart, item_con: controller_path, item: @item, model: @item.purchase } %>
 <% else %>
-  <%= turbo_stream.replace @item.cart_identity, partial: 'cart', locals: { cart: @item.current_cart, item_con: controller_path, model: @item.good } %>
+  <%= turbo_stream.replace @item.cart_identity, partial: 'cart', locals: { cart: @item.current_cart, item_con: controller_path, item: @item, model: @item.good } %>
 <% end %>

@@ -318,7 +318,11 @@ module Trade
 
     def cart_identity
       if purchase_id.present?
-        "cart_#{purchase_id}_#{good_id}"
+        if good_id
+          "cart_#{purchase_id}_#{good_id}"
+        else
+          "cart_#{purchase_id}_#{provide_id}"
+        end
       else
         if respond_to?(:contact_id) && contact_id
           "cart_#{good_id}_#{contact_id}"
