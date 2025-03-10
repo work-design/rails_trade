@@ -213,7 +213,7 @@ module Trade
           organ_id: organ_id,
           provide_id: provide_id
         )
-        order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id')
+        order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id', 'deposit_ratio')
 
         checked_all_items.select { |i| i.provide_id.to_s == provide_id }.each do |item|
           item.order = order
@@ -228,10 +228,10 @@ module Trade
       end
     end
 
-    def generate_order
+    def generate_order!
       order = Order.new(organ_id: organ_id)
       order.address_id ||= address_id if need_address?
-      order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id')
+      order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id', 'deposit_ratio')
       checked_all_items.each do |item|
         item.order = order
       end

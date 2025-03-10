@@ -7,7 +7,7 @@ module Trade
     ]
     before_action :set_new_order, only: [:new, :new_simple, :create]
     before_action :set_user, only: [:user]
-    before_action :set_cart, only: [:cart]
+    before_action :set_cart, only: [:cart, :cart_create]
     before_action :set_payment_strategies, only: [:unpaid, :new, :create]
     skip_before_action :require_user, only: [:print_data] if whether_filter :require_user
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
@@ -66,7 +66,8 @@ module Trade
       end
     end
 
-    def cart
+    def cart_create
+      @cart.generate_order!
     end
 
     def payment_types

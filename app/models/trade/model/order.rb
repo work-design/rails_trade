@@ -183,7 +183,7 @@ module Trade
     end
 
     def sync_ordered_to_current_cart
-      carts.where.update_all(fresh: false)
+      carts.update_all(fresh: false)
     end
 
     def sync_to_unpaid_payment_orders
