@@ -11,6 +11,7 @@ module Trade
       attribute :serial_number, :integer
       attribute :extra, :json, default: {}
       attribute :currency, :string, default: RailsTrade.config.default_currency
+      attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :items_count, :integer, default: 0
       attribute :payment_orders_count, :integer, default: 0
       attribute :paid_at, :datetime, index: true
@@ -63,7 +64,6 @@ module Trade
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
       belongs_to :provide, class_name: 'Factory::Provide', optional: true
 
-      belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
 
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
@@ -88,7 +88,6 @@ module Trade
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
-      #after_initialize :sync_from_current_cart, if: -> { new_record? && current_cart_id.present? }
       after_initialize :init_uuid, if: -> { uuid.blank? }
       after_initialize :confirm_ordered!, if: :new_record?
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
@@ -101,7 +100,7 @@ module Trade
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
-      after_create :sync_ordered_to_current_cart, if: -> { current_cart_id.present? }
+      after_create :sync_ordered_to_current_cart
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
     end
@@ -151,9 +150,13 @@ module Trade
       self.payable_amount = initialized_payable_amount
     end
 
+    def support_deposit?
+      deposit_ratio < 100 && deposit_ratio > 0
+    end
+
     def initialized_payable_amount
-      if current_cart&.support_deposit? && amount >= 1
-        amount * current_cart.deposit_ratio / 100
+      if support_deposit? && amount >= 1
+        amount * deposit_ratio / 100
       elsif advance_amount.to_d > 0
         advance_amount
       else
@@ -179,27 +182,8 @@ module Trade
       self.generate_mode = 'by_from'
     end
 
-    def need_address?
-      current_cart.checked_all_items.map(&:dispatch).include?('delivery')
-    end
-
-    def sync_from_current_cart
-      self.address_id ||= current_cart.address_id if need_address?
-      self.assign_attributes current_cart.attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id')
-      current_cart.checked_all_items.each do |item|
-        item.order = self
-      end
-      current_cart.cart_promotes.each do |cart_promote|
-        cart_promote.order = self
-      end
-    end
-
     def sync_ordered_to_current_cart
-      return unless current_cart
-      current_cart.with_lock do
-        current_cart.compute_amount!
-      end
-      carts.where.not(id: current_cart_id).update_all(fresh: false)
+      carts.where.update_all(fresh: false)
     end
 
     def sync_to_unpaid_payment_orders

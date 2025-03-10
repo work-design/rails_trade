@@ -159,7 +159,7 @@ module Trade
     end
 
     def need_address?
-      items.pluck(:dispatch).include?('delivery')
+      checked_all_items.map(&:dispatch).include?('delivery')
     end
 
     def can_order?
@@ -208,7 +208,7 @@ module Trade
     end
 
     def generate_orders(provide_ids)
-      provide_ids.each do |provide_id|
+      orders = provide_ids.map do |provide_id|
         order = Order.new(
           organ_id: organ_id,
           provide_id: provide_id
@@ -219,7 +219,29 @@ module Trade
           item.order = order
         end
 
-        order.save
+        order
+      end
+
+      self.class.transaction do
+        orders.each(&:save!)
+        compute_amount!
+      end
+    end
+
+    def generate_order
+      order = Order.new(organ_id: organ_id)
+      order.address_id ||= address_id if need_address?
+      order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id')
+      checked_all_items.each do |item|
+        item.order = order
+      end
+      cart_promotes.each do |cart_promote|
+        cart_promote.order = order
+      end
+
+      self.class.transaction do
+        order.save!
+        compute_amount!
       end
     end
 
