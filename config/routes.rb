@@ -354,7 +354,6 @@ Rails.application.routes.draw do
         end
         resources :orders, only: [] do
           collection do
-            post :batch_create
             delete :batch_destroy
           end
           member do

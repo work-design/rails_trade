@@ -32,8 +32,7 @@ module Trade
       end
     end
 
-    def batch_create
-      @cart = Cart.find params[:current_cart_id]
+    def cart_create
       @cart.generate_orders(params[:provide_ids])
     end
 

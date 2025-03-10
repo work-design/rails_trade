@@ -1,8 +1,7 @@
 <tfoot>
   <tr>
     <td colspan="4" class="text-centered">
-      <%= form_with theme: 'inline', url: { action: 'batch_create' }, class: 'display-inline-flex', id: 'batch_create' do |f| %>
-        <%= f.hidden_field :current_cart_id, value: @cart.id %>
+      <%= form_with theme: 'inline', url: { action: 'cart_create' }, class: 'display-inline-flex', id: 'batch_create' do |f| %>
         <%= f.submit '确认订单', class: 'button is-success' %>
       <% end %>
     </td>

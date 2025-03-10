@@ -210,13 +210,15 @@ module Trade
     def generate_orders(provide_ids)
       orders = provide_ids.map do |provide_id|
         order = Order.new(
-          organ_id: organ_id,
+          member_organ_id: member_organ_id,
           provide_id: provide_id
         )
         order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id', 'deposit_ratio')
+        order.current_cart = self
 
         checked_all_items.select { |i| i.provide_id.to_s == provide_id }.each do |item|
           item.order = order
+          item.status = 'ordered'
         end
 
         order
