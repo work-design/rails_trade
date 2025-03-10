@@ -5,9 +5,9 @@ module Trade
       :show, :edit, :update, :destroy, :actions,
       :promote, :toggle, :finish, :edit_price, :update_price, :create, :cost
     ]
+    before_action :set_cart_item, only: [:update, :destroy, :toggle]
     before_action :set_item, only: [
-      :show, :edit, :update, :destroy, :actions,
-      :promote, :toggle, :finish, :edit_price, :update_price
+      :show, :edit, :actions, :promote, :finish, :edit_price, :update_price
     ]
     before_action :set_new_item, only: [:create, :cost]
 
@@ -31,7 +31,7 @@ module Trade
     end
 
     def set_item
-      @item = @cart.items.load.find params[:id]
+      @item = Item.where(member_organ_id: current_organ.id).find params[:id]
     end
 
     def item_params

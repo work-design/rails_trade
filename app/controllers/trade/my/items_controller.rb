@@ -1,8 +1,11 @@
 module Trade
   class My::ItemsController < My::BaseController
     before_action :set_cart, except: [:index]
+    before_action :set_cart_item, only: [
+      :update, :destroy, :toggle
+    ]
     before_action :set_item, only: [
-      :show, :edit, :update, :destroy, :actions, :promote, :toggle, :finish]
+      :show, :edit, :actions, :promote, :finish]
     before_action :set_new_item, only: [:create]
     before_action :set_card_template, only: [:trial]
     after_action :support_cors, only: [:create]
@@ -58,7 +61,11 @@ module Trade
 
     private
     def set_cart
-      @cart = Trade::Cart.get_cart(params, user_id: current_user.id, **default_form_params)
+      @cart = Cart.get_cart(params, user_id: current_user.id, **default_form_params)
+    end
+
+    def set_item
+      @item = Item.where(user_id: current_user.id).find params[:id]
     end
 
     def set_card_template

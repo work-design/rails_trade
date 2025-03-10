@@ -27,7 +27,7 @@ module Trade
       @item = @cart.init_cart_item(params)
     end
 
-    def set_item
+    def set_cart_item
       @item = @cart.items.load.find params[:id]
       @item.current_cart = @cart
     end
