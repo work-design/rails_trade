@@ -18,7 +18,7 @@ module Trade
     end
 
     def cart_create
-      @cart.generate_order!
+      @order = @cart.generate_order!
     end
 
     def trial

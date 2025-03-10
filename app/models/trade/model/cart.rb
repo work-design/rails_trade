@@ -232,6 +232,8 @@ module Trade
       order = Order.new(organ_id: organ_id, user_id: user_id)
       order.address_id ||= address_id if need_address?
       order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id', 'deposit_ratio')
+      order.current_cart = self
+
       checked_all_items.each do |item|
         item.order = order
         item.status = 'ordered'
@@ -245,6 +247,8 @@ module Trade
         order.save!
         compute_amount!
       end
+
+      order
     end
 
     def available_card_templates

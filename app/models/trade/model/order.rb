@@ -64,6 +64,7 @@ module Trade
       belongs_to :produce_plan, class_name: 'Factory::ProducePlan', optional: true  # 统一批次号
       belongs_to :provide, class_name: 'Factory::Provide', optional: true
 
+      belongs_to :current_cart, class_name: 'Cart', optional: true
       belongs_to :payment_strategy, optional: true
 
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
@@ -176,7 +177,7 @@ module Trade
     end
 
     def sync_ordered_to_current_cart
-      #carts.update_all(fresh: false)
+      carts.where.not(id: current_cart_id).update_all(fresh: false)
     end
 
     def sync_to_unpaid_payment_orders
