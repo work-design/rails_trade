@@ -91,6 +91,7 @@ Rails.application.routes.draw do
           get :payments
           get :refresh
           get 'cart/:current_cart_id' => :cart
+          post 'cart/:current_cart_id' => :cart_create
           get 'user/:user_id' => :user
           get :unpaid
           delete :batch_destroy

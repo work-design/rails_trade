@@ -1,5 +1,4 @@
-<%= form_with model: @order, url: { action: 'create' }, id: 'new_order' do |f| %>
-  <%= f.hidden_field :current_cart_id %>
+<%= form_with url: { action: 'cart_create' }, id: 'new_order' do |f| %>
 <% end %>
 
 <table class="table is-fullwidth as-boxed mt-3">
