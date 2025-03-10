@@ -229,14 +229,16 @@ module Trade
     end
 
     def generate_order!
-      order = Order.new(organ_id: organ_id)
+      order = Order.new(organ_id: organ_id, user_id: user_id)
       order.address_id ||= address_id if need_address?
       order.assign_attributes attributes.slice('aim', 'payment_strategy_id', 'member_id', 'agent_id', 'client_id', 'contact_id', 'station_id', 'desk_id', 'deposit_ratio')
       checked_all_items.each do |item|
         item.order = order
+        item.status = 'ordered'
       end
       cart_promotes.each do |cart_promote|
         cart_promote.order = order
+        cart_promote.status = 'ordered'
       end
 
       self.class.transaction do

@@ -5,7 +5,7 @@ module Trade
     include Inner::User
 
     included do
-      attribute :uuid, :string
+      attribute :uuid, :string, default: -> { UidHelper.nsec_uuid('OD') }
       attribute :note, :string
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
       attribute :serial_number, :integer
@@ -88,8 +88,6 @@ module Trade
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
 
-      after_initialize :init_uuid, if: -> { uuid.blank? }
-      after_initialize :confirm_ordered!, if: :new_record?
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
@@ -124,11 +122,6 @@ module Trade
       end
 
       r
-    end
-
-    def init_uuid
-      self.uuid = UidHelper.nsec_uuid('OD')
-      self
     end
 
     def can_serial_number?
@@ -183,7 +176,7 @@ module Trade
     end
 
     def sync_ordered_to_current_cart
-      carts.update_all(fresh: false)
+      #carts.update_all(fresh: false)
     end
 
     def sync_to_unpaid_payment_orders
@@ -243,15 +236,6 @@ module Trade
 
     def can_cancel?
       init? && ['unpaid', 'to_check'].include?(self.payment_status)
-    end
-
-    def confirm_ordered!
-      items.each do |item|
-        item.status = 'ordered'
-      end
-      cart_promotes.each do |cart_promote|
-        cart_promote.status = 'ordered'
-      end
     end
 
     def confirm_paid!
