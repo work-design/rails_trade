@@ -1,14 +1,11 @@
 <% if item.persisted? %>
   <div id="<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" class="has-inline-centered">
-    <% if item.number > 1 %>
-      <button data-action="modify#minus" class="button_to mr-1">
-        <i class="fa-solid fa-xl fa-circle-minus text-dark-grey"></i>
-      </button>
-    <% else %>
-      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
-        <i class="fa-solid fa-xl fa-circle-minus text-dark-grey"></i>
-      <% end %>
+    <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id }, class: 'mr-1') do %>
+      <i class="fa-solid fa-xl fa-circle-xmark text-dark-grey"></i>
     <% end %>
+    <button data-action="modify#minus" class="button_to mr-1"<%= 'disabled' if item.number <= 1 %>>
+      <i class="fa-solid fa-xl fa-circle-minus <%= item.number <= 1 ? 'text-grey' : 'text-dark-grey' %>"></i>
+    </button>
     <%= form_with(theme: nil, scope: :item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }) do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.number_field :number, value: item.number.to_human, data: { action: 'change->input#form', modify_target: 'input' }, class: 'background-light text-centered', style: 'width: 30px' %>
