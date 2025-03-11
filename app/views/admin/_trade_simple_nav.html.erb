@@ -1,13 +1,10 @@
 <div data-controller="menu" class="<%= role_permit?(business: 'trade', namespace: 'admin') ? 'menu ex-accordion is-active' : 'display-none' %>">
-  <div class="menu-label">
+  <%= link_to({ controller: 'trade/admin/home' }, class: 'menu-label') do %>
     <div>
       <i class="fa-solid fa-fw fa-shopping-cart"></i>
       <span><%= t('trade.admin.title') %></span>
     </div>
-    <%= link_to({ controller: 'trade/admin/home' }, aria: { label: '设置' }) do %>
-      <i class="fa-solid fa-cog"></i>
-    <% end %>
-  </div>
+  <% end %>
   <div class="menu-list">
     <%= link_to t('trade.admin.orders.index.title'), { controller: 'trade/admin/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
     <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/admin/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
