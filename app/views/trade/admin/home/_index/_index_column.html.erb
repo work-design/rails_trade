@@ -1,4 +1,5 @@
 <div class="fixed-grid has-6-cols">
+  <p class="size-7 text-grey">销售</p>
   <div class="grid">
     <%= link_to({ controller: 'orders' }, class: 'cell button is-fullwidth flex-direction-column') do %>
       <span><%= @orders_count %></span>
@@ -7,6 +8,9 @@
     <%= link_to({ controller: 'payments' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('.payments.index.title') %></span>
     <% end %>
+  </div>
+  <p class="size-7 text-grey">会员</p>
+  <div class="grid">
     <%= link_to({ controller: 'wallet_templates' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('.wallet_templates.index.title') %></span>
     <% end %>
@@ -14,10 +18,13 @@
       <span><%= t('.card_templates.index.title') %></span>
     <% end %>
   </div>
+  <p class="size-7 text-grey">促销</p>
   <div class="grid">
     <%= link_to({ controller: 'promotes' }, class: 'cell button is-fullwidth flex-direction-column') do %>
       <span><%= t('.promotes.index.title') %></span>
     <% end %>
+  </div>
+  <div class="grid">
     <%= link_to({ controller: 'items' }, class: 'cell button is-fullwidth flex-direction-column') do %>
       <span><%= @items_count %></span>
       <span><%= t('.items.index.title') %></span>
