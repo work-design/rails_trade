@@ -1,5 +1,5 @@
 <div data-controller="menu" class="<%= role_permit?(business: 'trade', namespace: 'admin') ? 'menu ex-accordion is-active' : 'display-none' %>">
-  <%= link_to({ controller: 'trade/admin/home' }, class: 'menu-label') do %>
+  <%= link_to({ controller: 'trade/admin/home' }, text: true, class: 'menu-label') do %>
     <div>
       <i class="fa-solid fa-fw fa-shopping-cart"></i>
       <span><%= t('trade.admin.title') %></span>
