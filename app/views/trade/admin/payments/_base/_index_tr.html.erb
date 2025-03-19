@@ -16,21 +16,21 @@
       <%= button_to({ controller: 'refunds', action: 'new', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-thumbs-down text-danger"></i>
         <span class="ml-1"><%= t('.refunds.new.title') %></span>
-        <span class="pl-1"><%= model.refunds_count %></span>
+        <span class="ml-1"><%= model.refunds_count %></span>
       <% end %>
       <% if model.payment_method.present? %>
         <%= button_to({ controller: 'payment_methods', action: 'show', id: model.payment_method_id }, class: 'button is-small is-rounded is-light') do %>
           <i class="fa-solid fa-cash-register"></i>
-          <span class="pl-1"><%= t('.payment_methods.show.title') %></span>
+          <span class="ml-1"><%= t('.payment_methods.show.title') %></span>
         <% end %>
       <% end %>
       <%= button_to({ controller: 'payment_orders', action: 'confirmable', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-check-double"></i>
-        <span class="pl-1"><%= t('.payment_orders.new.title') %></span>
+        <span class="ml-1"><%= t('.payment_orders.new.title') %></span>
       <% end if model.payment_orders_count > 0 %>
       <%= button_to({ controller: 'auditor/admin/audits', audited_type: 'Trade::Payment', audited_id: model.id }, class: 'button is-small is-rounded is-light') do %>
         <i class="fa-solid fa-comments"></i>
-        <span class="pl-1"><%= t('auditor.admin.audits.index.title') %></span>
+        <span class="ml-1"><%= t('auditor.admin.audits.index.title') %></span>
       <% end %>
       <%= button_to({ action: 'print', id: model.id }, class: 'button is-small is-rounded is-info') do %>
         <i class="fa-solid fa-print"></i>
