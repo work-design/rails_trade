@@ -8,7 +8,9 @@ module Trade
 
     def print
       if organ&.receipt_printer
-        organ.receipt_printer.printer.print(to_esc)
+        organ.receipt_printer.printer.print do |pr|
+          to_esc(pr)
+        end
       end
     end
 
@@ -21,8 +23,7 @@ module Trade
       )
     end
 
-    def to_esc
-      pr = BaseEsc.new
+    def to_esc(pr)
       pr.qrcode(qrcode_show_url, y: 20)
       pr.text "#{self.class.human_attribute_name(:created_at)}：#{created_at.to_fs(:wechat)}"
       pr.text '已下单：'
