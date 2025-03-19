@@ -38,6 +38,8 @@ module Trade
 
     def print
       @payment.print
+      flash.now[:notice] = '打印指令已发送'
+      render 'alert'
     end
 
     private
