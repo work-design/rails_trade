@@ -3,7 +3,7 @@
 
 <div class="box is-padding-less">
 <% if @cart.aim_rent? %>
-  <%= render partial: 'rent_item', collection: @cart.items.status_checked, as: :item %>
+  <%= render partial: 'rent_item', collection: @cart.checked_all_items, as: :item %>
 <% else %>
   <%= render partial: 'item', collection: @cart.checked_all_items, as: :item %>
 <% end %>
