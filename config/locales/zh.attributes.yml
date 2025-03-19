@@ -110,7 +110,7 @@ zh:
       trade/trade_promote:
         amount: 金额
       trade/payment:
-        total_amount: 总金额
+        total_amount: 付款金额
         orders_amount: 订单金额
         income_amount: 净收入
         checked_amount: 已核销金额
@@ -124,9 +124,10 @@ zh:
         notified_at: 通知时间
         type: 类别
         comment: 备注
-        state: 状态
+        state: 付款状态
         payment_uuid: 流水号
         proof: 收款凭证
+        created_at: 付款时间
       trade/payment/orders:
         uuid: 订单号
       trade/payment_method:
