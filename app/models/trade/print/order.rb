@@ -9,13 +9,17 @@ module Trade
 
     def print_to_prepare
       if organ&.produce_printer
-        organ.produce_printer.printer.print(to_prepare_esc)
+        organ.produce_printer.printer.print do |pr|
+          to_prepare_esc(pr)
+        end
       end
     end
 
     def print
       if organ&.receipt_printer
-        organ.receipt_printer.printer.print(to_esc)
+        organ.receipt_printer.printer.print do |pr|
+          to_esc(pr)
+        end
       end
     end
 
@@ -29,7 +33,6 @@ module Trade
     end
 
     def to_tspl
-      ts = BaseTspl.new
       ts.bar(y: 0, height: 20)
       ts.right_qrcode(qrcode_show_url, y: 30, cell_width: 5)
       ts.text(serial_str, font: 'TSS32.BF2', x: 10, y:30)
@@ -49,8 +52,7 @@ module Trade
       ts.render
     end
 
-    def to_esc
-      pr = BaseEsc.new
+    def to_esc(pr)
       pr.big_text organ.name
       pr.qrcode(qrcode_show_url, y: 20)
       pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
@@ -71,8 +73,7 @@ module Trade
       pr
     end
 
-    def to_prepare_esc
-      pr = BaseEsc.new
+    def to_prepare_esc(pr)
       items.each do |item|
         pr.big_text("#{item.good_name} x #{item.number.to_human}") if item.good
         pr.break_line
@@ -81,13 +82,6 @@ module Trade
         pr.render
       end
       pr
-    end
-
-    def to_cpcl
-      cpcl = BaseCpcl.new
-      cpcl.text serial_str
-      cpcl.right_qrcode(qrcode_show_url, y: 20)
-      cpcl.render.bytes
     end
 
   end
