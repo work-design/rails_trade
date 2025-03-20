@@ -1,6 +1,6 @@
 <div id="cart_nav" class="level is-mobile mb-0 py-2 has-border-top">
   <div class="level-left flex-direction-row pl-4">
-    <%= link_to({ controller: defined?(cart_con) ? cart_con : 'trade/my/carts', action: 'show', id: @cart.id }, class: 'level-item mb-0') do %>
+    <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, class: 'level-item mb-0') do %>
       <div class="right-badge">
         <i class="fa-solid fa-fw fa-xl fa-bag-shopping"></i>
         <span class="weui-badge"><%= @cart.items.count %></span>
@@ -16,13 +16,13 @@
   <div class="level-right mt-0 pr-4">
     <div class="level-item">
     <% if @cart.can_order? %>
-      <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-primary') do %>
-        <span class="mr-1"><%= t("trade.#{params[:namespace].presence || 'my'}.orders.cart.title") %></span>
+      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-primary') do %>
+        <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       <% end %>
     <% else %>
       <button class="button is-small is-primary" disabled>
-        <span class="mr-1"><%= t("trade.#{params[:namespace].presence || 'my'}.orders.cart.title") %></span>
+        <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       </button>
     <% end %>

@@ -19,7 +19,7 @@
     </div>
   </div>
   <div>
-    <div style="margin-right: -5px; margin-left: 5px;">
+    <div style="margin-right: -5px; margin-left: 5px">
       <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-fullwidth is-primary is-radius right-badge') do %>
         <span class="mr-1">去购物车</span>
         <i class="fa-solid fa-angle-right"></i>
@@ -28,13 +28,13 @@
     </div>
     <div class="mt-2 flex justify-content-center">
     <% if cart.can_order? %>
-      <%= link_to({ controller: "trade/#{params[:namespace].presence || 'my'}/orders", action: 'cart', current_cart_id: cart.id }, class: 'button is-fullwidth is-primary') do %>
-        <span class="mr-1"><%= t('trade.my.orders.cart.title') %></span>
+      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: cart.id }, class: 'button is-fullwidth is-primary') do %>
+        <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       <% end %>
     <% else %>
       <button class="button is-fullwidth is-primary" disabled>
-        <span class="mr-1">结算</span>
+        <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
         <i class="fa-solid fa-angle-right"></i>
       </button>
     <% end %>
