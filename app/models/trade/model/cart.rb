@@ -59,12 +59,12 @@ module Trade
 
       if member_id
         p.merge! member_id: member_id
-      elsif respond_to?(:agent_id) && agent_id
-        p.merge! agent_id: agent_id, contact_id: [nil, contact_id], client_id: [nil, client_id]
       elsif respond_to?(:contact_id) && contact_id
-        p.merge! contact_id: contact_id, client_id: client_id
+        p.merge! contact_id: contact_id, client_id: client_id, agent_id: agent_id
       elsif respond_to?(:client_id) && client_id
-        p.merge! client_id: client_id
+        p.merge! client_id: client_id, agent_id: agent_id
+      elsif respond_to?(:agent_id) && agent_id
+        p.merge! agent_id: agent_id
       elsif user_id
         p.merge! user_id: user_id
       elsif member_organ_id
@@ -331,7 +331,7 @@ module Trade
     end
 
     def init_cart_item(params, **options)
-      options.with_defaults! params.permit(:good_id, :purchase_id, :provide_id, :dispatch, :produce_on, :scene_id).to_h.symbolize_keys
+      options.with_defaults! params.permit(:good_id, :purchase_id, :provide_id, :dispatch, :produce_on, :scene_id).to_h.to_options
       options.with_defaults! dispatch: organ.dispatch if organ
       options.compact_blank!
 
