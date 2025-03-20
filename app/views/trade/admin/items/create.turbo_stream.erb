@@ -1,4 +1,4 @@
-<%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
+<%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
 <%= turbo_stream.replace "product_cart_#{@item.good.product_id}", partial: 'production_cart', locals: { model: @item.good, item: @item, cart: @item.current_cart, item_con: controller_path, productions_con: referer_controller } %>
 
 <% params[:replace].each do |replace| %>
