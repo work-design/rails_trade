@@ -406,17 +406,20 @@ module Trade
 
     class_methods do
 
-      def get_cart(params, good_type: params[:good_type] || 'Factory::Production', aim: params[:aim] || 'use', **options)
+      def get_cart(params, **options)
         current_cart_id = params[:current_cart_id].presence || params.dig(:item, :current_cart_id).presence
         if current_cart_id
           cart = find current_cart_id
         else
-          options.with_defaults! params.permit(:desk_id, :station_id)
-          options.with_defaults!({ user_id: nil, member_id: nil, member_organ_id: nil, client_id: nil, contact_id: nil, agent_id: nil }.slice(*column_names.map(&:to_sym)))
-          cart = where(options).find_or_create_by(good_type: good_type, aim: aim)
+          options.with_defaults! good_type: 'Factory::Production', aim: 'use'
+          options.with_defaults! params.permit(:desk_id, :station_id).to_h.to_options # 合并来自 params 的参数，转化为 symbol key
+          create_options = ([:user_id, :member_id, :member_organ_id, :client_id, :contact_id, :agent_id] & column_names.map(&:to_sym)).each_with_object({}) { |i,h| h.merge! i => nil }.merge! options
+          options.with_defaults! ([:contact_id, :client_id, :agent_id] & column_names.map(&:to_sym)).each_with_object({}) { |i, h| h.merge! i => nil }
+
+          cart = find_by(options) || create_or_find_by(create_options)
         end
         cart.compute_amount! unless cart.fresh
-        logger.debug "\e[35m  Current Cart: #{cart.id}  \e[0m"
+        logger.debug "\e[35m  Current Cart: #{cart.id}, Find Options: #{options}, Create Options: #{create_options}  \e[0m"
         cart
       end
 
