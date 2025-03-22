@@ -351,18 +351,24 @@ module Trade
       cart_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
+    def find_items_except(except:, **options)
+      args = attr_options(**options)
+      cart_items.select { |i| i.attributes.slice(*args.keys) == args && except }
+    end
+
     def find_items(good_ids, **options)
+      options.symbolize_keys!
       args = attr_options(**options)
       cart_items.select { |i| i.attributes.slice(*args.keys) == args && good_ids.include?(i.good_id) }
     end
 
     def find_purchase_items(purchase_ids, **options)
+      options.symbolize_keys!
       args = attr_options(**options)
       cart_items.select { |i| i.attributes.slice(*args.keys) == args && purchase_ids.include?(i.purchase_id) }
     end
 
     def attr_options(**options)
-      options.symbolize_keys!
       args = { good_type: good_type, aim: aim }
       args.merge! options.slice(:good_type, :aim, :contact_id, :member_id, :provide_id)
       if options.key?(:good_id)
