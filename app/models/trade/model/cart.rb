@@ -333,7 +333,6 @@ module Trade
     def init_cart_item(params, **options)
       options.with_defaults! params.permit(:good_id, :purchase_id, :provide_id, :dispatch, :produce_on, :scene_id).to_h.to_options
       options.with_defaults! dispatch: organ.dispatch if organ
-      options.transform_values! { |i| i.presence }
 
       item = find_item(**options) || items.build(options)
       item.status = 'checked'
@@ -351,9 +350,9 @@ module Trade
       cart_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
-    def find_items_except(except:, **options)
+    def find_items_except_provide(provide_ids, **options)
       args = attr_options(**options)
-      cart_items.select { |i| i.attributes.slice(*args.keys) == args && except }
+      cart_items.select { |i| i.attributes.slice(*args.keys) == args && i.provide_id && provide_ids.exclude?(i.provide_id) }
     end
 
     def find_items(good_ids, **options)
@@ -369,25 +368,14 @@ module Trade
     end
 
     def attr_options(**options)
+      options.transform_values! { |i| i.presence }
       args = { good_type: good_type, aim: aim }
-      args.merge! options.slice(:good_type, :aim, :contact_id, :member_id, :provide_id)
-      if options.key?(:good_id)
-        if [nil, ''].include? options[:good_id]
-          args.merge! good_id: nil
-        else
-          args.merge! good_id: options[:good_id].to_i
-        end
-      end
-      if options.key?(:purchase_id)
-        if [nil, ''].include? options[:purchase_id]
-          args.merge! purchase_id: nil
-        else
-          args.merge! purchase_id: options[:purchase_id].to_i
-        end
-      end
-      args.merge! dispatch: options[:dispatch] if options.key?(:dispatch)
-      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id].present?
-      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on].present?
+      args.merge! options.slice(:good_type, :good_id, :aim, :dispatch, :contact_id, :member_id, :provide_id)
+
+      args.merge! good_id: options[:good_id].to_i if options[:good_id]
+      args.merge! purchase_id: options[:purchase_id].to_i if options[:purchase_id]
+      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id]
+      args.merge! produce_on: options[:produce_on].to_date if options[:produce_on]
       args.stringify_keys!
     end
 
