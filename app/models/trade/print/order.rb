@@ -3,8 +3,12 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      after_create_commit :print_to_prepare
+      after_create_commit :print_later
       #after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
+    end
+
+    def print_later
+      OrderPrintJob.perform_now(self)
     end
 
     def print_to_prepare
