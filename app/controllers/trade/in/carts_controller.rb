@@ -8,7 +8,7 @@ module Trade
     def show
       q_params = {}
 
-      @items = @cart.organ_items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
+      @items = @cart.items.includes(produce_plan: :scene).default_where(q_params).order(id: :asc).page(params[:page])
     end
 
     private
