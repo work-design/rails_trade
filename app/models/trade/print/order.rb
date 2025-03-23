@@ -8,7 +8,7 @@ module Trade
     end
 
     def print_later
-      OrderPrintJob.perform_now(self)
+      OrderPrintJob.perform_later(self)
     end
 
     def print_to_prepare
