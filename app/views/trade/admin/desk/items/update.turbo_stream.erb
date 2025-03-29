@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "desk_tr_#{@item.id}", partial: 'index_tbody', layout: 'index_tr', locals: { model: @item } %>
+<%= turbo_stream.replace "order_#{@item.order_id}", partial: 'order_tbody', layout: 'order_tr', locals: { model: @item.order } if @item.order %>
+<%= turbo_stream.remove 'modal' %>
