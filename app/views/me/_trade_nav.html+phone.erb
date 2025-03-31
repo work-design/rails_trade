@@ -2,17 +2,26 @@
   <div class="text-primary">
     <i class="fa-solid fa-fw fa-xl fa-list"></i>
   </div>
-  <div class="size-7 text-grey mt-1"><%= t('trade.agent.orders.index.title') %></div>
+  <div class="size-7 text-grey mt-1">
+    <p><%= t('trade.admin.orders.index.title') %></p>
+    <p>（由我代下）</p>
+  </div>
 <% end %>
 <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
     <i class="fa-solid fa-fw fa-xl fa-list"></i>
   </div>
-  <span class="size-7 text-grey mt-1"><%= t('trade.agent.orders.unpaid.title') %></span>
+  <div class="size-7 text-grey mt-1">
+    <p><%= t('trade.admin.orders.unpaid.title') %></p>
+    <p>（由我代下）</p>
+  </div>
 <% end %>
 <%= link_to({ controller: 'trade/agent/payments', action: 'uncheck' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
     <i class="fa-solid fa-fw fa-xl fa-cash-register"></i>
   </div>
-  <span class="size-7 text-grey mt-1"><%= t('trade.agent.payments.uncheck.title') %></span>
+  <div class="size-7 text-grey mt-1">
+    <p><%= t('trade.agent.payments.uncheck.title') %></p>
+    <p>（由我代下）</p>
+  </div>
 <% end %>
