@@ -6,6 +6,7 @@ module Trade
       helper_method :current_cart_count
     end
 
+    private
     def current_cart
       return @current_cart if defined? @current_cart
       if params[:current_cart_id].present?
