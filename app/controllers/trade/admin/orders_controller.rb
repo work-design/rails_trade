@@ -20,6 +20,9 @@ module Trade
       @orders = Order.includes(:user, :member, :member_organ, :payment_strategy).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
+    def cart
+    end
+
     def user
       q_params = {
         user_id: params[:user_id]
@@ -190,7 +193,7 @@ module Trade
       params[:result].split(',')[-1]
     end
 
-    def _prefixes
+    def _prefixesx
       super do |pres|
         if ['cart', 'add', 'show'].include?(params[:action])
           pres + ["trade/my/orders/_#{params[:action]}", 'trade/my/orders/_base']
