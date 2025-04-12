@@ -7,7 +7,7 @@ module Trade
         delivery: 'delivery',
         dine: 'dine',
         fetch: 'fetch'
-      }, prefix: true
+      }, prefix: true, default: 'delivery'
 
       has_many :card_templates, class_name: 'Trade::CardTemplate'
 
