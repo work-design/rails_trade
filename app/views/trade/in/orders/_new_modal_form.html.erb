@@ -1,7 +1,15 @@
 <%= form_with theme: 'modal', model: @order, url: { action: 'create' } do |f| %>
   <%= render 'modal_header' %>
   <section class="modal-card-body">
+    <%= f.collection_select :provide_id, current_organ.provides, :id, :name %>
     <%= f.text_area :note %>
+    <%= f.fields :items do |ef| %>
+      <%= ef.hidden_field :source_id %>
+      <%= ef.hidden_field :good_type %>
+      <%= ef.hidden_field :purchase_id %>
+      <%= ef.number_field :number, label: ef.object.good_name %>
+      <%= ef.number_field :single_price %>
+    <% end %>
   </section>
   <%= f.submit %>
 <% end %>
