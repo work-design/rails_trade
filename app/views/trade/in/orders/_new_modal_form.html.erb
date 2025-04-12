@@ -1,0 +1,7 @@
+<%= form_with theme: 'modal', model: @order, url: { action: 'create' } do |f| %>
+  <%= render 'modal_header' %>
+  <section class="modal-card-body">
+    <%= f.text_area :note %>
+  </section>
+  <%= f.submit %>
+<% end %>
