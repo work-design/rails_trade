@@ -1,5 +1,4 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
-
 <td><%= f.check_box 'xx', form: 'purchase_order', data: { action: 'show#toggle' } %></td>
 <td>
   <div class="is-several">
@@ -14,8 +13,10 @@
         <span><%= model.good_name %></span>
       <% end %>
     <% end %>
-    <span class="tag"><%= model.aim_i18n %></span>
   </div>
+  <% model.good.production_provides.each do |production_provide| %>
+    <p><%= production_provide.provide.name %></p>
+  <% end %>
 </td>
 <td>
   <span><%= model.number %></span>

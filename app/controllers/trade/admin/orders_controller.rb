@@ -51,6 +51,7 @@ module Trade
     end
 
     def purchase
+      @items = @order.items.where(good_type: 'Factory::Production').includes(good: :production_provides)
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
