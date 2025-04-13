@@ -1,7 +1,7 @@
-<%= form_with theme: 'inline', model: @purchase_order, url: { controller: 'trade/in/orders', action: 'new' }, id: 'new_order' do |f| %>
+<%= form_with theme: 'inline', model: @purchase_order, url: { controller: 'trade/in/orders', action: 'new' }, id: 'purchase_order' do |f| %>
   <%= f.hidden_field :generate_mode %>
   <%= f.hidden_field :organ_id %>
-  <%= button_tag name: 'commit', value: true, data: { form_target: 'submit' }, disabled: true, class: 'button' do %>
+  <%= button_tag name: 'commit', value: true, data: { form_target: 'submit' }, disabled: true, class: 'button is-primary' do %>
     <span>加入采购单</span>
   <% end %>
 <% end %>
