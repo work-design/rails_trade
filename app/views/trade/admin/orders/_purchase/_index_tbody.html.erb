@@ -1,6 +1,6 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 
-<td><%= f.check_box 'xx', form: 'purchase_order' %></td>
+<td><%= f.check_box 'xx', form: 'purchase_order', data: { action: 'show#toggle' } %></td>
 <td>
   <div class="is-several">
     <% if model.good_type == 'Factory::Production' %>
@@ -21,11 +21,15 @@
   <span><%= model.number %></span>
 </td>
 <td>
-  <%= f.hidden_field :source_id, form: 'purchase_order' %>
-  <%= f.number_field :number, readonly: true, form: 'purchase_order' %>
+  <div data-show-target="check">
+    <%= f.hidden_field :source_id, disabled: true, form: 'purchase_order' %>
+    <%= f.number_field :number, disabled: true, form: 'purchase_order' %>
+  </div>
 </td>
 <td>
-  <%= f.number_field :single_price, value: model.single_price, form: 'purchase_order' %>
+  <div data-show-target="check">
+    <%= f.number_field :single_price, value: model.single_price, disabled: true, form: 'purchase_order' %>
+  </div>
 </td>
 <td>
   <p><%= model.additional_amount.to_money.format.html_safe %></p>
