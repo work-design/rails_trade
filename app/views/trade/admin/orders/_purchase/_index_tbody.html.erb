@@ -1,6 +1,6 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 
-<td><%= f.check_box 'xx', form: 'new_order' %></td>
+<td><%= f.check_box 'xx', form: 'purchase_order' %></td>
 <td>
   <div class="is-several">
     <% if model.good_type == 'Factory::Production' %>
@@ -21,11 +21,11 @@
   <span><%= model.number %></span>
 </td>
 <td>
-  <%= f.hidden_field :source_id, form: 'new_order' %>
-  <%= f.text_field :number, form: 'new_order' %>
+  <%= f.hidden_field :source_id, form: 'purchase_order' %>
+  <%= f.text_field :number, form: 'purchase_order' %>
 </td>
 <td>
-  <%= f.number_field :single_price, value: model.single_price, form: 'new_order' %>
+  <%= f.number_field :single_price, value: model.single_price, form: 'purchase_order' %>
 </td>
 <td>
   <p><%= model.additional_amount.to_money.format.html_safe %></p>
