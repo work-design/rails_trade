@@ -22,7 +22,7 @@
 </td>
 <td>
   <%= f.hidden_field :source_id, form: 'purchase_order' %>
-  <%= f.text_field :number, form: 'purchase_order' %>
+  <%= f.number_field :number, readonly: true, form: 'purchase_order' %>
 </td>
 <td>
   <%= f.number_field :single_price, value: model.single_price, form: 'purchase_order' %>
