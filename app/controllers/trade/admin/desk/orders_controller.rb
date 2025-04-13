@@ -26,12 +26,12 @@ module Trade::Admin
 
     def done
       q_params = {
-        status: 'ordered'
+        state: 'init'
       }
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status)
 
-      @items = Item.default_where(q_params).update_all status: 'done'
+      @orders = Order.default_where(q_params).update_all state: 'done'
     end
 
     private
