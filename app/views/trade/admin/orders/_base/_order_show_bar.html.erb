@@ -1,0 +1,16 @@
+<div class="tabs is-centered mb-3">
+  <ul>
+    <li class="<%= active_helper(action: 'show', active: 'is-active') %>">
+      <%= link_to({ action: 'show' }) do %>
+        <i class="fa-solid fa-handshake"></i>
+        <span class="ml-1"><%= t('.show.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(action: 'purchase', active: 'is-active') %>">
+      <%= link_to({ action: 'purchase' }) do %>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="ml-1"><%= t('.purchase.title') %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>
