@@ -1,0 +1,3 @@
+<% @provides.each do |provide| %>
+  <%= link_to provide.name, filter_params(provide_id: provide.id, except: [:id]), class: active_helper(provide_id: provide.id, active: 'button is-info', item: 'button is-light') %>
+<% end %>

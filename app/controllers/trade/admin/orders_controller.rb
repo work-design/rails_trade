@@ -52,6 +52,12 @@ module Trade
 
     def purchase
       @items = @order.items.where(good_type: 'Factory::Production').includes(good: { production_provides: :provide })
+      @provides = @items.flat_map { |i| i.good.production_provides.map(&:provide) }
+
+      if params[:provide_id]
+        provide = Provide.find params[:provide_id]
+        @items = @items.where(good_id: provide.production_provides.pluck(:production_id))
+      end
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
