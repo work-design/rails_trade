@@ -108,7 +108,9 @@ module Trade
 
       after_initialize :init_uuid, if: :new_record?
       after_initialize :sync_from_good, if: -> { new_record? && order.present? }
+      after_initialize :sync_from_source, if: -> { new_record? && source.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
+      before_validation :sync_from_source, if: -> { source_id.present? && source_id_changed? }
       before_validation :add_promotes, if: :new_record?
       before_validation :sync_from_current_cart, if: -> { current_cart && current_cart_id_changed? }
       before_validation :init_delivery, if: -> { (changes.keys & ['user_id', 'member_id', 'organ_id']).present? }
@@ -244,6 +246,10 @@ module Trade
       self.produce_on = good.produce_on if good.respond_to? :produce_on
       compute_price
       compute_amount
+    end
+
+    def sync_from_source
+      self.good_name = source.good_name
     end
 
     def sync_organ_from_provide
