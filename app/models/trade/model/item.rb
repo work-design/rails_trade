@@ -249,6 +249,8 @@ module Trade
     end
 
     def sync_from_source
+      self.good_type = source.good_type
+      self.purchase_id = source.good_id
       self.good_name = source.good_name
     end
 
