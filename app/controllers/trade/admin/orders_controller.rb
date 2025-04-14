@@ -51,7 +51,8 @@ module Trade
     end
 
     def purchase
-      @items = @order.items.where(good_type: 'Factory::Production').includes(good: :production_provides)
+      @items = @order.items.where(good_type: 'Factory::Production').includes(good: { production_provides: :provide })
+      binding.b
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
 
