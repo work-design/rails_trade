@@ -124,6 +124,7 @@ module Trade
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && in_cart? }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_save :set_not_fresh, if: -> { (current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present?) && in_cart? }
+      after_save :sync_amount_to_order, if: -> { order_id.present? && ['ordered'].include?(status) }
       after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
