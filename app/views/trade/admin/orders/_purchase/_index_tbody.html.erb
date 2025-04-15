@@ -14,7 +14,7 @@
       <% end %>
     <% end %>
   </div>
-  <% model.good.production_provides.each do |production_provide| %>
+  <% model.production_provides.each do |production_provide| %>
     <p><%= production_provide.provide.name %></p>
   <% end %>
 </td>
@@ -29,7 +29,11 @@
 </td>
 <td>
   <div data-show-target="check">
+  <% if model.default_production_provide %>
+    <%= f.number_field :single_price, value: model.default_production_provide.cost_price, disabled: true, form: 'purchase_order' %>
+  <% else %>
     <%= f.number_field :single_price, value: model.single_price, disabled: true, form: 'purchase_order' %>
+  <% end %>
   </div>
 </td>
 <td>
