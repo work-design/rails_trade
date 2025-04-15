@@ -51,7 +51,7 @@ module Trade
     end
 
     def purchase
-      @items = @order.items.where(good_type: 'Factory::Production').includes(good: { production_provides: :provide })
+      @items = @order.items.where(good_type: 'Factory::Production').includes(:good, default_production_provide: :provide, production_provides: :provide)
       @provides = @items.flat_map { |i| i.good.production_provides.map(&:provide) }.uniq
 
       if params[:provide_id]

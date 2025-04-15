@@ -7,6 +7,7 @@
       <%= ef.hidden_field :source_id %>
       <%= ef.hidden_field :good_type %>
       <%= ef.hidden_field :purchase_id %>
+      <%= ef.hidden_field :status, value: 'ordered' %>
       <%= ef.number_field :number, label: ef.object.good_name %>
       <%= ef.number_field :single_price %>
     <% end %>
