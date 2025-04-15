@@ -62,7 +62,7 @@ module Trade
         :note,
         :generate_mode,
         :current_cart_id,
-        items_attributes: [:source_id, :good_type, :purchase_id, :number, :single_price, :note],
+        items_attributes: [:source_id, :good_type, :purchase_id, :number, :single_price, :note, :status],
         item_promotes_attributes: {}
       )
       _p.fetch(:items_attributes, {}).each do |_, v|
