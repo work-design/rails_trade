@@ -3,6 +3,10 @@ zh:
     title: 电商
     my:
       title: 订单
+      order:
+        items:
+          edit:
+            title: 备注/数量
       carts:
         index:
           title: 购物车
