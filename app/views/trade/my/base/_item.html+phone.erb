@@ -36,6 +36,7 @@
       </p>
       <% end %>
     </div>
+    <p class="text-grey"><%= item.note %></p>
   </div>
   <div class="media-right as-x">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
