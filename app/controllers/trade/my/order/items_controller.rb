@@ -2,6 +2,7 @@ module Trade
   class My::Order::ItemsController < My::ItemsController
     before_action :set_order
     before_action :set_item, only: [:show, :edit, :update, :actions]
+    skip_before_action :set_cart_item
 
     private
     def set_order
