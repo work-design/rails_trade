@@ -100,6 +100,7 @@ module Trade
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
       after_create :sync_ordered_to_current_cart
+      after_create_commit :send_notice_after_create
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
     end
@@ -273,8 +274,6 @@ module Trade
         send_paid_notice
       elsif payment_status == 'part_paid'
         send_part_paid_notice
-      else
-        send_unpaid_notice
       end
     end
 
@@ -287,7 +286,7 @@ module Trade
       send_notice
     end
 
-    def send_unpaid_notice
+    def send_notice_after_create
     end
 
     def send_notice
