@@ -111,16 +111,16 @@ zh:
         new:
           title: 收款
         batch:
-          title: 扫码支付
+          title: 扫码收款
         desk:
-          title: 扫码支付
+          title: 扫码收款
         create:
           title: 扫码收款
       hand_payments:
         batch:
-          title: 线下支付
+          title: 线下收款
         desk:
-          title: 线下支付
+          title: 线下收款
       payment_orders:
         new:
           title: 核销
@@ -138,7 +138,7 @@ zh:
           new: 新增
           relate: 关联买家
         index:
-          title: 支付方式
+          title: 付款方式
       payment_strategies:
         index:
           title: 结款形式
