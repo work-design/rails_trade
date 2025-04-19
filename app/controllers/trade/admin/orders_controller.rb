@@ -200,7 +200,7 @@ module Trade
       params[:result].split(',')[-1]
     end
 
-    def _prefixesx
+    def _prefixes
       super do |pres|
         if ['cart', 'add', 'show'].include?(params[:action])
           pres + ["trade/my/orders/_#{params[:action]}", 'trade/my/orders/_base']
