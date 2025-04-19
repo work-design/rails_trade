@@ -273,6 +273,8 @@ module Trade
         send_paid_notice
       elsif payment_status == 'part_paid'
         send_part_paid_notice
+      else
+        send_unpaid_notice
       end
     end
 
@@ -283,6 +285,9 @@ module Trade
 
     def send_paid_notice
       send_notice
+    end
+
+    def send_unpaid_notice
     end
 
     def send_notice
