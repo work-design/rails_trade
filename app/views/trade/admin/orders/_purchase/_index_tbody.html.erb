@@ -29,7 +29,7 @@
 </td>
 <td>
   <div data-show-target="check">
-  <% if model.default_production_provide %>
+  <% if model.default_production_provide&.cost_price %>
     <%= f.number_field :single_price, value: model.default_production_provide.cost_price, disabled: true, form: 'purchase_order' %>
   <% else %>
     <%= f.number_field :single_price, value: model.single_price, disabled: true, form: 'purchase_order' %>
