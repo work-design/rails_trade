@@ -1,4 +1,4 @@
-<div class="media">
+<div id="item_<%= item.id %>" class="media">
   <div class="media-left">
     <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
       <%= image_tag item.good.logo, class: 'image is-64x64' if item.good && item.good.logo&.attached? %>
@@ -40,13 +40,12 @@
       <span><%= t('bench.my.facilitatings.index.title') %></span>
     <% end %>
   <% else %>
-    <%= link_to({ controller: 'trade/admin/holds', item_id: item.id }, class: 'button is-small is-default') do %>
+    <%= link_to({ controller: 'holds', item_id: item.id }, class: 'button is-small is-default') do %>
       <i></i>
-      <span><%= t('trade.admin.holds.index.title') %></span>
+      <span><%= t('.holds.index.title') %></span>
     <% end %>
-    <%= link_to({ controller: 'items', action: 'edit', id: item.id }, class: 'button is-small is-danger mt-2') do %>
-      <i></i>
-      <span><%= t('trade.my.items.edit.title') %></span>
+    <%= button_to({ controller: 'items', action: 'edit', id: item.id }, class: 'button is-small is-danger mt-2') do %>
+      <span><%= t('.items.edit.title') %></span>
     <% end if item.changeable? %>
   <% end %>
   </div>

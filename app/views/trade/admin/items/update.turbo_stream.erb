@@ -1,8 +1,8 @@
 <% if referer_controller.end_with?('carts') %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_footer', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
-<% elsif referer_path == 'trade/admin/items/_desk' %>
-  <%= turbo_stream.replace "desk_tr_#{@item.id}", partial: '_desk/index_tbody', layout: '_desk/index_tr', locals: { model: @item } %>
-  <%= turbo_stream.replace "order_#{@item.order_id}", partial: '_desk/order_tbody', layout: 'order_tr', locals: { model: @item.order } if @item.order %>
+<% elsif referer_eql? 'trade/admin/orders', 'show' %>
+  <%= turbo_stream.replace "item_#{@item.id}", partial: 'trade/admin/orders/_base/item', locals: { item: @item } %>
+  <%= turbo_stream.replace "order_detail_#{@item.order_id}", partial: 'trade/admin/orders/_base/items', locals: { model: @item.order } if @item.order %>
 <% else %>
   <%= turbo_stream.replace "product_summary_#{@item.good.product_id}", partial: 'product_summary', locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
@@ -12,4 +12,4 @@
 
 <% params[:replace].each do |replace| %>
   <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
-<% end %>
+<% end if params[:replace] %>
