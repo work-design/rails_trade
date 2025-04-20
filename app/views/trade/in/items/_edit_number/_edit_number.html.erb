@@ -1,0 +1,7 @@
+<%= form_with theme: 'modal', model: @item, url: { action: 'update_price' } do |f| %>
+  <%= render 'modal_header' %>
+  <section class="modal-card-body">
+    <%= f.number_field :number, autofocus: true %>
+  </section>
+  <%= f.submit %>
+<% end %>

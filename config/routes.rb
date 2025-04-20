@@ -366,6 +366,7 @@ Rails.application.routes.draw do
         resources :items, only: [] do
           member do
             match :edit_price, via: [:get, :post]
+            post :edit_number
             patch :update_price
           end
         end

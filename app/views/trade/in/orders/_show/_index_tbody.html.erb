@@ -6,10 +6,15 @@
   <% end %>
 </td>
 <td><%= model.purchase_status_i18n %></td>
-<td><%= model.number.to_human %></td>
+<td>
+  <span><%= model.number.to_human %></span>
+  <%= button_to({ controller: 'items', action: 'edit_number', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.items.edit_number.title') }, class: 'ml-1 visibility-hidden') do %>
+    <i class="fa-solid fa-pencil text-grey"></i>
+  <% end %>
+</td>
 <td>
   <span><%= model.single_price.to_money.format.html_safe %></span>
-  <%= button_to({ controller: 'items', action: 'edit_price', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.items.edit_price.title') }, class: 'pl-1 visibility-hidden') do %>
+  <%= button_to({ controller: 'items', action: 'edit_price', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.items.edit_price.title') }, class: 'ml-1 visibility-hidden') do %>
     <i class="fa-solid fa-pencil text-grey"></i>
   <% end %>
 </td>

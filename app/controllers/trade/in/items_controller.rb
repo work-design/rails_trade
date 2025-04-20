@@ -3,11 +3,11 @@ module Trade
     include Controller::In
     before_action :set_cart, only: [
       :show, :edit, :update, :destroy, :actions,
-      :promote, :toggle, :finish, :edit_price, :update_price, :create, :cost
+      :promote, :toggle, :finish, :edit_number, :edit_price, :update_price, :create, :cost
     ]
     before_action :set_cart_item, only: [:update, :destroy, :toggle]
     before_action :set_item, only: [
-      :show, :edit, :actions, :promote, :finish, :edit_price, :update_price
+      :show, :edit, :actions, :promote, :finish, :edit_number, :edit_price, :update_price
     ]
     before_action :set_new_item, only: [:create, :cost]
 
@@ -17,7 +17,7 @@ module Trade
     end
 
     def update_price
-      @item.single_price = params.fetch(:item, {})[:single_price]
+      @item.assign_attributes item_number_params
       @item.save
     end
 
@@ -32,6 +32,13 @@ module Trade
 
     def set_item
       @item = Item.where(member_organ_id: current_organ.id).find params[:id]
+    end
+
+    def item_number_params
+      params.fetch(:item, {}).permit(
+        :number,
+        :single_price
+      )
     end
 
     def item_params

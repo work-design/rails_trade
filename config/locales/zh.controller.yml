@@ -124,6 +124,8 @@ zh:
       items:
         edit_price:
           title: 采购价
+        edit_number:
+          title: 修改数量
       orders:
         index:
           title: 采购单
