@@ -29,7 +29,7 @@ module Trade
       organ.ancestral_members.wechat.default_where('notifiable_types-any': self.base_class_name).each do |member|
         to_member_notice(
           member: member,
-          title: '收到新订单',
+          title: "收到新订单 #{note}",
           body: '您的订单将按时到达配送点',
           link: Rails.application.routes.url_for(
             controller: 'trade/admin/orders',
