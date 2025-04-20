@@ -1,40 +1,30 @@
 <%= link_to({ controller: 'orders', action: 'unpaid' }, class: 'cell has-column-centered') do %>
-  <div class="text-grey-dark">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar text-success-dark"></i>
+  <div class="text-primary">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
   </div>
-  <div class="text-dark">
-    <span><%= t('trade.admin.orders.unpaid.title') %></span>
-  </div>
+  <div class="text-grey size-7 mt-1"><%= t('.orders.unpaid.title') %></div>
 <% end %>
 <%= link_to({ controller: 'payments' }, class: 'cell has-column-centered') do %>
-  <div class="text-grey-dark">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar text-success-dark"></i>
+  <div class="text-primary">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
   </div>
-  <div class="text-dark">
-    <span><%= t('trade.admin.payments.index.title') %></span>
-  </div>
+  <div class="text-grey size-7 mt-1"><%= t('.payments.index.title') %></div>
 <% end %>
 <%= link_to({ controller: 'payment_methods' }, class: 'cell has-column-centered') do %>
-  <div class="text-grey-dark">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar text-success-dark"></i>
+  <div class="text-primary">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
   </div>
-  <div class="text-dark">
-    <span><%= t('trade.admin.payment_methods.index.title') %></span>
-  </div>
+  <div class="text-grey size-7 mt-1"><%= t('.payment_methods.index.title') %></div>
 <% end %>
 <%= link_to({ controller: 'carts', action: 'user' }, class: 'cell has-column-centered') do %>
-  <div class="text-grey-dark">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar text-success-dark"></i>
+  <div class="text-primary">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dolla"></i>
   </div>
-  <div class="text-dark">
-    <span><%= t('trade.admin.carts.user.title') %></span>
-  </div>
+  <div class="text-grey size-7 mt-1"><%= t('.carts.user.title') %></div>
 <% end %>
 <%= link_to({ controller: 'carts', action: 'member_organ' }, class: 'cell has-column-centered') do %>
-  <div class="text-grey-dark">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar text-success-dark"></i>
+  <div class="text-primary">
+    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
   </div>
-  <div class="text-dark">
-    <span><%= t('trade.admin.carts.member_organ.title') %></span>
-  </div>
+  <div class="text-grey size-7 mt-1"><%= t('.carts.member_organ.title') %></div>
 <% end %>
