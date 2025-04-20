@@ -24,7 +24,7 @@
 <td>
   <div data-show-target="check">
     <%= f.hidden_field :source_id, disabled: true, form: 'purchase_order' %>
-    <%= f.number_field :number, disabled: true, form: 'purchase_order' %>
+    <%= f.number_field :number, value: model.number, disabled: true, form: 'purchase_order' %>
   </div>
 </td>
 <td>
