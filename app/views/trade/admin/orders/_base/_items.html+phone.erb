@@ -53,4 +53,8 @@
     <dt><%= Trade::Order.human_attribute_name(:amount) %></dt>
     <dd class="text-danger"><%= model.amount.to_money.format.html_safe %></dd>
   </div>
+  <div>
+    <dt><%= Trade::Order.human_attribute_name(:note) %></dt>
+    <dd><%= model.note %></dd>
+  </div>
 </dl>
