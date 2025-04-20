@@ -1,0 +1,12 @@
+<div class="fixed-grid has-3-cols">
+  <div class="grid">
+    <div class="cell as-boxed has-column-centered p-3">
+      <p class="size-7">已收款</p>
+      <strong><%= @orders.unscope(:limit, :offset).sum(:received_amount).to_money.format.html_safe %></strong>
+    </div>
+    <div class="cell as-boxed has-column-centered p-3">
+      <p class="size-7">订单数</p>
+      <strong><%= @orders.total_count %></strong>
+    </div>
+  </div>
+</div>
