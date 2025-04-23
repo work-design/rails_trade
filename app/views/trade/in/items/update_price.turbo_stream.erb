@@ -1,2 +1,3 @@
 <%= turbo_stream.replace "item_#{@item.id}", partial: 'trade/in/orders/_show/index_tbody', layout: 'trade/in/orders/_show/index_tr', locals: { model: @item } %>
+<%= turbo_stream.update 'show_total', partial: 'order_total', locals: { model: @item.order } %>
 <%= turbo_stream.remove 'modal' %>
