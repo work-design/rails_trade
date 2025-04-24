@@ -29,5 +29,8 @@
     <%= button_to({ controller: 'items', action: 'edit_price', id: item.id }, class: 'button is-small') do %>
       <span><%= t('.items.edit_price.title') %></span>
     <% end %>
+    <%= button_to({ controller: 'items', action: 'edit_number', id: item.id }, class: 'button is-small') do %>
+      <span><%= t('.items.edit_number.title') %></span>
+    <% end %>
   </div>
 </div>
