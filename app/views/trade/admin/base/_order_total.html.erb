@@ -1,0 +1,16 @@
+<tr class="background-light">
+  <td colspan="4" class="text-right"><%= Trade::Order.human_attribute_name(:item_amount) %></td>
+  <td colspan="2" class="text-success"><%= model.item_amount.to_money.format.html_safe %></td>
+</tr>
+<tr class="background-light">
+  <td colspan="4" class="text-right"><%= Trade::Order.human_attribute_name(:adjust_amount) %></td>
+  <td colspan="2" class="text-success"><%= model.adjust_amount.to_money.format.html_safe %></td>
+</tr>
+<tr>
+  <td colspan="4" class="text-right"><%= Trade::Order.human_attribute_name(:amount) %></td>
+  <td colspan="2"><%= model.amount.to_money.format.html_safe %></td>
+</tr>
+<tr>
+  <td colspan="4" class="text-right"><%= Trade::Order.human_attribute_name(:payment_status) %></td>
+  <td colspan="2"><%= model.payment_status_i18n %></td>
+</tr>

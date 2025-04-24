@@ -1,0 +1,7 @@
+<% if referer_meta[:action] == 'unpaid' %>
+  <%= turbo_stream.replace "tr_#{params[:id]}", partial: '_unpaid/index_tbody', layout: '_unpaid/index_tr', locals: { model: @order } %>
+<% else %>
+  <%= turbo_stream.replace "tr_#{params[:id]}", partial: 'index_tbody', layout: 'index_tr', locals: { model: @order } %>
+<% end %>
+<%= turbo_stream.update 'show_total', partial: 'order_total', locals: { model: @order } %>
+<%= turbo_stream.remove 'modal' %>
