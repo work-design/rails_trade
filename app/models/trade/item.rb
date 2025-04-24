@@ -12,5 +12,8 @@ module Trade
     if defined? RailsSpace
       include Space::Ext::Item
     end
+    if defined? RailsShip
+      include Ship::Ext::Item
+    end
   end
 end
