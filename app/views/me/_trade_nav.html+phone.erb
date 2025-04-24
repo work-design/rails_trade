@@ -25,3 +25,11 @@
     <p>（由我代下）</p>
   </div>
 <% end %>
+<%= link_to({ controller: 'trade/in/orders' }, class: 'cell has-column-centered') do %>
+  <div class="text-primary">
+    <i class="fa-solid fa-fw fa-xl fa-list"></i>
+  </div>
+  <div class="size-7 text-grey text-centered mt-1">
+    <p><%= t('trade.in.orders.index.title') %></p>
+  </div>
+<% end %>
