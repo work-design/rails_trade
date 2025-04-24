@@ -4,20 +4,20 @@
     <%= f.check_box 'xx', form: 'new_order', data: { action: 'show#toggle' } %>
     <%= f.hidden_field :source_id, disabled: true, form: 'new_order' %>
   </div>
-  <%= link_to({ action: 'show', id: model.id }, class: 'media-content') do %>
+  <div class="media-content">
     <p><%= model.good_name %></p>
-    <p data-show-target="check">
-      <%= f.number_field :number, value: model.number, disabled: true, form: 'new_order' %>
+    <p data-show-target="check" class="field is-grouped">
+      <%= f.number_field :number, value: model.number, disabled: true, form: 'new_order', class: 'input' %>
       <% if model.default_production_provide&.cost_price %>
-        <%= f.number_field :single_price, value: model.default_production_provide.cost_price, disabled: true, form: 'new_order' %>
+        <%= f.number_field :single_price, value: model.default_production_provide.cost_price, disabled: true, form: 'new_order', class: 'input' %>
       <% else %>
-        <%= f.number_field :single_price, value: model.single_price, disabled: true, form: 'new_order' %>
+        <%= f.number_field :single_price, value: model.single_price, disabled: true, form: 'new_order', class: 'input' %>
       <% end %>
       <% if model.unit %>
         <span class="tag"><%= model.unit.name %></span>
       <% end %>
     </p>
-  <% end %>
+  </div>
   <div class="media-right">
     <%= button_to({ action: 'actions', id: model.id }, class: 'button is-borderless') do %>
       <i class="fa-solid fa-lg fa-ellipsis-h text-grey"></i>

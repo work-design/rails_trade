@@ -3,7 +3,7 @@
     <%= check_box_tag 'xxd', 'order[items_attributes][', false, data: { check_target: 'all', action: 'check#toggleAll' }, id: nil %>
   </div>
   <div class="left-right">
-    <%= form_with model: @purchase_order, url: { controller: 'trade/in/orders', action: 'create' }, id: 'new_order' do |f| %>
+    <%= form_with model: @purchase_order, url: { controller: 'trade/in/orders', action: 'new' }, id: 'new_order' do |f| %>
       <%= f.hidden_field :generate_mode %>
       <%= f.hidden_field :organ_id %>
       <%= f.submit class: 'button' %>
