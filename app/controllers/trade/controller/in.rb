@@ -5,7 +5,7 @@ module Trade
     include Org::Controller::In if defined? RailsOrg
 
     included do
-      layout -> { turbo_frame_body? ? 'frame' : 'admin' }
+      layout -> { turbo_frame_body? ? 'frame_body' : 'admin' }
     end
 
     def set_new_item
