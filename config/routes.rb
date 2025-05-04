@@ -53,6 +53,7 @@ Rails.application.routes.draw do
           get :promote
         end
         member do
+          get :admin
           patch :toggle_all
         end
       end

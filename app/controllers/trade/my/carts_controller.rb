@@ -1,6 +1,6 @@
 module Trade
   class My::CartsController < My::BaseController
-    before_action :set_cart, only: [:show, :update, :toggle_all]
+    before_action :set_cart, only: [:show, :admin, :update, :toggle_all]
     before_action :set_purchase, only: [:show, :invest, :rent]
     before_action :set_invest_cart, only: [:invest]
     before_action :set_rent_cart, only: [:rent]
@@ -54,6 +54,10 @@ module Trade
 
     def toggle_all
       @cart.toggle_all
+      @items = @cart.items.includes(:delivery, :agent, produce_plan: :scene).order(id: :asc).page(params[:page])
+    end
+
+    def admin
       @items = @cart.items.includes(:delivery, :agent, produce_plan: :scene).order(id: :asc).page(params[:page])
     end
 
