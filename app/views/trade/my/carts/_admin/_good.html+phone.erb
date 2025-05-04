@@ -1,0 +1,52 @@
+<div id="item_<%= model.id %>" class="<%= model.status_expired? ? 'media as-boxed background-light' : 'media as-boxed' %>">
+  <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'media-left' do |f| %>
+    <%= f.hidden_field :current_cart_id, value: @cart.id %>
+    <label class="weui-cells_checkbox">
+      <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
+      <i class="weui-icon-checked"></i>
+    </label>
+  <% end %>
+  <div class="media-left">
+  <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
+    <%= image_tag model.good.logo, class: 'image is-64x64' %>
+  <% end %>
+  </div>
+  <div class="media-content">
+    <div>
+      <strong><%= model.good_name %></strong>
+      <span class="tag"><%= model.dispatch_i18n %></span>
+    </div>
+    <% if model.good.respond_to?(:parts) && model.good.parts.size > 0 %>
+      <ul class="media-info mt-1">
+        <% model.good.parts.each do |part| %>
+          <li><%= part.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if model.agent_id.present? %>
+      <div class="tags are-small has-addons mt-1">
+        <span class="tag is-info is-light">下单人</span>
+        <span class="tag is-light"><%= model.agent.name %></span>
+      </div>
+    <% end %>
+    <div class="flex justify-content-space-between mt-1">
+      <div class="has-v-centered">
+      <% if model.vip_code.present? %>
+        <div class="tags has-addons is-price control m-0 display-inline-flex">
+          <div class="tag is-danger">
+            <i class="fa-solid fa-badge-check"></i>
+            <span class="ml-1"><%= model.vip_code %></span>
+          </div>
+          <span class="tag is-right"><%= model.single_price.to_money.format.html_safe %></span>
+        </div>
+        <span class="text-through"><%= model.good.price.to_money.format.html_safe %></span>
+      <% else %>
+        <span><%= model.single_price.to_money.format.html_safe %></span>
+      <% end %>
+      </div>
+      <%= button_to({ controller: 'trade/my/items', action: 'destroy', id: model.id }, method: :delete, params: { current_cart_id: @cart.id }, class: 'mr-1') do %>
+        <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
