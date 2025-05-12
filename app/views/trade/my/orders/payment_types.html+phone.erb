@@ -1,23 +1,5 @@
 <%= render 'order_for_payment' %>
 
-<%= form_with theme: nil, model: @order, url: { action: @order.payment_types.include?('Trade::WalletPayment') ? 'payment_pending' : 'payment_confirm' }, method: :post do |f| %>
-  <% if @order.payment_orders.select(&:new_record?).present? %>
-  <div class="box is-padding-less">
-    <div class="box-body">
-      <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
-        <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
-          <%= render partial: 'payment_wallet', locals: { payment_order: payment_order, f: f } %>
-        <% elsif payment_order.payment.is_a?(Trade::WalletPayment) %>
-          <%= render partial: 'payment_lawful_wallet', locals: { payment_order: payment_order, f: f } %>
-        <% elsif payment_order.payment.is_a?(Trade::WxpayPayment) %>
-          <%= render partial: 'payment_wxpay', locals: { payment_order: payment_order, f: f } %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-  <% end %>
-<% end %>
-
 <% if @order.all_paid? %>
 <div class="box">
   <p class="text-centered">订单已完成支付</p>
