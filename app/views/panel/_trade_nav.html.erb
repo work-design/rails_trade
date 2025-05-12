@@ -1,13 +1,13 @@
-<div class="menu ex-accordion is-active">
-  <%= link_to({ controller: 'trade/panel/home' }, text: true, class: 'menu-label') do %>
+<div class="menu-list">
+  <%= link_to({ controller: 'trade/panel/home' }, text: true, data: { turbo_frame: 'body', action: 'menu#enter' }, class: 'menu-item') do %>
     <div>
       <i class="fa-solid fa-shopping-cart fa-fw"></i>
       <span><%= t('trade.panel.title') %></span>
     </div>
   <% end %>
-  <div class="menu-list">
-    <%= link_to t('trade.panel.orders.index.title'), { controller: 'trade/panel/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', active: 'is-active') %>
-    <%= link_to t('trade.panel.items.index.title'), { controller: 'trade/panel/items' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'items', active: 'is-active') %>
-    <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/panel/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'payments', active: 'is-active') %>
+  <div class="menu-list pl-3">
+    <%= link_to t('trade.panel.orders.index.title'), { controller: 'trade/panel/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'orders', item: 'menu-item', active: 'menu-item is-active') %>
+    <%= link_to t('trade.panel.items.index.title'), { controller: 'trade/panel/items' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'items', item: 'menu-item', active: 'menu-item is-active') %>
+    <%= link_to t('trade.admin.payments.index.title'), { controller: 'trade/panel/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'payments', item: 'menu-item', active: 'menu-item is-active') %>
   </div>
 </div>
