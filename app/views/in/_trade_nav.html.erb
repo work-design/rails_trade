@@ -5,7 +5,7 @@
       <span><%= t('trade.in.title') %></span>
     </div>
   <% end %>
-  <div class="menu-list pl-3">
+  <div class="pl-4">
     <%= link_to t('trade.in.orders.index.title'), { controller: 'trade/in/orders' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'trade/in/orders', item: 'menu-item', active: 'menu-item is-active') %>
     <%= link_to t('trade.in.payments.index.title'), { controller: 'trade/in/payments' }, data: { turbo_frame: 'body', action: 'menu#enter' }, class: active_helper(controllers: 'trade/in/orders', item: 'menu-item', active: 'menu-item is-active') %>
   </div>
