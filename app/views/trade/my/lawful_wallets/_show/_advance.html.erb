@@ -1,8 +1,9 @@
 <div class="column is-one-third">
-  <%= form_with model: @order, url: { controller: 'orders', action: 'add' } do |f| %>
+  <%= form_with model: @order, url: { controller: 'orders', action: 'create' } do |f| %>
     <%= f.fields :items do |ef| %>
       <%= ef.hidden_field :good_type, value: advance.base_class_name %>
       <%= ef.hidden_field :good_id, value: advance.id %>
+      <%= ef.hidden_field :status, value: 'ordered' %>
     <% end %>
     <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth', disabled: disabled do %>
       <div class="description text-danger">
