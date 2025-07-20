@@ -1,5 +1,5 @@
 module Trade
-  class Panel::PaymentsController < Admin::PaymentsController
+  class Panel::PaymentsController < Panel::BaseController
     before_action :set_payment, only: [:show, :edit, :update, :analyze, :adjust, :destroy]
     before_action :set_order, only: [:order_new, :order_create]
     before_action :set_new_payment, only: [:new, :create, :order_new]
