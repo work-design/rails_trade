@@ -21,3 +21,4 @@
   <p><%= model.operator&.name %></p>
   <p class="text-grey size-7"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
+<td><%= render partial: 'index_tr_actions', locals: { model: model } %></td>

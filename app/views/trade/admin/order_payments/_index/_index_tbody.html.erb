@@ -4,3 +4,6 @@
 <td><%= model.payment_amount.to_money(model.payment.currency).format.html_safe %></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
 <td></td>
+<td>
+  <%= link_to '退款', { controller: 'refunds', action: 'new', payment_id: model.payment_id, order_id: model.order_id } %>
+</td>

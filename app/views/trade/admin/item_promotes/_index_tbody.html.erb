@@ -3,3 +3,4 @@
 <td><%= model.amount.to_money.format.html_safe %></td>
 <td><%= model.status_i18n %></td>
 <td><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></td>
+<td><%= render partial: 'index_tr_actions', locals: { model: model } %></td>

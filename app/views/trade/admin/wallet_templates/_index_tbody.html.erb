@@ -20,3 +20,27 @@
     <span>（<%= model.wallets_count %>）</span>
   <% end %>
 </td>
+<td>
+  <div data-show-target="item" class="visibility-hidden">
+    <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-pencil text-link"></i>
+    <% end %>
+    <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, data: { turbo_confirm: t('.destroy.confirm') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-trash text-danger"></i>
+    <% end %>
+  </div>
+  <div data-show-target="item" class="visibility-hidden">
+    <%= link_to({ controller: 'advances', wallet_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-donate text-success"></i>
+      <span class="pl-1"><%= t('.advances.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'wallet_prepayments', wallet_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-archive"></i>
+      <span class="pl-1"><%= t('.wallet_prepayments.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'wallet_goods', wallet_template_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-cogs"></i>
+      <span class="pl-1"><%= t('.wallet_goods.index.title') %></span>
+    <% end %>
+  </div>
+</td>
