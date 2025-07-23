@@ -1,4 +1,4 @@
 <tr id="checked_<%= model.id %>">
-  <%= yield %>
+
   <%= link_to '退款', { controller: 'refunds', action: 'new', payment_id: model.payment_id, order_id: model.order_id } %>
-</tr>
+

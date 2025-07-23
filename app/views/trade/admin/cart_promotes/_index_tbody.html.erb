@@ -12,3 +12,4 @@
 </td>
 <td><%= model.amount.to_money.format.html_safe %></td>
 <td><%= model.note %></td>
+<td><%= render partial: 'index_tr_actions', locals: { model: model } %></td>

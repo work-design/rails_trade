@@ -21,3 +21,26 @@
   <p><%= button_to cart.id, { controller: 'carts', action: 'show', id: cart.id } %></p>
 <% end %>
 </td>
+<td>
+  <div data-show-target="item" class="visibility-hidden">
+    <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-circle-info text-info"></i>
+    <% end %>
+    <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-pencil text-link"></i>
+    <% end %>
+    <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, data: { turbo_confirm: t('.destroy.confirm') }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-trash text-danger"></i>
+    <% end %>
+  </div>
+  <div data-show-target="item" class="visibility-hidden">
+    <%= link_to({ controller: 'card_purchases', card_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-gem text-primary"></i>
+      <span class="ml-1"><%= t('.card_purchases.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/card/promote_goods', card_template_id: model.card_template_id, card_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <i class="fa-solid fa-tags text-success"></i>
+      <span class="ml-1"><%= t('.promote_goods.index.title') %></span>
+    <% end %>
+  </div>
+</td>

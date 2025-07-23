@@ -4,7 +4,7 @@
   data-show-toggle-value="display-none"
   data-action="mouseenter->show#show mouseleave->show#hide"
 >
-  <%= yield %>
+
   <td>
     <div data-show-target="item" class="visibility-hidden">
       <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
@@ -27,5 +27,5 @@
       <% end %>
     </div>
   </td>
-</tr>
+
 <%= render partial: 'purchase_tbody', layout: 'purchase_tr', collection: model.purchase_items.select(&:persisted?), as: :model %>
