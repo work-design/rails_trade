@@ -18,7 +18,7 @@ module Trade
       attribute :step, :decimal, default: 1, comment: 'Item Number Step'
 
       has_many :items, class_name: 'Trade::Item', as: :good
-      has_many :orders, through: :items, source: :trade
+      has_many :orders, class_name: 'Trade::Order', through: :items, source: :order
       has_many :addresses, -> { distinct }, class_name: 'Ship::Address', through: :items
 
       has_many :promote_goods, class_name: 'Trade::PromoteGood', as: :good
