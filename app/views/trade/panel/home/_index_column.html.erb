@@ -1,0 +1,19 @@
+<div class="fixed-grid has-5-cols">
+  <div class="grid">
+    <%= link_to({ controller: 'trade/panel/units' }, data: { turbo_frame: 'body', action: 'menu-popup#enter' }, class: active_helper(controllers: 'units', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.panel.units.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/panel/exchange_rates' }, data: { turbo_frame: 'body', action: 'menu-popup#enter' }, class: active_helper(controllers: 'exchange_rates', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.panel.exchange_rates.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/panel/orders' }, data: { turbo_frame: 'body', action: 'menu-popup#enter' }, class: active_helper(controllers: 'orders', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.panel.orders.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/panel/items' }, data: { turbo_frame: 'body', action: 'menu-popup#enter' }, class: active_helper(controllers: 'items', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.panel.items.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/panel/payments' }, data: { turbo_frame: 'body', action: 'menu-popup#enter' }, class: active_helper(controllers: 'payments', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.payments.index.title') %></span>
+    <% end %>
+  </div>
+</div>
