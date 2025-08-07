@@ -2,18 +2,18 @@
 
   <td>
     <div data-show-target="item" class="visibility-hidden">
-      <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-circle-info text-info"></i>
+      <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'circle-info', class: 'icon text-info' %>
       <% end %>
-      <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil text-link"></i>
+      <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'pencil', class: 'icon text-link' %>
       <% end %>
-      <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, data: { turbo_confirm: t('.destroy.confirm') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-trash text-danger"></i>
+      <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, data: { turbo_confirm: t('.destroy.confirm') }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'trash', class: 'icon text-danger' %>
       <% end if model.is_a?(Trade::HandPayment) %>
     </div>
     <div data-show-target="item" class="mt-2 visibility-hidden">
-      <%= button_to({ controller: 'refunds', action: 'new', payment_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <%= button_to({ controller: 'refunds', action: 'new', payment_id: model.id }, class: 'button is-small is-borderless') do %>
         <i class="fa-solid fa-thumbs-down text-danger"></i>
         <span class="ml-1"><%= t('.refunds.new.title') %></span>
         <span class="pl-1"><%= model.refunds_count %></span>

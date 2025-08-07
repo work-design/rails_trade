@@ -40,14 +40,14 @@
 <td>
   <div data-show-target="item" class="visibility-hidden">
     <div class="mb-1">
-      <%= button_to({ controller: 'orders', action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-circle-info text-info"></i>
+      <%= button_to({ controller: 'orders', action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'circle-info', class: 'icon text-info' %>
       <% end %>
-      <%= button_to({ controller: 'orders', action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil text-link"></i>
+      <%= button_to({ controller: 'orders', action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'pencil', class: 'icon text-link' %>
       <% end %>
-      <%= button_to({ controller: 'orders', action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-trash text-danger"></i>
+      <%= button_to({ controller: 'orders', action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'trash', class: 'icon text-danger' %>
       <% end %>
     </div>
     <div>
@@ -61,12 +61,12 @@
         <% end %>
       <% end %>
       <% if ['unpaid'].include?(model.payment_status) %>
-        <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-borderless') do %>
           <i class="fa-solid fa-pen-clip text-primary"></i>
           <span class="ml-1"><%= t('.adjust_edit.title') %></span>
         <% end %>
       <% end %>
-      <%= link_to({ action: 'purchase', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+      <%= link_to({ action: 'purchase', id: model.id }, class: 'button is-small is-borderless') do %>
         <i class="fa-solid fa-pen-clip text-link"></i>
         <span class="ml-1"><%= t('.purchase.title') %></span>
       <% end %>

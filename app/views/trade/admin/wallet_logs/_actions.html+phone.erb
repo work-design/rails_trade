@@ -1,4 +1,4 @@
 <%= link_to({ action: 'show', id: model.id }, class: 'cell') do %>
-  <i class="fa-solid fa-circle-info"></i>
+  <%= svg_tag 'circle-info', class: 'icon text-info' %>
   <span><%= t('.show.title') %></span>
 <% end %>

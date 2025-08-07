@@ -17,13 +17,13 @@
 <td><%= model.income_amount.to_money.format.html_safe %></td>
 <td>
   <p>
-    <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, class: 'button is-small is-borderless') do %>
       <span class="text-grey"><%= t('.wallet_advances.index.title') %></span>
       <span class="pl-1"><%= model.advances_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
   <p class="mt-2">
-    <%= link_to({ controller: 'wallet_sells', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'wallet_sells', wallet_id: model.id }, class: 'button is-small is-borderless') do %>
       <span class="text-grey"><%= t('.wallet_sells.index.title') %></span>
       <span class="pl-1"><%= model.sells_amount.to_money.format.html_safe %></span>
     <% end %>
@@ -34,13 +34,13 @@
 </td>
 <td>
   <p>
-    <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, class: 'button is-small is-borderless') do %>
       <span class="text-grey"><%= t('.wallet_payments.index.title') %></span>
       <span class="ml-1"><%= model.payment_amount.to_money.format.html_safe %></span>
     <% end %>
   </p>
   <p>
-    <%= link_to({ controller: 'payouts', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'payouts', wallet_id: model.id }, class: 'button is-small is-borderless') do %>
       <span class="text-grey"><%= t('.payouts.index.title') %></span>
       <span class="ml-1"><%= model.payout_amount.to_money.format.html_safe %></span>
     <% end %>
@@ -51,18 +51,18 @@
 </td>
 <td>
   <div data-show-target="item" class="visibility-hidden">
-    <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-circle-info text-info"></i>
+    <%= button_to({ action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'circle-info', class: 'icon text-info' %>
     <% end %>
-    <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-pencil text-link"></i>
+    <%= button_to({ action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'pencil', class: 'icon text-link' %>
     <% end %>
-    <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-rounded is-light') do %>
-      <i class="fa-solid fa-trash text-danger"></i>
+    <%= button_to({ action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'trash', class: 'icon text-danger' %>
     <% end %>
   </div>
   <div data-show-target="item" class="visibility-hidden">
-    <%= link_to({ controller: 'wallet_logs', wallet_id: model.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= link_to({ controller: 'wallet_logs', wallet_id: model.id }, class: 'button is-small is-borderless') do %>
       <i class="fa-solid fa-clock-rotate-left text-primary"></i>
       <span class="pl-1"><%= t('.wallet_logs.index.title') %></span>
     <% end %>

@@ -3,7 +3,7 @@
   <td colspan="<%= @order.aim_rent? ? '3' : '2' %>"></td>
   <td class="text-danger"><%= cart_promote.amount.to_money.format.html_safe %></td>
   <td>
-    <%= button_to({ controller: 'cart_promotes', action: 'edit', id: cart_promote.id }, class: 'button is-small is-rounded is-light') do %>
+    <%= button_to({ controller: 'cart_promotes', action: 'edit', id: cart_promote.id }, class: 'button is-small is-borderless') do %>
       <i class="fa-solid fa-pencil"></i>
     <% end if cart_promote.promote.editable %>
   </td>

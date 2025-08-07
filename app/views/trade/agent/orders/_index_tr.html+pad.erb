@@ -2,12 +2,12 @@
   <%= yield %>
   <td>
     <div>
-      <%= button_to({ action: 'edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
-        <i class="fa-solid fa-pencil text-link"></i>
+      <%= button_to({ action: 'edit', id: model.id }, class: 'button is-small is-borderless') do %>
+        <%= svg_tag 'pencil', class: 'icon text-link' %>
         <span class="ml-1"><%= t('.edit.title') %></span>
       <% end %>
       <% if ['unpaid'].include?(model.payment_status) %>
-        <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-rounded is-light') do %>
+        <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-borderless') do %>
           <i class="fa-solid fa-pen-clip text-primary"></i>
           <span class="ml-1"><%= t('.adjust_edit.title') %></span>
         <% end %>

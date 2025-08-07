@@ -3,7 +3,7 @@
 </td>
 <td colspan="3"></td>
 <td>
-  <%= link_to({ controller: 'lawful_wallets' }, aria: { label: t('trade.admin.lawful_wallets.index.title') }, class: 'button is-small is-rounded is-light') do %>
+  <%= link_to({ controller: 'lawful_wallets' }, aria: { label: t('trade.admin.lawful_wallets.index.title') }, class: 'button is-small is-borderless') do %>
     <i class="fa-solid fa-bars"></i>
     <span>（<%= Trade::LawfulWallet.default_where(default_params).count %>）</span>
   <% end %>
