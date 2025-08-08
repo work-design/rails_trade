@@ -1,0 +1,36 @@
+<div class="fixed-grid has-6-cols">
+  <p class="size-7 text-grey">销售</p>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/orders' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= @orders_count %></span>
+      <span><%= t('trade.admin.orders.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/payments' }, class: 'cell button is-fullwidth') do %>
+      <span><%= t('trade.admin.payments.index.title') %></span>
+    <% end %>
+  </div>
+  <p class="size-7 text-grey">会员</p>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/wallet_templates' }, class: 'cell button is-fullwidth') do %>
+      <span><%= t('trade.admin.wallet_templates.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/card_templates' }, class: 'cell button is-fullwidth') do %>
+      <span><%= t('trade.admin.card_templates.index.title') %></span>
+    <% end %>
+  </div>
+  <p class="size-7 text-grey">促销</p>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/promotes' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= t('trade.admin.promotes.index.title') %></span>
+    <% end %>
+  </div>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/items' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= @items_count %></span>
+      <span><%= t('trade.admin.items.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/carts' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%= t('trade.admin.carts.index.title') %></span>
+    <% end %>
+  </div>
+</div>
