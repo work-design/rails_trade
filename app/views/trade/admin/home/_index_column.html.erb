@@ -2,11 +2,24 @@
   <p class="size-7 text-grey">销售</p>
   <div class="grid">
     <%= link_to({ controller: 'trade/admin/orders' }, class: 'cell button is-fullwidth flex-direction-column') do %>
-      <span><%= @orders_count %></span>
+      <span><%# @orders_count %></span>
       <span><%= t('trade.admin.orders.index.title') %></span>
     <% end %>
     <%= link_to({ controller: 'trade/admin/payments' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('trade.admin.payments.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/items' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+      <span><%# @items_count %></span>
+      <span><%= t('trade.admin.items.index.title') %></span>
+    <% end %>
+  </div>
+  <p class="size-7 text-grey">财务管理</p>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/orders', action: 'unpaid' }, class: active_helper(controllers: 'orders', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.orders.unpaid.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/refunds' }, class: active_helper(controllers: 'refunds', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.refunds.index.title') %></span>
     <% end %>
   </div>
   <p class="size-7 text-grey">会员</p>
@@ -20,17 +33,32 @@
   </div>
   <p class="size-7 text-grey">促销</p>
   <div class="grid">
-    <%= link_to({ controller: 'trade/admin/promotes' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+    <%= link_to({ controller: 'trade/admin/promotes' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('trade.admin.promotes.index.title') %></span>
     <% end %>
-  </div>
-  <div class="grid">
-    <%= link_to({ controller: 'trade/admin/items' }, class: 'cell button is-fullwidth flex-direction-column') do %>
-      <span><%= @items_count %></span>
-      <span><%= t('trade.admin.items.index.title') %></span>
+    <%= link_to({ controller: 'trade/admin/additions' }, class: active_helper(controllers: ['additions', 'addition_charges'], item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.additions.index.title') %></span>
     <% end %>
-    <%= link_to({ controller: 'trade/admin/carts' }, class: 'cell button is-fullwidth flex-direction-column') do %>
+  </div>
+  <p class="size-7 text-grey">消费者管理</p>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/carts' }, class: 'cell button is-fullwidth') do %>
       <span><%= t('trade.admin.carts.index.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/carts', action: 'user' }, class: active_helper(controllers: 'carts', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.carts.user.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/carts', action: 'member_organ' }, class: active_helper(controllers: 'carts', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.carts.member_organ.title') %></span>
+    <% end %>
+    <%= link_to({ controller: 'trade/admin/payment_methods' }, class: active_helper(controllers: 'payment_methods', item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.payment_methods.index.title') %></span>
+    <% end %>
+  </div>
+  <p class="size-7 text-grey">配置</p>
+  <div class="grid">
+    <%= link_to({ controller: 'trade/admin/payment_strategies' }, class: active_helper(controllers: ['payment_strategies'], item: 'cell button is-fullwidth', active: 'cell button is-fullwidth is-active')) do %>
+      <span><%= t('trade.admin.payment_strategies.index.title') %></span>
     <% end %>
   </div>
 </div>
