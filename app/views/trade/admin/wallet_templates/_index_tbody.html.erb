@@ -35,12 +35,12 @@
       <span class="pl-1"><%= t('.advances.index.title') %></span>
     <% end %>
     <%= link_to({ controller: 'wallet_prepayments', wallet_template_id: model.id }, class: 'button is-small is-borderless') do %>
-      <i class="fa-solid fa-archive"></i>
-      <span class="pl-1"><%= t('.wallet_prepayments.index.title') %></span>
+      <%= svg_tag 'box-archive' %>
+      <span class="ml-1"><%= t('.wallet_prepayments.index.title') %></span>
     <% end %>
     <%= link_to({ controller: 'wallet_goods', wallet_template_id: model.id }, class: 'button is-small is-borderless') do %>
-      <i class="fa-solid fa-cogs"></i>
-      <span class="pl-1"><%= t('.wallet_goods.index.title') %></span>
+      <%= svg_tag 'gears' %>
+      <span class="ml-1"><%= t('.wallet_goods.index.title') %></span>
     <% end %>
   </div>
 </td>
