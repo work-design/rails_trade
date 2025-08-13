@@ -12,7 +12,7 @@
         <i class="fa-solid fa-sync"></i>
       <% end %>
       <%= button_to({ controller: 'items', action: 'destroy', id: item.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-borderless') do %>
-        <%= svg_tag 'trash', class: 'icon' %>
+        <%= svg_tag 'trash' %>
       <% end %>
     </div>
   </td>
