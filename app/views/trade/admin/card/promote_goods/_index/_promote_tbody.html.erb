@@ -2,7 +2,7 @@
   <td><%= model.name %></td>
   <td>
     <%= button_to({ action: 'new', promote_id: model.id }, class: 'button is-small is-link') do %>
-      <i class="fa-solid fa-plus"></i>
+      <%= svg_tag 'plus' %>
       <span class="ml-1"><%= t('.new.title') %></span>
     <% end %>
   </td>

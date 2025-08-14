@@ -3,11 +3,11 @@
   <td>
     <div class="buttons are-small">
       <%= button_to({ action: 'new' }, params: { good_type: model[1] }, class: 'button is-small is-link') do %>
-        <i class="fa-solid fa-plus"></i>
+        <%= svg_tag 'plus' %>
         <span class="ml-1"><%= t('.new.title') %></span>
       <% end %>
       <%= button_to({ action: 'part_new', good_type: model[1] }, class: 'button is-small is-link') do %>
-        <i class="fa-solid fa-plus"></i>
+        <%= svg_tag 'plus' %>
         <span class="ml-1"><%= t('.part_new.title') %></span>
       <% end %>
     </div>

@@ -1,6 +1,6 @@
 <div data-controller="sticky-bottom" class="sticky-bottom">
   <%= link_to({ action: 'new' }, class: 'button is-medium') do %>
-    <i class="fa-solid fa-plus"></i>
+    <%= svg_tag 'plus' %>
     <span><%= t('.new.title') %></span>
   <% end %>
 </div>
