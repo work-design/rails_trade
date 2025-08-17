@@ -347,6 +347,7 @@ module Trade
 
     def find_item(**options)
       args = attr_options(**options)
+      logger.debug "\e[35m  Current Cart: #{id}, Options: #{options}, Args: #{args}  \e[0m"
       cart_items.find(&->(i){ i.attributes.slice(*args.keys) == args })
     end
 
