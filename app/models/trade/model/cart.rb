@@ -371,11 +371,7 @@ module Trade
     def attr_options(**options)
       options.transform_values! { |i| i.presence }
       args = { good_type: good_type, aim: aim }
-      args.merge! options.slice(:good_type, :good_id, :aim, :dispatch, :contact_id, :member_id, :provide_id)
-
-      args.merge! good_id: options[:good_id].to_i if options[:good_id]
-      args.merge! purchase_id: options[:purchase_id].to_i if options[:purchase_id]
-      args.merge! scene_id: options[:scene_id].to_i if options[:scene_id]
+      args.merge! options.slice(:good_type, :good_id, :aim, :dispatch, :contact_id, :member_id, :provide_id, :purchase_id, :scene_id)
       args.merge! produce_on: options[:produce_on].to_date if options[:produce_on]
       args.stringify_keys!
     end
