@@ -1,7 +1,7 @@
 <div class="box is-padding-less">
   <div class="box-header as-bar">
     <%= link_to({ action: 'index' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
       <span><%= t('trade.my.wxpay_payments.index.title') %></span>
     <% end %>
     <div class="weui-title"></div>

@@ -1,11 +1,11 @@
 <div class="box as-bar">
   <% if @order.unpaid? %>
     <%= link_to({ controller: 'orders', action: 'unpaid' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% else %>
     <%= link_to({ controller: 'orders', action: 'unpaid' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% end %>
   <div class="weui-title"><%= @order.uuid %></div>

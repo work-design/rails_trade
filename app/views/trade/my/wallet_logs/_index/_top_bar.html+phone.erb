@@ -1,9 +1,9 @@
 <div class="box as-bar">
   <%= link_to({ controller: 'wallets', action: 'show', id: @wallet.id }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <%= svg_tag 'angle-left' %>
   <% end if @wallet.wallet_template_id %>
   <%= link_to({ controller: 'lawful_wallets', action: 'show' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <%= svg_tag 'angle-left' %>
   <% end unless @wallet.wallet_template_id %>
   <div class="weui-title"><%= t('.title') %></div>
   <i class="px-5"></i>

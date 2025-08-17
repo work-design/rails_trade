@@ -1,11 +1,11 @@
 <div class="box as-bar">
   <% if @payment.state_all_checked? %>
     <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% else %>
     <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% end %>
   <div class="weui-title"><%= @payment.payment_uuid %></div>

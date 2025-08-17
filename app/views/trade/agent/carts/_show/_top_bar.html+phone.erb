@@ -1,23 +1,23 @@
 <div class="box as-bar">
   <% if current_state %>
     <%= link_to(current_state.referer, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% elsif @cart.good_type == 'Factory::Production' %>
     <%= link_to({ controller: 'factory/agent/productions' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% elsif @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'use' %>
     <%= link_to({ controller: '/ship/box_hosts' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% elsif @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
     <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% elsif @cart.good_type == 'Bench::Facilitate' %>
     <%= link_to({ controller: '/bench/facilitates' }, class: 'px-4') do %>
-      <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+      <%= svg_tag 'angle-left' %>
     <% end %>
   <% end %>
   <span class="weui-title"><%= t('.title') %></span>

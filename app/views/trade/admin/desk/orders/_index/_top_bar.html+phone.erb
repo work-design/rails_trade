@@ -1,6 +1,6 @@
 <div class="box as-bar">
   <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'px-4') do %>
-    <i class="fa-solid fa-lg fa-fw-1 fa-angle-left"></i>
+    <%= svg_tag 'angle-left' %>
   <% end %>
   <div class="text-centered flex-grow-1">
     <p><%= @desk.name %></p>
