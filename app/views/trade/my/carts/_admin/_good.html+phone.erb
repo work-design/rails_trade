@@ -45,7 +45,7 @@
       <% end %>
       </div>
       <%= button_to({ controller: 'trade/my/items', action: 'destroy', id: model.id }, method: :delete, params: { current_cart_id: @cart.id }, class: 'mr-1') do %>
-        <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
+        <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
       <% end %>
     </div>
   </div>

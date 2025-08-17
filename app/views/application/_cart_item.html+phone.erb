@@ -2,11 +2,11 @@
   <div id="cart_item_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="has-v-centered">
     <% if item.number > 1 %>
       <button data-action="modify#minus" class="button_to mr-1">
-        <i class="fa-solid fa-xl fa-circle-minus text-grey"></i>
+        <%= svg_tag 'circle-minus', class: 'icon text-grey' %>
       </button>
     <% else %>
       <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'replace[][partial]': 'cart_item' }, class: 'mr-1', form: { data: { turbo_confirm: t('.destroy.confirm') } }) do %>
-        <i class="fa-solid fa-xl fa-circle-xmark text-grey"></i>
+        <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
       <% end %>
     <% end %>
     <%= form_with theme: nil, scope: 'item', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>
@@ -15,7 +15,7 @@
       <%= hidden_field_tag 'replace[][partial]', 'cart_item' %>
     <% end %>
     <button data-action="modify#plus" class="button_to ml-1">
-      <i class="fa-solid fa-xl fa-circle-plus text-grey"></i>
+      <%= svg_tag 'circle-plus', class: 'icon text-grey' %>
     </button>
   </div>
 <% else %>
@@ -29,7 +29,7 @@
     <%= f.hidden_field :station_id %>
     <%= f.hidden_field :desk_id %>
     <button type="submit" name="replace[][partial]" value="cart_item">
-      <i class="fa-solid fa-xl fa-circle-plus text-grey"></i>
+      <%= svg_tag 'circle-plus', class: 'icon text-grey' %>
     </button>
   <% end %>
 <% end %>

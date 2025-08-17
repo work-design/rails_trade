@@ -5,4 +5,7 @@ regular:
   - cart-plus
   - cart-shopping
   - circle-dollar-to-slot
+  - circle-minus
+  - circle-plus
+  - circle-xmark
   - gears
