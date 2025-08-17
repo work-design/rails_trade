@@ -18,12 +18,12 @@
     <% if @cart.can_order? %>
       <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-primary') do %>
         <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
-        <i class="fa-solid fa-angle-right"></i>
+        <%= svg_tag 'angle-right' %>
       <% end %>
     <% else %>
       <button class="button is-small is-primary" disabled>
         <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
-        <i class="fa-solid fa-angle-right"></i>
+        <%= svg_tag 'angle-right' %>
       </button>
     <% end %>
     </div>

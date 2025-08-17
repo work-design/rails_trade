@@ -18,13 +18,13 @@
 <div class="has-block-centered px-3">
 <% if @cart.can_order? %>
   <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-medium is-primary') do %>
-    <span class="pr-1">结算</span>
-    <i class="fa-solid fa-angle-right"></i>
+    <span class="mr-1">结算</span>
+    <%= svg_tag 'angle-right' %>
   <% end %>
 <% else %>
   <button class="button is-primary" disabled>
-    <span class="pr-1">结算</span>
-    <i class="fa-solid fa-angle-right"></i>
+    <span class="mr-1">结算</span>
+    <%= svg_tag 'angle-right' %>
   </button>
 <% end %>
 </div>

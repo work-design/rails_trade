@@ -8,7 +8,7 @@
   <%= f.hidden_field :station_id, value: params[:station_id] %>
   <%= f.hidden_field :desk_id, value: params[:desk_id] %>
   <%= button_tag class: 'button is-small is-warning is-radius' do %>
-    <i class="fa-solid fa-cart-plus"></i>
-    <span class="pl-1">加入购物车</span>
+    <%= svg_tag 'cart-plus' %>
+    <span class="ml-1">加入购物车</span>
   <% end %>
 <% end %>

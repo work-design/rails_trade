@@ -9,8 +9,8 @@
     <%= f.hidden_field :station_id %>
     <%= f.hidden_field :desk_id %>
     <button type="submit" class="button is-small is-danger">
-      <i class="fa-solid fa-cart-plus"></i>
-      <span class="pl-1"><%= t(".#{item_con.tr('/', '.')}.create.title") %></span>
+      <%= svg_tag 'cart-plus' %>
+      <span class="ml-1"><%= t(".#{item_con.tr('/', '.')}.create.title") %></span>
     </button>
   <% end %>
   <% if params[:payment_id] %>
@@ -25,8 +25,8 @@
       <%= f.hidden_field :station_id %>
       <%= f.hidden_field :desk_id %>
       <button type="submit" class="button is-small is-warning">
-        <i class="fa-solid fa-cart-plus"></i>
-        <span class="pl-1">自动计算</span>
+        <%= svg_tag 'cart-plus' %>
+        <span class="ml-1">自动计算</span>
       </button>
     <% end %>
   <% end %>

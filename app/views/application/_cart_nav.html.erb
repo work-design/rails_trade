@@ -22,7 +22,7 @@
     <div style="margin-right: -5px; margin-left: 5px">
       <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-fullwidth is-primary is-radius right-badge') do %>
         <span class="mr-1">去购物车</span>
-        <i class="fa-solid fa-angle-right"></i>
+        <%= svg_tag 'angle-right' %>
         <span class="weui-badge"><%= cart.cart_items.count %></span>
       <% end %>
     </div>
@@ -30,12 +30,12 @@
     <% if cart.can_order? %>
       <%= link_to({ controller: order_con, action: 'cart', current_cart_id: cart.id }, class: 'button is-fullwidth is-primary') do %>
         <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
-        <i class="fa-solid fa-angle-right"></i>
+        <%= svg_tag 'angle-right' %>
       <% end %>
     <% else %>
       <button class="button is-fullwidth is-primary" disabled>
         <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
-        <i class="fa-solid fa-angle-right"></i>
+        <%= svg_tag 'angle-right' %>
       </button>
     <% end %>
     </div>

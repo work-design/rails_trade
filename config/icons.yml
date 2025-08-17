@@ -1,5 +1,8 @@
 regular:
+  - angle-left
+  - angle-right
   - box-archive
+  - cart-plus
   - cart-shopping
   - circle-dollar-to-slot
   - gears
