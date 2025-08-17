@@ -331,8 +331,8 @@ module Trade
     end
 
     def init_cart_item(params, **options)
-      options.with_defaults! dispatch: organ.dispatch if organ
       options.with_defaults! params.permit(:good_id, :purchase_id, :provide_id, :dispatch, :produce_on, :scene_id).to_h.to_options
+      options.with_defaults! dispatch: organ.dispatch if organ
 
       item = find_item(**options) || items.build(options)
       item.status = 'checked'
