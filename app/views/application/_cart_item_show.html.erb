@@ -10,7 +10,7 @@
   <% else %>
     <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'replace[][partial]': 'cart_item_show', 'replace[][layout]': 'cart_item_show_layout' }, class: 'button') do %>
       <span class="icon">
-        <i class="fa-solid fa-times"></i>
+        <%= svg_tag 'xmark' %>
       </span>
     <% end %>
   <% end %>
