@@ -1,5 +1,5 @@
 <% Trade::PromoteGood.options_i18n(:good_type).each do |text, good_type| %>
-  <%= link_to({ action: 'new', good_type: good_type }, data: { turbo_frame: 'modal' }, class: 'button is-link') do %>
+  <%= link_to({ action: 'new', good_type: good_type }, data: { turbo_frame: 'modal' }, class: 'button is-rounded is-primary') do %>
     <%= svg_tag 'plus' %>
     <span><%= text %></span>
     <span><%= t('.new.title') %></span>
