@@ -33,14 +33,13 @@ module Trade
     def get_agent_item(good_type:, good_id:, number: 1, **options)
       args = {
         'good_type' => good_type,
-        'good_id' => good_id.to_i,
+        'good_id' => good_id,
         'produce_on' => nil,
         'scene_id' => nil,
         'member_id' => nil
       }
+      args.merge! options.slice(:scene_id, :member_id)
       args.merge! 'produce_on' => options[:produce_on].to_date if options[:produce_on].present?
-      args.merge! 'scene_id' => options[:scene_id].to_i if options[:scene_id].present?
-      args.merge! 'member_id' => options[:member_id].to_i if options[:member_id].present?
 
       item = agent_items.carting.find(&->(i){ i.attributes.slice('good_type', 'good_id', 'produce_on', 'scene_id', 'member_id') == args }) || agent_items.build(args)
 
