@@ -15,7 +15,7 @@
   <div
     data-controller="wxpay"
     data-wxpay-options-value="<%= payment_order.payment.payee_app.app.js_config(session[:enter_url]).to_json %>"
-    data-wxpay-params-value="<%= { timestamp: @wxpay_order[:timeStamp], **@wxpay_order.slice(:nonceStr, :package, :signType, :paySign, :appId) }.to_json %>"
+    data-wxpay-params-value="<%= @wxpay_order.slice(:timeStamp, :nonceStr, :package, :signType, :paySign, :appId).to_json %>"
     data-action="click->wxpay#chooseWXPay"
     class="media"
   >
