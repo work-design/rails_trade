@@ -16,7 +16,7 @@
     data-controller="wxpay"
     data-wxpay-options-value="<%= payment_order.payment.payee_app.app.js_config(session[:enter_url]).to_json %>"
     data-wxpay-params-value="<%= @wxpay_order.slice(:timeStamp, :nonceStr, :package, :signType, :paySign, :appId).to_json %>"
-    data-action="click->wxpay#chooseWXPay"
+    data-action="click->wxpay#onBridgeReady"
     class="media"
   >
     <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image is-24x24' %></div>
