@@ -33,6 +33,7 @@ module Trade
           wechat_user: current_wechat_user,
           ip: request.remote_ip
         )
+        logger.debug "\e[35m  Wxpay Order:#{@wxpay_order}  \e[0m"
       end
     end
 
