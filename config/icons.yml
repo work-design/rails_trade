@@ -3,6 +3,7 @@ regular:
   - angle-right
   - bag-shopping
   - box-archive
+  - boxes-packing
   - cart-plus
   - cart-shopping
   - circle-dollar-to-slot
@@ -10,3 +11,5 @@ regular:
   - circle-plus
   - circle-xmark
   - gears
+  - handshake
+  - trash

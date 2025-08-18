@@ -5,7 +5,7 @@
   <div class="columns is-4-mobile flex is-vcentered is-centered m-0" data-empty-target="content">
     <%= link_to({ controller: 'trade/my/orders', state: 'init' }, class: 'column has-column-centered') do %>
       <div class="text-primary">
-        <i class="fa-solid fa-fw fa-xl fa-boxes-packing"></i>
+        <%= svg_tag 'boxes-packing', class: 'icon is-medium' %>
       </div>
       <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:state, 'init') %></span>
@@ -13,7 +13,7 @@
     <% end %>
     <%= link_to({ controller: 'trade/my/orders', state: 'done' }, class: 'column has-column-centered') do %>
       <div class="text-primary">
-        <i class="fa-solid fa-fw fa-xl fa-handshake-simple"></i>
+        <%= svg_tag 'handshake', class: 'icon is-medium' %>
       </div>
       <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:state, 'done') %></span>
@@ -21,7 +21,7 @@
     <% end %>
     <%= link_to({ controller: 'trade/my/orders', state: 'canceled' }, class: 'column has-column-centered') do %>
       <div class="text-primary">
-        <i class="fa-solid fa-fw fa-xl fa-trash"></i>
+        <%= svg_tag 'trash', class: 'icon is-medium' %>
       </div>
       <div class="text-grey size-7 mt-1">
         <span><%= Trade::Order.enum_i18n(:state, 'canceled') %></span>
