@@ -31,6 +31,7 @@ module Trade
       belongs_to :card, optional: true
       belongs_to :promote
       belongs_to :taxon, optional: true
+      belongs_to :part, optional: true
       belongs_to :good, polymorphic: true, optional: true
       belongs_to :master, ->(o){ where(good_id: nil, status: 'available', **o.master_filter) }, class_name: self.name, foreign_key: :promote_id, primary_key: :promote_id, counter_cache: :blacklists_count, optional: true
 
