@@ -4,7 +4,7 @@
 <div>
   <%= @rentable.rent_unit %>
   <%= link_to({ controller: 'rentables', action: 'edit' }, data: { turbo_frame: 'modal' }) do %>
-    <i class="fa-solid fa-pencil"></i>
+    <%= svg_tag 'pencil' %>
     <span><%= t('trade.admin.rentables.edit.title') %></span>
   <% end %>
 </div>

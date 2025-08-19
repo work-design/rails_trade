@@ -18,7 +18,7 @@
         <span class="ml-1"><%= t('.desk_edit.title') %></span>
       <% end %>
       <%= button_to({ action: 'contact_edit', id: model.id }, class: 'button is-small is-borderless') do %>
-        <i class="fa-solid fa-pencil text-info"></i>
+        <%= svg_tag 'pencil' %>
         <span class="ml-1"><%= t('.contact_edit.title') %></span>
       <% end %>
     </div>

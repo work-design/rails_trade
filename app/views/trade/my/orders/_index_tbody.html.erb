@@ -12,6 +12,6 @@
 <td>
   <span><%= model.note %></span>
   <%= button_to({ action: 'edit', id: model.id }, data: { show_target: 'item' }, aria: { label: t('.edit.title') }, class: 'pl-1 visibility-hidden') do %>
-    <i class="fa-solid fa-pencil text-grey"></i>
+    <%= svg_tag 'pencil' %>
   <% end %>
 </td>
