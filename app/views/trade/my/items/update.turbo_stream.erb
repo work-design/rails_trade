@@ -1,13 +1,14 @@
 <% if referer_controller.end_with?('carts') %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_footer', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
   <%= turbo_stream.replace 'dialog', partial: 'cart_promotes', locals: { cart: @item.current_cart } %>
-<% elsif referer_controller.end_with?('productions') %>
-  <%= turbo_stream.replace "product_summary_#{@item.good.product_id}", partial: 'product_summary', locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
-  <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
 <% else %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
 <% end %>
 
 <% params[:replace].each do |replace| %>
   <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+<% end %>
+
+<% params[:renew].each do |id, partial| %>
+  <%= turbo_stream.replace id, partial: partial, locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
 <% end %>

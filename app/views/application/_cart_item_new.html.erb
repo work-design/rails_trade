@@ -14,6 +14,7 @@
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'background-light text-centered', style: 'width: 30px' %>
       <%= hidden_field_tag 'replace[][partial]', 'cart_item_new' %>
+      <%= hidden_field_tag 'renew', renew %>
     <% end %>
     <button data-action="modify#plus" class="button_to ml-1">
       <%= svg_tag 'circle-plus', class: 'icon text-grey' %>
@@ -29,6 +30,7 @@
     <%= f.hidden_field :scene_id %>
     <%= f.hidden_field :station_id %>
     <%= f.hidden_field :desk_id %>
+    <%= hidden_field_tag 'renew', renew %>
     <button type="submit" name="replace[][partial]" value="cart_item_new" class="button is-small is-warning is-rounded">
       <%= svg_tag 'cart-plus' %>
       <span class="ml-1">加入购物车</span>
