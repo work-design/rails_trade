@@ -6,13 +6,15 @@
       <i class="weui-icon-checked"></i>
     </label>
   <% end %>
-  <div class="media-left">
   <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
-    <%= image_tag model.good.logo, class: 'image is-64x64' %>
+    <div class="media-left">
+      <%= image_tag model.good.logo, class: 'image is-64x64' %>
+    </div>
   <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>
-    <%= image_tag model.good.cover, class: 'image is-64x64' %>
+    <div class="media-left">
+      <%= image_tag model.good.cover, class: 'image is-64x64' %>
+    </div>
   <% end %>
-  </div>
   <div class="media-content">
     <div>
       <strong><%= model.good_name %></strong>
