@@ -1,11 +1,14 @@
 <% if item.persisted? %>
   <div id="cart_item_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="inline-flex align-items-center" style="width: fit-content">
     <div class="mr-3 text-danger"><%= item.amount.to_money.format.html_safe %></div>
-    <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, replace: [{ partial: 'cart_item_new' }, { partial: 'cart_item_add' }] }, form: { class: 'button_to mr-1' }) do %>
-      <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
-    <% end %>
-    <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1', disabled: item.number <= 1) do %>
-      <%= svg_tag 'circle-minus', class: 'icon text-grey' %>
+    <% if item.number <= 1 %>
+      <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, replace: [{ partial: 'cart_item_new' }, { partial: 'cart_item_add' }] }, form: { class: 'button_to mr-1' }) do %>
+        <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
+      <% end %>
+    <% else %>
+      <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1') do %>
+        <%= svg_tag 'circle-minus', class: 'icon text-grey' %>
+      <% end %>
     <% end %>
     <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
