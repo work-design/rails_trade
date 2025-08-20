@@ -5,7 +5,7 @@
         <%= svg_tag 'circle-minus', class: 'icon text-grey' %>
       </button>
     <% else %>
-      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'replace[][partial]': 'cart_item' }, class: 'mr-1', form: { data: { turbo_confirm: t('.destroy.confirm') } }) do %>
+      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'replace[][partial]': 'cart_item' }, class: 'mr-1') do %>
         <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
       <% end %>
     <% end %>
