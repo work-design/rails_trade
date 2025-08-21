@@ -16,10 +16,10 @@
     </div>
   <% end %>
   <div class="media-content">
-    <div>
-      <strong><%= model.good_name %></strong>
+    <p class="truncate"><%= model.good_name %></p>
+    <p class="mt-1">
       <span class="tag"><%= model.dispatch_i18n %></span>
-    </div>
+    </p>
     <% if model.good.respond_to?(:parts) && model.good.parts.size > 0 %>
       <ul class="media-info mt-1">
         <% model.good.parts.each do |part| %>
