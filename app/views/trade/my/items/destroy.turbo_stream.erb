@@ -8,7 +8,7 @@
 <% end %>
 
 <% params[:replace].each do |replace| %>
-  <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+  <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path, renew: params[:renew] } %>
 <% end if params[:replace] %>
 
 <% params[:renew].each do |id, partial| %>
