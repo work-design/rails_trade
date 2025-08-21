@@ -11,7 +11,7 @@
 
 <%= render partial: 'items', locals: { model: @order } %>
 
-<div class="box">
-  <strong>支付</strong>
+<div class="box px-0">
+  <p class="text-grey ml-3">支付</p>
   <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
 </div>

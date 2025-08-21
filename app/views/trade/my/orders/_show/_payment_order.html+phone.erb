@@ -3,7 +3,7 @@
   <div>
     <dt><%= Trade::Payment.human_attribute_name(:payment_uuid) %></dt>
     <dd data-controller="clipboard">
-      <span data-clipboard-target="source"><%= model.payment.payment_uuid %></span>
+      <span data-clipboard-target="source" class="truncate"><%= model.payment.payment_uuid %></span>
       <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
       <div data-clipboard-target="toast" class="display-none">
         <div class="weui-mask_transparent"></div>
