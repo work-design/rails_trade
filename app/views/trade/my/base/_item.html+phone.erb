@@ -16,7 +16,7 @@
     <% if item.good.respond_to?(:parts) && item.good.parts.count > 0 %>
       <ul class="media-info mt-1">
       <% item.good.parts.each do |part| %>
-        <li><%= part.name %></li>
+        <li class="truncate"><%= part.name %></li>
       <% end %>
       </ul>
     <% end %>
