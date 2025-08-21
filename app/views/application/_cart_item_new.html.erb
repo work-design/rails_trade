@@ -2,8 +2,16 @@
   <div id="cart_item_new_<%= item.cart_identity %>" data-controller="modify" data-modify-submit-value="true" data-modify-step-value="1" class="inline-flex align-items-center" style="width: fit-content">
     <div class="mr-3 text-danger"><%= item.amount.to_money.format.html_safe %></div>
     <% if item.number <= 1 %>
-      <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, replace: [{ partial: 'cart_item_new' }, { partial: 'cart_item_add' }] }, form: { class: 'button_to mr-1' }) do %>
-        <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
+      <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'destroy', id: item.id }, method: :delete, class: 'button_to mr-1' do |f| %>
+        <%= f.hidden_field :current_cart_id, value: cart.id %>
+        <%= f.hidden_field 'replace[][partial]', value: 'cart_item_new' %>
+        <%= f.hidden_field 'replace[][partial]', value: 'cart_item_add' %>
+        <% renew.each do |id, partial| %>
+          <%= hidden_field_tag "renew[#{id}]", partial, id: nil %>
+        <% end if defined?(renew) && renew %>
+        <%= button_tag do %>
+          <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
+        <% end %>
       <% end %>
     <% else %>
       <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1') do %>

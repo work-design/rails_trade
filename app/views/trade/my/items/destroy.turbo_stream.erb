@@ -13,3 +13,7 @@
 <% params[:replace].each do |replace| %>
   <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
 <% end if params[:replace] %>
+
+<% params[:renew].each do |id, partial| %>
+  <%= turbo_stream.replace id, partial: partial, locals: { production: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
+<% end if params[:renew] %>
