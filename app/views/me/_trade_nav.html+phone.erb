@@ -1,6 +1,6 @@
 <%= link_to({ controller: 'trade/agent/orders' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-list"></i>
+    <%= svg_tag 'list', class: 'icon is-medium' %>
   </div>
   <div class="size-7 text-grey text-centered mt-1">
     <p><%= t('trade.admin.orders.index.title') %></p>
@@ -9,7 +9,7 @@
 <% end %>
 <%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-list"></i>
+    <%= svg_tag 'list', class: 'icon is-medium' %>
   </div>
   <div class="size-7 text-grey text-centered mt-1">
     <p><%= t('trade.admin.orders.unpaid.title') %></p>
@@ -18,7 +18,7 @@
 <% end %>
 <%= link_to({ controller: 'trade/agent/payments', action: 'uncheck' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-cash-register"></i>
+    <%= svg_tag 'cash-register', class: 'icon is-medium' %>
   </div>
   <div class="size-7 text-grey text-centered mt-1">
     <p><%= t('trade.agent.payments.uncheck.title') %></p>
@@ -27,7 +27,7 @@
 <% end %>
 <%= link_to({ controller: 'trade/admin/orders' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-list"></i>
+    <%= svg_tag 'list', class: 'icon is-medium' %>
   </div>
   <div class="size-7 text-grey text-centered mt-1">
     <p><%= t('trade.admin.orders.index.title') %></p>
@@ -35,7 +35,7 @@
 <% end %>
 <%= link_to({ controller: 'trade/in/orders' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-list"></i>
+    <%= svg_tag 'list', class: 'icon is-medium' %>
   </div>
   <div class="size-7 text-grey text-centered mt-1">
     <p><%= t('trade.in.orders.index.title') %></p>
