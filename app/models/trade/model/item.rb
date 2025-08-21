@@ -345,7 +345,7 @@ module Trade
 
     def cart_options
       {
-        dispatch: dispatch
+        #dispatch: dispatch
       }
     end
 
