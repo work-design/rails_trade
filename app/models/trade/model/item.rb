@@ -338,7 +338,7 @@ module Trade
         elsif member_id
           "cart_#{good_id}_#{member_id}"
         else
-          "cart_#{good_id}"
+          "cart_#{good_id}_#{dispatch}"
         end
       end
     end
