@@ -14,6 +14,9 @@ regular:
   - circle-xmark
   - gears
   - handshake
+  - list
+  - list-ol
   - location-dot
   - pencil
+  - receipt
   - trash
