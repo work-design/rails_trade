@@ -16,7 +16,7 @@
   <div class="level-right mt-0 pr-4">
     <div class="level-item">
     <% if @cart.can_order? %>
-      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-primary') do %>
+      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-rounded is-primary') do %>
         <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
         <%= svg_tag 'angle-right' %>
       <% end %>
