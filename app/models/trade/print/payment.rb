@@ -7,8 +7,8 @@ module Trade
     end
 
     def print
-      if organ&.receipt_printer
-        organ.receipt_printer.printer.print do |pr|
+      if organ.receipt_printer
+        organ.receipt_printer.print do |pr|
           to_esc(pr)
         end
       end
