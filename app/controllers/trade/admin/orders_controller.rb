@@ -144,8 +144,7 @@ module Trade
 
     def print
       @order.print
-      flash.now[:notice] = '打印指令已发送'
-      render 'alert'
+      render 'alert_message', locals: { message: '打印指令已发送' }
     end
 
     def adjust_edit
