@@ -20,16 +20,16 @@
 <td>
   <% if model.state_confirmed? %>
     <%= button_to({ controller: 'payment_orders', action: 'cancel', payment_id: @payment.id, id: model.id }, class: 'button is-small is-warning') do %>
-      <i class="fa-solid fa-clock-rotate-left"></i>
+      <%= svg_tag 'clock-rotate-left' %>
       <span class="ml-1">撤销</span>
     <% end %>
     <%= button_to({ controller: 'payment_orders', action: 'refund', payment_id: @payment.id, id: model.id }, class: 'button is-small is-danger') do %>
-      <i class="fa-solid fa-clock-rotate-left"></i>
+      <%= svg_tag 'clock-rotate-left' %>
       <span class="ml-1"><%= t('.payment_orders.refund.title') %></span>
     <% end %>
   <% else %>
     <%= button_to({ controller: 'payment_orders', action: 'confirm', payment_id: @payment.id, id: model.id }, class: 'button is-small is-success') do %>
-      <i class="fa-solid fa-clock-rotate-left"></i>
+      <%= svg_tag 'clock-rotate-left' %>
       <span class="ml-1"><%= t('.payment_orders.confirm.title') %></span>
     <% end %>
   <% end %>
