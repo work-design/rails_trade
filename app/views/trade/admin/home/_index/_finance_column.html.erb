@@ -1,30 +1,30 @@
 <%= link_to({ controller: 'orders', action: 'unpaid' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
+    <%= svg_tag 'list', class: 'icon is-medium' %>
   </div>
   <div class="text-grey size-7 mt-1"><%= t('.orders.unpaid.title') %></div>
 <% end %>
 <%= link_to({ controller: 'payments' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
+    <%= svg_tag 'receipt', class: 'icon is-medium' %>
   </div>
   <div class="text-grey size-7 mt-1"><%= t('.payments.index.title') %></div>
 <% end %>
 <%= link_to({ controller: 'payment_methods' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
+    <%= svg_tag 'hand-holding-dollar', class: 'icon is-medium' %>
   </div>
   <div class="text-grey size-7 mt-1"><%= t('.payment_methods.index.title') %></div>
 <% end %>
 <%= link_to({ controller: 'carts', action: 'user' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dolla"></i>
+    <%= svg_tag 'users', class: 'icon is-medium' %>
   </div>
   <div class="text-grey size-7 mt-1"><%= t('.carts.user.title') %></div>
 <% end %>
 <%= link_to({ controller: 'carts', action: 'member_organ' }, class: 'cell has-column-centered') do %>
   <div class="text-primary">
-    <i class="fa-solid fa-fw fa-xl fa-hand-holding-dollar"></i>
+    <%= svg_tag 'building', class: 'icon is-medium' %>
   </div>
   <div class="text-grey size-7 mt-1"><%= t('.carts.member_organ.title') %></div>
 <% end %>

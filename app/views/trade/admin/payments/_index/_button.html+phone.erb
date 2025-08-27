@@ -1,6 +1,4 @@
-<div data-controller="sticky-bottom" class="sticky-bottom">
-  <%= link_to({ action: 'new' }, class: 'button is-medium') do %>
-    <%= svg_tag 'plus' %>
-    <span><%= t('.new.title') %></span>
-  <% end %>
-</div>
+<%= button_to({ action: 'new' }, class: 'button is-fullwidth is-primary mx-0', form: { class: 'is-fullwidth' }) do %>
+  <%= svg_tag 'plus' %>
+  <span><%= t('.new.title') %></span>
+<% end %>
