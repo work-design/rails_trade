@@ -9,7 +9,7 @@
   <span><%= t('.edit.title') %></span>
 <% end %>
 <%= link_to({ action: 'show' }, class: 'cell has-column-centered') do %>
-  <%= svg_tag 'circle-info', class: 'icon text-info' %>
+  <%= svg_tag 'eye', class: 'icon text-info' %>
   <span><%= t('.show.title') %></span>
 <% end %>
 <%= button_to({ action: 'print' }, class: 'text-danger', form: { class: 'cell has-column-centered' }) do %>

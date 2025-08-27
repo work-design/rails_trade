@@ -2,7 +2,7 @@
   <%= yield %>
   <td title="<%= model.id %>">
     <%= button_to({ controller: 'items', action: 'show', id: model.id }, class: 'button is-small is-borderless') do %>
-      <%= svg_tag 'circle-info', class: 'icon text-info' %>
+      <%= svg_tag 'eye', class: 'icon text-info' %>
       <span class="ml-1"><%= t('.show.title') %></span>
     <% end %>
     <%= button_to({ controller: 'items', action: 'edit', id: model.id }, class: 'button is-small is-borderless') do %>
