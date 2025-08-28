@@ -9,7 +9,7 @@
         <%= svg_tag 'pencil' %>
       <% end %>
       <%= button_to({ controller: 'items', action: 'compute', id: item.id }, method: :patch, aria: { label: t('trade.admin.items.compute.title') }, form: { data: { turbo_confirm: t('.compute.confirm') } }, class: 'button is-small is-borderless') do %>
-        <i class="fa-solid fa-sync"></i>
+        <%= svg_tag 'rotate' %>
       <% end %>
       <%= button_to({ controller: 'items', action: 'destroy', id: item.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-borderless') do %>
         <%= svg_tag 'trash' %>
