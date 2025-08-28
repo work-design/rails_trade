@@ -2,8 +2,8 @@
   <span><%= model.name %></span>
   <div class="is-several">
   <% if model.user %>
-    <i class="fa-solid fa-user"></i>
-    <span><%= model.user_id %></span>
+    <%= svg_tag 'user' %>
+    <span class="ml-1"><%= model.user_id %></span>
   <% end %>
   </div>
 </td>
