@@ -2,7 +2,7 @@
   <ul>
     <li class="<%= active_helper(action: 'index', active: 'is-active') %>">
       <%= link_to({ action: 'index' }) do %>
-        <i class="fa-solid fa-users"></i>
+        <%= svg_tag 'users' %>
         <span class="ml-1"><%= t('.index.title') %></span>
       <% end %>
     </li>
@@ -14,7 +14,7 @@
     </li>
     <li class="<%= active_helper(action: 'user', active: 'is-active') %>">
       <%= link_to({ action: 'user' }) do %>
-        <i class="fa-solid fa-users"></i>
+        <%= svg_tag 'users' %>
         <span class="ml-1"><%= t('.user.title') %></span>
       <% end %>
     </li>

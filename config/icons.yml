@@ -3,6 +3,7 @@ regular:
   - angle-right
   - arrow-left
   - bag-shopping
+  - bars
   - box-archive
   - boxes-packing
   - cart-plus
@@ -32,3 +33,4 @@ regular:
   - rotate
   - thumbs-down
   - trash
+  - users
