@@ -92,6 +92,8 @@ zh:
           import: 导入
           init: 预核销
           confirmed: 未预核销
+        uncheck:
+          title: 待核销
         item:
           show: 支付方式
           analyze: 分析支付方式
