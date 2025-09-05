@@ -2,30 +2,32 @@
   <div class="box-body">
     <span class="size-7 has-border-left-primary"><%= t('trade.admin.title') %></span>
   </div>
-  <div class="columns is-mobile is-multiline is-vcentered is-centered m-0 is-shadow" data-empty-target="content">
-    <%= link_to({ controller: 'trade/admin/orders' }, class: 'column is-one-quarter has-column-centered') do %>
-      <div class="text-primary">
-        <%= svg_tag 'list', class: 'icon is-medium' %>
-      </div>
-      <div class="text-grey size-7 mt-1"><%= t('trade.admin.orders.index.title') %></div>
-    <% end %>
-    <%= link_to({ controller: 'trade/admin/items' }, class: 'column is-one-quarter has-column-centered') do %>
-      <div class="text-primary">
-        <%= svg_tag 'list-ol', class: 'icon is-medium' %>
-      </div>
-      <div class="text-grey size-7 mt-1"><%= t('trade.admin.items.index.title') %></div>
-    <% end %>
-    <%= link_to({ controller: 'trade/admin/payments' }, class: 'column is-one-quarter has-column-centered') do %>
-      <div class="text-primary">
-        <%= svg_tag 'receipt', class: 'icon is-medium' %>
-      </div>
-      <div class="text-grey size-7 mt-1"><%= t('trade.admin.payments.index.title') %></div>
-    <% end %>
-    <%= link_to({ controller: 'trade/admin/scan_payments', action: 'new' }, class: 'column is-one-quarter has-column-centered') do %>
-      <div class="text-primary">
-        <%= svg_tag 'cash-register', class: 'icon is-medium' %>
-      </div>
-      <div class="text-grey size-7 mt-1"><%= t('trade.admin.scan_payments.new.title') %></div>
-    <% end %>
+  <div class="fixed-grid has-4-cols is-shadow p-3">
+    <div class="grid">
+      <%= link_to({ controller: 'trade/admin/orders' }, class: 'cell has-column-centered') do %>
+        <div class="text-primary">
+          <%= svg_tag 'list', class: 'icon is-medium' %>
+        </div>
+        <div class="text-grey size-7 mt-1"><%= t('trade.admin.orders.index.title') %></div>
+      <% end %>
+      <%= link_to({ controller: 'trade/admin/items' }, class: 'cell has-column-centered') do %>
+        <div class="text-primary">
+          <%= svg_tag 'list-ol', class: 'icon is-medium' %>
+        </div>
+        <div class="text-grey size-7 mt-1"><%= t('trade.admin.items.index.title') %></div>
+      <% end %>
+      <%= link_to({ controller: 'trade/admin/payments' }, class: 'cell has-column-centered') do %>
+        <div class="text-primary">
+          <%= svg_tag 'receipt', class: 'icon is-medium' %>
+        </div>
+        <div class="text-grey size-7 mt-1"><%= t('trade.admin.payments.index.title') %></div>
+      <% end %>
+      <%= link_to({ controller: 'trade/admin/scan_payments', action: 'new' }, class: 'cell has-column-centered') do %>
+        <div class="text-primary">
+          <%= svg_tag 'cash-register', class: 'icon is-medium' %>
+        </div>
+        <div class="text-grey size-7 mt-1"><%= t('trade.admin.scan_payments.new.title') %></div>
+      <% end %>
+    </div>
   </div>
 </div>
