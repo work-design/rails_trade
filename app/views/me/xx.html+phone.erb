@@ -1,0 +1,16 @@
+<%= link_to({ controller: 'trade/agent/orders' }, class: 'cell has-column-centered') do %>
+  <div class="text-primary">
+    <%= svg_tag 'list', class: 'icon is-medium' %>
+  </div>
+  <div class="size-7 text-grey text-centered mt-1">
+    <p><%= t('trade.admin.orders.index.title') %></p>
+  </div>
+<% end %>
+<%= link_to({ controller: 'trade/agent/orders', action: 'unpaid' }, class: 'cell has-column-centered') do %>
+  <div class="text-primary">
+    <%= svg_tag 'list', class: 'icon is-medium' %>
+  </div>
+  <div class="size-7 text-grey text-centered mt-1">
+    <p><%= t('trade.admin.orders.unpaid.title') %></p>
+  </div>
+<% end %>
