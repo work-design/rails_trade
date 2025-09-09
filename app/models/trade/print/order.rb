@@ -57,7 +57,7 @@ module Trade
     end
 
     def to_esc(pr)
-      pr.big_text organ.name
+      pr.text_big organ.name
       pr.qrcode(qrcode_show_url, y: 20)
       pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
       pr.text '已下单：'
@@ -79,7 +79,7 @@ module Trade
 
     def to_prepare_esc(pr)
       items.each do |item|
-        pr.big_text("#{item.good_name} x #{item.number.to_human}") if item.good
+        pr.text_big("#{item.good_name} x #{item.number.to_human}") if item.good
         pr.break_line
         pr.text "#{item.class.human_attribute_name(:desk_id)}：#{item.desk.name}" if item.desk
         pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
