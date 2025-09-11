@@ -14,11 +14,11 @@
     </div>
     <div>
       <%= link_to({ controller: 'card_purchases', card_id: model.id }, class: 'button is-small is-borderless') do %>
-        <i class="fa-solid fa-gem text-primary"></i>
+        <%= svg_tag 'gem' %>
         <span class="ml-1"><%= t('.card_purchases.index.title') %></span>
       <% end %>
       <%= link_to({ controller: 'trade/admin/card/promote_goods', card_template_id: model.card_template_id, card_id: model.id }, class: 'button is-small is-borderless') do %>
-        <i class="fa-solid fa-tags text-success"></i>
+        <%= svg_tag 'tags' %>
         <span class="ml-1"><%= t('.promote_goods.index.title') %></span>
       <% end %>
     </div>
