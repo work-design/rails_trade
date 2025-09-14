@@ -38,3 +38,5 @@ light:
   - thumbs-down
   - trash
   - users
+regular:
+  - angle-left

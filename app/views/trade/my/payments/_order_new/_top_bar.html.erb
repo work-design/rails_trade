@@ -1,6 +1,6 @@
 <div class="box as-bar">
   <%= link_to({ controller: 'orders', action: 'payment_types', id: @order.id }, class: 'px-4') do %>
-    <%= svg_tag 'angle-left' %>
+    <%= svg_tag 'angle-left', kind: 'regular' %>
   <% end %>
   <div class="weui-title"><%= @order.uuid %></div>
   <i class="px-5"></i>
