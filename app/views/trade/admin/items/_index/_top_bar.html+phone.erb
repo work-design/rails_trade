@@ -1,11 +1,11 @@
 <div class="box as-bar">
   <% if params[:desk_id] %>
     <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'px-4') do %>
-      <%= svg_tag 'angle-left' %>
+      <%= svg_tag 'angle-left', kind: 'regular' %>
     <% end %>
   <% else %>
     <%= link_to({ controller: 'home' }, class: 'px-4') do %>
-      <%= svg_tag 'angle-left' %>
+      <%= svg_tag 'angle-left', kind: 'regular' %>
     <% end %>
   <% end %>
   <div class="weui-title"><%= t('.title') %></div>

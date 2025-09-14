@@ -1,15 +1,15 @@
 <div class="box as-bar">
   <%= link_to({ controller: '/factory/productions' }, class: 'px-4') do %>
-    <%= svg_tag 'angle-left' %>
+    <%= svg_tag 'angle-left', kind: 'regular' %>
   <% end if @cart.good_type == 'Factory::Production' %>
   <%= link_to({ controller: '/ship/box_hosts' }, class: 'px-4') do %>
-    <%= svg_tag 'angle-left' %>
+    <%= svg_tag 'angle-left', kind: 'regular' %>
   <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'use' %>
   <%= link_to({ controller: '/ship/box_hosts', action: 'rent' }, class: 'px-4') do %>
-    <%= svg_tag 'angle-left' %>
+    <%= svg_tag 'angle-left', kind: 'regular' %>
   <% end if @cart.good_type == 'Ship::BoxHost' && @cart.aim == 'rent' %>
   <%= link_to({ controller: '/bench/facilitates' }, class: 'px-4') do %>
-    <%= svg_tag 'angle-left' %>
+    <%= svg_tag 'angle-left', kind: 'regular' %>
   <% end if @cart.good_type == 'Bench::Facilitate' %>
   <span class="weui-title">
     <span class="mr-1"><%= t('.title') %></span>
