@@ -17,6 +17,7 @@ light:
   - circle-plus
   - circle-xmark
   - comments
+  - credit-card
   - ellipsis-vertical
   - eye
   - gears
@@ -30,6 +31,7 @@ light:
   - location-dot
   - magnifying-glass
   - pen-clip
+  - pen-clip-slash
   - pencil
   - print
   - receipt

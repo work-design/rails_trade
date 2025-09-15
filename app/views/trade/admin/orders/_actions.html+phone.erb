@@ -7,7 +7,7 @@
   <span><%= t('.edit.title') %></span>
 <% end %>
 <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'cell has-column-centered text-primary') do %>
-  <i class="fa-solid fa-pen-clip"></i>
+  <%= svg_tag 'pen-clip-slash' %>
   <span><%= t('trade.admin.orders.adjust_edit.title') %></span>
 <% end %>
 <%= link_to({ action: 'show', id: model.id }, class: 'cell has-column-centered') do %>
@@ -15,7 +15,7 @@
   <span><%= t('.show.title') %></span>
 <% end %>
 <%= link_to({ controller: 'order_payments', order_id: model.id }, class: 'cell has-column-centered') do %>
-  <i class="fa-solid fa-credit-card"></i>
+  <%= svg_tag 'credit-card' %>
   <span><%= t('.order_payments.index.title') %></span>
 <% end %>
 <div
@@ -25,7 +25,7 @@
   class="cell has-column-centered"
   data-report-url="<%= url_for(controller: 'scan_payments', action: 'batch') %>"
 >
-  <i class="fa-solid fa-credit-card"></i>
+  <%= svg_tag 'credit-card' %>
   <span><%= t('.scan_payments.batch.title') %></span>
 </div>
 <% if model.organ.receipt_printer %>
