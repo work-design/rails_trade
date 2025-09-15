@@ -3,10 +3,10 @@
   <span><%= t('.edit.title') %></span>
 <% end %>
 <%= link_to({ action: 'show' }, class: 'cell') do %>
-  <%= svg_tag 'eye', class: 'icon text-info' %>
+  <%= svg_tag 'eye' %>
   <span><%= t('.show.title') %></span>
 <% end %>
 <%= link_to({ controller: 'trade/admin/promote_good_users', cart_id: model.id }, class: 'cell') do %>
-  <i class="fa-solid fa-gift text-success"></i>
+  <%= svg_tag 'gift' %>
   <span><%= t('trade.admin.promote_good_users.index.title') %></span>
 <% end %>
