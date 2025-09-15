@@ -1,11 +1,11 @@
 <nav class="fixed-grid has-3-cols">
   <div class="grid">
-    <div class="cell as-boxed has-column-centered p-3">
-      <p class="size-7">未付总额</p>
+    <div class="cell as-boxed has-column-centered py-3">
+      <p class="size-7">待收款总额</p>
       <strong><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></strong>
     </div>
-    <div class="cell as-boxed has-column-centered p-3">
-      <p class="size-7">订单数</p>
+    <div class="cell as-boxed has-column-centered py-3">
+      <p class="size-7">待收款订单</p>
       <strong><%= @orders.total_count %></strong>
     </div>
   </div>

@@ -1,14 +1,14 @@
 <div class="fixed-grid has-3-cols">
   <div class="grid">
-    <%= link_to({ action: 'unpaid' }, class: 'cell as-boxed has-column-centered p-3') do %>
-      <p class="size-7">未付总额</p>
+    <%= link_to({ action: 'unpaid' }, class: 'cell as-boxed has-column-centered py-3') do %>
+      <p class="size-7">待收款总额</p>
       <strong><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></strong>
     <% end %>
-    <div class="cell as-boxed has-column-centered p-3">
-      <p class="size-7">已收款</p>
+    <div class="cell as-boxed has-column-centered py-3">
+      <p class="size-7">已收款总额</p>
       <strong><%= @orders.unscope(:limit, :offset).sum(:received_amount).to_money.format.html_safe %></strong>
     </div>
-    <div class="cell as-boxed has-column-centered p-3">
+    <div class="cell as-boxed has-column-centered py-3">
       <p class="size-7">订单数</p>
       <strong><%= @orders.total_count %></strong>
     </div>

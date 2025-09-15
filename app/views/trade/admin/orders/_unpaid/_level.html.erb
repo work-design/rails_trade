@@ -1,13 +1,13 @@
 <nav class="level is-mobile">
   <div class="level-item text-centered">
     <div>
-      <p class="heading">未付总额</p>
+      <p class="heading">待收款总额</p>
       <p class="title"><%= @orders.unscope(:limit, :offset).sum(:unreceived_amount).to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
-      <p class="heading">订单数</p>
+      <p class="heading">待收款订单</p>
       <p class="title"><%= @orders.total_count %></p>
     </div>
   </div>
