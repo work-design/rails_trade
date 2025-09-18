@@ -160,3 +160,8 @@ zh:
         from_pay:
           true: 寄付
           false: 到付
+      org/organ:
+        dispatch:
+          delivery: 商家配送
+          fetch: 自提
+          dine: 堂食

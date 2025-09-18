@@ -1,0 +1,5 @@
+zh:
+  activerecord:
+    attributes:
+      org/organ:
+        dispatch: 配送方式
