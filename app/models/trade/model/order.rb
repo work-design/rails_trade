@@ -103,6 +103,7 @@ module Trade
       after_create_commit :send_notice_after_create
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
+      after_create_commit :increment_counts_to_organ
     end
 
     def filter_hash
@@ -538,6 +539,11 @@ module Trade
 
     def pending_payments
       Payment.to_check.where(organ_id: organ_id, total_amount: amount).default_where('created_at-gte': created_at).order(created_at: :asc)
+    end
+
+    def increment_counts_to_organ
+      organ.increment_json_counter('amount', num: amount)
+      organ.increment_json_counter('count')
     end
 
   end
