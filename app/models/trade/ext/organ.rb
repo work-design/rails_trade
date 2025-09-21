@@ -3,6 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
+      attribute :counters, :json, default: {}
       enum :dispatch, {
         delivery: 'delivery',
         dine: 'dine',
