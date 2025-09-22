@@ -1,6 +1,6 @@
-<%= button_to({ controller: 'profiled/my/addresses', action: 'order_from', from_address_id: @order.from_address_id }, class: 'media button is-fullwidth') do %>
+<%= button_to({ controller: 'ship/my/addresses', action: 'order_from', from_address_id: @order.from_address_id }, class: 'media button is-fullwidth') do %>
   <div class="media-left">
-    <i class="fa-solid fa-fw fa-location-dot text-success pr-2"></i>
+    <%= svg_tag 'location-dot' %>
   </div>
   <div class="media-content">
   <% if @order.from_address %>
