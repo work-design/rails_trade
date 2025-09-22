@@ -25,16 +25,16 @@
       class="button is-link"
       data-report-url="<%= url_for(controller: 'scan_payments', action: 'batch') %>"
     >
-      <i class="fa-solid fa-credit-card"></i>
+      <%= svg_tag 'credit-card' %>
       <span class="ml-1"><%= t('.scan_payments.batch.title') %></span>
     </div>
   <% end %>
   <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
-    <i class="fa-solid fa-cart-shopping"></i>
+    <%= svg_tag 'cart-shopping' %>
     <span class="ml-1"><%= t('.purchase.title') %></span>
   <% end %>
   <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-info') do %>
-    <i class="fa-solid fa-pen-clip"></i>
+    <%= svg_tag 'pen-clip' %>
     <span class="ml-1"><%= t('.adjust_edit.title') %></span>
   <% end %>
 </div>

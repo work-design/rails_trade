@@ -2,7 +2,7 @@
 <td>
   <%= link_to({ controller: 'in/orders', action: 'show', id: model.order_id }, target: '_blank') do %>
     <span class="tags has-addons display-inline-flex mb-0">
-      <span class="tag is-light"><i class="fa-solid fa-cart-shopping"></i></span>
+      <span class="tag is-light"><%= svg_tag 'cart-shopping' %></span>
       <span class="tag is-dark">采购单</span>
     </span>
     <span class="text-grey family-monospace"><%= model.order.uuid %></span>

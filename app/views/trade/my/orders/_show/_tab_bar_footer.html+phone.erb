@@ -18,11 +18,11 @@
     <% end if current_organ.service_url.present? %>
   <% end %>
   <%= link_to({ action: 'payment_types', id: @order.id }, class: 'button is-danger') do %>
-    <i class="fa-solid fa-credit-card"></i>
-    <span class="pl-1">支付</span>
+    <%= svg_tag 'credit-card' %>
+    <span class="ml-1">支付</span>
   <% end if @order.aim_use? && @order.can_pay? %>
   <%= link_to({ action: 'payment_frozen', id: @order.id }, class: 'button is-danger') do %>
-    <i class="fa-solid fa-credit-card"></i>
-    <span class="pl-1">支付</span>
+    <%= svg_tag 'credit-card' %>
+    <span class="ml-1">支付</span>
   <% end if @order.aim_rent? && @order.can_pay? %>
 </div>
