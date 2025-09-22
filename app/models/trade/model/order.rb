@@ -542,8 +542,7 @@ module Trade
     end
 
     def increment_counts_to_organ
-      organ.increment_json_counter('amount', num: amount)
-      organ.increment_json_counter('count')
+      organ.update_json_counter(amount: amount, count: count)
     end
 
   end
