@@ -12,6 +12,6 @@
       <%= f.radio_button :member_id, model.id, checked: model == current_client, class: 'weui-check', data: { action: 'click->input#form' } %>
       <span class="weui-icon-checked"></span>
     <% end %>
-    <i class="fa-solid fa-chevron-right text-grey is-size-6 pl-2"></i>
+    <%= svg_tag 'chevron-right' %>
   </span>
 </label>
