@@ -7,10 +7,10 @@
 >
   <div class="form-fields">
     <h1 class="title"><%= t('.title') %></h1>
-    <div class="control has-icons-right mx-3">
-      <%= f.number_field :total_amount, value: nil, label: nil, wrap: { input: 'field-body' }, all: { normal: nil }, min: 0.01, readonly: true, class: 'input text-right' %>
-      <div class="icon is-small is-right">
-        <span id="dot" hidden>.</span>
+    <div class="control has-icons-right">
+      <%= f.number_field :total_amount, value: nil, label: nil, wrap: { input: 'field-body' }, all: { normal: nil }, min: 0.01, readonly: true, class: 'input is-medium text-right' %>
+      <div class="icon is-right">
+        <span id="dot" class="invisible">.</span>
         <span class="pl-2">元</span>
       </div>
     </div>
