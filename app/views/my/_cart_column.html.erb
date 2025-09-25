@@ -1,40 +1,42 @@
-<div class="columns is-multiline is-mobile flex is-vcentered is-centered m-0 is-shadow">
-  <%= render partial: 'wallet', collection: @wallets, as: :wallet %>
-  <%= render partial: 'wallet_template', collection: @wallet_templates, as: :wallet_template %>
-  <%= link_to({ controller: 'trade/my/lawful_wallets', action: 'show', **params.permit(:global_member_id) }, class: 'column is-one-third has-column-centered') do %>
-    <div class="is-several">
-      <%= image_tag 'wallet.png', class: 'image is-16x16' %>
-      <span class="text-grey-dark size-7"><%= t('trade.my.lawful_wallets.show.title') %></span>
-    </div>
-    <div class="text-weight-medium text-danger-dark is-size-5">
-      <%= @lawful_wallet.amount.to_money.format.html_safe %>
-    </div>
-  <% end %>
-  <% @open_card_templates.each do |card_template| %>
-    <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'column is-one-third has-column-centered') do %>
+<div class="fixed-grid has-3-cols is-shadow-top p-3">
+  <div class="grid">
+    <%= render partial: 'wallet', collection: @wallets, as: :wallet %>
+    <%= render partial: 'wallet_template', collection: @wallet_templates, as: :wallet_template %>
+    <%= link_to({ controller: 'trade/my/lawful_wallets', action: 'show', **params.permit(:global_member_id) }, class: 'cell has-column-centered') do %>
       <div class="is-several">
-        <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
-        <span class="text-grey-dark size-7"><%= card_template.name %></span>
+        <%= image_tag 'wallet.png', class: 'image is-16x16' %>
+        <span class="text-grey-dark size-7"><%= t('trade.my.lawful_wallets.show.title') %></span>
       </div>
-      <div class="text-weight-medium text-danger-dark"><%= @cart.owned_text(card_template) %></div>
-    <% end %>
-  <% end %>
-  <% @card_templates.each do |card_template| %>
-    <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'column is-one-third has-column-centered') do %>
-      <div class="is-several">
-        <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
-        <span class="text-grey-dark size-7"><%= card_template.name %></span>
+      <div class="text-weight-medium text-danger-dark is-size-5">
+        <%= @lawful_wallet.amount.to_money.format.html_safe %>
       </div>
-      <div class="text-weight-medium text-danger-dark"><%= @cart.owned_text(card_template) %></div>
     <% end %>
-  <% end %>
-  <%= link_to({ controller: 'trade/my/promote_goods' }, class: 'column is-one-third has-column-centered') do %>
-    <div class="text-grey-dark">
-      <i class="fa-solid fa-tags text-primary"></i>
-      <span class="text-grey-dark size-7 pl-0"><%= t('trade.my.promote_goods.index.title') %></span>
-    </div>
-    <div class="text-weight-medium text-danger-dark is-size-5">
-      <%= @cart.promotes_count %>
-    </div>
-  <% end %>
+    <% @open_card_templates.each do |card_template| %>
+      <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'cell has-column-centered') do %>
+        <div class="is-several">
+          <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
+          <span class="text-grey-dark size-7"><%= card_template.name %></span>
+        </div>
+        <div class="text-weight-medium text-danger-dark"><%= @cart.owned_text(card_template) %></div>
+      <% end %>
+    <% end %>
+    <% @card_templates.each do |card_template| %>
+      <%= link_to({ controller: 'trade/my/card_templates', action: 'show', id: card_template.id }, class: 'cell has-column-centered') do %>
+        <div class="is-several">
+          <%= image_tag card_template.logo, class: 'image is-16x16' if card_template.logo.attached? %>
+          <span class="text-grey-dark size-7"><%= card_template.name %></span>
+        </div>
+        <div class="text-weight-medium text-danger-dark"><%= @cart.owned_text(card_template) %></div>
+      <% end %>
+    <% end %>
+    <%= link_to({ controller: 'trade/my/promote_goods' }, class: 'cell has-column-centered') do %>
+      <div class="text-grey-dark">
+        <%= svg_tag 'tags', class: 'icon is-small text-primary' %>
+        <span class="text-grey-dark size-7 pl-0"><%= t('trade.my.promote_goods.index.title') %></span>
+      </div>
+      <div class="text-weight-medium text-danger-dark is-size-5">
+        <%= @cart.promotes_count %>
+      </div>
+    <% end %>
+  </div>
 </div>
