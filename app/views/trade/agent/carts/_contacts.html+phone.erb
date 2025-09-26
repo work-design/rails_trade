@@ -1,9 +1,9 @@
-<div class="box is-padding-less mb-3">
-  <%= link_to({ controller: 'ship/agent/addresses', cart_id: @cart.id }, class: 'media') do %>
+<div class="box is-padding-less">
+  <%= link_to({ controller: 'crm/agent/contacts', cart_id: @cart.id }, class: 'media') do %>
     <div class="media-left">
       <%= svg_tag 'location-dot', class: 'icon is-small text-danger' %>
     </div>
-    <div class="weui-cell__bd">
+    <div class="media-content">
     <% if @cart.address %>
       <p>
         <span><%= @cart.address.contact %></span>
@@ -18,6 +18,8 @@
       <p>选择地址</p>
     <% end %>
     </div>
-    <div class="weui-cell__ft"></div>
+    <div class="media-right">
+      <%= svg_tag 'chevron-right' %>
+    </div>
   <% end %>
 </div>
