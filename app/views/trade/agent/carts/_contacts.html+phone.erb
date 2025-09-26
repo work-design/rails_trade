@@ -2,6 +2,7 @@
   <%= link_to({ controller: 'crm/me/contacts', action: 'cart', cart_id: @cart.id }, class: 'media') do %>
     <div class="media-left">
       <%= svg_tag 'user', class: 'icon is-small text-danger' %>
+      <span>客户</span>
     </div>
     <div class="media-content">
     <% if @cart.address %>
@@ -15,10 +16,11 @@
         <span><%= @cart.address.detail %></span>
       </p>
     <% else %>
-      <p>客户</p>
+
     <% end %>
     </div>
-    <div class="media-right">
+    <div class="media-right text-grey">
+      <span>选择客户</span>
       <%= svg_tag 'chevron-right' %>
     </div>
   <% end %>
