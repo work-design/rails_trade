@@ -1,5 +1,5 @@
 <div class="box is-padding-less">
-  <div class="box-body">
+  <div class="box-header">
     <% if model.aim != 'use' %>
       <span class="tag is-danger"><%= model.aim_i18n %></span>
     <% end %>
@@ -8,7 +8,7 @@
       <span class="tag is-danger"><%= model.payment_strategy.name %></span>
     <% end %>
   </div>
-  <div class="box-body">
+  <div class="box-body is-shadow-top">
     <%= render partial: 'item', collection: model.items.includes(:unit), as: :item %>
   </div>
 </div>

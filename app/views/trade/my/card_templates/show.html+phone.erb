@@ -7,8 +7,8 @@
 <% end %>
 
 <div class="box is-padding-less">
-  <div class="box-body">会员特权</div>
-  <div data-empty-target="content" class="fixed-grid has-3-count">
+  <div class="box-header">会员特权</div>
+  <div class="fixed-grid has-3-count">
     <div class="grid">
       <%= render partial: 'privilege', collection: @card_template.privileges, as: :privilege %>
     </div>
