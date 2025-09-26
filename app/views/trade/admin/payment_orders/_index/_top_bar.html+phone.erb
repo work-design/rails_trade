@@ -1,4 +1,4 @@
-<div class="box as-bar">
+<div class="as-bar">
   <% if @payment.state_all_checked? %>
     <%= link_to({ controller: 'payments' }, class: 'px-4') do %>
       <%= svg_tag 'angle-left', kind: 'regular' %>
@@ -8,6 +8,6 @@
       <%= svg_tag 'angle-left', kind: 'regular' %>
     <% end %>
   <% end %>
-  <div class="weui-title"><%= @payment.payment_uuid %></div>
+  <div class="bar-title"><%= @payment.payment_uuid %></div>
   <i class="px-5"></i>
 </div>

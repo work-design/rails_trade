@@ -1,8 +1,8 @@
-<div class="box as-bar">
+<div class="as-bar">
   <%= link_to({ controller: '/ship/box_specifications' }, class: 'px-4') do %>
     <%= svg_tag 'angle-left' %>
   <% end %>
-  <span class="weui-title">
+  <span class="bar-title">
     <span class="mr-1"><%= t('.title') %></span>
     <%= link_to(action: 'list', return_url: url_for) do %>
       <% if current_cart.member %>

@@ -1,4 +1,4 @@
-<div class="box as-bar">
+<div class="as-bar">
   <% if @order.items[0].good.is_a?(Trade::Advance) && @order.items[0].good.lawful %>
     <%= link_to({ controller: 'lawful_wallets', action: 'show' }, class: 'px-4') do %>
       <%= svg_tag 'angle-left', kind: 'regular' %>
@@ -12,7 +12,7 @@
       <%= svg_tag 'angle-left', kind: 'regular' %>
     <% end %>
   <% end %>
-  <div class="weui-title">
+  <div class="bar-title">
     <span class="pl-1"><%= t('.title') %></span>
   </div>
   <i class="px-5"></i>
