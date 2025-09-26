@@ -1,5 +1,12 @@
 <%= render 'contacts' %>
 
+<div class="fixed-grid has-2-cols">
+  <div class="grid">
+    <div class="cell box">扫码添加</div>
+    <div class="cell box">直接添加</div>
+  </div>
+</div>
+
 <div id="cart_body">
   <%= render partial: 'item', collection: @items, as: :model %>
 </div>
