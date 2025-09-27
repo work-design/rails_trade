@@ -1,4 +1,4 @@
-<div id="cart_nav" class="level is-mobile py-2 pl-4">
+<div id="cart_nav" class="level is-mobile px-3">
   <div class="level-left">
     <div class="size-7 flex-direction-column justify-content-center align-items-start">
       <p>
@@ -27,7 +27,7 @@
       </p>
     </div>
   </div>
-  <div class="level-right mt-0 p-2">
+  <div class="level-right mt-0">
   <% if @cart.can_order? %>
     <%= link_to({ controller: 'orders', action: 'cart', current_cart_id: @cart.id }, class: 'button is-primary') do %>
       <span class="mr-1">结算</span>
