@@ -14,7 +14,7 @@ module Trade
     end
 
     def item_params
-      params.fetch(:item, {}).permit(
+      params.permit(
         :number,
         :note,
         :desk_id

@@ -35,14 +35,14 @@ module Trade
     end
 
     def item_number_params
-      params.fetch(:item, {}).permit(
+      params.permit(
         :number,
         :single_price
       )
     end
 
     def item_params
-      params.fetch(:item, {}).permit(
+      params.permit(
         :good_type,
         :good_id,
         :purchase_id,
