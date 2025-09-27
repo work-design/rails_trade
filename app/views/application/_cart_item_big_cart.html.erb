@@ -3,6 +3,9 @@
     <%= f.hidden_field :current_cart_id, value: cart.id %>
     <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'input background-light text-centered', style: 'width: 60px; height: 100%; font-size: x-large' %>
     <%= hidden_field_tag 'replace[][partial]', 'cart_item_big_cart' %>
+    <% removes.each do |remove| %>
+      <%= hidden_field_tag 'removes[]', remove, id: nil %>
+    <% end %>
   <% end %>
   <div class="has-column-centered xx ml-1">
     <% if item.number > 1 %>
@@ -10,7 +13,7 @@
         <%= svg_tag 'minus' %>
       </button>
     <% else %>
-      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, 'remove[]': removes }, class: 'button is-small is-light is-danger', style: 'width: 60px') do %>
+      <%= button_to({ controller: item_con, action: 'destroy', id: item.id }, method: :delete, params: { current_cart_id: cart.id, removes: removes }, class: 'button is-small is-light is-danger', style: 'width: 60px') do %>
         <%= svg_tag 'xmark' %>
       <% end %>
     <% end %>
