@@ -2,8 +2,19 @@
 
 <div class="fixed-grid has-2-cols">
   <div class="grid">
-    <div class="cell box">扫码添加</div>
-    <div class="cell box">直接添加</div>
+    <div
+      data-controller="scan"
+      data-action="click->scan#report"
+      data-report-url="<%= url_for(controller: 'trade/agent/carts', action: 'show', id: @cart.id) %>"
+      class="cell button"
+    >
+      <%= svg_tag 'qrcode-read' %>
+      <span class="ml-1">扫码添加</span>
+    </div>
+    <%= link_to({ controller: 'factory/agent/productions' }, class: 'cell button') do %>
+      <%= svg_tag 'store' %>
+      <span class="ml-1">直接添加</span>
+    <% end %>
   </div>
 </div>
 

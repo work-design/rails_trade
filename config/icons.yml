@@ -35,6 +35,7 @@ light:
   - pen-clip-slash
   - pencil
   - print
+  - qrcode-read
   - receipt
   - rotate
   - tags
