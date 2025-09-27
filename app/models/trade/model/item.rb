@@ -442,11 +442,9 @@ module Trade
       return unless current_cart
 
       if current_cart.purchasable
-        purchase_cart.compute_amount
-        purchase_cart.save!
+        purchase_cart.compute_amount!
       else
-        current_cart.compute_amount
-        current_cart.save!
+        current_cart.compute_amount!
       end
 
       logger.debug "\e[33m  Item Object id: #{id}/#{object_id}"

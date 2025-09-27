@@ -372,10 +372,11 @@ module Trade
       args.stringify_keys!
     end
 
-    def sync_contact_to_items(contact)
+    def change_contact_to_items(contact, current_cart)
       agent_items.each do |agent_item|
-        agent_item.update(contact_id: contact.id)
+        agent_item.update(contact_id: contact.id, current_cart_id: current_cart.id)
       end
+      current_cart.compute_amount!
 
       maintain = agent.maintains.find_or_initialize_by(contact_id: contact.id)
       maintain.state = 'carted'
