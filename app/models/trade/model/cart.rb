@@ -405,7 +405,7 @@ module Trade
           options.with_defaults! good_type: 'Factory::Production', aim: 'use'
           options.with_defaults! params.permit(:desk_id, :station_id).to_h.to_options # 合并来自 params 的参数，转化为 symbol key
           create_options = ([:user_id, :member_id, :member_organ_id, :client_id, :contact_id, :agent_id] & column_names.map(&:to_sym)).each_with_object({}) { |i,h| h.merge! i => nil }.merge! options
-          options.with_defaults! ([:contact_id, :client_id, :agent_id] & column_names.map(&:to_sym)).each_with_object({}) { |i, h| h.merge! i => nil }
+          options.with_defaults! ([:agent_id, :contact_id, :client_id, :desk_id, :station_id] & column_names.map(&:to_sym)).each_with_object({}) { |i, h| h.merge! i => nil }
 
           cart = find_by(options) || create_or_find_by(create_options)
         end
