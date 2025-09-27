@@ -21,6 +21,7 @@ module Trade
     private
     def set_cart
       @cart = current_member.agent_carts.find(params[:id])
+      @cart.compute_amount! unless @cart.fresh
     end
 
     def set_contact
