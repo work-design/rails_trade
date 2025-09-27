@@ -69,7 +69,7 @@ module Trade
       belongs_to :provide, class_name: 'Factory::Provide', optional: true
 
       belongs_to :good, polymorphic: true, optional: true
-      belongs_to :current_cart, class_name: 'Cart', inverse_of: :real_items, optional: true  # 销售时的购物车
+      belongs_to :current_cart, class_name: 'Cart', optional: true  # 销售时的购物车
       belongs_to :purchase_cart, class_name: 'Cart', foreign_key: :current_cart_id, inverse_of: :purchase_items, optional: true # 采购时得购物车
       belongs_to :order, inverse_of: :items, counter_cache: true, optional: true
       belongs_to :source, class_name: self.name, counter_cache: :purchase_items_count, optional: true

@@ -35,7 +35,7 @@ module Trade
       has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
       has_many :organ_items, ->(o) { where(o.in_filter_hash).where(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :purchase_cart
       has_many :purchase_items, ->(o) { where(o.in_filter_hash).where.not(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
-      has_many :agent_items, -> { carting }, class_name: 'Item', primary_key: [:good_type, :aim, :agent_id, :contact_id, :client_id, :desk_id, :station_id], foreign_key: [:good_type, :aim, :agent_id, :contact_id, :client_id, :desk_id, :station_id]
+      has_many :agent_items, -> { carting }, class_name: 'Item', primary_key: [:good_type, :aim, :agent_id, :contact_id, :client_id, :desk_id, :station_id], foreign_key: [:good_type, :aim, :agent_id, :contact_id, :client_id, :desk_id, :station_id], inverse_of: :current_cart
       has_many :current_items, class_name: 'Item', foreign_key: :current_cart_id
       has_many :trial_card_items, ->(o) { where(**o.filter_hash, good_type: 'Trade::Purchase', aim: 'use', status: 'trial') }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart
 
