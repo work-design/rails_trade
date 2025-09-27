@@ -378,9 +378,12 @@ module Trade
       args.stringify_keys!
     end
 
-    def sync_contact_to_items
-      agent_items.update_all(contact_id: contact_id)
-      maintain = agent.maintains.find_or_initialize_by(contact_id: contact_id)
+    def sync_contact_to_items(contact)
+      agent_items.each do |agent_item|
+        agent_item.update(contact_id: contact.id)
+      end
+
+      maintain = agent.maintains.find_or_initialize_by(contact_id: contact.id)
       maintain.state = 'carted'
       maintain.save
     end
@@ -399,10 +402,10 @@ module Trade
 
     class_methods do
 
-      def get_cart(params, **options)
-        current_cart_id = params[:current_cart_id].presence || params.dig(:item, :current_cart_id).presence
-        if current_cart_id
-          cart = find current_cart_id
+      def get_cart(params, current_cart_id: nil, **options)
+        cart_id = current_cart_id || params[:current_cart_id].presence || params.dig(:item, :current_cart_id).presence
+        if cart_id
+          cart = find cart_id
         else
           options.with_defaults! good_type: 'Factory::Production', aim: 'use'
           options.with_defaults! params.permit(:desk_id, :station_id).to_h.to_options # 合并来自 params 的参数，转化为 symbol key
