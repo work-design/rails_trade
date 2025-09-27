@@ -317,6 +317,14 @@ module Trade
       self.advance_amount = good.advance_price * number if good
     end
 
+    def cart
+      if purchasable
+        purchase_cart
+      else
+        current_cart
+      end
+    end
+
     def order_uuid
       order.uuid
     end

@@ -1,5 +1,5 @@
 <% if current_state && referer_controller.end_with?('items') %>
-  <%= turbo_stream.append 'body', partial: 'visit', locals: { url: current_state.referer } %>
+  <%= turbo_stream.append 'body', partial: 'visit', locals: { url: current_state.prev_path } %>
 <% elsif referer_eql? 'trade/admin/items', 'desk' %>
   <%= turbo_stream.remove "desk_tr_#{@item.id}" %>
   <%= turbo_stream.replace "order_#{@item.order_id}", partial: '_desk/order_tbody', layout: 'order_tr', locals: { model: @item.order } if @item.order %>
