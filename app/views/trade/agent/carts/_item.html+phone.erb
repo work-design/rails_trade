@@ -1,18 +1,4 @@
-<div class="media box">
-  <div class="media-left has-v-centered as-logo">
-    <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' }, class: 'media-left' do |f| %>
-      <%= f.hidden_field :current_cart_id, value: @cart.id %>
-      <label class="weui-cells_checkbox">
-        <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'change->input#form' }, class: 'weui-check', id: nil }, model.id %>
-        <i class="weui-icon-checked"></i>
-      </label>
-    <% end %>
-    <% if model.good.respond_to?(:logo) && model.good.logo&.attached? %>
-      <%= image_tag model.good.logo, class: 'image is-64x64' %>
-    <% elsif model.good.respond_to?(:cover) && model.good.cover&.attached? %>
-      <%= image_tag model.good.cover, class: 'image is-64x64' %>
-    <% end %>
-  </div>
+<%= render layout: 'good_layout_with_right', locals: { model: model } do %>
   <div class="media-content">
     <h4><%= model.good_name %></h4>
     <div class="tags">
@@ -40,4 +26,4 @@
   <div class="media-right as-x">
     <%= render partial: 'cart_item_big', locals: { item: model, cart: @cart, item_con: controller_path.sub('carts', 'items') } %>
   </div>
-</div>
+<% end %>
