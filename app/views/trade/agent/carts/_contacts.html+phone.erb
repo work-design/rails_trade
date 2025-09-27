@@ -5,18 +5,11 @@
       <span>客户</span>
     </div>
     <div class="media-content">
-    <% if @cart.address %>
+    <% if @cart.contact %>
       <p>
-        <span><%= @cart.address.contact %></span>
-        <span><%= @cart.address.tel %></span>
+        <span><%= @cart.contact.name %></span>
+        <span><%= @cart.contact.identity %></span>
       </p>
-      <p class="size-7">
-        <span><%= @cart.address.area.full_name %></span>
-        <span><%= @cart.address.station&.name %></span>
-        <span><%= @cart.address.detail %></span>
-      </p>
-    <% else %>
-
     <% end %>
     </div>
     <div class="media-right text-grey">

@@ -51,7 +51,6 @@ module Trade
 
       before_validation :sync_original_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
       after_validation :sum_amount, if: -> { (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount']).present? }
-      after_save :sync_contact_to_items, if: -> { respond_to?(:agent_id) && agent_id.present? && saved_change_to_contact_id? }
     end
 
     def filter_hash
@@ -83,7 +82,10 @@ module Trade
         good_type: good_type,
         aim: aim,
         agent_id: agent_id,
-        contact_id: nil
+        contact_id: contact_id,
+        client_id: client_id,
+        desk_id: desk_id,
+        station_id: station_id
       }
     end
 
