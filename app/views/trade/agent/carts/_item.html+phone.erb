@@ -24,6 +24,6 @@
     </div>
   </div>
   <div class="media-right as-x">
-    <%= render partial: 'cart_item_big', locals: { item: model, cart: @cart, item_con: controller_path.sub('carts', 'items') } %>
+    <%= render partial: 'cart_item_big_cart', locals: { item: model, cart: @cart, item_con: controller_path.sub('carts', 'items'), removes: ["item_#{model.id}"] } %>
   </div>
 <% end %>
