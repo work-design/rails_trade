@@ -145,7 +145,6 @@ module Trade
 
     def print
       @order.print
-      render 'alert_message', locals: { message: '打印指令已发送' }
     end
 
     def adjust_edit
