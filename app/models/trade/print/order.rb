@@ -73,7 +73,6 @@ module Trade
       pr.text "感谢您的惠顾！"
       pr.text "订餐电话：0717-6788808"
       pr.text "#{created_at.to_fs(:wechat)}"
-      pr.render
       pr
     end
 

@@ -140,7 +140,9 @@ module Trade
     end
 
     def print_data
-      render json: @order.to_cpcl
+      esc = BaseEsc.new
+      data = @order.to_esc(esc)
+      render json: data.render
     end
 
     def print
