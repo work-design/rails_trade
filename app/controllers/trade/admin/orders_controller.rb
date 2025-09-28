@@ -142,7 +142,7 @@ module Trade
     def print_data
       esc = BaseEsc.new
       data = @order.to_esc(esc)
-      render json: data.render_raw
+      render json: data.render
     end
 
     def print
