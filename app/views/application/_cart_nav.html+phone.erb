@@ -1,31 +1,27 @@
-<div id="cart_nav" class="level is-mobile as-bottom">
-  <div class="level-left flex-direction-row pl-4">
-    <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, class: 'level-item mb-0') do %>
-      <div class="right-badge">
-        <%= svg_tag 'bag-shopping', class: 'icon' %>
-        <span class="weui-badge"><%= @cart.items.count %></span>
-      </div>
-    <% end %>
-    <div class="level-item align-items-baseline">
+<div id="cart_nav" class="flex justify-content-space-between as-bottom px-3">
+  <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, class: 'flex text-grey') do %>
+    <div class="right-badge">
+      <%= svg_tag 'bag-shopping', class: 'icon text-primary' %>
+      <span class="weui-badge"><%= @cart.items.count %></span>
+    </div>
+    <div class="align-items-baseline">
       <% if @cart.amount != @cart.item_amount %>
         <del class="text-grey ml-4"><%= @cart.item_amount.to_money.format.html_safe %></del>
       <% end %>
       <span class="ml-2"><%= @cart.amount.to_money.format.html_safe %></span>
     </div>
-  </div>
-  <div class="level-right mt-0 pr-4">
-    <div class="level-item">
-    <% if @cart.can_order? %>
-      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-rounded is-primary') do %>
-        <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
-        <%= svg_tag 'angle-right' %>
-      <% end %>
-    <% else %>
-      <button class="button is-small is-rounded is-primary" disabled>
-        <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
-        <%= svg_tag 'angle-right' %>
-      </button>
+  <% end %>
+  <div>
+  <% if @cart.can_order? %>
+    <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-rounded is-primary') do %>
+      <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
+      <%= svg_tag 'angle-right' %>
     <% end %>
-    </div>
+  <% else %>
+    <button class="button is-small is-rounded is-primary" disabled>
+      <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
+      <%= svg_tag 'angle-right' %>
+    </button>
+  <% end %>
   </div>
 </div>
