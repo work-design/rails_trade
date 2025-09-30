@@ -1,4 +1,4 @@
-<%= button_to({ action: 'destroy', id: model.id }, method: :delete, class: ' has-column-centered text-danger', form: { data: { turbo_confirm: t('.destroy.confirm') }, class: 'cell' }) do %>
+<%= button_to({ action: 'destroy', id: model.id }, method: :delete, form: { data: { turbo_confirm: t('.destroy.confirm') }, class: 'cell has-column-centered' }) do %>
   <%= svg_tag 'trash' %>
   <span><%= t('.destroy.title') %></span>
 <% end %>
@@ -11,7 +11,7 @@
   <span><%= t('.orders.adjust_edit.title') %></span>
 <% end %>
 <%= link_to({ action: 'show', id: model.id }, class: 'cell has-column-centered') do %>
-  <%= svg_tag 'eye', class: 'icon text-info' %>
+  <%= svg_tag 'eye' %>
   <span><%= t('.show.title') %></span>
 <% end %>
 <%= link_to({ controller: 'order_payments', order_id: model.id }, class: 'cell has-column-centered') do %>

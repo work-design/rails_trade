@@ -1,20 +1,20 @@
-<%= button_to({ action: 'destroy' }, method: :delete, class: 'text-danger', form: { data: { turbo_confirm: t('.destroy.confirm') }, class: 'cell weui-actionsheet__cell_warn' }) do %>
+<%= button_to({ action: 'destroy' }, method: :delete, form: { data: { turbo_confirm: t('.destroy.confirm') }, class: 'cell has-column-centered' }) do %>
   <%= svg_tag 'trash' %>
   <span><%= t('.destroy.title') %></span>
 <% end %>
-<%= button_to({ action: 'edit' }, class: 'cell') do %>
+<%= button_to({ action: 'edit' }, class: 'cell has-column-centered') do %>
   <%= svg_tag 'pencil' %>
   <span><%= t('.edit.title') %></span>
 <% end %>
-<%= link_to({ action: 'show' }, class: 'cell') do %>
-  <%= svg_tag 'eye', class: 'icon text-info' %>
+<%= link_to({ action: 'show' }, class: 'cell has-column-centered') do %>
+  <%= svg_tag 'eye' %>
   <span><%= t('.show.title') %></span>
 <% end %>
 <% if model.state != 'completed' %>
-  <%= button_to({ action: 'confirm', id: model.id }, method: :patch, form: { class: 'cell' }) do %>
+  <%= button_to({ action: 'confirm', id: model.id }, method: :patch, form: { class: 'cell has-column-centered' }) do %>
     <span><%= t('trade.admin.refunds.confirm.title') %></span>
   <% end %>
-  <%= button_to({ action: 'deny', id: model.id }, method: :patch, form: { class: 'cell' }) do %>
+  <%= button_to({ action: 'deny', id: model.id }, method: :patch, form: { class: 'cell has-column-centered' }) do %>
     <span><%= t('trade.admin.refunds.deny.title') %></span>
   <% end %>
 <% end %>

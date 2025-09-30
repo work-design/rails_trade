@@ -1,8 +1,8 @@
-<%= button_to({ action: 'edit' }, class: 'cell') do %>
+<%= button_to({ action: 'edit' }, class: 'cell has-column-centered') do %>
   <%= svg_tag 'pencil' %>
   <span><%= t('.edit.title') %></span>
 <% end %>
-<%= link_to({ action: 'show' }, class: 'cell') do %>
-  <%= svg_tag 'eye', class: 'icon text-info' %>
+<%= link_to({ action: 'show' }, class: 'cell has-column-centered') do %>
+  <%= svg_tag 'eye' %>
   <span><%= t('.show.title') %></span>
 <% end %>
