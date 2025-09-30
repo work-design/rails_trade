@@ -13,5 +13,5 @@
 <%= link_to({ controller: 'refunds', action: 'new', payment_id: @scan_payment.id }, class: 'cell') do %>
   <%= svg_tag 'thumbs-down' %>
   <span><%= t('.refunds.new.title') %></span>
-  <span class="ml-1"><%= @scan_payment.refunds_count %></span>
+  <span><%= @scan_payment.refunds_count %></span>
 <% end %>

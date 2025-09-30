@@ -8,7 +8,7 @@
 <% end %>
 <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'cell has-column-centered text-primary') do %>
   <%= svg_tag 'pen-clip-slash' %>
-  <span><%= t('trade.admin.orders.adjust_edit.title') %></span>
+  <span><%= t('.orders.adjust_edit.title') %></span>
 <% end %>
 <%= link_to({ action: 'show', id: model.id }, class: 'cell has-column-centered') do %>
   <%= svg_tag 'eye', class: 'icon text-info' %>
@@ -31,7 +31,7 @@
 <% if model.organ.receipt_printer %>
   <%= button_to({ action: 'print' }, class: 'cell has-column-centered') do %>
     <%= svg_tag 'print' %>
-    <span class="ml-1"><%= t('trade.admin.orders.print.title') %></span>
+    <span><%= t('.orders.print.title') %></span>
   <% end %>
 <% elsif request.variant.include?(:mini_program) %>
   <div
