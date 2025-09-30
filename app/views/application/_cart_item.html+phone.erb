@@ -9,7 +9,7 @@
         <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
       <% end %>
     <% end %>
-    <%= form_with theme: nil, scope: 'item', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>
+    <%= form_with theme: nil, scope: '', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' }, class: '' do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
       <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'background-light text-centered', style: 'width: 30px' %>
       <%= hidden_field_tag 'replace[][partial]', 'cart_item' %>

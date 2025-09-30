@@ -1,5 +1,5 @@
 <div class="has-v-centered">
-  <%= form_with theme: nil, scope: :item, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
+  <%= form_with theme: nil, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
     <%= f.hidden_field :number, value: model.number - 1 %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <%= button_tag class: 'mr-1' do %>
@@ -9,11 +9,11 @@
   <%= button_to({ controller: 'items', action: 'destroy', id: model.id }, method: :delete, params: { current_cart_id: @cart.id }, class: 'mr-1') do %>
     <%= svg_tag 'circle-minus', class: 'icon is-medium' %>
   <% end if model && model.number <= 1 %>
-  <%= form_with(theme: nil, scope: 'item', url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input' }) do |f| %>
+  <%= form_with(theme: nil, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, data: { controller: 'input' }) do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <%= f.number_field :number, value: model.number.to_human, data: { action: 'change->input#form' }, class: 'background-light text-centered', style: 'width: 30px; height: 26px' %>
   <% end %>
-  <%= form_with theme: nil, scope: :item, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
+  <%= form_with theme: nil, url: { controller: 'items', action: 'update', id: model.id }, method: :patch, class: 'button_to' do |f| %>
     <%= f.hidden_field :number, value: model.number + 1 %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
     <%= button_tag class: 'ml-1' do %>
