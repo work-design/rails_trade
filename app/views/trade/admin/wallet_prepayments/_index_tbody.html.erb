@@ -4,4 +4,3 @@
 </td>
 <td><%= model.token %></td>
 <td><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></td>
-<td><%= render partial: 'index_tr_actions', locals: { model: model } %></td>
