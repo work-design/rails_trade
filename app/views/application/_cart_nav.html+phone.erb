@@ -1,5 +1,5 @@
 <div id="cart_nav" class="flex justify-content-space-between as-bottom px-3">
-  <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, class: 'flex text-grey') do %>
+  <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, text: true, class: 'flex text-grey') do %>
     <div class="right-badge">
       <%= svg_tag 'bag-shopping', class: 'icon text-primary' %>
       <span class="weui-badge"><%= @cart.items.count %></span>
