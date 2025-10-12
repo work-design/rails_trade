@@ -18,8 +18,9 @@
         <%= svg_tag 'circle-minus', class: 'icon text-grey' %>
       <% end %>
     <% end %>
-    <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
+    <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
+      <%= f.hidden_field :dispatch %>
       <%= f.number_field :number, value: item.number.to_human, step: 0.01, data: { action: 'change->input#form focus->input#blank', modify_target: 'input' }, class: 'background-light text-centered', style: 'width: 30px' %>
       <%= hidden_field_tag 'replace[][partial]', 'cart_item_new' %>
       <% renew.each do |id, partial| %>
