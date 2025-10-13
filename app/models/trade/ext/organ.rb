@@ -4,6 +4,8 @@ module Trade
 
     included do
       attribute :counters, :json, default: {}
+      attribute :dispatches, :string, array: true, default: []
+
       enum :dispatch, {
         delivery: 'delivery',
         dine: 'dine',
