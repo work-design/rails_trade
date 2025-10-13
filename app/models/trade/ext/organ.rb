@@ -23,6 +23,8 @@ module Trade
       has_many :wallets, -> { includes(:wallet_template) }, class_name: 'Trade::Wallet', foreign_key: :member_organ_id
       has_many :lawful_wallets, -> { where(member_id: nil) }, class_name: 'Trade::LawfulWallet', foreign_key: :member_organ_id
       has_many :promote_goods, class_name: 'Trade::PromoteGood', foreign_key: :member_organ_id
+
+      normalizes :dispatches, with: -> arr { arr.compact_blank }
     end
 
     def get_item(good_type:, good_id:, aim: 'use', **options)
