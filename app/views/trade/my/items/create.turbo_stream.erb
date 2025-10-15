@@ -24,7 +24,7 @@
         cart: @item.current_cart,
         item_con: controller_path,
         options: @item.cart_options,
-        refer_options: { 'refer_id' => @production.id }
+        refer_options: params[:refer_options]
       }
     )
   %>
