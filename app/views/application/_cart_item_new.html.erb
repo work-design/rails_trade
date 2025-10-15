@@ -9,9 +9,9 @@
         <% renew.each do |id, partial| %>
           <%= hidden_field_tag "renew[#{id}]", partial, id: nil %>
         <% end if defined?(renew) && renew %>
-        <% options.each do |key, value| %>
-          <%= hidden_field_tag "options[#{key}]", value, id: nil %>
-        <% end if defined?(options) && options %>
+        <% refer_options.each do |key, value| %>
+          <%= hidden_field_tag "refer_options[#{key}]", value, id: nil %>
+        <% end if defined?(refer_options) && refer_options %>
         <%= button_tag do %>
           <%= svg_tag 'circle-xmark', class: 'icon text-grey' %>
         <% end %>
@@ -29,9 +29,9 @@
       <% renew.each do |id, partial| %>
         <%= hidden_field_tag "renew[#{id}]", partial, id: nil %>
       <% end if defined?(renew) && renew %>
-      <% options.each do |key, value| %>
-        <%= hidden_field_tag "options[#{key}]", value, id: nil %>
-      <% end if defined?(options) && options %>
+      <% refer_options.each do |key, value| %>
+        <%= hidden_field_tag "refer_options[#{key}]", value, id: nil %>
+      <% end if defined?(refer_options) && refer_options %>
     <% end %>
     <button data-action="modify#plus" class="button_to ml-1">
       <%= svg_tag 'circle-plus', class: 'icon text-grey' %>
@@ -50,9 +50,9 @@
     <% renew.each do |id, partial| %>
       <%= hidden_field_tag "renew[#{id}]", partial, id: nil %>
     <% end if defined?(renew) && renew %>
-    <% options.each do |key, value| %>
-      <%= hidden_field_tag "options[#{key}]", value, id: nil %>
-    <% end if defined?(options) && options %>
+    <% refer_options.each do |key, value| %>
+      <%= hidden_field_tag "refer_options[#{key}]", value, id: nil %>
+    <% end if defined?(refer_options) && refer_options %>
     <button type="submit" name="replace[][partial]" value="cart_item_new" class="button is-small is-warning is-rounded">
       <%= svg_tag 'cart-plus' %>
       <span class="ml-1">加入购物车</span>

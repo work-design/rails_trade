@@ -10,5 +10,5 @@
 <% end %>
 
 <% params[:renew].each do |id, partial| %>
-  <%= turbo_stream.replace id, partial: partial, locals: { model: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
+  <%= turbo_stream.replace id, partial: partial, locals: { cart: @item.current_cart, model: @item.good, item_con: controller_path, options: @item.cart_options, refer_options: params[:refer_options] } %>
 <% end if params[:renew] %>
