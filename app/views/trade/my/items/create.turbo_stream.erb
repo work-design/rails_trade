@@ -5,9 +5,27 @@
 <% end %>
 
 <% params[:replace].each do |replace| %>
-  <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path, renew: params[:renew] } %>
+  <%=
+    turbo_stream.replace(
+      "#{replace['partial']}_#{@item.cart_identity}",
+      partial: replace['partial'],
+      layout: replace['layout'],
+      locals: { item: @item, cart: @item.current_cart, item_con: controller_path, renew: params[:renew] }
+    )
+  %>
 <% end %>
 
 <% params[:renew].each do |id, partial| %>
-  <%= turbo_stream.replace id, partial: partial, locals: { model: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
+  <%=
+    turbo_stream.replace(
+      id, partial: partial,
+      locals: {
+        model: @item.good,
+        cart: @item.current_cart,
+        item_con: controller_path,
+        options: @item.cart_options,
+        refer_options: { 'refer_id' => @production.id }
+      }
+    )
+  %>
 <% end if params[:renew] %>
