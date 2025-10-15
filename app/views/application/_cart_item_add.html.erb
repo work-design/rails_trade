@@ -15,6 +15,9 @@
     <% renew.each do |id, partial| %>
       <%= hidden_field_tag "renew[#{id}]", partial, id: nil %>
     <% end if defined?(renew) && renew %>
+    <% refer_options.each do |key, value| %>
+      <%= hidden_field_tag "refer_options[#{key}]", value, id: nil %>
+    <% end if defined?(refer_options) && refer_options %>
     <button type="submit" name="replace[][partial]" value="cart_item_add" class="button is-small is-warning is-rounded">
       <%= svg_tag 'cart-plus' %>
       <span class="ml-1">加入购物车</span>
