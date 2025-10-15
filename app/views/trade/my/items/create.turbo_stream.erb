@@ -24,7 +24,8 @@
 <% params[:renew].each do |id, partial| %>
   <%=
     turbo_stream.replace(
-      id, partial: partial,
+      id,
+      partial: partial,
       locals: {
         model: @item.good,
         cart: @item.current_cart,
