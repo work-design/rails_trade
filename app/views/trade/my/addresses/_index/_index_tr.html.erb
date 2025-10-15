@@ -1,5 +1,5 @@
-<tr id="tr_<%= model.id %>" data-controller="show input" data-action="mouseenter->show#show mouseleave->show#hide">
-
+<tr id="tr_<%= model.id %>" data-controller="show input">
+  <%= yield %>
   <td>
     <div data-show-target="item" class="visibility-hidden">
       <%= link_to({ controller: 'profiled/my/addresses', action: 'edit', id: model.id }, data: { turbo_frame: 'modal' }, aria: { label: t('.edit.title') }, class: 'button is-small is-borderless') do %>
@@ -10,4 +10,4 @@
       <% end %>
     </div>
   </td>
-
+</tr>
