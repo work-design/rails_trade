@@ -3,17 +3,17 @@
 <%= render 'address' %>
 
 <div class="box is-padding-less">
-  <%= render partial: 'blank_item', collection: @order.items, as: :item, locals: { form: form_object(@order, theme: 'weui') } %>
+  <%= render partial: 'blank_item', collection: @order.items, as: :item, locals: { form: form_object(@order, theme: 'default_phone') } %>
 </div>
 
 <% if @order.items.size > 1 %>
 <div class="box is-padding-less">
-  <%= render partial: 'collectable', locals: { form: form_object(@order, theme: 'weui') } %>
+  <%= render partial: 'collectable', locals: { form: form_object(@order, theme: 'default_phone') } %>
 </div>
 <% end %>
 
 <div class="box is-padding-less">
-  <%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'weui') } %>
+  <%= render partial: 'payment_strategy', locals: { form: form_object(@order, theme: 'default_phone') } %>
 </div>
 
 <%= render 'show_order' %>

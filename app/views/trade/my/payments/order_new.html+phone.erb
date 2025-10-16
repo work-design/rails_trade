@@ -1,4 +1,4 @@
-<%= form_with theme: 'weui', model: @payment, scope: :payment, url: { action: 'order_create' } do |f| %>
+<%= form_with theme: 'default_phone', model: @payment, scope: :payment, url: { action: 'order_create' } do |f| %>
   <div class="form-fields">
     <%= hidden_field_tag :order_id, @order.id %>
     <%= render partial: 'form', locals: { f: f } %>

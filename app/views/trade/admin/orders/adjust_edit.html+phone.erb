@@ -1,5 +1,5 @@
 <div class="flex-grow-1 mt-4" id="form_wrapper">
-  <%= form_with theme: 'weui', model: @order, url: { action: 'adjust_update' } do |f| %>
+  <%= form_with theme: 'default_phone', model: @order, url: { action: 'adjust_update' } do |f| %>
     <div class="form-fields">
       <%= f.number_field :amount, value: nil, placeholder: f.object.amount.to_fs %>
     </div>

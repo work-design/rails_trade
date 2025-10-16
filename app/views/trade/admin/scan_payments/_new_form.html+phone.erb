@@ -1,4 +1,4 @@
-<%= form_with theme: 'weui', model: @scan_payment, url: { action: 'create' }, data: { default_valid_css_value: 'text-danger' }, id: 'scan_payment_form' do |f| %>
+<%= form_with theme: 'default_phone', model: @scan_payment, url: { action: 'create' }, data: { default_valid_css_value: 'text-danger' }, id: 'scan_payment_form' do |f| %>
   <%= render layout: 'keyboard_form', locals: { f: f, id: 'scan_payment_total_amount' } do %>
     <div
       data-controller="scan"
