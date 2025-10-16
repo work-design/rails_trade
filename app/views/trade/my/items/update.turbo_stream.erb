@@ -16,7 +16,7 @@
         cart: @item.current_cart,
         item_con: controller_path,
         renew: params[:renew],
-        refer_options: params[:refer_options]
+        refer_options: params.fetch(:refer_options, {}).permit!.to_h
       }
     )
   %>
@@ -32,7 +32,7 @@
         model: @item.good,
         item_con: controller_path,
         options: @item.cart_options,
-        refer_options: params[:refer_options]
+        refer_options: params.fetch(:refer_options, {}).permit!.to_h
       }
     )
   %>
