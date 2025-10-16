@@ -5,12 +5,7 @@ module Trade
     included do
       attribute :counters, :json, default: {}
       attribute :dispatches, :string, array: true, default: []
-
-      enum :dispatch, {
-        delivery: 'delivery',
-        dine: 'dine',
-        fetch: 'fetch'
-      }, prefix: true, default: 'delivery'
+      attribute :dispatch, :string
 
       has_many :card_templates, class_name: 'Trade::CardTemplate'
 
@@ -25,6 +20,7 @@ module Trade
       has_many :promote_goods, class_name: 'Trade::PromoteGood', foreign_key: :member_organ_id
 
       normalizes :dispatches, with: -> arr { arr.compact_blank }
+      before_save :reset_dispatch, if: -> { dispatches_changed? }
     end
 
     def get_item(good_type:, good_id:, aim: 'use', **options)
@@ -42,6 +38,12 @@ module Trade
         cards.find_by(card_template_id: template.id, temporary: false)
       else
         nil
+      end
+    end
+
+    def reset_dispatch
+      unless dispatches.include?(dispatch)
+        self.dispatch = nil
       end
     end
 
