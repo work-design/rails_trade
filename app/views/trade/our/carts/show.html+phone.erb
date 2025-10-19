@@ -1,10 +1,6 @@
-<%= render 'head' %>
-
 <%= render 'address' if @cart.need_address? %>
 
 <% @items.group_by(&:organ_delivery).each do |delivery, items| %>
   <%= render partial: 'fetch', locals: { model: delivery } if delivery %>
   <%= render partial: 'item', collection: items, as: :model %>
 <% end %>
-
-<%= render 'cart_promotes' %>

@@ -11,7 +11,7 @@ module Trade
     end
 
     def set_new_item
-      @item = @cart.init_cart_item(params, operator_id: current_client.id, **client_params)
+      @item = @cart.init_cart_item(params, member_organ_id: current_client.organ_id, operator_id: current_client.id)
     end
 
     def set_item
