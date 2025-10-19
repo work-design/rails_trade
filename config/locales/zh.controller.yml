@@ -146,6 +146,8 @@ zh:
       orders:
         index:
           title: 订单
+        cart:
+          title: 下单
       promote_goods:
         index:
           title: 优惠券
