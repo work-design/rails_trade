@@ -6,6 +6,7 @@ module Trade
     ]
     before_action :set_cart, only: [:cart, :cart_create]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
+    skip_after_action :set_state, only: [:cart]
 
     def index
       q_params = {}
