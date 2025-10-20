@@ -17,6 +17,9 @@ module Trade
                             .default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
+    def cart
+    end
+
     def cart_create
       @order = @cart.generate_order!
     end
