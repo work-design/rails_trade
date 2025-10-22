@@ -7,9 +7,9 @@
     data-action="click->mini-program#link"
     class="media"
   >
-    <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image is-24x24' %></div>
-    <div class="weui-cell__bd weui-cell_primary">微信支付</div>
-    <div class="weui-cell__ft text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
+    <div class="media-left"><%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %></div>
+    <div class="media-content text-primary">微信支付</div>
+    <div class="media-right text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   </div>
 <% elsif @wxpay_order && @wxpay_order[:package].present? %>
   <div
@@ -19,14 +19,14 @@
     data-action="click->wxpay#onBridgeReady"
     class="media"
   >
-    <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image is-24x24' %></div>
-    <div class="weui-cell__bd weui-cell_primary">微信支付</div>
-    <div class="weui-cell__ft text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
+    <div class="media-left"><%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %></div>
+    <div class="media-content text-primary">微信支付</div>
+    <div class="media-right text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   </div>
 <% elsif @url %>
-  <%= link_to(@url, class: 'weui-cell weui-cell_active weui-cell_access') do %>
-    <div class="media-left"><%= image_tag 'wx_pay.png', class: 'image is-24x24' %></div>
-    <div class="weui-cell__bd weui-cell_primary text-link">微信支付</div>
-    <div class="weui-cell__ft text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
+  <%= link_to(@url, class: 'media') do %>
+    <div class="media-left"><%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %></div>
+    <div class="media-content text-primary text-link">微信支付</div>
+    <div class="media-right text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
   <% end %>
 <% end %>
