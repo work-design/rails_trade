@@ -3,7 +3,13 @@
     data-controller="mini-program"
     data-mini-program-direct-value="true"
     data-mini-program-url-value="/pages/wxpay_pay/index"
-    data-mini-program-data-value="<%= { url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false), path: url_for }.to_json %>"
+    data-mini-program-data-value="<%=
+      {
+        url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false),
+        path: url_for(only_path: false),
+        path_fail: url_for(only_path: false)
+      }.to_json
+    %>"
     class="media"
   ></div>
 <% elsif @wxpay_order && @wxpay_order[:package].present? %>
