@@ -60,6 +60,7 @@ module Trade
         r
       else
         prepay
+        logger.debug "\e[35m  js pay(prepay fail): #{prepay}  \e[0m"
       end
     end
 

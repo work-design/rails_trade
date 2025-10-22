@@ -2,7 +2,7 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :payment_pending, :payment_confirm, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_confirm, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart, :cart_create]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
@@ -37,8 +37,16 @@ module Trade
           wechat_user: current_wechat_user,
           ip: request.remote_ip
         )
-        logger.debug "\e[35m  Wxpay Order:#{@wxpay_order}  \e[0m"
       end
+    end
+
+    def payment_wxpay
+      @wxpay_order = @order.init_wxpay_payment(
+        state: 'pending',
+        payee: current_payee,
+        wechat_user: current_wechat_user,
+        ip: request.remote_ip
+      )
     end
 
     def payment_pending
