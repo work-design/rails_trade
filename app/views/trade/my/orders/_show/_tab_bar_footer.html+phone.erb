@@ -8,17 +8,17 @@
       data-action="click->mini-program#link"
       class="button is-primary"
     >
-      <i class="fa-solid fa-headset"></i>
-      <span class="pl-1">联系客服</span>
+      <%= svg_tag 'headset' %>
+      <span class="ml-1">联系客服</span>
     </div>
   <% else %>
     <%= link_to current_organ.service_url, rel: 'nofollow', class: 'button is-primary' do %>
-      <i class="fa-solid fa-headset"></i>
-      <span class="pl-1">联系客服</span>
+      <%= svg_tag 'headset' %>
+      <span class="ml-1">联系客服</span>
     <% end if current_organ.service_url.present? %>
   <% end %>
-  <%= link_to({ action: 'payment_wxpay', id: @order.id }, class: 'button is-danger') do %>
-    <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
+  <%= button_to({ action: 'payment_wxpay', id: @order.id }, class: 'button is-danger') do %>
+    <%= image_tag 'icons/wxpay.svg', class: 'image is-16x16' %>
     <span class="ml-1">支付</span>
   <% end if @order.aim_use? && @order.can_pay? %>
   <%= link_to({ action: 'payment_types', id: @order.id }, class: 'button is-danger') do %>
