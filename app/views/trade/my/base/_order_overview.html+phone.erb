@@ -4,7 +4,7 @@
       <% if model.aim.present? && model.aim != 'use' %>
         <span class="tag is-danger"><%= model.aim_i18n %></span>
       <% end %>
-      <time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time>
+      <time data-controller="time" data-format="human" class="text-grey"><%= model.created_at.to_fs(:iso8601) %></time>
     </div>
     <% if model.agent %>
       <div>

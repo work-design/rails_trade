@@ -17,6 +17,9 @@
       <span class="ml-1">联系客服</span>
     <% end if current_organ.service_url.present? %>
   <% end %>
+  <%= button_to({ controller: 'orders', action: 'cancel', id: model.id }, method: :patch, class: 'button is-outlined is-dark', form: { class: '' }) do %>
+    <span>取消订单</span>
+  <% end if model.can_cancel? %>
   <%= button_to({ action: 'payment_wxpay', id: @order.id }, class: 'button is-danger') do %>
     <%= image_tag 'icons/wxpay.svg', class: 'image is-16x16' %>
     <span class="ml-1">支付</span>
