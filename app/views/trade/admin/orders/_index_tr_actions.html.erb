@@ -1,0 +1,36 @@
+<div data-show-target="item" class="visibility-hidden">
+  <%= button_to({ controller: 'orders', action: 'show', id: model.id }, aria: { label: t('.show.title') }, class: 'button is-small is-borderless') do %>
+    <%= svg_tag 'eye', class: 'icon text-info' %>
+  <% end %>
+  <%= button_to({ controller: 'orders', action: 'edit', id: model.id }, aria: { label: t('.edit.title') }, class: 'button is-small is-borderless') do %>
+    <%= svg_tag 'pencil', class: 'icon text-link' %>
+  <% end %>
+  <%= button_to({ controller: 'orders', action: 'destroy', id: model.id }, method: :delete, aria: { label: t('.destroy.title') }, form: { data: { turbo_confirm: t('.destroy.confirm') } }, class: 'button is-small is-borderless') do %>
+    <%= svg_tag 'trash', class: 'icon text-danger' %>
+  <% end %>
+</div>
+<div data-show-target="item" class="visibility-hidden mb-2">
+  <%= link_to({ controller: 'refunds', order_id: model.id }, class: 'button is-small is-borderless') do %>
+    <span><%= t('.refunds.index.title') %></span>
+  <% end if ['refunding', 'refunded', 'denied'].include?(model.payment_status) %>
+  <% if ['unpaid', 'part_paid'].include?(model.payment_status) %>
+    <%= button_to({ action: 'payment_types', id: model.id }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'receipt' %>
+      <span class="ml-1"><%= t('.payment_types.title') %></span>
+    <% end %>
+  <% end %>
+  <% if ['unpaid'].include?(model.payment_status) %>
+    <%= button_to({ action: 'adjust_edit', id: model.id }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'pen-clip' %>
+      <span class="ml-1"><%= t('.adjust_edit.title') %></span>
+    <% end %>
+  <% end %>
+  <%= link_to({ action: 'purchase', id: model.id }, class: 'button is-small is-borderless') do %>
+    <%= svg_tag 'pen-clip' %>
+    <span class="ml-1"><%= t('.purchase.title') %></span>
+  <% end %>
+  <%= button_to({ action: 'print', id: model.id }, class: 'button is-small is-borderless') do %>
+    <%= svg_tag 'print' %>
+    <span class="ml-1"><%= t('.print.title') %></span>
+  <% end %>
+</div>
