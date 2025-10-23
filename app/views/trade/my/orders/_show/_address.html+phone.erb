@@ -1,12 +1,16 @@
-<div class="box">
-  <strong><%= Trade::Order.human_attribute_name(:address_id) %></strong>
-  <div>
-    <i class="fa-solid fa-location-dot text-danger"></i>
-    <strong><%= model.contact %></strong>
-    <span><%= model.tel %></span>
+<div class="box is-padding-less">
+  <div class="box-header">
+    <span class="has-border-left-primary"><%= Trade::Order.human_attribute_name(:address_id) %></span>
   </div>
-  <div>
-    <strong class="size-7"><%= model.area.full_name %></strong>
-    <span class="size-7"><%= model.detail %></span>
+  <div class="is-shadow-top p-3">
+    <div>
+      <%= svg_tag 'location-dot', class: 'icon is-small text-danger' %>
+      <span><%= model.contact %></span>
+      <span><%= model.tel %></span>
+    </div>
+    <div class="text-grey">
+      <span><%= model.area.full_name %></span>
+      <span><%= model.detail %></span>
+    </div>
   </div>
 </div>
