@@ -1,7 +1,7 @@
 <div class="box is-padding-less">
   <div class="box-header">
     <div class="is-several">
-      <%= image_tag @item.good.logo, class: 'image is-64x64' %>
+      <%= image_tag @item.good.logo, class: 'image is-64x64' if @item.good.logo.attached? %>
       <span><%= @item.good_name %></span>
     </div>
   </div>
