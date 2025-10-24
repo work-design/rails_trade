@@ -1,6 +1,13 @@
 module Trade
   class Our::ItemsController < My::ItemsController
 
+    def index
+      q_params = {}
+      q_params.merge! params.permit('extra/taxon_id', 'holds_count', 'holds_count-gt')
+
+      @items = current_client.organ.organ_items.default_where(q_params).page(params[:page])
+    end
+
     def promote
       render layout: false
     end
