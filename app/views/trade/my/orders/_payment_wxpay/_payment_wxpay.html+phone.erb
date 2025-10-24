@@ -7,7 +7,7 @@
       {
         url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false),
         path: url_for(action: 'payment_types', id: @order.id, only_path: false),
-        path_fail: url_for(only_path: false)
+        path_fail: url_for(action: 'payment_types', id: @order.id, only_path: false)
       }.to_json
     %>"
     class="media"
