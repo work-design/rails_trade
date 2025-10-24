@@ -3,7 +3,7 @@
   <span>
     <span class="text-grey"><%= model.number %></span>
     <span>x</span>
-    <span class="text-danger"><%= model.original_amount.to_money.format.html_safe %></span>
+    <span class="text-danger"><%= model.amount.to_money.format.html_safe %></span>
   </span>
 <% end %>
 <p class="text-grey">

@@ -143,6 +143,9 @@ zh:
         index:
           title: 购物车
     our:
+      items:
+        index:
+          title: 所购商品
       orders:
         index:
           title: 订单
