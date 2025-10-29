@@ -3,7 +3,13 @@
     data-controller="mini-program"
     data-mini-program-launch-value="true"
     data-mini-program-url-value="/pages/wxpay_pay/index"
-    data-mini-program-data-value="<%= { url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false), path: url_for }.to_json %>"
+    data-mini-program-data-value="<%=
+      {
+        url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, only_path: false),
+        path: url_for(controller: 'payments', action: 'payment_types', id: @order.id, only_path: false),
+        path_fail: url_for(controller: 'payments', action: 'payment_types', id: @order.id, only_path: false)
+      }.to_json
+    %>"
     data-action="click->mini-program#link"
     class="media"
   >
