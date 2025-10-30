@@ -1,18 +1,16 @@
 <div id="item_<%= item.id %>" class="media">
   <% if item.good && item.good.logo&.attached? %>
     <div class="media-left">
-      <%= link_to(item.good, text: true) do %>
-        <%= image_tag item.good.logo, class: 'image is-64x64' %>
-      <% end %>
+      <%= image_tag item.good.logo, class: 'image is-64x64' %>
     </div>
   <% end %>
   <div class="media-content as-body" style="background-color: initial">
-    <%= link_to(item.good, text: true) do %>
+    <div>
       <span><%= item.good_name %></span>
       <% if ['rent', 'invest'].include?(item.aim) && item.aim != item.order.aim %>
         <span class="tag is-danger"><%= item.aim_i18n %></span>
       <% end %>
-    <% end %>
+    </div>
     <div>
       <p>
         <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
