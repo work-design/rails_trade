@@ -1,4 +1,4 @@
-<div class="as-show">
+<dl class="as-show">
   <div>
     <dt><%= Trade::Item.human_attribute_name(:uuid) %></dt>
     <dd data-controller="clipboard">
@@ -41,4 +41,4 @@
     <dt><%= Trade::Item.human_attribute_name(:created_at) %></dt>
     <dd><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></dd>
   </div>
-</div>
+</dl>
