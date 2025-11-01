@@ -1,9 +1,34 @@
 <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
 
 <% params[:replace].each do |replace| %>
-  <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+  <%=
+    turbo_stream.replace(
+      "#{replace['partial']}_#{@item.cart_identity}",
+      partial: replace['partial'],
+      layout: replace['layout'],
+      locals: {
+        item: @item,
+        cart: @item.current_cart,
+        item_con: controller_path,
+        renew: params[:renew],
+        refer_options: params.fetch(:refer_options, {}).permit!.to_h
+      }
+    )
+  %>
 <% end %>
 
 <% params[:renew].each do |id, partial| %>
-  <%= turbo_stream.replace id, partial: partial, locals: { model: @item.good, options: @item.cart_options, cart: @item.current_cart, item_con: controller_path } %>
+  <%=
+    turbo_stream.replace(
+      id,
+      partial: partial,
+      locals: {
+        model: @item.good,
+        cart: @item.current_cart,
+        item_con: controller_path,
+        options: @item.cart_options,
+        refer_options: params.fetch(:refer_options, {}).permit!.to_h
+      }
+    )
+  %>
 <% end if params[:renew] %>
