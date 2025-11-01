@@ -1,11 +1,14 @@
 <div class="buttons are-small as-bottom">
-  <%= button_to({ controller: 'scan_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-primary') do %>
+  <%= button_to({ controller: 'scan_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-rounded is-primary') do %>
     <span><%= t('.scan_payments.desk.title') %></span>
   <% end %>
-  <%= button_to({ controller: 'hand_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-link') do %>
+  <%= button_to({ controller: 'hand_payments', action: 'desk', desk_id: @desk.id }, class: 'button is-rounded is-primary') do %>
     <span><%= t('.hand_payments.desk.title') %></span>
   <% end %>
-  <%= link_to({ action: 'history' }, class: 'button is-success') do %>
+  <%= button_to({ action: 'done' }, data: { turbo_confirm: t('.done.confirm') }, class: 'button is-rounded is-primary') do %>
+    <span><%= t('.done.title') %></span>
+  <% end %>
+  <%= link_to({ action: 'history' }, class: 'button is-rounded is-primary') do %>
     <span><%= t('.history.title') %></span>
   <% end %>
 </div>
