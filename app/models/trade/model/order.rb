@@ -99,11 +99,11 @@ module Trade
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
       after_save :sync_to_unpaid_payment_orders, if: -> { (saved_changes.keys & ['overall_additional_amount', 'item_amount']).present? }
+      after_create :increment_counts_to_organ
       after_create :sync_ordered_to_current_cart
       after_create_commit :send_notice_after_create
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
-      after_create_commit :increment_counts_to_organ
     end
 
     def filter_hash
