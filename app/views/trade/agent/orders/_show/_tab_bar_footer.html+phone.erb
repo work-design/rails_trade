@@ -29,9 +29,9 @@
       <span class="ml-1"><%= t('.scan_payments.batch.title') %></span>
     </div>
   <% end %>
-  <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
-    <%= svg_tag 'cart-shopping' %>
-    <span class="ml-1"><%= t('.purchase.title') %></span>
+  <%= link_to({ controller:'space/admin/desks', action: 'all' }, class: 'button is-link') do %>
+    <%= svg_tag 'grid-dividers' %>
+    <span class="ml-1"><%= t('space.admin.desks.all.title') %></span>
   <% end %>
   <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-info') do %>
     <%= svg_tag 'pen-clip' %>
