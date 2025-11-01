@@ -6,7 +6,7 @@ module Trade
     end
 
     def desk
-      order_ids = Item.where(status: 'ordered', desk_id: params[:desk_id]).select(:order_id).distinct.pluck(:order_id)
+      order_ids = Order.where(payment_status: ['unpaid', 'part_paid'], desk_id: params[:desk_id]).pluck(:id)
 
       @payment = HandPayment.init_with_order_ids order_ids
     end
