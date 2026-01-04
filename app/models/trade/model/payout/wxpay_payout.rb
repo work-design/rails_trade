@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :payout_uuid, :string, default: -> { UidHelper.nsec_uuid('POT', separator: '') }
+      attribute :payout_uuid, :string, default: -> { UidUtil.nsec_uuid('POT', separator: '') }
     end
 
     def do_pay

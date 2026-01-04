@@ -14,7 +14,7 @@ module Trade
 
     def micro_pay!(auth_code:, spbill_create_ip:)
       opts = {
-        out_trade_no: payment_uuid.presence || UidHelper.nsec_uuid('ScanPAY'),
+        out_trade_no: payment_uuid.presence || UidUtil.nsec_uuid('ScanPAY'),
         auth_code: auth_code,
         total_fee: (self.total_amount * 100).to_i,
         body: good_desc,

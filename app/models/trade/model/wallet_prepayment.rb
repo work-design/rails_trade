@@ -19,13 +19,13 @@ module Trade
     end
 
     def update_token
-      self.token = UidHelper.nsec_uuid 'WP'
+      self.token = UidUtil.nsec_uuid 'WP'
       self
     end
 
     def qrcode_url
       url = Rails.application.routes.url_for(controller: 'trade/my/wallet_templates', action: 'token', token: token)
-      QrcodeHelper.data_url(url)
+      QrcodeUtil.data_url(url)
     end
 
     def execute(user_id:, member_id: nil)

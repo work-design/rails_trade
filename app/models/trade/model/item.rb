@@ -221,7 +221,7 @@ module Trade
     end
 
     def init_uuid
-      self.uuid = UidHelper.nsec_uuid('ITEM')
+      self.uuid = UidUtil.nsec_uuid('ITEM')
     end
 
     def init_delivery

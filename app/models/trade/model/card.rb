@@ -33,7 +33,7 @@ module Trade
     end
 
     def init_uuid
-      self.card_uuid = UidHelper.nsec_uuid('CARD')
+      self.card_uuid = UidUtil.nsec_uuid('CARD')
     end
 
     def sync_from_card_template

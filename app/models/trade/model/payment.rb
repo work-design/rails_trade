@@ -77,7 +77,7 @@ module Trade
     end
 
     def init_uuid
-      self.payment_uuid ||= UidHelper.nsec_uuid('PAY')
+      self.payment_uuid ||= UidUtil.nsec_uuid('PAY')
     end
 
     def init_amount

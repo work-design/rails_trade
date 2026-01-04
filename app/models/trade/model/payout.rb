@@ -35,7 +35,7 @@ module Trade
     end
 
     def init_uuid
-      self.payout_uuid ||= UidHelper.nsec_uuid('POT')
+      self.payout_uuid ||= UidUtil.nsec_uuid('POT')
     end
 
     def sync_state

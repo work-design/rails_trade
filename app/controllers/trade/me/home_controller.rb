@@ -7,7 +7,7 @@ module Trade
 
     def qrcode_file
       send_data(
-        QrcodeHelper.code_png(@url),
+        QrcodeUtil.code_png(@url),
         filename: 'xx.png'
       )
     end

@@ -5,7 +5,7 @@ module Trade
     include Inner::User
 
     included do
-      attribute :uuid, :string, default: -> { UidHelper.nsec_uuid('OD') }
+      attribute :uuid, :string, default: -> { UidUtil.nsec_uuid('OD') }
       attribute :note, :string
       attribute :expire_at, :datetime, default: -> { Time.current + RailsTrade.config.expire_after }
       attribute :serial_number, :integer
@@ -226,11 +226,11 @@ module Trade
     end
 
     def qrcode_enter_png
-      QrcodeHelper.code_png(enter_url, border_modules: 0, fill: 'pink')
+      QrcodeUtil.code_png(enter_url, border_modules: 0, fill: 'pink')
     end
 
     def qrcode_enter_url
-      QrcodeHelper.data_url(enter_url)
+      QrcodeUtil.data_url(enter_url)
     end
 
     def can_pay?

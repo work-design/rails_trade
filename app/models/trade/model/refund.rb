@@ -38,7 +38,7 @@ module Trade
     end
 
     def init_uuid
-      self.refund_uuid ||= UidHelper.nsec_uuid('RD') if new_record?
+      self.refund_uuid ||= UidUtil.nsec_uuid('RD') if new_record?
       self.currency = payment.currency
     end
 
