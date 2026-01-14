@@ -1,0 +1,6 @@
+<%=
+  tr_tag(
+    model,
+    { action: url_for(action: 'do_pay', id: model.id), method: 'patch', icon: 'handshake', title: t('.do_pay.title'), confirm: t('.do_pay.confirm') }
+  ) { yield }
+%>
