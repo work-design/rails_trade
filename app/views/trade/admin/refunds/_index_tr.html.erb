@@ -1,3 +1,20 @@
-<tr id="tr_<%= model.id %>" data-controller="show">
-  <%= yield %>
-</tr>
+<%=
+  tr_tag(
+    model,
+    {
+      action: url_for(action: 'confirm', id: model.id),
+      method: 'patch',
+      title: t('.refunds.confirm.title'),
+      confirm: t('.refunds.confirm.confirm'),
+      enable: model.refunded_at.blank?
+    },
+    {
+      action: url_for(action: 'deny', id: model.id),
+      method: 'patch',
+      title: t('.refunds.deny.title'),
+      confirm: t('.refunds.deni.confirm'),
+      enable: model.refunded_at.blank?
+    },
+    icons: ['show']
+  ) { yield }
+%>
