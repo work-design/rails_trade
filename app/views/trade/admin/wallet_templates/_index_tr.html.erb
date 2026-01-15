@@ -1,0 +1,9 @@
+<%=
+  tr_tag(
+    model,
+    { href: url_for(controller: 'advances', wallet_template_id: model.id), icon: 'donate', title: t('.advances.index.title') },
+    { href: url_for(controller: 'wallet_prepayments', wallet_template_id: model.id), icon: 'box-archive', title: t('.wallet_prepayments.index.title') },
+    { href: url_for(controller: 'wallet_goods', wallet_template_id: model.id), icon: 'gears', title: t('.wallet_goods.index.title') },
+    icons: ['edit', 'destroy']
+  ) { yield }
+%>
