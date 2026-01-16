@@ -7,7 +7,7 @@
       title: t('.refunds.new.title')
     },
     {
-      action: url_for(controller: 'payment_methods', action: 'show', id: model.payment_method_id),
+      action: url_for(controller: 'payment_methods', action: 'show', id: model.payment_method_id.to_s),
       icon: 'cash-register',
       title: t('.payment_methods.show.title'),
       enable: model.payment_method.present?
