@@ -1,0 +1,6 @@
+<%=
+  tr_tag(
+    model,
+    { href: url_for(controller: 'factory/agent/productions', current_cart_id: model.id), icon: 'eye', title: t('.productions.index.title') }
+  ) { yield }
+%>
