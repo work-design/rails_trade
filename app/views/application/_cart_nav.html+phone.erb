@@ -1,4 +1,4 @@
-<div id="cart_nav" class="flex justify-content-space-between as-bottom px-3">
+<div id="cart_nav" class="has-block-space-between as-bottom py-1 px-3">
   <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, text: true, class: 'flex text-grey') do %>
     <div class="button is-borderless">
       <div class="right-badge">
@@ -20,10 +20,10 @@
       <%= svg_tag 'angle-right' %>
     <% end %>
   <% else %>
-    <button class="button is-small is-rounded is-primary" disabled>
-      <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
+    <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, class: 'button is-small is-rounded is-primary') do %>
+      <span class="mr-1"><%= t("#{cart_con.tr('/', '.')}.show.title") %></span>
       <%= svg_tag 'angle-right' %>
-    </button>
+    <% end %>
   <% end %>
   </div>
 </div>
