@@ -1,4 +1,7 @@
-<tr>
-
+<%=
+  tr_tag(
+    model
+  ) { yield }
+%>
 
 <%= render partial: 'promote_tbody', collection: model.item_promotes, as: :item_promote %>

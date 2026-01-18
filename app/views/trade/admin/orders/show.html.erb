@@ -2,3 +2,7 @@
 <%= render 'index_actions' %>
 
 <%= render 'show_table' %>
+
+<%= render layout: 'index_table' do %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
+<% end %>
