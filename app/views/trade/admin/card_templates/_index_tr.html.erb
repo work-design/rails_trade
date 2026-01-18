@@ -1,0 +1,21 @@
+<%=
+  tr_tag(
+    model,
+    {
+      href: url_for(controller: 'purchases', card_template_id: model.id),
+      icon: 'credit-card',
+      title: t('.purchases.index.title')
+    },
+    {
+      href: url_for(controller: 'privileges', card_template_id: model.id),
+      icon: 'crown',
+      title: t('.privileges.index.title')
+    },
+    {
+      href: url_for(controller: 'card_template/promote_goods', card_template_id: model.id),
+      icon: 'gift',
+      title: t('.promote_goods.index.title')
+    },
+    icons: ['edit', 'destroy']
+  ) { yield }
+%>
