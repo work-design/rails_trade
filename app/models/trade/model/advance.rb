@@ -3,7 +3,7 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      attribute :amount, :decimal
+      attribute :amount, :decimal, default: 0
       attribute :price, :decimal
       attribute :apple_product_id, :string, comment: 'For 苹果应用内支付'
       attribute :open, :boolean, default: false
