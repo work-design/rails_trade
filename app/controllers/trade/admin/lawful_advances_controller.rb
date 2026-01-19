@@ -27,6 +27,10 @@ module Trade
       @card_templates = CardTemplate.default_where(default_params)
     end
 
+    def model_klass
+      Advance
+    end
+
     def model_name
       'advance'
     end
