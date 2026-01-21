@@ -3,7 +3,7 @@
 <%= f.text_area :description %>
 <%= f.text_field :unit %>
 <%= f.number_field :digit %>
-<%= f.fields :advances do |ef| %>
+<%= f.fields :advances, all: { normal: nil }, wrap: { input: 'field' } do |ef| %>
   <%= render partial: 'item_form', locals: { ef: ef } %>
 <% end %>
 <%= f.file_field :logo %>

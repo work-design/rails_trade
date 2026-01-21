@@ -8,8 +8,8 @@
     <%= ef.number_field :amount, label: nil, placeholder: Trade::Advance.human_attribute_name(:amount) %>
     <%= ef.number_field :price, label: nil, placeholder: Trade::Advance.human_attribute_name(:price) %>
     <div class="field has-addons has-addons-middle">
-      <i class="fa-solid fa-plus" style="cursor: pointer" data-action="click->field#add"></i>
-      <i class="fa-solid fa-minus" style="cursor: pointer" data-action="click->field#remove"></i>
+      <%= svg_tag 'plus', data: { action: 'click->field#add' }, class: 'icon clickable' %>
+      <%= svg_tag 'minus', data: { action: 'click->field#remove' }, class: 'icon clickable ml-2' %>
     </div>
   </div>
 </div>

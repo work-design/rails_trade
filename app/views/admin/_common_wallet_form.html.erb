@@ -6,8 +6,8 @@
       <%= ef.number_field :price, step: wallet_template.step, value: f.object.wallet_price.fetch(wallet_template.code, wallet_template.step), index: wallet_template.id, disabled: !f.object.wallet_price.key?(wallet_template.code) %>
       <div class="field is-narrow has-addons has-addons-middle">
         <span><%= wallet_template.unit %></span>
-        <i class="fa-solid fa-plus pl-1" style="cursor: pointer" data-action="click->enter#open"></i>
-        <i class="fa-solid fa-minus pl-1" style="cursor: pointer" data-action="click->enter#close"></i>
+        <%= svg_tag 'plus', data: { action: 'click->enter#open' }, class: 'icon clickable' %>
+        <%= svg_tag 'minus', data: { action: 'click->enter#close' }, class: 'icon clickable' %>
       </div>
     </div>
   </div>
