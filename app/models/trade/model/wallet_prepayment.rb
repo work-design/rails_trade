@@ -7,11 +7,14 @@ module Trade
       attribute :token, :string
       attribute :amount, :decimal
       attribute :expire_at, :datetime
+      attribute :used_at, :datetime
       attribute :lawful, :boolean, default: false
 
       belongs_to :wallet_template, optional: true
 
       has_one :wallet_advance
+
+      validates :token, uniqueness: true
 
       before_validation :update_token, if: -> { new_record? }
 
@@ -39,9 +42,12 @@ module Trade
       wallet_advance.wallet = wallet
       wallet_advance.amount = amount
 
+      self.used_at = Time.current
+
       wallet.class.transaction do
         wallet.save!
         wallet_advance.save!
+        self.save!
       end
 
       wallet
