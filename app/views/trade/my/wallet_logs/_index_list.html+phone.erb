@@ -1,5 +1,5 @@
-<div class="box p-0">
-  <div class="box-body">
+<div class="box is-padding-less">
+  <div class="box-body p-3">
     <span>余额：</span>
     <% if @wallet.is_a?(Trade::LawfulWallet) %>
       <span><%= @wallet.amount.to_money.format.html_safe %></span>
