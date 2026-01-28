@@ -107,14 +107,16 @@ module Trade
     end
 
     def filter_hash
+      options = { organ_id: organ_id, member_id: member_id }.compact
+
       if user_id
-        { organ_id: organ_id, member_id: member_id }
+        options
       elsif client_id
-        { organ_id: organ_id, member_id: member_id, client_id: client_id }
+        options.merge! client_id: client_id
       elsif contact_id
-        { organ_id: organ_id, member_id: member_id, contact_id: contact_id }
+        options.merge! contact_id: contact_id
       else
-        { organ_id: organ_id, member_id: member_id, client_id: client_id, contact_id: contact_id }
+        options.merge! client_id: client_id, contact_id: contact_id
       end
     end
 
