@@ -1,20 +1,33 @@
 <tr>
   <td class="text-right">
-    <span><%= payment_order.payment.wallet.wallet_template.name %></span>
-    <span>余额</span>
+    <span class="is-several">
+      <%= image_tag payment_order.payment.wallet.wallet_template.logo, class: 'image is-24x24' if payment_order.payment.wallet.wallet_template.logo.attached? %>
+      <span><%= payment_order.payment.wallet.wallet_template.name %></span>
+    </span>
+    <span class="tags has-addons is-tag-price pl-2">
+      <span class="tag mb-0">余</span>
+      <span class="tag is-success mb-0">
+        <span><%= payment_order.payment.wallet.amount.to_fs(:rounded, precision: payment_order.payment.wallet.wallet_template.digit) %></span>
+        <span><%= payment_order.payment.wallet.wallet_template.unit %></span>
+      </span>
+    </span>
   </td>
-  <td>
-    <div class="is-several">
-      <div><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></div>
-      <%= f.fields :payment_orders, model: payment_order, skip_default_ids: true do |df| %>
-        <%= df.hidden_field :order_amount %>
-        <%= df.hidden_field :payment_amount %>
-        <%= df.fields :payment, model: payment_order.payment do |ef| %>
-          <%= ef.hidden_field :type %>
-          <%= ef.hidden_field :wallet_id %>
-        <% end %>
-        <%= df.check_box :state, { value: 'pending', checked: payment_order.state_pending?, data: { action: 'input#form' } }, 'pending', 'init' %>
-    <% end %>
-    </div>
+  <td data-controller="input">
+    <span class="size-7 text-danger">
+      <span><%= payment_order.payment_amount.to_fs(:rounded, precision: payment_order.payment.wallet.wallet_template.digit) %></span>
+      <span><%= payment_order.payment.wallet.wallet_template.unit %></span>
+      <span>抵扣</span>
+      <span><%= payment_order.order_amount.to_money.format(html_safe: true).html_safe %></span>
+    </span>
+      <%= f.hidden_field :wallet_id %>
+      <%= f.hidden_field :type %>
+      <%= f.fields :payment_orders, model: payment_order do |ef| %>
+        <%= ef.hidden_field :order_id %>
+        <%= ef.hidden_field :payment_amount %>
+        <%= ef.hidden_field :order_amount %>
+        <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
+        <%= ef.check_box 'xx', checked: ef.object.state_pending?, class: 'weui-check', data: { action: 'input#form' } %>
+      <% end %>
+      <span class="weui-icon-checked"></span>
   </td>
 </tr>
