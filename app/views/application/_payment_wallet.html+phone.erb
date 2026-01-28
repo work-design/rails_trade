@@ -1,5 +1,5 @@
-<label class="weui-cell weui-cell_active weui-cells_checkbox">
-  <span class="weui-cell__bd flex align-items-center">
+<label class="media">
+  <span class="media-content flex align-items-center">
     <span class="is-several">
       <%= image_tag payment_order.payment.wallet.wallet_template.logo, class: 'image is-24x24' if payment_order.payment.wallet.wallet_template.logo.attached? %>
       <span><%= payment_order.payment.wallet.wallet_template.name %></span>
@@ -12,7 +12,7 @@
       </span>
     </span>
   </span>
-  <span class="weui-cell__ft has-v-centered" data-controller="input">
+  <span class="media-right has-v-centered" data-controller="input">
     <span class="size-7 text-danger">
       <span><%= payment_order.payment_amount.to_fs(:rounded, precision: payment_order.payment.wallet.wallet_template.digit) %></span>
       <span><%= payment_order.payment.wallet.wallet_template.unit %></span>
