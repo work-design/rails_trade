@@ -26,6 +26,7 @@ module Trade
       attribute :extra, :json, default: {}
       attribute :holds_count, :integer, default: 0
       attribute :purchase_items_count, :integer, default: 0
+      attribute :scope, :string, default: 'all'
 
       enum :status, {
         init: 'init',

@@ -15,6 +15,7 @@ module Trade
       attribute :fresh, :boolean, default: false
       attribute :purchasable, :boolean, default: false
       attribute :items_count, :integer, default: 0
+      attribute :scope, :string, default: 'all'
 
       enum :aim, {
         use: 'use',
@@ -32,8 +33,8 @@ module Trade
 
       has_many :promote_goods, ->(o) { where(o.promote_filter_hash) }, primary_key: :good_type, foreign_key: :good_type
 
-      has_many :real_items, ->(o) { where(o.filter_hash).carting }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id, inverse_of: :current_cart  # 用于购物车展示，计算
-      has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :organ_id, foreign_key: :organ_id
+      has_many :real_items, ->(o) { where(o.filter_hash).carting }, class_name: 'Item', primary_key: :scope, foreign_key: :scope, inverse_of: :current_cart  # 用于购物车展示，计算
+      has_many :all_items, ->(o) { where(o.filter_hash) }, class_name: 'Item', primary_key: :scope, foreign_key: :scope
       has_many :organ_items, ->(o) { where(o.in_filter_hash).where(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :purchase_cart
       has_many :purchase_items, ->(o) { where(o.in_filter_hash).where.not(purchase_id: nil).carting }, class_name: 'Item', primary_key: :member_organ_id, foreign_key: :member_organ_id, inverse_of: :current_cart
       has_many :agent_items, -> { carting }, class_name: 'Item', primary_key: [:good_type, :aim, :agent_id, :contact_id, :client_id, :desk_id, :station_id], foreign_key: [:good_type, :aim, :agent_id, :contact_id, :client_id, :desk_id, :station_id], inverse_of: :current_cart
@@ -55,7 +56,7 @@ module Trade
     end
 
     def filter_hash
-      p = { good_type: good_type, aim: aim }.compact
+      p = { good_type: good_type, aim: aim, organ_id: organ_id }.compact
 
       if member_id
         p.merge! member_id: member_id
