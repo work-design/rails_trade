@@ -157,8 +157,11 @@ module Trade
     end
 
     def payment_params
-      params.fetch(:order, {}).permit(
+      params.fetch(:payment, {}).permit(
+        :wallet_id,
+        :type,
         payment_orders_attributes: [
+          :order_id,
           :payment_amount,
           :order_amount,
           :state,
