@@ -19,15 +19,15 @@
       <span>抵扣</span>
       <span><%= payment_order.order_amount.to_money.format(html_safe: true).html_safe %></span>
     </span>
-      <%= f.hidden_field :wallet_id %>
-      <%= f.hidden_field :type %>
-      <%= f.fields :payment_orders, model: payment_order do |ef| %>
-        <%= ef.hidden_field :order_id %>
-        <%= ef.hidden_field :payment_amount %>
-        <%= ef.hidden_field :order_amount %>
-        <%= ef.hidden_field :state, value: ef.object.state_init? ? 'pending' : 'init' %>
-        <%= ef.check_box 'xx', checked: ef.object.state_pending?, class: 'weui-check', data: { action: 'input#form' } %>
+    <%= f.fields :payment_orders, model: payment_order, skip_default_ids: true do |ef| %>
+      <%= ef.hidden_field :order_amount %>
+      <%= ef.hidden_field :payment_amount %>
+      <%= ef.fields :payment, model: payment_order.payment do |df| %>
+        <%= df.hidden_field :type %>
+        <%= df.hidden_field :wallet_id %>
       <% end %>
-      <span class="weui-icon-checked"></span>
+      <%= ef.check_box :state, { value: 'pending', checked: payment_order.state_pending?, data: { action: 'input#form' } }, 'pending', 'init' %>
+    <% end %>
+    <span class="weui-icon-checked"></span>
   </td>
 </tr>
