@@ -15,7 +15,7 @@
     <%= link_to current_organ.service_url, rel: 'nofollow', class: 'button is-rounded' do %>
       <%= svg_tag 'headset' %>
       <span class="ml-1">联系客服</span>
-    <% end if current_organ.service_url.present? %>
+    <% end if current_organ && current_organ.service_url.present? %>
   <% end %>
   <%= button_to({ controller: 'orders', action: 'cancel', id: @order.id }, method: :patch, class: 'button is-rounded', form: { class: '' }) do %>
     <span>取消订单</span>
