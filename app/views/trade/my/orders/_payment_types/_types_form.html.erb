@@ -7,6 +7,7 @@
     id: 'payment_form'
   ) do |f|
 %>
+  <%= render 'modal_header' %>
   <%= render partial: 'payment_types_form', locals: { f: f } %>
   <div class="modal-card-foot"></div>
 <% end %>
