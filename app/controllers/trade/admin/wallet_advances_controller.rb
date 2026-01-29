@@ -24,6 +24,12 @@ module Trade
       @wallet_advance = @wallet.wallet_advances.build(wallet_advance_params)
     end
 
+    def set_filter_columns
+      @filter_columns = set_filter_i18n(
+        'created_at' => { type: 'time', default: true }
+      )
+    end
+
     def wallet_advance_params
       p = params.fetch(:wallet_advance, {}).permit(
         :amount,
