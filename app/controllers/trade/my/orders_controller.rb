@@ -77,8 +77,8 @@ module Trade
     end
 
     def payment_confirm
-      @order.batch_pending_payments(payment_params)
       if params['commit']
+        @order.batch_pending_payments(payment_params)
         @order.confirm!
       else
         @order.init_wallet_payments
