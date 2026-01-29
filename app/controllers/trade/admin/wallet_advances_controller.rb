@@ -26,7 +26,7 @@ module Trade
 
     def set_filter_columns
       @filter_columns = set_filter_i18n(
-        'created_at' => { type: 'time', default: true }
+        'created_at' => { type: 'datetime', default: true }
       )
     end
 
