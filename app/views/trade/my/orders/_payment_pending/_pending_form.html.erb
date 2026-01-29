@@ -1,3 +1,11 @@
-<%= form_with theme: 'modal_line', model: @order, url: { action: 'payment_confirm' }, method: :post, skip_default_ids: true do |f| %>
+<%=
+  form_with(
+    theme: 'modal_line',
+    model: @order,
+    url: { action: 'payment_confirm' },
+    method: :post,
+    skip_default_ids: true
+  ) do |f|
+%>
   <%= render partial: 'payment_types_form', locals: { f: f } %>
 <% end %>

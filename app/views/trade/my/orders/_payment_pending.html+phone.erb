@@ -1,5 +1,3 @@
-<%= render 'order_for_payment' %>
-
 <div class="box is-padding-less">
 <% @order.payment_orders.select(&:new_record?).each do |payment_order| %>
   <% if payment_order.payment.is_a?(Trade::WalletPayment) && payment_order.payment.wallet.wallet_template %>
