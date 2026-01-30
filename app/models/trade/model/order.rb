@@ -321,6 +321,7 @@ module Trade
     end
 
     def compute_received_amount
+      compute_verifying_amount
       self.received_amount = self.payment_orders.select(&:state_confirmed?).sum(&:order_amount)
     end
 
@@ -509,6 +510,11 @@ module Trade
 
     def xx
       unreceived_amount.to_d > 0 && unreceived_amount.to_d <= amount
+    end
+
+    # 组合支付时，剩余待确认的金额
+    def checking_amount
+      unreceived_amount - verifying_amount.to_d
     end
 
     def to_payment(type: 'Trade::WxpayPayment', order_amount: computed_payable_amount, payment_amount: order_amount, state: 'init', **options)
