@@ -1,0 +1,11 @@
+<%=
+  tr_tag(
+    model,
+    {
+      href: url_for(controller: 'cart/promote_goods', cart_id: model.id),
+      icon: 'gift',
+      title: t('.cart.promote_goods.index.title')
+    },
+    icons: ['edit', 'destroy']
+  ) { yield }
+%>
