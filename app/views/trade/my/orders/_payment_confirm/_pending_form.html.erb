@@ -1,0 +1,13 @@
+<%=
+  form_with(
+    theme: 'modal_line',
+    model: @order,
+    url: { action: 'payment_pending' },
+    method: :post,
+    skip_default_ids: true,
+    id: 'payment_form'
+  ) do |f|
+%>
+  <%= render partial: 'payment_types_form', locals: { f: f } %>
+  <%= f.submit %>
+<% end %>
