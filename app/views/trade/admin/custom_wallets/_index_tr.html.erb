@@ -1,6 +1,10 @@
 <%=
   tr_tag(
     model,
-    { href: url_for(controller: 'wallet_logs', wallet_id: model.id), icon: 'clock-rotate-left', title: t('.wallet_logs.index.title') }
+    {
+      href: url_for(controller: 'wallet_logs', wallet_id: model.id),
+      icon: 'clock-rotate-left',
+      title: t('.wallet_logs.index.title')
+    }
   ) { yield }
 %>
