@@ -9,6 +9,9 @@ module Trade
       @wallet_templates = WalletTemplate.default_where(default_params).where.not(id: @wallets.pluck(:wallet_template_id).compact)
     end
 
+    def token_new
+    end
+
     def token
       prepayment = WalletPrepayment.find_by token: params[:token]
       @wallet = prepayment.execute(user_id: current_user.id)

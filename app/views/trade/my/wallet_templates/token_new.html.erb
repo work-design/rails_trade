@@ -1,0 +1,14 @@
+
+<%= form_with theme: nil, url: { action: 'token' } do |f| %>
+  <div class="field has-addons mt-6">
+    <div class="control is-expanded">
+      <%= f.text_field :token, placeholder: '请输入券码', autocomplete: 'off', class: 'input is-medium' %>
+    </div>
+    <div class="control">
+      <button type="button" class="button is-medium is-info">
+        <%= svg_tag 'barcode-read', class: 'icon' %>
+      </button>
+    </div>
+  </div>
+  <%= f.submit '绑定', class: 'button is-rounded is-fullwidth is-primary mt-4' %>
+<% end %>

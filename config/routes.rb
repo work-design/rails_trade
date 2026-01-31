@@ -65,10 +65,11 @@ Rails.application.routes.draw do
     end
     resources :wallet_templates, only: [:index, :show] do
       collection do
+        get :token_new
         get 'token/:token' => :token
+        post :token
       end
     end
-    resources :card_prepayments
     resources :wallets, only: [:show] do
       resources :wallet_logs, only: [:index, :show]
     end
