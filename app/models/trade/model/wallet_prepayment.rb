@@ -14,6 +14,9 @@ module Trade
 
       has_one :wallet_advance
 
+      scope :valid, -> { where(expire_at: Time.current..) }
+      scope :unused, -> { where.missing(:wallet_advance).valid }
+
       validates :token, uniqueness: true
 
       before_validation :update_token, if: -> { new_record? }
@@ -29,7 +32,7 @@ module Trade
     def qrcode_raw_url(port: 80)
       Rails.application.routes.url_for(
         controller: 'trade/my/wallet_templates',
-        action: 'token',
+        action: 'token_detect',
         token: token,
         port: port
       )
