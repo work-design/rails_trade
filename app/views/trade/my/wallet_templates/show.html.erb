@@ -1,9 +1,8 @@
 <div class="box">
-  <div class="weui-panel__bd">
-    <div class="columns m-4 flex is-multiline is-mobile">
-      <%= render partial: 'advance', collection: @wallet_template.opened_advances.without_card, as: :advance, locals: { wallet_template: @wallet_template } %>
-    </div>
-    <% @wallet_template.opened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
+  <div class="columns m-4 flex is-multiline is-mobile">
+    <%= render partial: 'advance', collection: @wallet_template.opened_advances.without_card, as: :advance, locals: { wallet_template: @wallet_template } %>
+  </div>
+  <% @wallet_template.opened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mx-4">
       <span><%= card_template.name %>专享</span>
       <span>点击开通</span>
@@ -11,6 +10,5 @@
     <div class="columns m-4 flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet_template } %>
     </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
