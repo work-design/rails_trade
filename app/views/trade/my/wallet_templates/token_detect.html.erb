@@ -1,0 +1,8 @@
+<%= form_with theme: nil, url: { action: 'token_create' }, id: 'create_scan' do |f| %>
+  <div class="field has-addons mt-6">
+    <p>您的券码：</p>
+    <p><%= @wallet_prepayment.token %></p>
+  </div>
+  <%= f.hidden_field :token, value: params[:token] %>
+  <%= f.submit '确认绑定', class: 'button is-rounded is-fullwidth is-primary mt-4' %>
+<% end %>
