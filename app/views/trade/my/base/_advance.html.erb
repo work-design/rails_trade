@@ -3,6 +3,7 @@
     <%= f.fields :items do |ef| %>
       <%= ef.hidden_field :good_type, value: advance.base_class_name %>
       <%= ef.hidden_field :good_id, value: advance.id %>
+      <%= ef.hidden_field :status, value: 'ordered' %>
     <% end %>
     <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
       <div class="header text-grey text-weight-semibold">

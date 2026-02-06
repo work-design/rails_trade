@@ -11,13 +11,11 @@
 <div class="box is-padding-less">
   <div class="box-body">
     <%= render partial: 'item', collection: @order.items, as: :item %>
-    <div class="weui-media-box weui-media-box_text pb-1 pt-2">
-      <ul class="weui-media-box__info m-0">
-        <li class="weui-media-box__info__meta">
-          <span>总价：</span>
-          <span><%= @order.amount.to_money.format.html_safe %></span>
-        </li>
-      </ul>
+    <div class="media">
+      <div class="media-content">
+        <span>总价：</span>
+        <span><%= @order.amount.to_money.format.html_safe %></span>
+      </div>
     </div>
   </div>
   <div class="box-footer">

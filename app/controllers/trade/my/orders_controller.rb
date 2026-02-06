@@ -122,6 +122,10 @@ module Trade
       @order.save
     end
 
+    def add
+      @order.compute_amount
+    end
+
     private
     def set_cart
       @cart = Cart.find params[:current_cart_id]
