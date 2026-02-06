@@ -26,13 +26,17 @@ module Trade
       self
     end
 
-    def qrcode_url
-      url = Rails.application.routes.url_for(
+    def qrcode_raw_url(port: 80)
+      Rails.application.routes.url_for(
         controller: 'trade/my/wallet_templates',
         action: 'token',
-        token: token
+        token: token,
+        port: port
       )
-      QrcodeUtil.data_url(url)
+    end
+
+    def qrcode_url
+      QrcodeUtil.data_url(qrcode_raw_url)
     end
 
     def execute(user_id:, member_id: nil)

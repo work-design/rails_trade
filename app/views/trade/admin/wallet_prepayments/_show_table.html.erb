@@ -13,10 +13,13 @@
 <div>
   <dt></dt>
   <dd>
-  <% if @wallet_prepayment.scene %>
-    <%= image_tag @wallet_prepayment.scene.qrcode_data_url %>
-  <% else %>
-    <%= image_tag @wallet_prepayment.qrcode_url %>
-  <% end %>
+    <p>
+    <% if @wallet_prepayment.scene %>
+      <%= image_tag @wallet_prepayment.scene.qrcode_data_url %>
+    <% else %>
+      <%= image_tag @wallet_prepayment.qrcode_url %>
+    <% end %>
+    </p>
+    <p class="size-7 text-grey"><%= @wallet_prepayment.qrcode_raw_url(port: request.port) %></p>
   </dd>
 </div>
