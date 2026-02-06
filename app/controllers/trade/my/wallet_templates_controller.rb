@@ -10,9 +10,10 @@ module Trade
     end
 
     def token_new
+      prepayment = WalletPrepayment.find_by token: params[:token]
     end
 
-    def token
+    def token_create
       prepayment = WalletPrepayment.find_by token: params[:token]
       @wallet = prepayment.execute(user_id: current_user.id)
 

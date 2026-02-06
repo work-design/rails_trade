@@ -65,9 +65,8 @@ Rails.application.routes.draw do
     end
     resources :wallet_templates, only: [:index, :show] do
       collection do
-        get :token_new
-        get 'token/:token' => :token
-        post :token
+        get 'token/:token' => :token_new
+        post 'token/:token' => :token_create
       end
     end
     resources :wallets, only: [:show] do

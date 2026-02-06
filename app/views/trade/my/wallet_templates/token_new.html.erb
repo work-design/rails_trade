@@ -1,5 +1,4 @@
-
-<%= form_with theme: nil, url: { action: 'token' }, id: 'create_scan' do |f| %>
+<%= form_with theme: nil, url: { action: 'token_create' }, id: 'create_scan' do |f| %>
   <div class="field has-addons mt-6">
     <div class="control is-expanded">
       <%= f.text_field :token, placeholder: '请输入券码', autocomplete: 'off', class: 'input is-medium' %>
@@ -15,5 +14,5 @@
       </button>
     </div>
   </div>
-  <%= f.submit '绑定', class: 'button is-rounded is-fullwidth is-primary mt-4' %>
+  <%= f.submit '确认绑定', class: 'button is-rounded is-fullwidth is-primary mt-4' %>
 <% end %>
