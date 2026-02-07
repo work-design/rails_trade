@@ -11,10 +11,12 @@
     </div>
   </div>
   <% if model.purchases.present? %>
-  <div class="fixed-grid has-3-cols m-3">
-    <div class="grid">
-      <%= render partial: 'purchase', collection: model.purchases %>
+    <div class="fixed-grid has-3-cols m-3">
+      <div class="grid">
+        <%= render partial: 'purchase', collection: model.purchases %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    
   <% end %>
 </div>
