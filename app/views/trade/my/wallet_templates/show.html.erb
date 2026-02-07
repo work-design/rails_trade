@@ -1,7 +1,14 @@
 <div class="box">
   <div class="fixed-grid has-3-cols">
     <div class="grid">
-      <%= render partial: 'advance', collection: @wallet_template.opened_advances.without_card, as: :advance, locals: { wallet_template: @wallet_template } %>
+      <%=
+        render(
+          partial: 'advance',
+          collection: @wallet_template.opened_advances.without_card,
+          as: :advance,
+          locals: { wallet_template: @wallet_template, disabled: false }
+        )
+      %>
     </div>
   </div>
   <% @wallet_template.opened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
@@ -11,7 +18,7 @@
     </div>
     <div class="fixed-grid has-3-cols">
       <div class="grid">
-        <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet_template } %>
+        <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet_template, disabled: true } %>
       </div>
     </div>
   <% end %>

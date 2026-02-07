@@ -5,7 +5,7 @@
       <%= ef.hidden_field :good_id, value: advance.id %>
       <%= ef.hidden_field :status, value: 'ordered' %>
     <% end %>
-    <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
+    <%= button_tag disabled: disabled, class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
       <div class="header text-grey text-weight-semibold">
         <span><%= advance.amount.to_fs(:rounded, precision: wallet_template.digit) %></span>
         <span><%= wallet_template.unit %></span>
