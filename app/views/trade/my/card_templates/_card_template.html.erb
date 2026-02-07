@@ -9,12 +9,12 @@
     <div class="card-content background-cover flex flex-direction-column-reverse" style="color: <%= model.text_color %>">
       <div class="description"></div>
     </div>
-    <div class="card-footer"></div>
   </div>
+  <% if model.purchases.present? %>
   <div class="fixed-grid has-3-cols m-3">
     <div class="grid">
       <%= render partial: 'purchase', collection: model.purchases %>
     </div>
   </div>
+  <% end %>
 </div>
-
