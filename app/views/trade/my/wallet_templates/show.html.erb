@@ -14,14 +14,16 @@
   <% @wallet_template.opened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mb-1">
       <span><%= card_template.name %>专享</span>
-      <span>
       <% if @cards.include?(card_template.id) %>
-        <%= svg_tag 'circle-check', class: 'icon text-success' %>
-        <span>已开通</span>
+        <div class="tags has-addons display-inline-flex">
+          <span class="tag">已开通</span>
+          <div class="tag is-success">
+            <%= svg_tag 'check' %>
+          </div>
+        </div>
       <% else %>
-        
+
       <% end %>
-      </span>
     </div>
     <div class="fixed-grid has-3-cols">
       <div class="grid">
