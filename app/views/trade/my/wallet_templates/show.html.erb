@@ -14,11 +14,18 @@
   <% @wallet_template.opened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mb-1">
       <span><%= card_template.name %>专享</span>
-      <span>点击开通</span>
+      <span>
+      <% if @cards.include?(card_template.id) %>
+        <%= svg_tag 'circle-check', class: 'icon text-success' %>
+        <span>已开通</span>
+      <% else %>
+        
+      <% end %>
+      </span>
     </div>
     <div class="fixed-grid has-3-cols">
       <div class="grid">
-        <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet_template, disabled: true } %>
+        <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet_template, disabled: !@cards.include?(card_template.id) } %>
       </div>
     </div>
   <% end %>

@@ -24,7 +24,7 @@ module Trade
 
     def show
       @wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: @wallet_template.id)
-      @cards = @cart.cards.formal
+      @cards = @cart.cards.formal.pluck(:card_template_id)
     end
 
     private
