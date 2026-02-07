@@ -15,16 +15,27 @@
 
 <div class="box is-padding-less">
   <div class="box-header">充值</div>
-  <div class="columns m-4 flex is-multiline is-mobile">
-    <%= render partial: 'advance', collection: @wallet.wallet_template.unopened_advances.without_card, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
+  <div class="fixed-grid has-3-cols">
+    <div class="grid">
+      <%=
+        render(
+          partial: 'advance',
+          collection: @wallet.wallet_template.unopened_advances.without_card,
+          as: :advance,
+          locals: { wallet_template: @wallet.wallet_template, disabled: false }
+        )
+      %>
+    </div>
   </div>
   <div class="box-body">
     <% @wallet.wallet_template.unopened_advances.with_card.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mb-3">
       <strong><%= card_template.name %>专享</strong>
     </div>
-    <div class="columns flex is-multiline is-mobile">
-      <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet.wallet_template } %>
+    <div class="fixed-grid has-3-cols">
+      <div class="grid">
+        <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet.wallet_template, disabled: false } %>
+      </div>
     </div>
     <% end %>
   </div>
