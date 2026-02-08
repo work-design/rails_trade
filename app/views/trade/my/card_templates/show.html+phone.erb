@@ -1,4 +1,4 @@
-<%= render 'menu' %>
+<%= render 'menu' if @card_templates.size > 1 %>
 
 <% if @card %>
   <%= render partial: 'card', locals: { model: @card } %>
@@ -6,6 +6,7 @@
   <%= render partial: 'card_template', locals: { model: @card_template } %>
 <% end %>
 
+<% if @card_template.privileges.size > 0 %>
 <div class="box is-padding-less">
   <div class="box-header">特权</div>
   <div class="fixed-grid has-3-count">
@@ -14,3 +15,4 @@
     </div>
   </div>
 </div>
+<% end %>
