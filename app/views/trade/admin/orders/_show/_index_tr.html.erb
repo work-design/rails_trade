@@ -1,6 +1,7 @@
 <%=
   tr_tag(
-    model
+    model,
+    param: { controller: 'items', id: model.id }
   ) { yield }
 %>
 
