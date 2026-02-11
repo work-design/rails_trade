@@ -17,8 +17,13 @@ module Trade
     end
 
     def create
-      @card = @cart.cards.build(card_params)
-      @card.save
+      @card_template = CardTemplate.find params[:card_template_id]
+      if @card_template.purchases.blank?
+        @card = @cart.cards.build(card_template_id: @card_template.id)
+        @card.save
+      else
+        render 'alert_message', status: :unauthorized, locals: { message: '非法请求' }
+      end
     end
 
     private
