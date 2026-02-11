@@ -1,5 +1,6 @@
 module Trade
   class My::CardsController < My::BaseController
+    before_action :set_cart
     before_action :set_card, only: [:show, :edit, :update, :destroy]
     before_action :set_card_templates, only: [:show]
 
@@ -15,24 +16,9 @@ module Trade
       @card = current_cart.cards.find_or_initialize_by(card_template_id: params[:card_template_id])
     end
 
-    def token
-      @card_prepayment = CardPrepayment.find_by token: params[:token]
-      @card = current_user.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
-      @card.card_advances.build(amount: @card_prepayment.amount)
-    end
-
     def create
-      if token_params[:token]
-        @card_prepayment = CardPrepayment.find_by token: token_params[:token]
-        @card = current_cart.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
-      else
-        @card = current_user.cards.build(card_params)
-      end
-      @card.assign_attributes card_params
-
-      unless @card.save
-        render :new, locals: { model: @card }, status: :unprocessable_entity
-      end
+      @card = @cart.cards.build(card_params)
+      @card.save
     end
 
     private
