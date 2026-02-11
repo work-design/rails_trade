@@ -24,7 +24,9 @@
           </div>
         </div>
       <% else %>
-
+        <%= link_to({ controller: 'card_templates', action: 'show', id: card_template.id }) do %>
+          <span>立即开通</span>
+        <% end %>
       <% end %>
     </div>
     <div class="fixed-grid has-3-cols">
