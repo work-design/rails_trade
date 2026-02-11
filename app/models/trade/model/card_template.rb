@@ -36,5 +36,9 @@ module Trade
       validates :code, uniqueness: { scope: :organ_id }
     end
 
+    def self_help?
+      purchases.blank?
+    end
+
   end
 end

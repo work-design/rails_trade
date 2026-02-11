@@ -18,7 +18,7 @@ module Trade
 
     def create
       @card_template = CardTemplate.find params[:card_template_id]
-      if @card_template.purchases.blank?
+      if @card_template.self_help?
         @card = @cart.cards.build(card_template_id: @card_template.id)
         @card.save
       else
