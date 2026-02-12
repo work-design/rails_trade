@@ -38,11 +38,9 @@ module Trade
     end
 
     def token_create
-      if token_params[:token]
-        @card_prepayment = CardPrepayment.find_by token: token_params[:token]
-        @card = current_cart.cards.find_or_initialize_by(card_template_id: @card_prepayment.card_template_id)
-        @card.card_purchases.build(card_prepayment_id: @card_prepayment.id)
-        @card.save
+      if params[:token]
+        @card_prepayment = CardPrepayment.find_by token: params[:token]
+        @card_prepayment.execute(user_id: current_user.id)
       end
     end
 
