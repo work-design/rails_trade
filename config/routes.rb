@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     resources :card_templates, except: [:edit, :destroy] do
       member do
         get :code
+        post :gift
       end
     end
     resources :wallet_templates, only: [:index, :show] do

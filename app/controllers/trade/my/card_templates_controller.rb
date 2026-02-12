@@ -1,7 +1,7 @@
 module Trade
   class My::CardTemplatesController < My::BaseController
     before_action :set_cart
-    before_action :set_card_template, only: [:show]
+    before_action :set_card_template, only: [:show, :gift]
     before_action :set_card_templates
     before_action :set_new_order, only: [:index, :show]
 
@@ -22,6 +22,15 @@ module Trade
       @card = @cart.cards.find_by(card_template_id: @card_template.id)
 
       render :show
+    end
+
+    def gift
+      if current_organ.counters['today_remain'].to_i > 0
+        card_prepayment = @card_template.card_prepayments.untaken.first
+        card_prepayment.with_lock do
+          card_prepayment.update(user_id: current_user.id) if card_prepayment.user_id.blank?
+        end
+      end
     end
 
     def token

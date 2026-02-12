@@ -18,6 +18,7 @@ module Trade
 
       scope :valid, -> { where(expire_at: Time.current..) }
       scope :unused, -> { where.missing(:wallet_advance).valid }
+      scope :untaken, -> { where(user_id: nil) }
 
       validates :token, uniqueness: true
 
