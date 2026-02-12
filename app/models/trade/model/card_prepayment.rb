@@ -20,6 +20,12 @@ module Trade
       scope :unused, -> { where.missing(:wallet_advance).valid }
 
       validates :token, uniqueness: true
+
+      before_validation :sync_from_template, if: :new_record?
+    end
+
+    def sync_from_template
+      self.organ = card_template.organ
     end
 
     def qrcode_raw_url(port: 80)
