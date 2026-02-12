@@ -2,6 +2,7 @@ module Trade
   module Model::CardPrepayment
     extend ActiveSupport::Concern
     include Wechat::Ext::Handle if defined?(RailsWechat)
+    include Inner::User
 
     included do
       attribute :token, :string, default: -> { UidUtil.nsec_uuid 'CP' }
@@ -13,7 +14,6 @@ module Trade
       attribute :activated, :boolean
 
       belongs_to :card_template, optional: true
-
       has_one :card_purchase
 
       scope :valid, -> { where(expire_at: Time.current..) }
