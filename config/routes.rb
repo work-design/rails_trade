@@ -318,6 +318,7 @@ Rails.application.routes.draw do
             patch :reorder
           end
         end
+        resources :card_prepayments
         resources :promote_goods, controller: 'card_template/promote_goods'
         resources :cards do
           resources :card_purchases

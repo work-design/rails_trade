@@ -24,6 +24,7 @@ module Trade
       has_many :opened_advances, -> { where(open: true).order(amount: :asc) }, class_name: 'Advance'
       has_many :unopened_advances, -> { where(open: false).order(amount: :asc) }, class_name: 'Advance'
       has_many :promote_goods, dependent: :destroy_async
+      has_many :card_prepayments, dependent: :destroy_async
 
       accepts_nested_attributes_for :advances
 

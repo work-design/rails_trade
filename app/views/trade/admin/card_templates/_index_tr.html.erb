@@ -12,6 +12,11 @@
       title: t('.privileges.index.title')
     },
     {
+      href: url_for(controller: 'card_prepayments', card_template_id: model.id),
+      icon: 'gift-card',
+      title: t('.card_prepayments.index.title')
+    },
+    {
       href: url_for(controller: 'card_template/promote_goods', card_template_id: model.id),
       icon: 'gift',
       title: t('.promote_goods.index.title')
