@@ -20,12 +20,14 @@ module Trade
       }
 
       belongs_to :card
-      belongs_to :purchase
+      belongs_to :purchase, optional: true
       belongs_to :item, optional: true
+      belongs_to :card_prepayment, optional: true
 
       has_one :card_log, ->(o){ where(card_id: o.card_id) }, as: :source
 
       before_create :sync_from_card
+      before_create :sync_from_purchase, if: -> { purchase.present? }
       after_save :sync_to_card!, if: -> { (saved_changes.keys & ['years', 'months', 'days', 'last_expire_at']).present? }
       after_destroy :prune_to_card!
     end
@@ -53,6 +55,9 @@ module Trade
         self.state = 'fresh'
       end
       self.last_expire_at = card.expire_at || Time.current
+    end
+
+    def sync_from_purchase
       self.years = purchase.years
       self.months = purchase.months
       self.days = purchase.days

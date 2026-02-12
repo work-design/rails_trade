@@ -4,28 +4,24 @@ module Trade
     include Wechat::Ext::Handle if defined?(RailsWechat)
 
     included do
-      attribute :token, :string
-      attribute :amount, :decimal
+      attribute :token, :string, default: -> { UidUtil.nsec_uuid 'CP' }
+      attribute :days, :integer, default: 0
+      attribute :months, :integer, default: 0
+      attribute :years, :integer, default: 0
       attribute :expire_at, :datetime
       attribute :used_at, :datetime
+      attribute :activated, :boolean
 
       belongs_to :card_template, optional: true
 
-      has_one :wallet_advance
+      has_one :card_purchase
 
       scope :valid, -> { where(expire_at: Time.current..) }
       scope :unused, -> { where.missing(:wallet_advance).valid }
 
       validates :token, uniqueness: true
 
-      before_validation :update_token, if: -> { new_record? }
-
       delegate :appid, to: :wallet_template
-    end
-
-    def update_token
-      self.token = UidUtil.nsec_uuid 'WP'
-      self
     end
 
     def qrcode_raw_url(port: 80)
@@ -42,21 +38,21 @@ module Trade
     end
 
     def execute(user_id:, member_id: nil)
-      wallet = wallet_template.wallets.find_or_initialize_by(user_id: user_id, member_id: member_id)
+      card = card_template.cards.find_or_initialize_by(user_id: user_id, member_id: member_id)
 
-      wallet_advance || build_wallet_advance
-      wallet_advance.wallet = wallet
-      wallet_advance.amount = amount
+      card_purchase || build_card_purchase
+      card_purchase.card = card
+      card_purchase.assign_attributes attributes.slice('years', 'months', 'days')
 
       self.used_at = Time.current
 
-      wallet.class.transaction do
-        wallet.save!
-        wallet_advance.save!
+      card.class.transaction do
+        card.save!
+        card_purchase.save!
         self.save!
       end
 
-      wallet
+      card
     end
 
   end
