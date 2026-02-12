@@ -14,7 +14,7 @@ module Trade
         user: user,
         title: '您的订单已准备好',
         body: '您的订单将按时到达配送点',
-        link: Rails.application.routes.url_for(
+        link: Rails.app.routes.url_for(
           controller: 'trade/board/orders',
           action: 'show',
           id: id
@@ -31,7 +31,7 @@ module Trade
           member: member,
           title: "收到新订单 #{note}",
           body: '您的订单将按时到达配送点',
-          link: Rails.application.routes.url_for(
+          link: Rails.app.routes.url_for(
             controller: 'trade/admin/orders',
             action: 'show',
             id: id,

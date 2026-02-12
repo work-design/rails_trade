@@ -83,7 +83,7 @@ module Trade
       {
         description: "支付编号: #{payment_uuid}",
         out_trade_no: out_trade_no,
-        notify_url: Rails.application.routes.url_for(host: organ.host, controller: 'trade/payments', action: 'wxpay_notify', mch_id: payee_app.mch_id),
+        notify_url: Rails.app.routes.url_for(host: organ.host, controller: 'trade/payments', action: 'wxpay_notify', mch_id: payee_app.mch_id),
         amount: {
           total: (self.total_amount * 100).to_i,
           currency: 'CNY'
@@ -138,7 +138,7 @@ module Trade
         action: :append,
         target: 'body',
         partial: 'visit',
-        locals: { url: Rails.application.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id) }
+        locals: { url: Rails.app.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id) }
       )
     end
 

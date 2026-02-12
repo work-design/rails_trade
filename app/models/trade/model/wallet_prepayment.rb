@@ -30,7 +30,7 @@ module Trade
     end
 
     def qrcode_raw_url(port: 80)
-      Rails.application.routes.url_for(
+      Rails.app.routes.url_for(
         controller: 'trade/my/wallet_templates',
         action: 'token_detect',
         token: token,

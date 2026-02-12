@@ -17,7 +17,7 @@ module Trade
         user: user,
         title: '您的订单已准备好',
         body: '您的订单将按时到达配送点',
-        link: Rails.application.routes.url_for(controller: 'trade/board/orders', action: 'show', id: id),
+        link: Rails.app.routes.url_for(controller: 'trade/board/orders', action: 'show', id: id),
         verbose: true,
         organ_id: organ_id
       )
@@ -29,7 +29,7 @@ module Trade
           member: member,
           title: '收到新的支付',
           body: '您的订单将按时到达配送点',
-          link: Rails.application.routes.url_for(controller: 'trade/agent/payment_orders', payment_id: id, host: organ.agent_host),
+          link: Rails.app.routes.url_for(controller: 'trade/agent/payment_orders', payment_id: id, host: organ.agent_host),
           verbose: true
         )
       end

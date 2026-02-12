@@ -30,7 +30,7 @@ module Trade
     end
 
     def qrcode_show_url
-      Rails.application.routes.url_for(
+      Rails.app.routes.url_for(
         controller: 'trade/my/orders',
         action: 'show',
         id: id,
