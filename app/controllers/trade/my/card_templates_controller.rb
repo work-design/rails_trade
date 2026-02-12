@@ -25,11 +25,13 @@ module Trade
     end
 
     def gift
-      if current_organ.counters['today_remain'].to_i > 0
-        card_prepayment = @card_template.card_prepayments.untaken.first
+      card_prepayment = @card_template.card_prepayments.untaken.first
+      if card_prepayment && current_organ.counters['today_remain'].to_i > 0
         card_prepayment.with_lock do
           card_prepayment.update(user_id: current_user.id) if card_prepayment.user_id.blank?
         end
+      else
+        render 'alert_message', status: :unauthorized, locals: { message: '今日已领完！' }
       end
     end
 
