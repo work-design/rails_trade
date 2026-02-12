@@ -12,9 +12,11 @@
     %>"
     data-action="click->mini-program#link"
   >
-    <td>
-      <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
-      <span>微信支付</span>
+    <td class="text-right">
+      <div class="is-several">
+        <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
+        <span>微信支付</span>
+      </div>
     </td>
     <td><%= payment_order.order_amount.to_money.format.html_safe %></td>
   </tr>
@@ -25,9 +27,11 @@
     data-wxpay-params-value="<%= @wxpay_order.slice(:timeStamp, :nonceStr, :package, :signType, :paySign, :appId).to_json %>"
     data-action="click->wxpay#onBridgeReady"
   >
-    <td>
-      <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
-      <span>微信支付</span>
+    <td class="text-right">
+      <div class="is-servel">
+        <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
+        <span>微信支付</span>
+      </div>
     </td>
     <td><%= payment_order.order_amount.to_money.format.html_safe %></td>
   </tr>
