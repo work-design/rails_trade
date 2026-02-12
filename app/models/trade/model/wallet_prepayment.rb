@@ -4,7 +4,7 @@ module Trade
     include Wechat::Ext::Handle if defined?(RailsWechat)
 
     included do
-      attribute :token, :string
+      attribute :token, :string, default: -> { UidUtil.nsec_uuid 'WP' }
       attribute :amount, :decimal
       attribute :expire_at, :datetime
       attribute :used_at, :datetime
@@ -19,14 +19,7 @@ module Trade
 
       validates :token, uniqueness: true
 
-      before_validation :update_token, if: -> { new_record? }
-
       delegate :appid, to: :wallet_template
-    end
-
-    def update_token
-      self.token = UidUtil.nsec_uuid 'WP'
-      self
     end
 
     def qrcode_raw_url(port: 80)

@@ -20,8 +20,6 @@ module Trade
       scope :unused, -> { where.missing(:wallet_advance).valid }
 
       validates :token, uniqueness: true
-
-      delegate :appid, to: :wallet_template
     end
 
     def qrcode_raw_url(port: 80)
