@@ -59,6 +59,9 @@ Rails.application.routes.draw do
     end
     resources :promote_goods, only: [:index, :show]
     resources :card_templates, except: [:edit, :destroy] do
+      collection do
+        post 'token/:token' => :token_create
+      end
       member do
         get :code
         post :gift
