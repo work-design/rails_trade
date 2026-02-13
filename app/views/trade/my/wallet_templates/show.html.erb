@@ -1,13 +1,13 @@
 <%= render 'wallet_card' if @wallet %>
 
 <div class="box">
-  <% if @opened_advances.present? %>
+  <% if @advances.present? %>
   <div class="fixed-grid has-3-cols">
     <div class="grid">
       <%=
         render(
           partial: 'advance',
-          collection: @opened_advances,
+          collection: @advances,
           as: :advance,
           locals: { wallet_template: @wallet_template, disabled: false }
         )
@@ -15,7 +15,7 @@
     </div>
   </div>
   <% end %>
-  <% @opened_card_advances.group_by(&:card_template).each do |card_template, advances| %>
+  <% @card_advances.group_by(&:card_template).each do |card_template, advances| %>
     <div class="mb-2">
       <span class="text-grey"><%= card_template.name %>专享</span>
       <% if @cards.include?(card_template.id) %>
@@ -33,7 +33,14 @@
     </div>
     <div class="fixed-grid has-3-cols">
       <div class="grid">
-        <%= render partial: 'advance', collection: advances, as: :advance, locals: { wallet_template: @wallet_template, disabled: !@cards.include?(card_template.id) } %>
+        <%=
+          render(
+            partial: 'advance',
+            collection: advances,
+            as: :advance,
+            locals: { wallet_template: @wallet_template, disabled: !@cards.include?(card_template.id) }
+          )
+        %>
       </div>
     </div>
   <% end %>

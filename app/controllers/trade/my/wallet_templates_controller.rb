@@ -42,11 +42,11 @@ module Trade
       @cards = @cart.cards.formal.pluck(:card_template_id)
 
       if @wallet
-        @opened_advances = Advance.none
-        @opened_card_advances = Advance.none
+        @advances = @wallet_template.unopened_advances.without_card
+        @card_advances = @wallet_template.unopened_advances.with_card
       else
-        @opened_advances = @wallet_template.opened_advances.without_card
-        @opened_card_advances = @wallet_template.opened_advances.with_card
+        @advances = @wallet_template.opened_advances.without_card
+        @card_advances = @wallet_template.opened_advances.with_card
       end
     end
 

@@ -7,7 +7,7 @@
       <%=
         render(
           partial: 'advance',
-          collection: @wallet.wallet_template.unopened_advances.without_card,
+          collection: @advances,
           as: :advance,
           locals: { wallet_template: @wallet.wallet_template, disabled: false }
         )
