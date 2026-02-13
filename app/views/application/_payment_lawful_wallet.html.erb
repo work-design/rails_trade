@@ -3,7 +3,7 @@
     <span class="is-several">
       <span>钱包</span>
     </span>
-    <span class="tags has-addons pl-2 display-inline-flex">
+    <span class="tags has-addons pl-2 display-inline-flex is-tag-price1">
       <span class="tag">余</span>
       <span class="tag is-success"><%= payment_order.payment.wallet.amount.to_money.format.html_safe %></span>
     </span>
@@ -19,7 +19,7 @@
           <%= ef.hidden_field :wallet_id %>
         <% end %>
         <%= df.check_box :state, { value: 'pending', checked: payment_order.state_pending?, class: 'xl ml-1', data: { action: 'input#form' } }, 'pending', 'init' %>
-    <% end %>
+      <% end %>
     </div>
   </td>
 </tr>
