@@ -24,21 +24,30 @@ module Trade
 
     def code
       @wallet_template = WalletTemplate.default_where(default_params).find_by(code: params[:code])
-      @wallet = current_user.wallets.find_or_initialize_by(wallet_template_id: @wallet_template.id)
-      @cards = @cart.cards.formal.pluck(:card_template_id)
-      @opened_advances = @wallet_template.opened_advances.without_card
+      set_show_var
       render :show
     end
 
     def show
-      @wallet = @cart.wallets.find_by(wallet_template_id: @wallet_template.id)
-      @cards = @cart.cards.formal.pluck(:card_template_id)
-      @opened_advances = @wallet_template.opened_advances.without_card
+      set_show_var
     end
 
     private
     def set_wallet_template
       @wallet_template = WalletTemplate.default_where(default_params).find(params[:id])
+    end
+
+    def set_show_var
+      @wallet = @cart.wallets.find_by(wallet_template_id: @wallet_template.id)
+      @cards = @cart.cards.formal.pluck(:card_template_id)
+
+      if @wallet
+        @opened_advances = Advance.none
+        @opened_card_advances = Advance.none
+      else
+        @opened_advances = @wallet_template.opened_advances.without_card
+        @opened_card_advances = @wallet_template.opened_advances.with_card
+      end
     end
 
     def set_new_order
