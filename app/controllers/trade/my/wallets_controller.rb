@@ -4,8 +4,8 @@ module Trade
     before_action :set_new_order, only: [:show]
 
     def show
-      @advances = @wallet_template.unopened_advances.without_card
-      @card_advances = @wallet_template.unopened_advances.with_card
+      @advances = @wallet.wallet_template.unopened_advances.without_card
+      @card_advances = @wallet.wallet_template.unopened_advances.with_card
     end
 
     private
