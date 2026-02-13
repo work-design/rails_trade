@@ -8,6 +8,9 @@
     id: 'payment_form'
   ) do |f|
 %>
-  <%= render partial: 'payment_types_form', locals: { f: f } %>
+  <%= render 'modal_header' %>
+  <div class="modal-card-body">
+    <%= render partial: 'payment_types_form', locals: { f: f } %>
+  </div>
   <%= f.submit '确认' %>
 <% end %>
