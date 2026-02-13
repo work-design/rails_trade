@@ -52,17 +52,6 @@ module Trade
       end
     end
 
-    def payment_wxpay
-      unless request.variant.any?(:mini_program)
-        @wxpay_order = @order.init_wxpay_payment(
-          state: 'pending',
-          payee: current_payee,
-          wechat_user: current_wechat_user,
-          ip: request.remote_ip
-        )
-      end
-    end
-
     def payment_pending
       @order.batch_pending_payments(payment_params)
       @order.init_wallet_payments
