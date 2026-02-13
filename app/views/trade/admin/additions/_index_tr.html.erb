@@ -1,0 +1,11 @@
+<%=
+  tr_tag(
+    model,
+    {
+      href: { controller: 'addition_charges', addition_id: model.id },
+      icon: 'server',
+      title: t('.addition_charges.index.title')
+    },
+    icons: ['edit', 'destroy']
+  ) { yield }
+%>

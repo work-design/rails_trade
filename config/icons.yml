@@ -46,6 +46,7 @@ light:
   - qrcode-read
   - receipt
   - rotate
+  - server
   - tags
   - thumbs-up
   - thumbs-down
