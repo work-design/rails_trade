@@ -89,6 +89,7 @@ module Trade
 
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
+      scope :normal, -> { where(state: ['init', 'done']) }
 
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }

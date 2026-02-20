@@ -15,7 +15,9 @@ module Trade
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
 
     def index
-      q_params = {}
+      q_params = {
+        state: ['init', 'done']
+      }
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
