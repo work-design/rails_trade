@@ -54,6 +54,9 @@ zh:
         payment_strategy_id: 结款方式
         address_id: 收货地址
         contact_id: 联系人
+        good_type: 商品类型
+        aim: 服务类型
+        items_count: 条目数
       trade/order:
         uuid: 订单号
         payment_status: 付款状态
