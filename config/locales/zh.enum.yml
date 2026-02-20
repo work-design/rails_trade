@@ -26,6 +26,7 @@ zh:
           init: 进行中
           done: 已完成
           canceled: 已取消
+          closed: 已关闭
         pay_later:
           true: 后付
           false: 预付

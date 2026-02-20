@@ -39,7 +39,8 @@ module Trade
       enum :state, {
         init: 'init',
         done: 'done',
-        canceled: 'canceled'
+        canceled: 'canceled',
+        closed: 'closed'
       }, default: 'init'
 
       enum :payment_status, {
