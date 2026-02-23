@@ -16,6 +16,8 @@ module Trade
       belongs_to :payment, inverse_of: :refund_orders
       belongs_to :refund
 
+      has_one :payment_order, primary_key: [:order_id, :payment_id], foreign_key: [:order_id, :payment_id]
+
       has_many :refunds, foreign_key: :payment_id, primary_key: :payment_id
 
       after_initialize :init_amount, if: :new_record?

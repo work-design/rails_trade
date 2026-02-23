@@ -3,9 +3,9 @@
 </td>
 <td><%= Trade::PaymentOrder.enum_i18n(:state, model.state) %></td>
 <td>
-  <% if model.state_confirmed? %>
+  <% if ['confirmed', 'refunding', 'refunded'].include? model.state %>
     <%= model.order_amount.to_money.format.html_safe %>
-  <% else %>
+  <% elsif model.state_pending? %>
     <%= number_field_tag 'payment_order[order_amount]', model.order_amount, class: 'input', step: 0.01, form: "edit_payment_order_#{model.id}" %>
   <% end %>
 </td>
@@ -27,7 +27,7 @@
       <%= svg_tag 'clock-rotate-left' %>
       <span class="ml-1"><%= t('.payment_orders.refund.title') %></span>
     <% end %>
-  <% else %>
+  <% elsif model.state_pending? %>
     <%= button_to({ controller: 'payment_orders', action: 'confirm', payment_id: @payment.id, id: model.id }, class: 'button is-small is-success') do %>
       <%= svg_tag 'clock-rotate-left' %>
       <span class="ml-1"><%= t('.payment_orders.confirm.title') %></span>
