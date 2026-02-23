@@ -123,12 +123,13 @@ Rails.application.routes.draw do
         patch :desk_update
         match :contact_edit, via: [:get, :post]
       end
-      resources :order_payments do
+      resources :payment_orders, controller: 'order/payment_orders' do
         collection do
           match :new_micro, via: [:get, :post]
           post :confirm
         end
       end
+      resources :refund_orders
     end
     resources :payments do
       collection do

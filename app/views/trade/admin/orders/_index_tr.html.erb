@@ -2,9 +2,9 @@
   tr_tag(
     model,
     {
-      href: url_for(controller: 'refunds', order_id: model.id),
+      href: url_for(controller: 'refund_orders', order_id: model.id),
       icon: 'thumbs-down',
-      title: t('.refunds.index.title'),
+      title: t('.refund_orders.index.title'),
       enable: ['refunding', 'refunded', 'denied'].include?(model.payment_status)
     },
     {
