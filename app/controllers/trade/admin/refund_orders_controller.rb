@@ -3,7 +3,7 @@ module Trade
     before_action :set_order
 
     def index
-      @refund_orders = @order.refund_orders
+      @refund_orders = @order.refund_orders.page(params[:page])
     end
 
     private
