@@ -29,7 +29,7 @@ module Trade
       result
     end
 
-    def store_refund_result!(result = {})
+    def store_refund_result(result)
       if ['PROCESSING', 'SUCCESS'].include? result['status']
         self.state = 'completed'
         self.refunded_at = result['create_time'] || Time.current
@@ -38,6 +38,10 @@ module Trade
         self.comment = result['return_code']
       end
       self.response = result
+    end
+
+    def store_refund_result!(result = {})
+      store_refund_result(result)
       self.save
     end
 

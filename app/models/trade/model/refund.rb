@@ -64,6 +64,12 @@ module Trade
       end
     end
 
+    def do_refund!(operator)
+      self.operator = operator
+      self.do_refund
+      self.save
+    end
+
     def order_refund
       order.payment_status = 'refunded'
       order.state = 'canceled'

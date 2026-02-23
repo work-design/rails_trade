@@ -13,9 +13,7 @@ module Trade
     end
 
     def confirm
-      @refund.do_refund
-      @refund.operator = current_member
-      @refund.save
+      @refund.do_refund!(current_member)
     end
 
     def deny
