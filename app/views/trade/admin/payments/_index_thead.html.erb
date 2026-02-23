@@ -15,4 +15,7 @@
   <p class="text-danger"><%= Trade::Payment.human_attribute_name(:refunded_amount) %></p>
 </th>
 <th><%= Trade::Payment.human_attribute_name(:adjust_amount) %></th>
-<th><%= Trade::Payment.human_attribute_name(:notified_at) %></th>
+<th>
+  <p><%= Trade::Payment.human_attribute_name(:notified_at) %></p>
+  <p><%= Trade::Payment.human_attribute_name(:created_at) %></p>
+</th>
