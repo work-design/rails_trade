@@ -40,6 +40,7 @@ module Trade
         paying: 'paying',
         paid: 'paid',
         proof_uploaded: 'proof_uploaded',
+        refunding: 'refunding',
         refunded: 'refunded'
       }, default: 'paying', prefix: true
 

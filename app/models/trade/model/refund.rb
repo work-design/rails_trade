@@ -32,8 +32,7 @@ module Trade
       #validate :valid_total_amount
 
       before_validation :init_uuid
-      after_save :sync_refund_to_payment, if: -> { completed? && state_before_last_save == 'init' }
-      after_save :sync_refund_to_orders, if: -> { completed? && state_before_last_save == 'init' }
+      after_save :sync_refund_to_payment_and_order!, if: -> { completed? && state_before_last_save == 'init' }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
     end
 
@@ -52,15 +51,10 @@ module Trade
       Money::Currency.new(self.currency).symbol
     end
 
-    def sync_refund_to_payment
-      payment.refunded_amount = total_amount
-      payment.save
-    end
-
-    def sync_refund_to_orders
+    def sync_refund_to_payment_and_order!
       refund_orders.each do |refund_order|
-        refund_order.order.payment_status = 'refunded'
-        refund_order.order.save
+        refund_order.state = 'refunded'
+        refund_order.save
       end
     end
 
