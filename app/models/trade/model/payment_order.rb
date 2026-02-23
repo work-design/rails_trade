@@ -65,11 +65,17 @@ module Trade
       order.save
     end
 
-    def refund_by_order(order_amount)
-
+    def refund_by_order(order_refund)
+      payment_refund = Rational(payment_amount, order_amount) * order_refund
+      refund_with_transfer(payment_refund, order_refund)
     end
 
-    def refund_by_payment(_refund_amount = payment_amount)
+    def refund_by_payment(payment_refund)
+      order_refund = Rational(order_amount, payment_amount) * payment_refund
+      refund_with_transfer(payment_refund, order_refund)
+    end
+
+    def refund_with_transfer(payment_total, order_total)
       if ['init', 'pending'].include? self.state
         return
       end
@@ -81,8 +87,8 @@ module Trade
         refund: refund,
         payment: payment,
         state: 'refunding',
-        payment_amount: _refund_amount,
-        order_amount: Rational(order_amount, payment_amount) * _refund_amount
+        payment_amount: payment_total,
+        order_amount: order_total
       )
 
       self.class.transaction do
