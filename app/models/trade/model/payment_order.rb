@@ -15,6 +15,8 @@ module Trade
         init: 'init',
         pending: 'pending',
         confirmed: 'confirmed',
+        refunding: 'refunding',
+        refunded: 'refunded'
       }, default: 'init', prefix: true
 
       belongs_to :order, inverse_of: :payment_orders, counter_cache: true
@@ -71,6 +73,7 @@ module Trade
       if ['init', 'pending'].include? self.state
         return
       end
+      self.state = 'refunding'
 
       refund = refunds.find_by(state: 'init') || payment.refunds.build
       refund.refund_orders.build(
@@ -81,7 +84,11 @@ module Trade
         payment_amount: _refund_amount,
         order_amount: Rational(order_amount, payment_amount) * _refund_amount
       )
-      refund.save!
+
+      self.class.transaction do
+        self.save!
+        refund.save!
+      end
     end
 
   end
