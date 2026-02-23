@@ -183,6 +183,7 @@ Rails.application.routes.draw do
         post :untrial
       end
       resources :holds
+      resources :item_promotes, controller: 'item/item_promotes'
     end
     resources :refunds, except: [:new, :create] do
       member do
