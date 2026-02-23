@@ -110,6 +110,9 @@ zh:
           title: 人工收款
         new_micro:
           title: 微信收款
+      refund_orders:
+        index:
+          title: 退款
       scan_payments:
         index:
           title: 收款记录
