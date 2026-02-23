@@ -65,12 +65,12 @@ module Trade
       order.save
     end
 
-    def refund_by_order(order_refund)
+    def refund_by_order(order_refund = order_amount)
       payment_refund = Rational(payment_amount, order_amount) * order_refund
       refund_with_transfer(payment_refund, order_refund)
     end
 
-    def refund_by_payment(payment_refund)
+    def refund_by_payment(payment_refund = payment_amount)
       order_refund = Rational(order_amount, payment_amount) * payment_refund
       refund_with_transfer(payment_refund, order_refund)
     end
