@@ -1,10 +1,33 @@
 <%=
   tr_tag(
     model,
-    { href: url_for(controller: 'refunds', order_id: model.id), title: t('.refunds.index.title'), enable: ['refunding', 'refunded', 'denied'].include?(model.payment_status) },
-    { action: url_for(action: 'payment_types', id: model.id), icon: 'receipt', title: t('.payment_types.title'), enable: ['unpaid', 'part_paid'].include?(model.payment_status) },
-    { action: url_for(action: 'adjust_edit', id: model.id), icon: 'pen-clip', title: t('.adjust_edit.title'), enable: ['unpaid'].include?(model.payment_status) },
-    { href: url_for(action: 'purchase', id: model.id), icon: 'pen-clip', title: t('.purchase.title') },
-    { action: url_for(action: 'print', id: model.id), icon: 'print', title: t('.print.title') }
+    {
+      href: url_for(controller: 'refunds', order_id: model.id),
+      icon: 'thumbs-down',
+      title: t('.refunds.index.title'),
+      enable: ['refunding', 'refunded', 'denied'].include?(model.payment_status)
+    },
+    {
+      action: url_for(action: 'payment_types', id: model.id),
+      icon: 'receipt',
+      title: t('.payment_types.title'),
+      enable: ['unpaid', 'part_paid'].include?(model.payment_status)
+    },
+    {
+      action: url_for(action: 'adjust_edit', id: model.id),
+      icon: 'pen-clip',
+      title: t('.adjust_edit.title'),
+      enable: ['unpaid'].include?(model.payment_status)
+    },
+    {
+      href: url_for(action: 'purchase', id: model.id),
+      icon: 'pen-clip',
+      title: t('.purchase.title')
+    },
+    {
+      action: url_for(action: 'print', id: model.id),
+      icon: 'print',
+      title: t('.print.title')
+    }
     ) { yield }
 %>
