@@ -1,3 +1,6 @@
-<tr id="tr_<%= model.id %>" data-controller="show">
-  <%= yield %>
-</tr>
+<%=
+  tr_tag(
+    model,
+    param: { controller: 'payment_orders', payment_id: @payment.id, id: model.id }
+  ) { yield }
+%>
