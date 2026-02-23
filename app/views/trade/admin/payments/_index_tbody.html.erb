@@ -26,7 +26,7 @@
 <td><%= model.adjust_amount.to_money.format.html_safe %></td>
 <td>
   <% if model.notified_at.present? %>
-    <p><time data-controller="time" data-format="human"><%= model.notified_at.to_fs(:iso8601) %></time></p>
+    <p class="text-success"><time data-controller="time" data-format="human"><%= model.notified_at.to_fs(:iso8601) %></time></p>
   <% end %>
-  <p><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p class="text-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
