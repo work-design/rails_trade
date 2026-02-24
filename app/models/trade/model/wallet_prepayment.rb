@@ -41,6 +41,7 @@ module Trade
       wallet_advance || build_wallet_advance
       wallet_advance.wallet = wallet
       wallet_advance.amount = amount
+      wallet_advance.expire_at = expire_at
 
       self.used_at = Time.current
 

@@ -6,6 +6,7 @@ module Trade
       attribute :price, :decimal
       attribute :amount, :decimal
       attribute :note, :string
+      attribute :expire_at, :datetime
 
       enum :kind, {
         given: 'given'  # 系统赠送

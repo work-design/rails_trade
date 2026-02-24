@@ -8,6 +8,8 @@ module Trade
       attribute :amount, :decimal
 
       belongs_to :wallet
+      belongs_to :wallet_advance
+      belongs_to :wallet_payment
       belongs_to :source, polymorphic: true, optional: true
 
       has_one :wallet_template, through: :wallet
