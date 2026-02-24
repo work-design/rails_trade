@@ -14,14 +14,14 @@
   <p><%= model.amount.to_money.format.html_safe %></p>
   <% if model.unreceived_amount.to_d > 0 %>
     <p>
-      <span class="tag is-danger"><%= model.payment_status_i18n %></span>
       <span><%= model.unreceived_amount.to_money.format.html_safe %></span>
+      <span class="tag is-danger"><%= model.payment_status_i18n %></span>
     </p>
   <% end %>
   <% if model.received_amount.to_d > 0 %>
     <p>
-      <span class="tag is-success"><%= model.payment_status_i18n %></span>
       <span><%= model.received_amount.to_money.format.html_safe %></span>
+      <span class="tag is-success"><%= model.payment_status_i18n %></span>
     </p>
   <% end %>
 </td>
