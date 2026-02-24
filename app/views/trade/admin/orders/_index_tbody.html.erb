@@ -11,7 +11,13 @@
   <p class="text-grey"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
 <td>
-  <p><%= model.payment_status_i18n %></p>
+  <% if ['refunding', 'refunded'].include?(model.payment_status) %>
+    <p class="text-danger"><%= model.payment_status_i18n %></p>
+  <% elsif ['all_paid', 'part_paid'].include?(model.payment_status) %>
+    <p class="text-success"><%= model.payment_status_i18n %></p>
+  <% else %>
+    <p><%= model.payment_status_i18n %></p>
+  <% end %>
   <% if model.payment_strategy %>
   <div class="tags has-addons mt-1">
     <span class="tag is-danger"><%= model.payment_strategy.name %></span>
