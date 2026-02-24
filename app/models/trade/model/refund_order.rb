@@ -48,9 +48,11 @@ module Trade
     def refunded_to_payment_and_order!
       payment.pay_state = 'refunded'
       order.payment_status = 'refunded'
+      payment_order.state = 'refunded' if payment_order
 
       self.class.transaction do
         payment.save!
+        payment_order.save! if payment_order
         order.save!
       end
     end
