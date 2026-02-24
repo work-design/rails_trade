@@ -1,0 +1,13 @@
+<%= f.fields :card_price, all: { normal: nil }, wrap: { input: 'field' } do |ef| %>
+  <div class="field is-horizontal" data-controller="enter">
+    <label class="field-label is-normal"><%= card_template.name %></label>
+    <div class="field-body">
+      <%= ef.hidden_field :code, value: card_template.code, index: card_template.id, disabled: !@production.card_price.key?(card_template.code) %>
+      <%= ef.number_field :price, step: 0.01, value: @production.card_price.fetch(card_template.code, @production.price), index: card_template.id, disabled: !@production.card_price.key?(card_template.code) %>
+      <div class="field is-narrow has-addons has-addons-middle">
+        <%= svg_tag 'plus', data: { action: 'click->enter#open' }, class: 'icon clickable' %>
+        <%= svg_tag 'x-mark', data: { action: 'click->enter#close' }, class: 'icon clickable' %> } %>
+      </div>
+    </div>
+  </div>
+<% end %>
