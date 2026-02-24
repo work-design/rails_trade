@@ -14,8 +14,10 @@
   <p><%= model.amount.to_money.format.html_safe %></p>
   <% if model.unreceived_amount.to_d > 0 %>
     <p>
-      <span><%= model.unreceived_amount.to_money.format.html_safe %></span>
-      <span class="tag is-light is-success"><%= model.payment_status_i18n %></span>
+      <div class="tags has-addons is-tag-price">
+        <span class="tag is-light is-success"><%= model.unreceived_amount.to_money.format.html_safe %></span>
+        <span class="tag"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></span>
+      </div>
     </p>
   <% end %>
   <% if model.received_amount.to_d > 0 %>
