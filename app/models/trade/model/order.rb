@@ -96,7 +96,7 @@ module Trade
       after_validation :compute_unreceived_amount, if: -> { (changes.keys & ['amount', 'received_amount']).present? }
       before_create :init_payable_amount
       before_save :sync_user_from_address, if: -> { user_id.blank? && address_id.present? && address_id_changed? }
-      before_save :check_state, if: -> { amount.to_d.zero? || (changes.keys & ['received_amount']).present? }
+      before_save :check_state, if: -> { amount.to_d.zero? || (received_amount_changed? && received_amount > 0) }
       before_save :init_serial_number, if: -> { can_serial_number? }
       before_save :compute_pay_deadline_at, if: -> { payment_strategy_id && payment_strategy_id_changed? }
       after_save :confirm_refund!, if: -> { refunding? && saved_change_to_payment_status? }
@@ -315,17 +315,18 @@ module Trade
       if self.received_amount.to_d >= self.amount.to_d
         self.payment_status = 'all_paid'
         self.paid_at = Time.current
+        self.expire_at = nil
         self.confirm_paid!
       elsif self.received_amount.to_d > 0 && self.received_amount.to_d < self.amount.to_d
         self.payment_status = 'part_paid'
         self.paid_at = Time.current
+        self.expire_at = nil
         self.confirm_part_paid!
       elsif self.received_amount.to_d <= 0
         self.payment_status = 'unpaid'
         self.paid_at = nil
         self.confirm_unpaid!
       end
-      self.expire_at = nil
     end
 
     def compute_received_amount
