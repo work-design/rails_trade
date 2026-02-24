@@ -8,8 +8,11 @@
 </th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:amount) %></p>
-  <p class="text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></p>
-  <p><%= Trade::Order.human_attribute_name(:received_amount) %></p>
+  <p>
+    <span><%= Trade::Order.human_attribute_name(:unreceived_amount) %></span>
+    <span>/</span>
+    <span><%= Trade::Order.human_attribute_name(:received_amount) %></span>
+  </p>
 </th>
 <th>
   <p><%= Trade::Order.human_attribute_name(:payment_status) %></p>
