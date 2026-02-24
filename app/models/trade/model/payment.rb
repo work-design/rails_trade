@@ -220,8 +220,8 @@ module Trade
           order,
           action: :append,
           target: 'payments_container',
-          partial: 'trade/admin/order_payments/_index/payment_tbody',
-          layout: 'trade/admin/order_payments/payment_tr',
+          partial: 'trade/admin/order/payment_orders/_index/payment_tbody',
+          layout: 'trade/admin/order/payment_orders/payment_tr',
           variants: [:phone],
           locals: { model: self, order: order }
         )
@@ -234,8 +234,8 @@ module Trade
           order,
           action: :replace,
           target: "payment_#{id}",
-          partial: 'trade/admin/order_payments/_index/payment_tbody',
-          layout: 'trade/admin/order_payments/payment_tr',
+          partial: 'trade/admin/order/payment_orders/_index/payment_tbody',
+          layout: 'trade/admin/order/payment_orders/payment_tr',
           variants: [:phone],
           locals: { model: self, order: order }
         )
