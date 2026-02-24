@@ -6,7 +6,7 @@
       <%= ef.number_field :price, step: 0.01, value: @production.card_price.fetch(card_template.code, @production.price), index: card_template.id, disabled: !@production.card_price.key?(card_template.code) %>
       <div class="field is-narrow has-addons has-addons-middle">
         <%= svg_tag 'plus', data: { action: 'click->enter#open' }, class: 'icon clickable' %>
-        <%= svg_tag 'x-mark', data: { action: 'click->enter#close' }, class: 'icon clickable' %> } %>
+        <%= svg_tag 'xmark', data: { action: 'click->enter#close' }, class: 'icon clickable' %>
       </div>
     </div>
   </div>
