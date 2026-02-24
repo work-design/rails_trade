@@ -7,20 +7,20 @@
   <p class="text-grey"><%= Trade::Order.human_attribute_name(:created_at) %></p>
 </th>
 <th>
-  <p><%= Trade::Order.human_attribute_name(:payment_status) %></p>
-  <p><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></p>
-  <p class="text-success"><%= Trade::Order.human_attribute_name(:paid_at) %></p>
-</th>
-<th>
   <p><%= Trade::Order.human_attribute_name(:amount) %></p>
   <p class="text-danger"><%= Trade::Order.human_attribute_name(:unreceived_amount) %></p>
   <p><%= Trade::Order.human_attribute_name(:received_amount) %></p>
 </th>
 <th>
-  <p><%= Trade::Order.human_attribute_name(:print_info) %></p>
+  <p><%= Trade::Order.human_attribute_name(:payment_status) %></p>
+  <p><%= Trade::Order.human_attribute_name(:payment_strategy_id) %></p>
 </th>
+
 <th>
   <p><%= Trade::Order.human_attribute_name(:user_id) %></p>
   <p><%= Trade::Order.human_attribute_name(:agent_id) %></p>
 </th>
-<th><%= Trade::Order.human_attribute_name(:extra) %></th>
+<th>
+  <p><%= Trade::Order.human_attribute_name(:extra) %></p>
+</th>
+<th><%= Trade::Order.human_attribute_name(:print_info) %></th>

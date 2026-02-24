@@ -11,33 +11,27 @@
   <p class="text-grey"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
 <td>
-  <% if ['refunding', 'refunded'].include?(model.payment_status) %>
-    <p class="text-danger"><%= model.payment_status_i18n %></p>
-  <% elsif ['all_paid', 'part_paid'].include?(model.payment_status) %>
-    <p class="text-success"><%= model.payment_status_i18n %></p>
-  <% else %>
-    <p><%= model.payment_status_i18n %></p>
+  <p><%= model.amount.to_money.format.html_safe %></p>
+  <% if model.unreceived_amount.to_d > 0 %>
+    <p>
+      <span class="tag is-danger"><%= model.payment_status_i18n %></span>
+      <span><%= model.unreceived_amount.to_money.format.html_safe %></span>
+    </p>
   <% end %>
+  <% if model.received_amount.to_d > 0 %>
+    <p>
+      <span class="tag is-success"><%= model.payment_status_i18n %></span>
+      <span><%= model.received_amount.to_money.format.html_safe %></span>
+    </p>
+  <% end %>
+</td>
+<td>
   <% if model.payment_strategy %>
   <div class="tags has-addons mt-1">
     <span class="tag is-danger"><%= model.payment_strategy.name %></span>
     <span class="tag"><%= model.payment_strategy.from_pay_i18n %></span>
   </div>
   <% end %>
-  <p class="text-grey"><time data-controller="time" data-format="human"><%= model.paid_at&.to_fs(:iso8601) %></time></p>
-</td>
-<td>
-  <p><%= model.amount.to_money.format.html_safe %></p>
-  <% if model.unreceived_amount.to_d > 0 %><p class="text-danger"><%= model.unreceived_amount.to_money.format.html_safe %></p><% end %>
-  <p class="<%= model.received_amount.to_d > 0 ? 'text-success' : 'text-grey' %>"><%= model.received_amount.to_money.format.html_safe %></p>
-</td>
-<td>
-<% model.print_info.each do |info, time| %>
-  <p>
-    <span><%= info %></span>
-    <time data-controller="time"><%= time %></time>
-  </p>
-<% end %>
 </td>
 <td>
   <p><%# link_to model.user_name, { action: 'user', user_id: model.user_id } if model.user_id %></p>
@@ -49,3 +43,11 @@
   </p>
 </td>
 <td><%= simple_format model.extra_i18n %></td>
+<td>
+  <% model.print_info.each do |info, time| %>
+    <p>
+      <span><%= info %></span>
+      <time data-controller="time"><%= time %></time>
+    </p>
+  <% end %>
+</td>
