@@ -128,6 +128,11 @@ Rails.application.routes.draw do
           match :new_micro, via: [:get, :post]
           post :confirm
         end
+        member do
+          post :confirm
+          post :cancel
+          post :refund
+        end
       end
       resources :refund_orders
     end

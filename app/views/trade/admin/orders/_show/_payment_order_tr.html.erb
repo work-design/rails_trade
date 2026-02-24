@@ -1,0 +1,7 @@
+<%=
+  tr_tag(
+    model,
+    param: { controller: 'order/payment_orders', order_id: @order.id, id: model.id },
+    id: "payment_order_#{model.id}"
+  ) { yield }
+%>

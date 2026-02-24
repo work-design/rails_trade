@@ -1,5 +1,5 @@
-module Trade::Admin
-  class Order::PaymentOrdersController < PaymentOrdersController
+module Trade
+  class Admin::Order::PaymentOrdersController < Admin::PaymentOrdersController
     before_action :set_order
     before_action :set_new_payment, only: [:create]
     before_action :set_payment_order, only: [:show, :edit, :update, :destroy, :actions]
@@ -7,6 +7,7 @@ module Trade::Admin
     after_action only: [:create] do
       mark_audits(instance: :@order, include: [:payment_orders])
     end
+    skip_before_action :set_payment
 
     def index
       @payment_orders = @order.payment_orders.includes(:payment)
