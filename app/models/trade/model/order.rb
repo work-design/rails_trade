@@ -197,7 +197,7 @@ module Trade
     end
 
     def close_after_expired
-      OrderExpireCheckJob.set(wait_until: expires_at).perform_later(self)
+      OrderExpireCheckJob.set(wait_until: expire_at).perform_later(self)
     end
 
     def ordered_items
