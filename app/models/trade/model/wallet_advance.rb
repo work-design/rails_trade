@@ -18,7 +18,7 @@ module Trade
         failed: 'failed'
       }
 
-      belongs_to :wallet
+      belongs_to :wallet, optional: true
       belongs_to :advance, optional: true
       belongs_to :item, optional: true
       belongs_to :wallet_prepayment, optional: true
