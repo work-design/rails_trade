@@ -25,7 +25,7 @@ module Trade
 
       has_one :wallet_log
 
-      after_create :sync_log
+      after_save :sync_log, if: -> { saved_change_to_amount? }
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
       after_destroy :sync_amount_after_destroy
       after_destroy :sync_destroy_log
@@ -35,7 +35,7 @@ module Trade
       log = self.build_wallet_log
       log.title = self.note.presence || I18n.t('wallet_log.income.wallet_advance.title')
       log.tag_str = I18n.t('wallet_log.income.wallet_advance.tag_str')
-      log.amount = self.amount
+      log.amount = self.amount - amount_before_last_save.to_d
       log.save
     end
 
