@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :price, :decimal
       attribute :amount, :decimal
-      attribute :used_amount, :decimal
+      attribute :used_amount, :decimal, default: 0
       attribute :remaining_amount, :decimal
       attribute :note, :string
       attribute :expire_at, :datetime
@@ -25,10 +25,15 @@ module Trade
 
       has_one :wallet_log
 
+      before_save :compute_remaining_amount, if: -> { (changes.keys & ['amount', 'used_amount']).present? }
       after_save :sync_log, if: -> { saved_change_to_amount? }
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
       after_destroy :sync_amount_after_destroy
       after_destroy :sync_destroy_log
+    end
+
+    def compute_remaining_amount
+      self.remaining_amount = self.amount - self.used_amount
     end
 
     def sync_log
