@@ -16,14 +16,12 @@ module Trade
         failed: 'failed'
       }
 
-      belongs_to :operator, class_name: 'Org::Member', optional: true
-
       belongs_to :wallet
       belongs_to :advance, optional: true
       belongs_to :item, optional: true
       belongs_to :wallet_prepayment, optional: true
 
-      has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
+      has_one :wallet_log
 
       after_create :sync_log
       after_save :sync_to_wallet, if: -> { saved_change_to_amount? }

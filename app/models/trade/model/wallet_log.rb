@@ -7,6 +7,8 @@ module Trade
       attribute :tag_str, :string
       attribute :amount, :decimal
 
+      belongs_to :operator, class_name: 'Org::Member', optional: true
+
       belongs_to :wallet
       belongs_to :wallet_advance
       belongs_to :wallet_payment

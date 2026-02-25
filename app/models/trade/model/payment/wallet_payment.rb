@@ -59,6 +59,8 @@ module Trade
         else
           cl.amount = _to_use
         end
+
+
         cl.save
       end
     end
