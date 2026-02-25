@@ -17,6 +17,7 @@
 </td>
 <td><%= model.state_i18n %></td>
 <td><%= model.note %></td>
+<td><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></td>
 <td>
   <p><%= model.operator&.name %></p>
   <p class="text-grey size-7"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
