@@ -5,6 +5,8 @@ module Trade
     included do
       attribute :price, :decimal
       attribute :amount, :decimal
+      attribute :used_amount, :decimal
+      attribute :remaining_amount, :decimal
       attribute :note, :string
       attribute :expire_at, :datetime
 
