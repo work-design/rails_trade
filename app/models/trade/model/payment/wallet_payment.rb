@@ -48,14 +48,13 @@ module Trade
 
     def sync_wallet_log
       # 找出最近过期的 Advance
-      wallet.wallet_advances
-
-
-      cl = self.wallet_logs.build
-      cl.title = payment_uuid
-      cl.tag_str = '支出'
-      cl.amount = -self.total_amount
-      cl.save
+      wallet.wallet_advances.total_threshold(amount).each do |wa|
+        cl = self.wallet_logs.build(wallet_advance_id: wa.id)
+        cl.title = payment_uuid
+        cl.tag_str = '支出'
+        cl.amount = -self.total_amount
+        cl.save
+      end
     end
 
     def sync_destroy_wallet_log
