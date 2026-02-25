@@ -31,11 +31,11 @@ module Trade
     end
 
     def wallet_advance_params
-      p = params.fetch(:wallet_advance, {}).permit(
+      params.fetch(:wallet_advance, {}).permit(
         :amount,
+        :expire_at,
         :note
       )
-      p.merge! operator_id: current_member.id
     end
 
     def _prefixes

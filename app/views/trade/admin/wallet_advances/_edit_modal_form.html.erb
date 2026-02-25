@@ -3,6 +3,7 @@
   <section class="modal-card-body">
     <%= render 'error_messages', target: f.object if f.object.errors.present? %>
     <%= f.text_area :note %>
+    <%= f.datetime_field :expire_at %>
   </section>
   <%= f.submit %>
 <% end %>

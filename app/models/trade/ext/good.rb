@@ -45,7 +45,33 @@ module Trade
     end
 
     def wallet_codes
-      wallet_goods.pluck(:wallet_code)
+      #wallet_goods.pluck(:wallet_code)
+    end
+
+    def card_codes
+      organ.card_templates.load.pluck(:code, :name).to_h
+    end
+
+    def card_price_all(cart)
+      codes = card_codes
+      check_codes = cart && cart.cards.map(&->(i){ i.card_template.code })
+      card_price.each_with_object({}) { |(k, v), a| a[k] = { name: codes[k], price: v.to_d, checked: Array(check_codes).include?(k) } }
+    end
+
+    def card_price_min(cart)
+      codes = card_codes
+      human = card_price.each_with_object({}) { |(k, v), h| h.merge! k => { name: codes[k], price: v.to_d } }
+
+      check_codes = cart && cart.cards.map(&->(i){ i.card_template.code })
+      r = human.slice(*check_codes)
+      if r.present?
+        min = r.min_by { |_, v| v[:price] }
+        min[1].merge! checked: true
+      else
+        min = human.min_by { |_, v| v[:price] }
+      end
+
+      min[1] if min.present?
     end
 
     def final_price
