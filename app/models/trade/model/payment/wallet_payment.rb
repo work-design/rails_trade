@@ -48,11 +48,17 @@ module Trade
 
     def sync_wallet_log
       # 找出最近过期的 Advance
-      wallet.wallet_advances.total_threshold(amount).each do |wa|
+      _to_use = total_amount
+      wallet.wallet_advances.total_threshold(total_amount).each do |wa|
         cl = self.wallet_logs.build(wallet_advance_id: wa.id)
         cl.title = payment_uuid
         cl.tag_str = '支出'
-        cl.amount = -self.total_amount
+        if _to_use > wa.amount
+          _to_use -= wa.amount
+          cl.amount = wa.amount
+        else
+          cl.amount = _to_use
+        end
         cl.save
       end
     end
