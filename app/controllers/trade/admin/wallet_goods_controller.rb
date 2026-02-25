@@ -22,7 +22,8 @@ module Trade
 
     def wallet_good_params
       params.fetch(:wallet_good, {}).permit(
-        :good_type
+        :good_type,
+        :ratio
       )
     end
 
