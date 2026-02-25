@@ -1,10 +1,9 @@
 <td>
   <span>法定钱包</span>
 </td>
-<td colspan="3"></td>
+<td colspan="4"></td>
 <td>
-  <%= link_to({ controller: 'lawful_wallets' }, aria: { label: t('trade.admin.lawful_wallets.index.title') }, class: 'button is-small is-borderless') do %>
-    <%= svg_tag 'bars' %>
-    <span>（<%= Trade::LawfulWallet.default_where(default_params).count %>）</span>
+  <%= link_to({ controller: 'lawful_wallets' }, aria: { label: t('trade.admin.lawful_wallets.index.title') }, class: 'button is-borderless') do %>
+    <span class="text-link"><%= Trade::LawfulWallet.default_where(default_params).count %></span>
   <% end %>
 </td>
