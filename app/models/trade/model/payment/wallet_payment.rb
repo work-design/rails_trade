@@ -47,6 +47,10 @@ module Trade
     end
 
     def sync_wallet_log
+      # 找出最近过期的 Advance
+      wallet.wallet_advances
+
+
       cl = self.wallet_logs.build
       cl.title = payment_uuid
       cl.tag_str = '支出'
