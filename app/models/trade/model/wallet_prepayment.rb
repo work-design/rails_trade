@@ -5,6 +5,7 @@ module Trade
 
     included do
       attribute :token, :string, default: -> { UidUtil.nsec_uuid 'WP' }
+      attribute :secret, :string
       attribute :amount, :decimal
       attribute :expire_at, :datetime
       attribute :used_at, :datetime
