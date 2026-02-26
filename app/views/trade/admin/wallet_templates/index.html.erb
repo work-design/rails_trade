@@ -5,3 +5,5 @@
   <%= render partial: 'lawful_tbody', layout: 'lawful_tr' %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @wallet_templates, as: :model %>
 <% end %>
+
+<%= paginate @wallet_templates %>
