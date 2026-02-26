@@ -29,7 +29,7 @@ module Trade
 
       accepts_nested_attributes_for :advances
 
-      validates :code, uniqueness: { scope: :organ_id }
+      validates :code, uniqueness: { scope: :organ_id }, allow_blank: true
     end
 
     def existing_good_types
