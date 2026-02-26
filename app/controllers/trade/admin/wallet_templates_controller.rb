@@ -7,7 +7,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:name)
 
-      @wallet_templates = WalletTemplate.default_where(q_params).order(id: :asc).page(params[:page])
+      @wallet_templates = WalletTemplate.default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def new
