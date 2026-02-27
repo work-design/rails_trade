@@ -3,9 +3,8 @@ module Trade
     before_action :set_wallet_template, only: [:show, :advance_options, :edit, :update, :destroy]
 
     def index
-      q_params = {
-        'id-desc': 1
-      }
+      q_params = {}
+      q_params.merge! 'id-desc': 1 unless params.key? 'wallets_count-desc'
       q_params.merge! default_params
       q_params.merge! params.permit(:name, 'wallets_count-desc')
 
