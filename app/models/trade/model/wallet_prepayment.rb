@@ -4,7 +4,7 @@ module Trade
     include Wechat::Ext::Handle if defined?(RailsWechat)
 
     included do
-      attribute :token, :string, default: -> { UidUtil.nsec_uuid 'WP' }
+      attribute :token, :string, index: true, default: -> { UidUtil.nsec_uuid 'WP' }
       attribute :secret, :string
       attribute :amount, :decimal
       attribute :expire_at, :datetime
