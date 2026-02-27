@@ -3,11 +3,13 @@ module Trade
     before_action :set_wallet_template, only: [:show, :advance_options, :edit, :update, :destroy]
 
     def index
-      q_params = {}
+      q_params = {
+        'id-desc': 1
+      }
       q_params.merge! default_params
-      q_params.merge! params.permit(:name)
+      q_params.merge! params.permit(:name, 'wallets_count-desc')
 
-      @wallet_templates = WalletTemplate.default_where(q_params).order(id: :desc).page(params[:page])
+      @wallet_templates = WalletTemplate.includes(logo_attachment: :blob).default_where(q_params).page(params[:page])
     end
 
     def new
