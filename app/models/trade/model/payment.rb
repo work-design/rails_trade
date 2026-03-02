@@ -4,7 +4,7 @@ module Trade
 
     included do
       attribute :type, :string, default: 'Trade::HandPayment'
-      attribute :payment_uuid, :string
+      attribute :payment_uuid, :string, index: true
       attribute :pay_status, :string, comment: '记录来自服务商的状态'
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :total_amount, :decimal
