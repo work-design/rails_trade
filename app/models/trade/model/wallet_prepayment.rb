@@ -11,7 +11,7 @@ module Trade
       attribute :used_at, :datetime
       attribute :lawful, :boolean, default: false
 
-      belongs_to :wallet_template, optional: true
+      belongs_to :wallet_template, counter_cache: true, optional: true
 
       has_one :wallet_advance
 
@@ -19,8 +19,6 @@ module Trade
       scope :unused, -> { where.missing(:wallet_advance).valid }
 
       validates :token, uniqueness: true
-
-      delegate :appid, to: :wallet_template
     end
 
     def qrcode_raw_url(port: 80)

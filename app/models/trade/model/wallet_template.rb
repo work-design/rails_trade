@@ -7,14 +7,14 @@ module Trade
       attribute :description, :string
       attribute :unit_name, :string
       attribute :rate, :string, comment: '相对于默认货币的比率'
-      attribute :wallets_count, :integer, default: 0
       attribute :code, :string
       attribute :platform, :string
       attribute :enabled, :boolean, default: true
       attribute :unit, :string
       attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
       attribute :limit, :decimal
-      attribute :appid, :string, comment: '推广微信公众号'
+      attribute :wallets_count, :integer, default: 0
+      attribute :wallet_prepayments_count, :integer, default: 0
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
