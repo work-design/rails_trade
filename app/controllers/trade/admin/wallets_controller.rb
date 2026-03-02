@@ -5,6 +5,7 @@ module Trade
 
     def index
       q_params = {}
+      q_params.merge! 'id-desc': 1 unless params.key? 'amount-desc'
       q_params.merge! default_params
       q_params.merge! params.permit('name-like')
 
