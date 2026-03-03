@@ -7,7 +7,7 @@ module Trade
     included do
       attr_accessor :commit
 
-      attribute :uuid, :string, index: true
+      attribute :uuid, :string, default: -> { UidUtil.nsec_uuid('ITEM') }, index: true
       attribute :good_name, :string
       attribute :number, :decimal, default: 1, comment: '数量'
       attribute :done_number, :decimal, default: 0, comment: '已达成交易数量'
@@ -107,7 +107,6 @@ module Trade
         methods: [:order_uuid, :cart_organ]
       )
 
-      after_initialize :init_uuid, if: :new_record?
       after_initialize :sync_from_good, if: -> { new_record? && order.present? }
       after_initialize :sync_from_source, if: -> { new_record? && source.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }
@@ -219,10 +218,6 @@ module Trade
 
     def changeable?
       ['ordered'].include?(status)
-    end
-
-    def init_uuid
-      self.uuid = UidUtil.nsec_uuid('ITEM')
     end
 
     def init_delivery
