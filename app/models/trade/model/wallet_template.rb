@@ -37,7 +37,7 @@ module Trade
     end
 
     def step
-      (10 ** -digit)
+      (10 ** -digit).to_f
     end
 
   end
