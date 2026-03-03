@@ -221,7 +221,7 @@ module Trade
           action: :append,
           target: 'payments_container',
           partial: 'trade/admin/order/payment_orders/_index/payment_tbody',
-          layout: 'trade/admin/order/payment_orders/payment_tr',
+          layout: 'trade/admin/order/payment_orders/_index/payment_tr',
           variants: [:phone],
           locals: { model: self, order: order }
         )
