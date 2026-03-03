@@ -1,5 +1,5 @@
 <div class="box is-padding-less">
-  <div class="card is-wallet is-radiusless" style="background-image: url(<%= rails_blob_url(model.cover) %>)">
+  <div class="card is-wallet is-radiusless" style="background-image: url(<%= model.cover.url %>); padding-bottom: <%= model.cover_blob.height_by_width_ratio %>">
     <div class="card-header">
       <p class="card-header-title" style="color: <%= model.text_color %>">
         <span><%= model.name %></span>
