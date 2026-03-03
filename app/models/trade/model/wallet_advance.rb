@@ -23,7 +23,7 @@ module Trade
       belongs_to :item, optional: true
       belongs_to :wallet_prepayment, optional: true
 
-      has_one :wallet_log
+      has_many :wallet_logs
 
       before_save :compute_remaining_amount, if: -> { (changes.keys & ['amount', 'used_amount']).present? }
       after_save :sync_log, if: -> { saved_change_to_amount? }
@@ -37,7 +37,7 @@ module Trade
     end
 
     def sync_log
-      log = self.build_wallet_log
+      log = self.wallet_logs.build
       log.title = self.note.presence || I18n.t('wallet_log.income.wallet_advance.title')
       log.tag_str = I18n.t('wallet_log.income.wallet_advance.tag_str')
       log.amount = self.amount - amount_before_last_save.to_d
@@ -45,7 +45,7 @@ module Trade
     end
 
     def sync_destroy_log
-      log = self.build_wallet_log
+      log = self.wallet_logs.build
       log.title = self.note.presence || I18n.t('wallet_log.expense.wallet_advance.title')
       log.tag_str = I18n.t('wallet_log.expense.wallet_advance.tag_str')
       log.amount = -self.amount

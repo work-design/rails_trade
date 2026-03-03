@@ -11,7 +11,7 @@ module Trade
 
       belongs_to :wallet
       belongs_to :wallet_advance
-      belongs_to :wallet_payment
+      belongs_to :wallet_payment, optional: true
       belongs_to :source, polymorphic: true, optional: true
 
       has_one :wallet_template, through: :wallet
