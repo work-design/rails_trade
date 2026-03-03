@@ -33,6 +33,7 @@ module Trade
         :wallet_template_id,
         :card_template_id,
         :open,
+        :enabled,
         :logo
       )
       p.merge! default_form_params

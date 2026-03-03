@@ -6,6 +6,7 @@ zh:
         price: 价格
         card_template_id: 会员
         open: 开卡充值
+        enabled: 开启
       trade/card:
         card_template_id: 会员卡类型
         user_id: 购买人

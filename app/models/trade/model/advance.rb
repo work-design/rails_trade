@@ -6,8 +6,9 @@ module Trade
       attribute :amount, :decimal, default: 0
       attribute :price, :decimal
       attribute :apple_product_id, :string, comment: 'For 苹果应用内支付'
-      attribute :open, :boolean, default: false
+      attribute :open, :boolean, default: false, comment: '是否开卡充值（首充）'
       attribute :lawful, :boolean, default: false, comment: '是否法币'
+      attribute :enabled, :boolean, default: true
 
       belongs_to :organ, class_name: 'Org::Organ', optional: true
 
@@ -16,8 +17,8 @@ module Trade
 
       has_many :wallet_advances
 
-      scope :opened, -> { where(open: true) }
-      scope :unopened, -> { where(open: false) }
+      scope :opened, -> { where(open: true, enabled: true) }
+      scope :unopened, -> { where(open: false, enabled: true) }
       scope :without_card, -> { where(card_template_id: nil) }
       scope :with_card, -> { where.not(card_template_id: nil) }
 
