@@ -226,6 +226,7 @@ module Trade
           locals: { model: self, order: order }
         )
       end
+    rescue ActionView::MissingTemplate
     end
 
     def send_to_pending_orders
@@ -235,11 +236,12 @@ module Trade
           action: :replace,
           target: "payment_#{id}",
           partial: 'trade/admin/order/payment_orders/_index/payment_tbody',
-          layout: 'trade/admin/order/payment_orders/payment_tr',
+          layout: 'trade/admin/order/payment_orders/_index/payment_tr',
           variants: [:phone],
           locals: { model: self, order: order }
         )
       end
+    rescue ActionView::MissingTemplate
     end
 
     class_methods do
