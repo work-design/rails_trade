@@ -518,6 +518,12 @@ module Trade
       expire_at.acts_like?(:time) && Time.current > expire_at
     end
 
+    def generate_order!
+      _order = Order.new(organ_id: organ_id, user_id: user_id)
+      self.order = _order
+      _order.save
+    end
+
     def clean_when_expired
       ItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
