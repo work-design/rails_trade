@@ -104,7 +104,7 @@ module Trade
       after_create :increment_counts_to_organ
       after_create :sync_ordered_to_current_cart
       after_create_commit :send_notice_after_create
-      after_create_commit :close_after_expired, if: -> { expire_at.present? }
+      after_create_commit :close_after_expired, if: -> { expire_at.present? && ['init'].include?(state) }
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
     end

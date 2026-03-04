@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :print_info, :json, default: {}
 
-      after_create_commit :print_later
+      after_create_commit :print_later, if: -> { organ&.produce_printer }
       #after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
     end
 
@@ -14,10 +14,8 @@ module Trade
     end
 
     def print_to_prepare
-      if organ.produce_printer
-        organ.produce_printer.print(to_gid) do |pr|
-          to_prepare_esc(pr)
-        end
+      organ.produce_printer.print(to_gid) do |pr|
+        to_prepare_esc(pr)
       end
     end
 
