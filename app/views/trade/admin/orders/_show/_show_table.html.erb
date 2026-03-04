@@ -2,8 +2,15 @@
   <%= render 'rent_thead' %>
   <%= render partial: 'rent_tbody', layout: 'rent_tr', collection: @order.items, as: :model %>
 <% elsif @order.all_purchase? %>
-  <%= render 'purchase_thead' %>
-  <%= render partial: 'purchase_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
+  <div>
+    <dt></dt>
+    <dd>
+      <%= render layout: 'index_table' do %>
+        <%= render 'purchase_thead' %>
+        <%= render partial: 'purchase_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
+      <% end %>
+    </dd>
+  </div>
 <% else %>
   <%= render 'index_thead' %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model %>

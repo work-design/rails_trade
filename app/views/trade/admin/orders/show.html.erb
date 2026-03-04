@@ -1,7 +1,7 @@
 <%= render 'order_show_bar' %>
 <%= render 'index_actions' %>
 
-<%= render layout: 'show_layout' do %>
+<%= render layout: 'show_layout', locals: { model: @order } do %>
   <%= render 'show_table' %>
 <% end %>
 
