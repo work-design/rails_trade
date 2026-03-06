@@ -33,10 +33,8 @@ module Trade
     end
 
     def sync_amount
-      wallet.with_lock do
-        wallet.compute_payment_amount
-        wallet.save!
-      end
+      wallet.compute_payment_amount
+      wallet.save!
     end
 
     def sync_amount_after_destroy
