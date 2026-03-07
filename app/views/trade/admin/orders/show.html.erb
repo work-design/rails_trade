@@ -6,6 +6,5 @@
 <% end %>
 
 <%= render layout: 'index_table' do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
   <%= render partial: 'payment_order_tbody', layout: 'payment_order_tr', collection: @order.payment_orders, as: :model %>
 <% end %>
