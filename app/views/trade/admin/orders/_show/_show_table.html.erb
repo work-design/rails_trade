@@ -15,7 +15,7 @@
   <div>
     <dt></dt>
     <dd>
-      <%= render layout 'index_table' do %>
+      <%= render layout: 'index_table' do %>
         <%= render partial: 'index_tbody', layout: 'index_tr', collection: @order.items, as: :model %>
       <% end %>
     </dd>
@@ -38,5 +38,19 @@
   <dt><%= Trade::Order.human_attribute_name(:payment_status) %></dt>
   <dd><%= @order.payment_status_i18n %></dd>
 </div>
-<%= render partial: 'show_address', locals: { address: @order.address } if @order.address %>
-<%= render partial: 'show_payment', collection: @order.payment_orders, as: :model %>
+<div>
+  <dt></dt>
+  <dd>
+    <%= render layout: 'index_table_without_thead' do %>
+      <%= render partial: 'show_address', locals: { address: @order.address } if @order.address %>
+    <% end %>
+  </dd>
+</div>
+<div>
+  <dt></dt>
+  <dd>
+    <%= render layout: 'index_table_without_thead' do %>
+      <%= render partial: 'show_payment', collection: @order.payment_orders, as: :model %>
+    <% end %>
+  </dd>
+</div>
