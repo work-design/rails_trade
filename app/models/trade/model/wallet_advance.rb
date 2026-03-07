@@ -27,7 +27,7 @@ module Trade
 
       before_save :compute_remaining_amount, if: -> { (changes.keys & ['amount', 'used_amount']).present? }
       after_save :sync_log, if: -> { saved_change_to_amount? }
-      after_save :sync_to_wallet, if: -> { saved_change_to_amount? }
+      after_save :sync_to_wallet, if: -> { saved_change_to_amount? && wallet }
       after_destroy :sync_amount_after_destroy
       after_destroy :sync_destroy_log
     end
@@ -53,10 +53,8 @@ module Trade
     end
 
     def sync_to_wallet
-      wallet.with_lock do
-        wallet.advances_amount = wallet.advances_amount.to_d + self.amount
-        wallet.save
-      end
+      wallet.advances_amount = wallet.advances_amount.to_d + self.amount
+      wallet.save
     end
 
     def sync_amount_after_destroy
