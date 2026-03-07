@@ -7,7 +7,7 @@ module Trade
       has_many :wallet_logs, primary_key: [:id, :wallet_id], foreign_key: [:wallet_payment_id, :wallet_id]
       has_many :refunds, class_name: 'WalletRefund', primary_key: [:id, :wallet_id], foreign_key: [:payment_id, :wallet_id]
 
-      validates :payment_uuid, presence: true, uniqueness: { scope: :type }
+      #validates :payment_uuid, presence: true, uniqueness: true
 
       after_save :sync_amount#, if: -> { saved_change_to_total_amount? }
       after_destroy :sync_amount_after_destroy
