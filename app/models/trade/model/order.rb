@@ -14,7 +14,6 @@ module Trade
       attribute :deposit_ratio, :integer, default: 100, comment: '最小预付比例'
       attribute :items_count, :integer, default: 0
       attribute :payment_orders_count, :integer, default: 0
-      attribute :paid_at, :datetime, index: true
       attribute :pay_deadline_at, :datetime
       attribute :pay_auto, :boolean, default: false
       attribute :adjust_amount, :decimal
@@ -23,6 +22,7 @@ module Trade
       attribute :unreceived_amount, :decimal
       attribute :payable_amount, :decimal
       attribute :verifying_amount, :decimal, comment: '待核销金额'
+      attribute :paid_at, :datetime, index: true
 
       enum :aim, {
         use: 'use',
