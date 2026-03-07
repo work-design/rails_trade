@@ -23,6 +23,7 @@ module Trade
       attribute :payable_amount, :decimal
       attribute :verifying_amount, :decimal, comment: '待核销金额'
       attribute :paid_at, :datetime, index: true
+      attribute :created_at, :datetime, index: true
 
       enum :aim, {
         use: 'use',
