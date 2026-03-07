@@ -134,11 +134,11 @@ module Trade
     end
 
     def pending_push_orders
-      Order.to_pay.where(organ_id: organ_id, amount: total_amount).default_where('created_at-lte': created_at).order(created_at: :desc)
+      Order.to_pay.where(organ_id: organ_id, amount: total_amount, created_at: ..created_at).order(created_at: :desc)
     end
 
     def to_check_orders
-      Order.to_pay.where(organ_id: organ_id, user_id: user_id).default_where('created_at-gte': created_at).order(created_at: :asc)
+      Order.to_pay.where(organ_id: organ_id, user_id: user_id, created_at: created_at..).order(created_at: :asc)
     end
 
     def analyze_adjust_amount
