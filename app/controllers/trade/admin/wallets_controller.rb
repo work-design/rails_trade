@@ -16,6 +16,13 @@ module Trade
       @wallet = Wallet.find(params[:id])
     end
 
+    def set_filter_columns
+      @filter_columns = set_filter_i18n(
+        'name-like' => { type: 'search', default: true },
+        'oauth_users.identity' => { type: 'search', default: true }
+      )
+    end
+
     def wallet_params
       params.fetch(:wallet, {}).permit(
         :note
