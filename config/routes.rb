@@ -347,7 +347,7 @@ Rails.application.routes.draw do
           get :lawful
         end
       end
-      resources :wallets, only: [] do
+      resources :wallets do
         resources :wallet_payments do
           collection do
             post :batch
