@@ -1,28 +1,31 @@
 <td>
-  <span><%= model.name %></span>
-  <div class="is-several">
-  <% if model.user %>
-    <%= svg_tag 'user' %>
-    <span class="family-monospace ml-1"><%= model.user_id %></span>
-  <% end %>
-  </div>
+  <p>
+    <span><%= model.name %></span>
+    <div class="is-several">
+    <% if model.user %>
+      <%= svg_tag 'user' %>
+      <span class="family-monospace ml-1"><%= model.user_id %></span>
+    <% end %>
+    </div>
+  </p>
+  <p><%= model.wallet_template.name %></p>
 </td>
 <td>
-<% if model.is_a?(Trade::CustomWallet) && model.wallet_template %>
   <span><%= model.amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
   <span><%= model.wallet_template.unit %></span>
-<% end %>
 </td>
 <td>
   <%= link_to({ controller: 'wallet_advances', wallet_id: model.id }, aria: { label: t('.wallet_advances.index.title') }, class: 'button is-small is-link is-light') do %>
     <%= svg_tag 'gem' %>
-    <span class="ml-1"><%= model.income_amount.to_fs(:rounded) %></span>
+    <span class="ml-1"><%= model.income_amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
+    <span><%= model.wallet_template.unit %></span>
   <% end %>
 </td>
 <td>
   <%= link_to({ controller: 'wallet_payments', wallet_id: model.id }, aria: { label: t('.wallet_payments.index.title') }, class: 'button is-small is-link is-light') do %>
-    <i class="fa-solid fa-credit-card pr-2"></i>
-    <span><%= model.expense_amount.to_fs(:rounded) %></span>
+    <%= svg_tag 'credit-card' %>
+    <span><%= model.expense_amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
+    <span><%= model.wallet_template.unit %></span>
   <% end %>
 </td>
 <td>
