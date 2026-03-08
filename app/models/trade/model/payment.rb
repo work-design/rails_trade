@@ -148,10 +148,10 @@ module Trade
 
     def check_order(order_id)
       order = Order.where(organ_id: organ_id).find order_id
-      payment_order = self.payment_orders.build(order_id: order.id)
+      payment_order = self.payment_orders.find_or_initialize_by(order_id: order.id)
       payment_order.order_amount = order.unreceived_amount
       payment_order.payment_amount = total_amount
-      save
+      payment_order.confirm!
     end
 
     def check_state
