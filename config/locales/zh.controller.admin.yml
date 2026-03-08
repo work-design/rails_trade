@@ -5,6 +5,9 @@ zh:
       home:
         index:
           title: 交易管理
+      wallets:
+        index:
+          title: 钱包
       wallet_advances:
         index:
           title: 充值明细
