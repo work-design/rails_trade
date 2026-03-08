@@ -6,7 +6,7 @@ module Trade
       q_params = {}
       q_params.merge! 'id-desc': 1 unless params.key? 'amount-desc'
       q_params.merge! default_params
-      q_params.merge! params.permit('name-like')
+      q_params.merge! params.permit('name-like', 'oauth_users.identity')
 
       @wallets = CustomWallet.default_where(q_params).page(params[:page])
     end

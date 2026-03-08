@@ -9,6 +9,8 @@ module Trade
       belongs_to :member, class_name: 'Org::Member', optional: true
       belongs_to :member_organ, class_name: 'Org::Organ', optional: true
 
+      has_many :oauth_users, class_name: 'Auth::OauthUser', primary_key: :user_id, foreign_key: :user_id
+
       before_validation :sync_member_organ, if: -> { member_id_changed? }
     end
 
