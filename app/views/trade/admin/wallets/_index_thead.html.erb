@@ -1,0 +1,10 @@
+<th><%= Trade::Wallet.human_attribute_name(:name) %></th>
+<th>
+  <%= link_to filter_params('amount-desc': 1) do %>
+    <span class="text-grey"><%= Trade::Wallet.human_attribute_name(:amount) %></span>
+    <%= svg_tag 'arrow-down', class: "icon is-small #{params['amount-desc'] ? 'text-success' : 'text-grey'}" %>
+  <% end %>
+</th>
+<th><%= Trade::Wallet.human_attribute_name(:income_amount) %></th>
+<th><%= Trade::Wallet.human_attribute_name(:expense_amount) %></th>
+<th><%= Trade::Wallet.human_attribute_name(:created_at) %></th>
