@@ -4,6 +4,12 @@
 <th><%= Trade::WalletTemplate.human_attribute_name(:limit) %></th>
 <th><%= Trade::WalletTemplate.human_attribute_name(:enabled) %></th>
 <th>
+  <%= link_to filter_params('wallet_prepayments_count-desc': 1) do %>
+    <span class="text-grey"><%= Trade::WalletTemplate.human_attribute_name(:wallet_prepayments_count) %></span>
+    <%= svg_tag 'arrow-down', class: "icon is-small #{params['wallet_prepayments_count-desc'] ? 'text-success' : 'text-grey'}" %>
+  <% end %>
+</th>
+<th>
   <%= link_to filter_params('wallets_count-desc': 1) do %>
     <span class="text-grey"><%= Trade::WalletTemplate.human_attribute_name(:wallets_count) %></span>
     <%= svg_tag 'arrow-down', class: "icon is-small #{params['wallets_count-desc'] ? 'text-success' : 'text-grey'}" %>
