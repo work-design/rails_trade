@@ -21,7 +21,7 @@ module Trade
 
     def set_wallet_template
       @wallets = current_user.custom_wallets.default_where(default_params)
-      @wallet_templates = Trade::WalletTemplate.default_where(default_params).where.not(id: @wallets.pluck(:wallet_template_id)).limit(3)
+      @wallet_templates = Trade::WalletTemplate.default_where(default_params).where.not(id: @wallets.pluck(:wallet_template_id)).hot
     end
 
   end

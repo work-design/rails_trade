@@ -10,6 +10,7 @@ module Trade
       attribute :code, :string
       attribute :platform, :string
       attribute :enabled, :boolean, default: true
+      attribute :hot, :boolean, default: false
       attribute :unit, :string
       attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
       attribute :limit, :decimal
@@ -25,9 +26,11 @@ module Trade
       has_many :wallet_prepayments
       has_many :wallet_goods
 
+      accepts_nested_attributes_for :advances
+
       has_one_attached :logo
 
-      accepts_nested_attributes_for :advances
+      scope :hot, -> { where(hot: true) }
 
       validates :code, uniqueness: { scope: :organ_id }
     end
