@@ -4,8 +4,7 @@ module Trade
 
     def index
       q_params = {}
-      binding.b
-      q_params.merge! 'id-desc': 1 unless params.key? 'wallets_count-desc'
+      q_params.merge! 'id-desc': 1 unless (params.keys & ['wallets_count-desc', 'wallet_prepayments_count-desc']).present?
       q_params.merge! default_params
       q_params.merge! params.permit(:name, 'wallets_count-desc', 'wallet_prepayments_count-desc', 'name-like')
 
