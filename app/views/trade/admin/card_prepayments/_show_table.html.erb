@@ -1,25 +1,21 @@
 <div>
-  <dt><%= Trade::WalletPrepayment.human_attribute_name(:amount) %></dt>
-  <dd><%= @wallet_prepayment.amount %></dd>
+  <dt><%= Trade::CardPrepayment.human_attribute_name(:amount) %></dt>
+  <dd><%= @card_prepayment.amount %></dd>
 </div>
 <div>
-  <dt><%= Trade::WalletPrepayment.human_attribute_name(:token) %></dt>
-  <dd><%= @wallet_prepayment.token %></dd>
+  <dt><%= Trade::CardPrepayment.human_attribute_name(:token) %></dt>
+  <dd><%= @card_prepayment.token %></dd>
 </div>
 <div>
-  <dt><%= Trade::WalletPrepayment.human_attribute_name(:expire_at) %></dt>
-  <dd><time data-controller="time"><%= @wallet_prepayment.expire_at.to_fs(:iso8601) %></time></dd>
+  <dt><%= Trade::CardPrepayment.human_attribute_name(:expire_at) %></dt>
+  <dd><time data-controller="time"><%= @card_prepayment.expire_at.to_fs(:iso8601) %></time></dd>
 </div>
 <div>
   <dt></dt>
   <dd>
     <p>
-    <% if @wallet_prepayment.scene %>
-      <%= image_tag @wallet_prepayment.scene.qrcode_data_url %>
-    <% else %>
-      <%= image_tag @wallet_prepayment.qrcode_url %>
-    <% end %>
+      <%= image_tag @card_prepayment.qrcode_url %>
     </p>
-    <p class="size-7 text-grey"><%= @wallet_prepayment.qrcode_raw_url(port: request.port) %></p>
+    <p class="size-7 text-grey"><%= @card_prepayment.qrcode_raw_url(port: request.port) %></p>
   </dd>
 </div>
