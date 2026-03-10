@@ -1,4 +1,4 @@
-<%= f.number_field :years, min: 0 %>
+<%= f.number_field :years, value: 1, min: 0 %>
 <%= f.number_field :months, min: 0, max: 12 %>
 <%= f.number_field :days, min: 0, max: 31 %>
-<%= f.datetime_field :expire_at, required: true %>
+<%= f.datetime_field :expire_at, value: Date.today.end_of_day, required: true %>
