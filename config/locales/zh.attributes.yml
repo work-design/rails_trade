@@ -22,6 +22,7 @@ zh:
         unit: 单位
         enabled: 启用
         wallets_count: 开通数
+        wallet_prepayments_count: 充值码
       trade/wallet_advance:
         amount: 金额
         advance_id: 对应商品
