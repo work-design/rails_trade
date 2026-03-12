@@ -10,6 +10,8 @@
       <%= link_to model.good, target: '_blank' do %>
         <span><%= model.good_name %></span>
       <% end %>
+    <% else %>
+      <span><%= model.good_name %></span>
     <% end %>
     <span class="tag"><%= model.aim_i18n %></span>
   </div>
