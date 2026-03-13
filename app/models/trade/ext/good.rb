@@ -4,7 +4,6 @@ module Trade
 
     included do
       attribute :name, :string
-      attribute :sku, :string, default: -> { SecureRandom.hex }
       attribute :price, :decimal
       attribute :advance_price, :decimal, default: 0
       attribute :card_price, :json, default: {}
