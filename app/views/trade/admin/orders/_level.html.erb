@@ -2,25 +2,25 @@
   <div class="level-item text-centered">
     <div>
       <p class="heading">待收款总额</p>
-      <p class="title"><%= @count[:unreceived].to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:unreceived].value.to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">已收款总额</p>
-      <p class="title"><%= @count[:received].to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:received].value.to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">订单总额</p>
-      <p class="title"><%= @count[:amount].to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:amount].value.to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">订单数</p>
-      <p class="title"><%= @count[:count] %></p>
+      <p class="title"><%= @count[:count].value %></p>
     </div>
   </div>
 </nav>
