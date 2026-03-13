@@ -21,7 +21,9 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
+      set_count
+      @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def cart
@@ -196,6 +198,15 @@ module Trade
 
     def set_payment_strategies
       @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
+    end
+
+    def set_count
+      @count = {
+        unreceived: @common_orders.async_sum(:unreceived_amount),
+        received: @common_orders.async_sum(:received_amount),
+        amount: @common_orders.async_sum(:amount),
+        count: @common_orders.async_count
+      }
     end
 
     def current_alipay_app
