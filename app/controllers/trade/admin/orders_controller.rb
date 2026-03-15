@@ -201,12 +201,8 @@ module Trade
     end
 
     def set_count
-      @count = {
-        unreceived: @common_orders.async_sum(:unreceived_amount),
-        received: @common_orders.async_sum(:received_amount),
-        amount: @common_orders.async_sum(:amount),
-        count: @common_orders.async_count
-      }
+      counter_cache = OrderCounterCache.find_by_params(params)
+      @count = counter_cache.get_today_count
     end
 
     def current_alipay_app
