@@ -4,10 +4,10 @@ module Trade
 
     included do
       attribute :wallet_code, :string
+      attribute :good_type, :string
       attribute :ratio, :decimal, precision: 3, scale: 2, default: 1
 
       belongs_to :wallet_template
-      belongs_to :good, polymorphic: true, optional: true
 
       before_validation :sync_wallet_code, if: -> { wallet_template_id_changed? }
     end
