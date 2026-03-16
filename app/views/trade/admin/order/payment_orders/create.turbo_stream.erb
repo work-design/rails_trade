@@ -2,5 +2,5 @@
   <%= turbo_stream.replace "tr_#{@order.id}", partial: 'trade/admin/orders/index_tbody', layout: 'trade/admin/orders/index_tr', locals: { model: @order } %>
   <%= turbo_stream.remove 'modal' %>
 <% else %>
-  <%= turbo_stream.append_body partial: 'visit' %>
+  <%= turbo_stream.visit %>
 <% end %>
