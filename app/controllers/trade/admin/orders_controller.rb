@@ -22,7 +22,7 @@ module Trade
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
       @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
-      set_count
+      set_count(q_params)
       @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
     end
 
@@ -36,7 +36,9 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
+      set_count(q_params)
+      @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def unpaid
@@ -46,7 +48,9 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type, 'created_at-lte', 'created_at-gte')
 
-      @orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
+      set_count(q_params)
+      @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def payments
@@ -200,8 +204,8 @@ module Trade
       @payment_strategies = PaymentStrategy.default_where(default_ancestors_params)
     end
 
-    def set_count
-      counter_cache = OrderCounterCache.find_by_params(params)
+    def set_count(q_params)
+      counter_cache = OrderCounterCache.find_by_params(q_params)
       @count = counter_cache.get_today_count
     end
 
