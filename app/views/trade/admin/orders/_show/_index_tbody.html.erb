@@ -14,7 +14,9 @@
     <% else %>
       <span><%= model.good_name %></span>
     <% end %>
-    <span class="tag"><%= model.aim_i18n %></span>
+    <% if model.aim %>
+      <span class="tag"><%= model.aim_i18n %></span>
+    <% end %>
   </div>
 </td>
 <td>
