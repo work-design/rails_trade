@@ -30,8 +30,8 @@
 <td>
   <p><%= link_to '订单流程', { controller: 'items', action: 'show', id: model.id } %></p>
   <p>
-    <%= link_to({ controller: 'trade/admin/holds', item_id: model.id }, aria: { label: t('trade.admin.holds.index.title') }, class: 'button is-small is-borderless') do %>
-      <i class="fa-solid fa-face-meh text-success"></i>
+    <%= link_to({ controller: 'trade/admin/holds', item_id: model.id }, aria: { label: t('.holds.index.title') }, class: 'button is-small is-borderless') do %>
+      <%= svg_tag 'face-meh' %>
     <% end %>
   </p>
 </td>
