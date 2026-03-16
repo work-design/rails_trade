@@ -8,7 +8,7 @@ module Trade
     belongs_to :organ, class_name: 'Org::Organ', optional: true
 
     def sum_columns
-      ['amount', 'unreceived_amount']
+      ['amount', 'unreceived_amount', 'received_amount']
     end
 
   end
