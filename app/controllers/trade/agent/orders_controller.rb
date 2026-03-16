@@ -6,7 +6,9 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:payment_status, :state)
 
-      @orders = current_member.agent_orders.default_where(q_params).order(id: :desc).page(params[:page])
+      @common_orders = current_member.agent_orders.default_where(q_params)
+      set_count(q_params)
+      @orders = @common_orders.order(id: :desc).page(params[:page])
     end
 
     private
