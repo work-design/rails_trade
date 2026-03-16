@@ -1,0 +1,8 @@
+<%=
+  turbo_stream.replace(
+    @wallet_good.good_type,
+    partial: 'type_tbody',
+    layout: 'type_tr',
+    locals: { model: { @wallet_good.good_type_i18n => @wallet_good.good_type } }
+  )
+%>
