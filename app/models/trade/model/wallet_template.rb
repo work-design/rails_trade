@@ -36,7 +36,7 @@ module Trade
     end
 
     def existing_good_types
-      wallet_goods.where(good_id: nil).pluck(:good_type).uniq.map(&->(i){ Trade::PromoteGood.enum_i18n(:good_type, i) })
+      Trade::WalletGood.enum_base_i18n(:good_type).except(*wallet_goods.pluck(:good_type).uniq.map(&:to_sym)).invert
     end
 
     def step

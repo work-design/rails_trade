@@ -1,0 +1,2 @@
+<%= turbo_stream.replace model.good_type, partial: 'index_tbody', layout: 'index_tr', locals: { model: model } %>
+<%= turbo_stream.remove 'modal' %>
