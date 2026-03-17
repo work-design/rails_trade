@@ -15,3 +15,4 @@
     <%= svg_tag 'arrow-down', class: "icon is-small #{params['wallets_count-desc'] ? 'text-success' : 'text-grey'}" %>
   <% end %>
 </th>
+<th><%= Trade::WalletTemplate.human_attribute_name(:wallet_goods) %></th>

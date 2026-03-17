@@ -24,3 +24,11 @@
     <span class="text-link"><%= model.wallets_count %></span>
   <% end %>
 </td>
+<td>
+<% model.wallet_goods.each do |wallet_good| %>
+  <span class="tags has-addons">
+    <span class="tag"><%= wallet_good.good_type_i18n %></span>
+    <span class="tag"><%= wallet_good.ratio %></span>
+  </span>
+<% end %>
+</td>
