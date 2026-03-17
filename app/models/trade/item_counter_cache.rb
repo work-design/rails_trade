@@ -9,7 +9,7 @@ module Trade
     def sum_columns
       {
         amount: 'amount',
-        ordered: ->(o) { o.where.not(order_id: nil) }
+        ordered: ->(o) { o.where.not(order_id: nil).count }
       }
     end
 
