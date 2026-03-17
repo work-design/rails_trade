@@ -2,10 +2,9 @@
   <p>
     <span><%= model.name %></span>
     <div class="is-several">
-    <% if model.user %>
       <%= svg_tag 'user' %>
-      <span class="family-monospace ml-1"><%= model.user_id %></span>
-    <% end %>
+      <span class="ml-1"><%= model.contact.name %></span>
+      <span><%= model.contact.identity %></span>
     </div>
   </p>
   <p><%= model.wallet_template.name %></p>

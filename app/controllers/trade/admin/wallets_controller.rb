@@ -8,7 +8,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit('name-like', 'oauth_users.identity')
 
-      @wallets = CustomWallet.default_where(q_params).page(params[:page])
+      @wallets = CustomWallet.includes(:contact).default_where(q_params).page(params[:page])
     end
 
     private
