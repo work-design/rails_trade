@@ -2,13 +2,13 @@
   <div class="level-item text-centered">
     <div>
       <p class="heading">待收款总额</p>
-      <p class="title"><%= @count[:unreceived_amount].to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:unreceived].to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">已收款总额</p>
-      <p class="title"><%= @count[:received_amount].to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:received].to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">

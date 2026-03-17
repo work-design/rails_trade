@@ -11,6 +11,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status, :desk_id)
 
+      set_count(q_params)
       @items = Item.includes(:user, :item_promotes, :order).where.not(order_id: nil).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
     end
 
@@ -21,6 +22,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
 
+      set_count(q_params)
       @items = Item.includes(:user, :item_promotes, :purchase_items, :order).where.not(order_id: nil).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
       @purchase_order = Order.new(generate_mode: 'purchase')
     end
@@ -33,6 +35,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status)
 
+      set_count(q_params)
       @items = Item.includes(:user, :item_promotes, :purchase_items, :order, :good).where.not(order_id: nil).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
@@ -101,6 +104,11 @@ module Trade
 
     def set_new_item
       @item = @cart.init_cart_item(params)
+    end
+
+    def set_count(q_params)
+      counter_cache = ItemCounterCache.find_by_params(q_params)
+      @count = counter_cache.get_today_count
     end
 
     def item_params
