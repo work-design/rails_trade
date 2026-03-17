@@ -4,11 +4,15 @@ module Trade
     before_action :set_new_wallet_good, only: [:create]
 
     def index
-      @wallet_goods = @wallet_template.wallet_goods.where(good_id: nil).order(good_type: :asc)
+      @wallet_goods = @wallet_template.wallet_goods.order(good_type: :asc)
     end
 
     def new
       @wallet_good = @wallet_template.wallet_goods.build(good_type: params[:good_type])
+    end
+
+    def list
+      @goods = @wallet_template.wallet_price_goods(params[:good_type])
     end
 
     private

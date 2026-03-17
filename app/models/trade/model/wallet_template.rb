@@ -43,5 +43,12 @@ module Trade
       (10 ** -digit).to_f
     end
 
+    def wallet_price_goods(good_type)
+      good_klass = good_type.safe_constantize
+      if good_klass
+        good_klass.where(organ_id: organ_id).json_filter_key(:wallet_price, code)
+      end
+    end
+
   end
 end

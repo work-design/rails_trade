@@ -339,7 +339,11 @@ Rails.application.routes.draw do
         resources :advances
         resources :custom_wallets
         resources :wallet_prepayments
-        resources :wallet_goods
+        resources :wallet_goods do
+          collection do
+            get 'list/:good_type' => :list
+          end
+        end
       end
       resources :lawful_wallets
       resources :lawful_advances do

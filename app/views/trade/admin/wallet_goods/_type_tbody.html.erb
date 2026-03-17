@@ -1,4 +1,4 @@
-<td><%= model[0] %></td>
+<td><%= link_to model[0], { action: 'list', good_type: model[1] } %></td>
 <td colspan="2">
   <div class="buttons are-small">
     <%= button_to({ action: 'new' }, params: { good_type: model[1] }, class: 'button is-small is-link') do %>
