@@ -6,6 +6,7 @@ module Trade
     included do
       attribute :type, :string
       attribute :name, :string
+      attribute :code, :string
       attribute :amount, :decimal, default: 0
       attribute :frozen_amount, :decimal, default: 0, comment: '支出：冻结金额'
       attribute :payout_amount, :decimal, default: 0, comment: '支出：提现'
@@ -37,7 +38,7 @@ module Trade
       before_validation :compute_income_amount, if: -> { (changes.keys & ['advances_amount', 'sells_amount', 'refunded_amount']).present? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
-      before_validation :sync_organ_id, if: -> { wallet_template_id && wallet_template_id_changed? }
+      before_validation :sync_from_wallet_template, if: -> { wallet_template_id && wallet_template_id_changed? }
     end
 
     def init_name
@@ -47,8 +48,9 @@ module Trade
     def template_name
     end
 
-    def sync_organ_id
+    def sync_from_wallet_template
       return unless wallet_template
+      self.code = wallet_template.code
       self.organ_id = wallet_template.organ_id
     end
 
