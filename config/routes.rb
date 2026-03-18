@@ -70,8 +70,8 @@ Rails.application.routes.draw do
       collection do
         get 'code/:code' => :code
         get :token_new
+        post :token_create
         get 'token/:token' => :token_detect
-        post 'token/:token' => :token_create
       end
     end
     resources :wallets, only: [:show] do

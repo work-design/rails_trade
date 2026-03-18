@@ -18,8 +18,12 @@ module Trade
     end
 
     def token_create
-      prepayment = WalletPrepayment.find_by token: params[:token]
-      @wallet = prepayment.execute(user_id: current_user.id)
+      prepayment = WalletPrepayment.unused.find_by token: params[:token]
+      if prepayment
+        @wallet = prepayment.execute(user_id: current_user.id)
+      else
+        render 'token_missing', locals: { message: '卡券已绑定或失效' }
+      end
     end
 
     def code
