@@ -1,14 +1,9 @@
 <%= form_with theme: nil, url: { action: 'token_create' }, id: 'create_scan' do |f| %>
-  <div
-    data-controller="scan"
-    data-scan-form-value="create_scan"
-    data-action="click->scan#input"
-    class="field has-addons mt-6"
-  >
+  <div data-controller="scan" class="field has-addons mt-6">
     <div class="control is-expanded">
       <%= f.text_field :token, placeholder: '请输入券码', autocomplete: 'off', data: { scan_target: 'input' }, class: 'input is-medium' %>
     </div>
-    <div class="control">
+    <div data-action="click->scan#input" class="control">
       <button type="button" class="button is-medium is-info">
         <%= svg_tag 'barcode-read', class: 'icon' %>
       </button>
