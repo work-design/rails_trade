@@ -10,7 +10,7 @@ module Trade
       attribute :comment, :string
       attribute :refunded_at, :datetime
       attribute :reason, :string
-      attribute :refund_uuid, :string
+      attribute :refund_uuid, :string, default: -> { UidUtil.nsec_uuid('RD') }
       attribute :response, :json
 
       enum :state, {
@@ -31,13 +31,12 @@ module Trade
 
       #validate :valid_total_amount
 
-      before_validation :init_uuid
+      before_validation :init_from_payment
       after_save :sync_refund_to_payment_and_order!, if: -> { completed? && state_before_last_save == 'init' }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
     end
 
-    def init_uuid
-      self.refund_uuid ||= UidUtil.nsec_uuid('RD') if new_record?
+    def init_from_payment
       self.currency = payment.currency
     end
 

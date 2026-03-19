@@ -65,23 +65,23 @@ module Trade
       order.save
     end
 
-    def refund_by_order(order_refund = order_amount)
+    def refund_by_order(order_refund = order_amount, uuid: nil)
       payment_refund = Rational(payment_amount, order_amount) * order_refund
-      refund_with_transfer(payment_refund, order_refund)
+      refund_with_transfer(payment_refund, order_refund, uuid: uuid)
     end
 
-    def refund_by_payment(payment_refund = payment_amount)
+    def refund_by_payment(payment_refund = payment_amount, uuid: nil)
       order_refund = Rational(order_amount, payment_amount) * payment_refund
-      refund_with_transfer(payment_refund, order_refund)
+      refund_with_transfer(payment_refund, order_refund, uuid: uuid)
     end
 
-    def refund_with_transfer(payment_total, order_total)
+    def refund_with_transfer(payment_total, order_total, uuid:)
       if ['init', 'pending'].include? self.state
         return
       end
       self.state = 'refunding'
 
-      refund = refunds.find_by(state: 'init') || payment.refunds.build
+      refund = refunds.find_by(state: 'init') || payment.refunds.build(uuid: uuid)
       refund.refund_orders.build(
         order: order,
         refund: refund,

@@ -4,7 +4,7 @@ module Trade
 
     included do
       attribute :type, :string, default: 'Trade::HandPayment'
-      attribute :payment_uuid, :string, index: true
+      attribute :payment_uuid, :string, default: -> { UidUtil.nsec_uuid('PAY') }, index: true
       attribute :pay_status, :string, comment: '记录来自服务商的状态'
       attribute :currency, :string, default: RailsTrade.config.default_currency
       attribute :total_amount, :decimal
@@ -61,7 +61,6 @@ module Trade
 
       scope :to_check, -> { where(pay_state: 'paid', state: 'init') }
 
-      after_initialize :init_uuid, if: -> { new_record? && (user_id.present? || total_amount.to_d > 0 || payment_orders.present?) }
       after_initialize :init_amount, if: -> { new_record? }
       before_save :compute_amount, if: -> { (changes.keys & ['total_amount', 'fee_amount', 'refunded_amount']).present? }
       before_save :check_state, if: -> { (changes.keys & ['checked_amount', 'total_amount']).present? }
@@ -75,10 +74,6 @@ module Trade
 
     def sync_state_proof_uploaded
       self.pay_state = 'proof_uploaded'
-    end
-
-    def init_uuid
-      self.payment_uuid ||= UidUtil.nsec_uuid('PAY')
     end
 
     def init_amount
