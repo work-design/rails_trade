@@ -1,4 +1,8 @@
 <div>
+  <dt><%= Trade::WalletPayment.human_attribute_name(:payment_uuid) %></dt>
+  <dd><%= @wallet_payment.payment_uuid %></dd>
+</div>
+<div>
   <dt><%= Trade::WalletPayment.human_attribute_name(:total_amount) %></dt>
   <dd><%= @wallet_payment.total_amount %></dd>
 </div>
