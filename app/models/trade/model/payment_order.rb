@@ -81,7 +81,7 @@ module Trade
       end
       self.state = 'refunding'
 
-      refund = refunds.find_by(state: 'init') || payment.refunds.build(uuid: uuid)
+      refund = refunds.find_by(state: 'init') || payment.refunds.build(refund_uuid: uuid)
       refund.refund_orders.build(
         order: order,
         refund: refund,
