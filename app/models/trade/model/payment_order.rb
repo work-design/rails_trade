@@ -82,9 +82,7 @@ module Trade
       self.state = 'refunding'
 
       refund = refunds.find_by(state: 'init') || payment.refunds.build(refund_uuid: uuid)
-      refund_order = refund.refund_orders.find_or_initialize_by(order_id: order.id)
-      refund_order.payment = payment
-      refund_order.assign_attributes state: 'refunding', payment_amount: payment_total, order_amount: order_total
+      refund.refund_orders.find_by(order_id: order.id) || refund.refund_orders.build(state: 'refunding', payment_amount: payment_total, order_amount: order_total)
 
       self.class.transaction do
         self.save!

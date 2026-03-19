@@ -21,6 +21,7 @@ module Trade
       has_many :refunds, foreign_key: :payment_id, primary_key: :payment_id
 
       after_initialize :init_amount, if: :new_record?
+      after_initialize :sync_from_refund, if: :new_record?
       after_save :refunding_to_payment_and_order!, if: -> { state_refunding? && (saved_changes.keys & ['state', 'payment_amount', 'order_amount']).present? }
       after_save :refunded_to_payment_and_order!, if: -> { state_refunded? && (saved_changes.keys & ['state', 'payment_amount', 'order_amount']).present? }
       after_save :revert_to_payment_and_order!, if: -> { state_init? && state_before_last_save == 'refunding' }
@@ -29,6 +30,10 @@ module Trade
 
     def init_amount
       refund.total_amount = refund.total_amount.to_d + payment_amount
+    end
+
+    def sync_from_refund
+      self.payment = refund.payment
     end
 
     def refunding_to_payment_and_order!
