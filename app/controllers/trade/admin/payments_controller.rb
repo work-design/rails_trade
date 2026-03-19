@@ -14,6 +14,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:type, :state, :id, :buyer_identifier, :buyer_bank, :payment_uuid, 'buyer_name-like', 'payment_orders.state', 'orders.uuid')
 
+      set_count(q_params)
       @payments = Payment.includes(:payment_method, :payment_orders).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
@@ -56,6 +57,11 @@ module Trade
         'payment_orders.state': { type: 'dropdown', default: true, record_name: PaymentOrder },
         payment_uuid: 'search'
       )
+    end
+
+    def set_count(q_params)
+      counter_cache = PaymentCounterCache.find_by_params(q_params)
+      @count = counter_cache.get_today_count
     end
 
     def payment_params

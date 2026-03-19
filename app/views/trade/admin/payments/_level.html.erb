@@ -2,19 +2,19 @@
   <div class="level-item text-centered">
     <div>
       <p class="heading">订单总额</p>
-      <p class="title"><%= @payments.unscope(:limit, :offset).sum(:orders_amount).to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:orders].to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">收款总额</p>
-      <p class="title"><%= @payments.unscope(:limit, :offset).sum(:total_amount).to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:total].to_money.format.html_safe %></p>
     </div>
   </div>
   <div class="level-item text-centered">
     <div>
       <p class="heading">净收入总额</p>
-      <p class="title"><%= @payments.unscope(:limit, :offset).sum(:income_amount).to_money.format.html_safe %></p>
+      <p class="title"><%= @count[:income].to_money.format.html_safe %></p>
     </div>
   </div>
 </nav>
