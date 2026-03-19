@@ -516,6 +516,7 @@ module Trade
     def generate_order!
       _order = Order.new(organ_id: organ_id, user_id: user_id)
       _order.state = 'done'
+      _order.uuid = uuid
       self.order = _order
       _order.save
     end
