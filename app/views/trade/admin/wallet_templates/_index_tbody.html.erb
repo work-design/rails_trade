@@ -5,8 +5,14 @@
     <span class="tag"><%= model.code %></span>
   </div>
 </td>
-<td><%= model.unit %></td>
-<td><%= model.digit %></td>
+<td>
+  <p><%= model.unit %></p>
+  <p><%= model.digit %></p>
+</td>
+<td>
+  <p><%= model.prepay_min %></p>
+  <p><%= model.prepay_max %></p>
+</td>
 <td><%= model.limit %></td>
 <td>
   <%= form_with theme: 'switch', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>

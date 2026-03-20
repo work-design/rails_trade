@@ -14,6 +14,8 @@ module Trade
       attribute :unit, :string
       attribute :digit, :integer, default: 0, comment: '精确到小数点后几位'
       attribute :limit, :decimal
+      attribute :prepay_min, :decimal
+      attribute :prepay_max, :decimal
       attribute :wallets_count, :integer, default: 0
       attribute :wallet_prepayments_count, :integer, default: 0
 
@@ -37,6 +39,12 @@ module Trade
 
     def existing_good_types
       Trade::WalletGood.enum_base_i18n(:good_type).except(*wallet_goods.pluck(:good_type).uniq.map(&:to_sym)).invert
+    end
+
+    def set_prepay_range!
+      self.prepay_min = wallet_prepayments.minimum(:amount)
+      self.prepay_max = wallet_prepayments.maximum(:amount)
+      self.save
     end
 
     def step
