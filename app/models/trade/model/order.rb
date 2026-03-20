@@ -305,7 +305,7 @@ module Trade
       return unless id
       Turbo::StreamsChannel.broadcast_stream_to(
         self,
-        content: Turbo::StreamsChannel.turbo_stream_action_tag :visit
+        content: Turbo::StreamsChannel.turbo_stream_action_tag(:visit)
       )
     end
 
