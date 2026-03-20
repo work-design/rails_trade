@@ -135,8 +135,7 @@ module Trade
     def send_verify_notice
       broadcast_action_to(
         self,
-        action: :append,
-        target: 'body',
+        action: :append_body,
         partial: 'visit',
         locals: { url: Rails.app.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id) }
       )
