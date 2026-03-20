@@ -1,4 +1,4 @@
-<%= turbo_stream.append 'body' do %>
+<%= turbo_stream.append_body do %>
 <% if request.headers['Turbo-Frame'] == 'modal' && request.headers['Redirect'].present? %>
   <div data-controller="visit" data-visit-frame-value="modal" data-visit-url-value="<%= request.headers['Redirect'] %>"></div>
 <% elsif params[:return_to].present? %>

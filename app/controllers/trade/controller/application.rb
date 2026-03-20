@@ -24,6 +24,12 @@ module Trade
       end
     end
 
+    def set_cart
+      if current_user
+        @cart = Trade::Cart.get_cart(params, user_id: current_user.id, **default_form_params)
+      end
+    end
+
     def set_new_item
       @item = @cart.init_cart_item(params)
     end
