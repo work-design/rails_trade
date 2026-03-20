@@ -6,6 +6,7 @@
   <span><%= model.total_amount.to_money.format.html_safe %></span>
 <% end %>
 </td>
+<td><%= model.state_i18n %></td>
 <td>
 <% if @wallet.wallet_template %>
   <span><%= model.refunded_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
