@@ -303,10 +303,9 @@ module Trade
 
     def send_notice
       return unless id
-      broadcast_action_to(
+      Turbo::StreamsChannel.broadcast_stream_to(
         self,
-        action: :visit,
-        partial: ''
+        content: Turbo::StreamsChannel.turbo_stream_action_tag :visit
       )
     end
 

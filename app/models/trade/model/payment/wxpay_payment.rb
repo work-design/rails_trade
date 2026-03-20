@@ -133,11 +133,9 @@ module Trade
     end
 
     def send_verify_notice
-      broadcast_action_to(
+      Turbo::StreamsChannel.broadcast_stream_to(
         self,
-        action: :visit,
-        partial: '',
-        url: Rails.app.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id)
+        Turbo::StreamsChannel.turbo_stream_action_tag :visit, url: Rails.app.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id)
       )
     end
 
