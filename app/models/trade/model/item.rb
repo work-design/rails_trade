@@ -24,9 +24,10 @@ module Trade
       attribute :expire_at, :datetime
       attribute :note, :string
       attribute :extra, :json, default: {}
+      attribute :purchase_res, :json
       attribute :holds_count, :integer, default: 0
       attribute :purchase_items_count, :integer, default: 0
-      attribute :scope, :string, default: 'all'
+      attribute :scope, :string, default: 'all', comment: '用于 cart 关联'
 
       enum :status, {
         init: 'init',
