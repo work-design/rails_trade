@@ -305,9 +305,7 @@ module Trade
       return unless id
       broadcast_action_to(
         self,
-        action: :append_body,
-        partial: 'visit',
-        locals: { model: self }
+        action: :visit
       )
     end
 
