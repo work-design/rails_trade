@@ -305,7 +305,8 @@ module Trade
       return unless id
       broadcast_action_to(
         self,
-        action: :visit
+        action: :visit,
+        target: nil
       )
     end
 
