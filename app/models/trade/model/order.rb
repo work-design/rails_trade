@@ -306,7 +306,7 @@ module Trade
       broadcast_action_to(
         self,
         action: :visit,
-        target: ''
+        partial: ''
       )
     end
 

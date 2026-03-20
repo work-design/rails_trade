@@ -136,7 +136,7 @@ module Trade
       broadcast_action_to(
         self,
         action: :visit,
-        target: '',
+        partial: '',
         url: Rails.app.routes.url_for(controller: 'trade/my/wxpay_payments', action: 'show', id: self.id)
       )
     end
