@@ -53,6 +53,7 @@ zh:
           paying: 支付中
           paid: 已支付
           proof_uploaded: 支付凭证已上传
+          refunding: 退款中
           refunded: 已退款
       trade/payment_order:
         state:

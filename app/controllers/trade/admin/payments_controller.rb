@@ -54,6 +54,7 @@ module Trade
       @filter_columns = set_filter_i18n(
         type: { type: 'dropdown', default: true },
         state: { type: 'dropdown', default: true },
+        pay_state: { type: 'dropdown', default: true },
         'payment_orders.state': { type: 'dropdown', default: true, record_name: PaymentOrder },
         payment_uuid: 'search'
       )

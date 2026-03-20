@@ -7,6 +7,7 @@
 <% end %>
 </td>
 <td><%= model.state_i18n %></td>
+<td><%= model.pay_state_i18n %></td>
 <td>
 <% if @wallet.wallet_template %>
   <span><%= model.refunded_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
