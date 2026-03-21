@@ -9,7 +9,7 @@
 <% if @payment.is_a?(Trade::WalletPayment) %>
   <div>
     <dt><%= Trade::Payment.human_attribute_name(:wallet_id) %></dt>
-    <dd><%= @payment.wallet_id %></dd>
+    <dd><%= link_to @payment.wallet_id, { controller: 'wallets', action: 'show', id: @payment.wallet_id } %></dd>
   </div>
 <% end %>
 <div>
