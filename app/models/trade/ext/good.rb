@@ -47,7 +47,7 @@ module Trade
       wallet_goods.pluck(:wallet_code)
     end
 
-    def set_wallet_price(template)
+    def set_wallet_price!(template)
       wg = template.wallet_goods.find_by(good_type: good_type)
       if wg
         self.wallet_price.merge! template.code => price * wg.ratio
