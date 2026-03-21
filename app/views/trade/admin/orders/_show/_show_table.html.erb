@@ -35,6 +35,10 @@
   <dd><%= @order.amount.to_money.format.html_safe %></dd>
 </div>
 <div>
+  <dt><%= Trade::Order.human_attribute_name(:contact_id) %></dt>
+  <dd><%= link_to @order.contact_id, { controller: 'crm/contacts', action: 'show', id: @order.contact_id }, target: '_blank' %></dd>
+</div>
+<div>
   <dt><%= Trade::Order.human_attribute_name(:payment_status) %></dt>
   <dd><%= @order.payment_status_i18n %></dd>
 </div>
