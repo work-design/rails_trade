@@ -7,6 +7,7 @@ module Trade
       attribute :dispatches, :string, array: true, default: []
       attribute :dispatch, :string
       attribute :print_note, :string
+      attribute :auto_purchase, :boolean
 
       has_many :card_templates, class_name: 'Trade::CardTemplate'
 

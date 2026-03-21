@@ -2,6 +2,12 @@
   tr_tag(
     model,
     {
+      action: url_for(action: 'deliver', id: model.id),
+      icon: 'person-carry-box',
+      title: t('.deliver.title'),
+      position: 0
+    },
+    {
       href: url_for(controller: 'item/item_promotes', item_id: model.id),
       icon: 'gift',
       title: t('.item_promotes.index.title'),
@@ -9,7 +15,7 @@
     },
     {
       href: url_for(controller: 'holds', item_id: model.id),
-      icon: 'face-meh',
+      icon: 'handshake',
       title: t('.holds.index.title')
     },
     {

@@ -2,7 +2,7 @@ module Trade
   class Admin::ItemsController < Admin::BaseController
     before_action :set_item, only: [
       :show, :update, :destroy, :actions,
-      :print, :compute, :carts, :toggle, :untrial
+      :print, :deliver, :compute, :carts, :toggle, :untrial
     ]
     before_action :set_new_item, only: [:create]
 
@@ -82,6 +82,10 @@ module Trade
 
     def print
       @item.print
+    end
+
+    def deliver
+      @item.order_work
     end
 
     def trial

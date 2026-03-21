@@ -487,7 +487,7 @@ module Trade
         if aim_rent?
           self.good.order_rentable(self)
           self.advance_and_block
-        else
+        elsif organ.auto_purchase
           self.good.order_deliverable(self)
         end
       when 'refund'

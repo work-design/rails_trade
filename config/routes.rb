@@ -186,6 +186,7 @@ Rails.application.routes.draw do
         get :promote
         post :finish
         post :untrial
+        post :deliver
       end
       resources :holds
       resources :item_promotes, controller: 'item/item_promotes'

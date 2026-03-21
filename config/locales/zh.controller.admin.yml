@@ -92,6 +92,8 @@ zh:
           title: 排生产计划
         create:
           title: 加入购物车
+        deliver:
+          title: 手动发货
       trade_promotes:
         index:
           title: 订单优惠
