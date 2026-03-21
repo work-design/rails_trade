@@ -51,7 +51,7 @@ module Trade
 
     def set_expire_range!
       self.expire_min = wallet_prepayments.minimum(:expire_at)
-      self.expire_max = wallet_prepayments.maximum(:expire_max)
+      self.expire_max = wallet_prepayments.maximum(:expire_at)
       self.save
     end
 
