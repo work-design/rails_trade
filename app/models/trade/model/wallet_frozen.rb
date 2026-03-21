@@ -14,6 +14,7 @@ module Trade
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       belongs_to :wallet
+      belongs_to :wallet_advance, optional: true
       belongs_to :item, optional: true
 
       has_one :wallet_log, ->(o) { where(wallet_id: o.wallet_id) }, as: :source

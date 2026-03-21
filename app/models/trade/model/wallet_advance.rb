@@ -23,6 +23,7 @@ module Trade
       belongs_to :item, optional: true
       belongs_to :wallet_prepayment, optional: true
 
+      has_one :wallet_frozen
       has_many :wallet_logs, primary_key: [:id, :wallet_id], foreign_key: [:wallet_advance_id, :wallet_id]
 
       before_save :compute_remaining_amount, if: -> { (changes.keys & ['amount', 'used_amount']).present? }
