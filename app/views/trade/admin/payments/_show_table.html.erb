@@ -3,6 +3,16 @@
   <dd><%= image_tag @payment.proof, class: 'image' if @payment.proof.attached? %></dd>
 </div>
 <div>
+  <dt><%= Trade::Payment.human_attribute_name(:type) %></dt>
+  <dd><%= @payment.type_i18n %></dd>
+</div>
+<% if @payment.is_a?(Trade::WalletPayment) %>
+  <div>
+    <dt><%= Trade::Payment.human_attribute_name(:wallet_id) %></dt>
+    <dd><%= @payment.wallet_id %></dd>
+  </div>
+<% end %>
+<div>
   <dt><%= Trade::Payment.human_attribute_name(:orders_amount) %></dt>
   <dd><%= @payment.orders_amount.to_money.format.html_safe %></dd>
 </div>
