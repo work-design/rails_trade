@@ -46,7 +46,7 @@
       <i></i>
       <span><%= t('bench.my.facilitatings.index.title') %></span>
     <% end %>
-  <% else %>
+  <% elsif item.good_type == 'Eventual::PlanJoin' %>
     <%= link_to({ controller: 'holds', item_id: item.id }, class: 'button is-small is-default') do %>
       <i></i>
       <span><%= t('trade.my.holds.index.title') %></span>
