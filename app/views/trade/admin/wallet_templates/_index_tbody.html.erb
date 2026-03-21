@@ -4,6 +4,12 @@
     <span><%= model.name %></span>
     <span class="tag"><%= model.code %></span>
   </div>
+  <% if model.expire_min.present? %>
+    <p><time data-controller="time"><%= model.expire_min.to_fs(:iso8601) %></time></p>
+  <% end %>
+  <% if model.expire_max.present? && model.expire_max > model.expire_min %>
+    <p><time data-controller="time"><%= model.expire_max.to_fs(:iso8601) %></time></p>
+  <% end %>
 </td>
 <td>
   <p><%= model.unit %></p>

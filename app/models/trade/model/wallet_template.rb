@@ -16,6 +16,8 @@ module Trade
       attribute :limit, :decimal
       attribute :prepay_min, :decimal
       attribute :prepay_max, :decimal
+      attribute :expire_min, :datetime
+      attribute :expire_max, :datetime
       attribute :wallets_count, :integer, default: 0
       attribute :wallet_prepayments_count, :integer, default: 0
 
@@ -44,6 +46,12 @@ module Trade
     def set_prepay_range!
       self.prepay_min = wallet_prepayments.minimum(:amount)
       self.prepay_max = wallet_prepayments.maximum(:amount)
+      self.save
+    end
+
+    def set_expire_range!
+      self.expire_min = wallet_prepayments.minimum(:expire_at)
+      self.expire_max = wallet_prepayments.maximum(:expire_max)
       self.save
     end
 
