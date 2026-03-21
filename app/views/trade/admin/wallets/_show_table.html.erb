@@ -2,6 +2,12 @@
   <dt><%= Trade::Wallet.human_attribute_name(:amount) %></dt>
   <dd><%= @wallet.amount %></dd>
 </div>
+<% if @wallet.wallet_template %>
+  <div>
+    <dt><%= Trade::Wallet.human_attribute_name(:wallet_template_id) %></dt>
+    <dd><%= @wallet.wallet_template.name %></dd>
+  </div>
+<% end %>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:contact_id) %></dt>
   <dd><%= @wallet.contact.identity %></dd>
