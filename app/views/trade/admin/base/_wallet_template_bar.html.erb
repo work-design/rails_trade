@@ -1,0 +1,27 @@
+<h2 class="title is-6 text-centered">
+  <span><%= @wallet_template.name %></span>
+</h2>
+<div class="tabs is-centered mb-3">
+  <ul>
+    <li class="<%= active_helper(controller: 'wallet_templates', action: 'show', id: @wallet_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'wallet_templates', action: 'show', id: @wallet_template.id }) do %>
+        <span class="ml-1"><%= t('.wallet_templates.show.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'custom_wallets', wallet_template_id: @wallet_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'custom_wallets', wallet_template_id: @wallet_template.id }) do %>
+        <span class="ml-1"><%= t('.custom_wallets.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'wallet_prepayments', wallet_template_id: @wallet_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'wallet_prepayments', wallet_template_id: @wallet_template.id }) do %>
+        <span class="ml-1"><%= t('.wallet_prepayments.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'wallet_goods', wallet_template_id: @wallet_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'wallet_goods', wallet_template_id: @wallet_template.id }) do %>
+        <span class="ml-1"><%= t('.wallet_goods.index.title') %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

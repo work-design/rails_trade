@@ -1,0 +1,8 @@
+<%= render 'wallet_template_bar' %>
+
+<%= render 'show_table_form' %>
+<div id="box" data-controller="single-input" class="fixed-grid has-2-cols">
+  <%= render layout: 'show_layout', locals: local_assigns do %>
+    <%= render partial: 'show_table', locals: local_assigns %>
+  <% end %>
+</div>

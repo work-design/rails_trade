@@ -5,7 +5,10 @@ module Trade
     before_action :set_new_wallet_prepayment, only: [:new, :create]
 
     def index
-      @wallet_prepayments = @wallet_template.wallet_prepayments.page(params[:page])
+      q_params = {}
+      q_params.merge! params.permit(:token)
+
+      @wallet_prepayments = @wallet_template.wallet_prepayments.where(q_params).page(params[:page])
     end
 
     private
@@ -19,6 +22,12 @@ module Trade
 
     def set_new_wallet_prepayment
       @wallet_prepayment = @wallet_template.wallet_prepayments.build(wallet_prepayment_params)
+    end
+
+    def set_filter_columns
+      @filter_columns = set_filter_i18n(
+        'token' => { type: 'search', default: true }
+      )
     end
 
     def wallet_prepayment_params
