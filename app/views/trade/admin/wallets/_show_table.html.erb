@@ -5,7 +5,7 @@
 <% if @wallet.wallet_template %>
   <div>
     <dt><%= Trade::Wallet.human_attribute_name(:wallet_template_id) %></dt>
-    <dd><%= @wallet.wallet_template.name %></dd>
+    <dd><%= link_to @wallet.wallet_template.name, { controller: 'wallet_templates', action: 'show', id: @wallet.wallet_template_id }, target: '_blank' %></dd>
   </div>
 <% end %>
 <div>

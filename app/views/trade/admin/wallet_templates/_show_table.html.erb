@@ -3,10 +3,25 @@
   <dd><%= @wallet_template.name %></dd>
 </div>
 <div>
+  <dt><%= Trade::WalletTemplate.human_attribute_name(:limit) %></dt>
+  <dd><%= @wallet_template.limit %></dd>
+</div>
+<div>
   <dt><%= Trade::WalletTemplate.human_attribute_name(:price) %></dt>
   <dd>
   <% @wallet_template.advances.each do |advance| %>
     <p><%= advance.price %></p>
   <% end %>
+  </dd>
+</div>
+<div>
+  <dt><%= Trade::WalletTemplate.human_attribute_name(:wallet_goods) %></dt>
+  <dd>
+    <% @wallet_template.wallet_goods.each do |wallet_good| %>
+      <div class="tags has-addons">
+        <span class="tag is-dark"><%= wallet_good.good_type_i18n %></span>
+        <span class="tag"><%= wallet_good.ratio %></span>
+      </div>
+    <% end %>
   </dd>
 </div>
