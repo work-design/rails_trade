@@ -9,7 +9,7 @@ module Trade
 
       #validates :payment_uuid, presence: true, uniqueness: true
 
-      after_save :sync_amount#, if: -> { saved_change_to_total_amount? }
+      after_save :sync_amount, if: -> { (saved_changes.keys & ['total_amount', 'state']).present? }
       after_destroy :sync_amount_after_destroy
       after_create_commit :sync_wallet_log, if: -> { saved_change_to_total_amount? }
       after_destroy_commit :sync_destroy_wallet_log
