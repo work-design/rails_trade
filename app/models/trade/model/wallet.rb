@@ -52,6 +52,7 @@ module Trade
     def sync_from_wallet_template
       return unless wallet_template
       self.code = wallet_template.code
+      self.limit = wallet_template.limit
       self.organ_id = wallet_template.organ_id
     end
 
