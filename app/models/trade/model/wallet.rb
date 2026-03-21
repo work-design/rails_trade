@@ -8,6 +8,7 @@ module Trade
       attribute :name, :string
       attribute :code, :string
       attribute :amount, :decimal, default: 0
+      attribute :limit, :decimal, comment: '支付限额'
       attribute :frozen_amount, :decimal, default: 0, comment: '支出：冻结金额'
       attribute :payout_amount, :decimal, default: 0, comment: '支出：提现'
       attribute :payment_amount, :decimal, default: 0, comment: '支出：钱包支付'
