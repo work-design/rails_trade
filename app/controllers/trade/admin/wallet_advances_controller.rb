@@ -38,15 +38,5 @@ module Trade
       )
     end
 
-    def _prefixes
-      super do |pres|
-        if params[:maintain_id]
-          pres + ['crm/admin/base']
-        else
-          pres
-        end
-      end
-    end
-
   end
 end

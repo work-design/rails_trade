@@ -14,6 +14,9 @@ zh:
       wallet_sells:
         index:
           title: 销售收入
+      wallet_frozens:
+        index:
+          title: 冻结金额
       wallet_payments:
         index:
           title: 支付

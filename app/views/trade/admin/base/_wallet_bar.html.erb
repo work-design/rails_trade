@@ -18,6 +18,11 @@
         <span class="ml-1"><%= t('.wallet_payments.index.title') %></span>
       <% end %>
     </li>
+    <li class="<%= active_helper(controller: 'wallet_frozens', wallet_id: @wallet.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'wallet_frozens', wallet_id: @wallet.id }) do %>
+        <span class="ml-1"><%= t('.wallet_frozens.index.title') %></span>
+      <% end %>
+    </li>
     <li class="<%= active_helper(controller: 'wallet_logs', wallet_id: @wallet.id, active: 'is-active') %>">
       <%= link_to({ controller: 'wallet_logs', wallet_id: @wallet.id }) do %>
         <span class="ml-1"><%= t('.wallet_logs.index.title') %></span>
