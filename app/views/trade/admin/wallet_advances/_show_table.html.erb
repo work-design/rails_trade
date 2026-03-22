@@ -13,10 +13,16 @@
   <dt><%= Trade::WalletAdvance.human_attribute_name(:advance_id) %></dt>
   <dd><%= @wallet_advance.advance&.name %></dd>
 </div>
-<div>
-  <dt><%= Trade::WalletAdvance.human_attribute_name(:wallet_prepayment_id) %></dt>
-  <dd><%= @wallet_advance.wallet_prepayment_id %></dd>
-</div>
+<% if @wallet_advance.wallet_prepayment %>
+  <div>
+    <dt><%= Trade::WalletPrepayment.human_attribute_name(:token) %></dt>
+    <dd><%= @wallet_advance.wallet_prepayment.token %></dd>
+  </div>
+  <div>
+    <dt><%= Trade::WalletPrepayment.human_attribute_name(:secret) %></dt>
+    <dd><%= @wallet_advance.wallet_prepayment.secret %></dd>
+  </div>
+<% end %>
 <div>
   <dt><%= Trade::WalletAdvance.human_attribute_name(:note) %></dt>
   <dd><%= @wallet_advance.note %></dd>
