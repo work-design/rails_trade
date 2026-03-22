@@ -1,6 +1,6 @@
 module Trade
   class Admin::WalletPrepaymentsController < Admin::BaseController
-    before_action :set_wallet_template
+    before_action :set_wallet_template, except: [:all]
     before_action :set_wallet_prepayment, only: [:show, :edit, :update, :destroy, :actions]
     before_action :set_new_wallet_prepayment, only: [:new, :create]
 
@@ -9,6 +9,13 @@ module Trade
       q_params.merge! params.permit(:token)
 
       @wallet_prepayments = @wallet_template.wallet_prepayments.where(q_params).page(params[:page])
+    end
+
+    def all
+      q_params = {}
+      q_params.merge! params.permit(:token)
+
+      @wallet_prepayments = WalletPrepayment.default_where(q_params).page(params[:page])
     end
 
     private

@@ -346,6 +346,11 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :wallet_prepayments, only: [] do
+        collection do
+          get :all
+        end
+      end
       resources :lawful_wallets
       resources :lawful_advances do
         collection do
