@@ -72,6 +72,7 @@ module Trade
       cl.title = payment_uuid
       cl.tag_str = str
       cl.amount = self.total_amount
+      cl.created_at = created_at
       cl.save
     end
 
