@@ -1,5 +1,9 @@
 <%= form_with theme: nil, url: { action: 'token_create' }, id: 'create_scan' do |f| %>
-  <div data-controller="scan" class="field has-addons mt-6">
+  <div
+    data-controller="scan"
+    data-scan-regex-value="(?<=/).*$"
+    class="field has-addons mt-6"
+  >
     <div class="control is-expanded">
       <%= f.text_field :token, placeholder: '请输入券码', autocomplete: 'off', data: { scan_target: 'input' }, class: 'input is-medium' %>
     </div>
