@@ -8,7 +8,7 @@ module Trade
       }
       q_params.merge! 'id-desc': 1 unless (params.keys & ['wallets_count-desc', 'wallet_prepayments_count-desc']).present?
       q_params.merge! default_params
-      q_params.merge! params.permit(:name, :code, :enabled, 'wallets_count-desc', 'wallet_prepayments_count-desc', 'name-like')
+      q_params.merge! params.permit(:name, :code, :enabled, :unit, 'wallets_count-desc', 'wallet_prepayments_count-desc', 'name-like')
 
       @wallet_templates = WalletTemplate.includes(:wallet_goods, logo_attachment: :blob).default_where(q_params).page(params[:page])
     end
@@ -30,6 +30,7 @@ module Trade
     def set_filter_columns
       @filter_columns = set_filter_i18n(
         'enabled' => { type: 'dropdown', default: true },
+        'unit' => { type: 'dropdown', default: true },
         'name-like' => { type: 'search', default: true },
         'code' => { type: 'search', default: true }
       )

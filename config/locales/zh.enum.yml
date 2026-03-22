@@ -164,6 +164,8 @@ zh:
         enabled:
           true: 可用
           false: 不可用
+        unit:
+          次: 次
       trade/payment_strategy:
         from_pay:
           true: 寄付
