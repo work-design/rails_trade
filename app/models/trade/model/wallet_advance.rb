@@ -34,7 +34,7 @@ module Trade
     end
 
     def compute_remaining_amount
-      self.remaining_amount = self.amount - self.used_amount
+      #self.remaining_amount = self.amount - self.used_amount
     end
 
     def sync_log
