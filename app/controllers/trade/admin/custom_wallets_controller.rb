@@ -23,7 +23,8 @@ module Trade
 
     def wallet_params
       params.fetch(:wallet, {}).permit(
-        :note
+        :note,
+        :enabled
       )
     end
 
