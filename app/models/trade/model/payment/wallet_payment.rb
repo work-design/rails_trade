@@ -67,10 +67,10 @@ module Trade
       end
     end
 
-    def sync_destroy_wallet_log
+    def sync_destroy_wallet_log(str = '退款')
       cl = self.wallet_logs.build
       cl.title = payment_uuid
-      cl.tag_str = '退款'
+      cl.tag_str = str
       cl.amount = self.total_amount
       cl.save
     end
