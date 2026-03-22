@@ -85,7 +85,7 @@ module Trade
     end
 
     def deliver
-      @item.order_work
+      @item.good.order_deliverable(@item)
     end
 
     def trial
