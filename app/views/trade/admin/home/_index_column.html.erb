@@ -32,6 +32,9 @@
   <%= link_to({ controller: 'trade/admin/wallets' }, data: { turbo_frame: 'panel', action: 'menu-popup#enter' }, class: 'cell button is-fullwidth') do %>
     <span><%= t('trade.admin.wallets.index.title') %></span>
   <% end %>
+  <%= link_to({ controller: 'trade/admin/wallet_prepayments', action: 'all' }, data: { turbo_frame: 'panel', action: 'menu-popup#enter' }, class: 'cell button is-fullwidth') do %>
+    <span><%= t('trade.admin.wallet_prepayments.all.title') %></span>
+  <% end %>
 </div>
 <p class="size-7 text-grey mb-1">促销</p>
 <div class="grid">

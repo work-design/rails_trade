@@ -1,6 +1,4 @@
-<%= render 'wallet_template_bar' %>
 <%= render 'index_bar' %>
-<%= render 'index_actions' %>
 
 <%= render layout: 'index_table' do %>
   <%= render partial: 'index_tbody', layout: 'index_tr', collection: @wallet_prepayments, as: :model %>
