@@ -161,6 +161,9 @@ zh:
         unit_kind:
           currency: 默认货币
           custom: 自定义
+        enabled:
+          true: 可用
+          false: 不可用
       trade/payment_strategy:
         from_pay:
           true: 寄付
