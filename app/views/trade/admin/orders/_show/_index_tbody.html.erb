@@ -29,6 +29,7 @@
   <p><%= model.reduced_amount.to_money.format.html_safe %></p>
 </td>
 <td><%= model.amount.to_money.format.html_safe %></td>
+<td><%= model.note %></td>
 <td>
   <p><%= link_to '订单流程', { controller: 'items', action: 'show', id: model.id } %></p>
   <p>
