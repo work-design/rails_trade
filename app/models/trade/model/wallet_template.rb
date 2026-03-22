@@ -37,6 +37,11 @@ module Trade
       scope :hot, -> { where(hot: true) }
 
       validates :code, uniqueness: { scope: :organ_id }
+      after_save_commit :sync_enabled_to_wallets, -> { saved_change_to_enabled? }
+    end
+
+    def sync_enabled_to_wallets
+      wallets.update_all(enabled: enabled)
     end
 
     def existing_good_types
