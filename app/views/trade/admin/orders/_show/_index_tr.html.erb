@@ -1,6 +1,11 @@
 <%=
   tr_tag(
     model,
+    {
+      action: url_for(controller: 'items', action: 'deliver', id: model.id),
+      icon: 'person-carry-box',
+      title: t('.deliver.title')
+    },
     param: { controller: 'items', id: model.id }
   ) { yield }
 %>
