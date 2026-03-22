@@ -38,10 +38,15 @@ module Trade
 
       validates :code, uniqueness: { scope: :organ_id }
       after_save_commit :sync_enabled_to_wallets, -> { saved_change_to_enabled? }
+      after_save_commit :sync_limit_to_wallets, -> { saved_change_to_limit? }
     end
 
     def sync_enabled_to_wallets
       wallets.update_all(enabled: enabled)
+    end
+
+    def sync_limit_to_wallets
+      wallets.where(limit: limit_previously_was).update_all(limit: limit)
     end
 
     def existing_good_types
