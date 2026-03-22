@@ -9,6 +9,7 @@ module Trade
       attribute :code, :string
       attribute :amount, :decimal, default: 0
       attribute :limit, :decimal, comment: '支付限额'
+      attribute :adjust_amount, :decimal, comment: '用于矫正计算'
       attribute :frozen_amount, :decimal, default: 0, comment: '支出：冻结金额'
       attribute :payout_amount, :decimal, default: 0, comment: '支出：提现'
       attribute :payment_amount, :decimal, default: 0, comment: '支出：钱包支付'
@@ -40,7 +41,7 @@ module Trade
 
       before_validation :compute_expense_amount, if: -> { (changes.keys & ['frozen_amount', 'payout_amount', 'payment_amount']).present? }
       #before_validation :compute_income_amount, if: -> { (changes.keys & ['advances_amount', 'sells_amount', 'refunded_amount']).present? }
-      before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
+      #before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
       before_validation :sync_from_wallet_template, if: -> { wallet_template_id && wallet_template_id_changed? }
     end
