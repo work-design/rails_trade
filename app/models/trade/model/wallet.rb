@@ -39,7 +39,7 @@ module Trade
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
       before_validation :compute_expense_amount, if: -> { (changes.keys & ['frozen_amount', 'payout_amount', 'payment_amount']).present? }
-      before_validation :compute_income_amount, if: -> { (changes.keys & ['advances_amount', 'sells_amount', 'refunded_amount']).present? }
+      #before_validation :compute_income_amount, if: -> { (changes.keys & ['advances_amount', 'sells_amount', 'refunded_amount']).present? }
       before_validation :compute_amount, if: -> { (changes.keys & ['income_amount', 'expense_amount']).present? }
       before_validation :init_name, if: -> { (changes.keys & ['maintain_id', 'user_id']).present? }
       before_validation :sync_from_wallet_template, if: -> { wallet_template_id && wallet_template_id_changed? }
@@ -72,6 +72,12 @@ module Trade
 
     def compute_expense_amount
       self.expense_amount = self.frozen_amount.to_d + self.payout_amount.to_d + self.payment_amount.to_d
+    end
+
+    def reset_by_advance!
+      self.advances_amount = wallet_advances.sum(:amount)
+      self.amount = wallet_advances.sum(:remaining_amount)
+      self.save!
     end
 
     def reset_income_amount

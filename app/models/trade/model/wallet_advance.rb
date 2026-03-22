@@ -26,9 +26,9 @@ module Trade
       has_one :wallet_frozen
       has_many :wallet_logs, primary_key: [:id, :wallet_id], foreign_key: [:wallet_advance_id, :wallet_id]
 
-      #before_save :compute_remaining_amount, if: -> { (changes.keys & ['amount', 'used_amount']).present? }
-      #after_save :sync_log, if: -> { saved_change_to_amount? }
-      #after_save :sync_to_wallet, if: -> { saved_change_to_amount? && wallet }
+      before_save :compute_remaining_amount, if: -> { (changes.keys & ['amount', 'used_amount']).present? }
+      after_save :sync_log, if: -> { saved_change_to_amount? }
+      after_save :sync_to_wallet, if: -> { saved_change_to_amount? && wallet }
       after_destroy :sync_amount_after_destroy
       after_destroy :sync_destroy_log
     end
