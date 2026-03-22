@@ -2,6 +2,30 @@
   <dt><%= Trade::Wallet.human_attribute_name(:amount) %></dt>
   <dd><%= @wallet.amount %></dd>
 </div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:income_amount) %></dt>
+  <dd><%= @wallet.income_amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:advances_amount) %></dt>
+  <dd><%= @wallet.advances_amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:refunded_amount) %></dt>
+  <dd><%= @wallet.refunded_amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:expense_amount) %></dt>
+  <dd><%= @wallet.expense_amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:payment_amount) %></dt>
+  <dd><%= @wallet.payment_amount %></dd>
+</div>
+<div>
+  <dt><%= Trade::Wallet.human_attribute_name(:expense_amount) %></dt>
+  <dd><%= @wallet.expense_amount %></dd>
+</div>
 <% if @wallet.wallet_template %>
   <div>
     <dt><%= Trade::Wallet.human_attribute_name(:wallet_template_id) %></dt>
