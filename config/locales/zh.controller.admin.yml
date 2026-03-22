@@ -22,7 +22,9 @@ zh:
           title: 支付
       wallet_prepayments:
         index:
-          title: 充值码
+          title: 券码
+        all:
+          title: 券码
       card_prepayments:
         index:
           title: 激活码
