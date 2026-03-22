@@ -191,6 +191,10 @@ module Trade
       deposit_ratio.to_fs(:percentage, precision: 0)
     end
 
+    def wallet_codes
+      wallets.pluck(:code)
+    end
+
     def owned_text(card_template)
       r = cards.find_by(card_template_id: card_template.id, temporary: false)
       if r.nil?
