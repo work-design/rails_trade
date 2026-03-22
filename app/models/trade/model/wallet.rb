@@ -17,6 +17,7 @@ module Trade
       attribute :sells_amount, :decimal, default: 0, comment: '收入：交易入账'
       attribute :income_amount, :decimal, default: 0
       attribute :expense_amount, :decimal, default: 0
+      attribute :enabled, :boolean, default: true
       attribute :lock_version, :integer
 
       belongs_to :wallet_template, counter_cache: true, optional: true
@@ -30,6 +31,8 @@ module Trade
       has_many :wallet_frozens
 
       accepts_nested_attributes_for :wallet_frozens
+
+      scope :enabled, -> { where(enabled: true) }
 
       #validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
