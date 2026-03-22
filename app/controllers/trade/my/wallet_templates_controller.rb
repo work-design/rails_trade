@@ -3,6 +3,7 @@ module Trade
     before_action :set_cart, only: [:show, :code]
     before_action :set_wallet_template, only: [:show, :actions]
     before_action :set_new_order, only: [:show, :code]
+    before_action :set_wallet_prepayment, only: [:token_detect, :token_create]
 
     def index
       @wallets = current_user.custom_wallets.where(member_id: nil)
@@ -11,14 +12,12 @@ module Trade
     end
 
     def token_detect
-      @wallet_prepayment = WalletPrepayment.unused.find_by secret: params[:token]
       unless @wallet_prepayment
         render 'token_missing'
       end
     end
 
     def token_create
-      @wallet_prepayment = WalletPrepayment.unused.find_by secret: params[:token]
       if @wallet_prepayment
         @wallet = @wallet_prepayment.execute(user_id: current_user.id)
       else
@@ -39,6 +38,14 @@ module Trade
     private
     def set_wallet_template
       @wallet_template = WalletTemplate.default_where(default_params).find(params[:id])
+    end
+
+    def set_wallet_prepayment
+      if params[:token].start_with?('WP')
+        @wallet_prepayment = WalletPrepayment.unused.find_by token: params[:token]
+      else
+        @wallet_prepayment = WalletPrepayment.unused.find_by secret: params[:token]
+      end
     end
 
     def set_show_var
