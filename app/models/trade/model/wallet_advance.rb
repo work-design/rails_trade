@@ -37,11 +37,11 @@ module Trade
       self.remaining_amount = self.amount - self.used_amount
     end
 
-    def sync_log
+    def sync_log(value = amount - amount_before_last_save.to_d)
       log = self.wallet_logs.build
       log.title = self.note.presence || I18n.t('wallet_log.income.wallet_advance.title')
       log.tag_str = I18n.t('wallet_log.income.wallet_advance.tag_str')
-      log.amount = self.amount - amount_before_last_save.to_d
+      log.amount = value
       log.save
     end
 
