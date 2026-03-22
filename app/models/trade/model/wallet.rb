@@ -35,7 +35,7 @@ module Trade
 
       scope :enabled, -> { where(enabled: true) }
 
-      #validates :amount, numericality: { greater_than_or_equal_to: 0 }
+      validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
       validates :income_amount, numericality: { greater_than_or_equal_to: 0 }
 
