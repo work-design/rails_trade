@@ -7,14 +7,14 @@ module Trade
 
     def index
       q_params = {}
-      q_params.merge! params.permit(:token)
+      q_params.merge! params.permit(:token, :secret)
 
       @wallet_prepayments = @wallet_template.wallet_prepayments.where(q_params).page(params[:page])
     end
 
     def all
       q_params = {}
-      q_params.merge! params.permit(:token)
+      q_params.merge! params.permit(:token, :secret)
 
       @wallet_prepayments = WalletPrepayment.includes(:wallet_template).default_where(q_params).page(params[:page])
     end
@@ -34,7 +34,8 @@ module Trade
 
     def set_filter_columns
       @filter_columns = set_filter_i18n(
-        'token' => { type: 'search', default: true }
+        'token' => { type: 'search', default: true },
+        'secret' => { type: 'search', default: true }
       )
     end
 

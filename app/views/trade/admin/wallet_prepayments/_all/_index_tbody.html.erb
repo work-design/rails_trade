@@ -3,5 +3,6 @@
   <span><%= model.wallet_template.unit %></span>
 </td>
 <td class="family-monospace"><%= model.token %></td>
+<td class="family-monospace"><%= model.secret %></td>
 <td><time data-controller="time"><%= model.expire_at&.to_fs(:iso8601) %></time></td>
 <td><time data-controller="time"><%= model.used_at&.to_fs(:iso8601) %></time></td>
