@@ -10,7 +10,7 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:name, :code, :enabled, :unit, 'wallets_count-desc', 'wallet_prepayments_count-desc', 'name-like')
 
-      @wallet_templates = WalletTemplate.includes(:wallet_goods, logo_attachment: :blob).default_where(q_params).page(params[:page])
+      @wallet_templates = WalletTemplate.includes(:wallet_goods, logo_attachment: :blob).default_where(q_params).page(params[:page]).per(params[:per])
     end
 
     def new
