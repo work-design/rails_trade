@@ -1,11 +1,10 @@
 <td>
   <p>
     <span><%= model.name %></span>
-    <div class="is-several">
+    <%= link_to({ controller: 'crm/admin/wallets', contact_id: model.contact_id }, class: 'is-several') do %>
       <%= svg_tag 'user' %>
-      <span class="ml-1"><%= model.contact.name %></span>
-      <span><%= model.contact.identity %></span>
-    </div>
+      <span class="ml-1"><%= model.contact.title %></span>
+    <% end %>
   </p>
   <p><%= model.wallet_template.name %></p>
 </td>
@@ -29,4 +28,5 @@
 </td>
 <td>
   <p><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.updated_at.to_fs(:iso8601) %></time></p>
 </td>
