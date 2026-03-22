@@ -166,6 +166,7 @@ zh:
           false: 不可用
         unit:
           次: 次
+          元: 元
       trade/payment_strategy:
         from_pay:
           true: 寄付
