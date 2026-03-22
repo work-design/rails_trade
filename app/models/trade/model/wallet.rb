@@ -34,6 +34,7 @@ module Trade
       accepts_nested_attributes_for :wallet_frozens
 
       scope :enabled, -> { where(enabled: true) }
+      scope :unit, -> (o) { includes(:wallet_template).where(wallet_template: { unit: o }) }
 
       validates :amount, numericality: { greater_than_or_equal_to: 0 }
       validates :expense_amount, numericality: { greater_than_or_equal_to: 0 }
