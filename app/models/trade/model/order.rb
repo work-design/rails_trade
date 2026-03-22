@@ -77,7 +77,7 @@ module Trade
       has_many :refund_orders, dependent: :destroy_async
       has_many :refunds, through: :refund_orders
       has_many :cards, ->(o) { includes(:card_template).where(o.filter_hash) }, primary_key: :user_id, foreign_key: :user_id
-      has_many :wallets, ->(o) { includes(:wallet_template).where(o.filter_hash) }, class_name: 'CustomWallet', primary_key: :user_id, foreign_key: :user_id
+      has_many :wallets, ->(o) { where(o.filter_hash).where(enabled: true) }, class_name: 'CustomWallet', primary_key: :user_id, foreign_key: :user_id
       has_many :promote_goods, -> { available }, primary_key: :user_id, foreign_key: :user_id
       has_many :promotes, through: :promote_goods
       has_many :items, inverse_of: :order

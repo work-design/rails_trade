@@ -35,6 +35,7 @@ module Trade
       has_one_attached :logo
 
       scope :hot, -> { where(hot: true) }
+      scope :enabled, -> { where(enabled: true) }
 
       validates :code, uniqueness: { scope: :organ_id }
       after_save_commit :sync_enabled_to_wallets, -> { saved_change_to_enabled? }
