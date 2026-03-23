@@ -6,7 +6,7 @@ module Trade
       belongs_to :wallet
       has_one :wallet_log, ->(o){ where(wallet_id: o.wallet_id) }, as: :source
 
-      before_validation :sync_wallet, if: -> { payment.wallet_id != wallet_id }
+      before_validation :sync_wallet, if: -> { payment && payment.wallet_id != wallet_id }
       after_save :sync_amount, if: -> { completed? && (state_before_last_save == 'init' || saved_change_to_total_amount?) }
       after_create_commit :sync_wallet_log
     end
