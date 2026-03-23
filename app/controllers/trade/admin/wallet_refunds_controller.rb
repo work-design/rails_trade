@@ -7,7 +7,7 @@ module Trade
     def index
       q_params = {}
 
-      @wallet_refunds = @wallet.wallet_refunds.includes(payment_orders: :order).default_where(q_params).order(id: :desc).page(params[:page])
+      @wallet_refunds = @wallet.wallet_refunds.includes(refund_orders: :order).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
     def batch

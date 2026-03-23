@@ -1,3 +1,4 @@
+<td class="family-monospace"><%= model.payment_uuid %></td>
 <td>
 <% if @wallet.wallet_template %>
   <span><%= model.total_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>

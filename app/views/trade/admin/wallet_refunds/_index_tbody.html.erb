@@ -1,3 +1,4 @@
+<td><%= model.refund_uuid %></td>
 <td>
 <% if @wallet.wallet_template %>
   <span><%= model.total_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
@@ -7,25 +8,17 @@
 <% end %>
 </td>
 <td><%= model.state_i18n %></td>
-<td><%= model.pay_state_i18n %></td>
+<td><%= model.comment %></td>
 <td>
-<% if @wallet.wallet_template %>
-  <span><%= model.refunded_amount.to_fs(:rounded, precision: @wallet.wallet_template.digit) %></span>
-  <span><%= @wallet.wallet_template.unit %></span>
-<% else %>
-  <span><%= model.refunded_amount.to_money.format.html_safe %></span>
-<% end %>
-</td>
-<td>
-<% model.payment_orders.each do |payment_order| %>
+<% model.refund_orders.each do |refund_order| %>
   <p>
-    <%= button_to(payment_order.order.uuid, { controller: 'orders', action: 'show', id: payment_order.order_id }, class: 'family-monospace text-grey') if payment_order.order %>
-    <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
+    <%= button_to(refund_order.order.uuid, { controller: 'orders', action: 'show', id: refund_order.order_id }, class: 'family-monospace text-grey') if refund_order.order %>
+    <span><%= refund_order.order_amount.to_money.format.html_safe %></span>
   </p>
 <% end %>
 </td>
 <td><%= model.comment %></td>
 <td>
-  <p><time data-controller="time"><%= model.notified_at&.to_fs(:iso8601) %></time></p>
+  <p><time data-controller="time"><%= model.refunded_at&.to_fs(:iso8601) %></time></p>
   <p class="text-grey"><time data-controller="time" data-format="human"><%= model.created_at.to_fs(:iso8601) %></time></p>
 </td>
