@@ -25,6 +25,9 @@ zh:
           title: 券码
         all:
           title: 券码
+      wallet_refunds:
+        index:
+          title: 退款
       card_prepayments:
         index:
           title: 激活码

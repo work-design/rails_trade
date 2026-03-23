@@ -365,6 +365,7 @@ Rails.application.routes.draw do
         end
         resources :wallet_advances
         resources :wallet_frozens
+        resources :wallet_refunds
         resources :wallet_logs
         resources :wallet_sells
         resources :payouts do
