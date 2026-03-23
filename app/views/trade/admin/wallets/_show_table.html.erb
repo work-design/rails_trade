@@ -34,5 +34,7 @@
 <% end %>
 <div>
   <dt><%= Trade::Wallet.human_attribute_name(:contact_id) %></dt>
-  <dd><%= @wallet.contact.identity %></dd>
+  <dd>
+    <%= link_to @wallet.contact.title, { controller: 'crm/admin/wallets', contact_id: @wallet.contact_id } %>
+  </dd>
 </div>
