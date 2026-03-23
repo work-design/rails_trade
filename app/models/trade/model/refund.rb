@@ -22,7 +22,7 @@ module Trade
 
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
-      belongs_to :payment
+      belongs_to :payment, optional: true  # 数据迁移时可不约束
 
       has_many :refund_orders, dependent: :destroy
       has_many :orders, through: :refund_orders
