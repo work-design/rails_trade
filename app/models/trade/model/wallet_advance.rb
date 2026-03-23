@@ -43,7 +43,6 @@ module Trade
       log.tag_str = I18n.t('wallet_log.income.wallet_advance.tag_str')
       log.amount = value
       log.created_at = created_at
-      log.wallet_prepayment_id = wallet_prepayment_id
       log.save
     end
 
