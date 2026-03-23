@@ -36,7 +36,7 @@
 </div>
 <div>
   <dt><%= Trade::Order.human_attribute_name(:contact_id) %></dt>
-  <dd><%= link_to @order.contact_id, { controller: 'crm/admin/contacts', action: 'show', id: @order.contact_id }, target: '_blank' %></dd>
+  <dd><%= link_to @order.contact_id, { controller: 'crm/admin/orders', contact_id: @order.contact_id } %></dd>
 </div>
 <div>
   <dt><%= Trade::Order.human_attribute_name(:payment_status) %></dt>
