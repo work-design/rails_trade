@@ -85,7 +85,7 @@ module Trade
     def reset_income_amount
       self.advances_amount = wallet_advances.sum(:amount)
       self.sells_amount = wallet_sells.sum(:amount)
-      #self.refunded_amount = wallet_refunds.sum(:total_amount)
+      self.refunded_amount = wallet_refunds.sum(:total_amount)
       compute_income_amount
     end
 
