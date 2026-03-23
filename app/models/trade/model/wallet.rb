@@ -104,10 +104,10 @@ module Trade
       self.changes
     end
 
-    def reset_amount!(*args)
+    def reset_amount!(**options)
       self.reset_income_amount
       self.reset_expense_amount
-      self.save(*args)
+      self.save(**options)
     end
 
   end
