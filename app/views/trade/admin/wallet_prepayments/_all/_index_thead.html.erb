@@ -2,4 +2,9 @@
 <th><%= Trade::WalletPrepayment.human_attribute_name(:token) %></th>
 <th><%= Trade::WalletPrepayment.human_attribute_name(:secret) %></th>
 <th><%= Trade::WalletPrepayment.human_attribute_name(:expire_at) %></th>
-<th><%= Trade::WalletPrepayment.human_attribute_name(:used_at) %></th>
+<th>
+  <%= link_to filter_params('used_at-desc': 1) do %>
+    <span class="text-grey"><%= Trade::WalletPrepayment.human_attribute_name(:used_at) %></span>
+    <%= svg_tag 'arrow-down', class: "icon is-small #{params['used_at-desc'] ? 'text-success' : 'text-grey'}" %>
+  <% end %>
+</th>

@@ -17,6 +17,9 @@ module Trade
       q_params.merge! params.permit(:token, :secret)
 
       @wallet_prepayments = WalletPrepayment.includes(:wallet_template).default_where(q_params).page(params[:page])
+      if params.key?('used_at-desc')
+        @wallet_prepayments = @wallet_prepayments.order('used_at DESC NULLS LAST')
+      end
     end
 
     private
