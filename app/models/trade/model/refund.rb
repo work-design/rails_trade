@@ -32,7 +32,7 @@ module Trade
       #validate :valid_total_amount
 
       before_validation :init_from_payment, if: -> { payment }
-      after_save :sync_refund_to_payment_and_order!, if: -> { completed? && state_before_last_save == 'init' }
+      after_save :sync_refund_to_payment_and_order!, if: -> { completed? && ['init', 'failed'].include?(state_before_last_save) }
       after_save :deny_refund, if: -> { denied? && state_before_last_save == 'init' }
     end
 
