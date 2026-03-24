@@ -1,4 +1,8 @@
 <td>
+  <p><%= model.wallet_template.name %></p>
+  <p class="size-7 text-grey"><%= model.wallet_template.description %></p>
+</td>
+<td>
   <span><%= model.amount.to_fs(:rounded, precision: model.wallet_template.digit) %></span>
   <span><%= model.wallet_template.unit %></span>
 </td>
