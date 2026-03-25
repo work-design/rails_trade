@@ -1,0 +1,33 @@
+<h2 class="title is-6 text-centered">
+  <span><%= @card_template.name %></span>
+  <span class="tag"><%= @card_template.code %></span>
+</h2>
+<div class="tabs is-centered mb-3">
+  <ul>
+    <li class="<%= active_helper(controller: 'card_templates', action: 'show', id: @card_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'card_templates', action: 'show', id: @card_template.id }) do %>
+        <span class="ml-1"><%= t('.card_templates.show.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'cards', card_template_id: @card_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'cards', card_template_id: @card_template.id }) do %>
+        <span class="ml-1"><%= t('.cards.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'purchases', card_template_id: @card_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'purchases', card_template_id: @card_template.id }) do %>
+        <span class="ml-1"><%= t('.purchases.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'card_prepayments', card_template_id: @card_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'card_prepayments', card_template_id: @card_template.id }) do %>
+        <span class="ml-1"><%= t('.card_prepayments.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'privileges', card_template_id: @card_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'privileges', card_template_id: @card_template.id }) do %>
+        <span class="ml-1"><%= t('.privileges.index.title') %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>
