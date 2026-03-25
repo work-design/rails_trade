@@ -23,16 +23,15 @@
 </div>
 <div class="box">
   <div class="has-block-space-between mb-2">
-    <span>续费</span>
+  <% if model.expire_at %>
     <div class="text-weight-normal">
-    <% if model.expire_at %>
       <span>有效期至</span>
       <time data-controller="time" data-format="yyyy-MM-dd"><%= model.expire_at.to_fs(:iso8601) %></time>
-      <%= link_to t('.card_purchases.index.title'), { controller: 'card_purchases', card_id: model.id } %>
-    <% else %>
-      <span>长期有效</span>
-    <% end %>
     </div>
+    <%= link_to t('.card_purchases.index.title'), { controller: 'card_purchases', card_id: model.id } %>
+  <% else %>
+    <span>长期有效</span>
+  <% end %>
   </div>
   <% if model.expire_at %>
     <div class="fixed-grid has-3-cols">
