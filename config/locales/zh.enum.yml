@@ -177,3 +177,6 @@ zh:
           delivery: 商家配送
           fetch: 自提
           dine: 堂食
+        auto_purchase:
+          true: 自动发货
+          false: 手动发货
