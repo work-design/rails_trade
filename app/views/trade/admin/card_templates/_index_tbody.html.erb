@@ -10,9 +10,9 @@
   <span style="color: <%= model.text_color %>">文字颜色</span>
 </td>
 <td>
-  <%= link_to({ controller: 'cards', card_template_id: model.id }, aria: { label: t('trade.admin.cards.index.title') }, class: 'button is-small is-borderless') do %>
-    <%= svg_tag 'bars' %>
-    <span>（<%= model.cards_count %>）</span>
+  <%= link_to({ controller: 'cards', card_template_id: model.id }, class: 'button is-small is-borderless flex-direction-column') do %>
+    <strong><%= model.cards_count %></strong>
+    <p class="size-7 text-grey"><%= t('.cards.index.title') %></p>
   <% end %>
 </td>
 <td><%= model.promote&.name %></td>
