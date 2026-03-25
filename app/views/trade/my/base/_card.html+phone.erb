@@ -22,7 +22,7 @@
   </div>
 </div>
 <div class="box">
-  <div class="has-block-space-between mb-2">
+  <div class="has-block-space-between">
   <% if model.expire_at %>
     <div class="text-weight-normal">
       <span>有效期至</span>
@@ -33,8 +33,8 @@
     <span>长期有效</span>
   <% end %>
   </div>
-  <% if model.expire_at %>
-    <div class="fixed-grid has-3-cols">
+  <% if model.expire_at && model.card_template.purchases.present? %>
+    <div class="fixed-grid has-3-cols mt-2">
       <div class="grid">
         <%= render partial: 'purchase', collection: model.card_template.purchases %>
       </div>
