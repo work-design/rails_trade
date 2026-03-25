@@ -9,7 +9,7 @@ module Trade
     def index
       q_params = {}
       q_params.merge! default_params
-      q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status, :desk_id)
+      q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :aim, :address_id, :status, :desk_id, :uuid)
 
       set_count(q_params)
       @items = Item.includes(:user, :item_promotes, :order).where.not(order_id: nil).default_where(q_params).order(order_id: :desc).page(params[:page]).per(params[:per])
@@ -113,6 +113,14 @@ module Trade
     def set_count(q_params)
       counter_cache = ItemCounterCache.find_by_params(q_params)
       @count = counter_cache.get_today_count
+    end
+
+    def set_filter_columns
+      @filter_columns = set_filter_i18n(
+        'status' => { type: 'dropdown', default: true },
+        'uuid' => { type: 'search', default: true },
+        'created_at' => 'datetime'
+      )
     end
 
     def item_params
