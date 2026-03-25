@@ -14,6 +14,11 @@
         <span class="ml-1"><%= t('.custom_wallets.index.title') %></span>
       <% end %>
     </li>
+    <li class="<%= active_helper(controller: 'advances', wallet_template_id: @wallet_template.id, active: 'is-active') %>">
+      <%= link_to({ controller: 'advances', wallet_template_id: @wallet_template.id }) do %>
+        <span class="ml-1"><%= t('.advances.index.title') %></span>
+      <% end %>
+    </li>
     <li class="<%= active_helper(controller: 'wallet_prepayments', wallet_template_id: @wallet_template.id, active: 'is-active') %>">
       <%= link_to({ controller: 'wallet_prepayments', wallet_template_id: @wallet_template.id }) do %>
         <span class="ml-1"><%= t('.wallet_prepayments.index.title') %></span>
