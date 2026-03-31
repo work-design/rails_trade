@@ -1,5 +1,9 @@
 <h2 class="title is-6 text-centered">
+<% if @wallet.wallet_template %>
   <span><%= @wallet.wallet_template.name %></span>
+<% else %>
+  <span>法定钱包</span>
+<% end %>
 </h2>
 <div class="tabs is-centered mb-3">
   <ul>
