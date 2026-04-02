@@ -569,7 +569,7 @@ module Trade
         type: type,
         organ_id: organ_id,
         user_id: user_id,
-        **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier)
+        **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier, :payment_uuid)
       )
       p.assign_detail options
       p
