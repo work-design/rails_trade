@@ -51,16 +51,6 @@ module Trade
       set_wxpay
     end
 
-    def payment_confirm
-      if params['commit']
-        @order.batch_pending_payments(payment_params)
-        @order.confirm!
-      else
-        @order.init_wallet_payments
-        set_wxpay
-      end
-    end
-
     def payment_frozen
       if @order.items.map(&:good_type).exclude?('Trade::Advance') && @order.can_pay?
         @order.wallets.includes(:wallet_template).where(wallet_template_id: @order.wallet_codes).each do |wallet|
