@@ -2,7 +2,7 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_confirm, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart, :cart_create]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
@@ -42,44 +42,13 @@ module Trade
 
     def payment_types
       @order.init_wallet_payments
-      if support_wxpay?
-        @wxpay_order = @order.init_wxpay_payment(
-          state: 'pending',
-          payee: current_payee,
-          wechat_user: current_wechat_user,
-          ip: request.remote_ip
-        )
-      end
+      set_wxpay
     end
 
     def payment_pending
       @order.batch_pending_payments(payment_params)
       @order.init_wallet_payments
-      if support_wxpay?
-        @wxpay_order = @order.init_wxpay_payment(
-          state: 'pending',
-          payee: current_payee,
-          wechat_user: current_wechat_user,
-          ip: request.remote_ip
-        )
-      end
-    end
-
-    def payment_confirm
-      if params['commit']
-        @order.batch_pending_payments(payment_params)
-        @order.confirm!
-      else
-        @order.init_wallet_payments
-        if support_wxpay?
-          @order.init_wxpay_payment(
-            state: 'pending',
-            payee: current_payee,
-            wechat_user: current_wechat_user,
-            ip: request.remote_ip
-          )
-        end
-      end
+      set_wxpay
     end
 
     def payment_frozen
@@ -172,7 +141,13 @@ module Trade
     end
 
     def set_wxpay
-
+      if support_wxpay?
+        @wxpay_order = @order.init_wxpay_payment(
+          payee: current_payee,
+          wechat_user: current_wechat_user,
+          ip: request.remote_ip
+        )
+      end
     end
 
   end

@@ -5,6 +5,7 @@ module Trade
     included do
       attribute :payment_amount, :decimal, default: 0
       attribute :order_amount, :decimal, default: 0
+      attribute :batch_no, :string, default: -> { UidUtil.nsec_uuid('PO') }
 
       enum :kind, {
         item_amount: 'item_amount',
@@ -21,7 +22,9 @@ module Trade
 
       belongs_to :order, inverse_of: :payment_orders, counter_cache: true
       belongs_to :payment, inverse_of: :payment_orders, counter_cache: true
+      belongs_to :wallet, optional: true
 
+      has_many :sames, class_name: self.name, primary_key: :batch_no, foreign_key: :batch_no
       has_many :items, primary_key: :order_id, foreign_key: :order_id
       has_many :refunds, primary_key: :payment_id, foreign_key: :payment_id
       has_many :refund_orders, primary_key: [:order_id, :payment_id], foreign_key: [:order_id, :payment_id]
@@ -30,14 +33,18 @@ module Trade
 
       #after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
       #after_save :unchecked_to_order!, if: -> { state_init? && state_before_last_save == 'confirmed' }
-      after_destroy_commit :unchecked_to_order!
+      after_destroy_commit :unchecked_to_order!, if: -> { state_confirmed? }
     end
 
     def paid?
       ['pending', 'confirmed'].include?(state)
     end
 
-    def confirm!
+    def paying?
+      ['init', 'pending'].include?(state)
+    end
+
+    def confirm
       self.state = 'confirmed'
       payment.compute_checked_amount
       order.compute_received_amount
@@ -46,9 +53,13 @@ module Trade
       if order.user_id.blank?
         order.user_id = payment.user_id
       end
+    end
 
+    def confirm!
+      confirm
       self.class.transaction do
         self.save
+        payment.save
         order.save
       end
     end
@@ -59,7 +70,6 @@ module Trade
     end
 
     def unchecked_to_order!
-      return if order.blank?
       order.received_amount -= self.order_amount
       order.check_state
       order.save

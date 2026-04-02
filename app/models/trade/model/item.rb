@@ -487,7 +487,7 @@ module Trade
         if aim_rent?
           self.good.order_rentable(self)
           self.advance_and_block
-        elsif organ.auto_purchase
+        elsif organ.auto_purchase || ['Trade::Advance'].include?(good_type)
           self.good.order_deliverable(self)
         end
       when 'refund'

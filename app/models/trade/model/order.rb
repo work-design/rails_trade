@@ -245,7 +245,7 @@ module Trade
     end
 
     def can_pay?
-      ['unpaid', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
+      ['unpaid', 'to_check', 'part_paid'].include?(self.payment_status) && ['init'].include?(self.state)
     end
 
     def can_cancel?
@@ -347,18 +347,6 @@ module Trade
       self.save!
     end
 
-    def confirm!
-      self.class.transaction do
-        payment_orders.each { |i| i.state = 'confirmed' }
-        self.compute_received_amount
-        payment_orders.each do |i|
-          i.payment.compute_checked_amount
-          i.payment.save!
-        end
-        self.save!
-      end
-    end
-
     def wallet_codes
       codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
       WalletTemplate.where(code: codes).pluck(:id)
@@ -418,14 +406,40 @@ module Trade
 
     def batch_pending_payments(params)
       params[:payment_orders_attributes].each do |_, po_params|
+        p_params = (po_params.delete(:payment) || {}).merge!(organ_id: organ_id, user_id: user_id)
         if po_params[:state] == 'pending'
-          p_params = (po_params.delete(:payment) || {}).merge!(organ_id: organ_id, user_id: user_id)
-          po = self.payment_orders.build po_params
+          po = self.payment_orders.find_by(wallet_id: p_params[:wallet_id]) || self.payment_orders.build(wallet_id: p_params[:wallet_id])
+          po.order_amount = po_params[:order_amount]
+          po.payment_amount = po_params[:payment_amount]
+          po.state = 'pending'
           po.build_payment p_params
+        else
+          po = self.payment_orders.find_by(wallet_id: p_params[:wallet_id])
+          self.payment_orders.destroy(po)
         end
       end
       self.compute_verifying_amount
       self.payment_status = 'to_check'
+      self.save
+    end
+
+    def confirm
+      payment_orders.each do |i|
+        i.state = 'confirmed'
+        i.payment.compute_checked_amount
+      end
+
+      self.compute_received_amount
+    end
+
+    def confirm!
+      confirm
+      self.class.transaction do
+        payment_orders.each do |i|
+          i.payment.save!
+        end
+        self.save!
+      end
     end
 
     def init_wallet_payments(order_amount: computed_payable_amount)
@@ -545,12 +559,14 @@ module Trade
         payment_amount: payment_amount,
         state: state
       )
-      po.build_payment(
+      p = po.build_payment(
         type: type,
         organ_id: organ_id,
         user_id: user_id,
-        **options
+        **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier)
       )
+      p.assign_detail options
+      p
     end
 
     def pending_payments

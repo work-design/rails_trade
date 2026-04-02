@@ -1,0 +1,17 @@
+<h2 class="title is-6 text-centered">
+  <span>法定钱包</span>
+</h2>
+<div class="tabs is-centered mb-3">
+  <ul>
+    <li class="<%= active_helper(controller: 'lawful_wallets', active: 'is-active') %>">
+      <%= link_to({ controller: 'lawful_wallets' }) do %>
+        <span class="ml-1"><%= t('.lawful_wallets.index.title') %></span>
+      <% end %>
+    </li>
+    <li class="<%= active_helper(controller: 'lawful_advances', active: 'is-active') %>">
+      <%= link_to({ controller: 'lawful_advances' }) do %>
+        <span class="ml-1"><%= t('.lawful_advances.index.title') %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

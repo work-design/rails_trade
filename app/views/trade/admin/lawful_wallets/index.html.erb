@@ -3,7 +3,7 @@
 <%= render 'index_actions' %>
 
 <%= render layout: 'index_table' do %>
-  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @advances, as: :model %>
+  <%= render partial: 'index_tbody', layout: 'index_tr', collection: @lawful_wallets, as: :model %>
 <% end %>
 
-<%= paginate @advances %>
+<%= paginate @lawful_wallets %>
