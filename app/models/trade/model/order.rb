@@ -420,14 +420,18 @@ module Trade
       self.save
     end
 
-    def confirm!
-      self.class.transaction do
-        payment_orders.each do |i|
-          i.state = 'confirmed'
-          i.payment.compute_checked_amount
-        end
-        self.compute_received_amount
+    def confirm
+      payment_orders.each do |i|
+        i.state = 'confirmed'
+        i.payment.compute_checked_amount
+      end
 
+      self.compute_received_amount
+    end
+
+    def confirm!
+      confirm
+      self.class.transaction do
         payment_orders.each do |i|
           i.payment.save!
         end
