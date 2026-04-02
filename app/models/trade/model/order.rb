@@ -372,19 +372,19 @@ module Trade
       result.sort_by!(&->(i){ i[:rate] }).reverse!
       result.each do |i|
         if amount > i[:amount]
-          used += i[:rate] * i[:amount]
+          used += i[:amount] * i[:rate]
           amount -= i[:amount]
         elsif amount == i[:amount]
-          used += i[:rate] * i[:amount]
+          used += i[:amount] * i[:rate]
           break
         else
-          used += i[:rate] * amount
+          used += amount * i[:rate]
           rest = i[:amount] - amount
           break
         end
       end
 
-      logger.debug "\e[35m  Used: #{used}, Amount: #{amount}, Rest: #{rest}  \e[0m"
+      logger.debug "\e[35m  Order: #{used}, Payment: #{amount}, Rest: #{rest}  \e[0m"
       [used, rest]
     end
 
