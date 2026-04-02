@@ -27,6 +27,9 @@
   <%= form_with theme: 'switch', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
     <%= f.check_box :enabled, data: { action: 'input#submit' }, id: nil %>
   <% end %>
+  <%= form_with theme: 'switch', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
+    <%= f.check_box :hot, data: { action: 'input#submit' }, id: nil %>
+  <% end %>
 </td>
 <td>
   <%= link_to({ controller: 'wallet_prepayments', wallet_template_id: model.id }, aria: { label: t('.wallet_prepayments.index.title') }, class: 'button is-borderless') do %>
