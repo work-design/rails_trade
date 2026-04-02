@@ -499,7 +499,13 @@ module Trade
         else
           payment_amount = wallet.amount # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
         end
-        limited_amount = payment_amount > wallet.limit.to_d ? wallet.limit.to_d : payment_amount
+
+        # 处理钱包单次支付限额逻辑
+        if wallet.limit
+          limited_amount = payment_amount > wallet.limit.to_d ? wallet.limit.to_d : payment_amount
+        else
+          limited_amount = payment_amount
+        end
         order_amount, _ = partly_wallet_amount(wallet_code, limited_amount)
 
         init_payment_with_order(
