@@ -116,10 +116,6 @@ module Trade
       self.checked_amount = self.payment_orders.select(&:state_confirmed?).sum(&:payment_amount)
     end
 
-    def rate
-      Rational(self.total_amount, self.orders_amount)
-    end
-
     def pending_orders
       if self.payment_method
         user_ids = self.payment_method.payment_references.pluck(:user_id)
@@ -161,6 +157,10 @@ module Trade
       else
         self.state = 'abusive_checked'
       end
+    end
+
+    def rate
+      Rational(self.total_amount, self.orders_amount)
     end
 
     def confirm
