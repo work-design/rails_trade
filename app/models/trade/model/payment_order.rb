@@ -33,7 +33,7 @@ module Trade
 
       #after_update :unchecked_to_payment!, if: -> { state_init? && state_before_last_save == 'confirmed' }
       #after_save :unchecked_to_order!, if: -> { state_init? && state_before_last_save == 'confirmed' }
-      after_destroy_commit :unchecked_to_order!
+      after_destroy_commit :unchecked_to_order!, if: -> { state_confirmed? }
     end
 
     def paid?
@@ -70,7 +70,6 @@ module Trade
     end
 
     def unchecked_to_order!
-      return if order.blank?
       order.received_amount -= self.order_amount
       order.check_state
       order.save
