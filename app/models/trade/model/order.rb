@@ -559,9 +559,11 @@ module Trade
       p = po.build_payment(
         type: type,
         organ_id: organ_id,
-        user_id: user_id
+        user_id: user_id,
+        **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier)
       )
       p.assign_detail options
+      p
     end
 
     def pending_payments
