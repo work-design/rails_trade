@@ -556,12 +556,12 @@ module Trade
         payment_amount: payment_amount,
         state: state
       )
-      po.build_payment(
+      p = po.build_payment(
         type: type,
         organ_id: organ_id,
-        user_id: user_id,
-        **options
+        user_id: user_id
       )
+      p.assign_detail options
     end
 
     def pending_payments
