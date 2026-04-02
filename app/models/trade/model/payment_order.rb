@@ -5,6 +5,7 @@ module Trade
     included do
       attribute :payment_amount, :decimal, default: 0
       attribute :order_amount, :decimal, default: 0
+      attribute :batch_no, :string, default: -> { UidUtil.nsec_uuid('PO') }
 
       enum :kind, {
         item_amount: 'item_amount',
@@ -23,6 +24,7 @@ module Trade
       belongs_to :payment, inverse_of: :payment_orders, counter_cache: true
       belongs_to :wallet, optional: true
 
+      has_many :sames, class_name: self.name, primary_key: :batch_no, foreign_key: :batch_no
       has_many :items, primary_key: :order_id, foreign_key: :order_id
       has_many :refunds, primary_key: :payment_id, foreign_key: :payment_id
       has_many :refund_orders, primary_key: [:order_id, :payment_id], foreign_key: [:order_id, :payment_id]
