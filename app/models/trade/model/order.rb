@@ -411,6 +411,7 @@ module Trade
           po = self.payment_orders.find_by(wallet_id: p_params[:wallet_id]) || self.payment_orders.build(wallet_id: p_params[:wallet_id])
           po.order_amount = po_params[:order_amount]
           po.payment_amount = po_params[:payment_amount]
+          po.state = 'pending'
           po.build_payment p_params
         end
       end
