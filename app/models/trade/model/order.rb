@@ -502,7 +502,7 @@ module Trade
 
         # 处理钱包单次支付限额逻辑
         if wallet.limit
-          limited_amount = payment_amount > wallet.limit.to_d ? wallet.limit.to_d : payment_amount
+          limited_amount = payment_amount > wallet.limit ? wallet.limit : payment_amount
         else
           limited_amount = payment_amount
         end
