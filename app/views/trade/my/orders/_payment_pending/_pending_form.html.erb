@@ -12,6 +12,6 @@
     <%= render partial: 'payment_types_form', locals: { f: f } %>
   </section>
   <% if @order.checking_amount <= 0 %>
-    <%= f.submit %>
+    <%= f.submit '确认支付' %>
   <% end %>
 <% end %>
