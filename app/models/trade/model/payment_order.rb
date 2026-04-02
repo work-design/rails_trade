@@ -38,6 +38,10 @@ module Trade
       ['pending', 'confirmed'].include?(state)
     end
 
+    def paying?
+      ['init', 'pending'].include?(state)
+    end
+
     def confirm!
       self.state = 'confirmed'
       payment.compute_checked_amount
