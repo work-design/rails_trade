@@ -51,6 +51,7 @@ module Trade
         all_paid: 'all_paid',
         refunding: 'refunding',
         refunded: 'refunded',
+        refunded_part: 'refunded_part',
         denied: 'denied'
       }, default: 'unpaid'
 

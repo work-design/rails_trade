@@ -21,6 +21,7 @@ zh:
           all_paid: 已支付
           refunding: 退款中
           refunded: 已退款
+          refunded_part: 部分退款
           denied: 退款失败
         state:
           init: 进行中
