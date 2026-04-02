@@ -44,7 +44,7 @@ module Trade
       ['init', 'pending'].include?(state)
     end
 
-    def confirm!
+    def confirm
       self.state = 'confirmed'
       payment.compute_checked_amount
       order.compute_received_amount
@@ -53,9 +53,13 @@ module Trade
       if order.user_id.blank?
         order.user_id = payment.user_id
       end
+    end
 
+    def confirm!
+      confirm
       self.class.transaction do
         self.save
+        payment.save
         order.save
       end
     end
