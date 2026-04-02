@@ -2,7 +2,7 @@ module Trade
   class Our::OrdersController < My::OrdersController
     before_action :set_order, only: [
       :show, :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_confirm, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
 
     def index

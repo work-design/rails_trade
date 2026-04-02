@@ -413,6 +413,9 @@ module Trade
           po.payment_amount = po_params[:payment_amount]
           po.state = 'pending'
           po.build_payment p_params
+        else
+          po = self.payment_orders.find_by(wallet_id: p_params[:wallet_id])
+          self.payment_orders.destroy(po)
         end
       end
       self.compute_verifying_amount

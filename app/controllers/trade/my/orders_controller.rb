@@ -2,7 +2,7 @@ module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
       :edit, :update, :destroy, :actions,
-      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_confirm, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
+      :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart, :cart_create]
     before_action :set_new_order, only: [:new, :create, :blank, :trial, :add]
