@@ -116,6 +116,9 @@ zh:
         purchase_status: 采购状态
         duration: 时长
         image: 图片
+        extra: 附加信息
+        member_id: 采购员
+        member_organ_id: 采购部门
         created_at: 下单时间
         provide_id: 供应商
       trade/trade_promote:
@@ -235,5 +238,6 @@ zh:
         max: 最大值
         contain_min: 包含最小值
         contain_max: 包含最大值
+        extra: 附加费用
       org/organ:
         print_note: 打印备注
