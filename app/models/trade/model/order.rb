@@ -510,7 +510,7 @@ module Trade
 
         init_payment_with_order(
           type: 'Trade::WalletPayment',
-          order_amount: order_amount,
+          order_amount: order_amount.round(2),
           payment_amount: limited_amount,
           wallet_id: wallet.id,
           pay_state: 'paid'
