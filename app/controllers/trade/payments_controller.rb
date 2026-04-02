@@ -46,17 +46,20 @@ module Trade
       if notify_params['out_trade_no'].start_with?('PAY-')
         @payment = Payment.find_by(payment_uuid: notify_params['out_trade_no'])
         @payment.pay_state = 'paid'
+        result = @payment.confirm!(notify_params)
       elsif notify_params['out_trade_no'].start_with?('OD-')
         uuid = notify_params['out_trade_no'].split('_')[0] || notify_params['out_trade_no']
         @order = Order.find_by(uuid: uuid)
-        @payment = @order.to_payment(
+        @order.to_payment(
           type: 'Trade::WxpayPayment',
           payment_uuid: notify_params['transaction_id'],
-          order_amount: notify_params.dig('amount', 'total').to_i / 100.0
+          order_amount: notify_params.dig('amount', 'total').to_i / 100.0,
+          **notify_params
         )
+        result = @order.confirm!
       end
 
-      if @payment.confirm!(notify_params)
+      if result
         render json: { code: 'SUCCESS', message: '处理成功' }
       else
         render json: { code: 'FAIL', message: '签名失败' }, status: :bad_request
