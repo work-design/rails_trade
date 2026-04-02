@@ -347,18 +347,6 @@ module Trade
       self.save!
     end
 
-    def confirm!
-      self.class.transaction do
-        payment_orders.each { |i| i.state = 'confirmed' }
-        self.compute_received_amount
-        payment_orders.each do |i|
-          i.payment.compute_checked_amount
-          i.payment.save!
-        end
-        self.save!
-      end
-    end
-
     def wallet_codes
       codes = items.map(&->(i){ i.wallet_amount.keys }).flatten.uniq
       WalletTemplate.where(code: codes).pluck(:id)
@@ -420,12 +408,27 @@ module Trade
       params[:payment_orders_attributes].each do |_, po_params|
         if po_params[:state] == 'pending'
           p_params = (po_params.delete(:payment) || {}).merge!(organ_id: organ_id, user_id: user_id)
-          po = self.payment_orders.build po_params
+          po = self.payment_orders.find_by(wallet_id: p_params[:wallet_id]) || self.payment_orders.build(wallet_id: p_params[:wallet_id])
+          po.order_amount = po_params[:order_amount]
+          po.payment_amount = po_params[:payment_amount]
           po.build_payment p_params
         end
       end
       self.compute_verifying_amount
       self.payment_status = 'to_check'
+      self.save
+    end
+
+    def confirm!
+      self.class.transaction do
+        payment_orders.each { |i| i.state = 'confirmed' }
+        self.compute_received_amount
+        payment_orders.each do |i|
+          i.payment.compute_checked_amount
+          i.payment.save!
+        end
+        self.save!
+      end
     end
 
     def init_wallet_payments(order_amount: computed_payable_amount)
