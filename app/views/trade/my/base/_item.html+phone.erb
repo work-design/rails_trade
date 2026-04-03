@@ -1,4 +1,4 @@
-<div class="media p-0 pb-2">
+<div class="media py-2 px-0">
   <% if item.good && item.good.logo&.attached? %>
     <div class="media-left">
       <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
@@ -22,9 +22,9 @@
     <% end %>
     <div>
       <p>
-        <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
-        <span class="text-grey-lighter">x</span>
         <span class="size-7"><%= item.number.to_human %></span>
+        <span class="text-grey-lighter">x</span>
+        <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
       </p>
       <% if item.delivery %>
       <p>
