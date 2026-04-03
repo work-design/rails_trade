@@ -1,7 +1,5 @@
 <%= render 'nav_bar' %>
 
-<%= render partial: 'no_order' if @orders.blank? %>
-
-<%= render partial: 'order', collection: @orders, as: :model %>
-
-<%= paginate @orders %>
+<%= render layout: 'index_list_raw' do %>
+  <%= render partial: 'index_item', collection: @orders, as: :model %>
+<% end %>
