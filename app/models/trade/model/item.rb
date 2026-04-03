@@ -61,7 +61,7 @@ module Trade
       }, prefix: true
 
       belongs_to :station, class_name: 'Ship::Station', optional: true
-      belongs_to :address, class_name: 'Ship::Address', optional: true
+      belongs_to :address, class_name: 'Ship::Address', counter_cache: { status: 'deliverable', column: 'pending_count' }, optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       # 仅物流订单，发货方信息
