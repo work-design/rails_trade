@@ -1,5 +1,5 @@
 <div id="tr_<%= model.id %>" class="box is-padding-less">
-  <%= link_to({ action: 'show', id: model.id }, class: 'box-header is-shadow') do %>
+  <%= link_to({ action: 'show', id: model.id }, class: 'box-header') do %>
     <div>
       <div>
         <% if model.aim.present? && model.aim != 'use' %>
