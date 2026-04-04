@@ -2,7 +2,7 @@
   <%= link_to({ controller: cart_con, action: 'show', id: @cart.id }, text: true, class: 'flex text-grey') do %>
     <div class="button is-borderless">
       <div class="right-badge">
-        <%= svg_tag 'bag-shopping', class: 'icon text-primary' %>
+        <%= svg_tag 'bag-shopping', class: 'icon text-primary', style: 'height: 28.5px' %>
         <span class="weui-badge"><%= @cart.items.count %></span>
       </div>
     </div>
