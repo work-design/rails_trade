@@ -216,6 +216,11 @@ module Trade
       self.changes
     end
 
+    def compute_done
+      _done_items = items.select(&:status_done?)
+      self.state = 'done'
+    end
+
     def compute_unreceived_amount
       self.unreceived_amount = amount - received_amount
     end
