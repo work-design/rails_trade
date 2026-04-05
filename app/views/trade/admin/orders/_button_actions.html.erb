@@ -1,7 +1,6 @@
 <%= form_with url: { action: 'batch_destroy' }, method: :delete, data: { turbo_confirm: t('.batch_destroy.confirm') }, class: 'button_to' do |f| %>
-  <%= f.hidden_field :ids %>
   <%= button_tag disabled: true, class: 'button is-rounded is-danger' do %>
-    <i class="fa-solid fa-trash-can"></i>
+    <%= svg_tag 'trash-con' %>
     <span class="ml-1"><%= t('.batch_destroy.title') %></span>
   <% end %>
 <% end %>
