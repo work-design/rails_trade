@@ -4,7 +4,7 @@
       <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:code) %></label>
       <div class="weui-form-preview__value" data-controller="clipboard">
         <span data-clipboard-target="source"><%= packaged.good_item.code %></span>
-        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
+        <span class="weui-badge" data-action="click->clipboard#copy">复制</span>
         <div data-clipboard-target="toast" class="display-none">
           <div class="weui-mask_transparent"></div>
           <div class="weui-toast">
