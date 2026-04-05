@@ -9,9 +9,12 @@
   <%= render partial: 'package_buttons', locals: { model: @order } %>
 <% end %>
 
-<%= render partial: 'items', locals: { model: @order } %>
+<div class="box px-0">
+  <p class="size-7 text-grey has-border-left-primary ml-3">概况</p>
+  <%= render partial: 'items', locals: { model: @order } %>
+</div>
 
 <div class="box px-0">
-  <p class="text-grey ml-3">支付</p>
+  <p class="size-7 text-grey has-border-left-primary ml-3">支付</p>
   <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
 </div>
