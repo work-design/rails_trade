@@ -1,0 +1,43 @@
+<div id="tr_<%= model.id %>" class="box is-padding-less">
+  <%= link_to({ action: 'show', id: model.id }, class: 'box-header') do %>
+    <div>
+      <div>
+        <% if model.aim.present? && model.aim != 'use' %>
+          <span class="tag is-danger"><%= model.aim_i18n %></span>
+        <% end %>
+        <time data-controller="time" data-format="human" class="text-grey"><%= model.created_at.to_fs(:iso8601) %></time>
+      </div>
+      <% if model.agent %>
+        <div>
+          <span class="text-grey">下单人：</span>
+          <span><%= model.agent.name %></span>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <span><%= model.payment_status_i18n %></span>
+      <% if model.payment_strategy %>
+        <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="box-body px-4">
+    <% if model.from_address.present? %>
+      <%= render partial: 'ship_info', locals: { model: model } %>
+    <% else %>
+      <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
+    <% end %>
+    <%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'flex justify-content-space-between py-2 has-border-top') do %>
+      <div>
+        <% if model.serial_number %>
+          <span class="text-grey">顺序号：</span>
+          <span><%= model.serial_str %></span>
+        <% end %>
+      </div>
+      <div>
+        <span class="text-grey">合计：</span>
+        <strong class="text-danger"><%= model.amount.to_money.format.html_safe %></strong>
+      </div>
+    <% end %>
+  </div>
+</div>

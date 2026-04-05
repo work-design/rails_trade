@@ -1,5 +1,0 @@
-<% if params[:commit] %>
-  <%= turbo_stream.visit %>
-<% else %>
-  <%= turbo_stream.append_body partial: 'pending_form', layout: 'modal_form' %>
-<% end %>

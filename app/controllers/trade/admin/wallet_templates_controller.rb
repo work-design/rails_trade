@@ -44,6 +44,7 @@ module Trade
         :unit_kind,
         :code,
         :enabled,
+        :hot,
         :digit,
         :logo,
         :limit,

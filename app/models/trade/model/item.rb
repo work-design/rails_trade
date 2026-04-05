@@ -61,7 +61,7 @@ module Trade
       }, prefix: true
 
       belongs_to :station, class_name: 'Ship::Station', optional: true
-      belongs_to :address, class_name: 'Ship::Address', optional: true
+      belongs_to :address, class_name: 'Ship::Address', counter_cache: { status: 'deliverable', column: 'pending_count' }, optional: true
       belongs_to :operator, class_name: 'Org::Member', optional: true
 
       # 仅物流订单，发货方信息
@@ -125,11 +125,12 @@ module Trade
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && in_cart? }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_save :set_not_fresh, if: -> { (current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present?) && in_cart? }
-      after_save :sync_amount_to_order, if: -> { order_id.present? && ['ordered'].include?(status) }
+      after_save :sync_amount_to_order!, if: -> { order && ['ordered'].include?(status) }
+      after_save :sync_done_to_order!, if: -> { order && ['done'].include?(status) }
       after_destroy :remove_promotes
       after_destroy :order_pruned!
       after_destroy :sync_amount_to_current_cart, if: -> { current_cart_id.present? && ['checked', 'trial'].include?(status) }
-      after_destroy :sync_amount_to_order, if: -> { order_id.present? && ['ordered'].include?(status) }
+      after_destroy :sync_amount_to_order!, if: -> { order_id.present? && ['ordered'].include?(status) }
       after_destroy :set_not_fresh
     end
 
@@ -437,9 +438,13 @@ module Trade
       end
     end
 
-    def sync_amount_to_order
-      return unless order
+    def sync_amount_to_order!
       order.compute_amount
+      order.save!
+    end
+
+    def sync_done_to_order!
+      order.compute_done
       order.save!
     end
 

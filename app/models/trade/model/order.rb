@@ -51,6 +51,7 @@ module Trade
         all_paid: 'all_paid',
         refunding: 'refunding',
         refunded: 'refunded',
+        refunded_part: 'refunded_part',
         denied: 'denied'
       }, default: 'unpaid'
 
@@ -215,6 +216,11 @@ module Trade
       self.changes
     end
 
+    def compute_done
+      _done_items = items.select(&:status_done?)
+      self.state = 'done'
+    end
+
     def compute_unreceived_amount
       self.unreceived_amount = amount - received_amount
     end
@@ -372,19 +378,19 @@ module Trade
       result.sort_by!(&->(i){ i[:rate] }).reverse!
       result.each do |i|
         if amount > i[:amount]
-          used += i[:rate] * i[:amount]
+          used += i[:amount] * i[:rate]
           amount -= i[:amount]
         elsif amount == i[:amount]
-          used += i[:rate] * i[:amount]
+          used += i[:amount] * i[:rate]
           break
         else
-          used += i[:rate] * amount
+          used += amount * i[:rate]
           rest = i[:amount] - amount
           break
         end
       end
 
-      logger.debug "\e[35m  Used: #{used}, Amount: #{amount}, Rest: #{rest}  \e[0m"
+      logger.debug "\e[35m  Order: #{used}, Payment: #{amount}, Rest: #{rest}  \e[0m"
       [used, rest]
     end
 
@@ -415,7 +421,7 @@ module Trade
           po.build_payment p_params
         else
           po = self.payment_orders.find_by(wallet_id: p_params[:wallet_id])
-          self.payment_orders.destroy(po)
+          self.payment_orders.destroy(po) if po
         end
       end
       self.compute_verifying_amount
@@ -499,12 +505,18 @@ module Trade
         else
           payment_amount = wallet.amount # 当钱包余额小于订单金额，如果没有指定扣除额度，则将钱包余额全部扣除
         end
-        limited_amount = payment_amount > wallet.limit.to_d ? wallet.limit.to_d : payment_amount
+
+        # 处理钱包单次支付限额逻辑
+        if wallet.limit
+          limited_amount = payment_amount > wallet.limit ? wallet.limit : payment_amount
+        else
+          limited_amount = payment_amount
+        end
         order_amount, _ = partly_wallet_amount(wallet_code, limited_amount)
 
         init_payment_with_order(
           type: 'Trade::WalletPayment',
-          order_amount: order_amount,
+          order_amount: order_amount.round(2),
           payment_amount: limited_amount,
           wallet_id: wallet.id,
           pay_state: 'paid'
@@ -563,7 +575,7 @@ module Trade
         type: type,
         organ_id: organ_id,
         user_id: user_id,
-        **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier)
+        **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier, :payment_uuid)
       )
       p.assign_detail options
       p

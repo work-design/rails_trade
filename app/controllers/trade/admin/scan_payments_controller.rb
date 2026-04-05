@@ -17,7 +17,7 @@ module Trade
     end
 
     def batch
-      @payment = ScanPayment.init_with_order_ids params[:ids].split(',')
+      @payment = ScanPayment.init_with_order_ids params[:ids]
     end
 
     def desk

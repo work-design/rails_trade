@@ -11,7 +11,7 @@ module Trade
     end
 
     def batch
-      @payment = WalletPayment.init_with_order_ids params[:ids].split(','), params[:wallet_id]
+      @payment = WalletPayment.init_with_order_ids params[:ids], params[:wallet_id]
     end
 
     private

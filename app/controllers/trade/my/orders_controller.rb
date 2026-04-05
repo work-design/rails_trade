@@ -47,8 +47,12 @@ module Trade
 
     def payment_pending
       @order.batch_pending_payments(payment_params)
-      @order.init_wallet_payments
-      set_wxpay
+      if params['commit']
+        @order.confirm!
+      else
+        @order.init_wallet_payments
+        set_wxpay
+      end
     end
 
     def payment_frozen
