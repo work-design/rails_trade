@@ -1,7 +1,7 @@
 <dl class="as-show">
-  <div class="weui-form-preview__item">
-    <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:id) %></label>
-    <div class="weui-form-preview__value" data-controller="clipboard">
+  <div>
+    <dt><%= Ship::Package.human_attribute_name(:id) %></dt>
+    <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= package.id %></span>
       <span class="tag"><%= package.state_i18n %></span>
       <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
@@ -12,7 +12,7 @@
           <p class="weui-toast__content">复制成功</p>
         </div>
       </div>
-    </div>
+    </dd>
   </div>
   <div>
     <dt><%= Ship::Package.human_attribute_name(:expected_on) %></dt>
