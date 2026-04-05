@@ -3,7 +3,7 @@
     <dt><%= Trade::Order.human_attribute_name(:uuid) %></dt>
     <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.uuid %></span>
-      <span class="weui-badge" data-action="click->clipboard#copy">复制</span>
+      <span class="tag is-badge" data-action="click->clipboard#copy">复制</span>
       <div data-clipboard-target="toast" class="display-none">
         <div class="weui-mask_transparent"></div>
         <div class="weui-toast">
