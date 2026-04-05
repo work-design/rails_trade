@@ -23,7 +23,7 @@
       <%= link_to({ controller: cart_con, action: 'show', id: cart.id }, class: 'button is-fullwidth is-primary is-radius right-badge') do %>
         <span class="mr-1">去购物车</span>
         <%= svg_tag 'angle-right' %>
-        <span class="tag is-badge"><%= cart.cart_items.count %></span>
+        <span class="tag is-badge is-danger"><%= cart.cart_items.count %></span>
       <% end %>
     </div>
     <div class="mt-2 flex justify-content-center">

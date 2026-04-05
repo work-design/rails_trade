@@ -3,7 +3,7 @@
     <div class="button is-borderless">
       <div class="right-badge">
         <%= svg_tag 'bag-shopping', class: 'icon text-primary', style: 'height: 28.5px' %>
-        <span class="tag is-badge"><%= @cart.items.count %></span>
+        <span class="tag is-badge is-danger"><%= @cart.items.count %></span>
       </div>
     </div>
     <div class="align-items-baseline align-self-center">

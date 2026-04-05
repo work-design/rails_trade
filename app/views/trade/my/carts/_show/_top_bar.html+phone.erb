@@ -2,13 +2,13 @@
   <span class="bar-title">
     <span class="mr-1"><%= t('.title') %></span>
     <% if @cart.member %>
-      <span class="tag is-badge">
+      <span class="tag is-badge is-danger">
         <i class="fa-solid fa-building-user"></i>
         <span><%= @cart.member.organ.name %></span>
       </span>
     <% end %>
     <% if @cart.aim != 'use' %>
-      <span class="tag is-badge">
+      <span class="tag is-badge is-danger">
         <i class="fa-solid fa-hand-holding-box"></i>
         <span><%= @cart.aim_i18n %></span>
       </span>
