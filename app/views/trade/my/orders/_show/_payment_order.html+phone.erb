@@ -2,10 +2,10 @@
 <dl class="as-show">
   <div>
     <dt><%= Trade::Payment.human_attribute_name(:payment_uuid) %></dt>
-    <dd data-controller="clipboard">
+    <dd data-controller="clipboard" class="truncate">
       <span data-clipboard-target="source"><%= model.payment.payment_uuid %></span>
-      <span data-action="click->clipboard#copy" class="weui-badge">复制</span>
-      <span data-clipboard-target="toast" class="tag is-success">
+      <span data-action="click->clipboard#copy" class="tag is-badge is-danger">复制</span>
+      <span data-clipboard-target="toast" class="tag is-badge is-success display-none">
         <%= svg_tag 'check' %>
       </span>
     </dd>
