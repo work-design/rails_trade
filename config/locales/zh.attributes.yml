@@ -197,6 +197,8 @@ zh:
         order_id: 订单
         payment_id: 收款流水
         comment: 备注
+        state: 退款状态
+        refund_uuid: 退款单号
       trade/wallet:
         wallet_template_id: 储值类型
         user: 所属用户
