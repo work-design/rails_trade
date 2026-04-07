@@ -18,11 +18,25 @@ zh:
         expense_amount: 已用额度
         client_id: 持卡人
         carts: 购物用户
+        temporary: 临时卡
+      trade/card_prepayment:
+        years: 年
+        months: 月
+        days: 日
+        token: 激活码
+        expire_at: 过期时间
+        used_at: 使用时间
       trade/wallet_template:
         unit: 单位
         enabled: 启用
         wallets_count: 开通数
         wallet_prepayments_count: 充值码
+        digit: 位数
+        prepay_min: 最低预存
+        prepay_max: 最高预存
+        limit: 限额
+        hot: 热门
+        wallet_goods: 钱包商品
       trade/wallet_advance:
         amount: 金额
         advance_id: 对应商品
@@ -33,6 +47,8 @@ zh:
         token: 充值码
         expire_at: 过期时间
         used_at: 使用时间
+        wallet_template_id: 券码模板
+        secret: 密钥
       trade/card_log:
         tag_str: 标签
         source_type: 来源类型
@@ -59,6 +75,8 @@ zh:
         good_type: 商品类型
         aim: 服务类型
         items_count: 条目数
+        user_id: 用户
+        client_id: 客户
       trade/order:
         uuid: 订单号
         payment_status: 付款状态
@@ -170,11 +188,13 @@ zh:
         valid_years: 有效年
         valid_months: 有效月
         valid_days: 有效日
+        unit_code: 单位编码
       trade/promote_good:
         good_type: 商品类型
         good_id: 商品
         promote_id: 优惠券
         status: 状态
+        aim: 发放目标
         effect_at: 生效时间
         expire_at: 过期时间
         use_limit: 限用次数
@@ -191,6 +211,12 @@ zh:
         parameter: 参数
         base_price: 基础价格
         unit_code: 单位
+      trade/purchase:
+        years: 年
+        months: 月
+        days: 日
+        price: 价格
+        default: 默认
       trade/refund:
         refunded_at: 退款时间
         total_amount: 金额
@@ -208,6 +234,8 @@ zh:
         account_bank: 开户银行
         account_name: 户名
         account_number: 账号
+        account_num: 银行账号
+        frozen_amount: 冻结金额
       trade/wallet_log:
         title: 摘要
         amount: 数额
@@ -219,12 +247,18 @@ zh:
         name: 卡类型
         cards_count: 已办卡
         grade: 级别
+        cover: 封面
+        promote_id: 推广
+        price: 会员价
+        enabled: 启用状态
+        text_color: 文字颜色
       trade/card_purchase:
         years: 有效年
         months: 有效月
         days: 有效天数
       trade/privilege:
         amount: 额度
+        promote_id: 推广
       trade/hold:
         rentable: 商品编码
         rent_start_at: 起租时间
