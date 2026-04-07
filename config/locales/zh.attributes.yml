@@ -140,6 +140,7 @@ zh:
         member_organ_id: 采购部门
         created_at: 下单时间
         provide_id: 供应商
+        expire_at: 过期时间
       trade/trade_promote:
         amount: 金额
       trade/payment:
