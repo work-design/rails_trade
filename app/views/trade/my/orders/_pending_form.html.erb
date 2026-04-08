@@ -9,8 +9,12 @@
   ) do |f|
 %>
   <%= render 'modal_header' %>
-  <div class="modal-card-body">
+  <section class="modal-card-body">
     <%= render partial: 'payment_types_form', locals: { f: f } %>
-  </div>
-  <%= f.submit '确认' %>
+  </section>
+  <% if @order.checking_amount > 0 %>
+    <div class="modal-card-foot"></div>
+  <% else %>
+    <%= f.submit '确认' %>
+  <% end %>
 <% end %>
