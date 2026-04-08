@@ -4,8 +4,8 @@
     <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.uuid %></span>
       <span data-action="click->clipboard#copy" class="tag is-badge is-danger">复制</span>
-      <div data-clipboard-target="toast" style="padding: 0.15em 0.5em;" class="tag is-badge is-success display-none">
-        <%= svg_tag 'check', class:'icon is-smaller' %>
+      <div data-clipboard-target="toast" class="tag is-badge is-success display-none">
+        <%= svg_tag 'check' %>
       </div>
     </dd>
   </div>
