@@ -116,10 +116,6 @@ module Trade
       self.checked_amount = self.payment_orders.select(&:state_confirmed?).sum(&:payment_amount)
     end
 
-    def rate
-      Rational(self.total_amount, self.orders_amount)
-    end
-
     def pending_orders
       if self.payment_method
         user_ids = self.payment_method.payment_references.pluck(:user_id)
@@ -163,28 +159,32 @@ module Trade
       end
     end
 
+    def rate
+      Rational(self.total_amount, self.orders_amount)
+    end
+
     def confirm
       compute_orders_amount
       return if orders_amount == 0
 
       payment_orders[0..-2].each do |i|
         i.payment_amount = (i.order_amount * rate).to_f.round(2)
+      end
+      payment_orders[-1].payment_amount = total_amount - payment_orders[0..-2].sum(&:payment_amount)
+
+      payment_orders.each do |i|
         i.state = 'confirmed'
         i.order.compute_received_amount
       end
-
-      last = payment_orders[-1]
-      last.payment_amount = total_amount - payment_orders[0..-2].sum(&:payment_amount)
-      last.state = 'confirmed'
-      last.order.compute_received_amount
 
       compute_checked_amount
     end
 
     def confirm!(params = {})
       self.assign_detail params
+      self.confirm
+
       self.class.transaction do
-        self.confirm
         self.save!
         self.payment_orders.each { |i| i.order.save! }
       end

@@ -40,17 +40,10 @@ module Trade
     end
 
     def order_deliverable(item)
-      if item.user_id
-        if wallet_template
-          wallet = wallet_template.wallets.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
-        else
-          wallet = item.user.lawful_wallets.find_by(organ_id: organ_id) || item.user.lawful_wallets.create(organ_id: organ_id)
-        end
-        wallet.maintain_id = item.order.maintain_id if item.order.respond_to?(:maintain_id)
-      elsif item.order.respond_to?(:maintain) && item.order.maintain
-        wallet = wallet_template.wallets.find_or_initialize_by(maintain_id: item.order.maintain_id)
+      if wallet_template
+        wallet = wallet_template.wallets.find_or_initialize_by(user_id: item.user_id, member_id: item.member_id)
       else
-        return
+        wallet = LawfulWallet.find_by(organ_id: organ_id, user_id: item.user_id, member_id: item.member_id) || LawfulWallet.create(organ_id: organ_id, user_id: item.user_id, member_id: item.member_id)
       end
 
       wa = wallet_advances.build
@@ -58,8 +51,11 @@ module Trade
       wa.item = item
       wa.amount = amount
 
+      item.status = 'done'
+
       wallet.class.transaction do
         wallet.save!
+        item.save!
         wa.save!
       end
 

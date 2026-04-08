@@ -21,6 +21,7 @@ zh:
           all_paid: 已支付
           refunding: 退款中
           refunded: 已退款
+          refunded_part: 部分退款
           denied: 退款失败
         state:
           init: 进行中
@@ -60,6 +61,8 @@ zh:
           init: 待支付
           pending: 待核销
           confirmed: 已核销
+          refunding: 退款中
+          refunded: 已退款
       trade/promote:
         metering:
           number: 购买件数

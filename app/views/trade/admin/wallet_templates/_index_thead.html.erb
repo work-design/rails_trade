@@ -8,7 +8,10 @@
   <p><%= Trade::WalletTemplate.human_attribute_name(:prepay_max) %></p>
 </th>
 <th><%= Trade::WalletTemplate.human_attribute_name(:limit) %></th>
-<th><%= Trade::WalletTemplate.human_attribute_name(:enabled) %></th>
+<th>
+  <p><%= Trade::WalletTemplate.human_attribute_name(:enabled) %></p>
+  <p><%= Trade::WalletTemplate.human_attribute_name(:hot) %></p>
+</th>
 <th>
   <%= link_to filter_params('wallet_prepayments_count-desc': 1) do %>
     <span class="text-grey"><%= Trade::WalletTemplate.human_attribute_name(:wallet_prepayments_count) %></span>

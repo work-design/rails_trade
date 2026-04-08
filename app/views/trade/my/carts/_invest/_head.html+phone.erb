@@ -6,12 +6,12 @@
     <span class="mr-1"><%= t('.title') %></span>
     <%= link_to(action: 'list', return_url: url_for) do %>
       <% if current_cart.member %>
-        <span class="weui-badge weui-badge__primary">
+        <span class="tag is-badge is-danger">
           <i class="fa-solid fa-building-user"></i>
           <span><%= current_cart.member.organ.name %></span>
         </span>
       <% else %>
-        <span class="weui-badge">
+        <span class="tag is-badge is-danger">
            <%= svg_tag 'user' %>
           <span>个人版</span>
         </span>

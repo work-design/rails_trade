@@ -26,7 +26,7 @@ module Trade
     end
 
     def batch_receive
-      @order.items.where(id: params[:ids].split(',')).each do |i|
+      @order.items.where(id: params[:ids]).each do |i|
         i.purchase_status = 'received'
         i.save
       end

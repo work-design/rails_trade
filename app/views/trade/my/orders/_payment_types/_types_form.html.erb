@@ -2,7 +2,7 @@
   form_with(
     theme: 'modal_line',
     model: @order,
-    url: { action: @order.payment_types.include?('Trade::WalletPayment') ? 'payment_pending' : 'payment_confirm' },
+    url: { action: 'payment_pending' },
     method: :post,
     id: 'payment_form'
   ) do |f|

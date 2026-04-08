@@ -6,12 +6,12 @@
     <span class="mr-1"><%= t('.title') %></span>
     <%= link_to(action: 'list') do %>
       <% if current_cart.member %>
-        <span class="weui-badge weui-badge__primary">
+        <span class="tag is-badge is-danger">
           <span>企业版</span>
           <span><%= current_cart.member.organ.name %></span>
         </span>
       <% else %>
-        <span class="weui-badge">个人版</span>
+        <span class="tag is-badge is-danger">个人版</span>
       <% end %>
     <% end %>
   </span>

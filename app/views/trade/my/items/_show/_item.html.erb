@@ -3,13 +3,9 @@
     <dt><%= Trade::Item.human_attribute_name(:uuid) %></dt>
     <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.uuid %></span>
-      <span data-action="click->clipboard#copy" class="tag">复制</span>
-      <div data-clipboard-target="toast">
-        <div class="weui-mask_transparent"></div>
-        <div class="weui-toast">
-          <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-          <p class="weui-toast__content">复制成功</p>
-        </div>
+      <span data-action="click->clipboard#copy" class="tag is-badge is-danger">复制</span>
+      <div data-clipboard-target="toast" class="tag is-badge is-success display-none">
+        <%= svg_tag 'check' %>
       </div>
     </dd>
   </div>

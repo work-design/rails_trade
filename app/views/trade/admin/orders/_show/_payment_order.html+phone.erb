@@ -4,13 +4,9 @@
     <dt><%= Trade::Payment.human_attribute_name(:payment_uuid) %></dt>
     <dd data-controller="clipboard">
       <span data-clipboard-target="source"><%= model.payment.payment_uuid %></span>
-      <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
-      <div data-clipboard-target="toast" class="display-none">
-        <div class="weui-mask_transparent"></div>
-        <div class="weui-toast">
-          <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-          <p class="weui-toast__content">复制成功</p>
-        </div>
+      <span data-action="click->clipboard#copy" class="tag is-badge is-danger">复制</span>
+      <div data-clipboard-target="toast" class="tag is-badge is-success display-none">
+        <%= svg_tag 'check' %>
       </div>
     </dd>
   </div>

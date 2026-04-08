@@ -102,12 +102,6 @@ module Trade
 
     def payment_pending
       @order.batch_pending_payments(payment_params)
-      @order.init_wallet_payments
-      @order.init_hand_payment(state: 'pending')
-    end
-
-    def payment_confirm
-      @order.batch_pending_payments(payment_params)
       if params['commit']
         @order.confirm!
       else

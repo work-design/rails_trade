@@ -1,34 +1,28 @@
-<div class="weui-form-preview is-box">
-  <div class="weui-form-preview__bd">
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:id) %></label>
-      <div class="weui-form-preview__value" data-controller="clipboard">
-        <span data-clipboard-target="source"><%= package.id %></span>
-        <span class="tag"><%= package.state_i18n %></span>
-        <span class="weui-badge weui-badge__default" data-action="click->clipboard#copy">复制</span>
-        <div data-clipboard-target="toast" class="display-none">
-          <div class="weui-mask_transparent"></div>
-          <div class="weui-toast">
-            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-            <p class="weui-toast__content">复制成功</p>
-          </div>
-        </div>
+<dl class="as-show">
+  <div>
+    <dt><%= Ship::Package.human_attribute_name(:id) %></dt>
+    <dd data-controller="clipboard">
+      <span data-clipboard-target="source"><%= package.id %></span>
+      <span class="tag"><%= package.state_i18n %></span>
+      <span data-action="click->clipboard#copy" class="tag is-badge is-danger">复制</span>
+      <div data-clipboard-target="toast" class="tag is-badge is-success display-none">
+        <%= svg_tag 'check' %>
       </div>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label"><%= Ship::Package.human_attribute_name(:expected_on) %></label>
-      <span class="weui-form-preview__value"><%= package.expected_on %></span>
-    </div>
-    <div class="weui-form-preview__item">
-      <label class="weui-form-preview__label">包含物品：</label>
-      <div class="weui-form-preview__value">
-      <% package.packageds.includes(:trade_item).each do |packaged| %>
-        <span><%= packaged.trade_item.good_name %></span>
-      <% end %>
-      </div>
-    </div>
+    </dd>
   </div>
-  <div class="weui-form-preview__ft">
+  <div>
+    <dt><%= Ship::Package.human_attribute_name(:expected_on) %></dt>
+    <dd class="weui-form-preview__value"><%= package.expected_on %></dd>
+  </div>
+  <div>
+    <dt>包含物品：</dt>
+    <dd class="weui-form-preview__value">
+    <% package.packageds.includes(:item).each do |packaged| %>
+      <span><%= packaged.item.good_name %></span>
+    <% end %>
+    </dd>
+  </div>
+  <div>
     <% if request.variant.any?(:mini_program) %>
     <button
       data-controller="mini-program"
@@ -38,7 +32,7 @@
       data-action="click->mini-program#link"
       class="weui-form-preview__btn weui-form-preview__btn_primary"
     >
-      <i class="fa-regular fa-print"></i>
+      <%= svg_tag 'print' %>
       <span>打印包裹</span>
     </button>
     <% end %>
@@ -46,4 +40,4 @@
       <span>详情</span>
     <% end %>
   </div>
-</div>
+</dl>

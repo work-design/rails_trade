@@ -1,1 +1,5 @@
-<%= turbo_stream.replace 'payment_form', partial: 'pending_form' %>
+<% if params[:commit] %>
+  <%= turbo_stream.visit %>
+<% else %>
+  <%= turbo_stream.replace 'payment_form', partial: 'pending_form' %>
+<% end %>
