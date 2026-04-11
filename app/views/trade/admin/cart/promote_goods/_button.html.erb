@@ -4,7 +4,7 @@
     <span><%= text %></span>
     <span><%= t('.new.title') %></span>
   <% end %>
-  <%= link_to({ action: 'user', good_type: good_type }, data: { turbo_frame: 'modal' }, class: 'button is-warning') do %>
+  <%= button_to({ action: 'user', good_type: good_type }, class: 'button is-rounded is-warning') do %>
     <%= svg_tag 'plus' %>
     <span><%= text %></span>
     <span><%= t('.new.title') %></span>
