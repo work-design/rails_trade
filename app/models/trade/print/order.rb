@@ -12,6 +12,8 @@ module Trade
     def print_to_prepare
       organ.printer.print(to_gid, aim: 'produce')
       organ.printer.print(to_gid, aim: 'receipt')
+
+      task = printer.inner_tasks.build(gid: gid, aim: aim)
     end
 
     def qrcode_show_url
