@@ -14,9 +14,7 @@ module Trade
     end
 
     def print_to_prepare
-      organ.produce_printer.print(to_gid) do |pr|
-        to_prepare_esc(pr)
-      end
+      organ.produce_printer.print(to_gid)
     end
 
     def print
