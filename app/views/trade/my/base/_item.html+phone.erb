@@ -43,16 +43,16 @@
   <div class="media-right as-x">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
     <%= link_to({ controller: 'bench/my/facilitatings', item_id: item.id }, class: 'button is-small is-primary') do %>
-      <i></i>
+      <%= svg_tag 'user-tie' %>
       <span><%= t('bench.my.facilitatings.index.title') %></span>
     <% end %>
   <% elsif item.good_type == 'Eventual::PlanJoin' %>
     <%= link_to({ controller: 'holds', item_id: item.id }, class: 'button is-small is-default') do %>
-      <i></i>
+      <%= svg_tag 'user-tie' %>
       <span><%= t('trade.my.holds.index.title') %></span>
     <% end %>
     <%= button_to({ controller: 'order/items', action: 'edit', order_id: item.order_id, id: item.id }, class: 'button is-small is-danger mt-2') do %>
-      <i></i>
+      <%= svg_tag 'user-tie' %>
       <span><%= t('trade.my.order.items.edit.title') %></span>
     <% end if item.order.unpaid? && false %>
   <% end %>

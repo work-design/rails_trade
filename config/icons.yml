@@ -52,6 +52,7 @@ light:
   - thumbs-up
   - thumbs-down
   - trash
+  - user-tie
   - users
 regular:
   - angle-left
