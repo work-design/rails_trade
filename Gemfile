@@ -11,7 +11,6 @@ gem 'rails_ui', path: '../rails_ui'
 gem 'rails_notice', path: '../rails_notice'
 gem 'rails_org', path: '../rails_org'
 
-gem 'amazing_print'
 group :development, :test do
   gem 'debug'
   gem 'sdoc'
