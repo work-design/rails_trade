@@ -52,7 +52,10 @@ module Trade
     end
 
     def js_pay(**options)
-      return unless payee_app
+      unless payee_app
+        logger.debug "\e[35m  Payee #{seller_identifier}, appid: #{appid}  \e[0m"
+        return
+      end
       prepay = common_prepay(**options)
 
       if prepay['prepay_id']
