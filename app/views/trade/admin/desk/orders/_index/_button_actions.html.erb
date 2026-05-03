@@ -9,5 +9,5 @@
 <% end %>
 <%= button_to({ controller: 'space/admin/desks', action: 'print_all', station_id: @desk.room.station_id, room_id: @desk.room_id, id: @desk.id }, class: 'button is-primary') do %>
   <%= svg_tag 'print' %>
-  <span class="ml-1"><%= t('space.admin.desks.print_all.title') %></span>
+  <span><%= t('space.admin.desks.print_all.title') %></span>
 <% end %>
