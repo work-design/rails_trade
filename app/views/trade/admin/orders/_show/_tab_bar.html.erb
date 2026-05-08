@@ -1,26 +1,7 @@
 <div class="buttons are-small as-bottom">
-  <% if @order.organ.receipt_printer %>
-    <%= button_to({ action: 'print' }, class: 'button is-info') do %>
-      <%= svg_tag 'print' %>
-      <span class="ml-1"><%= t('.print.title') %></span>
-    <% end %>
-  <% elsif request.variant.include?(:mini_program) %>
-    <button
-      data-controller="mini-program"
-      data-mini-program-nav-value="true"
-      data-mini-program-url-value="/pages/print/index"
-      data-mini-program-data-value="<%=
-        {
-          url: url_for(action: 'print_data', id: @order.id, only_path: false),
-          device: current_organ.bluetooth_device
-        }.to_json
-      %>"
-      data-action="click->mini-program#link"
-      class="button is-info"
-    >
-      <%= svg_tag 'print' %>
-      <span class="ml-1">打印订单</span>
-    </button>
+  <%= button_to({ controller: 'print/admin/home', action: 'inner' }, params: { gid: @order.to_gid.to_s, aim: 'receipt' }, class: 'cell has-column-centered') do %>
+    <%= svg_tag 'print' %>
+    <span><%= t('print.admin.home.inner.title') %></span>
   <% end %>
   <% if @order.can_pay? %>
     <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-link') do %>
