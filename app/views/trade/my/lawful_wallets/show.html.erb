@@ -5,7 +5,7 @@
       <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @lawful_wallet.id } if @lawful_wallet.id %>
     </div>
   </div>
-  <div class="box-body text-centered">
+  <div class="text-centered py-3">
     <h2 class="title mb-0"><%= @lawful_wallet.amount.to_money.format.html_safe %></h2>
     <% if @lawful_wallet.frozen_amount.to_d > 0 %>
     <h3 class="title text-grey is-size-5">
