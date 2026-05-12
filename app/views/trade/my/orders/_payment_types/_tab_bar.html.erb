@@ -1,4 +1,4 @@
-<div class="as-bottom py-3">
+<div class="as-bottom">
   <%=
     form_with(
       theme: nil,
@@ -9,5 +9,5 @@
     ) do |f|
   %>
     <%= render partial: 'payment_types_form', locals: { f: f } %>
-  <% end %>
+  <% end if @order.checking_amount > 0 %>
 </div>
