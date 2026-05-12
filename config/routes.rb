@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   concern :orderable do
     resource :lawful_wallet do
       get :account
+      post :actions
     end
     resources :orders do
       collection do
