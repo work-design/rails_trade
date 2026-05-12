@@ -84,6 +84,8 @@ zh:
           title: 结算
         edit:
           title: 修改数量
+        edit_address:
+          title: 填写地址
     agent:
       title: 销售订单
       carts:
