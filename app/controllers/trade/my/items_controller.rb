@@ -2,7 +2,7 @@ module Trade
   class My::ItemsController < My::BaseController
     before_action :set_cart, except: [:index]
     before_action :set_cart_item, only: [:update, :destroy, :toggle]
-    before_action :set_item, only: [:show, :edit, :actions, :promote, :finish]
+    before_action :set_item, only: [:show, :edit, :edit_address, :update_address, :promote, :finish, :actions]
     before_action :set_new_item, only: [:create]
     before_action :set_card_template, only: [:trial]
     after_action :support_cors, only: [:create]
@@ -49,6 +49,14 @@ module Trade
 
     def finish
       @item.rent_finish_at = Time.current
+      @item.save
+    end
+
+    def edit_address
+    end
+
+    def update_address
+      @item.address_id = params[:address_id]
       @item.save
     end
 

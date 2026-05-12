@@ -40,6 +40,8 @@ Rails.application.routes.draw do
         post :untrial
         get :order_edit
         patch :order_update
+        post :edit_address
+        post :update_address
       end
       resources :packageds
       resources :holds
