@@ -1,6 +1,6 @@
 <% if referer_eql?("trade/#{params[:namespace]}/orders", 'index') %>
   <%= turbo_stream.replace "tr_#{@order.id}", partial: 'trade/admin/orders/index_tbody', layout: 'trade/admin/orders/index_tr', locals: { model: @order } %>
-  <%= turbo_stream.remove 'modal' %>
+  <%= turbo_stream.remove 'modal_form' %>
 <% else %>
   <%= turbo_stream.visit %>
 <% end %>
