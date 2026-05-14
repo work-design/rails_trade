@@ -1,5 +1,5 @@
 <div class="buttons are-small as-bottom">
-  <%= button_to({ controller: 'print/admin/home', action: 'inner' }, params: { gid: @order.to_gid.to_s, aim: 'receipt' }, class: 'cell has-column-centered') do %>
+  <%= button_to({ controller: 'print/admin/home', action: 'inner' }, params: { gid: @order.to_gid.to_s, aim: 'receipt' }, class: 'button') do %>
     <%= svg_tag 'print' %>
     <span><%= t('print.admin.home.inner.title') %></span>
   <% end %>
@@ -7,6 +7,10 @@
     <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-link') do %>
       <%= svg_tag 'credit-card' %>
       <span><%= t('.scan_payments.batch.title') %></span>
+    <% end %>
+    <%= button_to({ action: 'payment_types', id: @order.id }, class: 'button is-link') do %>
+      <%= svg_tag 'receipt' %>
+      <span><%= t('.payment_types.title') %></span>
     <% end %>
   <% end %>
   <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
@@ -17,4 +21,5 @@
     <%= svg_tag 'pen-clip' %>
     <span><%= t('.adjust_edit.title') %></span>
   <% end %>
+
 </div>
