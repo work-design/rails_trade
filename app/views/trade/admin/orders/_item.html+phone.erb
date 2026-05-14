@@ -35,9 +35,9 @@
   </div>
   <div class="media-right as-x">
   <% if item.good_type == 'Bench::Facilitate' && item.respond_to?(:facilitatings) %>
-    <%= link_to({ controller: 'bench/admin/facilitatings', item_id: item.id }, class: 'button is-small is-primary') do %>
+    <%= link_to({ controller: 'bench/admin/item/facilitatings', item_id: item.id }, class: 'button is-small is-primary') do %>
       <i></i>
-      <span><%= t('bench.my.facilitatings.index.title') %></span>
+      <span><%= t('bench.admin.item.facilitatings.index.title') %></span>
     <% end %>
   <% else %>
     <%= link_to({ controller: 'holds', item_id: item.id }, class: 'button is-small is-default') do %>

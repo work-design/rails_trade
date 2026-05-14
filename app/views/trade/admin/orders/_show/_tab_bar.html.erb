@@ -6,15 +6,15 @@
   <% if @order.can_pay? %>
     <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-link') do %>
       <%= svg_tag 'credit-card' %>
-      <span class="ml-1"><%= t('.scan_payments.batch.title') %></span>
+      <span><%= t('.scan_payments.batch.title') %></span>
     <% end %>
   <% end %>
   <%= link_to({ action: 'purchase', id: @order.id }, class: 'button is-link') do %>
     <%= svg_tag 'cart-shopping' %>
-    <span class="ml-1"><%= t('.purchase.title') %></span>
+    <span><%= t('.purchase.title') %></span>
   <% end %>
   <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-info') do %>
     <%= svg_tag 'pen-clip' %>
-    <span class="ml-1"><%= t('.adjust_edit.title') %></span>
+    <span><%= t('.adjust_edit.title') %></span>
   <% end %>
 </div>
