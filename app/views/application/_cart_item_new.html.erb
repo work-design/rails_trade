@@ -17,9 +17,9 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= button_tag(data: { action: 'modify#minus' }, class: 'button_to mr-1') do %>
+      <button data-action="modify#minus" class="button_to mr-1">
         <%= svg_tag 'circle-minus', class: 'icon text-grey' %>
-      <% end %>
+      </button>
     <% end %>
     <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
