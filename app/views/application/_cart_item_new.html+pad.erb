@@ -4,13 +4,13 @@
     <% if item.persisted? %>
       <%= button_to({ controller: item_con, id: item.id, action: 'destroy' }, method: :delete, params: { current_cart_id: cart.id, replace: [{ partial: 'cart_item_new' }] }, class: 'button is-large is-danger', form: { class: 'button_to mr-3' }) do %>
         <span class="icon is-large">
-          <i class="fa-solid fa-xmark"></i>
+          <%= svg_tag 'xmark' %>
         </span>
       <% end %>
     <% end %>
     <%= button_tag(data: { action: 'modify#minus' }, class: 'button is-large is-warning mr-3', disabled: item.number <= 1) do %>
       <span class="icon is-large">
-        <i class="fa-solid fa-minus"></i>
+        <%= svg_tag 'minus' %>
       </span>
     <% end %>
     <%= form_with theme: nil, url: { controller: item_con, action: 'update', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
@@ -36,7 +36,7 @@
     <%= f.hidden_field :desk_id %>
     <button type="submit" name="replace[][partial]" value="cart_item_new" class="button is-warning is-rounded">
       <%= svg_tag 'cart-plus' %>
-      <span class="ml-1">加入购物车</span>
+      <span>加入购物车</span>
     </button>
   <% end %>
 <% end %>
