@@ -4,7 +4,17 @@
   <%= turbo_stream.remove "item_#{@item.id}" %>
   <%# turbo_stream.replace "product_cart_#{@item.good.product_id}", partial: 'production_cart', locals: { model: @item.good, item: @item, cart: @item.current_cart, item_con: controller_path, productions_con: referer_controller } %>
 <% else %>
-  <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
+  <%=
+    turbo_stream.replace(
+      'cart_nav',
+      partial: 'cart_nav',
+      locals: {
+        cart: @item.current_cart,
+        cart_con: controller_path.sub('items', 'carts'),
+        order_con: controller_path.sub('items', 'orders')
+      }
+    )
+  %>
 <% end %>
 
 <% params[:replace].each do |replace| %>
@@ -17,6 +27,7 @@
         item: @item,
         cart: @item.current_cart,
         item_con: controller_path,
+        order_con: controller_path.sub('items', 'orders'),
         renew: params[:renew],
         refer_options: params.fetch(:refer_options, {}).permit!.to_h
       }
@@ -33,6 +44,7 @@
         model: @item.good,
         cart: @item.current_cart,
         item_con: controller_path,
+        order_con: controller_path.sub('items', 'orders'),
         options: @item.cart_options,
         refer_options: params.fetch(:refer_options, {}).permit!.to_h
       }

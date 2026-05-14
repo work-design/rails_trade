@@ -36,6 +36,10 @@
     <button data-action="modify#plus" class="button_to ml-1">
       <%= svg_tag 'circle-plus', class: 'icon text-grey' %>
     </button>
+    <%= link_to({ controller: order_con, action: 'cart', current_cart_id: @cart.id }, class: 'button is-small is-rounded is-primary ml-3') do %>
+      <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
+      <%= svg_tag 'angle-right' %>
+    <% end if @cart.can_order? %>
   </div>
 <% else %>
   <%= form_with theme: nil, model: item, scope: '', url: { controller: item_con, action: 'create' }, id: "cart_item_new_#{item.cart_identity}", class: 'button_to' do |f| %>
