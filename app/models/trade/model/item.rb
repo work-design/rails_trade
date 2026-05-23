@@ -241,7 +241,11 @@ module Trade
       return unless good
       self.good_name = good_name.presence || good.good_name
       self.extra = Hash(self.extra).merge good.item_extra
-      self.organ_id = (good.respond_to?(:organ_id) && good.organ_id) || current_cart&.organ_id
+      if current_cart&.organ_id
+        self.organ_id = current_cart.organ_id
+      elsif good.respond_to?(:organ_id)
+        self.organ_id = good.organ_id
+      end
       self.produce_on = good.produce_on if good.respond_to? :produce_on
       compute_price
       compute_amount
