@@ -24,6 +24,7 @@ module Trade
       @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
       set_count(q_params)
       @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
+      @grouped_orders = @orders.group_by { |i| i.created_at.to_date }
     end
 
     def cart

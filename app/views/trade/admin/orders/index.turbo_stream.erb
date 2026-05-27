@@ -1,8 +1,4 @@
-<%= render partial: 'filter_bar', locals: { name: 'uuid' } %>
-<%= render 'filter_table' %>
-<%= render 'level' %>
-
-<%= render layout: 'index_list_raw' do %>
+<%= turbo_stream.append 'tbody' do %>
   <% @grouped_orders.each do |date, orders| %>
     <p class="mb-2 pl-3 text-primary text-weight-bold">
       <span><%= date.to_fs(:week) %></span>
@@ -14,3 +10,4 @@
     </div>
   <% end %>
 <% end %>
+<%= turbo_stream.replace 'page_loading', partial: 'page_loading', locals: { all: @orders } %>
