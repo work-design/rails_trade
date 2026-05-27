@@ -4,7 +4,7 @@ module Trade
 
     included do
       attribute :counters, :json, default: {}
-      attribute :dispatches, :string, array: true, default: []
+      attribute :dispatches, :json, default: []
       attribute :dispatch, :string
       attribute :print_note, :string
       attribute :auto_purchase, :boolean
