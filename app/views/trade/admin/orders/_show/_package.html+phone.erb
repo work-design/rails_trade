@@ -23,7 +23,7 @@
     </dd>
   </div>
   <div>
-    <%= link_to({ controller: 'packages', action: 'show', order_id: @order.id, id: package.id }, text: true, class: 'button') do %>
+    <%= link_to({ controller: 'ship/admin/packages', action: 'show', order_id: @order.id, id: package.id }, text: true, class: 'button') do %>
       <span>详情</span>
     <% end %>
   </div>
