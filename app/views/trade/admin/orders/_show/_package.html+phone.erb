@@ -1,0 +1,30 @@
+<dl class="as-show">
+  <div>
+    <dt><%= Ship::Package.human_attribute_name(:id) %></dt>
+    <dd data-controller="clipboard">
+      <span data-clipboard-target="source"><%= package.id %></span>
+      <span class="tag"><%= package.state_i18n %></span>
+      <span data-action="click->clipboard#copy" class="tag is-badge is-danger">复制</span>
+      <div data-clipboard-target="toast" class="tag is-badge is-success display-none">
+        <%= svg_tag 'check' %>
+      </div>
+    </dd>
+  </div>
+  <div>
+    <dt><%= Ship::Package.human_attribute_name(:expected_on) %></dt>
+    <dd><%= package.expected_on %></dd>
+  </div>
+  <div>
+    <dt>包含物品：</dt>
+    <dd>
+    <% package.packageds.includes(:item).each do |packaged| %>
+      <span><%= packaged.item.good_name %></span>
+    <% end %>
+    </dd>
+  </div>
+  <div>
+    <%= link_to({ controller: 'packages', action: 'show', order_id: @order.id, id: package.id }, text: true, class: 'button') do %>
+      <span>详情</span>
+    <% end %>
+  </div>
+</dl>
