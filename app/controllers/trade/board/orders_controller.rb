@@ -7,7 +7,7 @@ module Trade
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
       @orders = current_user.orders.includes(
-        :organ, :payment_strategy, items: [:delivery, :good], address: :area, from_address: :area, maintain: :member
+        :organ, :payment_strategy, items: [:organ, :delivery, :good], address: :area, from_address: :area, maintain: :member
       ).default_where(q_params).order(id: :desc).page(params[:page])
     end
 
