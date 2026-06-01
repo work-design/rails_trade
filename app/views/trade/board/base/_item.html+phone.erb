@@ -1,5 +1,5 @@
 <div class="media py-2 px-0 mb-0">
-  <% if item.good && item.good.logo.attached? %>
+  <% if item.good && item.good.logo&.attached? %>
     <div class="media-left">
       <%= link_to(item.good, text: true, data: { empty_target: 'content' }) do %>
         <%= image_tag item.good.logo.variant(resize_to_limit: [64, 64]), class: 'image' %>
