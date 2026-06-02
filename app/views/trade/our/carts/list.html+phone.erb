@@ -6,13 +6,13 @@
   <div class="box-header">
     <span class="size-7 has-border-left-primary">选择下单企业</span>
   </div>
-  <div class="p-3">
+  <div class="p-3 medias">
     <%= render partial: 'organs_cart', collection: @members, as: :model %>
   </div>
 </div>
 
 <div class="box">
-  <div class="">
+  <div class="medias">
   <% @roles.each do |role| %>
     <%= button_to({ controller: 'org/board/organs', action: 'new', role_id: role.id }, class: 'media') do %>
       <%= svg_tag 'plus' %>
