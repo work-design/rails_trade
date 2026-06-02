@@ -230,10 +230,6 @@ module Trade
       r.presence || 'goods'
     end
 
-    def user_name
-      user&.name.presence || "#{user_id}"
-    end
-
     def all_purchase?
       items.all?(->(i){ i.purchase_id.present? })
     end

@@ -1,9 +1,11 @@
 <div class="p-3 scroll-wrapper">
-  <p class="p-3 animation-scroll-step">用户 1ddd 于下单成功</p>
-  <p class="p-3 animation-scroll-step" style="animation-delay: 3s">用户 2ddd 于下单成功</p>
-  <p class="p-3 animation-scroll-step" style="animation-delay: 6s">用户 3ddd 于下单成功</p>
-  <p class="p-3 animation-scroll-step" style="animation-delay: 9s">用户 4ddd 于下单成功</p>
-  <p class="p-3 animation-scroll-step" style="animation-delay: 12s">用户 5ddd 于下单成功</p>
-  <p class="p-3 animation-scroll-step" style="animation-delay: 15s">用户 6ddd 于下单成功</p>
-  <p class="p-3 animation-scroll-step" style="animation-delay: 18s">用户 7ddd 于下单成功</p>
+<% Trade::Order.order(id: :desc).limit(7).each_with_index do |order, index| %>
+  <p class="p-3 animation-scroll-step" style="animation-delay: <%= index * 3 %>s">
+    <span>用户</span>
+    <span><%= order.user_name.truncate(5) %></span>
+    <span>于</span>
+    <time><%= distance_time order.created_at %></time>
+    <span>前下单成功</span>
+  </p>
+<% end %>
 </div>

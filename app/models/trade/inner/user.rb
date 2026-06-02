@@ -18,6 +18,10 @@ module Trade
       self.member_organ_id = member&.organ_id
     end
 
+    def user_name
+      user&.name.presence || "#{user_id}"
+    end
+
     def simple_filter_hash
       if member_id
         { member_id: member_id }
