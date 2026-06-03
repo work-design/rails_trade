@@ -23,9 +23,9 @@
 <% elsif @wxpay_order && @wxpay_order[:package].present? %>
   <tr
     data-controller="wxpay"
+    data-wxpay-auto-value="true"
     data-wxpay-options-value="<%= payment_order.payment.payee_app.app.js_config(session[:enter_url]).to_json %>"
     data-wxpay-params-value="<%= @wxpay_order.slice(:timeStamp, :nonceStr, :package, :signType, :paySign, :appId).to_json %>"
-    data-action="click->wxpay#onBridgeReady"
   >
     <td class="text-right">
       <div class="is-several">
