@@ -1,6 +1,5 @@
 module Trade
   class Board::OrdersController < My::OrdersController
-    before_action :set_order, only: [:show]
 
     def index
       q_params = {}
