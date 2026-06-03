@@ -31,8 +31,10 @@ module Trade
     end
 
     def set_new_order
-      @order = current_user.orders.build
-      @order.items.build
+      if current_user
+        @order = current_user.orders.build
+        @order.items.build
+      end
     end
 
     def set_new_item
