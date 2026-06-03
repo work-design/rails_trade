@@ -1,0 +1,10 @@
+<%= form_with model: @order, url: { controller: 'trade/my/orders', action: 'create' } do |f| %>
+  <%= f.fields :items do |ef| %>
+    <%= ef.hidden_field :good_type, value: model.base_class_name %>
+    <%= ef.hidden_field :good_id, value: model.id %>
+    <%= ef.hidden_field :status, value: 'ordered' %>
+  <% end %>
+  <%= button_tag class: 'button is-outlined is-success has-column-centered is-fullwidth' do %>
+    <span>下单</span>
+  <% end %>
+<% end %>

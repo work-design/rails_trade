@@ -8,11 +8,6 @@ module Trade
     end
 
     private
-    def set_new_order
-      @order = current_user.orders.build
-      @order.items.build
-    end
-
     def lawful_wallet_params
       params.fetch(:lawful_wallet, {}).permit(
         wallet_frozens_attributes: {}

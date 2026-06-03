@@ -30,6 +30,11 @@ module Trade
       end
     end
 
+    def set_new_order
+      @order = current_user.orders.build
+      @order.items.build
+    end
+
     def set_new_item
       @item = @cart.init_cart_item(params)
     end
