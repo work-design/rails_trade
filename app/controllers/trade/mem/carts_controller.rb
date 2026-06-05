@@ -15,7 +15,6 @@ module Trade
       options.merge! member_id: current_client.id
 
       @cart = Cart.where(options).unscope(where: :organ_id).find params[:id]
-      @cart.compute_amount! unless @cart.fresh
     end
 
     def cart_params
