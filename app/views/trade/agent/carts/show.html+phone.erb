@@ -11,9 +11,9 @@
       <%= svg_tag 'qrcode-read' %>
       <span>扫码添加</span>
     </div>
-    <%= link_to({ controller: 'factory/agent/productions' }, class: 'cell button') do %>
-      <%= svg_tag 'store' %>
-      <span>直接添加</span>
+    <%= button_to({ controller: 'factory/agent/productions' }, class: 'button is-fullwidth', form: { class: 'cell' }) do %>
+      <%= svg_tag 'chair' %>
+      <span>绑定桌台</span>
     <% end %>
   </div>
 </div>
