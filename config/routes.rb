@@ -433,6 +433,7 @@ Rails.application.routes.draw do
       root 'home#index'
       resources :carts do
         member do
+          post :desks
           patch :bind
         end
       end

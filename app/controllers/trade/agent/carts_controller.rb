@@ -1,12 +1,16 @@
 module Trade
   class Agent::CartsController < Admin::CartsController
     include Controller::Agent
-    before_action :set_cart, only: [:show, :edit, :update, :destroy, :actions, :bind]
+    before_action :set_cart, only: [:show, :edit, :update, :destroy, :actions, :desks, :bind]
     before_action :set_contact, only: [:show]
     before_action :set_purchase, only: [:show]
 
     def index
       @carts = current_member.agent_carts.order(id: :desc).page(params[:page])
+    end
+
+    def desks
+      @desks = Space::Desk.default_where(default_params)
     end
 
     def bind
