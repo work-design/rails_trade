@@ -18,8 +18,6 @@ module Trade
 
       @new_cart = Cart.get_cart(
         params,
-        good_type: 'Factory::Production',
-        aim: 'use',
         agent_id: current_member.id,
         client_id: contact.client_id,
         contact_id: contact.id,
