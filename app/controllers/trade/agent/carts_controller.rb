@@ -16,11 +16,13 @@ module Trade
     def bind
       contact = Crm::Contact.default_where(default_params).find_by(identity: cart_params.dig('contact_attributes', 'identity'))
 
+
+      @cart.migrate_to(client_id: contact.client_id, contact_id: contact.id)
       @new_cart = Cart.get_cart(
         params,
         agent_id: current_member.id,
-        client_id: contact.client_id,
-        contact_id: contact.id,
+
+        ,
         **default_params
       )
       @new_cart.migrate_from(@cart)

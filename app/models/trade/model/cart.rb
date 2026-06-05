@@ -405,7 +405,9 @@ module Trade
       self.original_amount = item_amount + overall_additional_amount
     end
 
-    def migrate_from(other_cart)
+    def migrate_to(**options)
+      other_cart = self.class.get_cart(filter_hash, **options)
+
       other_cart.items.each do |item|
         item.current_cart = self
         item.assign_attributes filter_hash
