@@ -413,6 +413,10 @@ module Trade
         item.assign_attributes filter_hash
         item.save
       end
+
+      other_cart.compute_amount!
+      other_cart.save
+      other_cart
     end
 
     class_methods do
