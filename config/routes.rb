@@ -435,6 +435,7 @@ Rails.application.routes.draw do
         member do
           post :desks
           patch :bind
+          post :bind_desk
         end
       end
     end

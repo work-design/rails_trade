@@ -1,4 +1,4 @@
-<%= button_to({ action: 'bind' }, params: { desk_id: model.id }, class: 'cell has-column-centered') do %>
+<%= button_to({ action: 'bind_desk' }, params: { desk_id: model.id }, class: 'cell has-column-centered') do %>
   <strong><%= model.name %></strong>
   <span class="text-grey"><%= model.code %></span>
 <% end %>

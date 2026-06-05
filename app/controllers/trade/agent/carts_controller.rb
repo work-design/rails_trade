@@ -1,7 +1,7 @@
 module Trade
   class Agent::CartsController < Admin::CartsController
     include Controller::Agent
-    before_action :set_cart, only: [:show, :edit, :update, :destroy, :actions, :desks, :bind]
+    before_action :set_cart, only: [:show, :edit, :update, :destroy, :actions, :desks, :bind, :bind_desk]
     before_action :set_contact, only: [:show]
     before_action :set_purchase, only: [:show]
 

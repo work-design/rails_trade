@@ -406,7 +406,7 @@ module Trade
     end
 
     def migrate_to(**options)
-      new_cart = self.class.get_cart(**filter_hash, **options)
+      new_cart = self.class.get_cart({}, **filter_hash, **options)
 
       items.each do |item|
         item.current_cart = new_cart
