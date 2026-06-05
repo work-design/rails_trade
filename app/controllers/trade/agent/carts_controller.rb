@@ -15,8 +15,16 @@ module Trade
 
     def bind
       contact = Crm::Contact.default_where(default_params).find_by(identity: cart_params.dig('contact_attributes', 'identity'))
-      options = { agent_id: current_member.id, client_id: contact.client_id, contact_id: contact.id, **default_params }
-      @new_cart = Trade::Cart.where(options).find_or_create_by(good_type: 'Factory::Production', aim: 'use')
+
+      @new_cart = Cart.get_cart(
+        params,
+        good_type: 'Factory::Production',
+        aim: 'use',
+        agent_id: current_member.id,
+        client_id: contact.client_id,
+        contact_id: contact.id,
+        **default_params
+      )
       @new_cart.migrate_from(@cart)
       @new_cart.compute_amount!
       @new_cart.save
