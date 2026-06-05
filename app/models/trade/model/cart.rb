@@ -406,11 +406,11 @@ module Trade
     end
 
     def migrate_to(**options)
-      new_cart = self.class.get_cart({}, **filter_hash, **options)
+      new_cart = self.class.get_cart(ActionController::Parameters.new, **filter_hash, **options)
 
       items.each do |item|
         item.current_cart = new_cart
-        item.assign_attributes filter_hash
+        item.assign_attributes new_cart.filter_hash
         item.save
       end
 
