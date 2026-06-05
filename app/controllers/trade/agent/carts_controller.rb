@@ -18,6 +18,10 @@ module Trade
       @new_cart = @cart.migrate_to(client_id: contact.client_id, contact_id: contact.id)
     end
 
+    def bind_desk
+      @new_cart = @cart.migrate_to(desk_id: params[:desk_id])
+    end
+
     private
     def set_cart
       @cart = Cart.find params[:id]

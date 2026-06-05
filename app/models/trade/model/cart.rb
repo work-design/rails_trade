@@ -406,17 +406,17 @@ module Trade
     end
 
     def migrate_to(**options)
-      other_cart = self.class.get_cart(filter_hash, **options)
+      new_cart = self.class.get_cart(**filter_hash, **options)
 
-      other_cart.items.each do |item|
-        item.current_cart = self
+      items.each do |item|
+        item.current_cart = new_cart
         item.assign_attributes filter_hash
         item.save
       end
 
-      other_cart.compute_amount!
-      other_cart.save
-      other_cart
+      new_cart.compute_amount!
+      new_cart.save
+      new_cart
     end
 
     class_methods do
