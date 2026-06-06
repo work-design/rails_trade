@@ -27,7 +27,7 @@ module Trade
 
     def to_esc(pr, aim: 'xx')
       case aim
-      when 'prepare'
+      when 'receipt'
         pr.text_big_center organ.name
         pr.dash
         pr.break_line
