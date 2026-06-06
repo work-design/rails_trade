@@ -576,7 +576,7 @@ module Trade
 
       # 支付成功后，将用户信息赋予支付者
       if user_id.blank? && p.respond_to?(:wechat_user)
-        self.user_id = p.wechat_user&.user_id
+        self.user_id = p.wechat_user.user_id
         p.user_id = user_id
       end
 
