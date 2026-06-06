@@ -1,10 +1,12 @@
-<%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'mx-3 mt-3 pl-3 flex') do %>
-  <time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time>
-  <% if model.agent %>
-    <div class="tags has-addons ml-1">
-      <span class="tag text-grey">下单人</span>
-      <span class="tag is-warning"><%= model.agent.name %></span>
-    </div>
-  <% end %>
-  <span class="tag ml-1"><%= model.payment_status_i18n %></span>
+<%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'mx-3 mt-3') do %>
+  <p class="pl-2"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
+  <div class="flex pl-2">
+    <% if model.agent %>
+      <div class="tags has-addons mb-0">
+        <span class="tag text-grey">下单人</span>
+        <span class="tag is-warning"><%= model.agent.name %></span>
+      </div>
+    <% end %>
+    <span class="tag ml-1"><%= model.payment_status_i18n %></span>
+  </div>
 <% end %>

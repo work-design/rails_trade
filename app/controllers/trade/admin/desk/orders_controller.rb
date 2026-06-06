@@ -1,5 +1,5 @@
 module Trade
-  class Admin::Desk::OrdersController < OrdersController
+  class Admin::Desk::OrdersController < Admin::OrdersController
     before_action :set_desk
 
     def index
