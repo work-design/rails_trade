@@ -2,7 +2,7 @@
   <p class="pl-2"><time data-controller="time"><%= model.created_at.to_fs(:iso8601) %></time></p>
   <div class="pl-2 flex">
     <% if model.agent %>
-      <div class="tags has-addons">
+      <div class="tags has-addons mb-0">
         <span class="tag text-grey">下单人</span>
         <span class="tag is-warning"><%= model.agent.name %></span>
       </div>
