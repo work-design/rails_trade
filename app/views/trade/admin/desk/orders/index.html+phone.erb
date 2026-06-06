@@ -1,3 +1,5 @@
+<%= render 'desk_bar' %>
+
 <div class="mt-3">
 <% @orders.each do |order| %>
   <%= render partial: 'order_item', locals: { model: order } %>

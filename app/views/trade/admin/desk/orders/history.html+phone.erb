@@ -1,3 +1,5 @@
+<%= render 'desk_bar' %>
+
 <% @orders.each do |order| %>
   <%= render partial: 'order_item', locals: { model: order } %>
   <%= render layout: 'index_list', locals: { order: order } do %>
