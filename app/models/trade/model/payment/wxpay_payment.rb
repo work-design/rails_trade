@@ -106,7 +106,7 @@ module Trade
       self.notified_at = params['success_time']
       self.pay_status = params['trade_state']
       self.verified = true if self.pay_status == 'SUCCESS'
-      self.buyer_identifier = params.dig('payer', 'openid') || params.dig('payer', 'sub_openid')
+      self.buyer_identifier ||= params.dig('payer', 'openid') || params.dig('payer', 'sub_openid')
       self.seller_identifier ||= params['sub_mch_id'].presence || params['sub_mchid'].presence || params['mchid']
       self.appid ||= params['sub_appid'].presence || params['appid']
       self.buyer_bank = params['bank_type']
