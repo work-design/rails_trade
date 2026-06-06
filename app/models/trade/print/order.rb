@@ -18,8 +18,8 @@ module Trade
 
     def qrcode_show_url
       Rails.app.routes.url_for(
-        controller: 'trade/my/orders',
-        action: 'show',
+        controller: 'trade/orders',
+        action: 'qrcode',
         id: id,
         host: organ.host
       )

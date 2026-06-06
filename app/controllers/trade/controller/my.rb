@@ -4,6 +4,26 @@ module Trade
     include Controller::Application
 
     private
+    def support_wxpay?
+      result = defined?(RailsWechat) &&
+               request.variant.include?(:wechat) &&
+               request.variant.exclude?(:work_wechat) &&
+               current_payee &&
+               current_wechat_user
+      logger.debug "\e[35m  Support Wxpay: #{result}  \e[0m"
+      result
+    end
+
+    def set_wxpay
+      if support_wxpay?
+        @wxpay_order = @order.init_wxpay_payment(
+          payee: current_payee,
+          wechat_user: current_wechat_user,
+          ip: request.remote_ip
+        )
+      end
+    end
+
     def set_cart
       @cart = Cart.get_cart(params, good_type: nil, user_id: current_user.id, **default_form_params)
     end

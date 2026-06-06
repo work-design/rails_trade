@@ -1,4 +1,4 @@
-<div class="notification is-danger is-radiusless" data-controller="notice">
+<div data-controller="notice" class="notification is-danger is-radiusless">
   <span>您没有权限访问当前订单</span>
   <%= link_to({ controller: 'trade/my/orders', action: 'index' }) do %>
     <span><%= t('trade.my.orders.index.title') %></span>

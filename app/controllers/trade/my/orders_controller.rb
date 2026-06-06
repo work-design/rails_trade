@@ -1,7 +1,7 @@
 module Trade
   class My::OrdersController < My::BaseController
     before_action :set_order, only: [
-      :edit, :update, :destroy, :actions,
+      :show, :edit, :update, :destroy, :actions,
       :refund, :finish, :payment_types, :payment_wxpay, :payment_pending, :payment_frozen, :wait, :cancel, :wxpay_pc_pay, :package
     ]
     before_action :set_cart, only: [:cart, :cart_create]
@@ -16,18 +16,6 @@ module Trade
       @orders = current_user.orders.includes(
         :payment_strategy, :payment_orders, items: [:delivery, :good], address: :area, from_address: :area
       ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
-    end
-
-    def show
-      @order = Order.find(params[:id])
-
-      if @order.user_id == current_user.id
-        render 'show'
-      elsif current_user.members.pluck(:organ_id).include? @order.organ_id
-        redirect_to({ controller: 'trade/admin/orders', action: 'show', id: @order.id, host: @order.organ.admin_host }, allow_other_host: true)
-      else
-        render 'err_not_found'
-      end
     end
 
     def cart
@@ -134,26 +122,6 @@ module Trade
           ]
         ]
       )
-    end
-
-    def support_wxpay?
-      result = defined?(RailsWechat) &&
-        request.variant.include?(:wechat) &&
-        request.variant.exclude?(:work_wechat) &&
-        current_payee &&
-        current_wechat_user
-      logger.debug "\e[35m  Support Wxpay: #{result}  \e[0m"
-      result
-    end
-
-    def set_wxpay
-      if support_wxpay?
-        @wxpay_order = @order.init_wxpay_payment(
-          payee: current_payee,
-          wechat_user: current_wechat_user,
-          ip: request.remote_ip
-        )
-      end
     end
 
   end
