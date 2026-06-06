@@ -2,14 +2,12 @@
 
 <%=
   form_with(
-    theme: 'modal_line',
     model: @order,
     url: { action: 'payment_pending' },
     method: :post,
     id: 'payment_form'
   ) do |f|
 %>
-  <%= render 'modal_header' %>
   <div class="modal-card-body">
     <%= render partial: 'payment_types_form', locals: { f: f } %>
   </div>

@@ -1,6 +1,6 @@
 module Trade
   class OrdersController < My::OrdersController
-    before_action :set_order, only: [:show, :qrcode]
+    before_action :set_order, only: [:payment_pending, :qrcode]
 
     def qrcode
       if @order.user_id == current_user.id

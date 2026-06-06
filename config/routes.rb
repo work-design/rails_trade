@@ -225,6 +225,7 @@ Rails.application.routes.draw do
     resources :orders, only: [] do
       member do
         get :qrcode
+        post :payment_pending
       end
     end
     resources :items, only: [] do
