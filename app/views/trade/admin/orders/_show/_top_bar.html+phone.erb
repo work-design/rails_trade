@@ -1,13 +1,12 @@
-<div class="as-bar">
-  <% if current_state %>
-    <%= link_to(current_state.prev_path, class: 'px-4') do %>
-      <%= svg_tag 'angle-left', kind: 'regular' %>
+<%= render 'top_bar_left' do %>
+  <div class="bar-title"><%= @order.uuid %></div>
+  <% if @order.desk %>
+    <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'px-4') do %>
+      <%= svg_tag 'grid-dividers' %>
     <% end %>
   <% else %>
-    <%= link_to({ controller: 'orders' }, class: 'px-4') do %>
-      <%= svg_tag 'angle-left', kind: 'regular' %>
+    <%= link_to({ controller: '/me/home' }, class: 'px-4') do %>
+      <%= svg_tag 'user', kind: 'regular' %>
     <% end %>
   <% end %>
-  <div class="bar-title"><%= @order.uuid %></div>
-  <i class="px-5"></i>
-</div>
+<% end %>
