@@ -6,10 +6,11 @@ module Trade
     private
     def support_wxpay?
       result = defined?(RailsWechat) &&
-               request.variant.include?(:wechat) &&
-               request.variant.exclude?(:work_wechat) &&
-               current_payee &&
-               current_wechat_user
+        request.variant.include?(:wechat) &&
+        request.variant.exclude?(:work_wechat) &&
+        current_payee &&
+        current_wechat_user
+
       logger.debug "\e[35m  Support Wxpay: #{result}  \e[0m"
       result
     end

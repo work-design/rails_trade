@@ -5,5 +5,3 @@
   <p class="text-centered">订单已完成支付</p>
 </div>
 <% end %>
-
-<%= turbo_stream_from @order, channel: Trade::OrderChannel unless @order.all_paid? %>

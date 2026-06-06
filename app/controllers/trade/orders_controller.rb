@@ -1,7 +1,6 @@
 module Trade
-  class OrdersController < BaseController
+  class OrdersController < My::OrdersController
     before_action :set_order, only: [:show, :qrcode]
-    before_action :require_user, only: [:qrcode]
 
     def qrcode
       if @order.user_id == current_user.id
@@ -11,7 +10,8 @@ module Trade
       elsif @order.generate_mode == 'by_from'
         redirect_to({ controller: 'trade/board/orders', action: 'show', id: params[:id] })
       elsif @order.can_pay?
-        render 'payment_types'
+        @order.init_wallet_payments
+        set_wxpay
       else
         render 'err_not_found'
       end
