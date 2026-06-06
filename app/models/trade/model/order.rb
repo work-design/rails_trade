@@ -573,14 +573,15 @@ module Trade
         user_id: user_id,
         **options.slice(:wallet_id, :appid, :seller_identifier, :buyer_identifier, :payment_uuid)
       )
+      p.assign_detail options
 
       # 支付成功后，将用户信息赋予支付者
       if user_id.blank? && p.respond_to?(:wechat_user)
-        self.user_id = p.wechat_user.user_id
+        logger.debug "#{p.buyer_identifier}"
+        self.user_id = p.wechat_user&.user_id
         p.user_id = user_id
       end
 
-      p.assign_detail options
       p
     end
 
