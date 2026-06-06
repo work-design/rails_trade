@@ -31,7 +31,10 @@ module Trade
       q_params.merge! default_params
       q_params.merge! params.permit(:cart_id, :order_id, :good_type, :good_id, :desk_id, :aim, :address_id, :status)
 
-      @orders = Order.default_where(q_params).update_all state: 'done'
+      Order.transaction do
+        Order.default_where(q_params).update_all state: 'done'
+        @desk.reset_counters!
+      end
     end
 
     private
