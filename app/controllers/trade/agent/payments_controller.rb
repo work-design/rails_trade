@@ -4,4 +4,3 @@ module Trade
 
   end
 end
-

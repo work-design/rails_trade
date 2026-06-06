@@ -12,4 +12,3 @@ module Trade
 
   end
 end
-
