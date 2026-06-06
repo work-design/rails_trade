@@ -1,5 +1,5 @@
 <% if referer_controller == 'auth/sign' %>
-  <%= turbo_stream.append_body partial: 'visit', locals: { url: url } %>
+  <%= turbo_stream.visit url: url %>
 <% else %>
   <%=
     turbo_stream.replace(
