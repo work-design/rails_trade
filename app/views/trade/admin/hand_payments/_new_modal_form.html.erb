@@ -3,19 +3,15 @@
   <section class="modal-card-body">
     <%= f.hidden_field :type %>
     <%= f.fields :payment_orders do |ef| %>
-      <div class="field is-horizontal">
-        <div class="field-label is-normal"></div>
-        <div class="field-body">
-          <div class="field">
-            <%= ef.number_field :order_amount, readonly: true, label: nil %>
-            <p class="help text-danger">
-              <span class="family-monospace"><%= ef.object.order.uuid %></span>
-              <time data-controller="time" class="text-grey"><%= ef.object.order.created_at.to_fs(:iso8601) %></time>
-              <span class="text-grey">第 <%= ef.index + 1 %> 次下单</span>
-            </p>
-          </div>
-        </div>
+      <div class="field-label is-normal">
+        <% if f.object.payment_orders.size > 1 %>
+          <span class="text-grey">第 <%= ef.index + 1 %> 次下单金额</span>
+        <% else %>
+          <span class="text-grey">下单金额</span>
+        <% end %>
+        <span><%= ef.object.order_amount.to_money.format.html_safe %></span>
       </div>
+      <%= ef.hidden_field :order_amount %>
       <%= ef.hidden_field :state %>
       <%= ef.hidden_field :order_id %>
     <% end %>
