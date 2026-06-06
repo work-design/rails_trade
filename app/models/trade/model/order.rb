@@ -92,6 +92,7 @@ module Trade
       scope :credited, -> { where(payment_strategy_id: PaymentStrategy.where.not(period: 0).pluck(:id)) }
       scope :to_pay, -> { where(payment_status: ['unpaid', 'part_paid']) }
       scope :normal, -> { where(state: ['init', 'done']) }
+      scope :expired, -> { where('expire_at < ?', Time.current) }
 
       before_validation :sync_organ_from_provide, if: -> { provide_id_changed? }
       after_validation :compute_amount, if: -> { new_record? || (changes.keys & ['item_amount', 'overall_additional_amount', 'overall_reduced_amount', 'adjust_amount']).present? }
@@ -106,7 +107,6 @@ module Trade
       after_create :increment_counts_to_organ
       after_create :sync_ordered_to_current_cart
       after_create_commit :send_notice_after_create
-      after_create_commit :close_after_expired, if: -> { expire_at.present? && ['init'].include?(state) }
       after_save_commit :lawful_wallet_pay, if: -> { pay_auto && saved_change_to_pay_auto? }
       after_save_commit :send_notice_after_commit, if: -> { saved_change_to_payment_status? }
     end
@@ -196,10 +196,6 @@ module Trade
         p.order_amount = self.send(item) if ['init'].include?(p.state)
         p.save
       end
-    end
-
-    def close_after_expired
-      OrderExpireCheckJob.set(wait_until: expire_at).perform_later(self)
     end
 
     def ordered_items
