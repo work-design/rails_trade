@@ -1,8 +1,8 @@
-<div class="">
-  <div class="px-3 pb-3">
+<div class="card as-transparent">
+  <div class="card-header">
     <span class="size-7 has-border-left-primary"><%= t('trade.my.orders.index.title') %></span>
   </div>
-  <div class="fixed-grid has-3-cols as-boxed p-3">
+  <div class="card-content fixed-grid has-3-cols">
     <div class="grid">
       <%= link_to({ controller: 'trade/my/orders', state: 'init' }, class: 'cell has-column-centered') do %>
         <%= svg_tag 'boxes-packing', class: 'icon is-medium text-primary' %>
