@@ -25,13 +25,14 @@ module Trade
       )
     end
 
-    def to_esc(pr, aim: 'xx')
+    def to_esc(pr, aim: 'receipt')
       case aim
       when 'receipt'
         pr.text_big_center organ.name
         pr.dash
         pr.break_line
         pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
+        pr.text "桌号：#{desk.name}" if desk
         pr.text '已下单：'
         pr.dash
         cols = items.map do |item|
@@ -45,7 +46,7 @@ module Trade
         pr.text "#{self.class.human_attribute_name(:amount)}：#{amount.to_money.to_s}"
         pr.text "#{self.class.human_attribute_name(:payment_status)}：#{payment_status_i18n}"
         pr.break_line
-        pr.qrcode(qrcode_show_url, y: 20)
+        pr.qrcode_center(qrcode_show_url)
         organ.print_note.to_s.split("\n").each do |note|
           pr.text note
         end
