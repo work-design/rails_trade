@@ -1,0 +1,6 @@
+<%= render 'top_bar_left' do %>
+  <div class="bar-title"><%= t('.title') %></div>
+  <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'px-4') do %>
+    <%= svg_tag 'grid-dividers' %>
+  <% end %>
+<% end %>

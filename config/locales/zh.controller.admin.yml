@@ -71,6 +71,8 @@ zh:
           title: 微信收款
         adjust_edit:
           title: 调价
+        no_desk:
+          title: 无桌台订单
         print:
           title: 打印订单
         purchase:
