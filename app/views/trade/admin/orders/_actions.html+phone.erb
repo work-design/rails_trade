@@ -14,9 +14,9 @@
   <%= svg_tag 'eye' %>
   <span><%= t('.show.title') %></span>
 <% end %>
-<%= link_to({ controller: 'order_payments', order_id: model.id }, class: 'cell has-column-centered') do %>
+<%= link_to({ controller: 'order/payment_orders', order_id: model.id }, class: 'cell has-column-centered') do %>
   <%= svg_tag 'credit-card' %>
-  <span><%= t('.order_payments.index.title') %></span>
+  <span><%= t('trade.admin.order.payment_orders.index.title') %></span>
 <% end %>
 <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'cell has-column-centered') do %>
   <%= svg_tag 'credit-card' %>
@@ -26,4 +26,3 @@
   <%= svg_tag 'print' %>
   <span><%= t('print.admin.home.inner.title') %></span>
 <% end %>
-
