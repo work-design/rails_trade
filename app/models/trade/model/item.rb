@@ -343,8 +343,8 @@ module Trade
           "cart_#{purchase_id}_#{provide_id}"
         end
       else
-        if respond_to?(:contact_id) && contact_id
-          "cart_#{good_id}_#{contact_id}"
+        if user_id
+          "cart_#{good_id}_#{user_id}"
         elsif member_id
           "cart_#{good_id}_#{member_id}"
         else
