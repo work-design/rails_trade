@@ -103,6 +103,7 @@ Rails.application.routes.draw do
         post 'cart/:current_cart_id' => :cart_create
         get 'user/:user_id' => :user
         get :unpaid
+        get :no_desk
         delete :batch_destroy
         get :new_simple
       end

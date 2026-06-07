@@ -15,11 +15,8 @@ module Trade
     skip_before_action :require_role, only: [:print_data] if whether_filter :require_role
 
     def index
-      q_params = {
-        state: ['init', 'done']
-      }
-      q_params.merge! default_params
-      q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
+      q_params = search_params
+      q_params.with_defaults! state: ['init', 'done']
 
       @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
       set_count(q_params)
@@ -31,11 +28,8 @@ module Trade
     end
 
     def user
-      q_params = {
-        user_id: params[:user_id]
-      }
-      q_params.merge! default_params
-      q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type)
+      q_params = search_params
+      q_params.with_defaults! user_id: params[:user_id]
 
       @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
       set_count(q_params)
@@ -43,13 +37,19 @@ module Trade
     end
 
     def unpaid
-      q_params = {
-        payment_status: ['unpaid', 'part_paid']
-      }
-      q_params.merge! default_params
-      q_params.merge! params.permit(:id, :uuid, :member_id, :payment_status, :state, :payment_type, 'created_at-lte', 'created_at-gte')
+      q_params = search_params
+      q_params.with_defaults! payment_status: ['unpaid', 'part_paid']
 
       @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
+      set_count(q_params)
+      @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
+      @grouped_orders = @orders.group_by { |i| i.created_at.to_date }
+    end
+
+    def no_desk
+      q_params = search_params
+
+      @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params).where(desk_id: nil)
       set_count(q_params)
       @orders = @common_orders.order(id: :desc).page(params[:page]).per(params[:per])
       @grouped_orders = @orders.group_by { |i| i.created_at.to_date }
@@ -221,6 +221,13 @@ module Trade
         'uuid' => { type: 'search', default: true },
         'created_at' => 'datetime'
       )
+    end
+
+    def search_params
+      q_params = {}
+      q_params.merge! default_params
+      q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type, 'created_at-lte', 'created_at-gte')
+      q_params
     end
 
     def order_params
