@@ -247,9 +247,9 @@ zh:
       desk:
         orders:
           index:
-            title: 点单详情
+            title: 待结算
           history:
-            title: 订单历史
+            title: 已结算
           done:
             title: 清台
             confirm: 确认清台
