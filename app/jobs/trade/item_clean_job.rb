@@ -1,8 +1,8 @@
 module Trade
   class ItemCleanJob < ApplicationJob
 
-    def perform(item)
-      item.update(status: 'expired') if ['init', 'checked', 'trial'].include?(item.status)
+    def perform
+      Item.expired.carting.update(status: 'expired')
     end
 
   end

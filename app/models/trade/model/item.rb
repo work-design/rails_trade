@@ -101,6 +101,7 @@ module Trade
       scope :deliverable, -> { where(status: ['deliverable', 'packaged']) }
       scope :packable, -> { where(status: ['deliverable']) }
       scope :packaged, -> { where(status: ['packaged', 'done']) }
+      scope :expired, -> { where('expire_at < ?', Time.current) }
 
       acts_as_notify(
         :default,
@@ -121,7 +122,6 @@ module Trade
       after_validation :set_wallet_amount, if: -> { (changes.keys & ['number', 'single_price']).present? }
       before_save :sync_from_order, if: -> { order_id.present? && order_id_changed? }
       before_update :reset_promotes, if: -> { (changes.keys & PROMOTE_COLUMNS).present? }
-      after_create :clean_when_expired, if: -> { expire_at.present? }
       after_save :sync_amount_to_current_cart, if: -> { current_cart_id.present? && (saved_changes.keys & ['amount', 'status']).present? && in_cart? }
       after_save :order_work, if: -> { saved_change_to_status? && ['ordered', 'trial', 'deliverable', 'done', 'refund'].include?(status) }
       after_save :set_not_fresh, if: -> { (current_cart_id.blank? || (saved_changes.keys & ['current_cart_id', 'amount']).present?) && in_cart? }
@@ -529,10 +529,6 @@ module Trade
       _order.uuid = uuid
       self.order = _order
       _order.save
-    end
-
-    def clean_when_expired
-      ItemCleanJob.set(wait_until: expire_at).perform_later(self)
     end
 
   end
