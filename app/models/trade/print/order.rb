@@ -30,7 +30,7 @@ module Trade
       when 'receipt'
         pr.text_big_center organ.name
         pr.dash
-        pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
+        pr.text "#{self.class.human_attribute_name(:serial_str)}：#{serial_str}" if serial_str.present?
         pr.text "桌号：#{desk.name}" if desk
         pr.dash
         cols = items.map do |item|
