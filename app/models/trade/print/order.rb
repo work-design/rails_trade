@@ -30,10 +30,8 @@ module Trade
       when 'receipt'
         pr.text_big_center organ.name
         pr.dash
-        pr.break_line
         pr.text "#{self.class.human_attribute_name(:serial_number)}：#{serial_str}" if serial_number
         pr.text "桌号：#{desk.name}" if desk
-        pr.text '已下单：'
         pr.dash
         cols = items.map do |item|
           [item.good_name, item.single_price.to_money.to_s, item.number.to_human, item.amount.to_money.to_s]
