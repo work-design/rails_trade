@@ -356,6 +356,7 @@ module Trade
       elsif params[:number].present?
         item.number = params[:number]
       end
+      logger.debug "\e[35m  Current Item: #{item.cart_identity}  \e[0m"
       item
     end
 
