@@ -1,5 +1,5 @@
-<div class="box is-padding-less">
-  <div class="box-header">企业用餐</div>
+<div class="card">
+  <div class="card-header">企业用餐</div>
   <div class="weui-panel__bd">
     <div class="weui-cells weui-cells_radio">
       <%= render partial: 'organs_cart', collection: @members, as: :model %>
@@ -12,7 +12,7 @@
   <% @roles.each do |role| %>
     <%= link_to({ controller: 'org/board/organs', action: 'new', role_id: role.id }, class: 'media') do %>
       <%= svg_tag 'plus' %>
-      <span class="pl-1"><%= role.tip %></span>
+      <span><%= role.tip %></span>
     <% end %>
   <% end %>
   </div>

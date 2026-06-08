@@ -1,5 +1,5 @@
-<div id="tr_<%= model.id %>" class="box is-padding-less">
-  <%= link_to({ action: 'show', id: model.id }, class: 'box-header') do %>
+<div id="tr_<%= model.id %>" class="card as-xx">
+  <%= link_to({ action: 'show', id: model.id }, class: 'card-header') do %>
     <div>
       <div>
         <% if model.aim.present? && model.aim != 'use' %>
@@ -21,7 +21,7 @@
       <% end %>
     </div>
   <% end %>
-  <div class="px-4">
+  <div class="card-content px-4">
     <% if model.from_address.present? %>
       <%= render partial: 'ship_info', locals: { model: model } %>
     <% else %>
