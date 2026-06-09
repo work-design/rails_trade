@@ -1,4 +1,4 @@
-<div id="tr_<%= model.id %>" class="card as-xx">
+<div id="tr_<%= model.id %>" class="card as-head">
   <%= link_to({ action: 'show', id: model.id }, class: 'card-header') do %>
     <div>
       <div>
@@ -21,23 +21,23 @@
       <% end %>
     </div>
   <% end %>
-  <div class="card-content px-4">
+  <div class="card-content">
     <% if model.from_address.present? %>
       <%= render partial: 'ship_info', locals: { model: model } %>
     <% else %>
       <%= render partial: 'item', collection: model.items, as: :item, locals: { model: model } %>
     <% end %>
-    <%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'flex justify-content-space-between py-2 has-border-top') do %>
-      <div>
-        <% if model.serial_number %>
-          <span class="text-grey">顺序号：</span>
-          <span><%= model.serial_str %></span>
-        <% end %>
-      </div>
-      <div>
-        <span class="text-grey">合计：</span>
-        <strong class="text-danger"><%= model.amount.to_money.format.html_safe %></strong>
-      </div>
-    <% end %>
   </div>
+  <%= link_to({ controller: 'orders', action: 'show', id: model.id }, class: 'card-footer') do %>
+    <div>
+      <% if model.serial_number %>
+        <span class="text-grey">顺序号：</span>
+        <span><%= model.serial_str %></span>
+      <% end %>
+    </div>
+    <div>
+      <span class="text-grey">合计：</span>
+      <strong class="text-danger"><%= model.amount.to_money.format.html_safe %></strong>
+    </div>
+  <% end %>
 </div>

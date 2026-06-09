@@ -1,11 +1,11 @@
-<div class="box is-padding-less">
-  <div class="box-header">
+<div class="card as-narrow">
+  <div class="card-header">
     <span><%= Trade::Wallet.human_attribute_name(:amount) %></span>
     <div class="text-weight-bold">
       <%= link_to '记录', { controller: 'wallet_logs', wallet_id: @lawful_wallet.id } if @lawful_wallet.id %>
     </div>
   </div>
-  <div class="text-centered py-3">
+  <div class="card-content text-centered">
     <h2 class="title mb-0"><%= @lawful_wallet.amount.to_money.format.html_safe %></h2>
     <% if @lawful_wallet.frozen_amount.to_d > 0 %>
     <h3 class="title text-grey is-size-5">
@@ -14,18 +14,18 @@
     </h3>
     <% end %>
   </div>
-  <div class="box-footer">
+  <div class="card-footer">
     <%= link_to({ action: 'account' }, class: 'weui-btn weui-btn_primary') do %>
       <span>提现</span>
     <% end %>
   </div>
 </div>
 
-<div class="box is-padding-less">
-  <div class="box-header">
+<div class="card as-transparent">
+  <div class="card-header">
     <span class="size-7 text-grey has-border-left-primary">充值</span>
   </div>
-  <div class="p-3">
+  <div class="card-content">
     <div class="columns flex is-multiline is-mobile">
       <%= render partial: 'advance', collection: @lawful_wallet.advances.without_card.order(amount: :asc), as: :advance, locals: { disabled: false } %>
     </div>
