@@ -12,6 +12,9 @@
       <% if ['rent', 'invest'].include?(item.aim) && item.aim != item.order.aim %>
         <span class="tag is-danger"><%= item.aim_i18n %></span>
       <% end %>
+      <% if item.dispatch.present? %>
+        <span class="tag is-info size-7"><%= item.dispatch_i18n %></span>
+      <% end %>
     <% end %>
     <% if item.good.respond_to?(:parts) && item.good.parts.count > 0 %>
       <ul class="media-info mt-1">
