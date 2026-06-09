@@ -18,6 +18,7 @@
   </div>
 </div>
 
+<% if @order.payment_orders.present? %>
 <div class="card as-transparent">
   <div class="card-header">
     <p class="size-7 text-grey has-border-left-primary">支付</p>
@@ -26,3 +27,4 @@
     <%= render partial: 'payment_order', collection: @order.payment_orders, as: :model %>
   </div>
 </div>
+<% end %>
