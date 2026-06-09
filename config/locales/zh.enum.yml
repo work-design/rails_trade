@@ -90,7 +90,7 @@ zh:
           rent: 租用
         dispatch:
           delivery: 商家配送
-          fetch: 自提
+          fetch: 打包带走
           dine: 堂食
         purchase_status:
           init: 待收货
