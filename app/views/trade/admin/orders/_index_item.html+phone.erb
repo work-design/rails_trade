@@ -4,8 +4,8 @@
 </div>
 <% if model.serial_number.present? %>
   <div class="tags has-addons mt-1 mb-0">
-    <span class="tag is-link is-light">取餐码</span>
-    <span class="tag"><%= model.serial_number %></span>
+    <span class="tag is-link is-light"><%= Trade::Order.human_attribute_name(:serial_str) %></span>
+    <span class="tag"><%= model.serial_str %></span>
   </div>
 <% end %>
 <div class="mt-1">
