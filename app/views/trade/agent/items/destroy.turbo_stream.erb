@@ -23,7 +23,9 @@
       locals: {
         item: @item,
         cart: @item.current_cart,
-        item_con: controller_path
+        item_con: controller_path,
+        renew: params[:renew],
+        refer_options: params.fetch(:refer_options, {}).permit!.to_h
       }
     )
   %>

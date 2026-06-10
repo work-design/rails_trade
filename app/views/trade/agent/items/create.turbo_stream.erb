@@ -1,4 +1,14 @@
-<%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
+<%=
+  turbo_stream.replace(
+    'cart_nav',
+    partial: 'cart_nav',
+    locals: {
+      cart: @item.current_cart,
+      cart_con: controller_path.sub('items', 'carts'),
+      order_con: controller_path.sub('items', 'orders')
+    }
+  )
+%>
 
 <% params[:replace].each do |replace| %>
   <%=
@@ -15,7 +25,7 @@
       }
     )
   %>
-<% end %>
+<% end if params[:replace] %>
 
 <% params[:renew].each do |id, partial| %>
   <%=
