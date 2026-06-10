@@ -1,11 +1,32 @@
 <% if referer_controller.end_with?('carts') %>
   <%= turbo_stream.replace 'cart_nav', partial: 'cart_footer', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts') } %>
 <% else %>
-  <%= turbo_stream.replace 'cart_nav', partial: 'cart_nav', locals: { cart: @item.current_cart, cart_con: controller_path.sub('items', 'carts'), order_con: controller_path.sub('items', 'orders') } %>
+  <%=
+    turbo_stream.replace(
+      'cart_nav',
+      partial: 'cart_nav',
+      locals: {
+        cart: @item.current_cart,
+        cart_con: controller_path.sub('items', 'carts'),
+        order_con: controller_path.sub('items', 'orders')
+      }
+    )
+  %>
 <% end %>
 
 <% params[:replace].each do |replace| %>
-  <%= turbo_stream.replace "#{replace['partial']}_#{@item.cart_identity}", partial: replace['partial'], layout: replace['layout'], locals: { item: @item, cart: @item.current_cart, item_con: controller_path } %>
+  <%=
+    turbo_stream.replace(
+      "#{replace['partial']}_#{@item.cart_identity}",
+      partial: replace['partial'],
+      layout: replace['layout'],
+      locals: {
+        item: @item,
+        cart: @item.current_cart,
+        item_con: controller_path
+      }
+    )
+  %>
 <% end if params[:replace] %>
 
 <% params[:removes].each do |remove| %>
