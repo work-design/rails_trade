@@ -16,12 +16,9 @@
   <% end %>
   <span class="tag is-info"><%= model.state_i18n %></span>
 </div>
-<p>
-  <span><%= link_to model.user_name, { user_id: model.user_id } %></span>
-</p>
-<p>
 <% if model&.member %>
+<div class="mt-1">
   <span><%= model.member.name %></span>
   <span class="text-grey">（<%= model.member_organ.name %>）</span>
+</div>
 <% end %>
-</p>
