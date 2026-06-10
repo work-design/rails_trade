@@ -29,6 +29,19 @@
   %>
 <% end if params[:replace] %>
 
-<% params[:removes].each do |remove| %>
-  <%= turbo_stream.remove remove %>
-<% end if params[:removes] %>
+<% params[:renew].each do |id, partial| %>
+  <%=
+    turbo_stream.replace(
+      id,
+      partial: partial,
+      locals: {
+        cart: @item.current_cart,
+        model: @item.good,
+        item_con: controller_path,
+        order_con: controller_path.sub('items', 'orders'),
+        options: @item.cart_options,
+        refer_options: params.fetch(:refer_options, {}).permit!.to_h
+      }
+    )
+  %>
+<% end if params[:renew] %>
