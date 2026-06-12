@@ -344,9 +344,9 @@ module Trade
         end
       else
         if user_id
-          "cart_#{good_id}_#{user_id}"
+          "cart_#{good_id}_#{user_id}_#{dispatch}"
         elsif member_id
-          "cart_#{good_id}_#{member_id}"
+          "cart_#{good_id}_#{member_id}_#{dispatch}"
         else
           "cart_#{good_id}_#{dispatch}"
         end
