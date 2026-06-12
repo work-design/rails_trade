@@ -17,19 +17,28 @@ module Trade
         user: user,
         title: '您的订单已准备好',
         body: '您的订单将按时到达配送点',
-        link: Rails.app.routes.url_for(controller: 'trade/board/orders', action: 'show', id: id),
+        link: Rails.app.routes.url_for(
+          controller: 'trade/board/orders',
+          action: 'show',
+          id: id
+        ),
         verbose: true,
         organ_id: organ_id
       )
     end
 
     def to_provider_notice
-      organ.ancestral_members.each do |member|
+      return unless organ
+      organ.ancestral_members.where('notifiable_types ? :type', type: self.base_class_name).each do |member|
         to_member_notice(
           member: member,
           title: '收到新的支付',
           body: '您的订单将按时到达配送点',
-          link: Rails.app.routes.url_for(controller: 'trade/agent/payment_orders', payment_id: id, host: organ.agent_host),
+          link: Rails.app.routes.url_for(
+            controller: 'trade/agent/payment_orders',
+            payment_id: id,
+            host: organ.agent_host
+          ),
           verbose: true
         )
       end

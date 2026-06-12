@@ -7,6 +7,8 @@ module Trade
         :default,
         only: ['uuid', 'created_at', 'note']
       )
+
+      after_save_commit :to_provider_notice, if: -> { saved_change_to_payment_status? && payment_status == 'all_paid' }
     end
 
     def to_notice
