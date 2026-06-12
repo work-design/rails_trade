@@ -24,7 +24,7 @@ module Trade
     end
 
     def to_provider_notice
-      organ.ancestral_members.wechat.each do |member|
+      organ.ancestral_members.each do |member|
         to_member_notice(
           member: member,
           title: '收到新的支付',

@@ -26,7 +26,7 @@ module Trade
 
     def to_provider_notice
       return unless organ
-      organ.ancestral_members.wechat.where('notifiable_types ? :type', type: self.base_class_name).each do |member|
+      organ.ancestral_members.where('notifiable_types ? :type', type: self.base_class_name).each do |member|
         to_member_notice(
           member: member,
           title: "收到新订单 #{note}",
