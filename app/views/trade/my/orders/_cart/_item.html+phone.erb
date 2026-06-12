@@ -5,10 +5,13 @@
     </div>
   <% end %>
   <div class="media-content">
-    <h4 class="weui-media-box__title">
+    <p>
       <span><%= item.good_name %></span>
-    </h4>
-    <p class="weui-media-box__desc">
+      <% if item.dispatch.present? %>
+        <span class="tag is-info size-7"><%= item.dispatch_i18n %></span>
+      <% end %>
+    </p>
+    <p>
       <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
       <span>x</span>
       <span class="size-7"><%= item.number %></span>

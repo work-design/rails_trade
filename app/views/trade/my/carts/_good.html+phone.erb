@@ -1,7 +1,7 @@
 <p class="truncate">
   <span><%= model.good_name %></span>
   <% if model.dispatch.present? %>
-    <span class="tag ml-1"><%= model.dispatch_i18n %></span>
+    <span class="tag is-info size-7"><%= model.dispatch_i18n %></span>
   <% end %>
 </p>
 <% if model.good.respond_to?(:parts) && model.good.parts.size > 0 %>
