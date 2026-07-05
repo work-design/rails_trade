@@ -1,0 +1,4 @@
+Org::Member: &organ
+  trade/admin/orders: ['index']
+Org::Organ:
+  <<: *organ
