@@ -1,0 +1,16 @@
+<%= render partial: 'filter_bar', locals: { name: 'uuid' } %>
+<%= render 'filter_table' %>
+<%# render 'level' %>
+
+<%= render layout: 'index_list_raw' do %>
+  <% @grouped_orders.each do |date, orders| %>
+    <p class="mb-2 pl-3 text-primary text-weight-bold">
+      <span><%= date.to_fs(:week) %></span>
+      <span>，</span>
+      <span><%= date.to_fs(:full) %></span>
+    </p>
+    <div class="box is-padding-less">
+      <%= render partial: 'index_item', layout: 'index_item_actions', collection: orders, as: :model %>
+    </div>
+  <% end %>
+<% end %>
