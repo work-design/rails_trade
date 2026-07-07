@@ -1,0 +1,24 @@
+<div>
+  <time data-controller="time" data-format="HH:mm" class="family-monospace size-7"><%= model.created_at.to_fs(:iso8601) %></time>
+  <span class="family-monospace size-7"><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></span>
+</div>
+<% if model.serial_number.present? %>
+  <div class="tags has-addons mt-1 mb-0">
+    <span class="tag is-link is-light"><%= Trade::Order.human_attribute_name(:serial_str) %></span>
+    <span class="tag"><%= model.serial_str %></span>
+  </div>
+<% end %>
+<div class="mt-1">
+  <span class="text-danger"><%= model.amount.to_money.format.html_safe %></span>
+  <span class="tag"><%= model.payment_status_i18n %></span>
+  <% if model.payment_strategy %>
+  <span class="tag is-danger"><%= model.payment_strategy.name %></span>
+  <% end %>
+  <span class="tag is-info"><%= model.state_i18n %></span>
+</div>
+<% if model&.member %>
+<div class="mt-1">
+  <span><%= model.member.name %></span>
+  <span class="text-grey">（<%= model.member_organ.name %>）</span>
+</div>
+<% end %>
