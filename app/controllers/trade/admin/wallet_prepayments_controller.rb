@@ -35,11 +35,11 @@ module Trade
       @wallet_prepayment = @wallet_template.wallet_prepayments.build(wallet_prepayment_params)
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         'token' => { type: 'search', default: true },
         'secret' => { type: 'search', default: true }
-      )
+      }
     end
 
     def wallet_prepayment_params

@@ -19,13 +19,13 @@ module Trade
       @order = Order.find(params[:id])
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         'state' => { type: 'dropdown', default: true },
         'payment_status' => { type: 'dropdown', default: true },
         'uuid' => { type: 'search', default: true },
         'created_at' => 'datetime'
-      )
+      }
     end
 
     def order_params

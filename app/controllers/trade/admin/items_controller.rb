@@ -115,12 +115,12 @@ module Trade
       @count = counter_cache.get_today_count
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         'status' => { type: 'dropdown', default: true },
         'uuid' => { type: 'search', default: true },
         'created_at' => 'datetime'
-      )
+      }
     end
 
     def item_params

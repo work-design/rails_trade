@@ -27,13 +27,13 @@ module Trade
       @wallet_template = WalletTemplate.find(params[:id])
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         'enabled' => { type: 'dropdown', default: true },
         'unit' => { type: 'dropdown', default: true },
         'name-like' => { type: 'search', default: true },
         'code' => { type: 'search', default: true }
-      )
+      }
     end
 
     def wallet_template_params

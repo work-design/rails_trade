@@ -35,12 +35,12 @@ module Trade
       @refund = @payment.refunds.build(refund_params)
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         type: { type: 'dropdown', default: true },
         state: { type: 'dropdown', default: true },
         refund_uuid: { type: 'search', default: true }
-      )
+      }
     end
 
     def refund_params

@@ -24,10 +24,10 @@ module Trade
       @wallet_advance = @wallet.wallet_advances.build(wallet_advance_params)
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         'created_at' => { type: 'datetime', default: true }
-      )
+      }
     end
 
     def wallet_advance_params

@@ -50,14 +50,14 @@ module Trade
       @payment = Payment.new(payment_params)
     end
 
-    def set_filter_columns
-      @filter_columns = set_filter_i18n(
+    def filter_columns
+      {
         type: { type: 'dropdown', default: true },
         state: { type: 'dropdown', default: true },
         pay_state: { type: 'dropdown', default: true },
         'payment_orders.state': { type: 'dropdown', default: true, record_name: PaymentOrder },
         payment_uuid: 'search'
-      )
+      }
     end
 
     def set_count(q_params)
