@@ -200,3 +200,7 @@ zh:
           title: 订单明细
         carts:
           title: 对应购物车
+    partner:
+      orders:
+        index:
+          title: 配送订单

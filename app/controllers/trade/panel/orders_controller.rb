@@ -6,7 +6,7 @@ module Trade
       q_params = {}
       q_params.merge! params.permit(:id, :uuid, :user_id, :member_id, :payment_status, :state, :payment_type)
 
-      @orders = Order.includes(:user, :member, :member_organ).where(organ_id: nil).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
+      @orders = Order.includes(:organ, :user, :member, :member_organ).default_where(q_params).order(id: :desc).page(params[:page]).per(params[:per])
     end
 
     def refund

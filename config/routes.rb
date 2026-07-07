@@ -248,6 +248,10 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :partner, defaults: { namespace: 'partner' } do
+      concerns :order_admin
+    end
+
     namespace :admin, defaults: { namespace: 'admin' } do
       root 'home#index'
       concerns :order_admin
