@@ -1,0 +1,18 @@
+<div>
+  <dt><%= Trade::Order.human_attribute_name(:uuid) %></dt>
+  <dd><%= @order.uuid %></dd>
+</div>
+<div>
+  <dt><%= Trade::Order.human_attribute_name(:note) %></dt>
+  <dd><%= @order.note %></dd>
+</div>
+<div>
+  <dt><%= Trade::Order.human_attribute_name(:amount) %></dt>
+  <dd><%= @order.amount.to_money.format.html_safe %></dd>
+</div>
+<% if @order.address %>
+  <div>
+    <dt><%= Trade::Order.human_attribute_name(:address_id) %></dt>
+    <dd><%= @order.address %></dd>
+  </div>
+<% end %>
