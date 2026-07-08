@@ -103,12 +103,6 @@ module Trade
       scope :packaged, -> { where(status: ['packaged', 'done']) }
       scope :expired, -> { where('expire_at < ?', Time.current) }
 
-      acts_as_notify(
-        :default,
-        only: [:good_name, :number, :amount, :note],
-        methods: [:order_uuid, :cart_organ]
-      )
-
       after_initialize :sync_from_good, if: -> { new_record? && order.present? }
       after_initialize :sync_from_source, if: -> { new_record? && source.present? }
       before_validation :sync_from_good, if: -> { good_id.present? && good_id_changed? }

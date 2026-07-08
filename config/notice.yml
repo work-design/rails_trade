@@ -4,3 +4,7 @@ Trade::Order:
   produced:
     only: ['uuid', 'created_at', 'note']
     methods: ['serial_str']
+Trade::Item:
+  default:
+    only: ['good_name', 'number', 'amount', 'note']
+    methods: ['order_uuid', 'cart_organ']

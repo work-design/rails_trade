@@ -15,5 +15,9 @@ module Trade
     if defined? RailsShip
       include Ship::Ext::Item
     end
+    if defined? RailsNotice
+      include ::Notice::Ext::Notifiable
+      include ::Notice::Ext::MemberNotifiable
+    end
   end
 end
