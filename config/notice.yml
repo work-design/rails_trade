@@ -3,3 +3,4 @@ Trade::Order:
     only: ['uuid', 'created_at', 'note']
   produced:
     only: ['uuid', 'created_at', 'note']
+    methods: ['serial_str']
