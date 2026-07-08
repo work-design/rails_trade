@@ -58,6 +58,7 @@ module Trade
             id: id,
             host: organ.admin_host
           ),
+          code: 'produced',
           verbose: true
         )
       end
