@@ -1,6 +1,8 @@
 module Trade
   module Notice::Order
     extend ActiveSupport::Concern
+    include ::Notice::Ext::Notifiable
+    include ::Notice::Ext::MemberNotifiable
 
     included do
       after_save_commit :to_organ_notice, if: -> { saved_change_to_payment_status? && payment_status == 'all_paid' }
