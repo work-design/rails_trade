@@ -49,7 +49,7 @@ module Trade
     def wxpay
       @payment = @order.to_payment
       #@payment.extra_params.merge! 'profit_sharing' => true
-      payee = @order.organ.payees.take
+      payee = @order.organ.payees.take || @order.organ.domain_payees.take
       if payee
         @payment.seller_identifier = payee.mch_id
         @payment.appid = current_wechat_user&.appid
