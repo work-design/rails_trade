@@ -21,7 +21,7 @@
     <%= svg_tag 'pen-clip' %>
     <span><%= t('.adjust_edit.title') %></span>
   <% end %>
-  <%= button_to({ action: 'update', id: @order.id }, params: { 'order[state]': 'produced' }, class: 'button is-info') do %>
+  <%= button_to({ action: 'update', id: @order.id }, method: :patch, params: { 'order[state]': 'produced' }, class: 'button is-info') do %>
     <%= svg_tag 'box-check' %>
     <span>制作完成</span>
   <% end %>
