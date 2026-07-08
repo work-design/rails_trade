@@ -50,10 +50,10 @@ module Trade
           title: "收到新订单 #{note}",
           body: '订单已准备好',
           link: Rails.app.routes.url_for(
-            controller: 'trade/admin/orders',
+            controller: 'trade/partner/orders',
             action: 'show',
             id: id,
-            host: organ.admin_host
+            host: organ.provider.admin_host
           ),
           code: 'produced',
           verbose: true
