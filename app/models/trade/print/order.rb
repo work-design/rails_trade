@@ -11,7 +11,9 @@ module Trade
 
     def print_to_prepare
       printer = organ.get_printer('produce')
-      printer.inner_tasks.create(gid: to_gid.to_s, aim: 'produce')
+      if printer
+        printer.inner_tasks.create(gid: to_gid.to_s, aim: 'produce')
+      end
     end
 
     def qrcode_show_url
