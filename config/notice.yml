@@ -1,0 +1,5 @@
+Trade::Order:
+  default:
+    only: ['uuid', 'created_at', 'note']
+  produced:
+    only: ['uuid', 'created_at', 'note']

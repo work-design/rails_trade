@@ -3,11 +3,6 @@ module Trade
     extend ActiveSupport::Concern
 
     included do
-      acts_as_notify(
-        :default,
-        only: ['uuid', 'created_at', 'note']
-      )
-
       after_save_commit :to_organ_notice, if: -> { saved_change_to_payment_status? && payment_status == 'all_paid' }
       after_save_commit :to_provider_notice, if: -> { saved_change_to_state? && state == 'produced' }
     end
