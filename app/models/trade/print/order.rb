@@ -10,9 +10,9 @@ module Trade
     end
 
     def print_to_prepare
-      printer = organ.get_printer('produce')
+      printer = organ.get_printer('prepare')
       if printer
-        printer.inner_tasks.create(gid: to_gid.to_s, aim: 'produce')
+        printer.inner_tasks.create(gid: to_gid.to_s, aim: 'prepare')
       end
     end
 
