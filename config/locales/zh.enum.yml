@@ -24,7 +24,8 @@ zh:
           refunded_part: 部分退款
           denied: 退款失败
         state:
-          init: 进行中
+          init: 准备中
+          produced: 制作完成
           done: 已完成
           canceled: 已取消
           closed: 已关闭
