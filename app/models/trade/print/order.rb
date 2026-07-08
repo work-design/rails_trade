@@ -56,6 +56,7 @@ module Trade
           pr.text "#{item.class.human_attribute_name(:desk_id)}：#{item.desk.name}" if item.desk
           pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
         end
+        pr.qrcode_center(qrcode_show_url)
       when 'address'
         pr.bar(y: 0, height: 20)
         pr.qrcode_right(qrcode_show_url, y: 30, cell_width: 5)
