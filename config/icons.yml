@@ -8,6 +8,7 @@ light:
   - barcode-read
   - bars
   - box-archive
+  - box-check
   - boxes-packing
   - cart-plus
   - cart-shopping
