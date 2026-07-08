@@ -5,15 +5,13 @@ module Trade
     included do
       attribute :print_info, :json, default: {}
 
-      #after_create_commit :print, if: -> { organ&.produce_printer }
-      #after_save_commit :print, if: -> { paid_at.present? && paid_at_previously_was.blank? }
+      #after_create_commit :print, if: -> {  }
+      after_save_commit :print_to_prepare, if: -> { paid_at.present? && paid_at_previously_was.blank? }
     end
 
     def print_to_prepare
-      organ.printer.print(to_gid, aim: 'produce')
-      organ.printer.print(to_gid, aim: 'receipt')
-
-      task = printer.inner_tasks.build(gid: gid, aim: aim)
+      printer = organ.get_printer('produce')
+      printer.inner_tasks.create(gid: to_gid.to_s, aim: 'produce')
     end
 
     def qrcode_show_url
