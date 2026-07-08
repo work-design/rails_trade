@@ -1,14 +1,10 @@
 module Trade
   module Notice::Payment
     extend ActiveSupport::Concern
+    include ::Notice::Ext::Notifiable
+    include ::Notice::Ext::MemberNotifiable
 
     included do
-      acts_as_notify(
-        :default,
-        only: ['payment_uuid', 'created_at', 'total_amount', 'type', 'buyer_bank'],
-        methods: ['type_i18n']
-      )
-
       after_save_commit :to_provider_notice, if: -> { saved_change_to_pay_state? && pay_state == 'paid' }
     end
 
