@@ -47,11 +47,11 @@ module Trade
 
     def to_provider_notice
       return unless organ
-      organ.ancestral_members.where('notifiable_types ? :type', type: self.base_class_name).each do |member|
+      organ.provider.members.where('notifiable_types ? :type', type: self.base_class_name).each do |member|
         to_member_notice(
           member: member,
           title: "收到新订单 #{note}",
-          body: '您的订单将按时到达配送点',
+          body: '订单已准备好',
           link: Rails.app.routes.url_for(
             controller: 'trade/admin/orders',
             action: 'show',
