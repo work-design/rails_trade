@@ -3,6 +3,7 @@ module Trade
 
     def index
       q_params = {}
+      q_params.merge! organ_id: current_organ.organ_ids if current_organ
       q_params.merge! params.permit(:id, :payment_type, :payment_status, :state)
 
       @orders = current_user.orders.includes(
