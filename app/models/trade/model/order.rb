@@ -168,6 +168,10 @@ module Trade
       end
     end
 
+    def organ_address
+      organ.address
+    end
+
     def serial_str
       serial_number ? serial_number.to_s.rjust(3, '0') : ''
     end
