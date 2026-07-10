@@ -1,5 +1,5 @@
 <%= render partial: 'filter_bar', locals: { name: 'uuid' } %>
-<%# render 'level' %>
+<%= render 'nav_bar' %>
 
 <%= render layout: 'index_list_raw' do %>
   <% @grouped_orders.each do |date, orders| %>
