@@ -6,7 +6,7 @@ Trade::Order:
     methods: ['serial_str', 'organ_address', 'subject']
   prepare:
     only: ['uuid', 'created_at', 'note']
-    methods: ['serial_str', 'organ_address', 'subject']
+    methods: ['serial_str', 'organ_name', 'subject']
 Trade::Item:
   default:
     only: ['good_name', 'number', 'amount', 'note']

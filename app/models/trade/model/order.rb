@@ -168,6 +168,10 @@ module Trade
       end
     end
 
+    def organ_name
+      organ.name
+    end
+
     def organ_address
       organ.address
     end
