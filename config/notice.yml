@@ -4,6 +4,9 @@ Trade::Order:
   produced:
     only: ['uuid', 'created_at', 'note']
     methods: ['serial_str', 'organ_address', 'subject']
+  prepare:
+    only: ['uuid', 'created_at', 'note']
+    methods: ['serial_str', 'organ_address', 'subject']
 Trade::Item:
   default:
     only: ['good_name', 'number', 'amount', 'note']
