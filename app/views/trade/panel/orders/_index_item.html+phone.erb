@@ -3,9 +3,10 @@
   <span class="family-monospace size-7"><%= link_to model.uuid, { action: 'show', id: model.id }, text: true %></span>
 </div>
 <div class="mt-1">
-  <span><%= model.organ.name %></span>
+  <span><%= model.subject %></span>
+  <span class="tag"><%= model.organ.name %></span>
   <% if model.serial_number.present? %>
-    <div class="tags has-addons mb-0">
+    <div class="tags has-addons mb-0 display-inline-flex">
       <span class="tag is-link is-light"><%= Trade::Order.human_attribute_name(:serial_str) %></span>
       <span class="tag"><%= model.serial_str %></span>
     </div>
