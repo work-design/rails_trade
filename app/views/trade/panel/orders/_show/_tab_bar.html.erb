@@ -2,5 +2,5 @@
   <%= button_to({ action: 'update', id: @order.id }, method: :patch, params: { 'order[state]': 'done' }, class: 'button is-info') do %>
     <%= svg_tag 'box-check' %>
     <span>配送完成</span>
-  <% end %>
+  <% end if ['produced'].include? @order.state %>
 </div>

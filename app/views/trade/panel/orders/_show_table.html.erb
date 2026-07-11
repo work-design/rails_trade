@@ -3,6 +3,10 @@
   <dd><%= @order.uuid %></dd>
 </div>
 <div>
+  <dt><%= Trade::Order.human_attribute_name(:state) %></dt>
+  <dd><%= @order.state_i18n %></dd>
+</div>
+<div>
   <dt><%= Trade::Order.human_attribute_name(:note) %></dt>
   <dd><%= @order.note %></dd>
 </div>
