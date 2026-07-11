@@ -7,13 +7,14 @@ module Trade
     included do
       after_save_commit :to_organ_notice, if: -> { saved_change_to_payment_status? && payment_status == 'all_paid' }
       after_save_commit :to_provider_notice, if: -> { saved_change_to_state? && state == 'produced' }
+      after_save_commit :to_notice, if: -> { saved_change_to_state? && state == 'produced' }
     end
 
     def to_notice
       to_notification(
         user: user,
         title: '您的订单已准备好',
-        body: '您的订单将按时到达配送点',
+        body: '您的订单将按时配送',
         link: Rails.app.routes.url_for(
           controller: 'trade/board/orders',
           action: 'show',
