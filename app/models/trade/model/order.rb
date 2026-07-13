@@ -173,7 +173,7 @@ module Trade
     end
 
     def organ_address
-      organ.address
+      organ.address_short
     end
 
     def serial_str
