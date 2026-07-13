@@ -20,6 +20,7 @@ module Trade
           action: 'show',
           id: id
         ),
+        code: 'prepare',
         verbose: true,
         organ_id: organ_id
       )
