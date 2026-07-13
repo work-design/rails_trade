@@ -17,6 +17,6 @@
 <% if @order.address %>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:address_id) %></dt>
-    <dd><%= @order.address %></dd>
+    <dd><%= @order.address.detail %></dd>
   </div>
 <% end %>
