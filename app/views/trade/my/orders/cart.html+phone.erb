@@ -1,6 +1,8 @@
 <%= form_with url: { action: 'cart_create' }, id: 'new_order', class: 'mt-3' do |f| %>
 <% end %>
 
+<%= render partial: 'address', locals: { model: @cart.address } if @cart.address %>
+
 <div class="box is-padding-less">
   <% if @cart.aim_rent? %>
     <%= render partial: 'rent_item', collection: @cart.checked_all_items, as: :item %>
@@ -11,5 +13,3 @@
 </div>
 
 <%= render partial: 'cart', locals: { cart: @cart } %>
-
-<%= submit_tag t('.create.title'), class: 'button is-fullwidth is-primary', form: 'new_order' %>

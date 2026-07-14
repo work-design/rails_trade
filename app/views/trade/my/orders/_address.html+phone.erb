@@ -1,0 +1,16 @@
+<div class="card as-transparent">
+  <div class="card-header">
+    <span class="size-7 text-grey has-border-left-primary"><%= Trade::Order.human_attribute_name(:address_id) %></span>
+  </div>
+  <div class="card-content">
+    <div>
+      <%= svg_tag 'location-dot', class: 'icon is-small text-danger' %>
+      <span><%= model.contact_person %></span>
+      <span><%= model.tel %></span>
+    </div>
+    <div class="text-grey">
+      <span><%= model.area.full_name %></span>
+      <span><%= model.detail %></span>
+    </div>
+  </div>
+</div>
