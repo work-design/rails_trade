@@ -25,7 +25,8 @@ zh:
           denied: 退款失败
         state:
           init: 准备中
-          produced: 制作完成
+          produced: 已生产
+          picked: 已取货
           done: 已完成
           canceled: 已取消
           closed: 已关闭

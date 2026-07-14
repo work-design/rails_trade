@@ -40,6 +40,7 @@ module Trade
       enum :state, {
         init: 'init',
         produced: 'produced',
+        picked: 'picked',
         done: 'done',
         canceled: 'canceled',
         closed: 'closed'
