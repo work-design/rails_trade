@@ -21,7 +21,6 @@ module Trade
           id: id
         ),
         code: 'prepare',
-        verbose: true,
         organ_id: organ_id
       )
     end
@@ -38,8 +37,7 @@ module Trade
             action: 'show',
             id: id,
             host: organ.admin_host
-          ),
-          verbose: true
+          )
         )
       end
     end
@@ -57,8 +55,7 @@ module Trade
             id: id,
             host: organ.provider.admin_host
           ),
-          code: 'produced',
-          verbose: true
+          code: 'produced'
         )
       end
     end

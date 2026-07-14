@@ -18,7 +18,6 @@ module Trade
           action: 'show',
           id: id
         ),
-        verbose: true,
         organ_id: organ_id
       )
     end
@@ -34,8 +33,7 @@ module Trade
             controller: 'trade/agent/payment_orders',
             payment_id: id,
             host: organ.agent_host
-          ),
-          verbose: true
+          )
         )
       end
     end
