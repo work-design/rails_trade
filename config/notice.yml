@@ -1,10 +1,13 @@
 Trade::Order:
   default:
     only: ['uuid', 'created_at', 'note']
-  produced:
+  produced_partner:
     only: ['uuid', 'created_at', 'note']
     methods: ['serial_str', 'organ_address', 'subject']
-  prepare:
+  produced:
+    only: ['uuid', 'created_at', 'note']
+    methods: ['serial_str', 'organ_name', 'subject']
+  picked:
     only: ['uuid', 'created_at', 'note']
     methods: ['serial_str', 'organ_name', 'subject']
 Trade::Item:
