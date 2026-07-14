@@ -8,6 +8,7 @@ module Trade
       after_save_commit :to_organ_notice, if: -> { saved_change_to_payment_status? && payment_status == 'all_paid' }
       after_save_commit :to_provider_notice, if: -> { saved_change_to_state? && state == 'produced' }
       after_save_commit :to_notice, if: -> { saved_change_to_state? && state == 'produced' }
+      after_save_commit :to_notice_picked, if: -> { saved_change_to_state? && state == 'picked' }
     end
 
     def to_notice
@@ -20,7 +21,22 @@ module Trade
           action: 'show',
           id: id
         ),
-        code: 'prepare',
+        code: 'produced',
+        organ_id: organ_id
+      )
+    end
+
+    def to_notice_picked
+      to_notification(
+        user: user,
+        title: '您的订单已准备好',
+        body: '您的订单将按时配送',
+        link: Rails.app.routes.url_for(
+          controller: 'trade/board/orders',
+          action: 'show',
+          id: id
+        ),
+        code: 'picked',
         organ_id: organ_id
       )
     end
@@ -55,7 +71,7 @@ module Trade
             id: id,
             host: organ.provider.admin_host
           ),
-          code: 'produced'
+          code: 'produced_partner'
         )
       end
     end
