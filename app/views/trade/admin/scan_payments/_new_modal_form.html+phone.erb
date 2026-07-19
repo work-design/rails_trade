@@ -1,6 +1,6 @@
 <%= form_with theme: 'modal', model: @payment, url: { controller: 'scan_payments', action: 'create' }, id: 'create_scan', data: { controller: 'total' } do |f| %>
   <%= render 'modal_header' %>
-  <section class="modal-card-body">
+  <section id="modal_card_body" class="modal-card-body">
     <%= f.hidden_field :type %>
     <%= f.fields :payment_orders do |ef| %>
       <div class="field-label is-normal">
