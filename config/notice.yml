@@ -2,7 +2,7 @@ Trade::Order:
   default:
     only: ['uuid', 'created_at', 'note']
   produced_partner:
-    only: ['uuid', 'created_at', 'note']
+    only: ['uuid', 'created_at', 'note', 'items_count']
     methods: ['serial_str', 'organ_address', 'subject']
   produced:
     only: ['uuid', 'created_at', 'note']
