@@ -8,7 +8,7 @@
   ) do |f|
 %>
   <%= render 'modal_header' %>
-  <div class="modal-card-body">
+  <div id="modal-card-body" class="modal-card-body">
     <%= render partial: 'payment_types_form', locals: { f: f } %>
   </div>
 <% end %>

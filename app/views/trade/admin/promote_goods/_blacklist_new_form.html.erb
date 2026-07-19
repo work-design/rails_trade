@@ -1,6 +1,6 @@
 <%= form_with theme: 'modal', model: @blacklist, scope: :promote_good, url: { action: 'blacklist_create' }, data: { controller: 'equal', equal_plus_value: { years: 1 }.to_json } do |f| %>
   <%= render 'modal_header' %>
-  <section class="modal-card-body">
+  <section id="modal-card-body" class="modal-card-body">
     <%= render 'error_messages', target: f.object  %>
     <%= f.datetime_field :effect_at, data: { action: 'change->equal#updateTime' }, step: 1 %>
     <%= f.datetime_field :expire_at, data: { equal_target: 'goal' }, step: 1 %>

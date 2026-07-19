@@ -8,7 +8,7 @@
     id: 'payment_form'
   ) do |f|
 %>
-  <section class="modal-card-body">
+  <section id="modal-card-body" class="modal-card-body">
     <%= render partial: 'payment_types_form', locals: { f: f } %>
   </section>
   <% if @order.checking_amount <= 0 %>

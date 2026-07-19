@@ -1,6 +1,6 @@
 <%= form_with theme: 'phone_modal', model: @item, scope: nil, url: { action: 'update_address' } do |f| %>
   <%= render 'modal_header' %>
-  <section id="modal_card_body" class="modal-card-body">
+  <section id="modal-card-body" class="modal-card-body">
     <%= f.select :address_id %>
   </section>
   <%= f.submit %>

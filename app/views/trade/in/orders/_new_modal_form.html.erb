@@ -1,6 +1,6 @@
 <%= form_with theme: 'modal', model: @order, url: { action: 'create' } do |f| %>
   <%= render 'modal_header' %>
-  <section class="modal-card-body">
+  <section id="modal-card-body" class="modal-card-body">
     <%= f.collection_select :provide_id, current_organ.provides, :id, :name %>
     <%= f.text_area :note %>
     <%= f.fields :items do |ef| %>

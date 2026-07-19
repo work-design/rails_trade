@@ -3,7 +3,7 @@
     <p class="modal-card-title"><%= t('.title') %></p>
     <button type="button" data-action="modal#close" class="delete"></button>
   </header>
-  <section class="modal-card-body">
+  <section id="modal-card-body" class="modal-card-body">
     <%= f.collection_select :provide_id, current_organ.provides, :id, :name %>
   </section>
   <%= f.submit %>

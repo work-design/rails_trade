@@ -40,7 +40,7 @@ module Trade
         @scan_payment.seller_identifier = current_payee.mch_id
         @scan_payment.appid = current_payee.payee_apps[0]&.appid
       else
-        render 'alert_message', locals: { message: '未配置收款账户!', prepend: 'modal_card_body' } and return
+        render 'alert_message', locals: { message: '未配置收款账户!', prepend: 'modal-card-body' } and return
       end
       @scan_payment.operator = current_user
       @scan_payment
