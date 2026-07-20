@@ -5,4 +5,4 @@
 <%= f.text_field :buyer_identifier %>
 <%= f.text_field :buyer_bank %>
 <%= f.text_area :comment %>
-<%= f.file_field :proof %>
+<%= render partial: 'com/attachments/list_field', locals: { target: f.object.proof, f: f } %>

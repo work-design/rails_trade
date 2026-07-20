@@ -2,7 +2,7 @@
   <%= render 'modal_header' %>
   <section id="modal-card-body" class="modal-card-body">
     <%= render partial: 'form', locals: { f: f } %>
-    <%= f.file_field :cover %>
+    <%= render partial: 'com/attachments/list_field', locals: { target: f.object.cover, f: f } %>
   </section>
   <%= f.submit %>
 <% end %>

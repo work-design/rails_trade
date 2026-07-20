@@ -6,5 +6,5 @@
 <%= f.fields :advances, all: { normal: nil }, wrap: { input: 'field' } do |ef| %>
   <%= render partial: 'item_form', locals: { ef: ef } %>
 <% end %>
-<%= f.file_field :logo %>
+<%= render partial: 'com/attachments/list_field', locals: { target: f.object.logo, f: f } %>
 <%= f.number_field :limit %>

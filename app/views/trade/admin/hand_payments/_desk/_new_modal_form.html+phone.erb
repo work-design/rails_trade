@@ -17,7 +17,7 @@
     <% end %>
     <%= f.number_field :adjust_amount, data: { total_target: 'reduce', action: 'total#updateReduce' } %>
     <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
-    <%= f.file_field :proof %>
+    <%= render partial: 'com/attachments/list_field', locals: { target: f.object.proof, f: f } %>
   </section>
   <%= f.submit %>
 <% end %>

@@ -6,6 +6,6 @@
     <%= ef.hidden_field :order_id %>
   <% end %>
   <%= f.text_area :comment %>
-  <%= f.file_field :proof %>
+  <%= render partial: 'com/attachments/list_field', locals: { target: f.object.proof, f: f } %>
   <%= f.submit %>
 <% end %>

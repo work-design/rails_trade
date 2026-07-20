@@ -1,4 +1,4 @@
 <%= f.number_field :amount, step: @wallet_template.step, required: true %>
 <%= f.number_field :price, required: true %>
-<%= f.file_field :logo %>
+<%= render partial: 'com/attachments/list_field', locals: { target: f.object.logo, f: f } %>
 <%= f.collection_select :card_template_id, @card_templates, :id, :name, include_blank: true %>

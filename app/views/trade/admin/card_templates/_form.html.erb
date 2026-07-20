@@ -2,6 +2,6 @@
 <%= f.text_field :code, required: true %>
 <%= f.text_area :description %>
 <%= f.color_field :text_color %>
-<%= f.file_field :logo %>
+<%= render partial: 'com/attachments/list_field', locals: { target: f.object.logo, f: f } %>
 <%= f.number_field :grade %>
 <%= f.collection_select :promote_id, @promotes, :id, :name, include_blank: true %>
