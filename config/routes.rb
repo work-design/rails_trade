@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Rails.app.routes.draw do
   concern :orderable do
     resource :lawful_wallet do
       get :account
