@@ -1,5 +1,5 @@
 <div class="buttons are-small as-bottom">
-  <% if request.variant.include?('native') %>
+  <% if request.variant.include?(:native) %>
     <button id="print-button" data-action="print-pos#print" class="button">
       <%= svg_tag 'print' %>
       <span><%= t('print.admin.home.inner.title') %></span>
