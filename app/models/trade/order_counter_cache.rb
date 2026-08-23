@@ -4,6 +4,7 @@ module Trade
 
     attribute :state, :string
     attribute :payment_status, :string
+    attribute :agent_id, :uuid, index: true
 
     belongs_to :organ, class_name: 'Org::Organ', optional: true
 
