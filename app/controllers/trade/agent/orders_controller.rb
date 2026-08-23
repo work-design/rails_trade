@@ -20,5 +20,10 @@ module Trade
       @order = Order.find(params[:id])
     end
 
+    def set_count(q_params)
+      counter_cache = OrderCounterCache.find_by_params(q_params.merge(agent_id: current_member.id))
+      @count = counter_cache.get_today_count
+    end
+
   end
 end
