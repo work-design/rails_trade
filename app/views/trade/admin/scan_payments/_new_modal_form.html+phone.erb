@@ -19,14 +19,15 @@
     <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
   </section>
   <footer class="modal-card-foot">
-    <div
-      data-controller="scan"
+    <button
+      data-controller="scan bridge-scan"
       data-scan-form-value="create_scan"
       data-action="click->scan#report"
       class="button is-medium is-primary"
+      disabled
     >
       <%= svg_tag 'credit-card' %>
-      <span class="ml-1"><%= t('.scan_payments.create.title') %></span>
-    </div>
+      <span><%= t('.scan_payments.create.title') %></span>
+    </button>
   </footer>
 <% end %>
