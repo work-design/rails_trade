@@ -1,5 +1,5 @@
 <% if @order.items.pluck(:aim).all?('rent') %>
   <%= turbo_stream.visit url: url_for(action: 'payment_frozen', id: @order.id), action: 'replace' %>
 <% else %>
-  <%= turbo_stream.visit url: url_for(action: 'show', id: @order.id), action: 'replace' %>
+  <%= turbo_stream.visit url: url_for(action: 'payment_types', id: @order.id), action: 'replace' %>
 <% end %>
