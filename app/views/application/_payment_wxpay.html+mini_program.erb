@@ -1,0 +1,26 @@
+<tr
+  data-controller="mini-program"
+  data-mini-program-launch-value="true"
+  data-mini-program-url-value="/pages/wxpay_pay/index"
+  data-mini-program-data-value="<%=
+    {
+      url: url_for(controller: 'payments', action: 'wxpay', order_id: @order.id, host: Rails.app.creds.require(:host), auth_token: Current.session.once_token),
+      path: url_for(controller: 'orders', action: 'payment_types', id: @order.id, only_path: false, auth_token: Current.session.once_token),
+      path_fail: url_for(controller: 'orders', action: 'payment_types', id: @order.id, only_path: false, auth_token: Current.session.once_token)
+    }.to_json
+  %>"
+  data-action="click->mini-program#link"
+>
+  <td class="text-right">
+    <div class="is-several">
+      <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
+      <span>微信支付</span>
+    </div>
+  </td>
+  <td>
+    <button class="button is-primary">
+      <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
+      <span class="size-7 text-grey-lighter ml-1">点击支付</span>
+    </button>
+  </td>
+</tr>

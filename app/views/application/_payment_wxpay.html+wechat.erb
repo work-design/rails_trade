@@ -1,0 +1,23 @@
+
+<% if @wxpay_order && @wxpay_order[:package].present? %>
+  <tr
+    data-controller="wxpay"
+    data-wxpay-auto-value="true"
+    data-wxpay-options-value="<%= payment_order.payment.payee_app.app.js_config(session[:enter_url]).to_json %>"
+    data-wxpay-params-value="<%= @wxpay_order.slice(:timeStamp, :nonceStr, :package, :signType, :paySign, :appId).to_json %>"
+    data-action="click->wxpay#onBridgeReady"
+  >
+    <td class="text-right">
+      <div class="is-several">
+        <%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %>
+        <span>微信支付</span>
+      </div>
+    </td>
+    <td>
+      <button class="button is-primary">
+        <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
+        <span class="size-7 text-grey-lighter ml-1">点击支付</span>
+      </button>
+    </td>
+  </tr>
+<% end %>

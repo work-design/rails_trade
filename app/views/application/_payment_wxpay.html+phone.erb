@@ -1,0 +1,7 @@
+<% if @url %>
+  <%= link_to(@url, class: 'media') do %>
+    <div class="media-left"><%= image_tag 'icons/wxpay.svg', class: 'image is-24x24' %></div>
+    <div class="media-content text-primary text-link">微信支付</div>
+    <div class="media-right text-danger"><%= payment_order.order_amount.to_money.format.html_safe %></div>
+  <% end %>
+<% end %>
