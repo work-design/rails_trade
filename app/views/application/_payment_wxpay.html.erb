@@ -34,7 +34,12 @@
         <span>微信支付</span>
       </div>
     </td>
-    <td><%= payment_order.order_amount.to_money.format.html_safe %></td>
+    <td>
+      <button class="button is-primary">
+        <span><%= payment_order.order_amount.to_money.format.html_safe %></span>
+        <span class="size-7 text-grey">点击支付</span>
+      </button>
+    </td>
   </tr>
 <% elsif @url %>
   <%= link_to(@url, class: 'media') do %>
