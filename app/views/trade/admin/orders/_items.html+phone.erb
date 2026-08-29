@@ -1,9 +1,4 @@
-<dl
-  data-controller="print-pos"
-  data-button-id="print-button"
-  id="order_detail_<%= model.id %>"
-  class="as-show as-boxed"
->
+<dl id="order_detail_<%= model.id %>" class="as-show as-boxed">
   <div>
     <dt><%= Trade::Order.human_attribute_name(:uuid) %></dt>
     <dd data-controller="clipboard">
@@ -16,11 +11,11 @@
   </div>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:state) %></dt>
-    <dd data-print="text"><%= model.state_i18n %></dd>
+    <dd><%= model.state_i18n %></dd>
   </div>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:serial_number) %></dt>
-    <dd data-print="text"><%= model.serial_number %></dd>
+    <dd><%= model.serial_number %></dd>
   </div>
   <div>
     <dt><%= Trade::Order.human_attribute_name(:created_at) %></dt>
