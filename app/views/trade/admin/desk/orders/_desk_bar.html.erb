@@ -1,10 +1,10 @@
 <div class="tabs is-centered mb-3">
   <ul>
     <li class="<%= active_helper(action: 'index', active: 'is-active') %>">
-      <%= link_to t('.index.title'), { action: 'index' } %>
+      <%= link_to t('.index.title'), { action: 'index' }, data: { turbo_action: 'replace' } %>
     </li>
     <li class="<%= active_helper(action: 'history', active: 'is-active') %>">
-      <%= link_to t('.history.title'), { action: 'history' } %>
+      <%= link_to t('.history.title'), { action: 'history' }, data: { turbo_action: 'replace' } %>
     </li>
   </ul>
 </div>
