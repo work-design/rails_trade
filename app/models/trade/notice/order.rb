@@ -60,6 +60,7 @@ module Trade
 
     def to_provider_notice
       return unless organ
+      return unless organ.provider
       organ.provider.members.where('notifiable_types ? :type', type: self.base_class_name).each do |member|
         to_member_notice(
           member: member,
