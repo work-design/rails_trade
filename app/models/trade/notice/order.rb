@@ -12,6 +12,7 @@ module Trade
     end
 
     def to_notice
+      return unless user
       to_notification(
         user: user,
         title: '您的订单已准备好',
@@ -27,6 +28,7 @@ module Trade
     end
 
     def to_notice_picked
+      return unless user
       to_notification(
         user: user,
         title: '您的订单已准备好',
