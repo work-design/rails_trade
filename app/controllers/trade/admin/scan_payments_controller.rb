@@ -47,7 +47,7 @@ module Trade
     end
 
     def auth_code
-      params[:result].split(',')[-1]
+      params[:result].to_s.split(',')[-1]
     end
 
     def current_alipay_app
