@@ -16,7 +16,7 @@ module Trade
 
     def index
       q_params = search_params
-      q_params.with_defaults! state: ['init', 'done']
+      q_params.with_defaults! state: ['init', 'produced', 'picked', 'done']
 
       @common_orders = Order.includes(:user, :member, :member_organ, :payment_strategy, :payment_orders).default_where(q_params)
       set_count(q_params)
