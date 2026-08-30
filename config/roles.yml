@@ -1,4 +1,4 @@
 Org::Member: &organ
-  trade/admin/orders: ['index']
+  trade/admin/orders: ['index', 'filter']
 Org::Organ:
   <<: *organ
