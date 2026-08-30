@@ -1,7 +1,7 @@
 <div class="media">
   <% if item.good.logo.attached? %>
     <div class="media-left">
-      <%= image_tag item.good.logo, class: 'image is-64x64' %>
+      <%= image_tag item.good.logo.variant(resize_to_limit: [64, 64]), class: 'image is-64x64' %>
     </div>
   <% end %>
   <div class="media-content">
@@ -9,6 +9,9 @@
       <span><%= item.good_name %></span>
       <% if item.dispatch.present? %>
         <span class="tag is-info size-7"><%= item.dispatch_i18n %></span>
+      <% end %>
+      <% if item.desk %>
+        <span class="tag is-info size-7"><%= item.desk.name %></span>
       <% end %>
     </p>
     <p>
