@@ -1,13 +1,9 @@
-<%= turbo_stream.append_body do %>
 <% if request.headers['Turbo-Frame'] == 'modal' && request.headers['Redirect'].present? %>
   <div data-controller="visit" data-visit-frame-value="modal" data-visit-url-value="<%= request.headers['Redirect'] %>"></div>
 <% elsif params[:return_to].present? %>
-  <div data-controller="visit" data-visit-url-value="<%= params[:return_to] %>"></div>
+  <%= turbo_stream.visit url: params[:return_to] %>
 <% elsif params.dig('cart', 'address_id') %>
-  <div data-controller="visit" data-visit-url-value="<%= url_for(action: 'show') %>"></div>
-
-<!--  <div data-controller="visit" data-visit-frame-value="modal" data-visit-reload-value="true" data-visit-url-value="<%#= url_for(action: 'addresses') %>"></div>-->
+  <%= turbo_stream.visit url: url_for(action: 'show'), action: 'replace' %>
 <% else %>
-  <div data-controller="visit"></div>
-<% end %>
+  <%= turbo_stream.visit %>
 <% end %>
