@@ -434,7 +434,11 @@ module Trade
 
           cart = find_by(options) || create_or_find_by!(create_options)
         end
-        cart.compute_amount! unless cart.fresh
+        if cart.user
+          cart.address = cart.user.address_principal
+        end
+        cart.compute_amount unless cart.fresh
+        cart.save
         logger.debug "\e[35m  Current Cart: #{cart.id}, Find Options: #{options}, Create Options: #{create_options}  \e[0m"
         cart
       end
