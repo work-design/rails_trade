@@ -91,8 +91,8 @@ zh:
           invest: 投资
           rent: 租用
         dispatch:
-          delivery: 商家配送
-          fetch: 打包带走
+          delivery: 外卖
+          fetch: 打包
           dine: 堂食
         purchase_status:
           init: 待收货
