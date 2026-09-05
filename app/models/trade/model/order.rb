@@ -427,7 +427,7 @@ module Trade
         end
       end
       self.compute_verifying_amount
-      self.payment_status = 'to_check'
+      self.payment_status = 'to_check' if self.verifying_amount > 0
       self.save
     end
 
