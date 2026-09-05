@@ -7,7 +7,7 @@ zh:
           false: 正式卡
       trade/delivery:
         fetch_oneself:
-          true: 自提
+          true: 自取
           false: 外卖
       trade/wallet_log:
         source_type:
@@ -92,7 +92,7 @@ zh:
           rent: 租用
         dispatch:
           delivery: 外卖
-          fetch: 打包
+          fetch: 自取
           dine: 堂食
         purchase_status:
           init: 待收货
@@ -156,8 +156,8 @@ zh:
           use: 买入
           invest: 投资
         dispatch:
-          delivery: 商家配送
-          fetch: 自提
+          delivery: 外卖
+          fetch: 自取
           dine: 堂食
       trade/wallet_good:
         type:
@@ -179,8 +179,8 @@ zh:
           false: 到付
       org/organ:
         dispatch:
-          delivery: 商家配送
-          fetch: 自提
+          delivery: 外卖
+          fetch: 自取
           dine: 堂食
         auto_purchase:
           true: 自动发货
