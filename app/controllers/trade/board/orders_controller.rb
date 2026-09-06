@@ -8,7 +8,7 @@ module Trade
 
       @orders = current_user.orders.includes(
         :organ, :payment_strategy, items: [:organ, :delivery, :good], address: :area, from_address: :area, maintain: :member
-      ).default_where(q_params).order(id: :desc).page(params[:page])
+      ).default_where(q_params).order(id: :desc).page(params[:page]).per(10)
     end
 
     private
