@@ -77,7 +77,7 @@ module Trade
       belongs_to :source, class_name: self.name, counter_cache: :purchase_items_count, optional: true
       belongs_to :unit, optional: true
 
-      has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: :organ_id, foreign_key: :organ_id
+      has_one :delivery, ->(o) { where(o.scene_filter_hash) }, primary_key: [:organ_id, :order_id], foreign_key: [:organ_id, :order_id]
       has_one :organ_delivery, ->(o) { where(o.organ_scene_filter_hash) }, class_name: 'Delivery', primary_key: :organ_id, foreign_key: :organ_id
       has_one :lawful_wallet, ->(o) { where(o.filter_hash) }, foreign_key: :organ_id, primary_key: :organ_id
 
