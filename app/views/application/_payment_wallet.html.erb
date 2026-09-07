@@ -26,7 +26,7 @@
         <%= df.hidden_field :type %>
         <%= df.hidden_field :wallet_id %>
       <% end %>
-      <%= f.checkbox :state, { value: 'pending', checked: payment_order.state_pending?, data: { action: 'input#form' }, class: 'xl' }, 'pending', 'init' %>
+      <%= ef.checkbox :state, { value: 'pending', checked: payment_order.state_pending?, data: { action: 'input#form' }, class: 'xl' }, 'pending', 'init' %>
     <% end %>
   </td>
 </tr>
