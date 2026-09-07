@@ -1,13 +1,13 @@
 <div class="as-bar">
-  <% if current_state %>
-    <%= link_to(current_state.prev_path, class: 'px-4') do %>
-      <%= svg_tag 'angle-left', kind: 'regular' %>
-    <% end %>
-  <% else %>
-    <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'px-4') do %>
-      <%= svg_tag 'angle-left', kind: 'regular' %>
-    <% end %>
-  <% end %>
+  <button
+    id="history-button"
+    data-controller="history"
+    data-history-url-value="<%= url_for(controller: 'space/admin/desks', action: 'all') %>"
+    data-action="history#back"
+    class="px-5"
+  >
+    <%= svg_tag 'angle-left', kind: 'regular', class: 'icon is-small text-link' %>
+  </button>
   <div class="text-centered flex-grow-1">
     <p><%= @desk.name %></p>
     <p class="size-7 text-grey"><%= @desk.room.name %></p>
