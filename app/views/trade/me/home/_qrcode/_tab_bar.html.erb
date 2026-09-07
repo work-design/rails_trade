@@ -11,7 +11,7 @@
     <span class="ml-1"><%= t('.qrcode_file.title') %></span>
   </div>
 <% else %>
-  <%= link_to({ action: 'qrcode_file' }, class: 'button is-primary') do %>
+  <%= link_to({ action: 'qrcode_file' }, class: 'button is-rounded is-primary') do %>
     <%= svg_tag 'download' %>
     <span class="ml-1"><%= t('.qrcode_file.title') %></span>
   <% end %>

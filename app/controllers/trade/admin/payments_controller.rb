@@ -2,7 +2,7 @@ module Trade
   class Admin::PaymentsController < Admin::BaseController
     before_action :set_payment, only: [
       :show, :edit, :update, :destroy, :actions,
-      :analyze, :adjust, :print
+      :analyze, :adjust
     ]
     before_action :set_new_payment, only: [:new, :create, :confirm, :order_new, :order_create]
 
@@ -16,6 +16,12 @@ module Trade
 
       set_count(q_params)
       @payments = Payment.includes(:payment_method, :payment_orders).default_where(q_params).order(id: :desc).page(params[:page])
+    end
+
+    def desk
+      order_ids = Order.where(state: 'init', payment_status: ['unpaid', 'part_paid'], desk_id: params[:desk_id]).pluck(:id)
+
+      @payment = Payment.init_with_order_ids order_ids
     end
 
     def uncheck
@@ -35,10 +41,6 @@ module Trade
 
     def adjust
       @payment.analyze_adjust_amount
-    end
-
-    def print
-      @payment.print
     end
 
     private

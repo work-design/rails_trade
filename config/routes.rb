@@ -144,11 +144,11 @@ Rails.app.routes.draw do
         get :dashboard
         get :uncheck
         post :confirm
+        post 'desk/:desk_id' => :desk
       end
       member do
         patch :analyze
         patch :adjust
-        post :print
       end
       resources :refunds, only: [:new, :create]
       resources :payment_orders do

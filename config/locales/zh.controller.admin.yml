@@ -116,8 +116,8 @@ zh:
           show: 支付方式
           analyze: 分析支付方式
           adjust: 平账
-        print:
-          title: 打印收款单
+        desk:
+          title: 收款
       order_payments:
         index:
           title: 订单支付

@@ -5,19 +5,19 @@
       params: { gid: @order.to_gid.to_s, aim: 'receipt' },
       id: 'print-button',
       data: { controller: 'print-pos' },
-      class: 'button is-primary'
+      class: 'button is-rounded is-primary'
     ) do
   %>
     <%= svg_tag 'print' %>
     <span><%= t('print.admin.home.inner.title') %></span>
   <% end %>
   <% if @order.can_pay? %>
-    <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-link') do %>
+    <%= button_to({ controller: 'scan_payments', action: 'batch' }, params: { ids: @order.id }, class: 'button is-rounded is-primary') do %>
       <%= svg_tag 'credit-card' %>
       <span><%= t('.scan_payments.batch.title') %></span>
     <% end %>
   <% end %>
-  <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-info') do %>
+  <%= button_to({ action: 'adjust_edit', id: @order.id }, class: 'button is-rounded is-primary') do %>
     <%= svg_tag 'pen-clip' %>
     <span><%= t('.adjust_edit.title') %></span>
   <% end %>
