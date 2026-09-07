@@ -56,7 +56,8 @@ module Trade
     end
 
     def scan_payment_params
-      p = params.fetch(:scan_payment, {}).permit(
+      _param = params.fetch(:scan_payment, {}).presence || params.fetch(:payment, {})
+      p = _param.permit(
         :total_amount,
         payment_orders_attributes: [:order_id, :order_amount, :state]
       )
