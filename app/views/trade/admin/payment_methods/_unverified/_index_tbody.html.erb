@@ -9,7 +9,7 @@
 <td>
   <%= form_with model: model, scope: 'model', url: admin_payment_method_path(model), method: :patch do |f| %>
     <label></label>
-    <%= f.check_box :verified, onChange: 'this.form.submit()', label: false, can: { wrap_all: false, wrap_checkbox: false, offset: false } %>
+    <%= f.checkbox :verified, onChange: 'this.form.submit()', label: false, can: { wrap_all: false, wrap_checkbox: false, offset: false } %>
   <% end %>
 </td>
 <td>

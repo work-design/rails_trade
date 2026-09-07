@@ -1,7 +1,7 @@
 <td>
   <%= form_with theme: nil, model: model, url: { controller: 'items', action: 'toggle', id: model.id }, data: { controller: 'input' } do |f| %>
     <%= f.hidden_field :current_cart_id, value: @cart.id %>
-    <%= f.check_box :status, { checked: model.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: model.id %>
+    <%= f.checkbox :status, { checked: model.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: model.id %>
   <% end %>
 </td>
 <td>

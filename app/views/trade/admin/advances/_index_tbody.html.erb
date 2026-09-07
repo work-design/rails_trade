@@ -13,11 +13,11 @@
 </td>
 <td>
   <%= form_with theme: 'switch', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
-    <%= f.check_box :open, data: { action: 'input#submit' }, id: nil %>
+    <%= f.checkbox :open, data: { action: 'input#submit' }, id: nil %>
   <% end %>
 </td>
 <td>
   <%= form_with theme: 'switch', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
-    <%= f.check_box :enabled, data: { action: 'input#submit' }, id: nil %>
+    <%= f.checkbox :enabled, data: { action: 'input#submit' }, id: nil %>
   <% end %>
 </td>

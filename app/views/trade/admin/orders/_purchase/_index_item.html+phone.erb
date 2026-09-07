@@ -1,7 +1,7 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 <div id="tr_<%= model.id %>" data-controller="show" class="media">
   <div class="media-left">
-    <%= f.check_box 'xx', form: 'new_order', data: { action: 'show#toggle' } %>
+    <%= f.checkbox 'xx', form: 'new_order', data: { action: 'show#toggle' } %>
     <%= f.hidden_field :source_id, disabled: true, form: 'new_order' %>
   </div>
   <div class="media-content">

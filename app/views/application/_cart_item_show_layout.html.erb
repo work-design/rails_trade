@@ -2,7 +2,7 @@
   <td>
     <%= form_with theme: nil, model: item, url: { controller: item_con, action: 'toggle', id: item.id }, method: :patch, data: { controller: 'input' } do |f| %>
       <%= f.hidden_field :current_cart_id, value: cart.id %>
-      <%= f.check_box :status, { checked: item.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: item.id %>
+      <%= f.checkbox :status, { checked: item.status_checked?, data: { action: 'click->input#form' }, id: nil }, id: item.id %>
     <% end %>
   </td>
   <td><%= item.good_name %></td>

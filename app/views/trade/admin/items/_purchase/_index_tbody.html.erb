@@ -1,6 +1,6 @@
 <%= form.fields :items, model: model.purchase_items.build do |f| %>
 
-<td><%= f.check_box 'xx', include_hidden: false, form: 'purchase_order', data: { action: 'show#toggle' } %></td>
+<td><%= f.checkbox 'xx', include_hidden: false, form: 'purchase_order', data: { action: 'show#toggle' } %></td>
 <td>
   <%= link_to model.good_name, { action: 'show', id: model.id } %>
   <% if ['rent', 'invest'].include?(model.aim) %>

@@ -1,8 +1,8 @@
 <%= f.select :type, options_for_select(Trade::PromoteCharge.options_i18n(:type), f.object.type) %>
 <%= f.number_field :min, step: f.object.min_step %>
-<%= f.check_box :contain_min %>
+<%= f.checkbox :contain_min %>
 <%= f.number_field :max, step: f.object.max_step %>
-<%= f.check_box :contain_max %>
+<%= f.checkbox :contain_max %>
 <%= f.number_field :parameter, step: 0.01, wrap: { all_id: true } %>
 <%= f.number_field :base_price, step: 0.01 %>
 <% Trade::PromoteCharge.extra_columns.each do |ex| %>

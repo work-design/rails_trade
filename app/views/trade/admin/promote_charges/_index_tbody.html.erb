@@ -6,12 +6,12 @@
 <td>
   <p>
     <%= form_with theme: 'switch', scope: 'promote_charge', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :contain_min, data: { action: 'input#submit' }, id: nil %>
+      <%= f.checkbox :contain_min, data: { action: 'input#submit' }, id: nil %>
     <% end %>
   </p>
   <p>
     <%= form_with theme: 'switch', scope: 'promote_charge', model: model, url: { action: 'update', id: model.id }, data: { controller: 'input' } do |f| %>
-      <%= f.check_box :contain_max, data: { action: 'input#submit' }, id: nil %>
+      <%= f.checkbox :contain_max, data: { action: 'input#submit' }, id: nil %>
     <% end %>
   </p>
 </td>
