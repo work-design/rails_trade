@@ -17,7 +17,19 @@
     <% end %>
     <%= f.number_field :adjust_amount, data: { total_target: 'reduce', action: 'total#updateReduce' } %>
     <%= f.number_field :total_amount, data: { total_target: 'total', action: 'total#updateTotal' } %>
-    <%= render partial: 'com/attachments/list_field', locals: { target: f.object.proof, f: f } %>
   </section>
-  <%= f.submit %>
+  <footer class="modal-card-foot">
+    <button
+      data-controller="scan bridge-scan"
+      data-scan-form-value="create_scan"
+      data-action="click->scan#report"
+      type="button"
+      class="button is-medium is-primary"
+      disabled
+    >
+      <%= svg_tag 'credit-card' %>
+      <span><%= t('.scan_payments.create.title') %></span>
+    </button>
+    <%= f.submit nil, wrap: { submit: nil } %>
+  </footer>
 <% end %>
