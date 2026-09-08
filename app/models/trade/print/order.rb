@@ -16,7 +16,7 @@ module Trade
       end
     end
 
-    def print_paid_prepare
+    def print_delivery_prepare
       printer = organ.get_printer('prepare')
       if printer
         printer.inner_tasks.create(gid: to_gid.to_s, aim: 'delivery_prepare')
