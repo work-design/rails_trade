@@ -5,7 +5,7 @@
     <%= ef.text_field :identity, disabled: ef.object.persisted? %>
     <%= ef.text_field :name %>
   <% end %>
-  <%= f.submit nil, class: 'button is-fullwidth is-primary' %>
+  <%= f.submit nil, class: 'button is-rounded is-fullwidth is-primary' %>
 <% end %>
 
 <% if @cart.contact.errors.present? %>

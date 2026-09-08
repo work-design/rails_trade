@@ -28,7 +28,7 @@
     </div>
     <div class="mt-2 flex justify-content-center">
     <% if cart.can_order? %>
-      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: cart.id }, class: 'button is-fullwidth is-primary') do %>
+      <%= link_to({ controller: order_con, action: 'cart', current_cart_id: cart.id }, class: 'button is-rounded is-fullwidth is-primary') do %>
         <span class="mr-1"><%= t("#{order_con.tr('/', '.')}.cart.title") %></span>
         <%= svg_tag 'angle-right' %>
       <% end %>

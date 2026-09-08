@@ -1,8 +1,8 @@
-<%= button_to({ action: 'update', id: @order.id }, method: :patch, params: { 'order[state]': 'picked' }, class: 'button is-fullwidth is-primary') do %>
+<%= button_to({ action: 'update', id: @order.id }, method: :patch, params: { 'order[state]': 'picked' }, class: 'button is-rounded is-fullwidth is-primary') do %>
   <%= svg_tag 'box-check' %>
   <span>取货完成</span>
 <% end if ['produced'].include? @order.state %>
-<%= button_to({ action: 'update', id: @order.id }, method: :patch, params: { 'order[state]': 'done' }, class: 'button is-fullwidth is-primary') do %>
+<%= button_to({ action: 'update', id: @order.id }, method: :patch, params: { 'order[state]': 'done' }, class: 'button is-rounded is-fullwidth is-primary') do %>
   <%= svg_tag 'box-check' %>
   <span>配送完成</span>
 <% end if ['picked'].include? @order.state %>
