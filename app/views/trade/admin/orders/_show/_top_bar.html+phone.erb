@@ -1,11 +1,11 @@
 <%= render 'top_bar_left' do %>
   <div class="bar-title"><%= @order.uuid %></div>
   <% if @order.desk %>
-    <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'px-4') do %>
+    <%= link_to({ controller: 'space/admin/desks', action: 'all' }, class: 'right') do %>
       <%= svg_tag 'grid-dividers' %>
     <% end %>
   <% else %>
-    <%= link_to({ controller: '/me/home' }, class: 'px-4') do %>
+    <%= link_to({ controller: '/me/home' }, class: 'right') do %>
       <%= svg_tag 'user', kind: 'regular' %>
     <% end %>
   <% end %>
