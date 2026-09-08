@@ -1,9 +1,8 @@
 zh:
-  activerecord:
-    attributes:
-      wallet/type:
-        IosWallet: ios钱包
-        NormalWallet: 普通钱包
+  helpers:
+    submit:
+      trade/payment:
+        create: 手动支付
   card_log:
     income:
       card_given:

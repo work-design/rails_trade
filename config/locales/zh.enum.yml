@@ -177,6 +177,10 @@ zh:
         from_pay:
           true: 寄付
           false: 到付
+      trade/wallet:
+        type:
+          IosWallet: ios钱包
+          NormalWallet: 普通钱包
       org/organ:
         dispatch:
           delivery: 外卖
