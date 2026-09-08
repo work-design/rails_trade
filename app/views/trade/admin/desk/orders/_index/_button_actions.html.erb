@@ -1,7 +1,9 @@
-<%= button_to({ controller: 'payments', action: 'desk', desk_id: @desk.id }, class: 'button is-primary') do %>
+<%= button_to({ controller: 'payments', action: 'desk', desk_id: @desk.id }, class: 'button is-rounded is-primary') do %>
+  <%= svg_tag 'receipt' %>
   <span><%= t('.payments.desk.title') %></span>
 <% end %>
-<%= button_to({ action: 'done' }, data: { turbo_confirm: t('.done.confirm') }, class: 'button is-primary') do %>
+<%= button_to({ action: 'done' }, data: { turbo_confirm: t('.done.confirm') }, class: 'button is-rounded is-primary') do %>
+  <%= svg_tag 'trash', class: 'icon is-small text-white' %>
   <span><%= t('.done.title') %></span>
 <% end %>
 <%=
@@ -10,7 +12,7 @@
     params: { gid: @desk.to_gid.to_s, aim: 'order' },
     id: 'print-button',
     data: { controller: 'print-pos' },
-    class: 'button is-primary'
+    class: 'button is-rounded is-primary'
   ) do
 %>
   <%= svg_tag 'print' %>
