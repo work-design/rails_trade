@@ -5,7 +5,10 @@
     </div>
   <% end %>
   <div class="media-content">
-    <h4><%= item.good_name %></h4>
+    <div>
+      <strong><%= item.good_name %></strong>
+      <span class="tag"><%= item.dispatch_i18n %></span>
+    </div>
     <p>
       <span class="text-danger"><%= item.single_price.to_money.format.html_safe %></span>
       <span>x</span>
