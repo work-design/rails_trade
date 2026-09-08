@@ -5,7 +5,7 @@ module Trade
     included do
       attribute :print_info, :json, default: {}
 
-      after_create_commit :print_dine_prepare
+      after_create_commit :print_dine_prepare, if: -> { desk_id.present? }
       after_save_commit :print_delivery_prepare, if: -> { paid_at.present? && paid_at_previously_was.blank? }
     end
 
