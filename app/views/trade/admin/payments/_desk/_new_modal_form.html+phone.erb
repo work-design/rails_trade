@@ -1,4 +1,17 @@
-<%= form_with theme: 'modal', model: @payment, scope: :payment, url: { controller: 'payments', action: 'confirm', desk_id: params[:desk_id] }, data: { controller: 'total' } do |f| %>
+<%=
+  form_with(
+    theme: 'modal',
+    model: @payment,
+    scope: :payment,
+    url: {
+      controller: 'payments',
+      action: 'confirm',
+      desk_id: params[:desk_id]
+    },
+    id: 'create_scan',
+    data: { controller: 'total' }
+  ) do |f|
+%>
   <%= render 'modal_header' %>
   <section id="modal-card-body" class="modal-card-body">
     <%= f.hidden_field :type %>
