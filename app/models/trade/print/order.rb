@@ -5,14 +5,21 @@ module Trade
     included do
       attribute :print_info, :json, default: {}
 
-      #after_create_commit :print, if: -> {  }
-      after_save_commit :print_to_prepare, if: -> { paid_at.present? && paid_at_previously_was.blank? }
+      after_create_commit :print_dine_prepare
+      after_save_commit :print_delivery_prepare, if: -> { paid_at.present? && paid_at_previously_was.blank? }
     end
 
-    def print_to_prepare
+    def print_dine_prepare
       printer = organ.get_printer('prepare')
       if printer
-        printer.inner_tasks.create(gid: to_gid.to_s, aim: 'prepare')
+        printer.inner_tasks.create(gid: to_gid.to_s, aim: 'dine_prepare')
+      end
+    end
+
+    def print_paid_prepare
+      printer = organ.get_printer('prepare')
+      if printer
+        printer.inner_tasks.create(gid: to_gid.to_s, aim: 'delivery_prepare')
       end
     end
 
@@ -49,14 +56,20 @@ module Trade
           pr.text note
         end
         pr.text "#{created_at.to_fs(:wechat)}"
-      when 'prepare'
-        items.each do |item|
+      when 'dine_prepare'
+        items.where(dispatch: ['dine', 'fetch']).each do |item|
           pr.text_big("#{item.good_name} x #{item.number.to_human}") if item.good
           pr.break_line
           pr.text_big item.desk.name if item.desk
           pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
         end
-        pr.qrcode_center(qrcode_show_url)
+      when 'delivery_prepare'
+        items.where(dispatch: [nil, 'delivery']).each do |item|
+          pr.text_big("#{item.good_name} x #{item.number.to_human}") if item.good
+          pr.break_line
+          pr.text_big item.desk.name if item.desk
+          pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
+        end
       when 'address'
         pr.bar(y: 0, height: 20)
         pr.qrcode_right(qrcode_show_url, y: 30, cell_width: 5)
