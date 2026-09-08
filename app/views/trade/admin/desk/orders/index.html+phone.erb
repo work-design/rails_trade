@@ -1,12 +1,12 @@
 <%= render 'desk_bar' %>
 
-<div>
 <% @orders.each do |order| %>
-  <%= render partial: 'order_item', locals: { model: order } %>
-  <%= render layout: 'index_list', locals: { order: order } do %>
-    <%= render partial: 'index_item', layout: 'index_item_actions', collection: order.items, as: :model %>
-  <% end %>
+  <div class="mb-3">
+    <%= render partial: 'order_item', locals: { model: order } %>
+    <%= render layout: 'index_list', locals: { order: order } do %>
+      <%= render partial: 'index_item', layout: 'index_item_actions', collection: order.items, as: :model %>
+    <% end %>
+  </div>
 <% end %>
-</div>
 
 <%= paginate @orders %>
