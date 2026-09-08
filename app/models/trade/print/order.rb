@@ -53,7 +53,7 @@ module Trade
         items.each do |item|
           pr.text_big("#{item.good_name} x #{item.number.to_human}") if item.good
           pr.break_line
-          pr.text "#{item.class.human_attribute_name(:desk_id)}：#{item.desk.name}" if item.desk
+          pr.text_big item.desk.name if item.desk
           pr.text "#{item.class.human_attribute_name(:created_at)}：#{item.created_at.to_fs(:wechat)}"
         end
         pr.qrcode_center(qrcode_show_url)
