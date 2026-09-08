@@ -3,7 +3,7 @@
   <% if model.agent %>
     <div class="tags has-addons mb-0 ml-2">
       <span class="tag is-info">下单人</span>
-      <span class="tag is-warning"><%= model.agent.name %></span>
+      <span class="tag is-link"><%= model.agent.name %></span>
     </div>
   <% end %>
   <span class="tag ml-1"><%= model.payment_status_i18n %></span>
